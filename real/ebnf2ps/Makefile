@@ -1,7 +1,7 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-SRC_HC_OPTS += -fglasgow-exts
+SRC_HC_OPTS += -fglasgow-exts -package lang
 IOSupplement_HC_OPTS += -cpp
 SRC_RUNTEST_OPTS += ebnf2ps.stdin apat -o1 ebnf2ps.stdout
 
