@@ -114,7 +114,12 @@ squarelimit = cycle' corner
 fmt []     = "[]"
 fmt (x:xs) = (showString "[\n" . showsPrec 0 x . showl xs) ""
   where
-    showl []     = showChar ']'
-    showl (x:xs) = showString ",\n" . showsPrec 0 x . showl xs
+    showl []     s = showChar ']' s
+    showl (x:xs) s = (showString ",\n" . showsPrec 0 x . showl xs) s
+	-- SLPJ Nov 99.
+	-- This showl function used to be curried, but that makes it really
+	-- hard for GHC to do a good job.  Alas, pre 4.05 versions of GHC had a
+	-- bug that made showl look good.  So I've "optimised" it by hand
+	-- to avoid bizarre comparison numbers
 
 main = putStrLn (fmt (pseudolimit (0, 0) (640, 0) (0,640)))
