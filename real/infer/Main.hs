@@ -7,7 +7,7 @@ import Type
 import Environment
 import InferMonad
 import Substitution	( Sub )
-import Maybe		( Maybe )
+import MaybeM		( Maybe )
 import Infer
 
 main          =  interact

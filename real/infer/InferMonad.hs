@@ -2,7 +2,7 @@ module InferMonad     (Infer, returnI, eachI, thenI, guardI, useI, getSubI,
                        substituteI, unifyI, freshI, freshesI)
                       where
 
-import Maybe          (Maybe, returnM, eachM, thenM, failM, guardM, theM, existsM, useM)
+import MaybeM         (Maybe, returnM, eachM, thenM, failM, guardM, theM, existsM, useM)
 import StateX         (StateX, returnSX, eachSX, thenSX, toSX, putSX, getSX, useSX)
 import Type           (TVarId, TConId, MonoType (TVar, TCon), freeTVarMono)
 import Substitution   (Sub, applySub, lookupSub, emptySub, extendSub, domSub, unifySub)

@@ -5,7 +5,7 @@ module Substitution   (Sub, applySub, lookupSub, emptySub, extendSub,
 import Type           (TVarId, TConId, MonoType (TVar, TCon), freeTVarMono)
 import FiniteMap      (FM, emptyFM, lookupElseFM, makeFM, extendFM,
                        thenFM, mapFM, domFM, ranFM)
-import Maybe          (Maybe, thenM, returnM, failM, guardM)
+import MaybeM         (Maybe, thenM, returnM, failM, guardM)
 data  Sub  =  MkSub (FM TVarId MonoType)
 rep                           ::  Sub -> FM TVarId MonoType
 rep (MkSub f)                 =   f

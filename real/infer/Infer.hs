@@ -11,7 +11,7 @@ import  Environment           (Env, lookupEnv, extendLocal, extendGlobal,
                                domEnv, freeTVarEnv)
 import  InferMonad            (Infer, thenI, returnI, guardI, getSubI,
                                freshI, freshesI, unifyI, substituteI)
-import  Maybe
+import  MaybeM
 
 specialiseI                   :: PolyType -> Infer MonoType
 specialiseI (All xxs tt)      =  freshesI (length xxs) `thenI` (\yys ->
