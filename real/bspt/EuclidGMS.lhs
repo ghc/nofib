@@ -116,10 +116,10 @@
 >					Pt right bottom,
 >					Pt left bottom])
 >		 where
->		 top = fromInt renderTop
->                bottom = fromInt renderHeight
->                left = fromInt renderLeft
->                right = fromInt windowWidth
+>		 top = fromIntegral renderTop
+>                bottom = fromIntegral renderHeight
+>                left = fromIntegral renderLeft
+>                right = fromIntegral windowWidth
 
 
 

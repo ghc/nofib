@@ -50,7 +50,7 @@ four_partitions m =
   [ (i,j,k,l)
   | i <- [0..(div m 4)],
     j <- [i..(div (m-i) 3)],
-    k <- [(max j (ceiling ((fromIntegral m)/(fromInt 2)) - i - j))..(div (m-i-j) 2)],
+    k <- [(max j (ceiling ((fromIntegral m)/(fromInteger 2)) - i - j))..(div (m-i-j) 2)],
     l <- [(m - (i+j+k))]]
 
 ccp_generator :: Array Int [Radical] -> Int -> [Paraffin]

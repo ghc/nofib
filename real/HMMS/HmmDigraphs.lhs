@@ -371,7 +371,7 @@ probabilities.
 >       ts' = if j <= 1
 >             then ts        -- 0 or 1 successor nodes
 >             else let       -- 2 or more successor nodes
->                    log_of_divisor = log (fromInt j)
+>                    log_of_divisor = log (fromIntegral j)
 >                  in
 >                    [(i,ep - log_of_divisor) | (i,ep) <- ts]
 >

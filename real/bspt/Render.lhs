@@ -23,7 +23,7 @@
  
 > render :: BSPT -> String
 > render btree = drawFaces (mapcat (scanLine btree) scanLines)
-> 	where scanLines = rules (fromInt renderLeft) (fromInt windowWidth) (fromInt (renderTop+1))
+> 	where scanLines = rules (fromIntegral renderLeft) (fromIntegral windowWidth) (fromIntegral (renderTop+1))
   
  	rules - create the list of lines across the screen
  		between current and max lines skipping every
@@ -31,7 +31,7 @@
   
 > rules :: Numb -> Numb -> Numb -> Faces
 > rules left right = rules'
->			where rules' current | current > (fromInt renderHeight) = []
+>			where rules' current | current > (fromIntegral renderHeight) = []
 >			      rules' current = mkFace ((Pt left current),(Pt right current)):rules' (current+15) 
   
   

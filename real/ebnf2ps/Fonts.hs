@@ -1,6 +1,11 @@
 --------------------------------------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: Fonts.hs,v $
+-- Revision 1.4  1999/09/14 10:18:24  simonmar
+-- Replace all instances of fromInt in nofib with fromIntegral.
+--
+-- We generate the same code in most cases :-)
+--
 -- Revision 1.3  1997/03/14 08:08:05  simonpj
 -- Major update to more-or-less 2.02
 --
@@ -30,11 +35,11 @@ readDec = readInt 10 isDigit (\d -> ord d - ord_0)
 
 readInt :: (Integral a) => a -> (Char -> Bool) -> (Char -> Int) -> ReadS a
 readInt radix isDig digToInt s =
-    [(foldl1 (\n d -> n * radix + d) (map (fromInt . digToInt) ds), r)
+    [(foldl1 (\n d -> n * radix + d) (map (fromIntegral . digToInt) ds), r)
 	| (ds,r) <- nonnull isDig s ]
 
 ord_0 :: Num a => a
-ord_0 = fromInt (ord '0')
+ord_0 = fromIntegral (ord '0')
 
 nonnull                 :: (Char -> Bool) -> ReadS String
 nonnull p s             =  [(cs,t) | (cs@(_:_),t) <- [span p s]]

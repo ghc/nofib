@@ -29,4 +29,4 @@ import Complex
 main = print (round (realPart (sum [f n | n <- [1..10000]])))
 
 f :: Int -> Complex Double
-f n = mkPolar 1 ((2*pi)/fromInt n) ^ n
+f n = mkPolar 1 ((2*pi)/fromIntegral n) ^ n

@@ -245,7 +245,7 @@ aligned.  The second component is the optimal state path.
 > backtrace  (HmmTsA _ ts _)  (bss,(nu,fc))  =  (score',path)
 >       where
 >       (score, q_star)    = maximumfst [(nu!i, i) | (i,_) <- ts]
->       score'             = score / fromInt fc
+>       score'             = score / fromIntegral fc
 >       path               = foldr op [q_star] bss
 >       psi `op` qs@(q:_)  = (psi!!(q-1)) : qs
 

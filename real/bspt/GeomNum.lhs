@@ -45,8 +45,8 @@
 >       ratio x 0 = if (positive x) then (1,0) else (-1,0)
 >       ratio x y = (signum x*(n:%%1),signum y*(d:%%1))
 >                       where (n:%%d)= abs x/abs y 
->	xCoordInRange x = (fromInt renderLeft) <= x && x <= (fromInt windowWidth)
->	yCoordInRange x = (fromInt renderTop) <= x && x <= (fromInt renderHeight)
+>	xCoordInRange x = (fromIntegral renderLeft) <= x && x <= (fromIntegral windowWidth)
+>	yCoordInRange x = (fromIntegral renderTop) <= x && x <= (fromIntegral renderHeight)
 
 > rnd2 :: Numb -> Numb
 > rnd2 a = rnd a :%% 1

@@ -235,9 +235,9 @@ compute_initial_state _ =
           let {
               interior_position (k, l) = 
                  let {
-                     rp = fromInt (lmax - lmin) ;
-                     z1 = fromInt ((10 + k) - kmin) ;
-                     zz = ((- (0.5::Double)) + (fromInt (l - lmin)) 
+                     rp = fromIntegral (lmax - lmin) ;
+                     z1 = fromIntegral ((10 + k) - kmin) ;
+                     zz = ((- (0.5::Double)) + (fromIntegral (l - lmin)) 
                           / rp) * (pi::Double)
                      } in ((z1::Double) * (cos (zz::Double)), z1 * (sin zz))
               } in make_position_matrix interior_position ;

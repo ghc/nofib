@@ -326,7 +326,7 @@ definition stands for ``tied-mixture continuation.''
 >         ts'            = ts  + score
 >       in
 >         appendChan stderr (printf "%4d%7.2f%7.2f  %s\n" [
->           UInt nfs', UFloat score, UFloat (ts' / fromInt nfs'),
+>           UInt nfs', UFloat score, UFloat (ts' / fromIntegral nfs'),
 >           UString fn ]) exit $
 >         writeFile (fn ++ ".algn") (showAlignment states) exit 
 >           (align_each_file  hmm_tms  hmm_dgs  nfs' ts' rfns)
@@ -354,7 +354,7 @@ definition stands for ``tied-mixture continuation.''
 >         ts'            = ts  + score
 >       in
 >         hPutStr stderr (printf "%4d%7.2f%7.2f  %s\n" [
->           UInt nfs', UFloat score, UFloat (ts' / fromInt nfs'),
+>           UInt nfs', UFloat score, UFloat (ts' / fromIntegral nfs'),
 >           UString fn ]) >>
 >         writeFile (fn ++ ".algn") (showAlignment states) >>
 >         align_each_file  hmm_tms  hmm_dgs  nfs' ts' rfns

@@ -142,8 +142,8 @@
 
 > mkPoint :: String -> Point
 > mkPoint l = if and (map isDigit (a++b)) then
->                  Pt (fromInt (numval a-mouseDispx))
-> 				(fromInt (numval b-mouseDispy))
+>                  Pt (fromIntegral (numval a-mouseDispx))
+> 				(fromIntegral (numval b-mouseDispy))
 >                 else (Pt 0 0) -- Null Point
 >                                         where
 >                                         (a,b)= splitAt_YORK gap l

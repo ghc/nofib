@@ -29,23 +29,6 @@ main = cmdloop (initEnv [])
 	   putStrLn res
 	   cmdloop nenv
 
-#if 0
-    -- partain: getLine isn't in 1.3 I/O any more
-    getLine :: IO String
-    getLine =  get ""
-	where
-	  get s
-	    = isEOF	 >>= \ is_eof ->
-	      if is_eof then
-		 return (reverse s)
-	      else
-		 getChar >>= \ c ->
-		 if c == '\n' then
-		    return (reverse s)
-		 else
-		    get (c:s)
-#endif
-
 ----------------------------------------------------------------------------
 
 -- process the command line

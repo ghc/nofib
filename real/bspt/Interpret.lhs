@@ -82,8 +82,8 @@
 		buttons, otherwise returns the Null button.
 
 > toCommand :: Point -> Command 
-> toCommand (Pt x y) | x<fromInt buttonIndent || 
->				x>fromInt (buttonIndent+buttonWidth)
+> toCommand (Pt x y) | x<fromIntegral buttonIndent || 
+>				x>fromIntegral (buttonIndent+buttonWidth)
 >					 = Null
 >		   | otherwise = command
 >				where (command,_,_) = search (y::Numb) buttons
@@ -95,6 +95,6 @@
 
 > search :: Numb -> [Button] -> Button
 > search y [] = (Null,0,"")
-> search y ((command,d,str):butts) | between (fromInt d)
->                               (fromInt buttonHeight) y = (command,d,str)
+> search y ((command,d,str):butts) | between (fromIntegral d)
+>                               (fromIntegral buttonHeight) y = (command,d,str)
 > search y ((command,d,str):butts) = search y butts
