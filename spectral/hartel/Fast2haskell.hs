@@ -3,7 +3,7 @@
 import GHC.Prim;
 import Data.Complex;
 import Data.Array;
-import GHC.Base ( Int(..) );
+import GHC.Base;
 
 type Complex_type = Complex Double;
 type Array_type b = Array Int b;
