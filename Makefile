@@ -4,7 +4,7 @@
 #
 #		Toplevel Makefile for the nofib project
 #
-# 		$Id: Makefile,v 1.5 1997/09/03 23:15:24 sof Exp $
+# 		$Id: Makefile,v 1.6 1998/04/14 10:38:57 simonm Exp $
 #
 #################################################################################
 
@@ -29,7 +29,7 @@ SUBDIRS = $(NoFibSubDirs)
 #
 SRC_DIST_DIR=$(shell pwd)/nofib
 SRC_DIST_NAME=nofib
-SRC_DIST_DIRS=docs imaginary spectral real GHC_ONLY parallel mk
+SRC_DIST_DIRS=docs imaginary spectral real parallel mk
 
 
 dist :: nofib-dist-pre
