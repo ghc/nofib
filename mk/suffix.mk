@@ -13,8 +13,10 @@ define COMPILE
 	@echo ==nofib==  $(NOFIB_PROG): time to compile $@ follows...
 	@echo $(HC) $(HC_OPTS) -c $< -o $@
 	@time $(HC) $(HC_OPTS) -c $< -o $@
-	@echo ==nofib== $(NOFIB_PROG): size of $@ follows...
-	@$(SIZE) $@
+	@if (test -f $@); then \
+		echo ==nofib== $(NOFIB_PROG): size of $@ follows... ; \
+		$(SIZE) $@ ; \
+	fi;
 endef
 
 %.$(way_)o : %.hs
