@@ -37,15 +37,20 @@ endif
 
 
 ifeq "$(NoFibWithGHCi)" "YES"
+STDIN = $(NOFIB_PROG).stdin.tmp
+GHCI_HC_OPTS = $(filter-out -l% -Rghc-timing,$(HC_OPTS))
+
 runtests ::
 	@echo "==nofib== $(NOFIB_PROG): time to compile & run $(NOFIB_PROG) follows..."
-	@$(RM) $(NOFIB_PROG).stdin.tmp
-	echo main | cat - $(wildcard $(NOFIB_PROG).stdin) > $(NOFIB_PROG).stdin.tmp
+	@$(RM) $(STDIN)
+	@echo ":set args $(PROG_ARGS)" > $(STDIN)
+	@echo "Main.main" >>$(STDIN) 
+	@echo | cat - $(wildcard $(NOFIB_PROG).stdin) >> $(STDIN)
 	@$(TIME) $(RUNTEST) $(GHC_INPLACE) --interactive -v0 -Wnot \
-			-i $(NOFIB_PROG).stdin.tmp \
+			-i $(STDIN) \
 	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
-			$(RUNTEST_OPTS) Main
+			$(RUNTEST_OPTS) $(GHCI_HC_OPTS) Main
 	@$(RM) $(NOFIB_PROG).stdin.tmp
 else 
 
@@ -58,7 +63,7 @@ size :: $(NOFIB_PROG_WAY)
 runtests :: $(NOFIB_PROG_WAY) size
 	@echo ==nofib== $(NOFIB_PROG): cannot do an automatic check of stdout with the parallel system, sorry
 	@echo ==nofib== $(NOFIB_PROG): run the following command by hand
-	@echo                          ./$< $(RUNTEST_OPTS)
+	@echo                          ./$< $(RUNTEST_OPTS) $(PROG_ARGS)
 	@echo ==nofib== $(NOFIB_PROG): output should be
 	@cat $(wildcard $(NOFIB_PROG).stdout*)
 else
@@ -74,7 +79,7 @@ runtests :: $(NOFIB_PROG_WAY) size
 	  $(addprefix -i  ,$(wildcard $(NOFIB_PROG).stdin)) \
 	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
-	  $(RUNTEST_OPTS)
+	  $(RUNTEST_OPTS) $(PROG_ARGS)
 endif
 
 else

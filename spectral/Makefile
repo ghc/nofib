@@ -11,16 +11,20 @@ SSUBDIRS = \
 # salishan	no Haskell code!
 
 ifneq "$(HWL_NOFIB_HACK)" ""
-NOT_THESE += awards boyer2 knights power simple
-# knights: Sort.lhs:15: Module `PrelNum' does not export `Num(fromInt)'
+NOT_THESE += awards boyer2 power simple
 # power: exit(1)!!
 # simple: mismatched outputs
 # HWL: tmp disabled for testing GUM-merged version          (20/3/01)
 
-SUBDIRS = $(filter-out $(NOT_THESE), $(SSUBDIRS))
 else
-SUBDIRS = $(SSUBDIRS)
+ifeq "$(NoFibWithGHCi)" "YES"
+NOT_THESE = circsim constraints cryptarithm1 cryptaritm2
+else
+NOT_THESE = 
 endif
+endif
+
+SUBDIRS = $(filter-out $(NOT_THESE), $(SSUBDIRS))
 
 include $(TOP)/mk/target.mk
 
