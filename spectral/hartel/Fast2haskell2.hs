@@ -8,8 +8,9 @@
 --!            land_i, lnot_i, lor_i, lshift_i, rshift_i,
 --!            descr,
 --!            destr_update, indassoc, lowbound, tabulate, upbound, update, valassoc) where {
-	    import GlaExts;
+--	    import GlaExts;
 --            import Word;
+            import PrelBase ( Double(..) )
 	    -- partain fiddle
 	    -- type Complex_type   = Complex Double;
             data Complex_type = CD# Double# Double#;
