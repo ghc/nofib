@@ -2,8 +2,12 @@ TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
 SRC_RUNTEST_OPTS += \
-  -prescript ./anna.prescript -postscript ./anna.postscript \
-  -i big.cor -o1 big.sum.out
+  -prescript ./anna.prescript \
+  -i big.cor
+
+# don't: -poscript ./anna.postscript
+# This just sums the output to save including the entire output file
+# in the repository, but 'sum' differs from machine to machine. --SDM
 
 include $(TOP)/mk/target.mk
 
