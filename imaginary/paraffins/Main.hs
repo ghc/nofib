@@ -7,6 +7,7 @@
 
 module Main (main) where
 import Array
+import System
 
 -- Generation of radicals
 
@@ -82,7 +83,9 @@ paraffins_until n =
   radicals = radical_generator (div n 2)
 
 main = do
-  print [length (rads!i) | rads <- [(radical_generator 17)], i <- [0..17]]
-  print (bcp_until 17)
-  print (ccp_until 17)
-  print (paraffins_until 17)
+  [arg] <- getArgs
+  let num = read arg
+  print [length (rads!i) | rads <- [(radical_generator num)], i <- [0..num]]
+  print (bcp_until num)
+  print (ccp_until num)
+  print (paraffins_until num)

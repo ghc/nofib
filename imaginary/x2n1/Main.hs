@@ -25,8 +25,11 @@ of all the other programs I thought I'd contribute at least one :-)
 
 module Main ( main ) where
 import Complex
+import System
 
-main = print (round (realPart (sum [f n | n <- [1..10000]])))
+main = do
+	[arg] <- getArgs
+	print (round (realPart (sum [f n | n <- [1 .. (read arg)]])))
 
 f :: Int -> Complex Double
 f n = mkPolar 1 ((2*pi)/fromIntegral n) ^ n

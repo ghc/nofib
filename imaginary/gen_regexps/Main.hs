@@ -2,11 +2,18 @@
 -- !!! all the expansions of a generalised regular expression
 -- !!!
 --
+-- RJE: Modified so it only outputs the number of characters in the output, 
+-- rather that the output itself, thus avoiding having to generate such a 
+-- huge output file to get a reasonable execution time.
+
 module Main (main) where
 
 import Char
 
-main = interact (("Enter a generator: " ++).show.expand.head.lines)
+main = interact (("Enter a generator: " ++).show.numchars.expand.head.lines)
+
+numchars :: [String] -> Int
+numchars l = sum $ map length l
 
 expand []	= [""]
 expand ('<':x)	= numericRule x

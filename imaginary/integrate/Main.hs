@@ -1,4 +1,6 @@
-module Main where
+module Main (integrate1D, main) where
+
+import System
 
 integrate1D :: Double -> Double -> (Double->Double) -> Double
 integrate1D l u f =
@@ -33,6 +35,8 @@ es = map (^2) (zipWith (-) rtotals itotals)
 etotal n = sum (take n es)
 
 -- The (analytical) result should be zero
-main = putStrLn (show (etotal 50000))
+main = do
+	[range] <- getArgs
+	putStrLn $ show $ etotal $ read range
 
 

@@ -2,6 +2,7 @@ Compute digits of e
 Due to John Hughes, Aug 2001
 
 > module Main where
+> import System
 
 Here's a way to compute all the digits of e. We use the series
 
@@ -51,4 +52,6 @@ works.
 >     iterate (carryPropagate 2 . map (10*) . tail) $
 >     2:[1,1..]
 
-> main = print (take 2000 e)
+> main = do
+> 	[digits] <- getArgs
+> 	print (take (read digits) e)

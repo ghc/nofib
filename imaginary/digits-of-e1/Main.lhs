@@ -2,6 +2,7 @@ Compute the digits of "e" using continued fractions.
 Original program due to Dale Thurston, Aug 2001
 
 > module Main where
+> import System (getArgs)
 
 > type ContFrac = [Integer]
 
@@ -38,6 +39,8 @@ Finally, we convert a continued fraction to digits by repeatedly multiplying by 
 > e :: [Integer]
 > e = toDigits eContFrac
 
-> main = print (take 1000 e)
+> main = do
+>	[digits] <- getArgs
+>	print (take (read digits) e)
 
 

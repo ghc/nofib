@@ -8,3 +8,7 @@ SRC_RUNTEST_OPTS += +RTS -H20m -RTS
 
 include $(TOP)/mk/target.mk
 
+
+FAST_OPTS = 17
+NORM_OPTS = 17
+SLOW_OPTS = 19

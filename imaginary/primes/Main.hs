@@ -1,3 +1,6 @@
+
+import System
+
 suCC :: Int -> Int
 suCC x = x + 1
 
@@ -10,4 +13,6 @@ the_filter (n:ns) = filter (isdivs n) ns
 primes :: [Int]
 primes = map head (iterate the_filter (iterate suCC 2))
 
-main = print (primes !! 1500)
+main = do
+	[arg] <- getArgs
+	print $ primes !! (read arg)

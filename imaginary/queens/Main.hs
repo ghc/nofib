@@ -1,7 +1,12 @@
 -- !!! count the number of solutions to the "n queens" problem.
 -- (grabbed from LML dist)
 
-main = print (nsoln 10)
+import System
+
+
+main = do
+	[arg] <- getArgs
+	print $ nsoln $ read arg
 
 nsoln nq = length (gen nq)
  where

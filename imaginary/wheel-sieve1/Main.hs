@@ -2,7 +2,11 @@
 -- Colin Runciman (colin@cs.york.ac.uk); March 1996.
 -- See article "Lazy wheel sieves and spirals of primes" (to appear, JFP).
 
+import System
+
+
 data Wheel = Wheel Int [Int]
+
 
 primes :: [Int]
 primes = sieve wheels primes squares
@@ -32,4 +36,6 @@ nextSize (Wheel s ns) p =
               n <- ns,
               n' <- [n+o], n'`mod`p > 0]
 
-main = print (primes!!(100000::Int))
+main = do
+	[arg] <- getArgs
+	print (primes!!((read arg) :: Int))
