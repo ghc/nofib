@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Output where
-import PreludeArray(Assoc)
-outGamteb :: Int -> [Assoc Int Double] -> [Assoc (Int, Int) Double] -> [Char]
-	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _N_ _N_ _N_ #-}
-

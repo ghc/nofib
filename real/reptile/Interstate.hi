@@ -1,5 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Interstate where
-inter :: (a -> [c]) -> (a -> b -> Bool) -> (a -> b -> ([c], a, b)) -> a -> b -> [c]
-	{-# GHC_PRAGMA _A_ 3 _U_ 22222 _N_ _S_ "SLL" _N_ _N_ #-}
-

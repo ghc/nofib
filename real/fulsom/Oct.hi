@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Oct where
-import Types(Csg, Oct)
-octcsg :: Int -> Csg -> Oct
-	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-

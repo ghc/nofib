@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface PsOutput where
-import Fonts(FONT)
-import Info(GObject)
-psShowsWrapper :: [Char] -> (Int, Int, Int, Int, Int, FONT, FONT, ((Int, Int, Int), (Int, Int, Int), (Int, Int, Int), (Int, Int, Int))) -> (Int, Int, Int, Int, Int, GObject) -> [Char] -> [Char]
-	{-# GHC_PRAGMA _A_ 4 _U_ 1122 _N_ _S_ "LU(AALLALLU(AAAA))U(LLLLLL)L" _N_ _N_ #-}
-

@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
-interface PrintSource where
-import PreludeArray(Array)
-source_data :: (Array Int Int, Array Int Float) -> [Char]
-	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ #-}
-

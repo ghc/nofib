@@ -1,8 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Raster where
-import Types(Quad)
-cdraw :: Int -> Quad -> [Char]
-	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
-draw :: Int -> Quad -> [Char]
-	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
-

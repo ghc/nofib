@@ -1,5 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Tol_cal where
-tol_cal :: [Float] -> [Float] -> Bool -> Float
-	{-# GHC_PRAGMA _A_ 3 _U_ 212 _N_ _S_ "SSE" _N_ _N_ #-}
-

@@ -6,6 +6,7 @@ import Preds
 import Solve
 import Geometric
 import Cross
+import List(nub)--1.3
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- section 8: Comparing
 

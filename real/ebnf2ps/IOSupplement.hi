@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface IOSupplement where
-import PreludeIO(IOError, Request, Response)
-type PathCont = [[Char]] -> [Response] -> [Request]
-getPath :: [Char] -> [[Char]] -> ([[Char]] -> [Response] -> [Request]) -> [Response] -> [Request]
-	{-# GHC_PRAGMA _A_ 4 _U_ 2221 _N_ _N_ _N_ _N_ #-}
-readPathFile :: [[Char]] -> [Char] -> (IOError -> [Response] -> [Request]) -> ([Char] -> [Response] -> [Request]) -> [Response] -> [Request]
-	{-# GHC_PRAGMA _A_ 4 _U_ 12222 _N_ _S_ "LSLL" _N_ _N_ #-}
-

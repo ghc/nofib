@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Preds where
-import EdgePlate(Edge, Plate)
-import Vectors(Vector)
-into :: Vector -> Plate -> Bool
-	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(AS)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-onto :: Vector -> Edge -> Bool
-	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
-

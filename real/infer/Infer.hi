@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Infer where
-import Environment(Env)
-import InferMonad(Infer)
-import Term(Term)
-import Type(MonoType)
-inferTerm :: Env -> Term -> Infer MonoType
-	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
-

@@ -23,5 +23,5 @@ main =
     connect s (SockAddrUnix "sock")			>>
     
     writeSocket s message				>>
-    shutdown s ShutdownBoth				>>
+    shutdown s 2					>>
     sClose s

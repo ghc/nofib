@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Lookup where
-import Vtslib(Option, Sum)
-type Entry = [([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]
-type Index = Sum (Int, Bool) (Int, Int, [(Int, Int)])
-type Lookup_table = [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]]
-

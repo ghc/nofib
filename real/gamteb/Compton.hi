@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Compton where
-import GamtebType(Particle)
-compton :: Particle -> (Particle, (Double, Double, Double, Double), Bool)
-	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LLLU(P)ALL)" _N_ _N_ #-}
-

@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Chl_routs where
-import S_Array(S_array)
-orded_mat :: Int -> S_array (Float, ((Float, Float, Float), (Float, Float, Float))) -> S_array [Int] -> [Int] -> (S_array (S_array Float, S_array (Int, [Float])), S_array Int)
-	{-# GHC_PRAGMA _A_ 0 _U_ 2221 _N_ _N_ _N_ _N_ #-}
-

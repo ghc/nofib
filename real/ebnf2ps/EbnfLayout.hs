@@ -1,6 +1,9 @@
 --------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: EbnfLayout.hs,v $
+-- Revision 1.2  1996/07/26 21:21:58  partain
+-- Final changes for 2.01
+--
 -- Revision 1.1  1996/01/08 20:02:34  partain
 -- Initial revision
 --
@@ -24,6 +27,7 @@ import AbstractSyntax
 import Color
 import Fonts (FONT, stringWidth, stringHeight, fontDescender)
 import Info
+import List--1.3
 
 -- all arithmetic is done in 1/100 pt
 

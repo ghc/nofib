@@ -1,8 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface EbnfLayout where
-import AbstractSyntax(Production)
-import Fonts(FONT)
-import Info(GObject)
-makePictureLayout :: (Int, Int, Int, Int, Int, FONT, FONT, ((Int, Int, Int), (Int, Int, Int), (Int, Int, Int), (Int, Int, Int))) -> Production -> (Int, Int, Int, Int, Int, GObject)
-	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLLLLLLU(LLLL))S" _N_ _N_ #-}
-

@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Diff where
-bcroot :: Int -> Int
-	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-diff :: Int -> Int -> Int
-	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(P)U(P)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-square :: Int -> Int
-	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> case _#_ timesInt# [] [u0, u0] of { _PRIM_ (u1 :: Int#) -> _!_ I# [] [u1] } _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> case _#_ timesInt# [] [u1, u1] of { _PRIM_ (u2 :: Int#) -> _!_ I# [] [u2] }; _NO_DEFLT_ } _N_ #-}
-

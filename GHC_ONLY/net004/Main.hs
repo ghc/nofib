@@ -13,7 +13,7 @@ TESTS:
 module Main where
 
 import SocketPrim
-import System
+import LibSystem
 
 
 starbuck    = "130.209.240.81"
@@ -28,6 +28,6 @@ main =
     getPeerName s			>>= \ (SockAddrInet p haddr) ->   
     putStr ("Connected to : " ++ (inet_ntoa haddr) ++ "\n") >>
     writeSocket s message			>>
-    shutdown s ShutdownBoth			>>
+    shutdown s 2				>>
     sClose s
 

@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Rsa where
-decrypt :: Integer -> Integer -> [Char] -> [Char]
-	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
-encrypt :: Integer -> Integer -> [Char] -> [Char]
-	{-# GHC_PRAGMA _A_ 2 _U_ 122 _N_ _S_ "U(PPP)L" {_A_ 4 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-makeKeys :: Integer -> Integer -> (Integer, Integer, Integer)
-	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _N_ _N_ _N_ #-}
-

@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface PrintTEX where
-import DataTypes(Game, Quantum)
-texPrinter :: [Game Quantum] -> [Char]
-	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
-

@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
-interface Elemstif where
-import Matrix(Mat)
-import PreludeArray(Array)
-beam2d :: (Array Int Int, Array Int Float) -> Int -> Mat Float
-	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ #-}
-

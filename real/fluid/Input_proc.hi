@@ -1,8 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Input_proc where
-import S_Array(S_array)
-read_data :: [Char] -> (Int, Int, Int, S_array [Int], S_array [Int], S_array (Float, Float), (S_array Float, (S_array Float, S_array Float)), (S_array Bool, (S_array Bool, S_array Bool)), [Int])
-	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
-read_fs_cs :: [Char] -> ([Char], (Bool, Int, Float, Int, Float, Float, Float))
-	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
-

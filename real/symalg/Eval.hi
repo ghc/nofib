@@ -1,8 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Eval where
-import Ast(BasicExp)
-eval :: BasicExp -> [([Char], BasicExp)] -> BasicExp
-	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "SL" _N_ _N_ #-}
-getPrec :: [([Char], BasicExp)] -> Integer
-	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
-

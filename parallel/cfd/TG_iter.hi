@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface TG_iter where
-import Quad_def(TriMat)
-import S_Array(S_array)
-tg_iter :: Bool -> Bool -> Int -> a -> Int -> Float -> Float -> Float -> (S_array ([(([Int], (Float, ((Float, Float, Float), (Float, Float, Float)))), Int)], Bool), S_array ([(([Int], (Float, ((Float, Float, Float), (Float, Float, Float)))), Int)], ((Float, Float), (Bool, (Bool, Bool))))) -> TriMat Float -> (S_array Float, S_array (Float, Float)) -> [Char]
-	{-# GHC_PRAGMA _A_ 11 _U_ 02102022122 _N_ _S_ "ALU(P)ALLLLU(LL)LU(LL)" {_A_ 9 _U_ 212022122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-

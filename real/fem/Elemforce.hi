@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
-interface Elemforce where
-import PreludeArray(Array)
-import Vector(Vec)
-forces :: (Array Int Int, Array Int Float) -> Vec Float -> Vec Float
-	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ #-}
-getefrc :: (Array Int Int, Array Int Float) -> Int -> Vec Float -> Float
-	{-# GHC_PRAGMA _A_ 3 _U_ 011 _S_ "AU(P)U(AU(U(U(P)U(P))P))" {_A_ 4 _U_ 2222 _N_ _N_ _N_} _N_ _N_ #-}
-

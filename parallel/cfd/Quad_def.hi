@@ -1,5 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Quad_def where
-data RectMat a   = RectM (RectMat a) (RectMat a) (RectMat a) (RectMat a) | SingM a | ZeroM
-data TriMat a   = TriM (TriMat a) (RectMat a) (TriMat a) | SingTM a | ZeroTM
-

@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Gen_net where
-import S_Array(S_array)
-get_node_list :: Int -> Int -> S_array (Float, Float) -> [[Int]] -> ([Bool], ([Bool], [Bool])) -> [Int] -> (S_array ([(([Int], (Float, ((Float, Float, Float), (Float, Float, Float)))), Int)], Bool), S_array ([(([Int], (Float, ((Float, Float, Float), (Float, Float, Float)))), Int)], ((Float, Float), (Bool, (Bool, Bool)))))
-	{-# GHC_PRAGMA _A_ 0 _U_ 202112 _N_ _N_ _N_ _N_ #-}
-

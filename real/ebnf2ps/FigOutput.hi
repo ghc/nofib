@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface FigOutput where
-import Fonts(FONT)
-import Info(GObject)
-figShowsWrapper :: [Char] -> (Int, Int, Int, Int, Int, FONT, FONT, ((Int, Int, Int), (Int, Int, Int), (Int, Int, Int), (Int, Int, Int))) -> (Int, Int, Int, Int, Int, GObject) -> [Char] -> [Char]
-	{-# GHC_PRAGMA _A_ 3 _U_ 0122 _N_ _S_ "AU(AALLAAAA)U(LLLLLL)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-

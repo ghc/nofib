@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
-interface Printuvwforce where
-import PreludeArray(Array)
-import Vector(Vec)
-forceresult :: (Array Int Int, Array Int Float) -> Vec Float -> [Char]
-	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ #-}
-uvwresult :: (Array Int Int, Array Int Float) -> Vec Float -> [Char]
-	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ #-}
-

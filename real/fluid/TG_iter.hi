@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface TG_iter where
-import S_Array(S_array)
-tg_iter :: Bool -> Int -> Float -> Int -> Float -> Float -> Float -> S_array (Float, ((Float, Float, Float), (Float, Float, Float))) -> S_array [(Int, Int)] -> S_array [(Int, Int)] -> S_array [Int] -> S_array [Int] -> (S_array Bool, (S_array Bool, S_array Bool)) -> [Int] -> (S_array (S_array Float, S_array (Int, [Float])), S_array Int) -> (S_array Float, (S_array Float, S_array Float)) -> [Char]
-	{-# GHC_PRAGMA _A_ 16 _U_ 2122222222222221 _N_ _S_ "LU(P)LLLLLLLLLLLLLU(LL)" _N_ _N_ #-}
-

@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface TransPort where
-import GamtebType(Particle)
-import PreludeArray(Assoc)
-transPort :: Particle -> (Double, Double, Double, Double) -> ([Assoc (Int, Int) Double], [Assoc Int Double])
-	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(U(LLL)U(LLL)LLLLL)U(LLLU(P))" {_A_ 5 _U_ 12222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
-

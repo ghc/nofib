@@ -1,7 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Csg where
-import Interval(Interval)
-import Types(Color, Csg)
-calc :: Csg -> Color -> (Interval Double, Interval Double, Interval Double) -> (Interval Double, Csg, Color, Bool)
-	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
-

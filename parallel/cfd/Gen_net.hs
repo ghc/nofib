@@ -3,6 +3,7 @@ module Gen_net (get_node_list) where
 import Defs
 import S_Array
 import S_matrix
+import Ix--1.3
 
 get_node_list
 	:: Int -> Int
@@ -32,7 +33,7 @@ get_node_list p_total v_total coord v_steer (all_bry,(x_fixed,y_fixed)) p_fixed 
 		(concat (map f1 v_steer))
 		where
 		f1 n_l@(n1:n2:n3:_) =
-			zipWith (:=) n_l (map (\z->[((n_l,e),z)]) (range (1,v_nodel)))
+			zipWith (,) n_l (map (\z->[((n_l,e),z)]) (range (1,v_nodel)))
 			where
 			e =
 				(

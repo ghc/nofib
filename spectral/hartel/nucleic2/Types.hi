@@ -1,8 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Types where
-type FloatT = Float
-data Nuc   = Nuc Tfo Tfo Tfo Tfo Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Nuc_specific
-data Nuc_specific   = A Pt Pt Pt Pt Pt Pt Pt Pt | C Pt Pt Pt Pt Pt Pt | G Pt Pt Pt Pt Pt Pt Pt Pt Pt | U Pt Pt Pt Pt Pt
-data Pt   = Pt Float Float Float
-data Tfo   = Tfo Float Float Float Float Float Float Float Float Float Float Float Float
-

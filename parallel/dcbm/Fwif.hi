@@ -1,6 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface Fwif where
-import Types(Tree)
-fwifdb :: Bool -> Tree -> Tree -> Tree
-	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
-
