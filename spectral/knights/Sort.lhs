@@ -162,7 +162,7 @@ list of Doubles uniformly distibuted in (0,1).
 
 \begin{code}
 randomDoubles :: Int -> Int -> [Double]
-randomDoubles s1 s2 = map (\x -> (fromIntegral x * 4.6566130638969828e-10)
+randomDoubles s1 s2 = map (\x -> (fromIntegral x * 4.6566130638969828e-10))
 			  (randomInts s1 s2)
 \end{code}
 
