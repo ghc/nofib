@@ -192,8 +192,8 @@ main routine
 > ray winsize = [ ((i,j), f i j) | i<-[0..winsize-1], j<-[0..winsize-1]] 
 >     where
 >       lights = testlights
->       (firstray, scrnx, scrny) = camparams lookfrom lookat vup fov (fromInt winsize)
->       f i j = tracepixel world lights (fromInt i) (fromInt j) firstray scrnx scrny
+>       (firstray, scrnx, scrny) = camparams lookfrom lookat vup fov (fromIntegral winsize)
+>       f i j = tracepixel world lights (fromIntegral i) (fromIntegral j) firstray scrnx scrny
 
 
 > dtor :: Double -> Double
