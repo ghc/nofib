@@ -31,15 +31,15 @@ ifneq "$(HC_FAIL)" "YES"
 $(NOFIB_PROG) : $(OBJS)
 	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
-	@if (test -f $@ ); then \
-		$(STRIP) $@$(exeext); \
-		echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...; \
-		$(SIZE) $@$(exeext); \
-	fi;
 endif
 
 ifneq "$(NOFIB_PROG)" ""
-runtests :: $(NOFIB_PROG)
+size :: $(NOFIB_PROG)
+	@$(STRIP) $(NOFIB_PROG)$(exeext)
+	@echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...
+	@$(SIZE) $(NOFIB_PROG)$(exeext)
+
+runtests :: $(NOFIB_PROG) size
 	@echo ==nofib== $<: time to run $< follows...
 	@$(TIME) $(RUNTEST) ./$< \
 	  $(addprefix -i ,$(wildcard $(NOFIB_PROG).stdin)) \
@@ -47,6 +47,8 @@ runtests :: $(NOFIB_PROG)
 	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr)) \
 	  $(RUNTEST_OPTS)
 else
+size ::
+	@:
 runtests ::
 	@:
 endif
