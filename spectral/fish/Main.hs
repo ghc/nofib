@@ -110,4 +110,11 @@ corner = nonet corner2 side2 side2 (rot side2) u (rot t) (rot side2) (rot t)
 	 (rot q)
 squarelimit = cycle' corner
 
-main = putStrLn (show (pseudolimit (0, 0) (640, 0) (0,640)))
+-- sof: to make it easier to compare outputs, format the vector pairs on sep. lines
+fmt []     = "[]"
+fmt (x:xs) = (showString "[\n" . showsPrec 0 x . showl xs) ""
+  where
+    showl []     = showChar ']'
+    showl (x:xs) = showString ",\n" . showsPrec 0 x . showl xs
+
+main = putStrLn (fmt (pseudolimit (0, 0) (640, 0) (0,640)))
