@@ -1,7 +1,6 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
--include opts.mk
-SRC_RUNTEST_OPTS += inverter 345 10n 4u 1
+PROG_ARGS = inverter 345 10n 4u 1
 include $(TOP)/mk/target.mk
 
 

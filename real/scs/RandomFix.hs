@@ -22,9 +22,6 @@
 
 module RandomFix(random) where
 
-import PrelReal( toInt )
-import PrelNum( fromInt )	-- ToDo: remove these again
-
 
 random :: (Integer, Integer) -> Integer -> [Integer]
 random (l, h) s =
@@ -36,8 +33,8 @@ random (l, h) s =
             b = 2147483561
             n = iLogBase b k
             f is = let (xs, is') = splitAt n is
-                   in  foldr (\ i r -> fromInt i + r * b) 0 xs `mod` k + l : f is'
-        in  f (randomInts (toInt (s1+1)) (toInt (s2+1)))
+                   in  foldr (\ i r -> fromIntegral i + r * b) 0 xs `mod` k + l : f is'
+        in  f (randomInts (fromIntegral (s1+1)) (fromIntegral (s2+1)))
 
 iLogBase b i = if i < b then 1 else 1 + iLogBase b (i `div` b)
 
