@@ -5,7 +5,7 @@ include $(TOP)/mk/boilerplate.mk
 SRCS = Main.hs
 
 # Need big heap to run
-SRC_RUNTEST_OPTS = +RTS -H16m -RTS
+SRC_RUNTEST_OPTS += +RTS -H16m -RTS
 
 include $(TOP)/mk/target.mk
 
