@@ -51,10 +51,11 @@ first understand binomial queues.  See, for example, David King's
 
 > -- partain
 >module Main (main) where
->import ST
 >import Array
->import MutableArray
 >import System
+
+>import Control.Monad.ST
+>import Data.Array.ST
 
                          --------------------
 

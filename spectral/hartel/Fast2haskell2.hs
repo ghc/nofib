@@ -10,7 +10,7 @@
 --!            destr_update, indassoc, lowbound, tabulate, upbound, update, valassoc) where {
 --	    import GlaExts;
 --            import Word;
-            import PrelBase ( Double(..) )
+            import GHC.Base ( Double(..) )
 	    -- partain fiddle
 	    -- type Complex_type   = Complex Double;
             data Complex_type = CD# Double# Double#;

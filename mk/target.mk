@@ -104,4 +104,7 @@ endif # GHCI
 # We do this at the end for cosmetic reasons: it means that the "normal-way"
 # runtests will precede the "other-way" recursive invocations of make
 
-include $(FPTOOLS_TOP)/mk/target.mk
+NOFIB_TOP := $(TOP)
+TOP := $(TOP)/..
+include $(TOP)/mk/target.mk
+TOP:=$(NOFIB_TOP)
