@@ -59,11 +59,11 @@ runtests ::
 	@echo ":set args $(PROG_ARGS)" > $(STDIN)
 	@echo "Main.main" >>$(STDIN) 
 	@cat /dev/null $(STDIN_FILE) >> $(STDIN)
-	@$(TIME) $(RUNTEST) $(GHC_INPLACE) --interactive -v0 -Wnot \
+	@$(TIME) $(RUNTEST) $(HC) --interactive -v0 -Wnot \
 			-i $(STDIN) \
 	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
-			$(RUNTEST_OPTS) $(GHCI_HC_OPTS) $(TOP_FILE)
+			$(RUNTEST_OPTS) $(GHCI_HC_OPTS) Main
 	@$(RM) $(STDIN)
 else 
 
