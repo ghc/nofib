@@ -105,6 +105,8 @@ is the prelude function that calculates the euclidean norm
 ($\|x\|_{2}$) of a complex number.
 
 \begin{code}
+-- VERY IMPORTANT FUNCTION: sits in inner loop
+
 diverge::Complex Double -> Double -> Bool
 diverge cmplx radius =  magnitude cmplx > radius
 \end{code}
