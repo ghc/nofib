@@ -35,7 +35,7 @@ endif
 ifneq "$(HC_FAIL)" "YES"
 ifneq "$(NoFibWithGHCi)" "YES"
 $(NOFIB_PROG_WAY) : $(OBJS)
-	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
+	@echo ==nofib$(_way)== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
 endif
 endif
@@ -50,7 +50,7 @@ STDIN = $(NOFIB_PROG).stdin.tmp
 GHCI_HC_OPTS = $(filter-out -l% -Rghc-timing,$(HC_OPTS))
 
 runtests ::
-	@echo "==nofib== $(NOFIB_PROG): time to compile & run $(NOFIB_PROG) follows..."
+	@echo "==nofib$(_way)== $(NOFIB_PROG): time to compile & run $(NOFIB_PROG) follows..."
 	@$(RM) $(STDIN)
 	@echo ":set args $(PROG_ARGS)" > $(STDIN)
 	@echo "Main.main" >>$(STDIN) 
@@ -67,23 +67,23 @@ ifneq "$(NOFIB_PROG_WAY)" ""
 ifeq "$(way)" "mp"
 # The parallel prg is actually a Perl skript => can't strip it -- HWL
 size :: $(NOFIB_PROG_WAY)
-	@echo ==nofib== $(NOFIB_PROG): cannot strip parallel program, omitting size info
+	@echo ==nofib$(_way)== $(NOFIB_PROG): cannot strip parallel program, omitting size info
 
 runtests :: $(NOFIB_PROG_WAY) size
-	@echo ==nofib== $(NOFIB_PROG): cannot do an automatic check of stdout with the parallel system, sorry
-	@echo ==nofib== $(NOFIB_PROG): run the following command by hand
+	@echo ==nofib$(_way)== $(NOFIB_PROG): cannot do an automatic check of stdout with the parallel system, sorry
+	@echo ==nofib$(_way)== $(NOFIB_PROG): run the following command by hand
 	@echo                          ./$< $(RUNTEST_OPTS) $(PROG_ARGS)
-	@echo ==nofib== $(NOFIB_PROG): output should be
+	@echo ==nofib$(_way)== $(NOFIB_PROG): output should be
 	@cat $(wildcard $(NOFIB_PROG).stdout*)
 else
 
 size :: $(NOFIB_PROG_WAY)
 	@$(STRIP) $(NOFIB_PROG_WAY)$(exeext)
-	@echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...
+	@echo ==nofib$(_way)== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...
 	@$(SIZE) $(NOFIB_PROG_WAY)$(exeext)
 
 runtests :: $(NOFIB_PROG_WAY) size
-	@echo ==nofib== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
+	@echo ==nofib$(_way)== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
 	@$(TIME) $(RUNTEST) ./$< \
 	  $(addprefix -i,  $(STDIN_FILE)) \
 	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
