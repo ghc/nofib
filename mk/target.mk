@@ -28,10 +28,26 @@ endif
 # Bogosity needed here to cope with .exe suffix for strip & size files.
 # (shouldn't have to be our problem.)
 ifneq "$(HC_FAIL)" "YES"
+ifneq "$(NoFibWithGHCi)" "YES"
 $(NOFIB_PROG_WAY) : $(OBJS)
 	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
 endif
+endif
+
+
+ifeq "$(NoFibWithGHCi)" "YES"
+runtests ::
+	@echo "==nofib== $(NOFIB_PROG): time to compile & run $(NOFIB_PROG) follows..."
+	@$(RM) $(NOFIB_PROG).stdin.tmp
+	echo main | cat - $(wildcard $(NOFIB_PROG).stdin) > $(NOFIB_PROG).stdin.tmp
+	@$(TIME) $(RUNTEST) $(GHC_INPLACE) --interactive -v0 -Wnot \
+			-i $(NOFIB_PROG).stdin.tmp \
+	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
+	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
+			$(RUNTEST_OPTS) Main
+	@$(RM) $(NOFIB_PROG).stdin.tmp
+else 
 
 ifneq "$(NOFIB_PROG_WAY)" ""
 ifeq "$(way)" "mp"
@@ -67,6 +83,8 @@ size ::
 runtests ::
 	@:
 endif
+
+endif # GHCI
 
 # Include standard boilerplate
 # We do this at the end for cosmetic reasons: it means that the "normal-way"
