@@ -1,16 +1,12 @@
-
-{-# OPTIONS -syslib lang #-}
-
 {-
  - Id Example Program
  - Ensnaffled by SLPJ from MIT via
  - RPaul <rpaul@juicy-juice.lcs.mit.edu> 93/08/26.
  - Original author: Steve Heller
  -}
+
 module Main (main) where
 import Array
-import Int( Num(fromInt) )	-- Shouldn't really use this in a benchmark,
-				-- but don't want change wrt old baselines
 
 -- Generation of radicals
 
