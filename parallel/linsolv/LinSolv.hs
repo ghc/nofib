@@ -1,5 +1,5 @@
 {-
-$Id: LinSolv-par.hs,v 1.1 1996/01/08 20:07:34 partain Exp $
+$Id: LinSolv.hs,v 1.1 1997/07/31 22:15:08 sof Exp $
 
 This is revision: $Revision: 1.1 $
 
@@ -10,7 +10,10 @@ square matrix). The lhs of the system is the second parameter (given as a
 vector).
 
 ChangeLog:
-$Log: LinSolv-par.hs,v $
+$Log: LinSolv.hs,v $
+Revision 1.1  1997/07/31 22:15:08  sof
+Renamed LinSolv-par to LinSolv
+
 Revision 1.1  1996/01/08 20:07:34  partain
 Initial revision
 
