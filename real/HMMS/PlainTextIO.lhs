@@ -45,7 +45,7 @@ find the problem.
 >
 >       []           -> if null cs'
 >                       then []
->                       else error ("readElements: unparsable chars \
+>                       else error ("readElements: unparsable chars \ 
 >                                  \encountered:\n\n" ++ take 32 cs'
 >                                  ++ "\n")
 >
