@@ -18,7 +18,7 @@ Haskell and here is the result using hbc.
 ----------------------------------------------------------
 infix 8 ^^^
 
-data Nat = Z | S Nat deriving (Eq,Ord,Show{-was:Text-})
+data Nat = Z | S Nat deriving (Eq,Ord, Show {-was:Text-})
 
 instance Num Nat where
     Z   + y   = y
