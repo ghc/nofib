@@ -1,7 +1,7 @@
 module Main(main) where
 
 import IO -- 1.3
-import IOBase -- tryIO 1.3
+--import IOBase -- tryIO 1.3
 --import GHCio
 
 import Directory (removeFile)
@@ -20,5 +20,5 @@ main =
 
 copy :: Handle -> Handle -> IO ()
 copy hIn hOut =
-    tryIO (hGetChar hIn) >>=
+    try (hGetChar hIn) >>=
     either (\ err -> if isEOFError err then return () else error "copy") ( \ x -> hPutChar hOut x >> copy hIn hOut)
