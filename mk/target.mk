@@ -30,6 +30,8 @@ all ::
 all :: runtests
 endif
 
+
+
 # Bogosity needed here to cope with .exe suffix for strip & size files.
 # (shouldn't have to be our problem.)
 ifneq "$(HC_FAIL)" "YES"
@@ -42,7 +44,7 @@ endif
 
 
 ifeq "$(STDIN_FILE)" ""
-STDIN_FILE = $(wildcard $(NOFIB_PROG).stdin)
+STDIN_FILE = $(wildcard $(NOFIB_PROG).$(mode)stdin)
 endif
 
 ifeq "$(NoFibWithGHCi)" "YES"
@@ -74,7 +76,7 @@ runtests :: $(NOFIB_PROG_WAY) size
 	@echo ==nofib$(_way)== $(NOFIB_PROG): run the following command by hand
 	@echo                          ./$< $(RUNTEST_OPTS) $(PROG_ARGS)
 	@echo ==nofib$(_way)== $(NOFIB_PROG): output should be
-	@cat $(wildcard $(NOFIB_PROG).stdout*)
+	@cat $(wildcard $(NOFIB_PROG).$(mode)stdout*)
 else
 
 size :: $(NOFIB_PROG_WAY)
@@ -85,9 +87,9 @@ size :: $(NOFIB_PROG_WAY)
 runtests :: $(NOFIB_PROG_WAY) size
 	@echo ==nofib$(_way)== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
 	@$(TIME) $(RUNTEST) ./$< \
-	  $(addprefix -i,  $(STDIN_FILE)) \
-	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
-	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
+	  $(addprefix -i  ,$(STDIN_FILE)) \
+	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).$(mode)stdout*)) \
+	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).$(mode)stderr*)) \
 	  $(RUNTEST_OPTS) $(PROG_ARGS)
 endif
 

@@ -2,7 +2,7 @@
 #
 #			    nofib/mk/opts.mk
 #
-# 	$Id: opts.mk,v 1.6 2001/04/03 20:12:38 hwloidl Exp $
+# 	$Id: opts.mk,v 1.7 2002/03/15 16:07:58 rje Exp $
 #
 #################################################################################
 
@@ -13,7 +13,8 @@
 # to configure (and override) the options to run a particular test
 # with.
 RUNTEST_OPTS       = $(SRC_RUNTEST_OPTS) $(WAY$(_way)_RUNTEST_OPTS) \
-                     $($(NOFIB_PROG)_RUNTEST_OPTS) $(EXTRA_RUNTEST_OPTS)
+                     $($(NOFIB_PROG)_RUNTEST_OPTS) $(EXTRA_RUNTEST_OPTS) \
+					 $(TEST_OPTS)
 
 ifneq "$(way)" "mp"
 # if testing GUM don't generate a -S style log file; it may well differ 
@@ -26,4 +27,14 @@ SRC_RUNTEST_OPTS += +RTS -H10m -K10m -RTS
 #
 SRC_HC_OPTS  += -H32m -hisuf $(way_)hi
 
+#mode = "slow"
 
+ifeq "$(mode)" "slow"
+ TEST_OPTS = $(SLOW_OPTS)
+else
+ ifeq "$(mode)" "fast"
+  TEST_OPTS = $(FAST_OPTS)
+ else
+  TEST_OPTS = $(NORM_OPTS)
+ endif
+endif
