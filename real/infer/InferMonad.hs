@@ -4,7 +4,7 @@ module InferMonad     (Infer, returnI, eachI, thenI, guardI, useI, getSubI,
 
 import Maybe          (Maybe, returnM, eachM, thenM, failM, guardM, theM, existsM, useM)
 import StateX         (StateX, returnSX, eachSX, thenSX, toSX, putSX, getSX, useSX)
-import Type           (TVarId (..), TConId (..), MonoType (TVar, TCon), freeTVarMono)
+import Type           (TVarId, TConId, MonoType (TVar, TCon), freeTVarMono)
 import Substitution   (Sub, applySub, lookupSub, emptySub, extendSub, domSub, unifySub)
 type  Counter         =  Int
 data  Infer x         =  MkI (StateX Sub (StateX Counter (Maybe ((x, Sub), Counter))))

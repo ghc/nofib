@@ -20,8 +20,8 @@
 module Cg(cgiters,Cg_state (..),showcg_state) 
         where
 
-import Matrix (Vector (..), Matrix (..), 
-               Block_list (..), Col_pos (..), Row_pos (..),
+import Matrix (Vector , Matrix , 
+               Block_list , Col_pos , Row_pos ,
                vsub,vdot,svmult,vadd,mvmult,norm)
 
 import AbsDensematrix 

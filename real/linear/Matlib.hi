@@ -1,7 +1,73 @@
-interface Matlib where {
-{-# IMPORTING AbsDensematrix #-}
-import Matrix(Matrix, Vector);
-scale :: Matrix -> Vector -> (Matrix, Vector)   {-# ARITY scale = 0 #-}{-# STRICTNESS scale = "T,F" ST #-};
-precond :: Int -> Matrix -> Vector -> Vector   {-# ARITY precond = 3 #-}{-# STRICTNESS precond = "T,F" ST #-};
-uncondition :: Matrix -> Vector -> Vector   {-# ARITY uncondition = 2 #-}{-# STRICTNESS uncondition = "1,F" ST #-}
-}
+interface Matlib 1
+__usages__
+AbsDensematrix 1 :: Block 1 Vec 1 badd 1 bident 1 binverse 1 bmult 1 bneg 1 bsize 1 bsub 1 bvecmult 1 vecadd 1 vecsub 1;
+Densematrix 1 :: Matrix 1 Vector 1;
+GHCbase 47 :: CCallable 8 CReturnable 8 IO 22 lex 14 readList__ 12 showList__ 12 showSpace 2;
+GHCio 27 :: IOError 1;
+Ix 15 :: Ix 1;
+List 15 :: genericLength 2;
+Matrix 1 :: Block_list 1 Block_tuple 1 Col_pos 1 Matrix 1 Matrix_type 1 Row_pos 1 Vector 1 Vector_type 1 getrow 1 mkmatrix 1 mkvector 1 msubscript 1 mvmult 1 numrows 1 vsize 1 vsubscript 1;
+Prelude 32 :: !! 8 && 2 . 8 Bounded 7 Either 7 Enum 7 Eq 7 Eval 7 Floating 7 Fractional 7 Functor 8 Integral 22 Monad 8 MonadPlus 8 MonadZero 8 Num 7 Ord 7 Ordering 2 Read 8 ReadS 7 Real 7 RealFloat 7 RealFrac 8 Show 7 ShowS 2 String 2 concat 8 drop 8 filter 8 foldl1 8 fst 8 head 8 last 8 length 8 not 2 readParen 8 show 8 showParen 2 showString 2 take 8;
+Ratio 21 :: Ratio 9 Rational 2;
+__versions__
+Block_tuple 1
+Precond_function 1
+Scale_function 1
+backsubs 1
+backward 1
+bdscl 1
+blocknums 1
+bsum 1
+colsbefore 1
+diag_blocks 1
+diag_matrix 1
+forward 1
+is_diag 1
+merge 1
+mult 1
+okindex 1
+precond 1
+pseudofactor 1
+rowsnumbered 1
+scale 1
+sort 1
+sorted 1
+sub 1
+sumblocks 1
+symmetric 1
+testmat 1
+uncondition 1
+vecsum 1
+__exports__
+Matlib precond (..)
+Matlib scale (..)
+Matlib uncondition (..)
+__declarations__
+type Matlib.Block_tuple  = (Prelude.Int, Prelude.Int, AbsDensematrix.Block);
+type Matlib.Precond_function  = Matrix.Matrix -> Matrix.Vector -> Matrix.Vector;
+type Matlib.Scale_function  = Matrix.Matrix -> Matrix.Vector -> (Matrix.Matrix, Matrix.Vector);
+Matlib.backsubs :: Matrix.Matrix -> Matrix.Vector -> [AbsDensematrix.Vec];
+Matlib.backward :: Matrix.Matrix -> Matrix.Vector -> [AbsDensematrix.Vec];
+Matlib.bdscl :: Matrix.Matrix -> Matrix.Vector -> (Matrix.Matrix, Matrix.Vector);
+Matlib.blocknums :: Matrix.Matrix -> [Prelude.Int];
+Matlib.bsum :: [AbsDensematrix.Block] -> AbsDensematrix.Block;
+Matlib.colsbefore :: __forall__ [a,b,c] {{Prelude.Ord b}} => b -> [(a, b, c)] -> [(a, b, c)];
+Matlib.diag_blocks :: Matrix.Matrix -> [Matlib.Block_tuple];
+Matlib.diag_matrix :: Matrix.Matrix -> Matrix.Matrix;
+Matlib.forward :: Matrix.Matrix -> Matrix.Vector -> Matrix.Vector;
+Matlib.is_diag :: Matlib.Block_tuple -> Prelude.Bool;
+Matlib.merge :: __forall__ [a] {{Prelude.Ord a}} => [a] -> [a] -> [a];
+Matlib.mult :: [Densematrix.Matrix] -> [Densematrix.Matrix] -> [Densematrix.Matrix];
+Matlib.okindex :: __forall__ [a] Prelude.Int -> [a] -> Prelude.Bool;
+Matlib.precond :: Prelude.Int -> Matlib.Precond_function;
+Matlib.pseudofactor :: Prelude.Int -> Matrix.Matrix -> Matrix.Matrix;
+Matlib.rowsnumbered :: Matrix.Matrix -> [Prelude.Char];
+Matlib.scale :: Matrix.Matrix -> Matrix.Vector -> (Matrix.Matrix, Matrix.Vector);
+Matlib.sort :: __forall__ [a] {{Prelude.Ord a}} => [a] -> [a];
+Matlib.sorted :: Matrix.Matrix -> [Prelude.Char];
+Matlib.sub :: [Densematrix.Matrix] -> [Densematrix.Matrix] -> [Densematrix.Matrix];
+Matlib.sumblocks :: [[AbsDensematrix.Block]] -> [AbsDensematrix.Block];
+Matlib.symmetric :: Matrix.Matrix -> [Prelude.Char];
+Matlib.testmat :: Matrix.Matrix -> [Prelude.Char];
+Matlib.uncondition :: Matrix.Matrix -> Matrix.Vector -> Matrix.Vector;
+Matlib.vecsum :: [AbsDensematrix.Vec] -> AbsDensematrix.Vec;

@@ -1,5 +1,6 @@
-module Term (VarId (..), Term (Var, Abs, App, Let), readsId)
-            where
+module Term
+  (VarId, Term (Var, Abs, App, Let), readsId)
+where
 
 import Parse
 import Shows

@@ -1,5 +1,5 @@
 module Parse
-      (Parse (..), Parses (..),                       --  data types
+      (Parse, Parses,                       --  data types
        thenP, returnP, eachP, consP,                  --  sequencing and success
        elseP, failP, guardP, filterP,                 --  alternation and failure
        starP, plusP, cutP,                            --  repetition and cut

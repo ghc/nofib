@@ -34,6 +34,7 @@ module Input
               mksparse,a_easy,a_hard,x1) where
 
 
+import List (transpose)
 import Matrix
 import AbsDensematrix
 import Utils 

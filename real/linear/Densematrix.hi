@@ -1,47 +1,168 @@
-interface Densematrix where {
-{-# IMPORTING Utils #-}
-type Matrix = [[Float]];
-type Vector = [Float];
-mmult :: Matrix -> Matrix -> Matrix   {-# ARITY mmult = 2 #-}{-# STRICTNESS mmult = "T,F" ST #-};
-madd :: Matrix -> Matrix -> Matrix   {-# ARITY madd = 2 #-}{-# STRICTNESS madd = "0,F" ST #-};
-msub :: Matrix -> Matrix -> Matrix   {-# ARITY msub = 2 #-}{-# STRICTNESS msub = "0,F" ST #-};
-vouter :: Vector -> Vector -> Matrix   {-# ARITY vouter = 2 #-}{-# STRICTNESS vouter = "1,F" ST #-};
-vdot :: Vector -> Vector -> Float   {-# ARITY vdot = 2 #-}{-# STRICTNESS vdot = "0,F" ST #-};
-norm :: Vector -> Float   {-# ARITY norm = 1 #-}{-# STRICTNESS norm = "0,F" ST #-};
-mneg :: Matrix -> Matrix   {-# ARITY mneg = 1 #-}{-# STRICTNESS mneg = "0,F" ST #-};
-mxpose :: Matrix -> Matrix   {-# ARITY mxpose = 0 #-}{-# STRICTNESS mxpose = "T,F" ST #-};
-mident :: Int -> Matrix   {-# ARITY mident = 1 #-}{-# STRICTNESS mident = "T,F" ST #-};
-msize :: Matrix -> (Int, Int)   {-# ARITY msize = 1 #-}{-# STRICTNESS msize = "T,F" ST #-};
-mkmat :: [[Float]] -> Matrix   {-# ARITY mkmat = 0 #-}{-# STRICTNESS mkmat = "T,F" ST #-};
-mkrmat :: [[Float]] -> Matrix   {-# ARITY mkrmat = 0 #-}{-# STRICTNESS mkrmat = "T,F" ST #-};
-mkcmat :: [[Float]] -> Matrix   {-# ARITY mkcmat = 0 #-}{-# STRICTNESS mkcmat = "T,F" ST #-};
-mkvec :: [Float] -> Vector   {-# ARITY mkvec = 0 #-}{-# STRICTNESS mkvec = "T,F" ST #-};
-mkrvec :: [Float] -> Vector   {-# ARITY mkrvec = 0 #-}{-# STRICTNESS mkrvec = "T,F" ST #-};
-mkcvec :: [Float] -> Vector   {-# ARITY mkcvec = 0 #-}{-# STRICTNESS mkcvec = "T,F" ST #-};
-vadd :: Vector -> Vector -> Vector   {-# ARITY vadd = 2 #-}{-# STRICTNESS vadd = "0,F" ST #-};
-vsub :: Vector -> Vector -> Vector   {-# ARITY vsub = 2 #-}{-# STRICTNESS vsub = "0,F" ST #-};
-vsize :: Vector -> Int   {-# ARITY vsize = 0 #-}{-# STRICTNESS vsize = "T,F" ST #-};
-vneg :: Vector -> Vector   {-# ARITY vneg = 0 #-}{-# STRICTNESS vneg = "T,F" ST #-};
-swaprow :: Int -> Int -> Matrix -> Matrix   {-# ARITY swaprow = 3 #-}{-# STRICTNESS swaprow = "0&1,F" ST #-};
-swapcol :: Int -> Int -> Matrix -> Matrix   {-# ARITY swapcol = 3 #-}{-# STRICTNESS swapcol = "2,F" ST #-};
-droprow :: Matrix -> Matrix   {-# ARITY droprow = 0 #-}{-# STRICTNESS droprow = "T,F" ST #-};
-getrow :: Int -> Matrix -> Vector   {-# ARITY getrow = 2 #-}{-# STRICTNESS getrow = "T,F" ST #-};
-getcol :: Int -> Matrix -> Vector   {-# ARITY getcol = 2 #-}{-# STRICTNESS getcol = "1,F" ST #-};
-subscript :: Matrix -> (Int, Int) -> Float   {-# ARITY subscript = 2 #-}{-# STRICTNESS subscript = "1,F" ST #-};
-vsubscript :: Vector -> Int -> Float   {-# ARITY vsubscript = 2 #-}{-# STRICTNESS vsubscript = "T,F" ST #-};
-vecpart :: Int -> Int -> Vector -> Vector   {-# ARITY vecpart = 3 #-}{-# STRICTNESS vecpart = "T,F" ST #-};
-update :: Matrix -> (Int, Int) -> Float -> Matrix   {-# ARITY update = 3 #-}{-# STRICTNESS update = "1,F" ST #-};
-vupdate :: Vector -> Int -> Float -> Vector   {-# ARITY vupdate = 3 #-}{-# STRICTNESS vupdate = "T,F" ST #-};
-update2 :: Matrix -> (Int, Int, Int) -> (Float, Float) -> Matrix   {-# ARITY update2 = 3 #-}{-# STRICTNESS update2 = "1&2,F" ST #-};
-vhd :: Vector -> Float   {-# ARITY vhd = 0 #-}{-# STRICTNESS vhd = "T,F" ST #-};
-vtl :: Vector -> Vector   {-# ARITY vtl = 0 #-}{-# STRICTNESS vtl = "T,F" ST #-};
-mergevectors :: [Vector] -> Vector   {-# ARITY mergevectors = 0 #-}{-# STRICTNESS mergevectors = "T,F" ST #-};
-matvecmult :: Matrix -> Vector -> Vector   {-# ARITY matvecmult = 2 #-}{-# STRICTNESS matvecmult = "0,F" ST #-};
-vmmult :: Vector -> Matrix -> Vector   {-# ARITY vmmult = 2 #-}{-# STRICTNESS vmmult = "T,F" ST #-};
-svmult :: Float -> Vector -> Vector   {-# ARITY svmult = 2 #-}{-# STRICTNESS svmult = "1,F" ST #-};
-showmatrix :: Matrix -> [Char]   {-# ARITY showmatrix = 1 #-}{-# STRICTNESS showmatrix = "T,F" ST #-};
-displayvector :: Vector -> [Char]   {-# ARITY displayvector = 1 #-}{-# STRICTNESS displayvector = "0,F" ST #-};
-minverse :: Matrix -> Matrix   {-# ARITY minverse = 1 #-}{-# STRICTNESS minverse = "T,F" ST #-};
-veclist :: Vector -> [Float]   {-# ARITY veclist = 0 #-}{-# STRICTNESS veclist = "T,F" ST #-};
-matlist :: Matrix -> [[Float]]   {-# ARITY matlist = 0 #-}{-# STRICTNESS matlist = "T,F" ST #-}
-}
+interface Densematrix 1
+__usages__
+GHCbase 47 :: CCallable 8 CReturnable 8 IO 22 lex 14 readList__ 12 showList__ 12 showSpace 2;
+GHCio 27 :: IOError 1;
+Ix 15 :: Ix 1;
+List 15 :: transpose 2;
+Prelude 32 :: !! 8 && 2 . 8 Bounded 7 Either 7 Enum 7 Eq 7 Eval 7 Floating 7 Fractional 7 Functor 8 Integral 22 Monad 8 MonadPlus 8 MonadZero 8 Num 7 Ord 7 Ordering 2 Read 8 ReadS 7 Real 7 RealFloat 7 RealFrac 8 Show 7 ShowS 2 String 2 concat 8 drop 8 foldl1 8 fst 8 head 8 id 8 length 8 not 2 readParen 8 show 8 showParen 2 showString 2 snd 8 sum 8 tail 8 take 8;
+Ratio 21 :: Ratio 9 Rational 2;
+Utils 1 :: map2 1 rep 1 rjustify 1;
+__versions__
+Lu_factor 1
+Matrix 1
+Vector 1
+absfloat 1
+apply_factor 1
+backward 1
+displayvector 1
+droprow 1
+findpivot 1
+forward 1
+getcol 1
+getrow 1
+lu_decomp 1
+madd 1
+matlist 1
+matvecmult 1
+maxlist 1
+mergevectors 1
+mident 1
+minverse 1
+mkcmat 1
+mkcvec 1
+mkmat 1
+mkrmat 1
+mkrvec 1
+mkvec 1
+mmult 1
+mneg 1
+msize 1
+msub 1
+mxpose 1
+norm 1
+pivot 1
+showmat 1
+showmatrix 1
+subscript 1
+svmult 1
+swapcol 1
+swapitems 1
+swaprow 1
+update 1
+update2 1
+vadd 1
+vdot 1
+veclist 1
+vecpart 1
+vhd 1
+vmmult 1
+vneg 1
+vouter 1
+vsize 1
+vsub 1
+vsubscript 1
+vtl 1
+vupdate 1
+__exports__
+Densematrix Matrix 
+Densematrix Vector 
+Densematrix displayvector (..)
+Densematrix droprow (..)
+Densematrix getcol (..)
+Densematrix getrow (..)
+Densematrix madd (..)
+Densematrix matlist (..)
+Densematrix matvecmult (..)
+Densematrix mergevectors (..)
+Densematrix mident (..)
+Densematrix minverse (..)
+Densematrix mkcmat (..)
+Densematrix mkcvec (..)
+Densematrix mkmat (..)
+Densematrix mkrmat (..)
+Densematrix mkrvec (..)
+Densematrix mkvec (..)
+Densematrix mmult (..)
+Densematrix mneg (..)
+Densematrix msize (..)
+Densematrix msub (..)
+Densematrix mxpose (..)
+Densematrix norm (..)
+Densematrix showmatrix (..)
+Densematrix subscript (..)
+Densematrix svmult (..)
+Densematrix swapcol (..)
+Densematrix swaprow (..)
+Densematrix update (..)
+Densematrix update2 (..)
+Densematrix vadd (..)
+Densematrix vdot (..)
+Densematrix veclist (..)
+Densematrix vecpart (..)
+Densematrix vhd (..)
+Densematrix vmmult (..)
+Densematrix vneg (..)
+Densematrix vouter (..)
+Densematrix vsize (..)
+Densematrix vsub (..)
+Densematrix vsubscript (..)
+Densematrix vtl (..)
+Densematrix vupdate (..)
+__declarations__
+data  Densematrix.Lu_factor  = Densematrix.Lu_fact [[Prelude.Float]] [[Prelude.Float]] [Prelude.Int] ;
+type Densematrix.Matrix  = [[Prelude.Float]];
+type Densematrix.Vector  = [Prelude.Float];
+Densematrix.absfloat :: Prelude.Float -> Prelude.Float;
+Densematrix.apply_factor :: Densematrix.Lu_factor -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.backward :: [[Prelude.Float]] -> [Prelude.Int] -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.displayvector :: Densematrix.Vector -> [Prelude.Char];
+Densematrix.droprow :: Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.findpivot :: Densematrix.Matrix -> Prelude.Int;
+Densematrix.forward :: [[Prelude.Float]] -> [Prelude.Int] -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.getcol :: Prelude.Int -> Densematrix.Matrix -> Densematrix.Vector;
+Densematrix.getrow :: Prelude.Int -> Densematrix.Matrix -> Densematrix.Vector;
+Densematrix.lu_decomp :: Densematrix.Matrix -> Densematrix.Lu_factor;
+Densematrix.madd :: Densematrix.Matrix -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.matlist :: Densematrix.Matrix -> [[Prelude.Float]];
+Densematrix.matvecmult :: Densematrix.Matrix -> Densematrix.Vector -> Densematrix.Vector;
+Densematrix.maxlist :: [Prelude.Float] -> Prelude.Float;
+Densematrix.mergevectors :: [Densematrix.Vector] -> Densematrix.Vector;
+Densematrix.mident :: Prelude.Int -> Densematrix.Matrix;
+Densematrix.minverse :: Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.mkcmat :: [[Prelude.Float]] -> Densematrix.Matrix;
+Densematrix.mkcvec :: [Prelude.Float] -> Densematrix.Vector;
+Densematrix.mkmat :: [[Prelude.Float]] -> Densematrix.Matrix;
+Densematrix.mkrmat :: [[Prelude.Float]] -> Densematrix.Matrix;
+Densematrix.mkrvec :: [Prelude.Float] -> Densematrix.Vector;
+Densematrix.mkvec :: [Prelude.Float] -> Densematrix.Vector;
+Densematrix.mmult :: Densematrix.Matrix -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.mneg :: Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.msize :: Densematrix.Matrix -> (Prelude.Int, Prelude.Int);
+Densematrix.msub :: Densematrix.Matrix -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.mxpose :: Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.norm :: Densematrix.Vector -> Prelude.Float;
+Densematrix.pivot :: Densematrix.Matrix -> (Densematrix.Matrix, Prelude.Int);
+Densematrix.showmat :: [Densematrix.Vector] -> [Prelude.Char];
+Densematrix.showmatrix :: Densematrix.Matrix -> [Prelude.Char];
+Densematrix.subscript :: Densematrix.Matrix -> (Prelude.Int, Prelude.Int) -> Prelude.Float;
+Densematrix.svmult :: Prelude.Float -> Densematrix.Vector -> Densematrix.Vector;
+Densematrix.swapcol :: Prelude.Int -> Prelude.Int -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.swapitems :: __forall__ [a] Prelude.Int -> Prelude.Int -> [a] -> [a];
+Densematrix.swaprow :: Prelude.Int -> Prelude.Int -> Densematrix.Matrix -> Densematrix.Matrix;
+Densematrix.update :: Densematrix.Matrix -> (Prelude.Int, Prelude.Int) -> Prelude.Float -> Densematrix.Matrix;
+Densematrix.update2 :: Densematrix.Matrix -> (Prelude.Int, Prelude.Int, Prelude.Int) -> (Prelude.Float, Prelude.Float) -> Densematrix.Matrix;
+Densematrix.vadd :: Densematrix.Vector -> Densematrix.Vector -> Densematrix.Vector;
+Densematrix.vdot :: Densematrix.Vector -> Densematrix.Vector -> Prelude.Float;
+Densematrix.veclist :: Densematrix.Vector -> [Prelude.Float];
+Densematrix.vecpart :: Prelude.Int -> Prelude.Int -> Densematrix.Vector -> Densematrix.Vector;
+Densematrix.vhd :: Densematrix.Vector -> Prelude.Float;
+Densematrix.vmmult :: Densematrix.Vector -> Densematrix.Matrix -> Densematrix.Vector;
+Densematrix.vneg :: Densematrix.Vector -> Densematrix.Vector;
+Densematrix.vouter :: Densematrix.Vector -> Densematrix.Vector -> Densematrix.Matrix;
+Densematrix.vsize :: Densematrix.Vector -> Prelude.Int;
+Densematrix.vsub :: Densematrix.Vector -> Densematrix.Vector -> Densematrix.Vector;
+Densematrix.vsubscript :: Densematrix.Vector -> Prelude.Int -> Prelude.Float;
+Densematrix.vtl :: Densematrix.Vector -> Densematrix.Vector;
+Densematrix.vupdate :: Densematrix.Vector -> Prelude.Int -> Prelude.Float -> Densematrix.Vector;
+__instances__
+instance Prelude.Eval Densematrix.Lu_factor;

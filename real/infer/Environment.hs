@@ -5,8 +5,8 @@ module Environment
 
 import Shows
 import Parse
-import Term           (VarId (..), readsId)
-import Type           (TVarId (..), TConId (..), MonoType (..), PolyType (All), freeTVarPoly)
+import Term           (VarId, readsId)
+import Type           (TVarId, TConId, MonoType, PolyType (All), freeTVarPoly)
 import FiniteMap      (FM, emptyFM, lookupFM, extendFM, makeFM, unmakeFM,
                        mapFM, domFM, ranFM)
 data  Env             =   MkEnv (FM VarId PolyType)

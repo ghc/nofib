@@ -1,9 +1,0 @@
-SRCS_HS = Main.hs
-OBJS_O  = Main.o
-
-runtests clean ::
-	$(RM) addresses.tex
-
-NoFibMultiModuleCompileAndRun(maillist,-i maillist.stdin -o1 maillist.stdout)
-
-NoFibHaskellCompile(maillist,Main,hs)

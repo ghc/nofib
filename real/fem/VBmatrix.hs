@@ -12,7 +12,6 @@ module VBmatrix(Vbm, defvbmat, makevbmat, incrvbmat, updvbmat,
                 diagadrvbm, displayvbmati, displayvbmatr) where
 
 import Basics
-
 import Vector
 
 data Vbm a = VBMAT Int (Vec Int) (Vec a)
@@ -23,10 +22,10 @@ makevbmat  :: Int -> Vec Int -> ( (Int,Int) -> a ) -> Vbm a
 	-- make a variable bandwidth matrix, by giving the diagonal
 	-- element address vector and a element value generator.
 
-updvbmat   :: Vbm a -> [Assoc (Int,Int) a] -> Vbm a
+updvbmat   :: Vbm a -> [((Int,Int),a)] -> Vbm a
 	-- update matrix with the given index-value association list
 
-incrvbmat  :: (Num a) => Vbm a -> [Assoc (Int,Int) a] -> Vbm a
+incrvbmat  :: (Num a) => Vbm a -> [((Int,Int),a)] -> Vbm a
         -- increase matrix by the given index-value association list
 
 vbmatsub   :: Vbm a -> (Int,Int) -> a
@@ -85,14 +84,14 @@ incrvbmat vbm updates =
         where
 	(VBMAT n addiag elements) = vbm
 	new_elements = incrvec elements new_s
-	new_s = map (\( (i,j) := x) -> (addrvbmat vbm  (i,j) := x) ) updates
+	new_s = map (\((i,j),x) -> (addrvbmat vbm (i,j),x) ) updates
 
 updvbmat vbm updates =
         VBMAT n addiag new_elements
         where
         VBMAT n addiag elements = vbm
         new_elements = updvec elements new_s
-        new_s = map (\( (i,j) := x) -> (addrvbmat vbm  (i,j) := x) ) updates
+        new_s = map (\((i,j),x) -> (addrvbmat vbm (i,j),x) ) updates
 
 vbmatsub vbm (i,j) =
 	vecsub elements (addrvbmat vbm (i,j))

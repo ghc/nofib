@@ -11,7 +11,7 @@
  
 > import BSPT (BSPT(..),Status(..),countLeaves,scanLine,foldBSPT)
 > import EuclidGMS (Point(..),Line,Face(..),Region,getRegion,
->		    Faces(..),mkFace,section,drawSegment, Segment(..), Partition(..))
+>		    Faces,mkFace,section,drawSegment,Segment,Partition)
 > import Stdlib (mapcat,middle,const3)
 > import Params (renderTop,renderHeight,renderLeft,windowWidth)
 > import GeomNum

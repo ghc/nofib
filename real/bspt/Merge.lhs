@@ -7,8 +7,8 @@
 > where
 
 > import BSPT (BSPT(..),Status(..),bsp',bsp'',mkCell,partFaces,foldBSPT)
-> import EuclidGMS (Point,Line,Face(..),Region,Location(..),Partition(..),Faces(..),
->		    newRegion,getPart,bisect,location,section,flip_YORK, Segment(..))
+> import EuclidGMS (Point,Line,Face(..),Region,Location(..),Partition,Faces,
+>		    newRegion,getPart,bisect,location,section,flip_YORK, Segment)
 > import Stdlib (mappair)
 > import GeomNum
 > import Libfuns

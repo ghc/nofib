@@ -1,2 +1,0 @@
-interface LMLTrace where
-trace :: String -> a -> a

@@ -2,7 +2,7 @@ Utilities module for the fully lazy lambda lifter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 > module Utilities( 
->	Assn(..), assLookup,
+>	Assn, assLookup,
 >	NameSupply, initialNameSupply, newName,
 >	Set, setFromList, setEmpty, setSingleton, setToList,
 >		setUnion, setIntersect, setDifference, setUnionList,

@@ -25,16 +25,11 @@ import Euclid (Face, Faces(..))
 --		as the second argument.
  
 prog ::  String -> String
-prog rawinp =  initialise ++ modeller (buildBSPT []) operations
-		where 	
-		initialise = initialiseMouse ++ initialiseScreen
-		operations = if 
-#ifdef PAR
-				True
-#else
-				(head=="batch") 
-#endif
-				then operationsBatch
-				else interpret lined
-		lined@(head:rest) = lines rawinp
+prog rawinp =
+  initialise ++ modeller (buildBSPT []) operations
+ where 	
+  initialise = initialiseMouse ++ initialiseScreen
+  lined@(head:rest) = lines rawinp
+  operations =
+    if (head=="batch") then operationsBatch else interpret lined
 \end{code}

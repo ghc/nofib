@@ -10,6 +10,7 @@
 module DB_interface(nnode, nmats, getnxy, getnbc, getmpro, 
                     nelem, nplds, getenlr, getemat, getpld) where
 
+import Array
 import Database
 
 nnode, nelem, nmats, nplds :: (Array Int Int, Array Int Float) -> Int

@@ -1,9 +1,7 @@
 TOP = ../../..
 PROG = bspt
-
-SRCS = BSPT.lhs Euclid.lhs EuclidGMS.lhs GeomNum.lhs Init.lhs \
-       Input.lhs Interface.lhs Interpret.lhs Libfuns.lhs MGRlib.lhs \
-       Main.lhs Merge.lhs Params.lhs Prog.lhs Rationals.lhs \
-       Render.lhs Stdlib.lhs
-
+SRCS = Stdlib.lhs Rationals.lhs Libfuns.lhs Params.lhs  GeomNum.lhs \
+       MGRlib.lhs Euclid.lhs EuclidGMS.lhs BSPT.lhs Init.lhs \
+       Interpret.lhs Input.lhs Merge.lhs Render.lhs Interface.lhs \
+       Prog.lhs Main.lhs       
 include $(TOP)/nofib/mk/nofib.mk

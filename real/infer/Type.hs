@@ -1,5 +1,5 @@
 module Type
-       (TVarId (..), TConId (..),
+       (TVarId, TConId,
         MonoType (TVar, TCon), arrow,
         PolyType (All),
         freeTVarMono, freeTVarPoly)

@@ -1,16 +1,188 @@
-interface Input where {
-{-# IMPORTING Utils #-}
-import AbsDensematrix(Vec);
-import Matrix(Block_list);
-gmat :: Int -> [Block_list]   {-# ARITY gmat = 1 #-}{-# STRICTNESS gmat = "T,F" ST #-};
-rhside :: Int -> [Vec]   {-# ARITY rhside = 1 #-}{-# STRICTNESS rhside = "T,F" ST #-};
-soln_vect :: Int -> [Vec]   {-# ARITY soln_vect = 1 #-}{-# STRICTNESS soln_vect = "T,F" ST #-};
-wells :: Int -> Int   {-# ARITY wells = 1 #-}{-# STRICTNESS wells = "0,0" ST #-};
-split :: (Integral a) => a -> [b] -> [[b]]   {-# ARITY split = 3 #-}{-# STRICTNESS split = "2,F" ST #-};
-blm' :: Int -> [[(Int, Int, [[Float]])]]   {-# ARITY blm' = 1 #-}{-# STRICTNESS blm' = "T,F" ST #-};
-mkbigvec :: [[Float]] -> [Vec]   {-# ARITY mkbigvec = 1 #-}{-# STRICTNESS mkbigvec = "T,F" ST #-};
-mksparse :: [[(Int, Int, [[Float]])]] -> [Block_list]   {-# ARITY mksparse = 1 #-}{-# STRICTNESS mksparse = "T,F" ST #-};
-a_easy :: Int -> [Block_list]   {-# ARITY a_easy = 1 #-}{-# STRICTNESS a_easy = "0,F" ST #-};
-a_hard :: Int -> [Block_list]   {-# ARITY a_hard = 1 #-}{-# STRICTNESS a_hard = "0,F" ST #-};
-x1 :: (Enum a, Num a) => a -> [Vec]   {-# ARITY x1 = 3 #-}{-# STRICTNESS x1 = "T,F" ST #-}
-}
+interface Input 1
+__usages__
+AbsDensematrix 1 :: Block 1 Vec 1 mkblock 1;
+Densematrix 1 :: Matrix 1 Vector 1 mkvec 1;
+GHCbase 47 :: CCallable 8 CReturnable 8 IO 22 lex 14 readList__ 12 showList__ 12 showSpace 2;
+GHCio 27 :: IOError 1;
+Ix 15 :: Ix 1;
+List 15 :: transpose 2;
+Matrix 1 :: Block_list 1 Block_tuple 1 Col_pos 1 Matrix 1 Matrix_type 1 Row_pos 1 Vector 1 Vector_type 1 mkmatrix 1 mkvector 1;
+Prelude 32 :: !! 8 && 2 . 8 Bounded 7 Either 7 Enum 7 Eq 7 Eval 7 Floating 7 Fractional 7 Functor 8 Integral 22 Monad 8 MonadPlus 8 MonadZero 8 Num 7 Ord 7 Ordering 2 Read 8 ReadS 7 Real 7 RealFloat 7 RealFrac 8 Show 7 ShowS 2 String 2 concat 8 drop 8 head 8 init 8 last 8 length 8 lines 2 not 2 read 8 readParen 8 show 8 showParen 2 showString 2 take 8 || 2;
+Ratio 21 :: Ratio 9 Rational 2;
+Utils 1 :: map2 1 rep 1 zip2 1;
+__versions__
+a_easy 1
+a_hard 1
+append_row 1
+blm 1
+blm' 1
+blm_hard 1
+block_ldiagband 1
+block_lowerband 1
+block_mdiagband 1
+block_udiagband 1
+block_upperband 1
+br 1
+collect_by4 1
+convert_ldiagband 1
+convert_lowerband 1
+convert_mdiagband 1
+convert_udiagband 1
+convert_upperband 1
+d_block 1
+directory 1
+file 1
+file1 1
+file2a 1
+file2b 1
+file2c 1
+file3 1
+file4 1
+file5 1
+file6 1
+gmat 1
+gvect 1
+gvect0 1
+hard_d_block 1
+hard_off_block 1
+include_col_well 1
+include_dw 1
+include_row_well 1
+include_well 1
+include_wells 1
+input1 1
+input1' 1
+input2a 1
+input2a' 1
+input2b 1
+input2b' 1
+input2c 1
+input2c' 1
+input3 1
+input3' 1
+input4' 1
+input5' 1
+ldiagband 1
+ldiagband' 1
+lowerband 1
+lowerband' 1
+make_lmat 1
+mdiagband 1
+mdiagband' 1
+mkbigvec 1
+mksparse 1
+myread 1
+myreadmtx 1
+numval 1
+off_block 1
+readmtx 1
+readsoln 1
+readsolnvect 1
+resm 1
+resn 1
+resnm 1
+rhside 1
+soln_vect 1
+split 1
+splitmtx 1
+udiagband 1
+udiagband' 1
+upperband 1
+upperband' 1
+wells 1
+x0 1
+x1 1
+__exports__
+Input a_easy (..)
+Input a_hard (..)
+Input blm' (..)
+Input gmat (..)
+Input mkbigvec (..)
+Input mksparse (..)
+Input rhside (..)
+Input soln_vect (..)
+Input split (..)
+Input wells (..)
+Input x1 (..)
+__declarations__
+Input.a_easy :: Prelude.Int -> Matrix.Matrix;
+Input.a_hard :: Prelude.Int -> Matrix.Matrix;
+Input.append_row :: __forall__ [a] [[(Prelude.Int, Prelude.Int, [[a]])]] -> (Prelude.Int, [a]) -> [[(Prelude.Int, Prelude.Int, [[a]])]];
+Input.blm :: Prelude.Int -> Matrix.Matrix;
+Input.blm' :: Prelude.Int -> [[(Prelude.Int, Prelude.Int, [[Prelude.Float]])]];
+Input.blm_hard :: Prelude.Int -> Matrix.Matrix;
+Input.block_ldiagband :: Prelude.Int -> Matrix.Block_list;
+Input.block_lowerband :: Prelude.Int -> Matrix.Block_list;
+Input.block_mdiagband :: Prelude.Int -> Matrix.Block_list;
+Input.block_udiagband :: Prelude.Int -> Matrix.Block_list;
+Input.block_upperband :: Prelude.Int -> Matrix.Block_list;
+Input.br :: Prelude.Int -> Prelude.Int -> [(Prelude.Int, Prelude.Int, [[Prelude.Float]])];
+Input.collect_by4 :: __forall__ [a] [a] -> [[a]];
+Input.convert_ldiagband :: [[[Prelude.Float]]] -> Matrix.Block_list;
+Input.convert_lowerband :: [[[Prelude.Float]]] -> Matrix.Block_list;
+Input.convert_mdiagband :: [[[Prelude.Float]]] -> Matrix.Block_list;
+Input.convert_udiagband :: [[[Prelude.Float]]] -> Matrix.Block_list;
+Input.convert_upperband :: [[[Prelude.Float]]] -> Matrix.Block_list;
+Input.d_block :: [[Prelude.Float]];
+Input.directory :: [Prelude.Char];
+Input.file :: [Prelude.Char];
+Input.file1 :: Prelude.Int -> Prelude.String;
+Input.file2a :: Prelude.Int -> Prelude.String;
+Input.file2b :: Prelude.Int -> Prelude.String;
+Input.file2c :: Prelude.Int -> Prelude.String;
+Input.file3 :: Prelude.Int -> Prelude.String;
+Input.file4 :: Prelude.Int -> Prelude.String;
+Input.file5 :: Prelude.Int -> Prelude.String;
+Input.file6 :: Prelude.Int -> Prelude.String;
+Input.gmat :: Prelude.Int -> Matrix.Matrix;
+Input.gvect :: [AbsDensematrix.Vec];
+Input.gvect0 :: [AbsDensematrix.Vec];
+Input.hard_d_block :: [[Prelude.Float]];
+Input.hard_off_block :: [[Prelude.Float]];
+Input.include_col_well :: __forall__ [a] [[(Prelude.Int, Prelude.Int, [[a]])]] -> [Prelude.Int] -> [a] -> [[(Prelude.Int, Prelude.Int, [[a]])]];
+Input.include_dw :: __forall__ [a] [[(Prelude.Int, Prelude.Int, [[a]])]] -> [a] -> [[(Prelude.Int, Prelude.Int, [[a]])]];
+Input.include_row_well :: __forall__ [a,b] [[(Prelude.Int, a, [[b]])]] -> [a] -> [b] -> [[(Prelude.Int, a, [[b]])]];
+Input.include_well :: __forall__ [a] [[(Prelude.Int, Prelude.Int, [[a]])]] -> [Prelude.Int] -> [a] -> [a] -> [a] -> [[(Prelude.Int, Prelude.Int, [[a]])]];
+Input.include_wells :: __forall__ [a] [[(Prelude.Int, Prelude.Int, [[a]])]] -> [[Prelude.Int]] -> [[a]] -> [[a]] -> [[a]] -> [[(Prelude.Int, Prelude.Int, [[a]])]];
+Input.input1 :: Prelude.Int -> [[[Prelude.Float]]];
+Input.input1' :: Prelude.Int -> [[Prelude.Float]];
+Input.input2a :: Prelude.Int -> [[[Prelude.Float]]];
+Input.input2a' :: Prelude.Int -> [[Prelude.Float]];
+Input.input2b :: Prelude.Int -> [[[Prelude.Float]]];
+Input.input2b' :: Prelude.Int -> [[Prelude.Float]];
+Input.input2c :: Prelude.Int -> [[[Prelude.Float]]];
+Input.input2c' :: Prelude.Int -> [[Prelude.Float]];
+Input.input3 :: Prelude.Int -> [[[Prelude.Float]]];
+Input.input3' :: Prelude.Int -> [[Prelude.Float]];
+Input.input4' :: Prelude.Int -> [[Prelude.Float]];
+Input.input5' :: Prelude.Int -> [[Prelude.Float]];
+Input.ldiagband :: __forall__ [a,b,c] {{Prelude.Functor c}} => b -> c [[a]];
+Input.ldiagband' :: Prelude.Int -> [[[Prelude.Float]]];
+Input.lowerband :: Prelude.Int -> [[[Prelude.Float]]];
+Input.lowerband' :: Prelude.Int -> [[[Prelude.Float]]];
+Input.make_lmat :: Matrix.Block_list -> Matrix.Block_list -> Matrix.Block_list -> Matrix.Block_list -> Matrix.Block_list -> Matrix.Matrix;
+Input.mdiagband :: Prelude.Int -> [[[Prelude.Float]]];
+Input.mdiagband' :: Prelude.Int -> [[[Prelude.Float]]];
+Input.mkbigvec :: [[Prelude.Float]] -> Matrix.Vector;
+Input.mksparse :: [[(Prelude.Int, Prelude.Int, [[Prelude.Float]])]] -> Matrix.Matrix;
+Input.myread :: __forall__ [a] a -> [Prelude.Char];
+Input.myreadmtx :: __forall__ [a,b] {{Prelude.Num b, Prelude.Eq b}} => b -> a -> [[Prelude.Float]];
+Input.numval :: Prelude.String -> Prelude.Float;
+Input.off_block :: [[Prelude.Float]];
+Input.readmtx :: __forall__ [a,b] {{Prelude.Num a, Prelude.Eq a}} => a -> b -> [[Prelude.Float]];
+Input.readsoln :: __forall__ [a] a -> [[Prelude.Float]];
+Input.readsolnvect :: __forall__ [a] a -> [[Prelude.Float]];
+Input.resm :: Prelude.Int;
+Input.resn :: Prelude.Int;
+Input.resnm :: Prelude.Int;
+Input.rhside :: Prelude.Int -> Matrix.Vector;
+Input.soln_vect :: Prelude.Int -> Matrix.Vector;
+Input.split :: __forall__ [a] Prelude.Int -> [a] -> [[a]];
+Input.splitmtx :: __forall__ [a] Prelude.Int -> Prelude.Int -> [a] -> [[[a]]];
+Input.udiagband :: Prelude.Int -> [[[Prelude.Float]]];
+Input.udiagband' :: Prelude.Int -> [[[Prelude.Float]]];
+Input.upperband :: Prelude.Int -> [[[Prelude.Float]]];
+Input.upperband' :: Prelude.Int -> [[[Prelude.Float]]];
+Input.wells :: Prelude.Int -> Prelude.Int;
+Input.x0 :: __forall__ [a] {{Prelude.Num a, Prelude.Enum a}} => a -> Matrix.Vector;
+Input.x1 :: __forall__ [a] {{Prelude.Num a, Prelude.Enum a}} => a -> Matrix.Vector;

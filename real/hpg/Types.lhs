@@ -20,9 +20,8 @@ need to read any of them.
 \begin{haskell}
 
 > module Types (
->     Type_decl(..), Htype(..), Argtype(..), Base_type(..), Num_kind(..),
->     Constructor(..), Type_name(..),
->     Val_decl(..), Value(..), Val_name(..),
+>     Type_decl, Htype, Argtype(..), Base_type(..), Num_kind(..),
+>     Constructor, Type_name, Val_decl, Value(..), Val_name,
 >     Expression(..),
 >     showsType_decl, showsVal_decl, vrange,
 >     int_val,

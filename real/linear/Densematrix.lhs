@@ -33,7 +33,7 @@
 
 \begin{code}
 
-module Densematrix(Matrix(..),Vector(..),
+module Densematrix(Matrix,Vector,
         mmult, madd, msub, vouter, vdot, norm ,mneg ,mxpose,mident, msize,
         mkmat, mkrmat, mkcmat, mkvec, mkrvec, mkcvec,
         vadd, vsub, vsize, vneg,
@@ -46,6 +46,7 @@ module Densematrix(Matrix(..),Vector(..),
         minverse,
         veclist, matlist ) where
 
+import List (transpose)
 import Utils
 
 type Matrix    =  [[Float]]

@@ -1,8 +1,29 @@
-interface Cg where {
-{-# IMPORTING Utils #-}
-import AbsDensematrix(Vec);
-import Matrix(Block_list, Matrix, Vector);
-cgiters :: (Matrix -> Vector -> (Matrix, Vector)) -> (Matrix -> Vector -> Vector) -> [Block_list] -> [Vec] -> [Cg_state]   {-# ARITY cgiters = 4 #-}{-# STRICTNESS cgiters = "T,F" ST #-};
-data Cg_state = Cg_stateC ([Vec]) ([Vec]) ([Vec]) ([Vec]) Int deriving ();
-showcg_state :: [Vec] -> Cg_state -> [Char]   {-# ARITY showcg_state = 2 #-}{-# STRICTNESS showcg_state = "1,F" ST #-}
-}
+interface Cg 1
+__usages__
+AbsDensematrix 1 :: Block 1 Vec 1;
+Densematrix 1 :: Matrix 1 Vector 1;
+GHCbase 47 :: CCallable 8 CReturnable 8 IO 22 lex 14 readList__ 12 showList__ 12 showSpace 2;
+GHCio 27 :: IOError 1;
+Ix 15 :: Ix 1;
+Matrix 1 :: Block_list 1 Block_tuple 1 Col_pos 1 Matrix 1 Matrix_type 1 Row_pos 1 Scalar 1 Vector 1 Vector_type 1 mvmult 1 norm 1 svmult 1 vadd 1 vdot 1 vsub 1;
+Prelude 32 :: && 2 . 8 Bounded 7 Either 7 Enum 7 Eq 7 Eval 7 Floating 7 Fractional 7 Functor 8 Integral 22 Monad 8 MonadPlus 8 MonadZero 8 Num 7 Ord 7 Ordering 2 Read 8 ReadS 7 Real 7 RealFloat 7 RealFrac 8 Show 7 ShowS 2 String 2 iterate 8 not 2 readParen 8 show 8 showParen 2 showString 2;
+Ratio 21 :: Ratio 9 Rational 2;
+Utils 1 :: rjustify 1 spaces 1;
+__versions__
+Cg_state 1
+Precond_function 1
+Scale_function 1
+cgiters 1
+showcg_state 1
+__exports__
+Cg Cg_state (..)
+Cg cgiters (..)
+Cg showcg_state (..)
+__declarations__
+data  Cg.Cg_state  = Cg.Cg_stateC Matrix.Vector Matrix.Vector Matrix.Vector Matrix.Vector Prelude.Int ;
+type Cg.Precond_function  = Matrix.Matrix -> Matrix.Vector -> Matrix.Vector;
+type Cg.Scale_function  = Matrix.Matrix -> Matrix.Vector -> (Matrix.Matrix, Matrix.Vector);
+Cg.cgiters :: Cg.Scale_function -> Cg.Precond_function -> Matrix.Matrix -> Matrix.Vector -> [Cg.Cg_state];
+Cg.showcg_state :: Matrix.Vector -> Cg.Cg_state -> [Prelude.Char];
+__instances__
+instance Prelude.Eval Cg.Cg_state;

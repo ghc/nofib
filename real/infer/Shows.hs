@@ -1,5 +1,5 @@
 module  Shows
-      (Shows (..), showsEmpty, showsConcat, showsString, showsChar, showsStar,
+      (Shows, showsEmpty, showsConcat, showsString, showsChar, showsStar,
        showsStarSep, showsSurround, showsListOf, showsParen, showsParenIf)
       where
 
@@ -26,5 +26,3 @@ showsParen                    :: ShowS -> ShowS
 showsParen                    =  showsSurround "(" id ")"
 showsParenIf                  :: Bool -> ShowS -> ShowS
 showsParenIf b xS             =  if  b  then  showsParen xS  else  xS
---id                          :: x -> x
---id x                        =  x

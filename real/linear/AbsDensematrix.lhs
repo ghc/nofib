@@ -6,7 +6,7 @@ statement(from Matrix) is left as a comment at the foot of this file.
 
 \begin{code}
  
-module AbsDensematrix(Block(..),Vec(..),bmult,bvecmult,vecbmult,vecdot,vecnorm,
+module AbsDensematrix(Block,Vec,bmult,bvecmult,vecbmult,vecdot,vecnorm,
                       vecouter,badd,bsub,vecadd,vecsub,bsize,vecsize,bneg,
                       bxpose,bident,vecneg,svecmult,mkblock,bswaprow,bswapcol,
                       bdroprow,bgetrow,bgetcol,bsubscript,vecsubscript,bupdate,

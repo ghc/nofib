@@ -1,11 +1,37 @@
-interface Misc where {
-takeuntil :: (a -> Bool) -> [a] -> [a]   {-# ARITY takeuntil = 2 #-}{-# STRICTNESS takeuntil = "1,F" ST #-};
-inrange :: Int -> Int -> Int -> Bool   {-# ARITY inrange = 3 #-}{-# STRICTNESS inrange = "0&2,0&1&2" ST #-};
-forceVec :: [Float] -> [Float]   {-# ARITY forceVec = 1 #-}{-# STRICTNESS forceVec = "0,F" ST #-};
-forceInt :: Int -> Bool   {-# ARITY forceInt = 1 #-}{-# STRICTNESS forceInt = "0,0" ST #-};
-forceFloat :: Float -> Bool   {-# ARITY forceFloat = 1 #-}{-# STRICTNESS forceFloat = "0,F" ST #-};
-forceMat :: [[Float]] -> [[Float]]   {-# ARITY forceMat = 1 #-}{-# STRICTNESS forceMat = "0,F" ST #-};
-mkrunitem :: [Char] -> [Char] -> Runitem   {-# ARITY mkrunitem = 2 #-}{-# STRICTNESS mkrunitem = "T,T" ST #-};
-run :: Runitem -> [Char]   {-# ARITY run = 1 #-}{-# STRICTNESS run = "0,F" ST #-};
-type Runitem = ([Char], [Char])
-}
+interface Misc 1
+__usages__
+GHCbase 47 :: CCallable 8 CReturnable 8 IO 22 lex 14 readList__ 12 showList__ 12 showSpace 2;
+GHCio 27 :: IOError 1;
+Ix 15 :: Ix 1;
+Prelude 32 :: && 2 . 8 Bounded 7 Either 7 Enum 7 Eq 7 Eval 7 Floating 7 Fractional 7 Functor 8 Integral 22 Monad 8 MonadPlus 8 MonadZero 8 Num 7 Ord 7 Ordering 2 Read 8 ReadS 7 Real 7 RealFloat 7 RealFrac 8 Show 7 ShowS 2 String 2 not 2 otherwise 2 readParen 8 showParen 2 showString 2;
+Ratio 21 :: Ratio 9 Rational 2;
+__versions__
+Runitem 1
+forceFloat 1
+forceInt 1
+forceMat 1
+forceVec 1
+inrange 1
+mkrunitem 1
+run 1
+takeuntil 1
+__exports__
+Misc Runitem (..)
+Misc forceFloat (..)
+Misc forceInt (..)
+Misc forceMat (..)
+Misc forceVec (..)
+Misc inrange (..)
+Misc mkrunitem (..)
+Misc run (..)
+Misc takeuntil (..)
+__declarations__
+type Misc.Runitem  = ([Prelude.Char], [Prelude.Char]);
+Misc.forceFloat :: Prelude.Float -> Prelude.Bool;
+Misc.forceInt :: Prelude.Int -> Prelude.Bool;
+Misc.forceMat :: [[Prelude.Float]] -> [[Prelude.Float]];
+Misc.forceVec :: [Prelude.Float] -> [Prelude.Float];
+Misc.inrange :: Prelude.Int -> Prelude.Int -> Prelude.Int -> Prelude.Bool;
+Misc.mkrunitem :: [Prelude.Char] -> [Prelude.Char] -> Misc.Runitem;
+Misc.run :: Misc.Runitem -> [Prelude.Char];
+Misc.takeuntil :: __forall__ [a] (a -> Prelude.Bool) -> [a] -> [a];

@@ -1,9 +1,21 @@
-interface AbsCg where {
-{-# IMPORTING Cg #-}
-import AbsDensematrix(Block, Vec);
-import Cg(Cg_state(..));
-import Matrix(Block_list, Col_pos, Row_pos);
-solve_iters :: ([Block_list] -> [Vec] -> ([Block_list], [Vec])) -> ([Block_list] -> [Vec] -> [Vec]) -> [[(Row_pos, Col_pos, Block)]] -> [[Float]] -> [Cg_state]   {-# ARITY solve_iters = 0 #-}{-# STRICTNESS solve_iters = "T,F" ST #-};
-data Cg_state = Cg_stateC ([[Float]]) ([[Float]]) ([[Float]]) ([[Float]]) Int deriving ();
-show_state :: [[Float]] -> Cg_state -> [Char]   {-# ARITY show_state = 0 #-}{-# STRICTNESS show_state = "T,F" ST #-}
-}
+interface AbsCg 1
+__usages__
+AbsDensematrix 1 :: Block 1 Vec 1;
+Cg 1 :: Cg_state 1 Precond_function 1 Scale_function 1 cgiters 1 showcg_state 1;
+Densematrix 1 :: Matrix 1 Vector 1;
+GHCbase 47 :: CCallable 8 CReturnable 8 IO 22 lex 14 readList__ 12 showList__ 12 showSpace 2;
+GHCio 27 :: IOError 1;
+Ix 15 :: Ix 1;
+Matrix 1 :: Block_list 1 Block_tuple 1 Col_pos 1 Matrix 1 Matrix_type 1 Row_pos 1 Vector 1 Vector_type 1;
+Prelude 32 :: && 2 . 8 Bounded 7 Either 7 Enum 7 Eq 7 Eval 7 Floating 7 Fractional 7 Functor 8 Integral 22 Monad 8 MonadPlus 8 MonadZero 8 Num 7 Ord 7 Ordering 2 Read 8 ReadS 7 Real 7 RealFloat 7 RealFrac 8 Show 7 ShowS 2 String 2 not 2 readParen 8 showParen 2 showString 2;
+Ratio 21 :: Ratio 9 Rational 2;
+__versions__
+show_state 1
+solve_iters 1
+__exports__
+Cg Cg_state (..)
+AbsCg show_state (..)
+AbsCg solve_iters (..)
+__declarations__
+AbsCg.show_state :: Matrix.Vector -> Cg.Cg_state -> [Prelude.Char];
+AbsCg.solve_iters :: Cg.Scale_function -> Cg.Precond_function -> Matrix.Matrix -> Matrix.Vector -> [Cg.Cg_state];

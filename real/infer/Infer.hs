@@ -3,9 +3,9 @@ module Infer (inferTerm) where
 import List(nub)
 
 import  MyList                  (minus)
-import  Type                  (TVarId (..), TConId (..), MonoType (..), PolyType (All),
+import  Type                  (TVarId, TConId, MonoType (..), PolyType (All),
                                arrow, freeTVarMono)
-import  Term                  (VarId (..), Term (Var, Abs, App, Let))
+import  Term                  (VarId, Term (Var, Abs, App, Let))
 import  Substitution          (Sub, applySub, lookupSub, makeSub)
 import  Environment           (Env, lookupEnv, extendLocal, extendGlobal,
                                domEnv, freeTVarEnv)

@@ -2,7 +2,7 @@ module Substitution   (Sub, applySub, lookupSub, emptySub, extendSub,
                        makeSub, thenSub, domSub, unifySub)
                       where
 
-import Type           (TVarId (..), TConId (..), MonoType (TVar, TCon), freeTVarMono)
+import Type           (TVarId, TConId, MonoType (TVar, TCon), freeTVarMono)
 import FiniteMap      (FM, emptyFM, lookupElseFM, makeFM, extendFM,
                        thenFM, mapFM, domFM, ranFM)
 import Maybe          (Maybe, thenM, returnM, failM, guardM)

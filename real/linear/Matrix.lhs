@@ -10,8 +10,8 @@
 \begin{code}
 
 module Matrix 
-         (Matrix(..), Vector(..), Block (..), Vec (..),
-          Block_list (..), Row_pos(..), Col_pos (..), 
+         (Matrix, Vector, Block , Vec ,
+          Block_list , Row_pos, Col_pos, 
           mmult, mvmult, svmult,
           madd, msub,
           vadd, vsub,

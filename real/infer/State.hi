@@ -1,9 +1,0 @@
-interface State where {
-data State a b;
-returnS :: a -> State b a   {-# ARITY returnS = 1 #-}{-# STRICTNESS returnS = "T,F" ST #-};
-eachS :: (State a b) -> (b -> c) -> State a c   {-# ARITY eachS = 2 #-}{-# STRICTNESS eachS = "T,F" ST #-};
-thenS :: (State a b) -> (b -> State a c) -> State a c   {-# ARITY thenS = 2 #-}{-# STRICTNESS thenS = "T,F" ST #-};
-putS :: a -> State a ()   {-# ARITY putS = 1 #-}{-# STRICTNESS putS = "T,F" ST #-};
-getS :: State a a   {-# ARITY getS = 0 #-}{-# STRICTNESS getS = "T,T" ST #-};
-useS :: (State a b) -> a -> b   {-# ARITY useS = 2 #-}{-# STRICTNESS useS = "T,F" ST #-}
-}

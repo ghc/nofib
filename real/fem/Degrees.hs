@@ -12,6 +12,7 @@
 
 module Degrees( ndgrs, getndgr, degreesrlt ) where
 
+import Array
 import Basics
 import Vector
 import DB_interface
