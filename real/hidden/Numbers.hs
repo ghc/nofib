@@ -22,8 +22,8 @@ instance Floating Number where
 	sqrt (Tolerant a)		= Tolerant (sqrt a)
 {- Allow both integral and floating denotations for numbers -}
 instance Read Number where
-	readsPrec p s = [(Tolerant n,t) | (n,t) <- readsPrec p s] ++
-			[(Tolerant (fromInteger n),t) | (n,t) <- readsPrec p s]
+	readsPrec p s = [(Tolerant n,t) | (n,t) <- readsPrec p s] --++
+			--[(Tolerant (fromInteger n),t) | (n,t) <- readsPrec p s]
 instance Show Number where
 	showsPrec p (Tolerant x) = showsPrec p x
-eps	= 0.0001
+eps	= 0.0001 :: Float
