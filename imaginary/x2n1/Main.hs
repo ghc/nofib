@@ -1,5 +1,3 @@
-{-# OPTIONS -syslib lang #-}
-
 {-
 Date: Tue, 15 Dec 92 14:39:56 +0100
 From: Lennart Augustsson <augustss@cs.chalmers.se>
@@ -27,8 +25,6 @@ of all the other programs I thought I'd contribute at least one :-)
 
 module Main ( main ) where
 import Complex
-import Int( Num(fromInt) )	-- Shouldn't really use this in a benchmark,
-				-- but don't want change wrt old baselines
 
 main = print (round (realPart (sum [f n | n <- [1..10000]])))
 
