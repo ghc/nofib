@@ -84,6 +84,12 @@ try db (Soln env vs) g (Term "if" [p,newg]) =
 -- answer.
 
 ask info (Soln env vs) g =
-   Question (showPhrase (subst env g)) :
+   Question sp :
    if ans then [Soln env vs] else [] where
-   ans = answer (find info (showPhrase (subst env g)))
+   ans = answer (find info sp)
+   sp  = showPhrase (subst env g)
+	-- SLPJ Nov 99
+	-- I've hauled out sp as a common sub expression; it was
+	-- duplicated before.  If we don't haul it out, it's a matter
+	-- of chance whether GHC spots it or not, and that makes the
+	-- numbers wobble around a lot.
