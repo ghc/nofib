@@ -1,4 +1,0 @@
-interface Fulsom where {
-{-# IMPORTING Shapes, Quad, Raster, Oct, Interval, Types #-}
-main :: Dialogue   {-# ARITY main = 1 #-}{-# STRICTNESS main = "T,T" ST #-}
-}

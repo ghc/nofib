@@ -149,29 +149,6 @@ maStrictAn table flagsInit fileName
          fullEnvAug = fullEnv ++ map2nd deScheme maBaseTypes
          deScheme (Scheme _ texpr) = texpr
 
-{-
---==========================================================--
---
-anna :: [Flag] -> String -> Dialogue
-
-anna flags name
-   = getEnv "ANNADIR"             noANNADIR           (\anna_dir  ->
-     readFile (anna_dir++"/anna_table") noTable             (\tablestr ->
-     let table = rtReadTable tablestr in
-     readFile (name++".cor")      noFile              (\str      ->
-     let result = maStrictAn table flags str in
-     appendChan stdout result     writeFails          done)))
-     where
-        noANNADIR  err            = abandon "ANNADIR not defined"
-        noTable    err            = abandon "Cannot find $ANNADIR/table"
-        noFile     err            = abandon ("Can't open "++name++".cor")
-        writeFails (WriteError s) = abandon s
-        abandon s                 = appendChan stdout s abort done
-        getEnv envvar fail succ   = succ "/home/r62/users/sewardj/Bin"
-        twords n = "\nRead " ++ show n ++ " lattice sizes.\n"
--}
-
-
 --==========================================================--
 --
 --main :: [Response] -> [Request]
@@ -182,47 +159,11 @@ main = do
     raw_args <- getArgs
     let cmd_line_args = maGetFlags raw_args
     anna_dir <- getEnv "ANNADIR"
-    tableStr <- readFile (anna_dir++"/anna_table")
+    tableStr <- readFile (anna_dir ++ "/anna_table")
     file_contents <- getContents
     let table = rtReadTable tableStr
     putStr (maStrictAn table cmd_line_args file_contents)
 
-{- OLD 1.2
-main resps
-   = [
-      GetArgs,
-      fr 0 (GetEnv "ANNADIR"),
-      fr 1 (ReadFile ),
-      fr 2 (ReadChan stdin),
-      fr 3 (AppendChan stdout )
-     ] ++ fr 4 [] (maStrictAn table cmd_line_args file_contents)
-     where
-        cmd_line_args = case (resps ## 0) of
-           StrList ss -> maGetFlags ss
-           _          -> panic "GetArgs request failed"
-
-        anna_dir = case (mySeq cmd_line_args (resps ## 1)) of
-           Str s -> s
-           _     -> myFail "Environment variable \"ANNADIR\" is not set."
-
-        tableStr = case (mySeq anna_dir (resps ## 2)) of
-           Str s -> s
-           _     -> myFail ("Can't read " ++ anna_dir ++ "/anna_table")
-
-        file_contents = case (mySeq (head tableStr) (resps ## 3)) of
-           Str s -> s
-           _     -> panic "ReadChan request failed"
-
-        --append_res = case (mySeq (head file_contents) (resps ## 4)) of
-        --   Success -> (42 :: Int)
-        --   _       -> panic "AppendChan request failed"
-
-        fr n x = case resps ## n of
-                    Success -> x
-                    _       -> x
-
-        table = rtReadTable tableStr
--}
 
 --==========================================================--
 --
