@@ -1,23 +1,14 @@
 #-----------------------------------------------------------------------------
-# $Id: site.mk,v 1.3 1996/11/27 18:43:19 dnt Exp $
+# $Id: site.mk,v 1.4 1997/01/17 00:35:25 simonpj Exp $
 
 #-----------------------------------------------------------------------------
 # Set these flags to YES or NO to determine which sets of tests wil be run
 
-ImaginaryNoFibTests = YES
-SpectralNoFibTests  = YES
-RealNoFibTests      = YES
-PENDINGNoFibTests   = YES
-UNUSEDNoFibTests    = YES
-GHC_ONLYNoFibTests  = YES
-PRIVATENoFibTests   = YES
-ParallelNoFibTests  = YES
+include $(TOP)/nofib/mk/buildinfo.mk
 
 #-----------------------------------------------------------------------------
 # Haskell compiler
 
-#HC = $(TOP)/ghc/driver/ghc
-HC = ghc-2.01
 HCFLAGS = -H32m -K2m
 
 #-----------------------------------------------------------------------------
