@@ -5,7 +5,7 @@ include $(TOP)/mk/boilerplate.mk
 SRCS = Main.hs
 
 # Main is rather big
-Main_HC_OPTS = -H15m
+Main_HC_OPTS = -H90m
 
 SRC_HC_OPTS += -syslib lang
 
