@@ -8,7 +8,7 @@ STDIN_FILE = /dev/null
 
 # the default HS_SRCS doesn't include .ly files...
 HS_SRCS += HappyParser.hs
-HappyParser_HAPPY_OPTS += -g
+GHC_HAPPY_OPTS = -g
 
 include $(TOP)/mk/target.mk
 
