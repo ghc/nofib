@@ -1,8 +1,9 @@
 {-# OPTIONS -fglasgow-exts #-}
 
-import GlaExts;
+import PrelGHC;
 import Complex;
 import Array;
+import PrelBase ( Int(..) );
 
 type Complex_type = Complex Double;
 type Array_type b = Array Int b;
