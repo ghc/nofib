@@ -21,10 +21,13 @@ endif
 $(NOFIB_PROG) : $(OBJS)
 	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
-	@$(STRIP) $@
-	@echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...
-	@$(SIZE) $@
+	@if (test -f $@ ); then \
+		$(STRIP) $@; \
+		echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...; \
+		$(SIZE) $@; \
+	fi;
 
+ifneq "$(NOFIB_PROG)" ""
 runtests :: $(NOFIB_PROG)
 	@echo ==nofib== $<: time to run $< follows...
 	@$(TIME) $(RUNTEST) ./$< \
@@ -32,7 +35,10 @@ runtests :: $(NOFIB_PROG)
 	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout)) \
 	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr)) \
 	  $(RUNTEST_OPTS)
-
+else
+runtests ::
+	@:
+endif
 
 # Include standard boilerplate
 # We do this at the end for cosmetic reasons: it means that the "normal-way"
