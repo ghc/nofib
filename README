@@ -1,9 +1,9 @@
 This is the root directory of the "NoFib Haskell benchmark suite";
-version 2.01 (to match our other Glasgow functional-programming
+version 2.05 (to match our other Glasgow functional-programming
 tools).
 
-The main change between version 0.26 and 2.01 is that the programs
-have been converted to Haskell 1.3 (insofar as I could be bothered).
+The main change between version 2.01 and 2.05 is that the programs
+have been converted to Haskell 1.4.
 
 We have yet to release the NoFib stuff as we intended -- everything
 tidied up -- because it's a lot of work for very few brownie points.
@@ -18,7 +18,7 @@ all, the copyright for the individual programs remains with their
 authors (unless they have explicitly said otherwise).  Second, we (the
 Glasgow Haskell project at University of Glasgow) retain the copyright
 to any changes made to the programs *and* to the collection of
-programs itself.  Third, for 2.01, it would be dishonest to suggest
+programs itself.  Third, for 2.05, it would be dishonest to suggest
 that any results are related to the still-in-the-future "NoFib
 benchmark suite".  So please do not make any such claims.
 
@@ -29,9 +29,6 @@ of this suite.
 
 The file BUILDING provides some direction about setting up the suite,
 in order to run it. [NOTE: doesn't exist yet; see sketchy notes below]
-
-The file BUGS is a list of things we *know* are not right [ALSO
-VIRTUALLY USELESS].  Help would be most welcome...
 
 You may sent comments or bug reports about this suite either to the
 Glasgow Haskell bugs list <glasgow-haskell-bugs@dcs.gla.ac.uk>.
@@ -49,30 +46,30 @@ and try it :-)
 Doing things properly
 ~~~~~~~~~~~~~~~~~~~~~
 
-* Run: ./configure --enable-nofib --disable-ghc --with-hc={ghc*,glhc*,hbc*,nhc*}
+* This version of nofib only supports ghc-2.05, so if you try to use
+  other versions of GHC or different Haskell systems, you're going to
+  run into some obstacles.
 
-* Your "mkworld" project id is "nofib" (surprise, surprise).  You must
-  also pick a "setup" for your "nofib project".
+* Plop the nofib distribution inside the Glasgow fptools suite, i.e.,
+  unpack nofib at the toplevel at the same level as directories such as
+  ghc/ and glafp-utils/.
 
-  There are three available, one per compiler tried so far: hbc, ghc,
-  and nhc.
+* Have a look in mk/config.mk.in to see what variables control the nofib setup.
+  If you want to change these, put the new settings for them in the build-specific
+  setup file, mk/build.mk
 
-* Once you've decided on a setup, edit
-  nofib/mkworld/site-nofib-<setup>.jm.  "SetupHcOpts" should be set to
-  the compiler options that should be applied absolutely always (if
-  any).
-  
-  nofib/mkworld/site-nofib-hbc.jm is a nice simple example.
+* Run ./configure
 
-* You should be ready to go.  "cd" to the very top directory and type:
+* Assuming you haven't built the compiler, you will need to do that first.
+  Type "make boot" (or whatever make is called on your system)
+  followed by "make all". 
 
-    sh < STARTUP
+* cd nofib/
 
-  This should configure and build the mkworld, literate, and
-  glafp-utils infrastructure, and configure the nofib stuff itself.
+* Ready the nofib suite for some use, by running `make boot', which
+  takes care of creating Makefile dependendencies.
 
-* If that works -- and you'll know if it did -- then do:
+* If all that worked -- and you'll know if it did -- then do:
 
-    % cd nofib
     % make -k >& make.log # to compile everything; save log for study
     % make -k runtests >& runtests.log	# also for study
