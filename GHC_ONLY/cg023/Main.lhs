@@ -201,7 +201,7 @@ immediately selected.
 > eval co de args cds@(Call fname tag params alt0 alt1)
 >   = let (copied_an_empty, callee_args) = copy_args args params
 >         augmented_de      = tag : de
->         callee_code       = lookup co fname
+>         callee_code       = lkup co fname
 >         callee_result     = eval co augmented_de callee_args callee_code
 >         been_here_before  = tag `elem` de
 >     in
@@ -244,7 +244,7 @@ ToDo: what happens if a Call turns up ???
 >               copied_an_empty
 >         then  cds
 >         else  eval co de args 
->                    (lookup alts (get_head 
+>                    (lkup alts (get_head 
 >                                    (eval co de new_args functional_param)))
 
 Auxiliary for evaluating Case expressions.
@@ -273,7 +273,7 @@ corresponding output position.
 >                Empty -> cax True ps (Empty:res)
 >                other -> cax empty ps (other:res)
 
-> lookup env k = head ( [v | (kk,v) <- env, kk == k] ++ 
+> lkup env k = head ( [v | (kk,v) <- env, kk == k] ++ 
 >                       [error ( "Can't look up " ) ] )
 
 %============================================================
@@ -284,7 +284,7 @@ corresponding output position.
 
 Something to make running tests easier ...
 
-> eval0 fname args = eval test [] args (lookup test fname)
+> eval0 fname args = eval test [] args (lkup test fname)
 >
 > two = [Zero, One]
 

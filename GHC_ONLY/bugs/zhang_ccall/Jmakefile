@@ -1,9 +1,0 @@
-SRCS_HS = Main.hs
-OBJS_O  = Main.o ccall.o
-
-NoFibMultiModuleCompileAndRun(zhang_ccall,-o1 zhang_ccall.stdout)
-
-NoFibHaskellCompile(zhang_ccall,Main,hs)
-
-ccall.o : ccall.c
-	$(CC) -c $(CFLAGS) ccall.c

@@ -1,7 +1,0 @@
-/* "winners" of 1993 Obfuscated Haskell contest */
-
-#define IHaveSubdirs
-
-SUBDIRS = hammond	\
-	  launchbury	\
-	  rittri

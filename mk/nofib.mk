@@ -73,7 +73,10 @@ ifndef SRCS
   SRCS = Main.hs
 endif
 
-OBJS = $(patsubst %.lhs, %.o, $(patsubst %.hs, %.o, $(SRCS)))
+OBJS = $(SRCS)
+OBJS := $(patsubst %.lhs, %.o, $(OBJS))
+OBJS := $(patsubst %.hs, %.o, $(OBJS))
+OBJS := $(patsubst %.hc, %.o, $(OBJS))
 
 define COMPILE
 	@echo === compiling $(PROG)/$@ $(EXTRA_HCFLAGS) ===
@@ -91,6 +94,11 @@ endef
 %.normal.o %.mc.o %.mr.o %.mt.o %.mp.o %.mg.o %.2s.o %.1s.o %.du.o \
 %.a.o %.b.o %.c.o %.d.o %.e.o %.f.o %.g.o %.h.o %.i.o %.j.o %.k.o \
 %.l.o %.m.o %.n.o %.o.o %.p.o %.A.o %.B.o : %.lhs
+	$(COMPILE)
+
+%.normal.o %.mc.o %.mr.o %.mt.o %.mp.o %.mg.o %.2s.o %.1s.o %.du.o \
+%.a.o %.b.o %.c.o %.d.o %.e.o %.f.o %.g.o %.h.o %.i.o %.j.o %.k.o \
+%.l.o %.m.o %.n.o %.o.o %.p.o %.A.o %.B.o : %.hc
 	$(COMPILE)
 
 $(PROG)_% : $(OBJS:.o=.%.o)

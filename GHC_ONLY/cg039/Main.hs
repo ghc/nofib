@@ -4,11 +4,11 @@
 
 module Main where
 
-class Seq a where
-   seq :: a -> b -> b
+class Poly a where
+   poly :: a -> b -> b
 
-instance Seq [a] where
-   seq [] y = y
-   seq x  y = y
+instance Poly [a] where
+   poly [] y = y
+   poly x  y = y
 
-main = print ("hurrah" `seq` "Hello, world!\n")
+main = print ("hurrah" `poly` "Hello, world!\n")
