@@ -192,10 +192,10 @@ In the first implementation, there are three steps.
 >    d = log2 (n-1) -- maximum possible degree
 >
 >    ins a (i, t) =
->        readArray a i >>= \e ->
+>        readSTArray a i >>= \e ->
 >        case e of
->          Zero   -> writeArray a i (One t)
->          One t2 -> writeArray a i Zero >>
+>          Zero   -> writeSTArray a i (One t)
+>          One t2 -> writeSTArray a i Zero >>
 >                    ins a (i+1, link t t2)
 
 Note that after inserting all the trees, the array contains trees
@@ -204,7 +204,7 @@ highest order bit of n-1 is one, we know that there is a tree in
 the highest slot of the array.
 
 >    getMin a =
->        readArray a d >>= \e ->
+>        readSTArray a d >>= \e ->
 >        case e of
 >          Zero  -> error "must be One" -- since array is filled as bits of n-1
 >          One t -> getMin' a d t EmptyBag 0
@@ -212,7 +212,7 @@ the highest slot of the array.
 >        if i >= d then
 >          return ((mini, mint),b)
 >        else
->          readArray a i >>= \e ->
+>          readSTArray a i >>= \e ->
 >          case e of
 >            Zero  -> getMin' a mini mint b (i+1)
 >            One t -> if root mint <= root t then
@@ -221,7 +221,7 @@ the highest slot of the array.
 >                       getMin' a i t (ConsBag (mini, mint) b) (i+1)
 >            
 >  in 
->    runST (newArray (0,d) Zero >>= \a ->
+>    runST (newSTArray (0,d) Zero >>= \a ->
 >           applyToAll (ins a) f >>
 >           sequence (map (ins a) (getChildren tt)) >>
 >           getMin a >>= \ (tt,f) ->
