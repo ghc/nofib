@@ -1,0 +1,169 @@
+<HTML>
+<HEAD>
+<TITLE>RX Online Examples</TITLE>
+<LINK REV="made" HREF="mailto:joe@informatik.uni-leipzig.de">
+</HEAD>
+
+<BODY>
+<HR>
+
+<H2>RX Online Examples</H2>
+
+<HR>
+
+Please understand that this RX is run with low priority and
+small stack and heap space to reduce system load on our server.
+
+<P>
+
+Beware: the examples are run on a host at
+my previous workplace. This is bound to break somewhere in the near future.
+So I'm bound to move the system over here completely -
+but not this week (I hope).
+
+<P>
+
+Your inputs (and RX's output) will be logged. 
+(Your name will not.)
+
+<HR>
+
+<H3>RX example: words over single letter alphabet</H3>
+This shows the grammar syntax. All output grammars are in fact
+deterministic bottom up tree automata. Their states are denoted
+by naturals. Beware of higher arities. They work, in theory,
+but in practice, they need their time.
+<FORM METHOD="POST" 
+      ACTION="http://www.minet.uni-jena.de/cgi-bin/user/joe/RX.pl">
+<TEXTAREA NAME="RX_INPUT" ROWS=8 COLS=60>arity 0 zero -- constructor
+arity 1 succ -- constructor
+nats = grammar n { n -> zero ++ succ n }
+evens = grammar e { e -> zero ++ succ (succ e) }
+-- some trivial operations
+nats \\ evens -- set difference
+evens ++ nats -- set union
+evens & nats -- set intersection
+</TEXTAREA>
+<P>
+<INPUT TYPE="submit" VALUE="submit">
+<INPUT TYPE="reset"  VALUE="reset" >
+</FORM>
+<HR>
+
+<H3>RX example: binary trees</H3>
+This is what I use in CL(S). 
+<FORM METHOD="POST" 
+      ACTION="http://www.minet.uni-jena.de/cgi-bin/user/joe/RX.pl">
+<TEXTAREA NAME="RX_INPUT" ROWS=10 COLS=60>arity 0 S  
+.set (implicit=on, apply = "@")
+all = grammar m { m -> S ++ m m }
+-- expression in normal form
+norm = grammar n { n -> S ++ S n ++ S n n }
+-- expressions with redexes
+unnorm = all \\ norm
+-- sanity check
+norm & unnorm
+</TEXTAREA>
+<P>
+<INPUT TYPE="submit" VALUE="submit">
+<INPUT TYPE="reset"  VALUE="reset" >
+</FORM>
+<HR>
+
+<H3>RX examples from my RTA98 paper</H3>
+You'll have to read the paper 
+<STRONG>Normalization of S-Terms is Decidable</STRONG>
+to understand what's going on.
+The point is that all of the checks below 
+should return the empty set.
+<FORM METHOD="POST" 
+      ACTION="http://www.minet.uni-jena.de/cgi-bin/user/joe/RX.pl">
+<TEXTAREA NAME="RX_INPUT" ROWS=60 COLS=60>arity 0 S -- nullary constructor  
+infixl 60 @ -- binary application operator
+.set (implicit=on, apply = "@") -- is implicitly used
+.set (det=on,min=on) -- make all automata deterministic
+
+-- section 2: Notations and Preliminaries
+-- definition 3:
+T = S S
+A = S S S
+-- definition 4:
+M = grammar m { m -> S ++ m m }
+N = grammar n { n -> S ++ S n ++ S n n }
+-- definition 6 (just some of them):
+Q0 = M
+P1 = S        
+Q1 = M \\ P1
+P2 = S ++ S P1
+Q2 = M \\ P2
+P3 = S ++ S P2
+Q3 = M \\ P3
+-- check lemma 7 (trivial):
+P2 \\ P3
+Q3 \\ Q2
+-- definition 9 (director):
+dir y = grammar d { d -> y, d -> S d M ++ S M d }
+-- definition 11:
+infixr 55 /
+x / y = grammar d { d -> y, d -> x d }
+
+-- section 3: Examples of Infinite Reductions
+-- definition 14:
+F = dir (Q2 Q1)
+-- check lemma 15 (nearly trivial):
+Q1 F \\ F
+
+-- section 4: The decision Procedure
+-- subsection 4.2: The case N N
+-- definition 20:
+N0 = T / (S ++ S N)
+-- definition 25:
+N01 = (S P2) / (S ++ S N ++ S (S T) P2)
+-- definition 30:
+N1 = N01 \\ N0
+N2 = N \\ N01
+-- check proof of proposition 31 (substantial):
+N2 \\ (dir (Q3 Q2) ++ dir (S Q3 Q0))
+
+-- subsection 4.2: The case N1 N1
+-- definition 33:
+L0 = T / S (S P2) S
+-- definition 36:
+L1 = T / S T (S P2)
+-- definition 39:
+L12 = N1 \\ L0
+L2 = L12 \\ L1
+-- check proof of proposition 40 (substantial):
+L12 \\ dir (Q2 Q1)
+-- check proof of proposition 41 (substantial):
+L2 \\ (T / (S (S T) T ++ S T Q3))
+</TEXTAREA>
+<P>
+(Running the examples takes some time on our server.
+Be prepared to wait, or download the RX source
+and run them at your site.)
+</P>
+<P>
+<INPUT TYPE="submit" VALUE="submit">
+<INPUT TYPE="reset"  VALUE="reset" >
+</FORM>
+<HR>
+
+<P ALIGN="CENTER">
+<A HREF="http://www.anybrowser.org/campaign/"><IMG SRC="http://www.informatik.un
+i-leipzig.de/~joe/anybrowsernow.gif" ALT="best viewed with any browser"></A>
+</P>
+
+
+
+<HR>
+<ADDRESS>
+<A HREF="http://www.informatik.uni-leipzig.de/~joe/">
+<TT>http://www.informatik.uni-leipzig.de/~joe/</TT></A>
+<A HREF="mailto:joe@informatik.uni-leipzig.de">
+<TT>mailto:joe@informatik.uni-leipzig.de</TT></A>
+</ADDRESS>
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,16 @@
+rx-2.0.2 (18-sep-98)
+
+	fixed a nice bug in FAunion.hs
+
+	slight rearrangements to allow other haskell programs
+	to link with RX
+
+	recast documentation into html
+
+rx-2.0.1 (5-nov-97)
+
+	fixed export lists to make rx compile with hbc
+
+rx-2.0.0 (1-nov-97) 
+
+	basic release	

@@ -1,0 +1,26 @@
+.set (current=text,text=latex,eval=off)
+
+\documentclass[11pt,a4paper]{report}
+\pagestyle{headings}
+
+\setlength{\hoffset}{-0.5in}
+\addtolength{\textwidth}{1.5in}
+\addtolength{\evensidemargin}{-0.8in}
+\addtolength{\oddsidemargin}{0.3in}
+
+\setlength{\voffset}{-0.8in}
+\addtolength{\textheight}{1.5in}
+
+\parskip 2mm
+\parindent 0mm
+\renewcommand{\baselinestretch}{1.1}
+
+
+.begin(current=code,output=off)
+form RX = "\texttt{RX}"
+.end
+
+\begin{document}
+\appendix
+.import "rxuser.lit"
+\end{document}

@@ -1,0 +1,20 @@
+a few things to add to RX
+
+- a proper type system. 
+  at the moment, everything is a rational language.
+  we would need (at least) terms, numbers, sets, lists, tuples
+
+
+- a proper module system:
+
+	- non-flat namespace
+	- import/export declarations
+	
+- modules are compiled, resulting in
+	
+	- object files (containing variable bindings,
+	  like normal forms of automata)
+	- text files (containing typeset output)
+	  these should be \includeonly-able
+
+- all of this gets us dangerously close to a full Haskell.
