@@ -10,12 +10,13 @@ import Ratio   -- 1.3
 import Array   -- 1.3
 
 main = putStr
-	 (test_chars	++ "\n" ++
-	  test_ints	++ "\n" ++
-	  test_addrs	++ "\n" ++
-	  test_floats	++ "\n" ++
-	  test_doubles	++ "\n" ++
+	 (test_chars	++ "\n"  ++
+	  test_ints	++ "\n"  ++
+	  test_addrs	++ "\n"  ++
+	  test_floats	++ "\n"  ++
+	  test_doubles	++ "\n"  ++
 	  test_ptrs	++ "\n")
+
 
 -- Arr# Char# -------------------------------------------
 -- (main effort is in packString#)
