@@ -7,6 +7,10 @@
 
 % RCS amended stuff
 %$Log: Main.lhs,v $
+%Revision 1.3  2004/11/30 15:25:32  simonmar
+%The compiler now detects local modules that overlap with package
+%modules, so we must rename Random to avoid the clash.
+%
 %Revision 1.2  1996/07/25 21:32:56  partain
 %Bulk of final changes for 2.01
 %
@@ -19,10 +23,10 @@
 %Revision 1.1  92/06/30  13:57:47  dlester
 %Initial
 %
-%$Author: partain $
+%$Author: simonmar $
 %$State: Exp $
-%$Revision: 1.2 $
-%$Date: 1996/07/25 21:32:56 $
+%$Revision: 1.3 $
+%$Date: 2004/11/30 15:25:32 $
 
 % Constant stuff (at the moment).
 
@@ -41,7 +45,7 @@ Manchester M13 9PL, UK.}
 
 > module Main where
 > import IntLib
-> import Random
+> import MyRandom
 > import Prime
 
 Let's begin by giving Lester's line based command intepreter for

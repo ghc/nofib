@@ -1,5 +1,9 @@
 \section{Random Numbers}
-%$Log: Random.lhs,v $
+%$Log: MyRandom.lhs,v $
+%Revision 1.1  2004/11/30 15:25:33  simonmar
+%The compiler now detects local modules that overlap with package
+%modules, so we must rename Random to avoid the clash.
+%
 %Revision 1.1  1996/01/08 20:04:20  partain
 %Initial revision
 %
@@ -10,7 +14,7 @@
 A call to @randomInts@ with two @Int@ arguments generates a
 pseudo-random sequence of @Int@'s.
 
-> module Random (randomInts) where
+> module MyRandom (randomInts) where
 
 Use seeds s1 in 1..2147483562 and s2 in 1..2147483398 to generate an
 infinite list of random Ints. (Algorithm due to Lennart Augustsson)

@@ -1,5 +1,9 @@
 \section{Probabalistic Primality Testing}
 %$Log: Prime.lhs,v $
+%Revision 1.3  2004/11/30 15:25:33  simonmar
+%The compiler now detects local modules that overlap with package
+%modules, so we must rename Random to avoid the clash.
+%
 %Revision 1.2  1996/07/25 21:32:57  partain
 %Bulk of final changes for 2.01
 %
@@ -15,7 +19,7 @@
 
 > module Prime (multiTest) where
 > import IntLib
-> import Random
+> import MyRandom
 
 The function @multiTest@ tests the integer @n@ for primality @k@ times
 using the random numbers supplied in @rs@; it returns a @Bool@ and a
