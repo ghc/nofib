@@ -68,10 +68,46 @@ In June 2002, GHC 5.04 emitted four successive
 messages.  I suspect that the simplifer is looping somehow.
 
 
+Expert
+~~~~~~
+In spectral/expert/Search.ask there's a statically visible CSE. Catching this 
+depends almost entirely on chance, which is a pity.
+
+
+Fish
+~~~~
+The performance of fish depends crucially on inlining scale_vec2.
+It turns out to be right on the edge of GHC's normal threshold size, so
+small changes to the compiler can knock it to and fro.
+
+
+Integer
+~~~~~~~
+A good benchmark for beating on big-integer arithmetic
+
+Knights
+~~~~~~~
+In knights/KnightHeuristic, we don't find that possibleMoves is strict
+(with important knock-on effects) unless we apply rules before floating
+out the literal list [A,B,C...].
+Similarly, in f_se (F_Cmp ...) in listcompr (but a smaller effect)
+
+
+Lambda
+~~~~~~
+This program shows the cost of the non-eta-expanded lambdas that arise from
+a state monad.  
+
 Mandel
 ~~~~~~
 Relies heavily on having a specialised version of Complex.magnitude
 (:: Complex Double -> Double) available.
+
+Mandel.mandelset has a go-loop inside an enumDeltaToIntegerFB, out of which
+4.08.2 managed to float a constant expression, but HEAD did not.  I think
+this is because the pre-let-floating simplification did too little inlining;
+in particular, it did not inline windowToViewport
+
 
 Multiplier
 ~~~~~~~~~~
@@ -87,15 +123,6 @@ In spectral/multiplier, we have
   So allocation goes up.  I don't see a way around this.
 
 
-Mandel
-~~~~~~
-Mandel.mandelset has a go-loop inside an enumDeltaToIntegerFB, out of which
-4.08.2 managed to float a constant expression, but HEAD did not.  I think
-this is because the pre-let-floating simplification did too little inlining;
-in particular, it did not inline windowToViewport
-
-
-
 Parstof
 ~~~~~~~
 spectral/hartel/parstof ends up saying
@@ -103,36 +130,12 @@ spectral/hartel/parstof ends up saying
   quite a bit.   We should spot these and behave accordingly.
 
 
-Knights
-~~~~~~~
-In knights/KnightHeuristic, we don't find that possibleMoves is strict
-(with important knock-on effects) unless we apply rules before floating
-out the literal list [A,B,C...].
-Similarly, in f_se (F_Cmp ...) in listcompr (but a smaller effect)
+Power
+~~~~~
+With GHC 4.08, for some reason the arithmetic defaults to Double.  The
+right thing is to default to Rational, which accounts for the big increase
+in runtime after 4.08
 
-
-Expert
-~~~~~~
-In spectral/expert/Search.ask there's a statically visible CSE. Catching this 
-depends almost entirely on chance, which is a pity.
-
-
-
-Fish
-~~~~
-The performance of fish depends crucially on inlining scale_vec2.
-It turns out to be right on the edge of GHC's normal threshold size, so
-small changes to the compiler can knock it to and fro.
-
-
-Integer
-~~~~~~~
-A good benchmark for beating on big-integer arithmetic
-
-Lambda
-~~~~~~
-This program shows the cost of the non-eta-expanded lambdas that arise from
-a state monad.  
 
 Puzzle
 ~~~~~~
