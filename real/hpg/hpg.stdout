@@ -1,6 +1,6 @@
 -- HPG version 1.20 dated 92/07/20
--- Output from hpg (9807, 65, 32975) 8 6 15 8 8
--- Random number generator seeds: (9807, 65, 32975)
+-- Output from hpg (9807,65,32975) 8 6 15 8 8
+-- Random number generator seeds: (9807,65,32975)
 -- 8 types, of depth 6
 -- 15 values, of depth 8
 -- Expression depth: 8
@@ -1335,33 +1335,32 @@ val19 = 169;
 val1 = Cons21 ;
 val2 = Cons14 ;
 val3 = Cons2 (array ((False, '[', 'a'), (False, 'q', 'O')) []) (array ((),
-()) [((), Cons13 [array ((), ()) [((), (Cons5 (array ((('g'), (), 'b',
-False), (('c'), (), 'g', False)) []) (array (')', '-') [(')', ()), ('*',
-()), ('+', ()), (',', ()), ('-', ())]), 19.0, False, Cons1 ))], array ((),
-()) [((), (Cons7 (Cons4 , (array ((215), (176)) [], (array ((True, 'D'),
-(False, '\US')) [], [[115.0], [54.0, 20.0, 233.0, 226.0], [108.0, 216.0],
-[29.0, 246.0, 231.0, 32.0, 160.0]])), 144.0), 104.0, False, Cons3 ))],
-array ((), ()) [((), (Cons6 , 246.0, True, Cons3 ))], array ((), ()) [((),
-(Cons4 , 203.0, True, Cons2 (array ((True, '\SYN', '*'), (False, 'c', '%'))
-[]) (array ((), ()) [((), Cons8 )]) (array (':', ')') [])))], array ((),
-()) [((), (Cons7 (Cons4 , (array ((29), (31)) [((29), 'q'), ((30), 'e'),
-((31), 'f')], (array ((True, 'y'), (False, '|')) [], [[], [121.0, 94.0,
-83.0, 168.0, 232.0], [242.0, 12.0, 235.0], [203.0, 216.0, 205.0, 4.0],
-[]])), 136.0), 94.0, True, Cons1 ))]])]) (array ('p', '\ETX') []);
+()) [((),Cons13 [array ((), ()) [((),(Cons5 (array ((('g'), (), 'b', False),
+(('c'), (), 'g', False)) []) (array (')', '-') [(')',()),('*',()),('+',()),(',',()),('-',())]),
+19.0, False, Cons1 ))], array ((), ()) [((),(Cons7 (Cons4 , (array ((215),
+(176)) [], (array ((True, 'D'), (False, '\US')) [], [[115.0], [54.0, 20.0,
+233.0, 226.0], [108.0, 216.0], [29.0, 246.0, 231.0, 32.0, 160.0]])), 144.0),
+104.0, False, Cons3 ))], array ((), ()) [((),(Cons6 , 246.0, True, Cons3
+))], array ((), ()) [((),(Cons4 , 203.0, True, Cons2 (array ((True, '\SYN',
+'*'), (False, 'c', '%')) []) (array ((), ()) [((),Cons8 )]) (array (':',
+')') [])))], array ((), ()) [((),(Cons7 (Cons4 , (array ((29), (31)) [((29),'q'),((30),'e'),((31),'f')],
+(array ((True, 'y'), (False, '|')) [], [[], [121.0, 94.0, 83.0, 168.0,
+232.0], [242.0, 12.0, 235.0], [203.0, 216.0, 205.0, 4.0], []])), 136.0),
+94.0, True, Cons1 ))]])]) (array ('p', '\ETX') []);
 val4 = Cons4 ;
 val5 = Cons5 (array ((('O'), (), 'H', False), (('O'), (), 'L', False))
-[((('O'), (), 'H', False), array (('5', 35, (202), ()), ('\DC1', 158, (67),
-())) []), ((('O'), (), 'I', False), array (('c', 197, (144), ()), ('\STX',
-79, (223), ())) []), ((('O'), (), 'J', False), array (('4', 45, (123),
-()), ('\n', 9, (221), ())) []), ((('O'), (), 'K', False), array (('v',
-20, (212), ()), ('V', 249, (60), ())) []), ((('O'), (), 'L', False), array
-(('/', 170, (79), ()), ('=', 6, (10), ())) [])]) (array ('I', 'D') []);
-val6 = Cons16 (array (151, 114) []) (array (False, False) [(False, array
-((), ()) [((), array (False, True) [(False, True), (True, True)])])], Cons1
-, Cons27 (array (True, False) []) 256.0 (array ('6', '9') [('6', Cons24
-[array (((), True), ((), True)) [(((), True), (107))]] [Cons24 [] [Cons21
+[((('O'), (), 'H', False),array (('5', 35, (202), ()), ('\DC1', 158, (67),
+())) []),((('O'), (), 'I', False),array (('c', 197, (144), ()), ('\STX',
+79, (223), ())) []),((('O'), (), 'J', False),array (('4', 45, (123), ()),
+('\n', 9, (221), ())) []),((('O'), (), 'K', False),array (('v', 20, (212),
+()), ('V', 249, (60), ())) []),((('O'), (), 'L', False),array (('/', 170,
+(79), ()), ('=', 6, (10), ())) [])]) (array ('I', 'D') []);
+val6 = Cons16 (array (151, 114) []) (array (False, False) [(False,array
+((), ()) [((),array (False, True) [(False,True),(True,True)])])], Cons1
+, Cons27 (array (True, False) []) 256.0 (array ('6', '9') [('6',Cons24
+[array (((), True), ((), True)) [(((), True),(107))]] [Cons24 [] [Cons21
 ] [[]] True, Cons21 , Cons23 False () ['e'] (Cons25 ), Cons24 [array (((),
-False), ((), False)) [(((), False), (90))], array (((), True), ((), False))
+False), ((), False)) [(((), False),(90))], array (((), True), ((), False))
 [], array (((), True), ((), False)) []] [] [] False, Cons22 False ()] [[],
 [[('S', Cons4 , False, Cons17 ), ('\DC2', Cons4 , False, Cons17 ), ('/',
 Cons4 , True, Cons17 ), ('\SUB', Cons4 , True, Cons17 ), ('r', Cons4 ,
@@ -1372,56 +1371,53 @@ Cons17 )], [('=', Cons4 , False, Cons17 ), ('c', Cons4 , False, Cons17
 Cons4 , False, Cons17 ), ('b', Cons4 , False, Cons17 ), ('\SI', Cons4 ,
 True, Cons17 )], [('*', Cons4 , True, Cons17 ), ('K', Cons4 , True, Cons17
 )], [('g', Cons4 , True, Cons17 ), (',', Cons4 , True, Cons17 ), ('g',
-Cons4 , True, Cons17 ), ('!', Cons4 , False, Cons17 )]]] False), ('7',
-Cons22 False ()), ('8', Cons21 ), ('9', Cons23 True () ['a', 'd', '\v',
-'2', 'M'] (Cons27 (array (False, False) [(False, array ('v', '$') [])])
-148.0 (array ('\SO', '\DLE') [('\SO', Cons21 ), ('\SI', Cons21 ), ('\DLE',
-Cons21 )]) [Cons8 ]))]) [Cons12 (Cons25 ) (Cons10 '\CAN' False (array (38,
-41) [(38, [Cons17 , Cons17 , Cons17 , Cons17 , Cons17 ]), (39, [Cons17
-, Cons17 , Cons17 ]), (40, [Cons17 , Cons17 , Cons17 , Cons17 , Cons17
-]), (41, [Cons17 , Cons17 ])]) (array ('=', '=') [('=', Cons1 )]), array
-(13, 7) [], array ((((True, True), (), ('\DC4')), 137, (('+', 'S', 155),
-'j')), (((False, False), (), ('M')), 59, (('|', 'y', 181), 'o'))) [], Cons16
-(array (98, 8) []) (array (True, False) [], Cons1 , Cons25 , '~') (array
-((), ()) [((), [array (True, True) [(True, Cons1 )], array (False, True)
-[(False, Cons1 ), (True, Cons1 )], array (True, True) [(True, Cons1 )],
-array (False, True) [(False, Cons1 ), (True, Cons1 )], array (False, False)
-[(False, Cons1 )]])])) (array ((120, (), 'y'), (4, (), '\GS')) []) (array
-((219, 'M', (('X', False, True), False), ((), ('E', 207), 76, ())), (182,
-' ', (('N', True, True), True), ((), ('\ACK', 146), 18, ()))) [], [array
-((('|', False, '\SI', True), '\DEL', ('/', 11, 157, False)), (('\b', True,
-'$', False), '\EM', (')', 26, 155, True))) []]), Cons11 ['\\', 'e'], Cons13
-[array ((), ()) [((), (Cons4 , 144.0, False, Cons1 ))]]], '\SO') (array
-((), ()) [((), [array (False, False) [(False, Cons3 )], array (True, False)
-[], array (True, False) [], array (True, False) []])]);
-val7 = Cons26 (Cons3 ) [array (109, 112) [(109, 238.0), (110, 139.0), (111,
-194.0), (112, 165.0)], array (201, 188) [], array (89, 93) [(89, 146.0),
-(90, 244.0), (91, 210.0), (92, 12.0), (93, 30.0)], array (216, 181) []]
-(array ((False, '6', '\n'), (True, ':', '\t')) []);
-val8 = Cons19 (('3', (Cons13 [array ((), ()) [((), (Cons4 , 93.0, True,
-Cons1 ))], array ((), ()) [((), (Cons4 , 64.0, True, Cons1 ))], array ((),
-()) [((), (Cons4 , 74.0, True, Cons1 ))], array ((), ()) [((), (Cons4 ,
-216.0, True, Cons1 ))], array ((), ()) [((), (Cons4 , 221.0, True, Cons1
-))]]), [array ((145, False, 252), (17, True, 183)) []]), array ((), ())
-[((), array (72, 72) [(72, [False, True, False])])], (), [[[array ('8',
-'8') [('8', True)]], [array ('o', 'f') [], array ('M', '.') [], array ('g',
-'k') [('g', False), ('h', False), ('i', True), ('j', True), ('k', False)],
-array ('H', 'L') [('H', False), ('I', True), ('J', True), ('K', False),
-('L', False)]]], [[], [array ('~', '6') [], array ('m', '@') []], [], [array
-('n', 'n') [('n', True)], array ('-', '0') [('-', True), ('.', False),
-('/', True), ('0', True)]]], [[array ('C', '1') [], array ('Y', 'Z') [('Y',
-True), ('Z', False)], array ('1', '\r') []], [array ('P', 'Q') [('P', False),
-('Q', False)], array ('P', '.') []], [array ('Y', '\r') [], array ('H',
-',') [], array ('F', 'I') [('F', True), ('G', False), ('H', False), ('I',
-False)], array ('(', ')') [('(', True), (')', True)]]]]) ((), Cons2 (array
-((False, '\SYN', '4'), (False, '\SYN', '7')) [((False, '\SYN', '4'), ([],
-'V', array (True, False) [], 55.0)), ((False, '\SYN', '5'), ([Cons22 True
-(), Cons22 True (), Cons21 , Cons21 , Cons21 ], '+', array (True, True)
-[(True, 230.0)], 18.0)), ((False, '\SYN', '6'), ([], '-', array (False,
-False) [(False, 62.0)], 54.0)), ((False, '\SYN', '7'), ([Cons24 [array
-(((), True), ((), True)) [(((), True), (193))], array (((), False), ((),
-False)) [(((), False), (19))], array (((), False), ((), False)) [(((),
-False), (136))]] [Cons21 , Cons21 , Cons21 , Cons21 , Cons21 ] [[[('v',
+Cons4 , True, Cons17 ), ('!', Cons4 , False, Cons17 )]]] False),('7',Cons22
+False ()),('8',Cons21 ),('9',Cons23 True () ['a', 'd', '\v', '2', 'M']
+(Cons27 (array (False, False) [(False,array ('v', '$') [])]) 148.0 (array
+('\SO', '\DLE') [('\SO',Cons21 ),('\SI',Cons21 ),('\DLE',Cons21 )]) [Cons8
+]))]) [Cons12 (Cons25 ) (Cons10 '\CAN' False (array (38, 41) [(38,[Cons17
+, Cons17 , Cons17 , Cons17 , Cons17 ]),(39,[Cons17 , Cons17 , Cons17 ]),(40,[Cons17
+, Cons17 , Cons17 , Cons17 , Cons17 ]),(41,[Cons17 , Cons17 ])]) (array
+('=', '=') [('=',Cons1 )]), array (13, 7) [], array ((((True, True), (),
+('\DC4')), 137, (('+', 'S', 155), 'j')), (((False, False), (), ('M')),
+59, (('|', 'y', 181), 'o'))) [], Cons16 (array (98, 8) []) (array (True,
+False) [], Cons1 , Cons25 , '~') (array ((), ()) [((),[array (True, True)
+[(True,Cons1 )], array (False, True) [(False,Cons1 ),(True,Cons1 )], array
+(True, True) [(True,Cons1 )], array (False, True) [(False,Cons1 ),(True,Cons1
+)], array (False, False) [(False,Cons1 )]])])) (array ((120, (), 'y'),
+(4, (), '\GS')) []) (array ((219, 'M', (('X', False, True), False), ((),
+('E', 207), 76, ())), (182, ' ', (('N', True, True), True), ((), ('\ACK',
+146), 18, ()))) [], [array ((('|', False, '\SI', True), '\DEL', ('/', 11,
+157, False)), (('\b', True, '$', False), '\EM', (')', 26, 155, True)))
+[]]), Cons11 ['\\', 'e'], Cons13 [array ((), ()) [((),(Cons4 , 144.0, False,
+Cons1 ))]]], '\SO') (array ((), ()) [((),[array (False, False) [(False,Cons3
+)], array (True, False) [], array (True, False) [], array (True, False)
+[]])]);
+val7 = Cons26 (Cons3 ) [array (109, 112) [(109,238.0),(110,139.0),(111,194.0),(112,165.0)],
+array (201, 188) [], array (89, 93) [(89,146.0),(90,244.0),(91,210.0),(92,12.0),(93,30.0)],
+array (216, 181) []] (array ((False, '6', '\n'), (True, ':', '\t')) []);
+val8 = Cons19 (('3', (Cons13 [array ((), ()) [((),(Cons4 , 93.0, True,
+Cons1 ))], array ((), ()) [((),(Cons4 , 64.0, True, Cons1 ))], array ((),
+()) [((),(Cons4 , 74.0, True, Cons1 ))], array ((), ()) [((),(Cons4 , 216.0,
+True, Cons1 ))], array ((), ()) [((),(Cons4 , 221.0, True, Cons1 ))]]),
+[array ((145, False, 252), (17, True, 183)) []]), array ((), ()) [((),array
+(72, 72) [(72,[False, True, False])])], (), [[[array ('8', '8') [('8',True)]],
+[array ('o', 'f') [], array ('M', '.') [], array ('g', 'k') [('g',False),('h',False),('i',True),('j',True),('k',False)],
+array ('H', 'L') [('H',False),('I',True),('J',True),('K',False),('L',False)]]],
+[[], [array ('~', '6') [], array ('m', '@') []], [], [array ('n', 'n')
+[('n',True)], array ('-', '0') [('-',True),('.',False),('/',True),('0',True)]]],
+[[array ('C', '1') [], array ('Y', 'Z') [('Y',True),('Z',False)], array
+('1', '\r') []], [array ('P', 'Q') [('P',False),('Q',False)], array ('P',
+'.') []], [array ('Y', '\r') [], array ('H', ',') [], array ('F', 'I')
+[('F',True),('G',False),('H',False),('I',False)], array ('(', ')') [('(',True),(')',True)]]]])
+((), Cons2 (array ((False, '\SYN', '4'), (False, '\SYN', '7')) [((False,
+'\SYN', '4'),([], 'V', array (True, False) [], 55.0)),((False, '\SYN',
+'5'),([Cons22 True (), Cons22 True (), Cons21 , Cons21 , Cons21 ], '+',
+array (True, True) [(True,230.0)], 18.0)),((False, '\SYN', '6'),([], '-',
+array (False, False) [(False,62.0)], 54.0)),((False, '\SYN', '7'),([Cons24
+[array (((), True), ((), True)) [(((), True),(193))], array (((), False),
+((), False)) [(((), False),(19))], array (((), False), ((), False)) [(((),
+False),(136))]] [Cons21 , Cons21 , Cons21 , Cons21 , Cons21 ] [[[('v',
 Cons4 , True, Cons17 )], [('\ETX', Cons4 , False, Cons17 ), ('3', Cons4
 , True, Cons17 )], [('9', Cons4 , False, Cons17 ), ('}', Cons4 , True,
 Cons17 )], [], [('I', Cons4 , True, Cons17 ), ('4', Cons4 , True, Cons17
@@ -1446,169 +1442,160 @@ Cons17 ), ('/', Cons4 , False, Cons17 )], [('g', Cons4 , True, Cons17 ),
 Cons4 , True, Cons17 ), ('8', Cons4 , False, Cons17 )], [('\US', Cons4
 , True, Cons17 ), ('J', Cons4 , False, Cons17 ), ('/', Cons4 , True, Cons17
 ), ('x', Cons4 , True, Cons17 ), ('\DC3', Cons4 , True, Cons17 )]]] True,
-Cons23 True () ['Y', '\v', 'g'] (Cons25 )], 'U', array (False, False) [(False,
-35.0)], 76.0))]) (array ((), ()) [((), Cons10 '1' True (array (194, 35)
-[]) (array ('r', 'A') []))]) (array ('t', '>') []), Cons25 ) (array (110,
-114) [(110, [[]]), (111, [[array ((False), (False)) [((False), (198, 'o',
-False, False))]]]), (112, [[array ((True), (True)) [((True), (115, '~',
-False, True))], array ((False), (True)) [((False), (117, 'U', True, False)),
-((True), (243, '\DC4', True, True))], array ((True), (False)) [], array
-((True), (False)) [], array ((False), (True)) [((False), (39, ';', True,
-True)), ((True), (13, '2', False, False))]], [array ((True), (False)) [],
-array ((True), (True)) [((True), (88, '\SO', False, False))]], [array ((False),
-(True)) [((False), (50, '^', True, False)), ((True), (185, 'm', False,
-True))]], [array ((True), (True)) [((True), (83, '^', False, False))],
-array ((False), (True)) [((False), (18, 'N', True, True)), ((True), (190,
-'V', False, True))], array ((False), (True)) [((False), (25, 'B', True,
-True)), ((True), (150, 'M', False, False))]]]), (113, []), (114, [[array
-((False), (False)) [((False), (252, 'v', True, True))]], [array ((True),
-(False)) [], array ((True), (True)) [((True), (0, '7', True, False))],
-array ((False), (False)) [((False), (42, '-', False, True))]], [array ((True),
-(True)) [((True), (78, 'P', True, False))], array ((True), (True)) [((True),
-(181, '\v', False, False))], array ((True), (True)) [((True), (121, '}',
-False, True))]]])]) (Cons17 , array ((), ()) [((), ())], (array (('q'),
-('s')) [(('q'), [(93.0, 'v', 213.0), (156.0, 's', 32.0), (21.0, 'b', 90.0),
-(79.0, '4', 28.0)]), (('r'), [(222.0, 'Q', 198.0), (176.0, '(', 52.0),
-(26.0, 'N', 143.0), (104.0, '\SI', 151.0)]), (('s'), [(163.0, '|', 197.0),
-(100.0, '|', 93.0), (127.0, '4', 220.0), (33.0, 'D', 208.0), (114.0, '!',
-228.0)])]), Cons29 );
+Cons23 True () ['Y', '\v', 'g'] (Cons25 )], 'U', array (False, False) [(False,35.0)],
+76.0))]) (array ((), ()) [((),Cons10 '1' True (array (194, 35) []) (array
+('r', 'A') []))]) (array ('t', '>') []), Cons25 ) (array (110, 114) [(110,[[]]),(111,[[array
+((False), (False)) [((False),(198, 'o', False, False))]]]),(112,[[array
+((True), (True)) [((True),(115, '~', False, True))], array ((False), (True))
+[((False),(117, 'U', True, False)),((True),(243, '\DC4', True, True))],
+array ((True), (False)) [], array ((True), (False)) [], array ((False),
+(True)) [((False),(39, ';', True, True)),((True),(13, '2', False, False))]],
+[array ((True), (False)) [], array ((True), (True)) [((True),(88, '\SO',
+False, False))]], [array ((False), (True)) [((False),(50, '^', True, False)),((True),(185,
+'m', False, True))]], [array ((True), (True)) [((True),(83, '^', False,
+False))], array ((False), (True)) [((False),(18, 'N', True, True)),((True),(190,
+'V', False, True))], array ((False), (True)) [((False),(25, 'B', True,
+True)),((True),(150, 'M', False, False))]]]),(113,[]),(114,[[array ((False),
+(False)) [((False),(252, 'v', True, True))]], [array ((True), (False))
+[], array ((True), (True)) [((True),(0, '7', True, False))], array ((False),
+(False)) [((False),(42, '-', False, True))]], [array ((True), (True)) [((True),(78,
+'P', True, False))], array ((True), (True)) [((True),(181, '\v', False,
+False))], array ((True), (True)) [((True),(121, '}', False, True))]]])])
+(Cons17 , array ((), ()) [((),())], (array (('q'), ('s')) [(('q'),[(93.0,
+'v', 213.0), (156.0, 's', 32.0), (21.0, 'b', 90.0), (79.0, '4', 28.0)]),(('r'),[(222.0,
+'Q', 198.0), (176.0, '(', 52.0), (26.0, 'N', 143.0), (104.0, '\SI', 151.0)]),(('s'),[(163.0,
+'|', 197.0), (100.0, '|', 93.0), (127.0, '4', 220.0), (33.0, 'D', 208.0),
+(114.0, '!', 228.0)])]), Cons29 );
 val9 = Cons3 ;
 val10 = Cons2 (array ((True, '9', '\a'), (False, 'O', ')')) []) (array
-((), ()) [((), Cons12 (Cons28 ([array (((109, 22, '\a')), ((109, 22, '\v')))
-[(((109, 22, '\a')), 160), (((109, 22, '\b')), 1), (((109, 22, '\t')),
-188), (((109, 22, '\n')), 207), (((109, 22, '\v')), 76)], array (((97,
-201, 'T')), ((158, 166, 'I'))) [], array (((66, 181, 'Q')), ((111, 85,
-'\b'))) []], Cons3 , (array ((36), (36)) [((36), ([222.0, 67.0, 24.0, 179.0,
-179.0], Cons17 , ()))], Cons14 ), Cons28 ([array (((244, 221, '(')), ((70,
-51, '>'))) [], array (((108, 38, 'T')), ((248, 254, '\ENQ'))) []], Cons1
-, (array ((239), (11)) [], Cons14 ), Cons25 ) ([[[array (True, True) [(True,
-'\FS')], array (True, True) [(True, '\ETB')], array (True, True) [(True,
-'+')], array (False, True) [(False, 'Z'), (True, 't')]], [array (False,
-False) [(False, '\f')]], [array (True, False) [], array (False, True) [(False,
-'\DC4'), (True, 'M')], array (True, True) [(True, '\NUL')]]]], array (((('2',
-'3'), '\DLE', (214, 'V')), ('\ACK'), '-'), ((('9', '\SUB'), '(', (140,
-'\DLE')), ('\v'), '?')) [])) ([[[array (False, True) [(False, '\DEL'),
-(True, 'p')], array (False, True) [(False, '('), (True, 'N')], array (False,
-True) [(False, '&'), (True, 'K')]], [array (True, True) [(True, 'E')],
-array (False, True) [(False, '\US'), (True, 's')], array (True, False)
-[], array (False, True) [(False, '\ACK'), (True, ']')], array (False, False)
-[(False, '|')]], [array (True, False) [], array (False, False) [(False,
-'M')], array (True, True) [(True, ')')]], [array (False, True) [(False,
-'e'), (True, '-')]], [array (False, False) [(False, '.')], array (False,
-True) [(False, 'o'), (True, ' ')]]], [[array (False, False) [(False, '/')],
-array (False, True) [(False, '\SOH'), (True, '}')], array (False, False)
-[(False, 'C')], array (True, False) []], [array (True, False) [], array
-(False, False) [(False, 'W')], array (False, False) [(False, 'D')], array
-(True, True) [(True, 'i')], array (True, True) [(True, '\DLE')]]], [[array
-(False, True) [(False, '5'), (True, '1')], array (False, False) [(False,
-'g')], array (False, False) [(False, 'G')], array (False, False) [(False,
-'m')]]]], array (((('c', 'q'), '$', (208, 'y')), ('<'), 'L'), ((('\STX',
-'Z'), '2', (75, 'U')), ('='), '^')) [])) (Cons13 [array ((), ()) [((),
-(Cons4 , 109.0, False, Cons1 ))]], array (210, 121) [], array ((((False,
-True), (), ('N')), 39, (('\f', 'p', 194), 'h')), (((True, True), (), ('-')),
-5, (('t', '~', 150), '4'))) [], Cons16 (array (78, 81) [(78, [Cons4 , Cons4
-, Cons4 ]), (79, [Cons4 , Cons4 ]), (80, [Cons4 ]), (81, [Cons4 , Cons4
-, Cons4 , Cons4 ])]) (array (True, True) [(True, array ((), ()) [((), array
-(True, False) [])])], Cons3 , Cons27 (array (False, True) [(False, array
-('j', 'c') []), (True, array ('{', '{') [('{', array (True, False) [])])])
-140.0 (array ('\SOH', '\ENQ') [('\SOH', Cons21 ), ('\STX', Cons21 ), ('\ETX',
-Cons21 ), ('\EOT', Cons21 ), ('\ENQ', Cons21 )]) [Cons8 , Cons8 , Cons8
-, Cons8 , Cons8 ], '\b') (array ((), ()) [((), [array (False, True) [(False,
-Cons1 ), (True, Cons1 )], array (True, True) [(True, Cons1 )]])])) (array
-((98, (), 'w'), (41, (), '&')) []) (array ((150, '3', (('\DC2', True, True),
-False), ((), ('c', 200), 90, ())), (58, '\\', (('$', True, True), True),
-((), ('\t', 138), 144, ()))) [], [array ((('@', True, 'T', False), 'F',
-('\t', 222, 109, False)), (('O', False, '\GS', True), '\ESC', ('|', 180,
-61, False))) [], array ((('\v', True, '\EM', False), 'o', ('!', 125, 6,
-True)), (('\ESC', True, '\ETX', True), '\NUL', ('\NUL', 154, 244, True)))
-[], array ((('p', False, 't', False), '.', ('A', 247, 252, False)), (('+',
-True, 'y', True), '\ACK', ('\EOT', 201, 175, False))) [], array ((('\DC2',
-False, ';', False), 'I', ('\\', 96, 31, True)), (('T', False, '2', True),
-'\v', ('a', 47, 80, False))) []]))]) (array ('\t', '\v') [('\t', Cons14
-), ('\n', Cons15 ), ('\v', Cons15 )]);
+((), ()) [((),Cons12 (Cons28 ([array (((109, 22, '\a')), ((109, 22, '\v')))
+[(((109, 22, '\a')),160),(((109, 22, '\b')),1),(((109, 22, '\t')),188),(((109,
+22, '\n')),207),(((109, 22, '\v')),76)], array (((97, 201, 'T')), ((158,
+166, 'I'))) [], array (((66, 181, 'Q')), ((111, 85, '\b'))) []], Cons3
+, (array ((36), (36)) [((36),([222.0, 67.0, 24.0, 179.0, 179.0], Cons17
+, ()))], Cons14 ), Cons28 ([array (((244, 221, '(')), ((70, 51, '>')))
+[], array (((108, 38, 'T')), ((248, 254, '\ENQ'))) []], Cons1 , (array
+((239), (11)) [], Cons14 ), Cons25 ) ([[[array (True, True) [(True,'\FS')],
+array (True, True) [(True,'\ETB')], array (True, True) [(True,'+')], array
+(False, True) [(False,'Z'),(True,'t')]], [array (False, False) [(False,'\f')]],
+[array (True, False) [], array (False, True) [(False,'\DC4'),(True,'M')],
+array (True, True) [(True,'\NUL')]]]], array (((('2', '3'), '\DLE', (214,
+'V')), ('\ACK'), '-'), ((('9', '\SUB'), '(', (140, '\DLE')), ('\v'), '?'))
+[])) ([[[array (False, True) [(False,'\DEL'),(True,'p')], array (False,
+True) [(False,'('),(True,'N')], array (False, True) [(False,'&'),(True,'K')]],
+[array (True, True) [(True,'E')], array (False, True) [(False,'\US'),(True,'s')],
+array (True, False) [], array (False, True) [(False,'\ACK'),(True,']')],
+array (False, False) [(False,'|')]], [array (True, False) [], array (False,
+False) [(False,'M')], array (True, True) [(True,')')]], [array (False,
+True) [(False,'e'),(True,'-')]], [array (False, False) [(False,'.')], array
+(False, True) [(False,'o'),(True,' ')]]], [[array (False, False) [(False,'/')],
+array (False, True) [(False,'\SOH'),(True,'}')], array (False, False) [(False,'C')],
+array (True, False) []], [array (True, False) [], array (False, False)
+[(False,'W')], array (False, False) [(False,'D')], array (True, True) [(True,'i')],
+array (True, True) [(True,'\DLE')]]], [[array (False, True) [(False,'5'),(True,'1')],
+array (False, False) [(False,'g')], array (False, False) [(False,'G')],
+array (False, False) [(False,'m')]]]], array (((('c', 'q'), '$', (208,
+'y')), ('<'), 'L'), ((('\STX', 'Z'), '2', (75, 'U')), ('='), '^')) []))
+(Cons13 [array ((), ()) [((),(Cons4 , 109.0, False, Cons1 ))]], array (210,
+121) [], array ((((False, True), (), ('N')), 39, (('\f', 'p', 194), 'h')),
+(((True, True), (), ('-')), 5, (('t', '~', 150), '4'))) [], Cons16 (array
+(78, 81) [(78,[Cons4 , Cons4 , Cons4 ]),(79,[Cons4 , Cons4 ]),(80,[Cons4
+]),(81,[Cons4 , Cons4 , Cons4 , Cons4 ])]) (array (True, True) [(True,array
+((), ()) [((),array (True, False) [])])], Cons3 , Cons27 (array (False,
+True) [(False,array ('j', 'c') []),(True,array ('{', '{') [('{',array (True,
+False) [])])]) 140.0 (array ('\SOH', '\ENQ') [('\SOH',Cons21 ),('\STX',Cons21
+),('\ETX',Cons21 ),('\EOT',Cons21 ),('\ENQ',Cons21 )]) [Cons8 , Cons8 ,
+Cons8 , Cons8 , Cons8 ], '\b') (array ((), ()) [((),[array (False, True)
+[(False,Cons1 ),(True,Cons1 )], array (True, True) [(True,Cons1 )]])]))
+(array ((98, (), 'w'), (41, (), '&')) []) (array ((150, '3', (('\DC2',
+True, True), False), ((), ('c', 200), 90, ())), (58, '\\', (('$', True,
+True), True), ((), ('\t', 138), 144, ()))) [], [array ((('@', True, 'T',
+False), 'F', ('\t', 222, 109, False)), (('O', False, '\GS', True), '\ESC',
+('|', 180, 61, False))) [], array ((('\v', True, '\EM', False), 'o', ('!',
+125, 6, True)), (('\ESC', True, '\ETX', True), '\NUL', ('\NUL', 154, 244,
+True))) [], array ((('p', False, 't', False), '.', ('A', 247, 252, False)),
+(('+', True, 'y', True), '\ACK', ('\EOT', 201, 175, False))) [], array
+((('\DC2', False, ';', False), 'I', ('\\', 96, 31, True)), (('T', False,
+'2', True), '\v', ('a', 47, 80, False))) []]))]) (array ('\t', '\v') [('\t',Cons14
+),('\n',Cons15 ),('\v',Cons15 )]);
 val11 = Cons26 (Cons2 (array ((True, 'i', 'S'), (False, '2', '\DC2')) [])
-(array ((), ()) [((), Cons11 ['\FS', 'J', '+', 'o', '<'])]) (array ('~',
+(array ((), ()) [((),Cons11 ['\FS', 'J', '+', 'o', '<'])]) (array ('~',
 '\'') [])) [] (array ((True, 'K', 'F'), (False, '=', 'v')) []);
 val12 = Cons7 (Cons5 (array ((('\v'), (), '>', False), (('\v'), (), 'B',
-False)) [((('\v'), (), '>', False), array (('\DC3', 106, (11), ()), ('e',
-0, (13), ())) []), ((('\v'), (), '?', False), array (('w', 206, (255),
-()), ('S', 217, (249), ())) []), ((('\v'), (), '@', False), array (('\DC3',
-33, (131), ()), (':', 13, (231), ())) []), ((('\v'), (), 'A', False), array
-(('H', 117, (80), ()), ('?', 215, (202), ())) []), ((('\v'), (), 'B', False),
-array (('<', 152, (144), ()), ('\SO', 203, (49), ())) [])]) (array ('V',
-'V') [('V', ())]), (array ((188), (41)) [], (array ((False, 'p'), (False,
-'\ETX')) [], [[137.0], [3.0, 93.0, 16.0, 13.0], [175.0, 134.0, 39.0, 199.0,
-156.0]])), 217.0);
+False)) [((('\v'), (), '>', False),array (('\DC3', 106, (11), ()), ('e',
+0, (13), ())) []),((('\v'), (), '?', False),array (('w', 206, (255), ()),
+('S', 217, (249), ())) []),((('\v'), (), '@', False),array (('\DC3', 33,
+(131), ()), (':', 13, (231), ())) []),((('\v'), (), 'A', False),array (('H',
+117, (80), ()), ('?', 215, (202), ())) []),((('\v'), (), 'B', False),array
+(('<', 152, (144), ()), ('\SO', 203, (49), ())) [])]) (array ('V', 'V')
+[('V',())]), (array ((188), (41)) [], (array ((False, 'p'), (False, '\ETX'))
+[], [[137.0], [3.0, 93.0, 16.0, 13.0], [175.0, 134.0, 39.0, 199.0, 156.0]])),
+217.0);
 val13 = Cons31 (Cons15 );
-val14 = Cons26 (Cons3 ) [array (175, 178) [(175, 54.0), (176, 217.0), (177,
-71.0), (178, 214.0)], array (226, 178) [], array (7, 9) [(7, 238.0), (8,
-218.0), (9, 1.0)], array (89, 91) [(89, 45.0), (90, 219.0), (91, 131.0)],
-array (185, 100) []] (array ((True, 'X', 'h'), (False, 'V', 's')) []);
-val15 = Cons19 (('#', (Cons13 [array ((), ()) [((), (Cons4 , 187.0, True,
+val14 = Cons26 (Cons3 ) [array (175, 178) [(175,54.0),(176,217.0),(177,71.0),(178,214.0)],
+array (226, 178) [], array (7, 9) [(7,238.0),(8,218.0),(9,1.0)], array
+(89, 91) [(89,45.0),(90,219.0),(91,131.0)], array (185, 100) []] (array
+((True, 'X', 'h'), (False, 'V', 's')) []);
+val15 = Cons19 (('#', (Cons13 [array ((), ()) [((),(Cons4 , 187.0, True,
 Cons1 ))]]), [array ((136, True, 126), (28, False, 15)) [], array ((255,
-False, 170), (212, True, 72)) []]), array ((), ()) [((), array (250, 250)
-[(250, [True, False, True, False, True])])], (), [[[array ('?', 'B') [('?',
-True), ('@', False), ('A', True), ('B', True)], array ('%', '\NUL') [],
-array ('\SYN', '\SUB') [('\SYN', False), ('\ETB', True), ('\CAN', False),
-('\EM', True), ('\SUB', False)], array ('Q', '\GS') [], array ('\SI', '\DC1')
-[('\SI', True), ('\DLE', True), ('\DC1', True)]], [array ('\US', '#') [('\US',
-True), (' ', True), ('!', False), ('"', False), ('#', False)], array ('\FS',
-'\FS') [('\FS', False)]], [array ('h', 'j') [('h', False), ('i', False),
-('j', False)], array ('`', 'c') [('`', False), ('a', True), ('b', False),
-('c', True)], array ('\ACK', '\n') [('\ACK', False), ('\a', True), ('\b',
-False), ('\t', True), ('\n', False)]], [array ('\DC3', '\DLE') [], array
-('[', '\\') [('[', True), ('\\', False)], array ('\NAK', '\EM') [('\NAK',
-False), ('\SYN', False), ('\ETB', False), ('\CAN', False), ('\EM', False)]],
-[array ('\EOT', '\EOT') [('\EOT', True)], array ('c', '\US') [], array
-('L', '\ETX') []]]]) ((), Cons2 (array ((True, '\DC2', ')'), (True, '\DC3',
-'*')) [((True, '\DC2', ')'), ([Cons23 False () ['='] (Cons25 ), Cons21
-, Cons22 True ()], '<', array (True, False) [], 175.0)), ((True, '\DC2',
-'*'), ([Cons24 [array (((), False), ((), True)) [(((), False), (133)),
-(((), True), (179))]] [Cons21 , Cons21 ] [[[('?', Cons4 , True, Cons17
-)]], [[('T', Cons4 , True, Cons17 ), ('<', Cons4 , True, Cons17 ), ('\DC3',
-Cons4 , False, Cons17 ), ('r', Cons4 , False, Cons17 )]], [[(')', Cons4
-, False, Cons17 ), ('\n', Cons4 , False, Cons17 ), (';', Cons4 , False,
-Cons17 ), ('%', Cons4 , True, Cons17 )], [('\SUB', Cons4 , True, Cons17
-), ('6', Cons4 , False, Cons17 ), ('8', Cons4 , True, Cons17 ), ('9', Cons4
-, True, Cons17 ), ('\\', Cons4 , True, Cons17 )]], [[('z', Cons4 , True,
-Cons17 ), (';', Cons4 , True, Cons17 ), ('\b', Cons4 , False, Cons17 )]]]
-False], 'c', array (False, False) [(False, 130.0)], 226.0)), ((True, '\DC3',
-')'), ([Cons23 True () ['y'] (Cons25 )], 'K', array (True, False) [], 155.0)),
-((True, '\DC3', '*'), ([Cons21 , Cons23 False () ['"'] (Cons25 ), Cons22
-False ()], 'o', array (False, False) [(False, 94.0)], 154.0))]) (array
-((), ()) [((), Cons11 ['O', '{', '\DC3', '\SUB'])]) (array ('1', '4') [('1',
-Cons14 ), ('2', Cons14 ), ('3', Cons16 (array (160, 39) []) (array (True,
-False) [], Cons1 , Cons27 (array (True, True) [(True, array ('t', 'B')
-[])]) 126.0 (array ('\b', '\t') [('\b', Cons21 ), ('\t', Cons21 )]) [Cons8
-, Cons8 , Cons8 ], '*') (array ((), ()) [((), [array (True, True) [(True,
-Cons1 )], array (False, False) [(False, Cons1 )], array (False, False)
-[(False, Cons1 )], array (False, False) [(False, Cons1 )], array (False,
-False) [(False, Cons1 )]])])), ('4', Cons14 )]), Cons27 (array (False,
-True) [(False, array ('=', '?') [('=', array (True, True) [(True, [66,
-82, 190])]), ('>', array (False, False) [(False, [])]), ('?', array (False,
-True) [(False, [86, 174, 48, 44]), (True, [])])]), (True, array ('|', '0')
-[])]) 92.0 (array ('\DC4', '\DC4') [('\DC4', Cons23 False () ['\FS', '1']
-(Cons25 ))]) [Cons10 '`' True (array (207, 79) []) (array ('s', 'Z') [])])
-(array (62, 62) [(62, [[array ((True), (True)) [((True), (14, 'D', False,
-True))], array ((True), (False)) [], array ((True), (False)) [], array
-((True), (True)) [((True), (46, 'u', True, False))]], [array ((True), (False))
-[], array ((False), (False)) [((False), (156, 'N', True, False))], array
-((False), (True)) [((False), (7, 'Q', True, True)), ((True), (59, '\SO',
-False, True))], array ((False), (False)) [((False), (144, '\DC1', False,
-True))], array ((True), (True)) [((True), (14, 'V', False, False))]]])])
-(Cons19 (('?', (Cons13 [array ((), ()) [((), (Cons4 , 194.0, True, Cons1
-))]]), []), array ((), ()) [((), array (18, 19) [(18, [False]), (19, [False,
-True, False])])], (), []) ((), Cons3 , Cons25 ) (array (124, 124) [(124,
-[[array ((True), (True)) [((True), (249, ')', True, True))], array ((False),
-(True)) [((False), (64, '\SYN', True, False)), ((True), (186, '\t', False,
-True))]], [array ((True), (False)) [], array ((False), (False)) [((False),
-(69, 'X', True, True))]], [array ((True), (True)) [((True), (166, 'X',
-False, True))], array ((False), (False)) [((False), (109, '\ACK', False,
-True))], array ((True), (False)) [], array ((True), (True)) [((True), (233,
-'?', False, False))], array ((False), (False)) [((False), (142, '\DC4',
-False, False))]], []])]) (Cons17 , array ((), ()) [((), ())], (array (('I'),
-('2')) []), Cons31 (Cons15 )), array ((), ()) [((), ())], (array (('\DC2'),
-('\v')) []), Cons31 (Cons15 ));
+False, 170), (212, True, 72)) []]), array ((), ()) [((),array (250, 250)
+[(250,[True, False, True, False, True])])], (), [[[array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)],
+array ('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)]],
+[array ('\US', '#') [('\US',True),(' ',True),('!',False),('"',False),('#',False)],
+array ('\FS', '\FS') [('\FS',False)]], [array ('h', 'j') [('h',False),('i',False),('j',False)],
+array ('`', 'c') [('`',False),('a',True),('b',False),('c',True)], array
+('\ACK', '\n') [('\ACK',False),('\a',True),('\b',False),('\t',True),('\n',False)]],
+[array ('\DC3', '\DLE') [], array ('[', '\\') [('[',True),('\\',False)],
+array ('\NAK', '\EM') [('\NAK',False),('\SYN',False),('\ETB',False),('\CAN',False),('\EM',False)]],
+[array ('\EOT', '\EOT') [('\EOT',True)], array ('c', '\US') [], array ('L',
+'\ETX') []]]]) ((), Cons2 (array ((True, '\DC2', ')'), (True, '\DC3', '*'))
+[((True, '\DC2', ')'),([Cons23 False () ['='] (Cons25 ), Cons21 , Cons22
+True ()], '<', array (True, False) [], 175.0)),((True, '\DC2', '*'),([Cons24
+[array (((), False), ((), True)) [(((), False),(133)),(((), True),(179))]]
+[Cons21 , Cons21 ] [[[('?', Cons4 , True, Cons17 )]], [[('T', Cons4 , True,
+Cons17 ), ('<', Cons4 , True, Cons17 ), ('\DC3', Cons4 , False, Cons17
+), ('r', Cons4 , False, Cons17 )]], [[(')', Cons4 , False, Cons17 ), ('\n',
+Cons4 , False, Cons17 ), (';', Cons4 , False, Cons17 ), ('%', Cons4 , True,
+Cons17 )], [('\SUB', Cons4 , True, Cons17 ), ('6', Cons4 , False, Cons17
+), ('8', Cons4 , True, Cons17 ), ('9', Cons4 , True, Cons17 ), ('\\', Cons4
+, True, Cons17 )]], [[('z', Cons4 , True, Cons17 ), (';', Cons4 , True,
+Cons17 ), ('\b', Cons4 , False, Cons17 )]]] False], 'c', array (False,
+False) [(False,130.0)], 226.0)),((True, '\DC3', ')'),([Cons23 True () ['y']
+(Cons25 )], 'K', array (True, False) [], 155.0)),((True, '\DC3', '*'),([Cons21
+, Cons23 False () ['"'] (Cons25 ), Cons22 False ()], 'o', array (False,
+False) [(False,94.0)], 154.0))]) (array ((), ()) [((),Cons11 ['O', '{',
+'\DC3', '\SUB'])]) (array ('1', '4') [('1',Cons14 ),('2',Cons14 ),('3',Cons16
+(array (160, 39) []) (array (True, False) [], Cons1 , Cons27 (array (True,
+True) [(True,array ('t', 'B') [])]) 126.0 (array ('\b', '\t') [('\b',Cons21
+),('\t',Cons21 )]) [Cons8 , Cons8 , Cons8 ], '*') (array ((), ()) [((),[array
+(True, True) [(True,Cons1 )], array (False, False) [(False,Cons1 )], array
+(False, False) [(False,Cons1 )], array (False, False) [(False,Cons1 )],
+array (False, False) [(False,Cons1 )]])])),('4',Cons14 )]), Cons27 (array
+(False, True) [(False,array ('=', '?') [('=',array (True, True) [(True,[66,
+82, 190])]),('>',array (False, False) [(False,[])]),('?',array (False,
+True) [(False,[86, 174, 48, 44]),(True,[])])]),(True,array ('|', '0') [])])
+92.0 (array ('\DC4', '\DC4') [('\DC4',Cons23 False () ['\FS', '1'] (Cons25
+))]) [Cons10 '`' True (array (207, 79) []) (array ('s', 'Z') [])]) (array
+(62, 62) [(62,[[array ((True), (True)) [((True),(14, 'D', False, True))],
+array ((True), (False)) [], array ((True), (False)) [], array ((True),
+(True)) [((True),(46, 'u', True, False))]], [array ((True), (False)) [],
+array ((False), (False)) [((False),(156, 'N', True, False))], array ((False),
+(True)) [((False),(7, 'Q', True, True)),((True),(59, '\SO', False, True))],
+array ((False), (False)) [((False),(144, '\DC1', False, True))], array
+((True), (True)) [((True),(14, 'V', False, False))]]])]) (Cons19 (('?',
+(Cons13 [array ((), ()) [((),(Cons4 , 194.0, True, Cons1 ))]]), []), array
+((), ()) [((),array (18, 19) [(18,[False]),(19,[False, True, False])])],
+(), []) ((), Cons3 , Cons25 ) (array (124, 124) [(124,[[array ((True),
+(True)) [((True),(249, ')', True, True))], array ((False), (True)) [((False),(64,
+'\SYN', True, False)),((True),(186, '\t', False, True))]], [array ((True),
+(False)) [], array ((False), (False)) [((False),(69, 'X', True, True))]],
+[array ((True), (True)) [((True),(166, 'X', False, True))], array ((False),
+(False)) [((False),(109, '\ACK', False, True))], array ((True), (False))
+[], array ((True), (True)) [((True),(233, '?', False, False))], array ((False),
+(False)) [((False),(142, '\DC4', False, False))]], []])]) (Cons17 , array
+((), ()) [((),())], (array (('I'), ('2')) []), Cons31 (Cons15 )), array
+((), ()) [((),())], (array (('\DC2'), ('\v')) []), Cons31 (Cons15 ));
 main = print [val1 == Cons21 , val2 == Cons14 , val3 == Cons2 (array (((&&)
 (not ((\val16 -> (\val17 -> not ((&&) True True)) ((\val18 -> (\val19 ->
 175) val19) val18)) ((+) ((\val20 -> (+) val20 (-185)) val20) ((*) ((*)
@@ -1636,131 +1623,130 @@ div ((\val73 -> 1) 104) ((\val74 -> 1) 70)) val72)))) val52) []) ((\val75
 val78) ((\val80 -> (\val81 -> (\val82 -> 99) val82) ((\val83 -> 240) 201))
 val80)) [(:=) ((\val84 -> (\val85 -> (\val86 -> ()) val86) val85) ((\val87
 -> (-) ((\val88 -> 246) val88) (negate (-1))) val87)) ((\val89 -> Cons13
-((\val90 -> [(\val91 -> array ((), ()) [((), (Cons5 (array ((('g'), (),
-'b', False), (('c'), (), 'g', False)) []) (array (')', '-') [(')', ()),
-('*', ()), ('+', ()), (',', ()), ('-', ())]), 19.0, False, Cons1 ))]) val91,
-array ((), ()) [(:=) () (Cons7 (Cons4 , (array ((215), (176)) [], (array
-((True, 'D'), (False, '\US')) [], [[115.0], [54.0, 20.0, 233.0, 226.0],
-[108.0, 216.0], [29.0, 246.0, 231.0, 32.0, 160.0]])), 144.0), 104.0, False,
-Cons3 )], array ((), ()) [(:=) () (Cons6 , 246.0, True, Cons3 )], array
-((), ()) [(:=) () (Cons4 , 203.0, True, Cons2 (array ((True, '\SYN', '*'),
-(False, 'c', '%')) []) (array ((), ()) [((), Cons8 )]) (array (':', ')')
-[]))], (\val92 -> array ((), ()) [((), (Cons7 (Cons4 , (array ((29), (31))
-[((29), 'q'), ((30), 'e'), ((31), 'f')], (array ((True, 'y'), (False, '|'))
-[], [[], [121.0, 94.0, 83.0, 168.0, 232.0], [242.0, 12.0, 235.0], [203.0,
-216.0, 205.0, 4.0], []])), 136.0), 94.0, True, Cons1 ))]) val92]) val90))
-((\val93 -> (\val94 -> (+) 1 9) val94) val93))]) val76) val75) (array ((\val95
--> ((\val96 -> chr ((\val97 -> (+) val97 ((+) 1 (-127))) ((\val98 -> (+)
-1 237) val98))) val96, chr ((\val99 -> (\val100 -> (+) ((\val101 -> 1)
-63) ((\val102 -> 2) val102)) val100) val99))) ((*) ((\val103 -> (+) val103
-((+) ((\val104 -> 1) 177) ((\val105 -> -118) 215))) val103) ((+) ((\val106
--> (\val107 -> (\val108 -> 1) val108) val107) (div ((*) 193 1) ((\val109
--> 1) 111))) ((+) ((\val110 -> (\val111 -> 1) 236) val110) ((\val112 ->
-(\val113 -> -1) 124) val112))))) []), val4 == (\val114 -> Cons4 ) ((\val115
--> (\val116 -> (\val117 -> (\val118 -> (\val119 -> (\val120 -> 30) 86)
-(div 100 1)) val118) val117) val116) ((\val121 -> (\val122 -> (\val123
--> (+) ((\val124 -> 1) 201) ((\val125 -> 91) 247)) ((-) ((\val126 -> 222)
-val126) (negate (-1)))) val122) val121)), val5 == (\val127 -> Cons5 ((\val128
--> array ((\val129 -> (\val130 -> (\val131 -> ((\val132 -> (('O'), (),
-'H', False)) 36, ((\val133 -> ('O')) val133, (\val134 -> ()) val134, (\val135
--> 'L') val135, (||) False False))) val131) val130) val129) [(:=) (((\val136
--> chr ((+) ((+) val136 (-46)) ((\val137 -> 78) val137))) ((\val138 ->
-div ((\val139 -> 47) val139) ((*) 1 1)) val138)), (\val140 -> (\val141
--> (\val142 -> ()) val142) val141) val140, chr ((\val143 -> (+) ((\val144
--> 1) 30) (negate (-71))) ((\val145 -> (-) 89 1) val145)), (\val146 ->
-not ((&&) ((\val147 -> True) 178) ((\val148 -> True) 143))) ((*) ((\val149
--> (+) val149 (-41)) (div 205 1)) (negate (negate 1)))) ((\val150 -> (\val151
--> (\val152 -> array (('5', 35, (202), ()), ('\DC1', 158, (67), ())) [])
-((\val153 -> 56) 68)) ((\val154 -> (\val155 -> 85) val155) ((\val156 ->
-209) 49))) val150), (:=) ((\val157 -> (\val158 -> (\val159 -> (\val160
--> ('O')) 195) ((\val161 -> 23) 181)) val158) val157, (), (\val162 -> chr
-((\val163 -> (-) 74 1) val163)) ((\val164 -> (\val165 -> (\val166 -> 105)
-val166) ((-) 245 1)) val164), (<) ((\val167 -> (\val168 -> (\val169 ->
-1) val169) ((\val170 -> 51) 207)) ((\val171 -> negate (-178)) (div 221
-1))) ((*) ((\val172 -> div 1 1) val172) ((*) ((\val173 -> 1) val173) ((\val174
--> 1) val174)))) ((\val175 -> array ((\val176 -> ((\val177 -> 'c') 7, (\val178
--> 197) val178, ((\val179 -> 144) 58), ())) val176, (\val180 -> (\val181
--> ('\STX', 79, (223), ())) 11) (div 39 1)) []) ((\val182 -> div ((\val183
--> 166) val183) ((*) 1 1)) ((\val184 -> (+) 1 69) ((-) 149 1)))), (:=)
-((\val185 -> ((\val186 -> ((\val187 -> chr 79) ((\val188 -> 243) val188)))
-val186, (), (\val189 -> (\val190 -> (\val191 -> 'J') 194) ((-) 158 1))
-((\val192 -> (*) 39 1) ((*) 36 1)), (\val193 -> (\val194 -> (\val195 ->
-False) val195) ((\val196 -> 51) 209)) val193)) ((\val197 -> div ((*) 211
-1) ((\val198 -> 1) val198)) val197)) ((\val199 -> (\val200 -> array ((\val201
--> (('4', 45, (123), ()), ('\n', 9, (221), ()))) 225) []) val200) ((+)
-((\val202 -> (\val203 -> 1) val203) ((\val204 -> 227) val204)) (negate
-((\val205 -> -51) 240)))), (:=) ((\val206 -> (\val207 -> (chr ((+) val128
-(-142)))) val207) val206, (\val208 -> (\val209 -> ()) (div ((\val210 ->
-141) val210) ((\val211 -> 1) 227))) val208, chr ((+) ((*) (div 1 1) (div
-1 1)) ((\val212 -> (-) 75 1) ((\val213 -> 65) val213))), (\val214 -> (\val215
--> (\val216 -> not True) ((\val217 -> 164) 79)) val215) val214) (array
-((\val218 -> (\val219 -> ((chr 118, (+) 1 19, (\val220 -> (212)) val220,
-(\val221 -> ()) val221), (chr 86, (-) 250 1, (negate (-60)), ()))) val219)
-val218) []), (:=) ((\val222 -> (\val223 -> ((chr ((-) 80 1)), (\val224
--> ()) val224, (\val225 -> (\val226 -> 'L') 20) ((\val227 -> 93) val227),
-(\val228 -> (\val229 -> False) 17) ((-) 113 1))) val223) val222) ((\val230
--> (\val231 -> array ((\val232 -> (('/', 170, (79), ()), ('=', 6, (10),
-()))) 165) []) ((\val233 -> (\val234 -> 82) val234) ((+) val128 (-204))))
-val230)]) val128) ((\val235 -> array ((\val236 -> chr ((+) ((-) 2 1) ((\val237
--> 72) val237))) ((\val238 -> (\val239 -> (\val240 -> 122) 153) val239)
-val238), chr ((+) ((\val241 -> (\val242 -> 1) val242) (div 65 1)) ((+)
-((\val243 -> 1) 141) ((-) 67 1)))) []) val235)) val127, val6 == Cons16
-(array ((\val244 -> (\val245 -> ((\val246 -> (\val247 -> (*) ((\val248
--> 151) 49) ((-) 2 1)) ((\val249 -> (\val250 -> 200) 216) val249)) ((\val251
--> (+) ((*) 1 1) ((-) 245 1)) val251), (\val252 -> (\val253 -> (\val254
--> (\val255 -> 114) 90) ((\val256 -> 63) val256)) val253) ((-) ((\val257
--> (-) 93 1) ((\val258 -> 230) val258)) (div ((\val259 -> 1) 184) ((\val260
--> 1) 21))))) ((*) ((\val261 -> (\val262 -> (\val263 -> 176) val263) val262)
-val261) ((*) ((+) ((+) val244 (-67)) ((+) 1 (-1))) ((\val264 -> (\val265
--> 1) val265) val264)))) ((\val266 -> (\val267 -> (+) val267 ((\val268
--> (\val269 -> -38) 140) ((+) val266 (-59)))) val267) ((\val270 -> (+)
-((*) ((\val271 -> 1) val271) ((\val272 -> 1) 213)) ((*) ((*) 178 1) ((\val273
--> 1) 78))) val270))) []) ((\val274 -> (\val275 -> (\val276 -> (\val277
--> array ((&&) ((\val278 -> True) val278) ((||) False False), (\val279
--> (\val280 -> False) 228) ((+) val277 (-202))) [(:=) ((\val281 -> (\val282
--> False) val282) (negate (-94))) (array ((), (\val283 -> ()) val283) [(:=)
-((\val284 -> ()) 213) (array (False, True) [(:=) False True, (:=) True
-True])])]) val277) val276) val275) val274, (\val285 -> Cons1 ) val285,
-Cons27 ((\val286 -> array ((\val287 -> (\val288 -> (&&) ((\val289 -> (\val290
--> True) val290) val289) ((\val291 -> (||) False True) val291)) val288)
-(negate ((\val292 -> (\val293 -> (\val294 -> -112) val294) val293) ((\val295
--> (\val296 -> 26) val296) ((\val297 -> 200) 88)))), (\val298 -> (<) ((\val299
--> div ((+) 1 0) ((+) 1 0)) val299) ((-) ((\val300 -> (\val301 -> 2) val301)
-val300) ((-) ((+) 1 1) (div 1 1)))) ((\val302 -> (\val303 -> (\val304 ->
-(\val305 -> 45) 166) ((*) 132 1)) ((\val306 -> (\val307 -> 15) val307)
-((-) 246 1))) ((\val308 -> div ((\val309 -> 90) val309) ((\val310 -> 1)
-186)) ((+) val286 ((+) val286 (-428)))))) []) (div ((+) ((\val311 -> div
-((+) val311 (div (-164) 1)) ((\val312 -> (*) 1 1) ((\val313 -> 9) 179)))
-val311) ((\val314 -> (\val315 -> (\val316 -> (\val317 -> 221) val317) ((+)
-val315 (-22))) ((+) val314 ((-) (-52) 1))) val314)) ((\val318 -> (\val319
--> (\val320 -> (\val321 -> (\val322 -> 1) val322) val321) ((\val323 ->
-negate (-89)) ((+) 1 126))) val319) ((\val324 -> (\val325 -> (\val326 ->
-div 48 1) val326) ((\val327 -> (-) 186 1) (div 92 1))) val324)))) (negate
-((\val328 -> (*) ((\val329 -> (\val330 -> (\val331 -> negate 256.0) val331)
-val330) val329) ((\val332 -> (\val333 -> (+) val332 (div (-204) 1)) ((\val334
--> (-) 255 1) val334)) val332)) val328)) (array ((\val335 -> chr ((\val336
--> (\val337 -> (-) (div 55 1) ((*) 1 1)) ((\val338 -> (*) 81 1) val338))
-val336)) val335, (\val339 -> (\val340 -> chr ((\val341 -> (\val342 -> (*)
-57 1) ((-) 49 1)) ((\val343 -> (\val344 -> 15) val344) val343))) val340)
-val339) [(:=) (chr ((+) (div ((\val345 -> (-) (div 2 1) ((\val346 -> 1)
-val346)) val345) ((\val347 -> (\val348 -> (\val349 -> 1) val349) val348)
-((\val350 -> negate (-109)) val350))) ((\val351 -> (\val352 -> (\val353
--> (+) 1 52) ((-) 181 1)) val352) ((+) ((\val354 -> (+) 1 0) ((+) 1 46))
-((\val355 -> (+) val355 (-16)) val355))))) (Cons24 [array ((\val356 ->
-((\val357 -> (\val358 -> (\val359 -> ()) val359) ((\val360 -> 63) 198))
-val357, (&&) ((||) ((&&) True False) ((\val361 -> True) val361)) ((&&)
-((\val362 -> True) 43) ((\val363 -> True) 41)))) (div ((+) ((*) 1 1) ((\val364
--> 116) 167)) ((\val365 -> (+) 1 0) (negate (-106)))), (\val366 -> (\val367
--> (\val368 -> ((\val369 -> ()) val369, (\val370 -> True) val370)) val368)
-((\val371 -> (\val372 -> 180) val372) val371)) ((+) (negate ((\val373 ->
--1) val373)) (negate ((\val374 -> -176) 75)))) [(:=) ((\val375 -> (\val376
--> ((), not ((\val377 -> False) val377))) val376) ((\val378 -> (+) val378
-(negate 147)) ((+) ((\val379 -> 1) 49) (div 152 1)))) (negate ((\val380
--> (-) (negate 106) (negate (-1))) val380))]] [(\val381 -> (\val382 ->
-Cons24 ((\val383 -> (\val384 -> (\val385 -> []) 19) val384) (div ((-) 114
-1) (div 1 1))) [Cons21 ] [[]] ((\val386 -> (\val387 -> (\val388 -> True)
-241) val387) val386)) val382) ((+) ((-) ((*) ((+) 1 1) ((\val389 -> 1)
-val389)) ((\val390 -> div 1 1) val390)) (negate (negate ((+) 1 104)))),
+((\val90 -> [(\val91 -> array ((), ()) [((),(Cons5 (array ((('g'), (),
+'b', False), (('c'), (), 'g', False)) []) (array (')', '-') [(')',()),('*',()),('+',()),(',',()),('-',())]),
+19.0, False, Cons1 ))]) val91, array ((), ()) [(:=) () (Cons7 (Cons4 ,
+(array ((215), (176)) [], (array ((True, 'D'), (False, '\US')) [], [[115.0],
+[54.0, 20.0, 233.0, 226.0], [108.0, 216.0], [29.0, 246.0, 231.0, 32.0,
+160.0]])), 144.0), 104.0, False, Cons3 )], array ((), ()) [(:=) () (Cons6
+, 246.0, True, Cons3 )], array ((), ()) [(:=) () (Cons4 , 203.0, True,
+Cons2 (array ((True, '\SYN', '*'), (False, 'c', '%')) []) (array ((), ())
+[((),Cons8 )]) (array (':', ')') []))], (\val92 -> array ((), ()) [((),(Cons7
+(Cons4 , (array ((29), (31)) [((29),'q'),((30),'e'),((31),'f')], (array
+((True, 'y'), (False, '|')) [], [[], [121.0, 94.0, 83.0, 168.0, 232.0],
+[242.0, 12.0, 235.0], [203.0, 216.0, 205.0, 4.0], []])), 136.0), 94.0,
+True, Cons1 ))]) val92]) val90)) ((\val93 -> (\val94 -> (+) 1 9) val94)
+val93))]) val76) val75) (array ((\val95 -> ((\val96 -> chr ((\val97 ->
+(+) val97 ((+) 1 (-127))) ((\val98 -> (+) 1 237) val98))) val96, chr ((\val99
+-> (\val100 -> (+) ((\val101 -> 1) 63) ((\val102 -> 2) val102)) val100)
+val99))) ((*) ((\val103 -> (+) val103 ((+) ((\val104 -> 1) 177) ((\val105
+-> -118) 215))) val103) ((+) ((\val106 -> (\val107 -> (\val108 -> 1) val108)
+val107) (div ((*) 193 1) ((\val109 -> 1) 111))) ((+) ((\val110 -> (\val111
+-> 1) 236) val110) ((\val112 -> (\val113 -> -1) 124) val112))))) []), val4
+== (\val114 -> Cons4 ) ((\val115 -> (\val116 -> (\val117 -> (\val118 ->
+(\val119 -> (\val120 -> 30) 86) (div 100 1)) val118) val117) val116) ((\val121
+-> (\val122 -> (\val123 -> (+) ((\val124 -> 1) 201) ((\val125 -> 91) 247))
+((-) ((\val126 -> 222) val126) (negate (-1)))) val122) val121)), val5 ==
+(\val127 -> Cons5 ((\val128 -> array ((\val129 -> (\val130 -> (\val131
+-> ((\val132 -> (('O'), (), 'H', False)) 36, ((\val133 -> ('O')) val133,
+(\val134 -> ()) val134, (\val135 -> 'L') val135, (||) False False))) val131)
+val130) val129) [(:=) (((\val136 -> chr ((+) ((+) val136 (-46)) ((\val137
+-> 78) val137))) ((\val138 -> div ((\val139 -> 47) val139) ((*) 1 1)) val138)),
+(\val140 -> (\val141 -> (\val142 -> ()) val142) val141) val140, chr ((\val143
+-> (+) ((\val144 -> 1) 30) (negate (-71))) ((\val145 -> (-) 89 1) val145)),
+(\val146 -> not ((&&) ((\val147 -> True) 178) ((\val148 -> True) 143)))
+((*) ((\val149 -> (+) val149 (-41)) (div 205 1)) (negate (negate 1))))
+((\val150 -> (\val151 -> (\val152 -> array (('5', 35, (202), ()), ('\DC1',
+158, (67), ())) []) ((\val153 -> 56) 68)) ((\val154 -> (\val155 -> 85)
+val155) ((\val156 -> 209) 49))) val150), (:=) ((\val157 -> (\val158 ->
+(\val159 -> (\val160 -> ('O')) 195) ((\val161 -> 23) 181)) val158) val157,
+(), (\val162 -> chr ((\val163 -> (-) 74 1) val163)) ((\val164 -> (\val165
+-> (\val166 -> 105) val166) ((-) 245 1)) val164), (<) ((\val167 -> (\val168
+-> (\val169 -> 1) val169) ((\val170 -> 51) 207)) ((\val171 -> negate (-178))
+(div 221 1))) ((*) ((\val172 -> div 1 1) val172) ((*) ((\val173 -> 1) val173)
+((\val174 -> 1) val174)))) ((\val175 -> array ((\val176 -> ((\val177 ->
+'c') 7, (\val178 -> 197) val178, ((\val179 -> 144) 58), ())) val176, (\val180
+-> (\val181 -> ('\STX', 79, (223), ())) 11) (div 39 1)) []) ((\val182 ->
+div ((\val183 -> 166) val183) ((*) 1 1)) ((\val184 -> (+) 1 69) ((-) 149
+1)))), (:=) ((\val185 -> ((\val186 -> ((\val187 -> chr 79) ((\val188 ->
+243) val188))) val186, (), (\val189 -> (\val190 -> (\val191 -> 'J') 194)
+((-) 158 1)) ((\val192 -> (*) 39 1) ((*) 36 1)), (\val193 -> (\val194 ->
+(\val195 -> False) val195) ((\val196 -> 51) 209)) val193)) ((\val197 ->
+div ((*) 211 1) ((\val198 -> 1) val198)) val197)) ((\val199 -> (\val200
+-> array ((\val201 -> (('4', 45, (123), ()), ('\n', 9, (221), ()))) 225)
+[]) val200) ((+) ((\val202 -> (\val203 -> 1) val203) ((\val204 -> 227)
+val204)) (negate ((\val205 -> -51) 240)))), (:=) ((\val206 -> (\val207
+-> (chr ((+) val128 (-142)))) val207) val206, (\val208 -> (\val209 -> ())
+(div ((\val210 -> 141) val210) ((\val211 -> 1) 227))) val208, chr ((+)
+((*) (div 1 1) (div 1 1)) ((\val212 -> (-) 75 1) ((\val213 -> 65) val213))),
+(\val214 -> (\val215 -> (\val216 -> not True) ((\val217 -> 164) 79)) val215)
+val214) (array ((\val218 -> (\val219 -> ((chr 118, (+) 1 19, (\val220 ->
+(212)) val220, (\val221 -> ()) val221), (chr 86, (-) 250 1, (negate (-60)),
+()))) val219) val218) []), (:=) ((\val222 -> (\val223 -> ((chr ((-) 80
+1)), (\val224 -> ()) val224, (\val225 -> (\val226 -> 'L') 20) ((\val227
+-> 93) val227), (\val228 -> (\val229 -> False) 17) ((-) 113 1))) val223)
+val222) ((\val230 -> (\val231 -> array ((\val232 -> (('/', 170, (79), ()),
+('=', 6, (10), ()))) 165) []) ((\val233 -> (\val234 -> 82) val234) ((+)
+val128 (-204)))) val230)]) val128) ((\val235 -> array ((\val236 -> chr
+((+) ((-) 2 1) ((\val237 -> 72) val237))) ((\val238 -> (\val239 -> (\val240
+-> 122) 153) val239) val238), chr ((+) ((\val241 -> (\val242 -> 1) val242)
+(div 65 1)) ((+) ((\val243 -> 1) 141) ((-) 67 1)))) []) val235)) val127,
+val6 == Cons16 (array ((\val244 -> (\val245 -> ((\val246 -> (\val247 ->
+(*) ((\val248 -> 151) 49) ((-) 2 1)) ((\val249 -> (\val250 -> 200) 216)
+val249)) ((\val251 -> (+) ((*) 1 1) ((-) 245 1)) val251), (\val252 -> (\val253
+-> (\val254 -> (\val255 -> 114) 90) ((\val256 -> 63) val256)) val253) ((-)
+((\val257 -> (-) 93 1) ((\val258 -> 230) val258)) (div ((\val259 -> 1)
+184) ((\val260 -> 1) 21))))) ((*) ((\val261 -> (\val262 -> (\val263 ->
+176) val263) val262) val261) ((*) ((+) ((+) val244 (-67)) ((+) 1 (-1)))
+((\val264 -> (\val265 -> 1) val265) val264)))) ((\val266 -> (\val267 ->
+(+) val267 ((\val268 -> (\val269 -> -38) 140) ((+) val266 (-59)))) val267)
+((\val270 -> (+) ((*) ((\val271 -> 1) val271) ((\val272 -> 1) 213)) ((*)
+((*) 178 1) ((\val273 -> 1) 78))) val270))) []) ((\val274 -> (\val275 ->
+(\val276 -> (\val277 -> array ((&&) ((\val278 -> True) val278) ((||) False
+False), (\val279 -> (\val280 -> False) 228) ((+) val277 (-202))) [(:=)
+((\val281 -> (\val282 -> False) val282) (negate (-94))) (array ((), (\val283
+-> ()) val283) [(:=) ((\val284 -> ()) 213) (array (False, True) [(:=) False
+True, (:=) True True])])]) val277) val276) val275) val274, (\val285 ->
+Cons1 ) val285, Cons27 ((\val286 -> array ((\val287 -> (\val288 -> (&&)
+((\val289 -> (\val290 -> True) val290) val289) ((\val291 -> (||) False
+True) val291)) val288) (negate ((\val292 -> (\val293 -> (\val294 -> -112)
+val294) val293) ((\val295 -> (\val296 -> 26) val296) ((\val297 -> 200)
+88)))), (\val298 -> (<) ((\val299 -> div ((+) 1 0) ((+) 1 0)) val299) ((-)
+((\val300 -> (\val301 -> 2) val301) val300) ((-) ((+) 1 1) (div 1 1))))
+((\val302 -> (\val303 -> (\val304 -> (\val305 -> 45) 166) ((*) 132 1))
+((\val306 -> (\val307 -> 15) val307) ((-) 246 1))) ((\val308 -> div ((\val309
+-> 90) val309) ((\val310 -> 1) 186)) ((+) val286 ((+) val286 (-428))))))
+[]) (div ((+) ((\val311 -> div ((+) val311 (div (-164) 1)) ((\val312 ->
+(*) 1 1) ((\val313 -> 9) 179))) val311) ((\val314 -> (\val315 -> (\val316
+-> (\val317 -> 221) val317) ((+) val315 (-22))) ((+) val314 ((-) (-52)
+1))) val314)) ((\val318 -> (\val319 -> (\val320 -> (\val321 -> (\val322
+-> 1) val322) val321) ((\val323 -> negate (-89)) ((+) 1 126))) val319)
+((\val324 -> (\val325 -> (\val326 -> div 48 1) val326) ((\val327 -> (-)
+186 1) (div 92 1))) val324)))) (negate ((\val328 -> (*) ((\val329 -> (\val330
+-> (\val331 -> negate 256.0) val331) val330) val329) ((\val332 -> (\val333
+-> (+) val332 (div (-204) 1)) ((\val334 -> (-) 255 1) val334)) val332))
+val328)) (array ((\val335 -> chr ((\val336 -> (\val337 -> (-) (div 55 1)
+((*) 1 1)) ((\val338 -> (*) 81 1) val338)) val336)) val335, (\val339 ->
+(\val340 -> chr ((\val341 -> (\val342 -> (*) 57 1) ((-) 49 1)) ((\val343
+-> (\val344 -> 15) val344) val343))) val340) val339) [(:=) (chr ((+) (div
+((\val345 -> (-) (div 2 1) ((\val346 -> 1) val346)) val345) ((\val347 ->
+(\val348 -> (\val349 -> 1) val349) val348) ((\val350 -> negate (-109))
+val350))) ((\val351 -> (\val352 -> (\val353 -> (+) 1 52) ((-) 181 1)) val352)
+((+) ((\val354 -> (+) 1 0) ((+) 1 46)) ((\val355 -> (+) val355 (-16)) val355)))))
+(Cons24 [array ((\val356 -> ((\val357 -> (\val358 -> (\val359 -> ()) val359)
+((\val360 -> 63) 198)) val357, (&&) ((||) ((&&) True False) ((\val361 ->
+True) val361)) ((&&) ((\val362 -> True) 43) ((\val363 -> True) 41)))) (div
+((+) ((*) 1 1) ((\val364 -> 116) 167)) ((\val365 -> (+) 1 0) (negate (-106)))),
+(\val366 -> (\val367 -> (\val368 -> ((\val369 -> ()) val369, (\val370 ->
+True) val370)) val368) ((\val371 -> (\val372 -> 180) val372) val371)) ((+)
+(negate ((\val373 -> -1) val373)) (negate ((\val374 -> -176) 75)))) [(:=)
+((\val375 -> (\val376 -> ((), not ((\val377 -> False) val377))) val376)
+((\val378 -> (+) val378 (negate 147)) ((+) ((\val379 -> 1) 49) (div 152
+1)))) (negate ((\val380 -> (-) (negate 106) (negate (-1))) val380))]] [(\val381
+-> (\val382 -> Cons24 ((\val383 -> (\val384 -> (\val385 -> []) 19) val384)
+(div ((-) 114 1) (div 1 1))) [Cons21 ] [[]] ((\val386 -> (\val387 -> (\val388
+-> True) 241) val387) val386)) val382) ((+) ((-) ((*) ((+) 1 1) ((\val389
+-> 1) val389)) ((\val390 -> div 1 1) val390)) (negate (negate ((+) 1 104)))),
 (\val391 -> (\val392 -> (\val393 -> (\val394 -> Cons21 ) ((+) val392 7))
 ((*) ((\val395 -> 71) val395) ((\val396 -> 1) val396))) val392) val391,
 (\val397 -> Cons23 ((\val398 -> not ((\val399 -> (\val400 -> True) val400)
@@ -1771,52 +1757,51 @@ val389)) ((\val390 -> div 1 1) val390)) (negate (negate ((+) 1 104)))),
 -> 202) 0) ((\val412 -> 9) val412))) (div ((\val413 -> (*) 1 1) val413)
 (div ((\val414 -> 1) 186) ((\val415 -> 1) val415)))), (\val416 -> (\val417
 -> (\val418 -> Cons24 ((\val419 -> [array (((), False), ((), False)) [(((),
-False), (90))], array (((), True), ((), False)) [], array (((), True),
-((), False)) []]) val419) [] [] (not ((||) False True))) ((\val420 -> (-)
-142 1) val420)) ((\val421 -> (\val422 -> (\val423 -> 5) val423) ((\val424
--> 113) val424)) ((\val425 -> negate (-46)) ((+) 1 54)))) val416, Cons22
-((\val426 -> (\val427 -> not (not ((&&) True False))) val427) val426) ()]
-((\val428 -> [(\val429 -> (\val430 -> (\val431 -> []) ((\val432 -> 82)
-12)) val430) val429, [(\val433 -> (\val434 -> (\val435 -> [('S', Cons4
-, False, Cons17 ), ('\DC2', Cons4 , False, Cons17 ), ('/', Cons4 , True,
-Cons17 ), ('\SUB', Cons4 , True, Cons17 ), ('r', Cons4 , True, Cons17 )])
-val435) val434) val433], (\val436 -> (\val437 -> [[('A', Cons4 , False,
-Cons17 ), ('\RS', Cons4 , False, Cons17 )], (\val438 -> [('=', Cons4 ,
-False, Cons17 ), ('c', Cons4 , False, Cons17 ), ('\RS', Cons4 , False,
-Cons17 ), ('<', Cons4 , False, Cons17 )]) 233]) val437) ((\val439 -> (-)
-(negate (-80)) ((-) 2 1)) val439), (\val440 -> []) val440, [(\val441 ->
-[]) ((\val442 -> (\val443 -> 224) val443) val442), (\val444 -> [(chr 127,
-(\val445 -> Cons4 ) val445, not False, Cons17 ), (chr 60, Cons4 , (\val446
--> False) 199, Cons17 ), ((\val447 -> '6') val447, Cons4 , (\val448 ->
-False) 25, Cons17 ), (chr 98, (\val449 -> Cons4 ) val449, (||) False False,
-Cons17 ), ((\val450 -> '\SI') 161, Cons4 , not False, (\val451 -> Cons17
-) val451)]) ((\val452 -> (\val453 -> 138) val453) ((\val454 -> 74) 134)),
-[(chr ((\val455 -> 42) 184), Cons4 , (&&) (not False) ((||) False True),
-Cons17 ), (chr ((\val456 -> 75) val456), (\val457 -> Cons4 ) val457, (<)
-((*) 0 1) ((\val458 -> 1) val458), Cons17 )], [(chr ((*) 103 1), Cons4
-, (||) ((\val459 -> False) val459) ((\val460 -> True) 106), (\val461 ->
-(\val462 -> Cons17 ) 11) (negate (-68))), (\val463 -> (\val464 -> (',',
-Cons4 , True, Cons17 )) 225) ((*) 58 1), (chr (div 103 1), Cons4 , (<)
-((\val465 -> 0) val465) ((+) val428 (-200)), Cons17 ), ((\val466 -> chr
-33) ((\val467 -> 0) 114), Cons4 , (\val468 -> not True) val468, Cons17
-)]]]) ((\val469 -> (+) val469 ((+) ((\val470 -> (+) 1 0) ((\val471 -> 32)
-val471)) ((-) ((\val472 -> 34) val472) ((\val473 -> 1) 159)))) val469))
-((\val474 -> (\val475 -> (\val476 -> not ((<) ((\val477 -> 0) val477) ((\val478
--> 1) 164))) val476) val475) val474)), (:=) ((\val479 -> (\val480 -> (\val481
--> (\val482 -> (\val483 -> (\val484 -> '7') val484) val483) ((+) ((\val485
--> 1) 241) ((-) 170 1))) ((\val486 -> (\val487 -> (+) val479 4) ((-) 174
-1)) val486)) val480) val479) ((\val488 -> (\val489 -> Cons22 ((\val490
--> (&&) ((\val491 -> (\val492 -> True) 187) ((\val493 -> 144) 214)) (not
-((\val494 -> True) val494))) (negate ((\val495 -> (+) 1 (-29)) val495)))
-((\val496 -> (\val497 -> ()) (negate ((\val498 -> -249) val498))) ((\val499
--> (\val500 -> (+) val500 (-3)) ((\val501 -> 107) val501)) ((\val502 ->
-(+) val488 (-125)) ((*) 174 1))))) val489) ((\val503 -> div ((-) (negate
-((+) val503 (-352))) ((\val504 -> (*) 1 1) val504)) ((\val505 -> (\val506
--> (+) 1 0) val506) ((-) (div 34 1) ((\val507 -> 1) val507)))) val503)),
-(:=) ((\val508 -> (\val509 -> chr (div ((*) ((*) 56 1) ((\val510 -> 1)
-176)) ((*) ((\val511 -> 1) val511) (negate (-1))))) ((\val512 -> (\val513
--> negate ((\val514 -> -142) 144)) val513) val512)) val508) ((\val515 ->
-Cons21 ) val515), (:=) ((\val516 -> chr ((\val517 -> negate (div (negate
+False),(90))], array (((), True), ((), False)) [], array (((), True), ((),
+False)) []]) val419) [] [] (not ((||) False True))) ((\val420 -> (-) 142
+1) val420)) ((\val421 -> (\val422 -> (\val423 -> 5) val423) ((\val424 ->
+113) val424)) ((\val425 -> negate (-46)) ((+) 1 54)))) val416, Cons22 ((\val426
+-> (\val427 -> not (not ((&&) True False))) val427) val426) ()] ((\val428
+-> [(\val429 -> (\val430 -> (\val431 -> []) ((\val432 -> 82) 12)) val430)
+val429, [(\val433 -> (\val434 -> (\val435 -> [('S', Cons4 , False, Cons17
+), ('\DC2', Cons4 , False, Cons17 ), ('/', Cons4 , True, Cons17 ), ('\SUB',
+Cons4 , True, Cons17 ), ('r', Cons4 , True, Cons17 )]) val435) val434)
+val433], (\val436 -> (\val437 -> [[('A', Cons4 , False, Cons17 ), ('\RS',
+Cons4 , False, Cons17 )], (\val438 -> [('=', Cons4 , False, Cons17 ), ('c',
+Cons4 , False, Cons17 ), ('\RS', Cons4 , False, Cons17 ), ('<', Cons4 ,
+False, Cons17 )]) 233]) val437) ((\val439 -> (-) (negate (-80)) ((-) 2
+1)) val439), (\val440 -> []) val440, [(\val441 -> []) ((\val442 -> (\val443
+-> 224) val443) val442), (\val444 -> [(chr 127, (\val445 -> Cons4 ) val445,
+not False, Cons17 ), (chr 60, Cons4 , (\val446 -> False) 199, Cons17 ),
+((\val447 -> '6') val447, Cons4 , (\val448 -> False) 25, Cons17 ), (chr
+98, (\val449 -> Cons4 ) val449, (||) False False, Cons17 ), ((\val450 ->
+'\SI') 161, Cons4 , not False, (\val451 -> Cons17 ) val451)]) ((\val452
+-> (\val453 -> 138) val453) ((\val454 -> 74) 134)), [(chr ((\val455 ->
+42) 184), Cons4 , (&&) (not False) ((||) False True), Cons17 ), (chr ((\val456
+-> 75) val456), (\val457 -> Cons4 ) val457, (<) ((*) 0 1) ((\val458 ->
+1) val458), Cons17 )], [(chr ((*) 103 1), Cons4 , (||) ((\val459 -> False)
+val459) ((\val460 -> True) 106), (\val461 -> (\val462 -> Cons17 ) 11) (negate
+(-68))), (\val463 -> (\val464 -> (',', Cons4 , True, Cons17 )) 225) ((*)
+58 1), (chr (div 103 1), Cons4 , (<) ((\val465 -> 0) val465) ((+) val428
+(-200)), Cons17 ), ((\val466 -> chr 33) ((\val467 -> 0) 114), Cons4 , (\val468
+-> not True) val468, Cons17 )]]]) ((\val469 -> (+) val469 ((+) ((\val470
+-> (+) 1 0) ((\val471 -> 32) val471)) ((-) ((\val472 -> 34) val472) ((\val473
+-> 1) 159)))) val469)) ((\val474 -> (\val475 -> (\val476 -> not ((<) ((\val477
+-> 0) val477) ((\val478 -> 1) 164))) val476) val475) val474)), (:=) ((\val479
+-> (\val480 -> (\val481 -> (\val482 -> (\val483 -> (\val484 -> '7') val484)
+val483) ((+) ((\val485 -> 1) 241) ((-) 170 1))) ((\val486 -> (\val487 ->
+(+) val479 4) ((-) 174 1)) val486)) val480) val479) ((\val488 -> (\val489
+-> Cons22 ((\val490 -> (&&) ((\val491 -> (\val492 -> True) 187) ((\val493
+-> 144) 214)) (not ((\val494 -> True) val494))) (negate ((\val495 -> (+)
+1 (-29)) val495))) ((\val496 -> (\val497 -> ()) (negate ((\val498 -> -249)
+val498))) ((\val499 -> (\val500 -> (+) val500 (-3)) ((\val501 -> 107) val501))
+((\val502 -> (+) val488 (-125)) ((*) 174 1))))) val489) ((\val503 -> div
+((-) (negate ((+) val503 (-352))) ((\val504 -> (*) 1 1) val504)) ((\val505
+-> (\val506 -> (+) 1 0) val506) ((-) (div 34 1) ((\val507 -> 1) val507))))
+val503)), (:=) ((\val508 -> (\val509 -> chr (div ((*) ((*) 56 1) ((\val510
+-> 1) 176)) ((*) ((\val511 -> 1) val511) (negate (-1))))) ((\val512 ->
+(\val513 -> negate ((\val514 -> -142) 144)) val513) val512)) val508) ((\val515
+-> Cons21 ) val515), (:=) ((\val516 -> chr ((\val517 -> negate (div (negate
 57) ((\val518 -> 1) val518))) ((\val519 -> (\val520 -> (\val521 -> 215)
 val521) val520) val519))) val516) (Cons23 ((||) ((\val522 -> (||) ((\val523
 -> (\val524 -> (\val525 -> False) val525) ((\val526 -> 203) val526)) val523)
@@ -1871,204 +1856,200 @@ val640) (Cons21 ), (:=) ((\val643 -> chr ((+) ((\val644 -> (\val645 ->
 -> (\val654 -> (+) ((\val655 -> 1) val655) ((+) 1 176)) ((\val656 -> (\val657
 -> 51) val657) ((\val658 -> 31) 60))) val653)))))]) ((\val659 -> (\val660
 -> (\val661 -> (\val662 -> (\val663 -> (\val664 -> [Cons12 (Cons25 ) (Cons10
-'\CAN' False (array (38, 41) [(38, [Cons17 , Cons17 , Cons17 , Cons17 ,
-Cons17 ]), (39, [Cons17 , Cons17 , Cons17 ]), (40, [Cons17 , Cons17 , Cons17
-, Cons17 , Cons17 ]), (41, [Cons17 , Cons17 ])]) (array ('=', '=') [('=',
-Cons1 )]), array (13, 7) [], array ((((True, True), (), ('\DC4')), 137,
-(('+', 'S', 155), 'j')), (((False, False), (), ('M')), 59, (('|', 'y',
-181), 'o'))) [], Cons16 (array (98, 8) []) (array (True, False) [], Cons1
-, Cons25 , '~') (array ((), ()) [((), [array (True, True) [(True, Cons1
-)], array (False, True) [(False, Cons1 ), (True, Cons1 )], array (True,
-True) [(True, Cons1 )], array (False, True) [(False, Cons1 ), (True, Cons1
-)], array (False, False) [(False, Cons1 )]])])) (array ((120, (), 'y'),
-(4, (), '\GS')) []) (array ((219, 'M', (('X', False, True), False), ((),
-('E', 207), 76, ())), (182, ' ', (('N', True, True), True), ((), ('\ACK',
-146), 18, ()))) [], [array ((('|', False, '\SI', True), '\DEL', ('/', 11,
-157, False)), (('\b', True, '$', False), '\EM', (')', 26, 155, True)))
-[]]), Cons11 ['\\', 'e'], Cons13 [array ((), ()) [((), (Cons4 , 144.0,
-False, Cons1 ))]]]) ((\val665 -> 80) val665)) val663) ((+) val660 (div
-((\val666 -> -7) 154) ((-) 2 1)))) ((\val667 -> (*) (div ((-) 233 1) ((\val668
--> 1) 159)) ((\val669 -> (-) 2 1) val669)) ((\val670 -> (\val671 -> (\val672
--> 69) val672) val671) ((\val673 -> (-) 254 1) ((*) 151 1))))) val660)
-val659), (\val674 -> chr ((\val675 -> negate (div ((\val676 -> (\val677
--> -14) 193) ((\val678 -> 5) val678)) (div ((\val679 -> 1) val679) ((\val680
--> 1) val680)))) ((\val681 -> (*) ((\val682 -> (-) 121 1) val682) ((\val683
--> (\val684 -> 1) val684) val683)) val681))) val674) ((\val685 -> (\val686
--> (\val687 -> (\val688 -> array ((\val689 -> (\val690 -> ((), ())) 1)
-val689) [(:=) () [array (False, False) [(:=) False (Cons3 )], array (True,
-False) [], array (True, False) [], (\val691 -> array (True, False) [])
-val691]]) val688) ((\val692 -> (-) ((\val693 -> (-) 252 1) ((+) 1 112))
-((\val694 -> div 1 1) val694)) ((\val695 -> (\val696 -> div 100 1) val696)
-val695))) val686) ((\val697 -> (\val698 -> (+) val697 ((\val699 -> (\val700
--> (+) 1 122) (negate (-216))) ((+) val697 ((\val701 -> -28) 234)))) val698)
-((+) ((+) ((\val702 -> (\val703 -> (-) 2 1) val703) val702) ((\val704 ->
-(\val705 -> (\val706 -> 0) 157) ((+) val704 (-19))) ((*) ((+) 1 79) ((+)
-1 0)))) ((-) ((\val707 -> (\val708 -> (\val709 -> 116) val709) val708)
-((*) ((+) 1 167) ((+) 1 0))) ((+) ((\val710 -> div 1 1) ((+) 1 148)) ((*)
-((+) 1 (-1)) ((\val711 -> 1) val711))))))), val7 == Cons26 (Cons3 ) [(\val712
--> (\val713 -> array ((\val714 -> (\val715 -> (\val716 -> (109, 112)) 206)
-val715) val714) [(:=) ((\val717 -> (\val718 -> (\val719 -> 109) 155) val718)
-((-) (negate (-223)) ((*) 1 1))) ((\val720 -> (*) ((\val721 -> 238.0) 108)
-((\val722 -> 1.0) 126)) ((+) (div 1 1) ((\val723 -> 117) val723))), (:=)
-((\val724 -> (\val725 -> (\val726 -> 110) 230) ((+) val724 225)) ((+) val713
-((\val727 -> -5) 108))) ((\val728 -> (\val729 -> negate (-139.0)) ((\val730
--> 201) val730)) ((-) ((\val731 -> 16) val731) ((+) 1 0))), (:=) (div (div
-((\val732 -> 111) 208) (div 1 1)) ((\val733 -> (\val734 -> 1) 215) val733))
-((\val735 -> (+) (negate (-1.0)) (negate (-193.0))) val735), (:=) ((\val736
--> (\val737 -> (\val738 -> 112) 164) ((+) val712 13)) val736) ((\val739
--> (*) ((+) 1.0 164.0) ((\val740 -> 1.0) 125)) ((\val741 -> (*) 233 1)
-val741))]) val713) ((+) ((\val742 -> (\val743 -> (\val744 -> (\val745 ->
-1) val745) val744) val743) ((*) ((\val746 -> div 5 1) val746) ((+) ((+)
-1 0) ((+) 1 (-1))))) ((\val747 -> (\val748 -> (-) (div 188 1) ((\val749
--> 1) 234)) val748) val747)), (\val750 -> (\val751 -> array ((\val752 ->
-((+) val750 ((\val753 -> -23) val753), (\val754 -> (+) 1 187) ((\val755
--> 252) val755))) (div ((+) 1 192) ((-) 2 1))) []) val751) val750, array
-((\val756 -> (\val757 -> (+) ((\val758 -> (*) 1 1) ((\val759 -> 138) 160))
-((+) val757 ((\val760 -> 36) 17))) (div ((\val761 -> (*) 52 1) ((*) 228
-1)) ((\val762 -> negate (-1)) val762))) (negate ((+) ((\val763 -> (\val764
--> 1) val764) val763) (negate (negate (-40))))), (\val765 -> (\val766 ->
-(\val767 -> (\val768 -> div 93 1) (div 142 1)) val767) ((\val769 -> (-)
-(negate (-43)) ((\val770 -> 1) 124)) val769)) val765) [(:=) ((*) ((\val771
--> (-) ((\val772 -> (\val773 -> 90) val773) ((+) 1 106)) ((*) ((\val774
--> 1) val774) (div 1 1))) ((\val775 -> (+) val775 ((-) 240 1)) val775))
-((+) ((-) ((\val776 -> negate (-2)) val776) ((\val777 -> (\val778 -> 1)
-256) val777)) ((\val779 -> (+) val779 ((+) 1 (-183))) ((\val780 -> (+)
-val780 90) ((\val781 -> 92) val781))))) ((*) (negate ((+) ((\val782 ->
-(\val783 -> 1.0) 215) ((\val784 -> 150) 130)) (negate ((-) 148.0 1.0))))
-((*) ((+) ((+) ((\val785 -> 1.0) 187) ((\val786 -> 0.0) 235)) ((+) ((+)
-1.0 0.0) ((+) 1.0 (-2.0)))) ((+) ((-) (negate (-2.0)) ((\val787 -> 1.0)
-229)) ((\val788 -> (+) 1.0 (-1.0)) (div 23 1))))), (:=) (negate (negate
-((+) ((-) ((\val789 -> 2) val789) ((\val790 -> 1) 232)) ((+) ((\val791
--> 1) val791) ((-) 89 1))))) ((+) ((\val792 -> (+) val792 ((\val793 ->
-(-) (-24) 1) val793)) val792) ((+) ((\val794 -> (*) ((*) 1.0 1.0) ((*)
-1.0 1.0)) val794) ((\val795 -> (*) ((\val796 -> 242.0) 104) ((+) val795
-(-34))) ((-) (div 36 1) ((+) 1 0))))), (:=) ((\val797 -> (\val798 -> (\val799
--> negate ((\val800 -> -91) 44)) (div ((-) 204 1) ((-) 2 1))) ((\val801
--> (\val802 -> (\val803 -> 237) 97) ((\val804 -> 214) val804)) ((\val805
--> (+) val797 173) val805))) val797) ((+) (negate ((+) ((\val806 -> negate
-(-1.0)) val806) ((+) ((*) 1.0 1.0) ((+) 1.0 (-4.0))))) ((-) ((\val807 ->
-(-) ((\val808 -> 211.0) 8) (negate (-1.0))) (negate ((+) 1 (-211)))) (negate
-((+) ((*) 1.0 1.0) ((\val809 -> -2.0) 159))))), (:=) ((\val810 -> (\val811
--> (+) val810 ((\val812 -> (\val813 -> 51) val813) ((+) 1 128))) val811)
-((*) ((*) ((\val814 -> (\val815 -> 41) 98) val814) ((+) ((\val816 -> 1)
-59) ((\val817 -> 0) val817))) ((\val818 -> (-) (div 2 1) (div 1 1)) ((-)
-((\val819 -> 152) 107) ((+) 1 0))))) ((\val820 -> negate ((-) ((\val821
--> negate 11.0) val821) (negate (negate 1.0)))) val820), (:=) ((+) ((-)
-((+) ((\val822 -> (+) 1 0) val822) (div ((-) 2 1) ((+) 1 0))) ((\val823
--> (\val824 -> (*) 1 1) ((\val825 -> 28) 229)) val823)) ((\val826 -> (\val827
--> negate ((\val828 -> -92) 148)) val827) ((\val829 -> (\val830 -> (\val831
--> 27) val831) ((\val832 -> 132) 135)) val829))) ((\val833 -> (+) val833
-((\val834 -> (\val835 -> (\val836 -> -56) 229) val835) val834)) val833)],
-array ((\val837 -> (\val838 -> (\val839 -> (\val840 -> (div 216 1, (\val841
--> 181) val841)) ((*) 134 1)) val839) ((\val842 -> (\val843 -> (\val844
--> 116) 209) ((*) 155 1)) ((\val845 -> (\val846 -> 105) val846) ((\val847
--> 119) 63)))) val837) []] (array (((<) ((\val848 -> (+) val848 ((\val849
--> div ((\val850 -> -184) 219) ((\val851 -> 1) val851)) (div ((\val852
--> 212) val852) ((\val853 -> 1) 216)))) val848) ((\val854 -> (\val855 ->
-(\val856 -> (*) (negate (-1)) (div 1 1)) ((\val857 -> (\val858 -> 231)
-229) val857)) ((\val859 -> (\val860 -> div 140 1) val860) val859)) ((-)
-((\val861 -> (\val862 -> (\val863 -> 151) 156) ((*) 246 1)) val861) ((*)
-(negate ((\val864 -> -1) 68)) (negate ((\val865 -> -1) val865))))), chr
-((\val866 -> negate (negate ((\val867 -> (\val868 -> 54) val868) ((-) 227
-1)))) ((+) ((\val869 -> negate ((*) (-1) 1)) val869) ((\val870 -> (+) ((*)
-1 1) ((\val871 -> 58) val871)) val870))), (\val872 -> chr (negate ((\val873
--> (\val874 -> (+) 1 (-11)) val874) ((-) (div 3 1) ((\val875 -> 1) 5)))))
-((+) (div ((-) ((\val876 -> (\val877 -> 2) val877) ((*) 131 1)) (div ((\val878
--> 1) val878) ((\val879 -> 1) 161))) ((\val880 -> (\val881 -> (\val882
--> 1) 144) ((\val883 -> 11) val883)) val880)) (negate ((-) ((\val884 ->
-negate 145) val884) ((\val885 -> (\val886 -> 1) 249) (negate (-77))))))),
-((<) ((-) ((+) ((+) ((+) ((\val887 -> 1) 191) ((\val888 -> 0) 150)) ((+)
-((\val889 -> 1) val889) ((\val890 -> -1) 244))) ((+) ((-) ((\val891 ->
-2) 89) ((+) 1 0)) ((+) ((\val892 -> 1) val892) ((\val893 -> -2) val893))))
-(negate ((-) ((\val894 -> (\val895 -> 0) 151) ((\val896 -> 22) val896))
-((\val897 -> (\val898 -> 1) 153) ((\val899 -> 60) 10))))) ((\val900 ->
-(\val901 -> (\val902 -> (\val903 -> negate (-1)) val903) val902) ((+) ((\val904
--> (\val905 -> 1) 120) ((+) 1 140)) ((\val906 -> negate (-192)) val906)))
-val900), (\val907 -> chr ((*) ((\val908 -> negate ((\val909 -> -58) 151))
-((+) val907 ((+) val907 (-188)))) ((+) val907 ((-) ((*) (-216) 1) ((\val910
--> 1) 225))))) val907, chr ((\val911 -> (+) val911 ((*) ((\val912 -> (\val913
--> -137) 3) (div 142 1)) ((\val914 -> (\val915 -> 1) val915) val914)))
-val911))) []), val8 == Cons19 ((\val916 -> (\val917 -> (\val918 -> ((\val919
--> ((\val920 -> (\val921 -> chr 51) val921) ((\val922 -> (-) 56 1) ((\val923
--> 252) val923)), (\val924 -> (Cons13 [array ((), ()) [(:=) () (Cons4 ,
-93.0, True, Cons1 )], (\val925 -> array ((), ()) [((), (Cons4 , 64.0, True,
-Cons1 ))]) 179, (\val926 -> array ((), ()) [((), (Cons4 , 74.0, True, Cons1
-))]) 23, (\val927 -> array ((), ()) [((), (Cons4 , 216.0, True, Cons1 ))])
-val927, array ((), ()) [(:=) () (Cons4 , 221.0, True, Cons1 )]])) val924,
-(\val928 -> [array ((145, False, 252), (17, True, 183)) []]) ((\val929
--> (+) 1 249) ((-) 39 1)))) val919, (\val930 -> (\val931 -> (\val932 ->
-(\val933 -> array ((), ()) [((), array (72, 72) [(72, [False, True, False])])])
-val933) val932) ((\val934 -> (\val935 -> 174) val935) val934)) (div ((+)
-val918 ((\val936 -> -125) val936)) ((-) ((\val937 -> 2) 213) ((*) 1 1))),
-(\val938 -> ()) ((\val939 -> (-) ((\val940 -> 91) 42) (div 1 1)) ((\val941
--> div 11 1) val941)), drop (negate ((\val942 -> (-) (-2) 1) val942)) [(\val943
--> (\val944 -> [[array ('8', '8') [('8', True)]], [array ('o', 'f') [],
-array ('M', '.') [], array ('g', 'k') [('g', False), ('h', False), ('i',
-True), ('j', True), ('k', False)], array ('H', 'L') [('H', False), ('I',
-True), ('J', True), ('K', False), ('L', False)]]]) 123) ((+) val916 12),
-[(\val945 -> []) 163, drop 2 [array ('~', '6') [], array ('m', '@') [],
-array ('~', '6') [], array ('m', '@') []], [], [array ('n', 'n') [('n',
-True)], array ('-', '0') [('-', True), ('.', False), ('/', True), ('0',
-True)]]], [drop 3 [array ('C', '1') [], array ('Y', 'Z') [('Y', True),
-('Z', False)], array ('1', '\r') [], array ('C', '1') [], array ('Y', 'Z')
-[('Y', True), ('Z', False)], array ('1', '\r') []], (\val946 -> [array
-('P', 'Q') [('P', False), ('Q', False)], array ('P', '.') []]) 105, [array
-('Y', '\r') [], array ('H', ',') [], array ('F', 'I') [('F', True), ('G',
-False), ('H', False), ('I', False)], array ('(', ')') [('(', True), (')',
-True)]]], (\val947 -> [[array ('8', '8') [('8', True)]], [array ('o', 'f')
-[], array ('M', '.') [], array ('g', 'k') [('g', False), ('h', False),
-('i', True), ('j', True), ('k', False)], array ('H', 'L') [('H', False),
-('I', True), ('J', True), ('K', False), ('L', False)]]]) val947, [drop
-0 [], (\val948 -> [array ('~', '6') [], array ('m', '@') []]) val948, (\val949
--> []) 55, [array ('n', 'n') [('n', True)], array ('-', '0') [('-', True),
-('.', False), ('/', True), ('0', True)]]], [(\val950 -> [array ('C', '1')
-[], array ('Y', 'Z') [('Y', True), ('Z', False)], array ('1', '\r') []])
-val950, [array ('P', 'Q') [('P', False), ('Q', False)], array ('P', '.')
-[]], [array ('Y', '\r') [], array ('H', ',') [], array ('F', 'I') [('F',
-True), ('G', False), ('H', False), ('I', False)], array ('(', ')') [('(',
-True), (')', True)]]]])) val918) val917) (div ((\val951 -> (+) (div ((*)
-((\val952 -> 1) 96) ((+) val951 (-150))) ((\val953 -> (\val954 -> 1) 250)
-((+) val951 55))) ((\val955 -> (\val956 -> (+) val951 (-36)) val956) ((-)
-((+) 1 124) ((\val957 -> 1) val957)))) val951) (negate ((\val958 -> (\val959
--> (\val960 -> (\val961 -> -1) val961) val960) val959) ((\val962 -> (-)
-((\val963 -> 22) val963) ((+) val962 (-3))) ((\val964 -> (*) 4 1) val964))))))
-((\val965 -> (\val966 -> ()) (div ((-) (negate ((\val967 -> (\val968 ->
--185) val968) val967)) ((\val969 -> (\val970 -> (\val971 -> 1) val971)
-(div 149 1)) ((\val972 -> negate (-105)) val972))) ((\val973 -> (-) ((\val974
--> (+) 1 1) (div 178 1)) ((\val975 -> (\val976 -> 1) 256) ((+) 1 17)))
-val973))) val965, (\val977 -> Cons2 ((\val978 -> array (((\val979 -> (\val980
--> (&&) ((\val981 -> True) val981) ((\val982 -> False) 116)) val980) ((\val983
--> (\val984 -> (*) 255 1) val984) (negate (div (-162) 1))), (\val985 ->
-(\val986 -> chr ((\val987 -> 22) val987)) val986) val985, chr ((\val988
--> (+) val977 ((*) (-147) 1)) ((*) ((+) 1 224) (div 1 1)))), (not ((\val989
--> (\val990 -> (||) False True) val990) val989), (\val991 -> (\val992 ->
-(\val993 -> (\val994 -> '\SYN') val994) val993) ((\val995 -> (+) 1 102)
-val995)) val991, chr ((-) ((\val996 -> (\val997 -> 56) 33) ((\val998 ->
-117) val998)) ((\val999 -> div 1 1) ((\val1000 -> 167) 100))))) [(:=) ((\val1001
--> (not ((\val1002 -> (<) 0 1) val1002), (\val1003 -> (\val1004 -> (\val1005
--> '\SYN') 235) val1004) val1003, (\val1006 -> chr ((\val1007 -> 52) val1007))
-val1006)) ((\val1008 -> (\val1009 -> (\val1010 -> 105) val1010) val1009)
-((\val1011 -> (+) val978 84) (negate (-178))))) ([], (\val1012 -> chr ((*)
-((\val1013 -> 86) 47) ((\val1014 -> 1) 61))) ((-) ((+) ((\val1015 -> 1)
-81) ((\val1016 -> 253) 116)) ((\val1017 -> (*) 1 1) val1017)), (\val1018
--> array ((\val1019 -> (<) 0 1) (negate (-235)), (<) ((\val1020 -> 1) 120)
-((-) 2 1)) []) val1018, (\val1021 -> (\val1022 -> negate ((\val1023 ->
--55.0) val1023)) val1022) ((*) ((+) ((\val1024 -> 1) val1024) ((\val1025
--> 244) 191)) ((*) ((\val1026 -> 1) 167) ((\val1027 -> 1) val1027)))),
-(:=) ((\val1028 -> ((<) ((-) ((\val1029 -> 2) val1029) ((\val1030 -> 1)
-val1030)) ((\val1031 -> (\val1032 -> 1) val1032) val1031), chr ((\val1033
--> (*) 22 1) val1033), (\val1034 -> chr ((+) 1 52)) val1034)) val1028)
-((\val1035 -> (\val1036 -> [(\val1037 -> Cons22 True ()) val1037, Cons22
-((\val1038 -> True) val1038) (), (\val1039 -> Cons21 ) val1039, Cons21
-, Cons21 ]) ((-) (div 48 1) (negate (-1)))) ((\val1040 -> negate (negate
-181)) ((*) ((\val1041 -> 178) 100) ((*) 1 1))), (\val1042 -> chr ((\val1043
--> (\val1044 -> 43) 9) val1043)) val1042, array ((\val1045 -> (\val1046
--> (not False, (<) 0 1)) val1046) ((-) ((\val1047 -> 161) val1047) ((-)
-2 1))) [(:=) ((<) ((*) ((\val1048 -> 0) 134) ((*) 1 1)) ((\val1049 -> (\val1050
--> 1) val1050) (negate (-36)))) ((\val1051 -> (\val1052 -> (\val1053 ->
-230.0) val1053) ((\val1054 -> 49) val1054)) val1051)], (\val1055 -> (*)
-((\val1056 -> (\val1057 -> 18.0) 58) val1056) ((\val1058 -> (\val1059 ->
-1.0) 237) val1058)) val1055), (:=) (not ((||) (not (not False)) ((\val1060
+'\CAN' False (array (38, 41) [(38,[Cons17 , Cons17 , Cons17 , Cons17 ,
+Cons17 ]),(39,[Cons17 , Cons17 , Cons17 ]),(40,[Cons17 , Cons17 , Cons17
+, Cons17 , Cons17 ]),(41,[Cons17 , Cons17 ])]) (array ('=', '=') [('=',Cons1
+)]), array (13, 7) [], array ((((True, True), (), ('\DC4')), 137, (('+',
+'S', 155), 'j')), (((False, False), (), ('M')), 59, (('|', 'y', 181), 'o')))
+[], Cons16 (array (98, 8) []) (array (True, False) [], Cons1 , Cons25 ,
+'~') (array ((), ()) [((),[array (True, True) [(True,Cons1 )], array (False,
+True) [(False,Cons1 ),(True,Cons1 )], array (True, True) [(True,Cons1 )],
+array (False, True) [(False,Cons1 ),(True,Cons1 )], array (False, False)
+[(False,Cons1 )]])])) (array ((120, (), 'y'), (4, (), '\GS')) []) (array
+((219, 'M', (('X', False, True), False), ((), ('E', 207), 76, ())), (182,
+' ', (('N', True, True), True), ((), ('\ACK', 146), 18, ()))) [], [array
+((('|', False, '\SI', True), '\DEL', ('/', 11, 157, False)), (('\b', True,
+'$', False), '\EM', (')', 26, 155, True))) []]), Cons11 ['\\', 'e'], Cons13
+[array ((), ()) [((),(Cons4 , 144.0, False, Cons1 ))]]]) ((\val665 -> 80)
+val665)) val663) ((+) val660 (div ((\val666 -> -7) 154) ((-) 2 1)))) ((\val667
+-> (*) (div ((-) 233 1) ((\val668 -> 1) 159)) ((\val669 -> (-) 2 1) val669))
+((\val670 -> (\val671 -> (\val672 -> 69) val672) val671) ((\val673 -> (-)
+254 1) ((*) 151 1))))) val660) val659), (\val674 -> chr ((\val675 -> negate
+(div ((\val676 -> (\val677 -> -14) 193) ((\val678 -> 5) val678)) (div ((\val679
+-> 1) val679) ((\val680 -> 1) val680)))) ((\val681 -> (*) ((\val682 ->
+(-) 121 1) val682) ((\val683 -> (\val684 -> 1) val684) val683)) val681)))
+val674) ((\val685 -> (\val686 -> (\val687 -> (\val688 -> array ((\val689
+-> (\val690 -> ((), ())) 1) val689) [(:=) () [array (False, False) [(:=)
+False (Cons3 )], array (True, False) [], array (True, False) [], (\val691
+-> array (True, False) []) val691]]) val688) ((\val692 -> (-) ((\val693
+-> (-) 252 1) ((+) 1 112)) ((\val694 -> div 1 1) val694)) ((\val695 ->
+(\val696 -> div 100 1) val696) val695))) val686) ((\val697 -> (\val698
+-> (+) val697 ((\val699 -> (\val700 -> (+) 1 122) (negate (-216))) ((+)
+val697 ((\val701 -> -28) 234)))) val698) ((+) ((+) ((\val702 -> (\val703
+-> (-) 2 1) val703) val702) ((\val704 -> (\val705 -> (\val706 -> 0) 157)
+((+) val704 (-19))) ((*) ((+) 1 79) ((+) 1 0)))) ((-) ((\val707 -> (\val708
+-> (\val709 -> 116) val709) val708) ((*) ((+) 1 167) ((+) 1 0))) ((+) ((\val710
+-> div 1 1) ((+) 1 148)) ((*) ((+) 1 (-1)) ((\val711 -> 1) val711))))))),
+val7 == Cons26 (Cons3 ) [(\val712 -> (\val713 -> array ((\val714 -> (\val715
+-> (\val716 -> (109, 112)) 206) val715) val714) [(:=) ((\val717 -> (\val718
+-> (\val719 -> 109) 155) val718) ((-) (negate (-223)) ((*) 1 1))) ((\val720
+-> (*) ((\val721 -> 238.0) 108) ((\val722 -> 1.0) 126)) ((+) (div 1 1)
+((\val723 -> 117) val723))), (:=) ((\val724 -> (\val725 -> (\val726 ->
+110) 230) ((+) val724 225)) ((+) val713 ((\val727 -> -5) 108))) ((\val728
+-> (\val729 -> negate (-139.0)) ((\val730 -> 201) val730)) ((-) ((\val731
+-> 16) val731) ((+) 1 0))), (:=) (div (div ((\val732 -> 111) 208) (div
+1 1)) ((\val733 -> (\val734 -> 1) 215) val733)) ((\val735 -> (+) (negate
+(-1.0)) (negate (-193.0))) val735), (:=) ((\val736 -> (\val737 -> (\val738
+-> 112) 164) ((+) val712 13)) val736) ((\val739 -> (*) ((+) 1.0 164.0)
+((\val740 -> 1.0) 125)) ((\val741 -> (*) 233 1) val741))]) val713) ((+)
+((\val742 -> (\val743 -> (\val744 -> (\val745 -> 1) val745) val744) val743)
+((*) ((\val746 -> div 5 1) val746) ((+) ((+) 1 0) ((+) 1 (-1))))) ((\val747
+-> (\val748 -> (-) (div 188 1) ((\val749 -> 1) 234)) val748) val747)),
+(\val750 -> (\val751 -> array ((\val752 -> ((+) val750 ((\val753 -> -23)
+val753), (\val754 -> (+) 1 187) ((\val755 -> 252) val755))) (div ((+) 1
+192) ((-) 2 1))) []) val751) val750, array ((\val756 -> (\val757 -> (+)
+((\val758 -> (*) 1 1) ((\val759 -> 138) 160)) ((+) val757 ((\val760 ->
+36) 17))) (div ((\val761 -> (*) 52 1) ((*) 228 1)) ((\val762 -> negate
+(-1)) val762))) (negate ((+) ((\val763 -> (\val764 -> 1) val764) val763)
+(negate (negate (-40))))), (\val765 -> (\val766 -> (\val767 -> (\val768
+-> div 93 1) (div 142 1)) val767) ((\val769 -> (-) (negate (-43)) ((\val770
+-> 1) 124)) val769)) val765) [(:=) ((*) ((\val771 -> (-) ((\val772 -> (\val773
+-> 90) val773) ((+) 1 106)) ((*) ((\val774 -> 1) val774) (div 1 1))) ((\val775
+-> (+) val775 ((-) 240 1)) val775)) ((+) ((-) ((\val776 -> negate (-2))
+val776) ((\val777 -> (\val778 -> 1) 256) val777)) ((\val779 -> (+) val779
+((+) 1 (-183))) ((\val780 -> (+) val780 90) ((\val781 -> 92) val781)))))
+((*) (negate ((+) ((\val782 -> (\val783 -> 1.0) 215) ((\val784 -> 150)
+130)) (negate ((-) 148.0 1.0)))) ((*) ((+) ((+) ((\val785 -> 1.0) 187)
+((\val786 -> 0.0) 235)) ((+) ((+) 1.0 0.0) ((+) 1.0 (-2.0)))) ((+) ((-)
+(negate (-2.0)) ((\val787 -> 1.0) 229)) ((\val788 -> (+) 1.0 (-1.0)) (div
+23 1))))), (:=) (negate (negate ((+) ((-) ((\val789 -> 2) val789) ((\val790
+-> 1) 232)) ((+) ((\val791 -> 1) val791) ((-) 89 1))))) ((+) ((\val792
+-> (+) val792 ((\val793 -> (-) (-24) 1) val793)) val792) ((+) ((\val794
+-> (*) ((*) 1.0 1.0) ((*) 1.0 1.0)) val794) ((\val795 -> (*) ((\val796
+-> 242.0) 104) ((+) val795 (-34))) ((-) (div 36 1) ((+) 1 0))))), (:=)
+((\val797 -> (\val798 -> (\val799 -> negate ((\val800 -> -91) 44)) (div
+((-) 204 1) ((-) 2 1))) ((\val801 -> (\val802 -> (\val803 -> 237) 97) ((\val804
+-> 214) val804)) ((\val805 -> (+) val797 173) val805))) val797) ((+) (negate
+((+) ((\val806 -> negate (-1.0)) val806) ((+) ((*) 1.0 1.0) ((+) 1.0 (-4.0)))))
+((-) ((\val807 -> (-) ((\val808 -> 211.0) 8) (negate (-1.0))) (negate ((+)
+1 (-211)))) (negate ((+) ((*) 1.0 1.0) ((\val809 -> -2.0) 159))))), (:=)
+((\val810 -> (\val811 -> (+) val810 ((\val812 -> (\val813 -> 51) val813)
+((+) 1 128))) val811) ((*) ((*) ((\val814 -> (\val815 -> 41) 98) val814)
+((+) ((\val816 -> 1) 59) ((\val817 -> 0) val817))) ((\val818 -> (-) (div
+2 1) (div 1 1)) ((-) ((\val819 -> 152) 107) ((+) 1 0))))) ((\val820 ->
+negate ((-) ((\val821 -> negate 11.0) val821) (negate (negate 1.0)))) val820),
+(:=) ((+) ((-) ((+) ((\val822 -> (+) 1 0) val822) (div ((-) 2 1) ((+) 1
+0))) ((\val823 -> (\val824 -> (*) 1 1) ((\val825 -> 28) 229)) val823))
+((\val826 -> (\val827 -> negate ((\val828 -> -92) 148)) val827) ((\val829
+-> (\val830 -> (\val831 -> 27) val831) ((\val832 -> 132) 135)) val829)))
+((\val833 -> (+) val833 ((\val834 -> (\val835 -> (\val836 -> -56) 229)
+val835) val834)) val833)], array ((\val837 -> (\val838 -> (\val839 -> (\val840
+-> (div 216 1, (\val841 -> 181) val841)) ((*) 134 1)) val839) ((\val842
+-> (\val843 -> (\val844 -> 116) 209) ((*) 155 1)) ((\val845 -> (\val846
+-> 105) val846) ((\val847 -> 119) 63)))) val837) []] (array (((<) ((\val848
+-> (+) val848 ((\val849 -> div ((\val850 -> -184) 219) ((\val851 -> 1)
+val851)) (div ((\val852 -> 212) val852) ((\val853 -> 1) 216)))) val848)
+((\val854 -> (\val855 -> (\val856 -> (*) (negate (-1)) (div 1 1)) ((\val857
+-> (\val858 -> 231) 229) val857)) ((\val859 -> (\val860 -> div 140 1) val860)
+val859)) ((-) ((\val861 -> (\val862 -> (\val863 -> 151) 156) ((*) 246 1))
+val861) ((*) (negate ((\val864 -> -1) 68)) (negate ((\val865 -> -1) val865))))),
+chr ((\val866 -> negate (negate ((\val867 -> (\val868 -> 54) val868) ((-)
+227 1)))) ((+) ((\val869 -> negate ((*) (-1) 1)) val869) ((\val870 -> (+)
+((*) 1 1) ((\val871 -> 58) val871)) val870))), (\val872 -> chr (negate
+((\val873 -> (\val874 -> (+) 1 (-11)) val874) ((-) (div 3 1) ((\val875
+-> 1) 5))))) ((+) (div ((-) ((\val876 -> (\val877 -> 2) val877) ((*) 131
+1)) (div ((\val878 -> 1) val878) ((\val879 -> 1) 161))) ((\val880 -> (\val881
+-> (\val882 -> 1) 144) ((\val883 -> 11) val883)) val880)) (negate ((-)
+((\val884 -> negate 145) val884) ((\val885 -> (\val886 -> 1) 249) (negate
+(-77))))))), ((<) ((-) ((+) ((+) ((+) ((\val887 -> 1) 191) ((\val888 ->
+0) 150)) ((+) ((\val889 -> 1) val889) ((\val890 -> -1) 244))) ((+) ((-)
+((\val891 -> 2) 89) ((+) 1 0)) ((+) ((\val892 -> 1) val892) ((\val893 ->
+-2) val893)))) (negate ((-) ((\val894 -> (\val895 -> 0) 151) ((\val896
+-> 22) val896)) ((\val897 -> (\val898 -> 1) 153) ((\val899 -> 60) 10)))))
+((\val900 -> (\val901 -> (\val902 -> (\val903 -> negate (-1)) val903) val902)
+((+) ((\val904 -> (\val905 -> 1) 120) ((+) 1 140)) ((\val906 -> negate
+(-192)) val906))) val900), (\val907 -> chr ((*) ((\val908 -> negate ((\val909
+-> -58) 151)) ((+) val907 ((+) val907 (-188)))) ((+) val907 ((-) ((*) (-216)
+1) ((\val910 -> 1) 225))))) val907, chr ((\val911 -> (+) val911 ((*) ((\val912
+-> (\val913 -> -137) 3) (div 142 1)) ((\val914 -> (\val915 -> 1) val915)
+val914))) val911))) []), val8 == Cons19 ((\val916 -> (\val917 -> (\val918
+-> ((\val919 -> ((\val920 -> (\val921 -> chr 51) val921) ((\val922 -> (-)
+56 1) ((\val923 -> 252) val923)), (\val924 -> (Cons13 [array ((), ()) [(:=)
+() (Cons4 , 93.0, True, Cons1 )], (\val925 -> array ((), ()) [((),(Cons4
+, 64.0, True, Cons1 ))]) 179, (\val926 -> array ((), ()) [((),(Cons4 ,
+74.0, True, Cons1 ))]) 23, (\val927 -> array ((), ()) [((),(Cons4 , 216.0,
+True, Cons1 ))]) val927, array ((), ()) [(:=) () (Cons4 , 221.0, True,
+Cons1 )]])) val924, (\val928 -> [array ((145, False, 252), (17, True, 183))
+[]]) ((\val929 -> (+) 1 249) ((-) 39 1)))) val919, (\val930 -> (\val931
+-> (\val932 -> (\val933 -> array ((), ()) [((),array (72, 72) [(72,[False,
+True, False])])]) val933) val932) ((\val934 -> (\val935 -> 174) val935)
+val934)) (div ((+) val918 ((\val936 -> -125) val936)) ((-) ((\val937 ->
+2) 213) ((*) 1 1))), (\val938 -> ()) ((\val939 -> (-) ((\val940 -> 91)
+42) (div 1 1)) ((\val941 -> div 11 1) val941)), drop (negate ((\val942
+-> (-) (-2) 1) val942)) [(\val943 -> (\val944 -> [[array ('8', '8') [('8',True)]],
+[array ('o', 'f') [], array ('M', '.') [], array ('g', 'k') [('g',False),('h',False),('i',True),('j',True),('k',False)],
+array ('H', 'L') [('H',False),('I',True),('J',True),('K',False),('L',False)]]])
+123) ((+) val916 12), [(\val945 -> []) 163, drop 2 [array ('~', '6') [],
+array ('m', '@') [], array ('~', '6') [], array ('m', '@') []], [], [array
+('n', 'n') [('n',True)], array ('-', '0') [('-',True),('.',False),('/',True),('0',True)]]],
+[drop 3 [array ('C', '1') [], array ('Y', 'Z') [('Y',True),('Z',False)],
+array ('1', '\r') [], array ('C', '1') [], array ('Y', 'Z') [('Y',True),('Z',False)],
+array ('1', '\r') []], (\val946 -> [array ('P', 'Q') [('P',False),('Q',False)],
+array ('P', '.') []]) 105, [array ('Y', '\r') [], array ('H', ',') [],
+array ('F', 'I') [('F',True),('G',False),('H',False),('I',False)], array
+('(', ')') [('(',True),(')',True)]]], (\val947 -> [[array ('8', '8') [('8',True)]],
+[array ('o', 'f') [], array ('M', '.') [], array ('g', 'k') [('g',False),('h',False),('i',True),('j',True),('k',False)],
+array ('H', 'L') [('H',False),('I',True),('J',True),('K',False),('L',False)]]])
+val947, [drop 0 [], (\val948 -> [array ('~', '6') [], array ('m', '@')
+[]]) val948, (\val949 -> []) 55, [array ('n', 'n') [('n',True)], array
+('-', '0') [('-',True),('.',False),('/',True),('0',True)]]], [(\val950
+-> [array ('C', '1') [], array ('Y', 'Z') [('Y',True),('Z',False)], array
+('1', '\r') []]) val950, [array ('P', 'Q') [('P',False),('Q',False)], array
+('P', '.') []], [array ('Y', '\r') [], array ('H', ',') [], array ('F',
+'I') [('F',True),('G',False),('H',False),('I',False)], array ('(', ')')
+[('(',True),(')',True)]]]])) val918) val917) (div ((\val951 -> (+) (div
+((*) ((\val952 -> 1) 96) ((+) val951 (-150))) ((\val953 -> (\val954 ->
+1) 250) ((+) val951 55))) ((\val955 -> (\val956 -> (+) val951 (-36)) val956)
+((-) ((+) 1 124) ((\val957 -> 1) val957)))) val951) (negate ((\val958 ->
+(\val959 -> (\val960 -> (\val961 -> -1) val961) val960) val959) ((\val962
+-> (-) ((\val963 -> 22) val963) ((+) val962 (-3))) ((\val964 -> (*) 4 1)
+val964)))))) ((\val965 -> (\val966 -> ()) (div ((-) (negate ((\val967 ->
+(\val968 -> -185) val968) val967)) ((\val969 -> (\val970 -> (\val971 ->
+1) val971) (div 149 1)) ((\val972 -> negate (-105)) val972))) ((\val973
+-> (-) ((\val974 -> (+) 1 1) (div 178 1)) ((\val975 -> (\val976 -> 1) 256)
+((+) 1 17))) val973))) val965, (\val977 -> Cons2 ((\val978 -> array (((\val979
+-> (\val980 -> (&&) ((\val981 -> True) val981) ((\val982 -> False) 116))
+val980) ((\val983 -> (\val984 -> (*) 255 1) val984) (negate (div (-162)
+1))), (\val985 -> (\val986 -> chr ((\val987 -> 22) val987)) val986) val985,
+chr ((\val988 -> (+) val977 ((*) (-147) 1)) ((*) ((+) 1 224) (div 1 1)))),
+(not ((\val989 -> (\val990 -> (||) False True) val990) val989), (\val991
+-> (\val992 -> (\val993 -> (\val994 -> '\SYN') val994) val993) ((\val995
+-> (+) 1 102) val995)) val991, chr ((-) ((\val996 -> (\val997 -> 56) 33)
+((\val998 -> 117) val998)) ((\val999 -> div 1 1) ((\val1000 -> 167) 100)))))
+[(:=) ((\val1001 -> (not ((\val1002 -> (<) 0 1) val1002), (\val1003 ->
+(\val1004 -> (\val1005 -> '\SYN') 235) val1004) val1003, (\val1006 -> chr
+((\val1007 -> 52) val1007)) val1006)) ((\val1008 -> (\val1009 -> (\val1010
+-> 105) val1010) val1009) ((\val1011 -> (+) val978 84) (negate (-178)))))
+([], (\val1012 -> chr ((*) ((\val1013 -> 86) 47) ((\val1014 -> 1) 61)))
+((-) ((+) ((\val1015 -> 1) 81) ((\val1016 -> 253) 116)) ((\val1017 -> (*)
+1 1) val1017)), (\val1018 -> array ((\val1019 -> (<) 0 1) (negate (-235)),
+(<) ((\val1020 -> 1) 120) ((-) 2 1)) []) val1018, (\val1021 -> (\val1022
+-> negate ((\val1023 -> -55.0) val1023)) val1022) ((*) ((+) ((\val1024
+-> 1) val1024) ((\val1025 -> 244) 191)) ((*) ((\val1026 -> 1) 167) ((\val1027
+-> 1) val1027)))), (:=) ((\val1028 -> ((<) ((-) ((\val1029 -> 2) val1029)
+((\val1030 -> 1) val1030)) ((\val1031 -> (\val1032 -> 1) val1032) val1031),
+chr ((\val1033 -> (*) 22 1) val1033), (\val1034 -> chr ((+) 1 52)) val1034))
+val1028) ((\val1035 -> (\val1036 -> [(\val1037 -> Cons22 True ()) val1037,
+Cons22 ((\val1038 -> True) val1038) (), (\val1039 -> Cons21 ) val1039,
+Cons21 , Cons21 ]) ((-) (div 48 1) (negate (-1)))) ((\val1040 -> negate
+(negate 181)) ((*) ((\val1041 -> 178) 100) ((*) 1 1))), (\val1042 -> chr
+((\val1043 -> (\val1044 -> 43) 9) val1043)) val1042, array ((\val1045 ->
+(\val1046 -> (not False, (<) 0 1)) val1046) ((-) ((\val1047 -> 161) val1047)
+((-) 2 1))) [(:=) ((<) ((*) ((\val1048 -> 0) 134) ((*) 1 1)) ((\val1049
+-> (\val1050 -> 1) val1050) (negate (-36)))) ((\val1051 -> (\val1052 ->
+(\val1053 -> 230.0) val1053) ((\val1054 -> 49) val1054)) val1051)], (\val1055
+-> (*) ((\val1056 -> (\val1057 -> 18.0) 58) val1056) ((\val1058 -> (\val1059
+-> 1.0) 237) val1058)) val1055), (:=) (not ((||) (not (not False)) ((\val1060
 -> not False) ((\val1061 -> 83) val1061))), (\val1062 -> chr ((+) ((\val1063
 -> 1) val1063) ((*) 21 1))) ((+) val977 (div ((+) 1 (-28)) ((\val1064 ->
 1) 48))), (\val1065 -> (\val1066 -> (\val1067 -> chr 54) val1067) val1066)
@@ -2084,12 +2065,12 @@ val1068, (\val1071 -> array ((\val1072 -> (<) 1 1) (div 105 1), (\val1073
 ((\val1090 -> (\val1091 -> 189) val1091) val1090)), (\val1092 -> chr ((+)
 val977 (negate 177))) val1092, chr ((\val1093 -> negate (negate 55)) ((\val1094
 -> (\val1095 -> 178) 225) ((\val1096 -> 104) 216)))) ([(\val1097 -> (\val1098
--> Cons24 (drop 3 [array (((), True), ((), True)) [(((), True), (193))],
-array (((), False), ((), False)) [(((), False), (19))], array (((), False),
-((), False)) [(((), False), (136))], array (((), True), ((), True)) [(((),
-True), (193))], array (((), False), ((), False)) [(((), False), (19))],
-array (((), False), ((), False)) [(((), False), (136))]]) ((\val1099 ->
-[Cons21 , Cons21 , Cons21 , Cons21 , Cons21 ]) val1099) ((\val1100 -> [[[('v',
+-> Cons24 (drop 3 [array (((), True), ((), True)) [(((), True),(193))],
+array (((), False), ((), False)) [(((), False),(19))], array (((), False),
+((), False)) [(((), False),(136))], array (((), True), ((), True)) [(((),
+True),(193))], array (((), False), ((), False)) [(((), False),(19))], array
+(((), False), ((), False)) [(((), False),(136))]]) ((\val1099 -> [Cons21
+, Cons21 , Cons21 , Cons21 , Cons21 ]) val1099) ((\val1100 -> [[[('v',
 Cons4 , True, Cons17 )], [('\ETX', Cons4 , False, Cons17 ), ('3', Cons4
 , True, Cons17 )], [('9', Cons4 , False, Cons17 ), ('}', Cons4 , True,
 Cons17 )], [], [('I', Cons4 , True, Cons17 ), ('4', Cons4 , True, Cons17
@@ -2156,127 +2137,125 @@ val1186) ((\val1187 -> 181) val1187)))) ((+) ((\val1188 -> (+) ((\val1189
 -> 1) val1189) ((\val1190 -> 0) 31)) val1188) ((-) ((+) ((\val1191 -> 1)
 71) ((*) 0 1)) ((+) val1163 ((\val1192 -> -54) 194))))) ((\val1193 -> (\val1194
 -> take ((\val1195 -> (\val1196 -> 1) val1196) val1195) [(\val1197 -> [array
-((False), (False)) [((False), (198, 'o', False, False))]]) val1197, (\val1198
--> [array ((False), (False)) [((False), (198, 'o', False, False))]]) 110])
+((False), (False)) [((False),(198, 'o', False, False))]]) val1197, (\val1198
+-> [array ((False), (False)) [((False),(198, 'o', False, False))]]) 110])
 val1194) val1193), (:=) ((+) ((\val1199 -> (-) ((\val1200 -> (\val1201
 -> 2) val1201) (div 256 1)) ((\val1202 -> (\val1203 -> 1) 100) val1202))
 ((+) ((-) ((\val1204 -> 2) val1204) ((\val1205 -> 1) val1205)) ((\val1206
 -> (+) val1163 109) val1206))) ((\val1207 -> (+) ((\val1208 -> (+) 1 0)
 ((\val1209 -> 57) val1209)) ((\val1210 -> (-) 111 1) val1210)) ((+) ((\val1211
 -> div 1 1) val1211) ((\val1212 -> (+) val1212 80) val1212)))) ((\val1213
--> (\val1214 -> (\val1215 -> [[array ((True), (True)) [((True), (115, '~',
-False, True))], array ((False), (True)) [((False), (117, 'U', True, False)),
-((True), (243, '\DC4', True, True))], array ((True), (False)) [], array
-((True), (False)) [], array ((False), (True)) [((False), (39, ';', True,
-True)), ((True), (13, '2', False, False))]], [array ((True), (False)) [],
-array ((True), (True)) [((True), (88, '\SO', False, False))]], (\val1216
--> [array ((False), (True)) [((False), (50, '^', True, False)), ((True),
-(185, 'm', False, True))]]) 85, (\val1217 -> [array ((True), (True)) [((True),
-(83, '^', False, False))], array ((False), (True)) [((False), (18, 'N',
-True, True)), ((True), (190, 'V', False, True))], array ((False), (True))
-[((False), (25, 'B', True, True)), ((True), (150, 'M', False, False))]])
-182]) val1215) ((+) val1213 ((\val1218 -> (\val1219 -> -20) val1219) val1218)))
-val1213), (:=) (negate ((\val1220 -> (+) val1163 ((\val1221 -> (+) val1221
-(-335)) (div 167 1))) ((\val1222 -> (+) ((\val1223 -> 1) val1223) ((\val1224
--> 226) 51)) val1222))) ((\val1225 -> drop ((\val1226 -> (\val1227 -> (-)
-1 1) val1227) ((\val1228 -> negate (-129)) val1228)) []) ((\val1229 ->
-(-) ((-) ((\val1230 -> 225) val1230) (negate (-1))) ((+) val1163 ((*) (-54)
-1))) ((-) ((\val1231 -> (\val1232 -> 193) 249) val1231) (div ((*) 1 1)
-((-) 2 1))))), (:=) ((*) ((\val1233 -> (\val1234 -> (*) ((\val1235 -> 114)
-val1235) ((\val1236 -> 1) 211)) (negate ((\val1237 -> -6) val1237))) val1233)
-(negate ((\val1238 -> (*) ((\val1239 -> -1) val1239) (negate (-1))) ((*)
-((\val1240 -> 191) val1240) ((*) 1 1))))) ((\val1241 -> (\val1242 -> [[(\val1243
--> array ((False), (False)) [((False), (252, 'v', True, True))]) val1243],
-[array ((True), (False)) [], array ((True), (True)) [(:=) (True) (0, '7',
-True, False)], (\val1244 -> array ((False), (False)) [((False), (42, '-',
-False, True))]) val1244], (\val1245 -> (\val1246 -> [array ((True), (True))
-[((True), (78, 'P', True, False))], array ((True), (True)) [((True), (181,
-'\v', False, False))], array ((True), (True)) [((True), (121, '}', False,
-True))]]) 73) val1245]) val1242) val1241)]) ((+) ((\val1247 -> (\val1248
--> (\val1249 -> negate ((\val1250 -> -1) val1250)) val1249) val1248) val1247)
-((\val1251 -> (*) ((\val1252 -> (+) ((+) 1 0) (div 53 1)) ((+) val1251
-(div (-9) 1))) (negate ((\val1253 -> (+) 1 (-2)) ((+) 1 127)))) val1251)))
-((\val1254 -> Cons17 ) ((\val1255 -> div ((\val1256 -> (-) ((+) val1255
-((-) (-189) 1)) (negate ((*) (-1) 1))) val1256) ((-) ((*) ((\val1257 ->
-div 2 1) val1257) ((+) (div 1 1) ((-) 1 1))) ((\val1258 -> (-) ((\val1259
--> 2) 190) (negate (-1))) ((+) ((+) 1 0) ((+) val1255 46))))) val1255),
-array ((\val1260 -> (\val1261 -> (\val1262 -> (\val1263 -> (\val1264 ->
-((\val1265 -> ()) val1265, (\val1266 -> ()) val1266)) val1264) val1263)
-((\val1267 -> (\val1268 -> (\val1269 -> 233) 186) val1268) ((\val1270 ->
-(\val1271 -> 199) val1271) val1270))) ((+) val1260 ((-) ((\val1272 -> (*)
-11 1) ((-) 114 1)) ((\val1273 -> (\val1274 -> 1) 90) val1273)))) val1260)
-[(:=) ((\val1275 -> ()) ((\val1276 -> (+) ((\val1277 -> (\val1278 -> (\val1279
--> 1) 62) val1278) val1277) ((\val1280 -> (\val1281 -> (\val1282 -> 189)
-39) val1281) ((\val1283 -> (\val1284 -> 87) val1284) val1283))) val1276))
-((\val1285 -> ()) ((-) ((\val1286 -> (\val1287 -> (\val1288 -> (\val1289
--> 147) 170) (div 90 1)) ((+) val1286 ((\val1290 -> -12) val1290))) ((+)
-((*) ((+) 1 0) ((*) 1 1)) ((\val1291 -> (*) 62 1) val1291))) ((*) ((\val1292
--> (\val1293 -> (-) 2 1) val1293) val1292) ((\val1294 -> (\val1295 -> (+)
-val1294 (-240)) (div 190 1)) ((-) ((+) 1 241) (negate (-1)))))))], ((\val1296
--> (\val1297 -> (\val1298 -> (\val1299 -> (\val1300 -> array ((\val1301
--> (('q'), ('s'))) 157) [(:=) (chr 113) ((\val1302 -> [(93.0, 'v', 213.0),
-(156.0, 's', 32.0), (21.0, 'b', 90.0), (79.0, '4', 28.0)]) 253), (:=) ((\val1303
--> ('r')) 146) [(222.0, 'Q', 198.0), (176.0, '(', 52.0), (26.0, 'N', 143.0),
-(104.0, '\SI', 151.0)], (:=) ((\val1304 -> ('s')) 141) [(163.0, '|', 197.0),
-(100.0, '|', 93.0), (127.0, '4', 220.0), (33.0, 'D', 208.0), (114.0, '!',
-228.0)]]) val1300) val1299) val1298) val1297) ((*) (negate ((\val1305 ->
-(+) val1305 ((\val1306 -> (\val1307 -> -207) 103) ((\val1308 -> 115) val1308)))
-val1305)) ((\val1309 -> (\val1310 -> div ((\val1311 -> (\val1312 -> 1)
-165) (negate (-249))) ((\val1313 -> (+) val1309 (-161)) ((\val1314 -> 20)
-val1314))) val1310) val1309))), Cons29 ), val9 == Cons3 , val10 == (\val1315
--> (\val1316 -> Cons2 ((\val1317 -> (\val1318 -> array ((\val1319 -> (\val1320
--> ((True, '9', '\a'), (False, 'O', ')'))) 49) val1319) []) ((+) val1317
-((\val1321 -> (\val1322 -> 58) 130) ((\val1323 -> 163) 124)))) ((\val1324
--> (\val1325 -> (\val1326 -> (\val1327 -> 196) 16) val1326) val1325) val1324))
-((\val1328 -> array ((\val1329 -> (\val1330 -> ()) val1330) ((\val1331
--> div 189 1) ((+) 1 19)), (\val1332 -> (\val1333 -> ()) val1333) val1332)
-[(:=) ((\val1334 -> (\val1335 -> ()) val1335) val1334) ((\val1336 -> Cons12
-(Cons28 ([array (((109, 22, '\a')), ((109, 22, '\v'))) [(:=) ((109, 22,
-'\a')) 160, (:=) ((109, 22, '\b')) 1, (:=) ((109, 22, '\t')) 188, (:=)
-((109, 22, '\n')) 207, (:=) ((109, 22, '\v')) 76], array (((97, 201, 'T')),
-((158, 166, 'I'))) [], (\val1337 -> array (((66, 181, 'Q')), ((111, 85,
-'\b'))) []) 35], Cons3 , (\val1338 -> (\val1339 -> (array ((36), (36))
-[((36), ([222.0, 67.0, 24.0, 179.0, 179.0], Cons17 , ()))], Cons14 )) val1339)
-((\val1340 -> 49) val1340), (\val1341 -> Cons28 ((\val1342 -> ([array (((244,
-221, '(')), ((70, 51, '>'))) [], array (((108, 38, 'T')), ((248, 254, '\ENQ')))
-[]], Cons1 , (array ((239), (11)) [], Cons14 ), Cons25 )) 129) ((\val1343
--> [[[array (True, True) [(True, '\FS')], array (True, True) [(True, '\ETB')],
-array (True, True) [(True, '+')], array (False, True) [(False, 'Z'), (True,
-'t')]], [array (False, False) [(False, '\f')]], [array (True, False) [],
-array (False, True) [(False, '\DC4'), (True, 'M')], array (True, True)
-[(True, '\NUL')]]]]) val1343, (\val1344 -> array (((('2', '3'), '\DLE',
-(214, 'V')), ('\ACK'), '-'), ((('9', '\SUB'), '(', (140, '\DLE')), ('\v'),
-'?')) []) 46)) val1341) ((\val1345 -> ((\val1346 -> [[[array (False, True)
-[(False, '\DEL'), (True, 'p')], array (False, True) [(False, '('), (True,
-'N')], array (False, True) [(False, '&'), (True, 'K')]], [array (True,
-True) [(True, 'E')], array (False, True) [(False, '\US'), (True, 's')],
-array (True, False) [], array (False, True) [(False, '\ACK'), (True, ']')],
-array (False, False) [(False, '|')]], [array (True, False) [], array (False,
-False) [(False, 'M')], array (True, True) [(True, ')')]], [array (False,
-True) [(False, 'e'), (True, '-')]], [array (False, False) [(False, '.')],
-array (False, True) [(False, 'o'), (True, ' ')]]], [[array (False, False)
-[(False, '/')], array (False, True) [(False, '\SOH'), (True, '}')], array
-(False, False) [(False, 'C')], array (True, False) []], [array (True, False)
-[], array (False, False) [(False, 'W')], array (False, False) [(False,
-'D')], array (True, True) [(True, 'i')], array (True, True) [(True, '\DLE')]]],
-[[array (False, True) [(False, '5'), (True, '1')], array (False, False)
-[(False, 'g')], array (False, False) [(False, 'G')], array (False, False)
-[(False, 'm')]]]]) 119, array (((('c', 'q'), '$', (208, 'y')), ('<'), 'L'),
-((('\STX', 'Z'), '2', (75, 'U')), ('='), '^')) [])) ((\val1347 -> 47) val1347)))
-(Cons13 ((\val1348 -> [array ((), ()) [((), (Cons4 , 109.0, False, Cons1
-))]]) (div 90 1)), array (negate (-210), (\val1349 -> 121) val1349) [],
-array ((\val1350 -> ((((False, True), (), ('N')), 39, (('\f', 'p', 194),
-'h')), (((True, True), (), ('-')), 5, (('t', '~', 150), '4')))) val1350)
-[], (\val1351 -> Cons16 (array (78, 81) [(:=) 78 [Cons4 , Cons4 , Cons4
-], (:=) 79 [Cons4 , Cons4 ], (:=) 80 [Cons4 ], (:=) 81 [Cons4 , Cons4 ,
-Cons4 , Cons4 ]]) ((\val1352 -> array (True, True) [(True, array ((), ())
-[((), array (True, False) [])])]) val1352, Cons3 , (\val1353 -> Cons27
-(array (False, True) [(False, array ('j', 'c') []), (True, array ('{',
-'{') [('{', array (True, False) [])])]) 140.0 (array ('\SOH', '\ENQ') [('\SOH',
-Cons21 ), ('\STX', Cons21 ), ('\ETX', Cons21 ), ('\EOT', Cons21 ), ('\ENQ',
-Cons21 )]) [Cons8 , Cons8 , Cons8 , Cons8 , Cons8 ]) val1353, chr 8) ((\val1354
--> array ((), ()) [((), [array (False, True) [(False, Cons1 ), (True, Cons1
-)], array (True, True) [(True, Cons1 )]])]) 131)) val1351) ((\val1355 ->
+-> (\val1214 -> (\val1215 -> [[array ((True), (True)) [((True),(115, '~',
+False, True))], array ((False), (True)) [((False),(117, 'U', True, False)),((True),(243,
+'\DC4', True, True))], array ((True), (False)) [], array ((True), (False))
+[], array ((False), (True)) [((False),(39, ';', True, True)),((True),(13,
+'2', False, False))]], [array ((True), (False)) [], array ((True), (True))
+[((True),(88, '\SO', False, False))]], (\val1216 -> [array ((False), (True))
+[((False),(50, '^', True, False)),((True),(185, 'm', False, True))]]) 85,
+(\val1217 -> [array ((True), (True)) [((True),(83, '^', False, False))],
+array ((False), (True)) [((False),(18, 'N', True, True)),((True),(190,
+'V', False, True))], array ((False), (True)) [((False),(25, 'B', True,
+True)),((True),(150, 'M', False, False))]]) 182]) val1215) ((+) val1213
+((\val1218 -> (\val1219 -> -20) val1219) val1218))) val1213), (:=) (negate
+((\val1220 -> (+) val1163 ((\val1221 -> (+) val1221 (-335)) (div 167 1)))
+((\val1222 -> (+) ((\val1223 -> 1) val1223) ((\val1224 -> 226) 51)) val1222)))
+((\val1225 -> drop ((\val1226 -> (\val1227 -> (-) 1 1) val1227) ((\val1228
+-> negate (-129)) val1228)) []) ((\val1229 -> (-) ((-) ((\val1230 -> 225)
+val1230) (negate (-1))) ((+) val1163 ((*) (-54) 1))) ((-) ((\val1231 ->
+(\val1232 -> 193) 249) val1231) (div ((*) 1 1) ((-) 2 1))))), (:=) ((*)
+((\val1233 -> (\val1234 -> (*) ((\val1235 -> 114) val1235) ((\val1236 ->
+1) 211)) (negate ((\val1237 -> -6) val1237))) val1233) (negate ((\val1238
+-> (*) ((\val1239 -> -1) val1239) (negate (-1))) ((*) ((\val1240 -> 191)
+val1240) ((*) 1 1))))) ((\val1241 -> (\val1242 -> [[(\val1243 -> array
+((False), (False)) [((False),(252, 'v', True, True))]) val1243], [array
+((True), (False)) [], array ((True), (True)) [(:=) (True) (0, '7', True,
+False)], (\val1244 -> array ((False), (False)) [((False),(42, '-', False,
+True))]) val1244], (\val1245 -> (\val1246 -> [array ((True), (True)) [((True),(78,
+'P', True, False))], array ((True), (True)) [((True),(181, '\v', False,
+False))], array ((True), (True)) [((True),(121, '}', False, True))]]) 73)
+val1245]) val1242) val1241)]) ((+) ((\val1247 -> (\val1248 -> (\val1249
+-> negate ((\val1250 -> -1) val1250)) val1249) val1248) val1247) ((\val1251
+-> (*) ((\val1252 -> (+) ((+) 1 0) (div 53 1)) ((+) val1251 (div (-9) 1)))
+(negate ((\val1253 -> (+) 1 (-2)) ((+) 1 127)))) val1251))) ((\val1254
+-> Cons17 ) ((\val1255 -> div ((\val1256 -> (-) ((+) val1255 ((-) (-189)
+1)) (negate ((*) (-1) 1))) val1256) ((-) ((*) ((\val1257 -> div 2 1) val1257)
+((+) (div 1 1) ((-) 1 1))) ((\val1258 -> (-) ((\val1259 -> 2) 190) (negate
+(-1))) ((+) ((+) 1 0) ((+) val1255 46))))) val1255), array ((\val1260 ->
+(\val1261 -> (\val1262 -> (\val1263 -> (\val1264 -> ((\val1265 -> ()) val1265,
+(\val1266 -> ()) val1266)) val1264) val1263) ((\val1267 -> (\val1268 ->
+(\val1269 -> 233) 186) val1268) ((\val1270 -> (\val1271 -> 199) val1271)
+val1270))) ((+) val1260 ((-) ((\val1272 -> (*) 11 1) ((-) 114 1)) ((\val1273
+-> (\val1274 -> 1) 90) val1273)))) val1260) [(:=) ((\val1275 -> ()) ((\val1276
+-> (+) ((\val1277 -> (\val1278 -> (\val1279 -> 1) 62) val1278) val1277)
+((\val1280 -> (\val1281 -> (\val1282 -> 189) 39) val1281) ((\val1283 ->
+(\val1284 -> 87) val1284) val1283))) val1276)) ((\val1285 -> ()) ((-) ((\val1286
+-> (\val1287 -> (\val1288 -> (\val1289 -> 147) 170) (div 90 1)) ((+) val1286
+((\val1290 -> -12) val1290))) ((+) ((*) ((+) 1 0) ((*) 1 1)) ((\val1291
+-> (*) 62 1) val1291))) ((*) ((\val1292 -> (\val1293 -> (-) 2 1) val1293)
+val1292) ((\val1294 -> (\val1295 -> (+) val1294 (-240)) (div 190 1)) ((-)
+((+) 1 241) (negate (-1)))))))], ((\val1296 -> (\val1297 -> (\val1298 ->
+(\val1299 -> (\val1300 -> array ((\val1301 -> (('q'), ('s'))) 157) [(:=)
+(chr 113) ((\val1302 -> [(93.0, 'v', 213.0), (156.0, 's', 32.0), (21.0,
+'b', 90.0), (79.0, '4', 28.0)]) 253), (:=) ((\val1303 -> ('r')) 146) [(222.0,
+'Q', 198.0), (176.0, '(', 52.0), (26.0, 'N', 143.0), (104.0, '\SI', 151.0)],
+(:=) ((\val1304 -> ('s')) 141) [(163.0, '|', 197.0), (100.0, '|', 93.0),
+(127.0, '4', 220.0), (33.0, 'D', 208.0), (114.0, '!', 228.0)]]) val1300)
+val1299) val1298) val1297) ((*) (negate ((\val1305 -> (+) val1305 ((\val1306
+-> (\val1307 -> -207) 103) ((\val1308 -> 115) val1308))) val1305)) ((\val1309
+-> (\val1310 -> div ((\val1311 -> (\val1312 -> 1) 165) (negate (-249)))
+((\val1313 -> (+) val1309 (-161)) ((\val1314 -> 20) val1314))) val1310)
+val1309))), Cons29 ), val9 == Cons3 , val10 == (\val1315 -> (\val1316 ->
+Cons2 ((\val1317 -> (\val1318 -> array ((\val1319 -> (\val1320 -> ((True,
+'9', '\a'), (False, 'O', ')'))) 49) val1319) []) ((+) val1317 ((\val1321
+-> (\val1322 -> 58) 130) ((\val1323 -> 163) 124)))) ((\val1324 -> (\val1325
+-> (\val1326 -> (\val1327 -> 196) 16) val1326) val1325) val1324)) ((\val1328
+-> array ((\val1329 -> (\val1330 -> ()) val1330) ((\val1331 -> div 189
+1) ((+) 1 19)), (\val1332 -> (\val1333 -> ()) val1333) val1332) [(:=) ((\val1334
+-> (\val1335 -> ()) val1335) val1334) ((\val1336 -> Cons12 (Cons28 ([array
+(((109, 22, '\a')), ((109, 22, '\v'))) [(:=) ((109, 22, '\a')) 160, (:=)
+((109, 22, '\b')) 1, (:=) ((109, 22, '\t')) 188, (:=) ((109, 22, '\n'))
+207, (:=) ((109, 22, '\v')) 76], array (((97, 201, 'T')), ((158, 166, 'I')))
+[], (\val1337 -> array (((66, 181, 'Q')), ((111, 85, '\b'))) []) 35], Cons3
+, (\val1338 -> (\val1339 -> (array ((36), (36)) [((36),([222.0, 67.0, 24.0,
+179.0, 179.0], Cons17 , ()))], Cons14 )) val1339) ((\val1340 -> 49) val1340),
+(\val1341 -> Cons28 ((\val1342 -> ([array (((244, 221, '(')), ((70, 51,
+'>'))) [], array (((108, 38, 'T')), ((248, 254, '\ENQ'))) []], Cons1 ,
+(array ((239), (11)) [], Cons14 ), Cons25 )) 129) ((\val1343 -> [[[array
+(True, True) [(True,'\FS')], array (True, True) [(True,'\ETB')], array
+(True, True) [(True,'+')], array (False, True) [(False,'Z'),(True,'t')]],
+[array (False, False) [(False,'\f')]], [array (True, False) [], array (False,
+True) [(False,'\DC4'),(True,'M')], array (True, True) [(True,'\NUL')]]]])
+val1343, (\val1344 -> array (((('2', '3'), '\DLE', (214, 'V')), ('\ACK'),
+'-'), ((('9', '\SUB'), '(', (140, '\DLE')), ('\v'), '?')) []) 46)) val1341)
+((\val1345 -> ((\val1346 -> [[[array (False, True) [(False,'\DEL'),(True,'p')],
+array (False, True) [(False,'('),(True,'N')], array (False, True) [(False,'&'),(True,'K')]],
+[array (True, True) [(True,'E')], array (False, True) [(False,'\US'),(True,'s')],
+array (True, False) [], array (False, True) [(False,'\ACK'),(True,']')],
+array (False, False) [(False,'|')]], [array (True, False) [], array (False,
+False) [(False,'M')], array (True, True) [(True,')')]], [array (False,
+True) [(False,'e'),(True,'-')]], [array (False, False) [(False,'.')], array
+(False, True) [(False,'o'),(True,' ')]]], [[array (False, False) [(False,'/')],
+array (False, True) [(False,'\SOH'),(True,'}')], array (False, False) [(False,'C')],
+array (True, False) []], [array (True, False) [], array (False, False)
+[(False,'W')], array (False, False) [(False,'D')], array (True, True) [(True,'i')],
+array (True, True) [(True,'\DLE')]]], [[array (False, True) [(False,'5'),(True,'1')],
+array (False, False) [(False,'g')], array (False, False) [(False,'G')],
+array (False, False) [(False,'m')]]]]) 119, array (((('c', 'q'), '$', (208,
+'y')), ('<'), 'L'), ((('\STX', 'Z'), '2', (75, 'U')), ('='), '^')) []))
+((\val1347 -> 47) val1347))) (Cons13 ((\val1348 -> [array ((), ()) [((),(Cons4
+, 109.0, False, Cons1 ))]]) (div 90 1)), array (negate (-210), (\val1349
+-> 121) val1349) [], array ((\val1350 -> ((((False, True), (), ('N')),
+39, (('\f', 'p', 194), 'h')), (((True, True), (), ('-')), 5, (('t', '~',
+150), '4')))) val1350) [], (\val1351 -> Cons16 (array (78, 81) [(:=) 78
+[Cons4 , Cons4 , Cons4 ], (:=) 79 [Cons4 , Cons4 ], (:=) 80 [Cons4 ], (:=)
+81 [Cons4 , Cons4 , Cons4 , Cons4 ]]) ((\val1352 -> array (True, True)
+[(True,array ((), ()) [((),array (True, False) [])])]) val1352, Cons3 ,
+(\val1353 -> Cons27 (array (False, True) [(False,array ('j', 'c') []),(True,array
+('{', '{') [('{',array (True, False) [])])]) 140.0 (array ('\SOH', '\ENQ')
+[('\SOH',Cons21 ),('\STX',Cons21 ),('\ETX',Cons21 ),('\EOT',Cons21 ),('\ENQ',Cons21
+)]) [Cons8 , Cons8 , Cons8 , Cons8 , Cons8 ]) val1353, chr 8) ((\val1354
+-> array ((), ()) [((),[array (False, True) [(False,Cons1 ),(True,Cons1
+)], array (True, True) [(True,Cons1 )]])]) 131)) val1351) ((\val1355 ->
 (\val1356 -> array ((98, (), 'w'), (41, (), '&')) []) 238) val1355) (array
 ((\val1357 -> ((150, '3', (('\DC2', True, True), False), ((), ('c', 200),
 90, ())), (58, '\\', (('$', True, True), True), ((), ('\t', 138), 144,
@@ -2587,152 +2566,138 @@ val2012) []]) val2002) val2001)), array ((\val2014 -> (\val2015 -> ((\val2016
 -> -88) val2058) ((*) 95 1)))) val2055) (take ((*) ((\val2059 -> (-) ((+)
 val2059 (-57)) (div 1 1)) (negate ((\val2060 -> -68) val2060))) ((\val2061
 -> negate ((+) 1 (-2))) ((*) ((-) 10 1) ((\val2062 -> 1) 13)))) ((\val2063
--> [drop ((\val2064 -> 5) val2064) (take 10 [array ('?', 'B') [('?', True),
-('@', False), ('A', True), ('B', True)], array ('%', '\NUL') [], array
-('\SYN', '\SUB') [('\SYN', False), ('\ETB', True), ('\CAN', False), ('\EM',
-True), ('\SUB', False)], array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',
-True), ('\DLE', True), ('\DC1', True)], array ('?', 'B') [('?', True),
-('@', False), ('A', True), ('B', True)], array ('%', '\NUL') [], array
-('\SYN', '\SUB') [('\SYN', False), ('\ETB', True), ('\CAN', False), ('\EM',
-True), ('\SUB', False)], array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',
-True), ('\DLE', True), ('\DC1', True)], array ('?', 'B') [('?', True),
-('@', False), ('A', True), ('B', True)], array ('%', '\NUL') [], array
-('\SYN', '\SUB') [('\SYN', False), ('\ETB', True), ('\CAN', False), ('\EM',
-True), ('\SUB', False)], array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',
-True), ('\DLE', True), ('\DC1', True)], array ('?', 'B') [('?', True),
-('@', False), ('A', True), ('B', True)], array ('%', '\NUL') [], array
-('\SYN', '\SUB') [('\SYN', False), ('\ETB', True), ('\CAN', False), ('\EM',
-True), ('\SUB', False)], array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',
-True), ('\DLE', True), ('\DC1', True)]]), [array ('\US', '#') [(:=) '\US'
-True, (:=) ' ' True, (:=) '!' False, (:=) '"' False, (:=) '#' False], array
-('\FS', '\FS') [(:=) '\FS' False]], (\val2065 -> (\val2066 -> [array ('h',
-'j') [('h', False), ('i', False), ('j', False)], array ('`', 'c') [('`',
-False), ('a', True), ('b', False), ('c', True)], array ('\ACK', '\n') [('\ACK',
-False), ('\a', True), ('\b', False), ('\t', True), ('\n', False)]]) val2066)
-((\val2067 -> 23) 239), [(\val2068 -> array ('\DC3', '\DLE') []) val2068,
-array ('[', '\\') [(:=) '[' True, (:=) '\\' False], array ('\NAK', '\EM')
-[(:=) '\NAK' False, (:=) '\SYN' False, (:=) '\ETB' False, (:=) '\CAN' False,
-(:=) '\EM' False]], (\val2069 -> take 3 [array ('\EOT', '\EOT') [('\EOT',
-True)], array ('c', '\US') [], array ('L', '\ETX') [], array ('\EOT', '\EOT')
-[('\EOT', True)], array ('c', '\US') [], array ('L', '\ETX') []]) val2069,
-[(\val2070 -> array ('?', 'B') [('?', True), ('@', False), ('A', True),
-('B', True)]) val2070, (\val2071 -> array ('%', '\NUL') []) 144, (\val2072
--> array ('\SYN', '\SUB') [('\SYN', False), ('\ETB', True), ('\CAN', False),
-('\EM', True), ('\SUB', False)]) val2072, (\val2073 -> array ('Q', '\GS')
-[]) val2073, array ('\SI', '\DC1') [(:=) '\SI' True, (:=) '\DLE' True,
-(:=) '\DC1' True]], (\val2074 -> (\val2075 -> [array ('\US', '#') [('\US',
-True), (' ', True), ('!', False), ('"', False), ('#', False)], array ('\FS',
-'\FS') [('\FS', False)]]) 93) val2074, [(\val2076 -> array ('h', 'j') [('h',
-False), ('i', False), ('j', False)]) val2076, array ('`', 'c') [(:=) '`'
-False, (:=) 'a' True, (:=) 'b' False, (:=) 'c' True], (\val2077 -> array
-('\ACK', '\n') [('\ACK', False), ('\a', True), ('\b', False), ('\t', True),
-('\n', False)]) val2077], [(\val2078 -> array ('\DC3', '\DLE') []) 81,
-(\val2079 -> array ('[', '\\') [('[', True), ('\\', False)]) 187, (\val2080
--> array ('\NAK', '\EM') [('\NAK', False), ('\SYN', False), ('\ETB', False),
-('\CAN', False), ('\EM', False)]) 182], (\val2081 -> (\val2082 -> [array
-('\EOT', '\EOT') [('\EOT', True)], array ('c', '\US') [], array ('L', '\ETX')
-[]]) val2082) ((\val2083 -> 175) val2083), (\val2084 -> (\val2085 -> [array
-('?', 'B') [('?', True), ('@', False), ('A', True), ('B', True)], array
-('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN', False), ('\ETB', True),
-('\CAN', False), ('\EM', True), ('\SUB', False)], array ('Q', '\GS') [],
-array ('\SI', '\DC1') [('\SI', True), ('\DLE', True), ('\DC1', True)]])
-val2085) (negate (-131)), [(\val2086 -> array ('\US', '#') [('\US', True),
-(' ', True), ('!', False), ('"', False), ('#', False)]) 240, array ('\FS',
-'\FS') [(:=) '\FS' False]], (\val2087 -> take 3 [array ('h', 'j') [('h',
-False), ('i', False), ('j', False)], array ('`', 'c') [('`', False), ('a',
-True), ('b', False), ('c', True)], array ('\ACK', '\n') [('\ACK', False),
-('\a', True), ('\b', False), ('\t', True), ('\n', False)], array ('h',
-'j') [('h', False), ('i', False), ('j', False)], array ('`', 'c') [('`',
-False), ('a', True), ('b', False), ('c', True)], array ('\ACK', '\n') [('\ACK',
-False), ('\a', True), ('\b', False), ('\t', True), ('\n', False)]]) (div
-133 1), [array ('\DC3', '\DLE') [], (\val2088 -> array ('[', '\\') [('[',
-True), ('\\', False)]) 89, array ('\NAK', '\EM') [(:=) '\NAK' False, (:=)
-'\SYN' False, (:=) '\ETB' False, (:=) '\CAN' False, (:=) '\EM' False]],
+-> [drop ((\val2064 -> 5) val2064) (take 10 [array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)],
+array ('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)],
+array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)], array
+('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)],
+array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)], array
+('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)],
+array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)], array
+('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)]]),
+[array ('\US', '#') [(:=) '\US' True, (:=) ' ' True, (:=) '!' False, (:=)
+'"' False, (:=) '#' False], array ('\FS', '\FS') [(:=) '\FS' False]], (\val2065
+-> (\val2066 -> [array ('h', 'j') [('h',False),('i',False),('j',False)],
+array ('`', 'c') [('`',False),('a',True),('b',False),('c',True)], array
+('\ACK', '\n') [('\ACK',False),('\a',True),('\b',False),('\t',True),('\n',False)]])
+val2066) ((\val2067 -> 23) 239), [(\val2068 -> array ('\DC3', '\DLE') [])
+val2068, array ('[', '\\') [(:=) '[' True, (:=) '\\' False], array ('\NAK',
+'\EM') [(:=) '\NAK' False, (:=) '\SYN' False, (:=) '\ETB' False, (:=) '\CAN'
+False, (:=) '\EM' False]], (\val2069 -> take 3 [array ('\EOT', '\EOT')
+[('\EOT',True)], array ('c', '\US') [], array ('L', '\ETX') [], array ('\EOT',
+'\EOT') [('\EOT',True)], array ('c', '\US') [], array ('L', '\ETX') []])
+val2069, [(\val2070 -> array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)])
+val2070, (\val2071 -> array ('%', '\NUL') []) 144, (\val2072 -> array ('\SYN',
+'\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)])
+val2072, (\val2073 -> array ('Q', '\GS') []) val2073, array ('\SI', '\DC1')
+[(:=) '\SI' True, (:=) '\DLE' True, (:=) '\DC1' True]], (\val2074 -> (\val2075
+-> [array ('\US', '#') [('\US',True),(' ',True),('!',False),('"',False),('#',False)],
+array ('\FS', '\FS') [('\FS',False)]]) 93) val2074, [(\val2076 -> array
+('h', 'j') [('h',False),('i',False),('j',False)]) val2076, array ('`',
+'c') [(:=) '`' False, (:=) 'a' True, (:=) 'b' False, (:=) 'c' True], (\val2077
+-> array ('\ACK', '\n') [('\ACK',False),('\a',True),('\b',False),('\t',True),('\n',False)])
+val2077], [(\val2078 -> array ('\DC3', '\DLE') []) 81, (\val2079 -> array
+('[', '\\') [('[',True),('\\',False)]) 187, (\val2080 -> array ('\NAK',
+'\EM') [('\NAK',False),('\SYN',False),('\ETB',False),('\CAN',False),('\EM',False)])
+182], (\val2081 -> (\val2082 -> [array ('\EOT', '\EOT') [('\EOT',True)],
+array ('c', '\US') [], array ('L', '\ETX') []]) val2082) ((\val2083 ->
+175) val2083), (\val2084 -> (\val2085 -> [array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)],
+array ('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)]])
+val2085) (negate (-131)), [(\val2086 -> array ('\US', '#') [('\US',True),('
+',True),('!',False),('"',False),('#',False)]) 240, array ('\FS', '\FS')
+[(:=) '\FS' False]], (\val2087 -> take 3 [array ('h', 'j') [('h',False),('i',False),('j',False)],
+array ('`', 'c') [('`',False),('a',True),('b',False),('c',True)], array
+('\ACK', '\n') [('\ACK',False),('\a',True),('\b',False),('\t',True),('\n',False)],
+array ('h', 'j') [('h',False),('i',False),('j',False)], array ('`', 'c')
+[('`',False),('a',True),('b',False),('c',True)], array ('\ACK', '\n') [('\ACK',False),('\a',True),('\b',False),('\t',True),('\n',False)]])
+(div 133 1), [array ('\DC3', '\DLE') [], (\val2088 -> array ('[', '\\')
+[('[',True),('\\',False)]) 89, array ('\NAK', '\EM') [(:=) '\NAK' False,
+(:=) '\SYN' False, (:=) '\ETB' False, (:=) '\CAN' False, (:=) '\EM' False]],
 [array ('\EOT', '\EOT') [(:=) '\EOT' True], (\val2089 -> array ('c', '\US')
 []) val2089, (\val2090 -> array ('L', '\ETX') []) val2090], take (negate
-(-5)) ((\val2091 -> [array ('?', 'B') [('?', True), ('@', False), ('A',
-True), ('B', True)], array ('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',
-False), ('\ETB', True), ('\CAN', False), ('\EM', True), ('\SUB', False)],
-array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI', True), ('\DLE', True),
-('\DC1', True)], array ('?', 'B') [('?', True), ('@', False), ('A', True),
-('B', True)], array ('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',
-False), ('\ETB', True), ('\CAN', False), ('\EM', True), ('\SUB', False)],
-array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI', True), ('\DLE', True),
-('\DC1', True)]]) 176), [array ('\US', '#') [(:=) '\US' True, (:=) ' '
-True, (:=) '!' False, (:=) '"' False, (:=) '#' False], (\val2092 -> array
-('\FS', '\FS') [('\FS', False)]) 3], [array ('h', 'j') [(:=) 'h' False,
-(:=) 'i' False, (:=) 'j' False], array ('`', 'c') [(:=) '`' False, (:=)
-'a' True, (:=) 'b' False, (:=) 'c' True], array ('\ACK', '\n') [(:=) '\ACK'
-False, (:=) '\a' True, (:=) '\b' False, (:=) '\t' True, (:=) '\n' False]],
-drop (div 3 1) [array ('\DC3', '\DLE') [], array ('[', '\\') [('[', True),
-('\\', False)], array ('\NAK', '\EM') [('\NAK', False), ('\SYN', False),
-('\ETB', False), ('\CAN', False), ('\EM', False)], array ('\DC3', '\DLE')
-[], array ('[', '\\') [('[', True), ('\\', False)], array ('\NAK', '\EM')
-[('\NAK', False), ('\SYN', False), ('\ETB', False), ('\CAN', False), ('\EM',
-False)]], (\val2093 -> [array ('\EOT', '\EOT') [('\EOT', True)], array
-('c', '\US') [], array ('L', '\ETX') []]) ((+) 1 250)]) val2063))]) ((\val2094
--> ((), Cons2 ((\val2095 -> array ((\val2096 -> ((\val2097 -> (\val2098
--> ((&&) True True, chr 18, chr 41)) (negate (-134))) val2097, (\val2099
--> ((\val2100 -> (||) False True) (div 129 1), (\val2101 -> (\val2102 ->
-'\DC3') 194) ((\val2103 -> 25) 173), chr ((+) 1 41))) val2099)) ((+) val2094
-((-) ((\val2104 -> 110) 84) ((+) 1 0)))) [(:=) ((\val2105 -> (\val2106
--> (\val2107 -> (\val2108 -> (True, '\DC2', ')')) val2108) val2107) val2106)
-((\val2109 -> (\val2110 -> (\val2111 -> 250) val2111) ((+) val2109 (-148)))
-((\val2112 -> negate (-156)) val2112))) ((\val2113 -> (\val2114 -> ([Cons23
-((||) False False) () ((\val2115 -> ['=']) val2115) ((\val2116 -> Cons25
-) 242), Cons21 , Cons22 ((\val2117 -> True) 28) ((\val2118 -> ()) val2118)],
-(\val2119 -> (\val2120 -> '<') val2120) val2119, (\val2121 -> array (True,
-False) []) ((\val2122 -> 111) val2122), (\val2123 -> (-) 176.0 1.0) ((-)
-103 1))) ((\val2124 -> (+) val2113 (-2)) ((\val2125 -> 116) val2125)))
-((\val2126 -> (+) val2126 (negate (-65))) val2126)), (:=) ((\val2127 ->
-((<) ((\val2128 -> (+) val2094 (-72)) val2128) (negate ((\val2129 -> -1)
-97)), (\val2130 -> chr ((+) 1 17)) val2130, chr ((\val2131 -> (\val2132
--> 42) val2132) val2131))) val2127) ((\val2133 -> (\val2134 -> (\val2135
--> ([Cons24 [array (((), False), ((), True)) [(((), False), (133)), (((),
-True), (179))]] [Cons21 , Cons21 ] [[[('?', Cons4 , True, Cons17 )]], [[('T',
-Cons4 , True, Cons17 ), ('<', Cons4 , True, Cons17 ), ('\DC3', Cons4 ,
-False, Cons17 ), ('r', Cons4 , False, Cons17 )]], [[(')', Cons4 , False,
-Cons17 ), ('\n', Cons4 , False, Cons17 ), (';', Cons4 , False, Cons17 ),
-('%', Cons4 , True, Cons17 )], [('\SUB', Cons4 , True, Cons17 ), ('6',
-Cons4 , False, Cons17 ), ('8', Cons4 , True, Cons17 ), ('9', Cons4 , True,
-Cons17 ), ('\\', Cons4 , True, Cons17 )]], [[('z', Cons4 , True, Cons17
-), (';', Cons4 , True, Cons17 ), ('\b', Cons4 , False, Cons17 )]]] False],
-chr 99, array (False, False) [(:=) False 130.0], (\val2136 -> 226.0) val2136))
-((\val2137 -> 131) val2137)) ((\val2138 -> (+) 1 103) val2138)) (negate
-((\val2139 -> (*) (-92) 1) val2139))), (:=) ((\val2140 -> ((&&) ((&&) (not
-False) ((||) False True)) ((\val2141 -> (||) False True) val2141), chr
-(negate (div (-19) 1)), chr ((+) val2094 ((\val2142 -> -31) val2142))))
-val2140) ((\val2143 -> (\val2144 -> (\val2145 -> [Cons23 True () ['y']
-(Cons25 )]) val2145) val2144) ((\val2146 -> (\val2147 -> (+) val2095 (-142))
-val2147) ((\val2148 -> (\val2149 -> 195) 83) ((+) val2094 (-49)))), (\val2150
--> (\val2151 -> (\val2152 -> chr 75) (negate (-82))) ((\val2153 -> (\val2154
--> 18) val2154) val2153)) ((-) ((+) ((\val2155 -> 1) 201) (div 245 1))
-((\val2156 -> (+) 1 0) val2156)), (\val2157 -> (\val2158 -> array (not
-False, (<) 1 1) []) ((\val2159 -> (+) 1 172) (negate (-35)))) ((+) val2094
-((-) ((\val2160 -> 25) val2160) ((\val2161 -> 1) 46))), (\val2162 -> (\val2163
--> (+) val2163 ((+) val2095 (-98))) val2163) val2162), (:=) ((&&) ((||)
-((\val2164 -> (<) 1 1) val2164) ((\val2165 -> (&&) True True) ((\val2166
--> 175) val2166))) ((\val2167 -> (||) ((\val2168 -> False) val2168) ((&&)
-True True)) ((\val2169 -> (\val2170 -> 56) val2170) val2169)), chr ((+)
-val2094 ((*) ((+) val2095 (-211)) ((\val2171 -> 1) 201))), (\val2172 ->
-chr ((*) ((+) 1 41) ((\val2173 -> 1) 78))) val2172) ((\val2174 -> (\val2175
--> (take ((-) 4 1) (take 6 [Cons21 , Cons23 False () ['"'] (Cons25 ), Cons22
-False (), Cons21 , Cons23 False () ['"'] (Cons25 ), Cons22 False (), Cons21
-, Cons23 False () ['"'] (Cons25 ), Cons22 False (), Cons21 , Cons23 False
-() ['"'] (Cons25 ), Cons22 False ()]), (\val2176 -> chr 111) ((+) 1 14),
-(\val2177 -> (\val2178 -> array (False, False) [(False, 94.0)]) 4) ((\val2179
--> 67) 166), (\val2180 -> (+) 1.0 153.0) ((\val2181 -> 114) 22))) ((+)
-((*) 1 1) ((\val2182 -> 177) val2182))) val2174)]) ((-) ((*) ((\val2183
--> (+) ((\val2184 -> 1) 202) ((+) 1 157)) ((+) (negate (-1)) ((\val2185
--> 144) 40))) (negate (div ((+) 1 (-2)) ((\val2186 -> 1) 252)))) (div ((\val2187
--> negate (negate 1)) val2187) (div ((\val2188 -> (\val2189 -> 1) 147)
-((*) 142 1)) ((\val2190 -> (\val2191 -> 1) 129) val2190))))) ((\val2192
--> (\val2193 -> (\val2194 -> (\val2195 -> array ((\val2196 -> ((), ()))
-79) [(:=) () ((\val2197 -> Cons11 ['O', '{', '\DC3', '\SUB']) val2197)])
-val2195) val2194) ((-) ((\val2198 -> div ((+) val2192 30) ((\val2199 ->
-1) 168)) (div ((+) val2094 (-33)) ((\val2200 -> 1) val2200))) ((\val2201
--> (-) ((*) 2 1) ((+) val2094 (-71))) val2201))) val2192) ((\val2202 ->
-array ((\val2203 -> ((\val2204 -> (\val2205 -> (\val2206 -> '1') val2206)
+(-5)) ((\val2091 -> [array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)],
+array ('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)],
+array ('?', 'B') [('?',True),('@',False),('A',True),('B',True)], array
+('%', '\NUL') [], array ('\SYN', '\SUB') [('\SYN',False),('\ETB',True),('\CAN',False),('\EM',True),('\SUB',False)],
+array ('Q', '\GS') [], array ('\SI', '\DC1') [('\SI',True),('\DLE',True),('\DC1',True)]])
+176), [array ('\US', '#') [(:=) '\US' True, (:=) ' ' True, (:=) '!' False,
+(:=) '"' False, (:=) '#' False], (\val2092 -> array ('\FS', '\FS') [('\FS',False)])
+3], [array ('h', 'j') [(:=) 'h' False, (:=) 'i' False, (:=) 'j' False],
+array ('`', 'c') [(:=) '`' False, (:=) 'a' True, (:=) 'b' False, (:=) 'c'
+True], array ('\ACK', '\n') [(:=) '\ACK' False, (:=) '\a' True, (:=) '\b'
+False, (:=) '\t' True, (:=) '\n' False]], drop (div 3 1) [array ('\DC3',
+'\DLE') [], array ('[', '\\') [('[',True),('\\',False)], array ('\NAK',
+'\EM') [('\NAK',False),('\SYN',False),('\ETB',False),('\CAN',False),('\EM',False)],
+array ('\DC3', '\DLE') [], array ('[', '\\') [('[',True),('\\',False)],
+array ('\NAK', '\EM') [('\NAK',False),('\SYN',False),('\ETB',False),('\CAN',False),('\EM',False)]],
+(\val2093 -> [array ('\EOT', '\EOT') [('\EOT',True)], array ('c', '\US')
+[], array ('L', '\ETX') []]) ((+) 1 250)]) val2063))]) ((\val2094 -> ((),
+Cons2 ((\val2095 -> array ((\val2096 -> ((\val2097 -> (\val2098 -> ((&&)
+True True, chr 18, chr 41)) (negate (-134))) val2097, (\val2099 -> ((\val2100
+-> (||) False True) (div 129 1), (\val2101 -> (\val2102 -> '\DC3') 194)
+((\val2103 -> 25) 173), chr ((+) 1 41))) val2099)) ((+) val2094 ((-) ((\val2104
+-> 110) 84) ((+) 1 0)))) [(:=) ((\val2105 -> (\val2106 -> (\val2107 ->
+(\val2108 -> (True, '\DC2', ')')) val2108) val2107) val2106) ((\val2109
+-> (\val2110 -> (\val2111 -> 250) val2111) ((+) val2109 (-148))) ((\val2112
+-> negate (-156)) val2112))) ((\val2113 -> (\val2114 -> ([Cons23 ((||)
+False False) () ((\val2115 -> ['=']) val2115) ((\val2116 -> Cons25 ) 242),
+Cons21 , Cons22 ((\val2117 -> True) 28) ((\val2118 -> ()) val2118)], (\val2119
+-> (\val2120 -> '<') val2120) val2119, (\val2121 -> array (True, False)
+[]) ((\val2122 -> 111) val2122), (\val2123 -> (-) 176.0 1.0) ((-) 103 1)))
+((\val2124 -> (+) val2113 (-2)) ((\val2125 -> 116) val2125))) ((\val2126
+-> (+) val2126 (negate (-65))) val2126)), (:=) ((\val2127 -> ((<) ((\val2128
+-> (+) val2094 (-72)) val2128) (negate ((\val2129 -> -1) 97)), (\val2130
+-> chr ((+) 1 17)) val2130, chr ((\val2131 -> (\val2132 -> 42) val2132)
+val2131))) val2127) ((\val2133 -> (\val2134 -> (\val2135 -> ([Cons24 [array
+(((), False), ((), True)) [(((), False),(133)),(((), True),(179))]] [Cons21
+, Cons21 ] [[[('?', Cons4 , True, Cons17 )]], [[('T', Cons4 , True, Cons17
+), ('<', Cons4 , True, Cons17 ), ('\DC3', Cons4 , False, Cons17 ), ('r',
+Cons4 , False, Cons17 )]], [[(')', Cons4 , False, Cons17 ), ('\n', Cons4
+, False, Cons17 ), (';', Cons4 , False, Cons17 ), ('%', Cons4 , True, Cons17
+)], [('\SUB', Cons4 , True, Cons17 ), ('6', Cons4 , False, Cons17 ), ('8',
+Cons4 , True, Cons17 ), ('9', Cons4 , True, Cons17 ), ('\\', Cons4 , True,
+Cons17 )]], [[('z', Cons4 , True, Cons17 ), (';', Cons4 , True, Cons17
+), ('\b', Cons4 , False, Cons17 )]]] False], chr 99, array (False, False)
+[(:=) False 130.0], (\val2136 -> 226.0) val2136)) ((\val2137 -> 131) val2137))
+((\val2138 -> (+) 1 103) val2138)) (negate ((\val2139 -> (*) (-92) 1) val2139))),
+(:=) ((\val2140 -> ((&&) ((&&) (not False) ((||) False True)) ((\val2141
+-> (||) False True) val2141), chr (negate (div (-19) 1)), chr ((+) val2094
+((\val2142 -> -31) val2142)))) val2140) ((\val2143 -> (\val2144 -> (\val2145
+-> [Cons23 True () ['y'] (Cons25 )]) val2145) val2144) ((\val2146 -> (\val2147
+-> (+) val2095 (-142)) val2147) ((\val2148 -> (\val2149 -> 195) 83) ((+)
+val2094 (-49)))), (\val2150 -> (\val2151 -> (\val2152 -> chr 75) (negate
+(-82))) ((\val2153 -> (\val2154 -> 18) val2154) val2153)) ((-) ((+) ((\val2155
+-> 1) 201) (div 245 1)) ((\val2156 -> (+) 1 0) val2156)), (\val2157 ->
+(\val2158 -> array (not False, (<) 1 1) []) ((\val2159 -> (+) 1 172) (negate
+(-35)))) ((+) val2094 ((-) ((\val2160 -> 25) val2160) ((\val2161 -> 1)
+46))), (\val2162 -> (\val2163 -> (+) val2163 ((+) val2095 (-98))) val2163)
+val2162), (:=) ((&&) ((||) ((\val2164 -> (<) 1 1) val2164) ((\val2165 ->
+(&&) True True) ((\val2166 -> 175) val2166))) ((\val2167 -> (||) ((\val2168
+-> False) val2168) ((&&) True True)) ((\val2169 -> (\val2170 -> 56) val2170)
+val2169)), chr ((+) val2094 ((*) ((+) val2095 (-211)) ((\val2171 -> 1)
+201))), (\val2172 -> chr ((*) ((+) 1 41) ((\val2173 -> 1) 78))) val2172)
+((\val2174 -> (\val2175 -> (take ((-) 4 1) (take 6 [Cons21 , Cons23 False
+() ['"'] (Cons25 ), Cons22 False (), Cons21 , Cons23 False () ['"'] (Cons25
+), Cons22 False (), Cons21 , Cons23 False () ['"'] (Cons25 ), Cons22 False
+(), Cons21 , Cons23 False () ['"'] (Cons25 ), Cons22 False ()]), (\val2176
+-> chr 111) ((+) 1 14), (\val2177 -> (\val2178 -> array (False, False)
+[(False,94.0)]) 4) ((\val2179 -> 67) 166), (\val2180 -> (+) 1.0 153.0)
+((\val2181 -> 114) 22))) ((+) ((*) 1 1) ((\val2182 -> 177) val2182))) val2174)])
+((-) ((*) ((\val2183 -> (+) ((\val2184 -> 1) 202) ((+) 1 157)) ((+) (negate
+(-1)) ((\val2185 -> 144) 40))) (negate (div ((+) 1 (-2)) ((\val2186 ->
+1) 252)))) (div ((\val2187 -> negate (negate 1)) val2187) (div ((\val2188
+-> (\val2189 -> 1) 147) ((*) 142 1)) ((\val2190 -> (\val2191 -> 1) 129)
+val2190))))) ((\val2192 -> (\val2193 -> (\val2194 -> (\val2195 -> array
+((\val2196 -> ((), ())) 79) [(:=) () ((\val2197 -> Cons11 ['O', '{', '\DC3',
+'\SUB']) val2197)]) val2195) val2194) ((-) ((\val2198 -> div ((+) val2192
+30) ((\val2199 -> 1) 168)) (div ((+) val2094 (-33)) ((\val2200 -> 1) val2200)))
+((\val2201 -> (-) ((*) 2 1) ((+) val2094 (-71))) val2201))) val2192) ((\val2202
+-> array ((\val2203 -> ((\val2204 -> (\val2205 -> (\val2206 -> '1') val2206)
 ((+) val2202 178)) val2204, (\val2207 -> (\val2208 -> chr 52) val2208)
 val2207)) (div (negate ((+) 1 (-129))) (negate ((\val2209 -> -1) val2209))))
 [(:=) (chr ((\val2210 -> (\val2211 -> (+) val2211 (-138)) ((\val2212 ->
@@ -2750,34 +2715,34 @@ val2232)) (array (chr ((\val2233 -> 8) val2233), chr (div 9 1)) [(:=) (chr
 [(\val2235 -> (\val2236 -> Cons8 ) 108) ((\val2237 -> 150) 244), (\val2238
 -> (\val2239 -> Cons8 ) val2239) val2238, (\val2240 -> Cons8 ) (negate
 (-172))], chr ((\val2241 -> (\val2242 -> 42) val2242) ((\val2243 -> 66)
-val2243))) ((\val2244 -> (\val2245 -> (\val2246 -> array ((), ()) [((),
-[array (True, True) [(True, Cons1 )], array (False, False) [(False, Cons1
-)], array (False, False) [(False, Cons1 )], array (False, False) [(False,
-Cons1 )], array (False, False) [(False, Cons1 )]])]) 40) val2245) ((+)
-((-) 2 1) ((\val2247 -> 125) 60)))) ((-) ((+) val2094 (div 118 1)) ((\val2248
--> (\val2249 -> 1) 37) ((\val2250 -> 39) val2250)))), (:=) (chr ((\val2251
--> (\val2252 -> (\val2253 -> 52) val2253) ((\val2254 -> 28) 120)) val2251))
-(Cons14 )]) val2202), (\val2255 -> (\val2256 -> (\val2257 -> (\val2258
--> Cons27 (array ((\val2259 -> False) val2259, (||) False True) [(:=) ((\val2260
--> False) 21) (array ('=', '?') [(:=) '=' (array (True, True) [(True, [66,
-82, 190])]), (:=) '>' (array (False, False) [(False, [])]), (:=) '?' (array
-(False, True) [(False, [86, 174, 48, 44]), (True, [])])]), (:=) ((<) 0
-1) (array ('|', '0') [])]) ((+) ((+) 1.0 0.0) ((\val2261 -> 91.0) 210))
-((\val2262 -> array ('\DC4', '\DC4') [(:=) '\DC4' (Cons23 False () ['\FS',
-'1'] (Cons25 ))]) ((\val2263 -> 240) val2263)) ((\val2264 -> [Cons10 '`'
-True (array (207, 79) []) (array ('s', 'Z') [])]) val2264)) ((\val2265
--> (\val2266 -> 126) 142) val2265)) val2257) val2256) val2255)) ((\val2267
--> (-) ((-) ((\val2268 -> (\val2269 -> div 74 1) val2269) val2268) ((\val2270
--> (\val2271 -> div 1 1) ((\val2272 -> 2) 149)) ((\val2273 -> (\val2274
--> 30) val2274) val2273))) ((\val2275 -> (\val2276 -> (\val2277 -> (\val2278
--> 1) val2278) val2277) val2276) val2275)) val2267)) (array ((\val2279
--> (+) val2279 ((\val2280 -> (*) ((\val2281 -> negate 152) val2281) ((*)
-((+) 1 0) (div 1 1))) ((*) ((\val2282 -> (\val2283 -> 90) 123) ((\val2284
--> 117) 149)) ((\val2285 -> (+) val2279 (-213)) val2285)))) val2279, (\val2286
--> (\val2287 -> (+) ((\val2288 -> (\val2289 -> (+) 1 0) ((\val2290 -> 125)
-172)) val2288) ((+) ((\val2291 -> (\val2292 -> 1) val2292) (negate (-147)))
-((+) (div 1 1) (div 59 1)))) val2287) ((\val2293 -> (\val2294 -> (\val2295
--> div (negate (-240)) (negate (-1))) val2295) val2294) ((\val2296 -> (\val2297
+val2243))) ((\val2244 -> (\val2245 -> (\val2246 -> array ((), ()) [((),[array
+(True, True) [(True,Cons1 )], array (False, False) [(False,Cons1 )], array
+(False, False) [(False,Cons1 )], array (False, False) [(False,Cons1 )],
+array (False, False) [(False,Cons1 )]])]) 40) val2245) ((+) ((-) 2 1) ((\val2247
+-> 125) 60)))) ((-) ((+) val2094 (div 118 1)) ((\val2248 -> (\val2249 ->
+1) 37) ((\val2250 -> 39) val2250)))), (:=) (chr ((\val2251 -> (\val2252
+-> (\val2253 -> 52) val2253) ((\val2254 -> 28) 120)) val2251)) (Cons14
+)]) val2202), (\val2255 -> (\val2256 -> (\val2257 -> (\val2258 -> Cons27
+(array ((\val2259 -> False) val2259, (||) False True) [(:=) ((\val2260
+-> False) 21) (array ('=', '?') [(:=) '=' (array (True, True) [(True,[66,
+82, 190])]), (:=) '>' (array (False, False) [(False,[])]), (:=) '?' (array
+(False, True) [(False,[86, 174, 48, 44]),(True,[])])]), (:=) ((<) 0 1)
+(array ('|', '0') [])]) ((+) ((+) 1.0 0.0) ((\val2261 -> 91.0) 210)) ((\val2262
+-> array ('\DC4', '\DC4') [(:=) '\DC4' (Cons23 False () ['\FS', '1'] (Cons25
+))]) ((\val2263 -> 240) val2263)) ((\val2264 -> [Cons10 '`' True (array
+(207, 79) []) (array ('s', 'Z') [])]) val2264)) ((\val2265 -> (\val2266
+-> 126) 142) val2265)) val2257) val2256) val2255)) ((\val2267 -> (-) ((-)
+((\val2268 -> (\val2269 -> div 74 1) val2269) val2268) ((\val2270 -> (\val2271
+-> div 1 1) ((\val2272 -> 2) 149)) ((\val2273 -> (\val2274 -> 30) val2274)
+val2273))) ((\val2275 -> (\val2276 -> (\val2277 -> (\val2278 -> 1) val2278)
+val2277) val2276) val2275)) val2267)) (array ((\val2279 -> (+) val2279
+((\val2280 -> (*) ((\val2281 -> negate 152) val2281) ((*) ((+) 1 0) (div
+1 1))) ((*) ((\val2282 -> (\val2283 -> 90) 123) ((\val2284 -> 117) 149))
+((\val2285 -> (+) val2279 (-213)) val2285)))) val2279, (\val2286 -> (\val2287
+-> (+) ((\val2288 -> (\val2289 -> (+) 1 0) ((\val2290 -> 125) 172)) val2288)
+((+) ((\val2291 -> (\val2292 -> 1) val2292) (negate (-147))) ((+) (div
+1 1) (div 59 1)))) val2287) ((\val2293 -> (\val2294 -> (\val2295 -> div
+(negate (-240)) (negate (-1))) val2295) val2294) ((\val2296 -> (\val2297
 -> (\val2298 -> negate (-211)) val2298) (div ((\val2299 -> 86) 174) ((\val2300
 -> 1) 67))) ((\val2301 -> (+) val2301 ((\val2302 -> 162) 194)) (div ((+)
 1 61) ((+) 1 0)))))) [(:=) ((*) ((*) (div ((\val2303 -> (-) ((\val2304
@@ -2820,7 +2785,7 @@ chr 81, (\val2364 -> True) 114, (<) 0 1), (:=) (not False) ((\val2365 ->
 -> div ((-) 125 1) ((\val2388 -> 1) val2388)) val2387)]]]) ((\val2389 ->
 (\val2390 -> Cons19 ((\val2391 -> (chr ((-) ((\val2392 -> (\val2393 ->
 64) val2393) ((\val2394 -> 117) 42)) ((+) val2391 ((\val2395 -> -181) val2395))),
-(\val2396 -> (\val2397 -> ((\val2398 -> Cons13 [array ((), ()) [((), (Cons4
+(\val2396 -> (\val2397 -> ((\val2398 -> Cons13 [array ((), ()) [((),(Cons4
 , 194.0, True, Cons1 ))]]) val2398)) ((\val2399 -> (\val2400 -> 58) 229)
 (negate (-107)))) ((\val2401 -> (\val2402 -> (\val2403 -> 246) 137) val2402)
 ((+) val2391 ((*) 71 1))), (\val2404 -> []) val2404)) val2391, array ((\val2405
@@ -2842,19 +2807,19 @@ val2429), Cons3 , (\val2434 -> Cons25 ) val2434) (array ((*) ((\val2435
 ((*) ((-) ((\val2444 -> (\val2445 -> 125) val2445) ((\val2446 -> 51) val2446))
 (div ((-) 2 1) ((\val2447 -> 1) val2447))) ((+) ((\val2448 -> (\val2449
 -> 1) val2449) val2448) ((\val2450 -> (*) 0 1) ((*) 106 1)))) ((\val2451
--> [(\val2452 -> [array ((True), (True)) [((True), (249, ')', True, True))],
-array ((False), (True)) [((False), (64, '\SYN', True, False)), ((True),
-(186, '\t', False, True))]]) ((+) val2390 5), (\val2453 -> [array ((True),
-(False)) [], array ((False), (False)) [((False), (69, 'X', True, True))]])
-(div 184 1), [array ((True), (True)) [(:=) (True) (166, 'X', False, True)],
-(\val2454 -> array ((False), (False)) [((False), (109, '\ACK', False, True))])
-val2454, (\val2455 -> array ((True), (False)) []) val2455, (\val2456 ->
-array ((True), (True)) [((True), (233, '?', False, False))]) val2456, (\val2457
--> array ((False), (False)) [((False), (142, '\DC4', False, False))]) 125],
-(\val2458 -> (\val2459 -> []) 255) val2458]) val2451)]) ((\val2460 -> (\val2461
--> (\val2462 -> Cons17 ) val2462) ((*) ((+) (div 1 1) ((*) (-1) 1)) ((*)
-(negate (-1)) ((\val2463 -> 1) 22)))) ((-) (div ((\val2464 -> (\val2465
--> 115) 1) val2464) ((\val2466 -> (+) 1 0) ((-) 54 1))) ((\val2467 -> (\val2468
+-> [(\val2452 -> [array ((True), (True)) [((True),(249, ')', True, True))],
+array ((False), (True)) [((False),(64, '\SYN', True, False)),((True),(186,
+'\t', False, True))]]) ((+) val2390 5), (\val2453 -> [array ((True), (False))
+[], array ((False), (False)) [((False),(69, 'X', True, True))]]) (div 184
+1), [array ((True), (True)) [(:=) (True) (166, 'X', False, True)], (\val2454
+-> array ((False), (False)) [((False),(109, '\ACK', False, True))]) val2454,
+(\val2455 -> array ((True), (False)) []) val2455, (\val2456 -> array ((True),
+(True)) [((True),(233, '?', False, False))]) val2456, (\val2457 -> array
+((False), (False)) [((False),(142, '\DC4', False, False))]) 125], (\val2458
+-> (\val2459 -> []) 255) val2458]) val2451)]) ((\val2460 -> (\val2461 ->
+(\val2462 -> Cons17 ) val2462) ((*) ((+) (div 1 1) ((*) (-1) 1)) ((*) (negate
+(-1)) ((\val2463 -> 1) 22)))) ((-) (div ((\val2464 -> (\val2465 -> 115)
+1) val2464) ((\val2466 -> (+) 1 0) ((-) 54 1))) ((\val2467 -> (\val2468
 -> (\val2469 -> 1) 185) ((\val2470 -> 55) val2470)) ((\val2471 -> (\val2472
 -> 1) 204) ((+) 1 242)))), array ((), ()) [(:=) () ()], (array (((\val2473
 -> (\val2474 -> chr ((*) 73 1)) ((\val2475 -> negate (-203)) val2475))
