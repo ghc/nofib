@@ -50,9 +50,21 @@ I found that there were some very bad loss-of-arity cases in PrelShow.
   Net result: imaginary/gen_regexps more than halves in allocation!
 
 
+x2n1
+~~~~
+
+Relies quite heavily on specialisations for Num (Complex Double).  If
+this test suddenly gets worse by a factor of 2 or so, chances are that
+specialisation is broken.
+
 ---------------------------------------
 	Spectral suite
 ---------------------------------------
+
+Mandel
+~~~~~~
+Relies heavily on having a specialised version of Complex.magnitude
+(:: Complex Double -> Double) available.
 
 Multiplier
 ~~~~~~~~~~
@@ -118,6 +130,9 @@ Also, making concat into a good producer made a large gain.
 My proto 4.09 still allocates more, partly because of more full laziness relative
 to 4.08; I don't know why that happens
 
+Extra allocation is happening in 5.02 as well; perhaps for the same reasons.  There is 
+at least one instance of floating that prevents fusion; namely the enumerated lists
+in 'transfer'.
 
 Sphere
 ~~~~~~
@@ -174,6 +189,10 @@ Omitting the flag gives much better inlining for $wvecsub at least.
 Sphere also does 60,000 calls to hPutStr, so I/O plays a major role.  Currently
 this I/O does a *lot* of allocation, much of it since the adddition of thread-safety.
 
+
+Treejoin
+~~~~~~~~
+Does a lot of IO.readFile.
 
 ---------------------------------------
 	Real suite
