@@ -1,38 +1,34 @@
--- Time-stamp: <Sat Jul 20 1996 21:27:16 Stardate: [-31]7839.26 hwloidl>
+-- -*- haskell -*-
+-- Time-stamp: <Wed Mar 21 2001 17:35:09 Stardate: [-30]6363.66 hwloidl>
 --
--- parfact
--- parallel version of a factorial-like function (i.e. divide-and-conquer)
--- using Glaswegian IO to minimize IO overhead.
--- To be used for GranSim
+-- Doing a factorial-like computation, actually just sum, using a std
+-- parallel divide-and-conquer stucture.
+-- Haskell98 version.
 -----------------------------------------------------------------------------
 
 module Main(main) where
 
+import System(getArgs)
 import Parallel
 
-main = getArgs exit ( \ args ->
-       munch_input (args_to_IntList args) )
+main = do args <- getArgs
+          let 
+            n = read (args!!0)  -- size of the interval
+            t = read (args!!1)  -- threshold
+            res = pfact n t
+          putStrLn ("pfact " ++ (show n) ++ " " ++ (show t) ++ " = " ++ (show res)) {- ++ 
+                    "\nResult is " ++ 
+                    (if (sum [1..n] == res) then "ok"  else "NOT OK"))-}
 
-munch_input [n] = appendChan stdout ("\nparfact " ++ (show n) ++ " = " ++ (show (parfact n)) ++ "\n") exit done
+-- ASSERT: pfact n _ == sum [1..n]
+pfact :: Integer -> Integer -> Integer
+pfact n t = pfact' 1 n t
 
-args_to_IntList a = if length a < 1
-		      then error "Usage: parfact <n>\n"
-		      else map (\ a1 -> fst ((readDec a1) !! 0)) a
-
-parfact :: Int -> Int
-parfact x = pf 100 1 x
-
-pf :: Int -> Int -> Int -> Int
-pf n x y
-   | x < y     = par f1 ( seq f2 (f1+f2) )
-                 {-
-		   _parGlobal_ p' p' 1# p' f1 
-                      (_seq_ f2 (f1+f2))
-                 -}
-   | otherwise = x
-   where
-      m  = (x+y) `quot` 2   -- changed div to quot -> much more efficient   HWL
-      f1 = pf (n-1) x m
-      f2 = pf (n-1) (m+1) y
-      -- p' = case (n) of (I# p') -> p'
-
+-- thresholding version
+pfact' :: Integer -> Integer -> Integer -> Integer
+pfact' m n t | (n-m) <= t = sum [m..n]             -- seq version below t
+             | otherwise  = left `par` right `seq` -- par d&c version
+                            (left + right)
+                            where mid = (m + n) `div` 2
+                                  left = pfact' m mid t 
+                                  right = pfact' (mid+1) n t

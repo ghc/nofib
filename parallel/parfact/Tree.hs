@@ -1,7 +1,11 @@
--- Time-stamp: <Mon Jul 22 1996 11:05:17 Stardate: [-31]7847.10 hwloidl>
+-- Time-stamp: <Wed Mar 21 2001 17:07:44 Stardate: [-30]6363.56 hwloidl>
 --
 -- ADT of a binary tree (values only in leaves)
 -- ---------------------------------------------------------------------------
+
+#if 0
+
+-- Currently unused; should go into another dir!
 
 module Tree(Tree, list2tree, tree2list, (^:), tree_map, tree_fold, force_tree,
 	    depth, create_forest, par_tree_map) where
@@ -74,3 +78,5 @@ create_forest (Leaf x) 		= [ (Leaf y) | y <- [2..x], gcd x y == 1 ]
 create_forest (Node left right) = [ (Node left' right') 
 				  | left' <- create_forest left,
 				    right' <- create_forest right]
+
+#endif

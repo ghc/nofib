@@ -1,8 +1,12 @@
--- Time-stamp: <Sat Jul 20 1996 21:21:12 Stardate: [-31]7839.24 hwloidl>
+-- Time-stamp: <Wed Mar 21 2001 17:09:08 Stardate: [-30]6363.57 hwloidl>
 -- 
 -- Good old nfib, now in parallel!
 --
 -----------------------------------------------------------------------------
+
+#if 0
+
+-- Currently unused; see ../pfib instead
 
 module Main(main) where
 
@@ -53,3 +57,5 @@ par_non_fib a b x =
                           b' = max 1 (min (a-1) b)
                           ab = gcd a' b'			  
 
+
+#endif

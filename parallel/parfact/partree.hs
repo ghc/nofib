@@ -1,11 +1,13 @@
--- Time-stamp: <Mon Jul 22 1996 10:59:45 Stardate: [-31]7847.08 hwloidl>
+-- Time-stamp: <Wed Mar 21 2001 17:08:35 Stardate: [-30]6363.57 hwloidl>
 --
 -- partree
 -- parallel map over a tree 
 -- To be used for GranSim
 -----------------------------------------------------------------------------
 
-#if defined(GLA_EXTS)
+#if 0 && defined(GLA_EXTS)
+
+-- Currently unused; should go into another dir!
  
 module Main(mainPrimIO) where
 

@@ -1,8 +1,12 @@
--- Time-stamp: <Mon Jul 22 1996 11:08:28 Stardate: [-31]7847.11 hwloidl>
+-- Time-stamp: <Wed Mar 21 2001 17:08:29 Stardate: [-30]6363.57 hwloidl>
 -- 
 -- tak benchmark program 
 -- Divide-and-conquer structure with tertiary parallelism.
 -----------------------------------------------------------------------------
+
+#if 0 
+
+-- Currently unused; should go into another dir!
 
 #if defined(GRAN) || defined(PAR)
 module Main(mainPrimIO) where
@@ -75,3 +79,4 @@ tak x y z
                          gran x y z = abs (z-y) + abs (y-x) + abs (z-x)
 
 
+#endif
