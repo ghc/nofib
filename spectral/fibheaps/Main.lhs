@@ -17,6 +17,7 @@ Let me know if you have any problems...
 
 Chris
 
+
 - ----------------------------------------------------------------------
 
 FIBONACCI HEAPS
@@ -193,7 +194,7 @@ In the first implementation, there are three steps.
 >    ins a (i, t) =
 >        readArray a i >>= \e ->
 >        case e of
->          Zero -> writeArray a i (One t)
+>          Zero   -> writeArray a i (One t)
 >          One t2 -> writeArray a i Zero >>
 >                    ins a (i+1, link t t2)
 
@@ -205,7 +206,7 @@ the highest slot of the array.
 >    getMin a =
 >        readArray a d >>= \e ->
 >        case e of
->          Zero -> error "must be One" -- since array is filled as bits of n-1
+>          Zero  -> error "must be One" -- since array is filled as bits of n-1
 >          One t -> getMin' a d t EmptyBag 0
 >    getMin' a mini mint b i =
 >        if i >= d then
@@ -213,7 +214,7 @@ the highest slot of the array.
 >        else
 >          readArray a i >>= \e ->
 >          case e of
->            Zero -> getMin' a mini mint b (i+1)
+>            Zero  -> getMin' a mini mint b (i+1)
 >            One t -> if root mint <= root t then
 >                       getMin' a mini mint (ConsBag (i, t) b) (i+1)
 >                     else
@@ -266,21 +267,21 @@ functionally.
 
 Testing...
 
->fibToList :: Ord a => FibHeap a -> [a]
+>fibToList :: (Ord a) => FibHeap a -> [a]
 >fibToList xs = if isEmptyFH xs then []
 >               else minFH xs : fibToList (deleteMinFH xs)
 >
->fibToList' :: Ord a => FibHeap a -> [a]
+>fibToList' :: (Ord a) => FibHeap a -> [a]
 >fibToList' xs = if isEmptyFH xs then []
 >                else minFH xs : fibToList' (deleteMinFH' xs)
 >
->makeFH :: Ord a => [a] -> FibHeap a
+>makeFH :: (Ord a) => [a] -> FibHeap a
 >makeFH xs = foldr insertFH emptyFH xs
 >
->fibSort :: Ord a => [a] -> [a]
+>fibSort :: (Ord a) => [a] -> [a]
 >fibSort = fibToList . makeFH
 >
->fibSort' :: Ord a => [a] -> [a]
+>fibSort' :: (Ord a) => [a] -> [a]
 >fibSort' = fibToList' . makeFH
 >
 >randoms :: Int -> [Int]
