@@ -10,7 +10,7 @@
 # we can gather time and size information
 
 define COMPILE
-	@echo ==nofib==  $(NOFIB_PROG): time to compile $@ follows...
+	@echo ==nofib==  $(NOFIB_PROG): time to compile $* follows...
 	@echo $(HC) $(HC_OPTS) -c $< -o $@
 	@time $(HC) $(HC_OPTS) -c $< -o $@
 	@if (test -f $@); then \
