@@ -2,6 +2,9 @@
 
 \begin{verbatim}
 $Log: QRationals.lhs,v $
+Revision 1.3  1999/11/02 16:10:42  simonpj
+Haskell 98 changes
+
 Revision 1.2  1996/07/25 21:30:48  partain
 Bulk of final changes for 2.01
 
@@ -13,10 +16,11 @@ Initial revision
 > module QRationals
 >  (QRational, (%%), qNumerator, qDenominator,
 >   qInfinite, qUndefined, qRound, qFinite) where
+> import Ratio
 > infixl 7  %% , :%%
 > prec = 7::Int
 
-> data  QRational		=  Integer :%% Integer deriving (Eq, Binary)
+> data  QRational		=  Integer :%% Integer deriving (Eq)
 
 > qReduce, (%%)			:: Integer -> Integer -> QRational
 > qNumerator, qDenominator	:: QRational -> Integer

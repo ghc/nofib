@@ -2,20 +2,23 @@
 
 \begin{verbatim}
 $Log: ContinuedFractions.lhs,v $
+Revision 1.2  1999/11/02 16:10:42  simonpj
+Haskell 98 changes
+
 Revision 1.1  1996/01/08 20:05:19  partain
 Initial revision
 
 \end{verbatim}
 
 > module ContinuedFractions
->  (Maybe.., QRationals..,
+>  (module Maybe, module QRationals,
 >   ContinuedFraction(..), Homography(..), Interval(..), rat2cf,
 >   algebraicAlgorithm, algebraicOutput,
 >   quadraticAlgorithm, quadraticOutput,
 >   cfRat2CFSqrt, decimals, accuracy, cf2Rat, integerFraction)
 > where
 > import Maybe
-> import QSort
+> import List( sort )
 > import QRationals
 
 \section{Representation of Continued Fractions}

@@ -2,13 +2,16 @@
 
 \begin{verbatim}
 $Log: Transcendentals.lhs,v $
+Revision 1.2  1999/11/02 16:10:42  simonpj
+Haskell 98 changes
+
 Revision 1.1  1996/01/08 20:05:19  partain
 Initial revision
 
 \end{verbatim}
 
 > module Transcendentals
->  (ContinuedFractions.., 
+>  (module ContinuedFractions, 
 >   exp1, expQ, expR, log10, logQ, logR, tanQ, tanR, cotR, atan1, atanQ, atanR)
 > where
 > import ContinuedFractions
@@ -143,7 +146,7 @@ provided that $x$ is non-zero.
 > tanQ  :: QRational -> ContinuedFraction
 > tanQ  x = if x /= 0 then aaQ startH ts2 else error "tanQ: 0 argument"
 >           where n         = qRound (abs (x/2)) + 1
->                 (ts1,ts2) = splitAt n (bothQ x tan1CF)
+>                 (ts1,ts2) = splitAt (fromIntegral n) (bothQ x tan1CF)
 >                 startH    = absorbQ ([1,0],[0,1]) ts1
 
 > tanR  :: ContinuedFraction -> ContinuedFraction

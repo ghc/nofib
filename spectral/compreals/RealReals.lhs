@@ -2,6 +2,9 @@
 
 \begin{verbatim}
 $Log: RealReals.lhs,v $
+Revision 1.3  1999/11/02 16:10:42  simonpj
+Haskell 98 changes
+
 Revision 1.2  1996/07/25 21:30:49  partain
 Bulk of final changes for 2.01
 
@@ -12,6 +15,9 @@ Initial revision
 
 > module RealReals (RealReal) where
 > import Transcendentals
+> import Ratio
+> import List( genericLength )
+> import Numeric( readSigned )
 
 > data RealReal = RealInt Integer           |
 >                 RealRat QRational         |

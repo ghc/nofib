@@ -2,6 +2,9 @@
 
 \begin{verbatim}
 $Log: Main.lhs,v $
+Revision 1.3  1999/11/02 16:10:42  simonpj
+Haskell 98 changes
+
 Revision 1.2  1996/07/25 21:30:47  partain
 Bulk of final changes for 2.01
 
@@ -15,10 +18,11 @@ calculator type language.
 
 > module Main where
 > import RealReals
+> import Char
 
 For the moment on the other hand it just prints a given number.
 
-> main = getContents >>= foldr output . map doLine . lines
+> main = getContents >>= (foldr output (return ()) . map doLine . lines)
 
 Printing out @String@'s is easy:
 
@@ -41,7 +45,6 @@ it then evaluates the expression returning the answer string.
 > tokenize _                  = ["Error"]
 
 > isSymb c = c `elem` "*+-/"
-> isAlphaNum c = isAlpha c || isDigit c
 
 > eval :: [RealReal] -> [String] -> String
 > eval [n] []     = show n
