@@ -8,11 +8,11 @@
 	part of the fokelore of the functional programming community,
 	and therefore the contents are in the public domain.</>
   <Author>
-	Rendered by <A HREF="http://www.cse.ogi.edu/~andy">Andy Gill</a>,
+	Rendered by <A HREF="http://www.cse.ogi.edu/~andy/">Andy Gill</a>,
 	based on the paper
 	<em>Functional Programming with Overloading and
 	    Higher-Order Polymorphism</em>, 
-	  <A HREF="http://www.cse.ogi.edu/~mpj">Mark P Jones</a>,
+	  <A HREF="http://www.cse.ogi.edu/~mpj/">Mark P Jones</a>,
 		Advanced School of Functional Programming, 1995.</>
   <Restrictions>	
 	This requires multi parameter classes
