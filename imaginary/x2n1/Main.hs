@@ -23,7 +23,10 @@ of all the other programs I thought I'd contribute at least one :-)
 ...
 -}
 
-main = prints (round (realPart (sum [f n | n<-[1..10000]]))) "\n"
+module Main ( main ) where
+import Complex
+
+main = print (round (realPart (sum [f n | n <- [1..10000]])))
 
 f :: Int -> Complex Double
 f n = mkPolar 1 (2*pi/fromInt n) ^ n

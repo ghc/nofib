@@ -11,4 +11,3 @@ primes :: [Int]
 primes = map head (iterate the_filter (iterate suCC 2))
 
 main = print (primes !! 1500)
---OLD: main = print (take 300 primes)
