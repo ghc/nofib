@@ -28,7 +28,7 @@ main = do
 				| end_time <= 0		= error "end time must be positive"
 				| temperature < 0	= error "temperature must be nonnegative"
 				| otherwise		= list names trace
-		writeFile (file ++ ".out") output
+		putStr output
   where
   	get [e] _ = e
 	get  _  s = error s
