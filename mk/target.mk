@@ -60,7 +60,7 @@ runtests ::
 	@echo "Main.main" >>$(STDIN) 
 	@cat /dev/null $(STDIN_FILE) >> $(STDIN)
 	echo $(GHCI_HC_OPTS)
-	$(TIME) $(RUNTEST) $(HC) $(RUNTEST_OPTS) \
+	@$(TIME) $(RUNTEST) $(HC) $(RUNTEST_OPTS) \
 			-i $(STDIN) \
 	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
