@@ -1,6 +1,6 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 SRC_HC_OPTS += -cpp
-HS_SRCS := $(filter-out Test%,$(HS_SRCS))
+EXCLUDED_SRCS=TestType.hs TestTerm.hs
 include $(TOP)/mk/target.mk
 

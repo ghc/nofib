@@ -1,6 +1,6 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
-HS_SRCS:=$(filter-out PureEngine.hs StackEngine.hs,$(HS_SRCS))
+EXCLUDED_SRCS=PureEngine.hs StackEngine.hs
 -include opts.mk
 include $(TOP)/mk/target.mk
 
