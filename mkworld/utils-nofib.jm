@@ -1,0 +1,8 @@
+# line 10 "utils-nofib.ljm"
+#ifndef FilesToClean
+#define FilesToClean /*none*/
+#endif
+
+#ifndef ExtraFilesToBeVeryClean
+#define ExtraFilesToBeVeryClean /*none*/
+#endif

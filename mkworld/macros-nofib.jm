@@ -1,0 +1,638 @@
+# line 13 "macros-nofib.ljm"
+#ifndef RunStdTestTimeCmd
+#define RunStdTestTimeCmd -t $(TIME)
+#endif
+# line 22 "macros-nofib.ljm"
+#ifndef NoFibAt
+#define NoFibAt @
+#endif
+# line 34 "macros-nofib.ljm"
+#ifndef ProjectMakeVarsForAllinSubdirs
+#define ProjectMakeVarsForAllinSubdirs HC="$(HC)" EXTRA_HC_OPTS="$(EXTRA_HC_OPTS)"
+#endif
+
+#ifndef ProjectMakeVarsForRunTestsinSubdirs
+#define ProjectMakeVarsForRunTestsinSubdirs HC="$(HC)" EXTRA_HC_OPTS="$(EXTRA_HC_OPTS)"
+#endif
+# line 63 "macros-nofib.ljm"
+#ifndef NoFibHaskellCompile__
+#define NoFibHaskellCompile__(test,way,way_opts,module,isuf)		@@\
+CAT3(module,way,.o) : module.isuf					@@\
+	NoFibAt $(RM) $@						@@\
+	@echo ==nofib== test\: time to compile $@ follows...		@@\
+	NoFibAt $(TIME) $(HC) -c -o $@ way_opts $(HCFLAGS) $(CAT2(HC_OPTS_,test)) $(CAT4(HC_OPTS_,test,_,module)) module.isuf @@\
+	@echo ==nofib== test\: size of $@ follows...			@@\
+	NoFibAt size $@
+#endif /* NoFibHaskellCompile__ */
+# line 75 "macros-nofib.ljm"
+#ifndef NoFibLinkPgm__
+#define NoFibLinkPgm__(progname,way,way_opts,objlistvar)		     @@\
+CAT3(all_,progname,way) :: CAT2(progname,way)				     @@\
+									     @@\
+CAT2(progname,way) :: $(objlistvar)					     @@\
+	NoFibAt $(RM) CAT2(progname,way)				     @@\
+	NoFibAt $(HC) -o CAT2(progname,way) way_opts $(HCFLAGS) $(CAT2(HC_OPTS_,progname)) $(objlistvar) @@\
+	NoFibAt $(STRIP) CAT2(progname,way)				     @@\
+	@echo ==nofib== CAT2(progname,way)\: size of CAT2(progname,way) follows... @@\
+	NoFibAt size CAT2(progname,way)
+#endif /* NoFibLinkPgm__ */
+# line 89 "macros-nofib.ljm"
+#ifndef NoFibRunPgm__
+#define NoFibRunPgm__(test,prog,way,runstdtest_opts)			@@\
+CAT3(runtest_,test,way) :: CAT2(prog,way)				@@\
+	@echo ==nofib== CAT2(prog,way)\: size of CAT2(prog,way) follows... @@\
+	NoFibAt size CAT2(prog,way)					@@\
+	@echo ==nofib== CAT2(test,way)\: time to run CAT2(prog,way) follows... @@\
+runtests:: CAT3(runtest_,test,way)					@@\
+CAT3(runtest_,test,way)::						@@\
+	@$(RUNSTDTEST) CAT3(./,prog,way)		\		@@\
+		RunStdTestTimeCmd 			\		@@\
+		$(RUNSTDTEST_FLAGS) runstdtest_opts 	\		@@\
+		$(CAT2(NOFIB_RUN,way)) $(CAT2(NOFIB_RUN_,test))
+#endif /* NoFibRunPgm__ */
+# line 105 "macros-nofib.ljm"
+#ifndef NoFibCleanupPgm__
+#define NoFibCleanupPgm__(prog,way,objlistvar)				@@\
+CAT3(clean_,prog,way) ::						@@\
+	$(RM) CAT2(prog,way) $(objlistvar)
+#endif /* NoFibCleanupPgm__ */
+# line 113 "macros-nofib.ljm"
+#ifndef NoFibMultiModuleCompileAndRun__
+
+#define NoFibMultiModuleCompileAndRun__(testname,way,way_opts,runstdtest_opts)	@@\
+									@@\
+all :: CAT3(all_,testname,way)						@@\
+runtests :: CAT3(runtest_,testname,way)					@@\
+clean :: CAT3(clean_,testname,way)					@@\
+									@@\
+NoFibLinkPgm__(testname,way,way_opts,CAT2(OBJS_O,way))			@@\
+NoFibRunPgm__(testname,testname,way,runstdtest_opts)			@@\
+NoFibCleanupPgm__(testname,way,CAT2(OBJS_O,way))
+
+#endif /* NoFibMultiModuleCompileAndRun__ */
+# line 134 "macros-nofib.ljm"
+#ifndef NoFibOneModuleCompileAndRun__
+#define NoFibOneModuleCompileAndRun__(testname,runopts,way,way_opts)	@@\
+									@@\
+NoFibMultiModuleCompileAndRun__(testname,way,way_opts,-o1 testname.stdout runopts) @@\
+									@@\
+NoFibHaskellCompile__(testname,way,way_opts,Main,hs)
+#endif /* NoFibOneModuleCompileAndRun__ */
+# line 152 "macros-nofib.ljm"
+#ifndef NoFib_UserWay_a
+#define NoFib_UserWay_a NO
+#endif /* ! NoFib_UserWay_a */
+#ifndef NoFib_UserWay_b
+#define NoFib_UserWay_b NO
+#endif /* ! NoFib_UserWay_b */
+#ifndef NoFib_UserWay_c
+#define NoFib_UserWay_c NO
+#endif /* ! NoFib_UserWay_c */
+#ifndef NoFib_UserWay_d
+#define NoFib_UserWay_d NO
+#endif /* ! NoFib_UserWay_d */
+#ifndef NoFib_UserWay_e
+#define NoFib_UserWay_e NO
+#endif /* ! NoFib_UserWay_e */
+#ifndef NoFib_UserWay_f
+#define NoFib_UserWay_f NO
+#endif /* ! NoFib_UserWay_f */
+#ifndef NoFib_UserWay_g
+#define NoFib_UserWay_g NO
+#endif /* ! NoFib_UserWay_g */
+#ifndef NoFib_UserWay_h
+#define NoFib_UserWay_h NO
+#endif /* ! NoFib_UserWay_h */
+#ifndef NoFib_UserWay_i
+#define NoFib_UserWay_i NO
+#endif /* ! NoFib_UserWay_i */
+#ifndef NoFib_UserWay_j
+#define NoFib_UserWay_j NO
+#endif /* ! NoFib_UserWay_j */
+#ifndef NoFib_UserWay_k
+#define NoFib_UserWay_k NO
+#endif /* ! NoFib_UserWay_k */
+#ifndef NoFib_UserWay_l
+#define NoFib_UserWay_l NO
+#endif /* ! NoFib_UserWay_l */
+#ifndef NoFib_UserWay_m
+#define NoFib_UserWay_m NO
+#endif /* ! NoFib_UserWay_m */
+#ifndef NoFib_UserWay_n
+#define NoFib_UserWay_n NO
+#endif /* ! NoFib_UserWay_n */
+#ifndef NoFib_UserWay_o
+#define NoFib_UserWay_o NO
+#endif /* ! NoFib_UserWay_o */
+# line 200 "macros-nofib.ljm"
+#if NoFib_UserWay_a == YES
+#define NoFibHaskellCompile_a(test,module,isuf) \
+	NoFibHaskellCompile__(test,_a,$(HC_OPTS_a),module,isuf)
+#define NoFibLinkPgm_a(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_a,$(HC_OPTS_a),objlistvar)
+#define NoFibRunPgm_a(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_a,runstdtest_opts)
+#define NoFibCleanupPgm_a(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_a,objlistvar)
+#define NoFibMultiModuleCompileAndRun_a(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_a,$(HC_OPTS_a),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_a(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_a,$(HC_OPTS_a))
+
+#else  /* ! NoFib_UserWay_a */
+#define NoFibHaskellCompile_a(test,module,isuf) /*none*/
+#define NoFibLinkPgm_a(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_a(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_a(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_a(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_a(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_a */
+
+#if NoFib_UserWay_b == YES
+#define NoFibHaskellCompile_b(test,module,isuf) \
+	NoFibHaskellCompile__(test,_b,$(HC_OPTS_b),module,isuf)
+#define NoFibLinkPgm_b(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_b,$(HC_OPTS_b),objlistvar)
+#define NoFibRunPgm_b(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_b,runstdtest_opts)
+#define NoFibCleanupPgm_b(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_b,objlistvar)
+#define NoFibMultiModuleCompileAndRun_b(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_b,$(HC_OPTS_b),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_b(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_b,$(HC_OPTS_b))
+
+#else  /* ! NoFib_UserWay_b */
+#define NoFibHaskellCompile_b(test,module,isuf) /*none*/
+#define NoFibLinkPgm_b(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_b(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_b(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_b(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_b(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_b */
+
+#if NoFib_UserWay_c == YES
+#define NoFibHaskellCompile_c(test,module,isuf) \
+	NoFibHaskellCompile__(test,_c,$(HC_OPTS_c),module,isuf)
+#define NoFibLinkPgm_c(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_c,$(HC_OPTS_c),objlistvar)
+#define NoFibRunPgm_c(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_c,runstdtest_opts)
+#define NoFibCleanupPgm_c(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_c,objlistvar)
+#define NoFibMultiModuleCompileAndRun_c(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_c,$(HC_OPTS_c),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_c(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_c,$(HC_OPTS_c))
+
+#else  /* ! NoFib_UserWay_c */
+#define NoFibHaskellCompile_c(test,module,isuf) /*none*/
+#define NoFibLinkPgm_c(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_c(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_c(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_c(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_c(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_c */
+
+#if NoFib_UserWay_d == YES
+#define NoFibHaskellCompile_d(test,module,isuf) \
+	NoFibHaskellCompile__(test,_d,$(HC_OPTS_d),module,isuf)
+#define NoFibLinkPgm_d(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_d,$(HC_OPTS_d),objlistvar)
+#define NoFibRunPgm_d(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_d,runstdtest_opts)
+#define NoFibCleanupPgm_d(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_d,objlistvar)
+#define NoFibMultiModuleCompileAndRun_d(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_d,$(HC_OPTS_d),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_d(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_d,$(HC_OPTS_d))
+
+#else  /* ! NoFib_UserWay_d */
+#define NoFibHaskellCompile_d(test,module,isuf) /*none*/
+#define NoFibLinkPgm_d(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_d(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_d(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_d(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_d(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_d */
+
+#if NoFib_UserWay_e == YES
+#define NoFibHaskellCompile_e(test,module,isuf) \
+	NoFibHaskellCompile__(test,_e,$(HC_OPTS_e),module,isuf)
+#define NoFibLinkPgm_e(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_e,$(HC_OPTS_e),objlistvar)
+#define NoFibRunPgm_e(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_e,runstdtest_opts)
+#define NoFibCleanupPgm_e(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_e,objlistvar)
+#define NoFibMultiModuleCompileAndRun_e(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_e,$(HC_OPTS_e),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_e(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_e,$(HC_OPTS_e))
+
+#else  /* ! NoFib_UserWay_e */
+#define NoFibHaskellCompile_e(test,module,isuf) /*none*/
+#define NoFibLinkPgm_e(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_e(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_e(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_e(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_e(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_e */
+
+#if NoFib_UserWay_f == YES
+#define NoFibHaskellCompile_f(test,module,isuf) \
+	NoFibHaskellCompile__(test,_f,$(HC_OPTS_f),module,isuf)
+#define NoFibLinkPgm_f(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,$(HC_OPTS_f),_f,objlistvar)
+#define NoFibRunPgm_f(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_f,runstdtest_opts)
+#define NoFibCleanupPgm_f(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_f,objlistvar)
+#define NoFibMultiModuleCompileAndRun_f(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_f,$(HC_OPTS_f),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_f(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_f,$(HC_OPTS_f))
+
+#else  /* ! NoFib_UserWay_f */
+#define NoFibHaskellCompile_f(test,module,isuf) /*none*/
+#define NoFibLinkPgm_f(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_f(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_f(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_f(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_f(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_f */
+
+#if NoFib_UserWay_g == YES
+#define NoFibHaskellCompile_g(test,module,isuf) \
+	NoFibHaskellCompile__(test,_g,$(HC_OPTS_g),module,isuf)
+#define NoFibLinkPgm_g(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,$(HC_OPTS_g),_g,objlistvar)
+#define NoFibRunPgm_g(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_g,runstdtest_opts)
+#define NoFibCleanupPgm_g(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_g,objlistvar)
+#define NoFibMultiModuleCompileAndRun_g(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_g,$(HC_OPTS_g),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_g(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_g,$(HC_OPTS_g))
+
+#else  /* ! NoFib_UserWay_g */
+#define NoFibHaskellCompile_g(test,module,isuf) /*none*/
+#define NoFibLinkPgm_g(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_g(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_g(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_g(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_g(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_g */
+
+#if NoFib_UserWay_h == YES
+#define NoFibHaskellCompile_h(test,module,isuf) \
+	NoFibHaskellCompile__(test,_h,$(HC_OPTS_h),module,isuf)
+#define NoFibLinkPgm_h(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_h,$(HC_OPTS_h),objlistvar)
+#define NoFibRunPgm_h(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_h,runstdtest_opts)
+#define NoFibCleanupPgm_h(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_h,objlistvar)
+#define NoFibMultiModuleCompileAndRun_h(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_h,$(HC_OPTS_h),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_h(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_h,$(HC_OPTS_h))
+
+#else  /* ! NoFib_UserWay_h */
+#define NoFibHaskellCompile_h(test,module,isuf) /*none*/
+#define NoFibLinkPgm_h(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_h(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_h(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_h(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_h(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_h */
+
+#if NoFib_UserWay_i == YES
+#define NoFibHaskellCompile_i(test,module,isuf) \
+	NoFibHaskellCompile__(test,_i,$(HC_OPTS_i),module,isuf)
+#define NoFibLinkPgm_i(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_i,$(HC_OPTS_i),objlistvar)
+#define NoFibRunPgm_i(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_i,runstdtest_opts)
+#define NoFibCleanupPgm_i(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_i,objlistvar)
+#define NoFibMultiModuleCompileAndRun_i(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_i,$(HC_OPTS_i),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_i(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_i,$(HC_OPTS_i))
+
+#else  /* ! NoFib_UserWay_i */
+#define NoFibHaskellCompile_i(test,module,isuf) /*none*/
+#define NoFibLinkPgm_i(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_i(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_i(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_i(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_i(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_i */
+
+#if NoFib_UserWay_j == YES
+#define NoFibHaskellCompile_j(test,module,isuf) \
+	NoFibHaskellCompile__(test,_j,$(HC_OPTS_j),module,isuf)
+#define NoFibLinkPgm_j(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_j,$(HC_OPTS_j),objlistvar)
+#define NoFibRunPgm_j(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_j,runstdtest_opts)
+#define NoFibCleanupPgm_j(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_j,objlistvar)
+#define NoFibMultiModuleCompileAndRun_j(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_j,$(HC_OPTS_j),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_j(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_j,$(HC_OPTS_j))
+
+#else  /* ! NoFib_UserWay_j */
+#define NoFibHaskellCompile_j(test,module,isuf) /*none*/
+#define NoFibLinkPgm_j(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_j(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_j(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_j(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_j(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_j */
+
+#if NoFib_UserWay_k == YES
+#define NoFibHaskellCompile_k(test,module,isuf) \
+	NoFibHaskellCompile__(test,_k,$(HC_OPTS_k),module,isuf)
+#define NoFibLinkPgm_k(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_k,$(HC_OPTS_k),objlistvar)
+#define NoFibRunPgm_k(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_k,runstdtest_opts)
+#define NoFibCleanupPgm_k(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_k,objlistvar)
+#define NoFibMultiModuleCompileAndRun_k(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_k,$(HC_OPTS_k),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_k(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_k,$(HC_OPTS_k))
+
+#else  /* ! NoFib_UserWay_k */
+#define NoFibHaskellCompile_k(test,module,isuf) /*none*/
+#define NoFibLinkPgm_k(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_k(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_k(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_k(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_k(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_k */
+
+#if NoFib_UserWay_l == YES
+#define NoFibHaskellCompile_l(test,module,isuf) \
+	NoFibHaskellCompile__(test,_l,$(HC_OPTS_l),module,isuf)
+#define NoFibLinkPgm_l(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_l,$(HC_OPTS_l),objlistvar)
+#define NoFibRunPgm_l(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_l,runstdtest_opts)
+#define NoFibCleanupPgm_l(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_l,objlistvar)
+#define NoFibMultiModuleCompileAndRun_l(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_l,$(HC_OPTS_l),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_l(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_l,$(HC_OPTS_l))
+
+#else  /* ! NoFib_UserWay_l */
+#define NoFibHaskellCompile_l(test,module,isuf) /*none*/
+#define NoFibLinkPgm_l(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_l(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_l(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_l(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_l(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_l */
+
+#if NoFib_UserWay_m == YES
+#define NoFibHaskellCompile_m(test,module,isuf) \
+	NoFibHaskellCompile__(test,_m,$(HC_OPTS_m),module,isuf)
+#define NoFibLinkPgm_m(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_m,$(HC_OPTS_m),objlistvar)
+#define NoFibRunPgm_m(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_m,runstdtest_opts)
+#define NoFibCleanupPgm_m(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_m,objlistvar)
+#define NoFibMultiModuleCompileAndRun_m(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_m,$(HC_OPTS_m),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_m(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_m,$(HC_OPTS_m))
+
+#else  /* ! NoFib_UserWay_m */
+#define NoFibHaskellCompile_m(test,module,isuf) /*none*/
+#define NoFibLinkPgm_m(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_m(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_m(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_m(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_m(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_m */
+
+#if NoFib_UserWay_n == YES
+#define NoFibHaskellCompile_n(test,module,isuf) \
+	NoFibHaskellCompile__(test,_n,$(HC_OPTS_n),module,isuf)
+#define NoFibLinkPgm_n(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_n,$(HC_OPTS_n),objlistvar)
+#define NoFibRunPgm_n(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_n,runstdtest_opts)
+#define NoFibCleanupPgm_n(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_n,objlistvar)
+#define NoFibMultiModuleCompileAndRun_n(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_n,$(HC_OPTS_n),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_n(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_n,$(HC_OPTS_n))
+
+#else  /* ! NoFib_UserWay_n */
+#define NoFibHaskellCompile_n(test,module,isuf) /*none*/
+#define NoFibLinkPgm_n(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_n(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_n(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_n(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_n(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_n */
+
+#if NoFib_UserWay_o == YES
+#define NoFibHaskellCompile_o(test,module,isuf) \
+	NoFibHaskellCompile__(test,_o,$(HC_OPTS_o),module,isuf)
+#define NoFibLinkPgm_o(target,progname,objlistvar) \
+	NoFibLinkPgm__(progname,_o,$(HC_OPTS_o),objlistvar)
+#define NoFibRunPgm_o(test,prog,runstdtest_opts) \
+	NoFibRunPgm__(test,prog,_o,runstdtest_opts)
+#define NoFibCleanupPgm_o(prog,objlistvar) \
+	NoFibCleanupPgm__(prog,_o,objlistvar)
+#define NoFibMultiModuleCompileAndRun_o(testname,runstdtest_opts) \
+	NoFibMultiModuleCompileAndRun__(testname,_o,$(HC_OPTS_o),runstdtest_opts)
+#define NoFibOneModuleCompileAndRun_o(testname,runopts) \
+	NoFibOneModuleCompileAndRun__(testname,runopts,_o,$(HC_OPTS_o))
+
+#else  /* ! NoFib_UserWay_o */
+#define NoFibHaskellCompile_o(test,module,isuf) /*none*/
+#define NoFibLinkPgm_o(target,progname,objlistvar) /*none*/
+#define NoFibRunPgm_o(test,prog,runstdtest_opts) /*none*/
+#define NoFibCleanupPgm_o(prog,objlistvar) /*none*/
+#define NoFibMultiModuleCompileAndRun_o(testname,runstdtest_opts) /*none*/
+#define NoFibOneModuleCompileAndRun_o(testname,runopts) /*none*/
+#endif /* ! NoFib_UserWay_o */
+# line 547 "macros-nofib.ljm"
+#ifndef NoFibHaskellCompile
+#define NoFibHaskellCompile(test,module,isuf)	\
+NoFibHaskellCompile__(test,,$(HC_OPTS_std),module,isuf) 	\
+NoFibHaskellCompile_a(test,module,isuf) 	\
+NoFibHaskellCompile_b(test,module,isuf) 	\
+NoFibHaskellCompile_c(test,module,isuf) 	\
+NoFibHaskellCompile_d(test,module,isuf) 	\
+NoFibHaskellCompile_e(test,module,isuf) 	\
+NoFibHaskellCompile_f(test,module,isuf) 	\
+NoFibHaskellCompile_g(test,module,isuf) 	\
+NoFibHaskellCompile_h(test,module,isuf)		\
+NoFibHaskellCompile_i(test,module,isuf)		\
+NoFibHaskellCompile_j(test,module,isuf)		\
+NoFibHaskellCompile_k(test,module,isuf)		\
+NoFibHaskellCompile_l(test,module,isuf)		\
+NoFibHaskellCompile_m(test,module,isuf)		\
+NoFibHaskellCompile_n(test,module,isuf)		\
+NoFibHaskellCompile_o(test,module,isuf)
+#endif /* NoFibHaskellCompile */
+# line 569 "macros-nofib.ljm"
+#ifndef NoFibLinkPgm
+#define NoFibLinkPgm(target,progname,objlistvar)	\
+NoFibLinkPgm__(target,progname,$(HC_OPTS_std),objlistvar)		\
+NoFibLinkPgm_a(target,progname,objlistvar)		\
+NoFibLinkPgm_b(target,progname,objlistvar)		\
+NoFibLinkPgm_c(target,progname,objlistvar)		\
+NoFibLinkPgm_d(target,progname,objlistvar)		\
+NoFibLinkPgm_e(target,progname,objlistvar)		\
+NoFibLinkPgm_f(target,progname,objlistvar)		\
+NoFibLinkPgm_g(target,progname,objlistvar)		\
+NoFibLinkPgm_h(target,progname,objlistvar)		\
+NoFibLinkPgm_i(target,progname,objlistvar)		\
+NoFibLinkPgm_j(target,progname,objlistvar)		\
+NoFibLinkPgm_k(target,progname,objlistvar)		\
+NoFibLinkPgm_l(target,progname,objlistvar)		\
+NoFibLinkPgm_m(target,progname,objlistvar)		\
+NoFibLinkPgm_n(target,progname,objlistvar)		\
+NoFibLinkPgm_o(target,progname,objlistvar)
+#endif /* NoFibLinkPgm */
+# line 591 "macros-nofib.ljm"
+#ifndef NoFibRunPgm
+#define NoFibRunPgm(test,prog,runstdtest_opts)	\
+NoFibRunPgm__(test,prog,,runstdtest_opts)	\
+NoFibRunPgm_a(test,prog,runstdtest_opts)	\
+NoFibRunPgm_b(test,prog,runstdtest_opts)	\
+NoFibRunPgm_c(test,prog,runstdtest_opts)	\
+NoFibRunPgm_d(test,prog,runstdtest_opts)	\
+NoFibRunPgm_e(test,prog,runstdtest_opts)	\
+NoFibRunPgm_f(test,prog,runstdtest_opts)	\
+NoFibRunPgm_g(test,prog,runstdtest_opts)	\
+NoFibRunPgm_h(test,prog,runstdtest_opts)	\
+NoFibRunPgm_i(test,prog,runstdtest_opts)	\
+NoFibRunPgm_j(test,prog,runstdtest_opts)	\
+NoFibRunPgm_k(test,prog,runstdtest_opts)	\
+NoFibRunPgm_l(test,prog,runstdtest_opts)	\
+NoFibRunPgm_m(test,prog,runstdtest_opts)	\
+NoFibRunPgm_n(test,prog,runstdtest_opts)	\
+NoFibRunPgm_o(test,prog,runstdtest_opts)
+#endif /* NoFibRunPgm */
+# line 613 "macros-nofib.ljm"
+#ifndef NoFibCleanupPgm
+#define NoFibCleanupPgm(prog,objlistvar)	\
+NoFibCleanupPgm__(prog,,objlistvar)		\
+NoFibCleanupPgm_a(prog,objlistvar)		\
+NoFibCleanupPgm_b(prog,objlistvar)		\
+NoFibCleanupPgm_c(prog,objlistvar)		\
+NoFibCleanupPgm_d(prog,objlistvar)		\
+NoFibCleanupPgm_e(prog,objlistvar)		\
+NoFibCleanupPgm_f(prog,objlistvar)		\
+NoFibCleanupPgm_g(prog,objlistvar)		\
+NoFibCleanupPgm_h(prog,objlistvar)		\
+NoFibCleanupPgm_i(prog,objlistvar)		\
+NoFibCleanupPgm_j(prog,objlistvar)		\
+NoFibCleanupPgm_k(prog,objlistvar)		\
+NoFibCleanupPgm_l(prog,objlistvar)		\
+NoFibCleanupPgm_m(prog,objlistvar)		\
+NoFibCleanupPgm_n(prog,objlistvar)		\
+NoFibCleanupPgm_o(prog,objlistvar)
+#endif /* NoFibCleanupPgm */
+# line 635 "macros-nofib.ljm"
+#ifndef NoFibMultiModuleCompileAndRun
+#define NoFibMultiModuleCompileAndRun(testname,runstdtest_opts)	@@\
+								@@\
+OBJS_O_a = $(OBJS_O:.o=_a.o)					@@\
+OBJS_O_b = $(OBJS_O:.o=_b.o)					@@\
+OBJS_O_c = $(OBJS_O:.o=_c.o)					@@\
+OBJS_O_d = $(OBJS_O:.o=_d.o)					@@\
+OBJS_O_e = $(OBJS_O:.o=_e.o)					@@\
+OBJS_O_f = $(OBJS_O:.o=_f.o)					@@\
+OBJS_O_g = $(OBJS_O:.o=_g.o)					@@\
+OBJS_O_h = $(OBJS_O:.o=_h.o)					@@\
+OBJS_O_i = $(OBJS_O:.o=_i.o)					@@\
+OBJS_O_j = $(OBJS_O:.o=_j.o)					@@\
+OBJS_O_k = $(OBJS_O:.o=_k.o)					@@\
+OBJS_O_l = $(OBJS_O:.o=_l.o)					@@\
+OBJS_O_m = $(OBJS_O:.o=_m.o)					@@\
+OBJS_O_n = $(OBJS_O:.o=_n.o)					@@\
+OBJS_O_o = $(OBJS_O:.o=_o.o)					@@\
+								@@\
+SuffixRule_o_hi() /* ToDo: this looks semi-useless */		\
+								@@\
+runtests ::							@@\
+	@echo ==nofib== testname\: running in $(CURRENT_DIR)	\
+NoFibMultiModuleCompileAndRun__(testname,,$(HC_OPTS_std),runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_a(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_b(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_c(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_d(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_e(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_f(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_g(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_h(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_i(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_j(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_k(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_l(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_m(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_n(testname,runstdtest_opts)	\
+NoFibMultiModuleCompileAndRun_o(testname,runstdtest_opts)
+#endif /* NoFibMultiModuleCompileAndRun */
+# line 678 "macros-nofib.ljm"
+#ifndef NoFibOneModuleCompileAndRun
+#define NoFibOneModuleCompileAndRun(testname,runopts) @@\
+OBJS_O = Main.o					@@\
+						@@\
+OBJS_O_a = $(OBJS_O:.o=_a.o)			@@\
+OBJS_O_b = $(OBJS_O:.o=_b.o)			@@\
+OBJS_O_c = $(OBJS_O:.o=_c.o)			@@\
+OBJS_O_d = $(OBJS_O:.o=_d.o)			@@\
+OBJS_O_e = $(OBJS_O:.o=_e.o)			@@\
+OBJS_O_f = $(OBJS_O:.o=_f.o)			@@\
+OBJS_O_g = $(OBJS_O:.o=_g.o)			@@\
+OBJS_O_h = $(OBJS_O:.o=_h.o)			@@\
+OBJS_O_i = $(OBJS_O:.o=_i.o)			@@\
+OBJS_O_j = $(OBJS_O:.o=_j.o)			@@\
+OBJS_O_k = $(OBJS_O:.o=_k.o)			@@\
+OBJS_O_l = $(OBJS_O:.o=_l.o)			@@\
+OBJS_O_m = $(OBJS_O:.o=_m.o)			@@\
+OBJS_O_n = $(OBJS_O:.o=_n.o)			@@\
+OBJS_O_o = $(OBJS_O:.o=_o.o)			\
+						\
+NoFibOneModuleCompileAndRun__(testname,runopts,,$(HC_OPTS_std))	\
+NoFibOneModuleCompileAndRun_a(testname,runopts)	\
+NoFibOneModuleCompileAndRun_b(testname,runopts)	\
+NoFibOneModuleCompileAndRun_c(testname,runopts)	\
+NoFibOneModuleCompileAndRun_d(testname,runopts)	\
+NoFibOneModuleCompileAndRun_e(testname,runopts)	\
+NoFibOneModuleCompileAndRun_f(testname,runopts)	\
+NoFibOneModuleCompileAndRun_g(testname,runopts)	\
+NoFibOneModuleCompileAndRun_h(testname,runopts) \
+NoFibOneModuleCompileAndRun_i(testname,runopts) \
+NoFibOneModuleCompileAndRun_j(testname,runopts) \
+NoFibOneModuleCompileAndRun_k(testname,runopts) \
+NoFibOneModuleCompileAndRun_l(testname,runopts) \
+NoFibOneModuleCompileAndRun_m(testname,runopts) \
+NoFibOneModuleCompileAndRun_n(testname,runopts) \
+NoFibOneModuleCompileAndRun_o(testname,runopts)
+#endif /* NoFibOneModuleCompileAndRun */
+# line 720 "macros-nofib.ljm"
+#ifndef NoFibDependTarget
+#define NoFibDependTarget(test,deps)				@@\
+MkDependHSNeededHere(depend)					@@\
+								@@\
+depend:: deps							@@\
+	$(MKDEPENDHS) $(MKDEPENDHSFLAGS) -- $(HCFLAGS) $(CAT2(HC_OPTS_,test)) -- deps
+#endif /* NoFibDependTarget */

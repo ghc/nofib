@@ -1,0 +1,12 @@
+# line 8 "only4-nofib.ljm"
+#ifndef ProjectName
+#define ProjectName     NoFib Haskell Benchmark Suite
+#endif
+
+#ifndef ProjectVersion
+#define ProjectVersion  0.26
+#endif
+
+#ifndef ProjectPatchLevel
+#define ProjectPatchLevel patchlevel 0
+#endif
