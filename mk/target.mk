@@ -36,6 +36,10 @@ endif
 endif
 
 
+ifeq "$(STDIN_FILE)" ""
+STDIN_FILE = $(wildcard $(NOFIB_PROG).stdin)
+endif
+
 ifeq "$(NoFibWithGHCi)" "YES"
 STDIN = $(NOFIB_PROG).stdin.tmp
 GHCI_HC_OPTS = $(filter-out -l% -Rghc-timing,$(HC_OPTS))
@@ -45,7 +49,7 @@ runtests ::
 	@$(RM) $(STDIN)
 	@echo ":set args $(PROG_ARGS)" > $(STDIN)
 	@echo "Main.main" >>$(STDIN) 
-	@cat /dev/null $(wildcard $(NOFIB_PROG).stdin) >> $(STDIN)
+	@cat /dev/null $(STDIN_FILE) >> $(STDIN)
 	@$(TIME) $(RUNTEST) $(GHC_INPLACE) --interactive -v0 -Wnot \
 			-i $(STDIN) \
 	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
@@ -76,7 +80,7 @@ size :: $(NOFIB_PROG_WAY)
 runtests :: $(NOFIB_PROG_WAY) size
 	@echo ==nofib== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
 	@$(TIME) $(RUNTEST) ./$< \
-	  $(addprefix -i  ,$(wildcard $(NOFIB_PROG).stdin)) \
+	  $(addprefix -i,  $(STDIN_FILE)) \
 	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
 	  $(RUNTEST_OPTS) $(PROG_ARGS)
