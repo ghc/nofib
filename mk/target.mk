@@ -51,7 +51,7 @@ endif
 
 ifeq "$(NoFibWithGHCi)" "YES"
 STDIN = $(NOFIB_PROG).stdin.tmp
-GHCI_HC_OPTS = $(filter-out -l% -Rghc-timing,$(HC_OPTS))
+GHCI_HC_OPTS = $(filter-out -l% -Rghc-timing -O%,$(HC_OPTS))
 
 runtests ::
 	@echo "==nofib$(_way)== $(NOFIB_PROG): time to compile & run $(NOFIB_PROG) follows..."
@@ -59,11 +59,13 @@ runtests ::
 	@echo ":set args $(PROG_ARGS)" > $(STDIN)
 	@echo "Main.main" >>$(STDIN) 
 	@cat /dev/null $(STDIN_FILE) >> $(STDIN)
-	@$(TIME) $(RUNTEST) $(HC) --interactive -v0 -Wnot \
+	echo $(GHCI_HC_OPTS)
+	$(TIME) $(RUNTEST) $(HC) $(RUNTEST_OPTS) \
 			-i $(STDIN) \
 	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
-			$(RUNTEST_OPTS) $(GHCI_HC_OPTS) Main
+			-- --interactive -v0 -Wnot \
+			$(GHCI_HC_OPTS) Main
 	@$(RM) $(STDIN)
 else 
 
