@@ -28,23 +28,23 @@ endif
 # Bogosity needed here to cope with .exe suffix for strip & size files.
 # (shouldn't have to be our problem.)
 ifneq "$(HC_FAIL)" "YES"
-$(NOFIB_PROG) : $(OBJS)
+$(NOFIB_PROG_WAY) : $(OBJS)
 	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
 endif
 
-ifneq "$(NOFIB_PROG)" ""
-size :: $(NOFIB_PROG)
-	@$(STRIP) $(NOFIB_PROG)$(exeext)
+ifneq "$(NOFIB_PROG_WAY)" ""
+size :: $(NOFIB_PROG_WAY)
+	@$(STRIP) $(NOFIB_PROG_WAY)$(exeext)
 	@echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...
-	@$(SIZE) $(NOFIB_PROG)$(exeext)
+	@$(SIZE) $(NOFIB_PROG_WAY)$(exeext)
 
-runtests :: $(NOFIB_PROG) size
-	@echo ==nofib== $<: time to run $< follows...
+runtests :: $(NOFIB_PROG_WAY) size
+	@echo ==nofib== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
 	@$(TIME) $(RUNTEST) ./$< \
-	  $(addprefix -i ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stdin)) \
-	  $(addprefix -o1 ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stdout*)) \
-	  $(addprefix -o2 ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stderr*)) \
+	  $(addprefix -i  ,$(wildcard $(NOFIB_PROG).stdin)) \
+	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
+	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
 	  $(RUNTEST_OPTS)
 else
 size ::

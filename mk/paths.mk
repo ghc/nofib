@@ -8,12 +8,15 @@
 #################################################################################
 
 
-# Define NOFIB_PROG.  In ..../nofib/imaginary/exp3_8, PROG is exp3_8 by default.
+# Define NOFIB_PROG and NOFIB_PROG_WAY.  
+# In ..../nofib/imaginary/exp3_8, NOFIB_PROG is exp3_8 by default.
+# and for way w			  NOFIB_PROG_WAY is exp3_8_w
 #
-NOFIB_PROG = $(notdir $(shell pwd))$(_way)
+NOFIB_PROG = $(notdir $(shell pwd))
+NOFIB_PROG_WAY = $(NOFIB_PROG)$(_way)
 
 # Eventually, have the binary purged
-CLEAN_FILES += $(NOFIB_PROG)
+CLEAN_FILES += $(NOFIB_PROG_WAY)
 
 #
 # If tests are expected to end in compilation failure,
