@@ -80,6 +80,15 @@ In spectral/multiplier, we have
   So allocation goes up.  I don't see a way around this.
 
 
+Mandel
+~~~~~~
+Mandel.mandelset has a go-loop inside an enumDeltaToIntegerFB, out of which
+4.08.2 managed to float a constant expression, but HEAD did not.  I think
+this is because the pre-let-floating simplification did too little inlining;
+in particular, it did not inline windowToViewport
+
+
+
 Parstof
 ~~~~~~~
 spectral/hartel/parstof ends up saying
