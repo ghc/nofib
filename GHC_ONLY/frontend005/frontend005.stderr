@@ -1,0 +1,8 @@
+ 
+Main.hs:7:
+    Conflicting exports for local name:  main
+	module Main
+	module Main
+
+
+Compilation had errors
