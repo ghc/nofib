@@ -22,9 +22,12 @@ Lockheed Martin Management & Data Systems
 
 
 /*
- * $Id: fft.c,v 1.1 1997/07/27 01:03:52 sof Exp $
+ * $Id: fft.c,v 1.2 2001/05/27 17:37:59 sof Exp $
  *
  * $Log: fft.c,v $
+ * Revision 1.2  2001/05/27 17:37:59  sof
+ * basic mingw headers doesn't define M_PI; make fft.c cope
+ *
  * Revision 1.1  1997/07/27 01:03:52  sof
  * For reference, C version of FFT
  *
@@ -33,7 +36,7 @@ Lockheed Martin Management & Data Systems
  *
  */
 
-static char RCSid[] = "$Id: fft.c,v 1.1 1997/07/27 01:03:52 sof Exp $";
+static char RCSid[] = "$Id: fft.c,v 1.2 2001/05/27 17:37:59 sof Exp $";
 
 /*
  * fft() - a straightforward implementation of a decimation in time
@@ -60,6 +63,11 @@ static char RCSid[] = "$Id: fft.c,v 1.1 1997/07/27 01:03:52 sof Exp $";
  */
 
 #include <math.h>
+
+/* It's not there on mingw systems [05/01 - sof] */
+#ifndef M_PI
+#define M_PI		3.14159265358979323846
+#endif
 
 typedef struct {
   double r;
