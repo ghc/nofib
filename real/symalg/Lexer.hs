@@ -2,10 +2,6 @@ module Lexer (Lexeme(..), lexer) where
 
 import Char -- 1.3
 
-#if __HASKELL1__ < 5
-#define isAlphaNum isAlphanum
-#endif
-
 -- lexeme
 data Lexeme = Ide String
 	    | Evar String
