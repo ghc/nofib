@@ -4,6 +4,8 @@
 --
 module Main (main) where
 
+import Char
+
 main = interact (("Enter a generator: " ++).show.expand.head.lines)
 
 expand []	= [""]
@@ -25,6 +27,6 @@ numericRule x
     (p,_:q) = span (/= '-') x
     (r,_:s) = span (/= '>') q
     (u,v)   = (mknum p, mknum r)
-    mknum s = foldl (\ u c -> u * 10 + (fromEnum c - fromEnum '0')) 0 s
+    mknum s = foldl (\ u c -> u * 10 + (ord c - ord '0')) 0 s
     pad s   = [ '0' | i <- [1 .. (width-(length s))]] ++ s
     width   = max (length (show u)) (length (show v))
