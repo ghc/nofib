@@ -1,3 +1,0 @@
-interface Main where {
-main :: Dialogue   {-# ARITY main = 1 #-}{-# STRICTNESS main = "T,T" ST #-}
-}

@@ -4,9 +4,9 @@
 --	GAMTEB: Monte Carlo
 --      1990 August
 --
-module GamtebType (Angle(..), Coord(..), Energy(..), Indx(..), PartType(..), Prob(..), 
-		 Random(..), StatType(..), Weight(..), Value(..), Result(..), Stat(..),
-		 Point(..), Particle(..), Probability(..)) where
+module GamtebType (Angle, Coord, Energy, Indx, PartType, Prob, 
+		 Random, StatType, Weight, Value, Result, Stat,
+		 Point, Particle(..), Probability) where
 
 type	Angle		= Double
 type	Coord		= Double

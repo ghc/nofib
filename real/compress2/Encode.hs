@@ -7,12 +7,7 @@ data PrefixTrie a b = PTNil |
 type CodeTable = PrefixTrie Char Int
 
 data CodeEvent = 
-#ifdef DEBUG
-                 Code (Int, Int, Int) |
-                 CheckRatio (Int, Int, Int, Int, Int) |
-#else
                  Code Int |
-#endif
                  NewWordSize |
                  Clear deriving Show{-was:Text-}
 
@@ -38,43 +33,25 @@ encode = encode' (CS 3 1 firstCheck 0 firstEnt firstChange) initial_table
 encode' :: CodeState -> CodeTable -> [Int] -> String -> [CodeEvent]
 encode' _ _ _ [] = []
 encode' c@(CS bo ci cp ra nx cg) t sizes input 
-#ifdef wibble
- | (csForced c)
-#endif
   = if nx == cg then
     NewWordSize : encode' (CS (bo+s) ci cp ra nx cg') t ss input 
   else
     if nx == maxmaxCode then
       if ci >= cp then
         let ra' = (ci * 256) `div` bo in
-#ifdef DEBUG
-            CheckRatio (ci, bo, cp, ra, ra') : 
-#endif
           if ra' > ra then
             encode' (CS bo ci (ci+checkGap) ra' nx cg) t sizes input 
           else
-#ifdef DEBUG
-               Code (256, ci, bo) : Clear :
-#else
             Clear :
-#endif
             encode' (CS (bo+s) ci (ci+checkGap) 0 firstEnt firstChange)
                     initial_table ss input 
        else 
          let (input', n, i) = code_string_r (input, 0, 0) nx t
-#ifdef DEBUG
-         in Code (n, ci+i, bo+s) :
-#else
          in  Code n :
-#endif
              encode' (CS (bo+s) (ci+i) cp ra nx cg) t ss input' 
      else
        (\ ((input', n, i), t') ->
-#ifdef DEBUG
-       Code (n, ci+i, bo+s) :
-#else
        Code n :
-#endif
        encode' (CS (bo+s) (ci+i) cp ra (nx+1) cg) t' ss input')
        (code_string_rw (input, 0, 0) nx t)
   where
@@ -121,6 +98,3 @@ build_table lo hi
               PT (toEnum mid) mid PTNil
                    (build_table lo (mid - 1))
                    (build_table (mid + 1) hi)
-
-
-

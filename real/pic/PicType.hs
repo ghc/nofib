@@ -4,10 +4,10 @@
 --	PIC: Particle in Cell
 --      1990 August
 --
-module PicType (Count(..), Indx(..), Value(..), Mesh(..), MeshAssoc(..), Electric(..),
-		Phi(..), Rho(..), Position(..), Range(..), Velocity(..), ParticleHeap(..)) where
+module PicType (Count, Indx, Value, Mesh, MeshAssoc, Electric,
+		Phi, Rho, Position, Range, Velocity, ParticleHeap) where
 
-import Array -- 1.3
+import Array
 
 type	Count		= Int
 type	Indx		= Int

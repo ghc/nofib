@@ -18,17 +18,14 @@
  -}
 
 module Types (
-    FType(..),
-    BI(..),Prim(..),Ops(..),Csg(..),CsgOut(..),Calc(..),
-    Color(..),
-    R3(..),R1(..),Row(..),Arr(..),
-    Oct(..),tuple,
-    Quad(..),
-    Vector(..),In(..) ) where
+  FType,BI,Prim(..),Ops(..),Csg(..),CsgOut,Calc,
+  Color(..),R3,R1,Row,Arr,Oct(..),tuple,Quad(..),Vector,In
+ )
+where
 
 import Interval
 
-----------------------------------------------------------
+---------------------------------------------------------
 -- Csg
 ----------------------------------------------------------
 

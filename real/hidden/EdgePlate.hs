@@ -1,5 +1,5 @@
 module EdgePlate(Edge,edgeT,edgeH, s,h,t, Plate(Plt),n,
-		 Input(..),Object(..),makeObject) where
+		 Input,Object,makeObject) where
 import Numbers
 import Vectors
 {- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

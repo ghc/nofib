@@ -11,13 +11,7 @@ import Chl_method
 import Jcb_method
 import TG_iter
 import Min_degree
---import ShowFloat
 
-#ifdef GRIP
-import Grip_input
-
-main = run
-#else
 import Input_proc
 
 main = do
@@ -25,7 +19,6 @@ main = do
     let (datafile,fs_cs) = read_fs_cs fs_cs_str
     data_str <- readFile datafile
     putStr (run fs_cs (read_data data_str))
-#endif
 
 run (mon,m_iter,m_toler,max_jcb_iter,jcb_toler,relax,dlt_t)
 	(e_total, n_total, p_total, v_steer, p_steer, coord,

@@ -1,4 +1,4 @@
-module Matrices (Matrix(..),mat,rows,mulm) where
+module Matrices (Matrix,mat,rows,mulm) where
 import Numbers
 import Vectors
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

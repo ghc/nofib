@@ -10,12 +10,12 @@
 >		clearText,toNoTextRegion,toTextRegion,reset,clearTree)
 > import Params (Command(..))
 > import Stdlib (mapcat)
-> import Euclid (Point(..),mkPolygon,Face,Faces(..))
+> import Euclid (Point(..),mkPolygon,Face,Faces)
 > import BSPT (BSPT,Status(..),classifyPoint,buildBSPT,area)
 > import Render (render,drawBSPT,partitionedDraw,drawFaces,prettyPrintBSPT)
 > import GeomNum 
 > import Merge (union,intersection,subtract_YORK,complement)
-> import Interpret (Operation(..),Operations(..))
+> import Interpret (Operation,Operations)
 
 
 	modeller: This is the core function of the program

@@ -11,8 +11,8 @@
 -}
 
 module Defs (
-	Frac_type(..), My_Array(..), v_nodel, p_nodel,
-	large_scalor, small, large --partain: NOT YET****, S_Array..
+	Frac_type, My_Array, v_nodel, p_nodel,
+	large_scalor, small, large
 	) where
 
 import S_Array

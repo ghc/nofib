@@ -3,7 +3,7 @@
 	Defines the Geometric Number class and gives instances
 	for LazyRationals only at present. 
 
->		(GeomNumb(..),Numb(..),Rationals,grid,rnd2
+>		(GeomNumb(..),Numb,Rationals,grid,rnd2
 >	)
 
 > where

@@ -2,7 +2,6 @@
  - Encode Mk 2, using a prefix table for the codes
  - 
  - Paul Sanders, Systems Research, British Telecom Laboratories 1992
- -
  -}
 
 module Encode (encode) where
@@ -14,41 +13,26 @@ import PTTrees
 
 type CodeTable = PrefixTree Char Int
 
-{- encode sets up the arguments for the real function.
- -}
+-- encode sets up the arguments for the real function.
 
 encode :: String -> [Int]
-encode input
-          = encode' input first_code initial_table
+encode input = encode' input first_code initial_table
 
-{- encode' loops through the input string assembling the codes produced
- - by code_string. 
- - The first character is treated specially in that it is not added to the
- - table; its code is simply its ascii value
+{-
+ - encode' loops through the input string assembling the codes produced
+ - by code_string.  The first character is treated specially in that it
+ - is not added to the table; its code is simply its ascii value.
  -}
 
--- implicit selections with IMPLICIT DW
-
---#define IMPLICIT
-
--- explicit selections with EXPLICIT DW
-
-#define EXPLICIT
-
---encode' :: String -> Int -> CodeTable -> [Int]
 encode' [] _ _ 
-	= []
+  = []
 encode' input v t
-	= case (code_string input 0 v t) of { (input', n, t') ->
-	  n : encode' input' (v + 1) t'
-	  }
-{- ???
-encode' input v t
-	= n : encode' input' (v + 1) t'
-          where (input', n, t') = code_string input 0 v t
--}
+  = case (code_string input 0 v t) of { (input', n, t') ->
+      n : encode' input' (v + 1) t'
+    }
 
-{- code_string parses enough of the input string to produce one code and
+{-
+ - code_string parses enough of the input string to produce one code and
  - returns the remaining input, the code and a new code table.
  -
  - The first character is taken and its place found in the code table. The
@@ -60,98 +44,28 @@ encode' input v t
  - character to the current table and assign it the next new code value.
  -}
 
+code_string input@(c : input2) old_code next_code (PT p@(PTE k v t) l r)
+   | c < k = (f1 r1 p r)
+   | c > k = (f2 r2 p l)
+   | otherwise = (f3 r3 k v l r)
+ where
+   r1 = code_string input old_code next_code l
+   r2 = code_string input old_code next_code r
+   r3 = code_string input2 v next_code t
 
-#ifdef IMPLICIT
-code_string :: String -> Int -> Int -> CodeTable -> (String, Int, CodeTable)
-code_string [] old_code _ _
-	= ([], old_code, PTNil)
-code_string i@(c:cs) old_code next_code PTNil   -- found max string, add suffix
-	= if next_code >= max_entries
-          then (i, old_code, PTNil)
-          else (i, old_code, PT (PTE c next_code PTNil) PTNil PTNil)
-code_string i@(c:cs) old_code next_code (PT (PTE k v t) l r)
-	| c < k  = (csl, nl, PT (PTE k v t) l' r)
-	| c > k  = (csr, nr, PT (PTE k v t) l r')
-	| c == k = (cs', n, PT (PTE k v t') l r)
-        where (csl, nl, l') = code_string i old_code next_code l
-              (csr, nr, r') = code_string i old_code next_code r
-              (cs', n, t') = code_string cs v next_code t
-#endif
+   f1 (input_l,nl,l2) p r   = (input_l,nl,PT p l2 r)
+   f2 (input_r,nr,r2) p l   = (input_r,nr,PT p l r2)
+   f3 (input2,n,t2) k v l r = (input2, n, PT (PTE k v t2) l r)
 
-#ifdef EXPLICIT
-{- ???
-code_string :: String -> Int -> Int -> CodeTable -> (String, Int, CodeTable)
-code_string [] old_code _ _
-	= ([], old_code, PTNil)
-code_string ca@(c:_) old_code next_code PTNil = -- found max string, add suffix
-	if next_code >= max_entries then 
-	    (ca, old_code, PTNil)
-	else 
-	    (ca, old_code, PT (PTE c next_code PTNil) PTNil PTNil)
--}
-{- partain:ORIG:
-code_string ca@(c:_) old_code next_code (PT p@(PTE k _ _) l r)
-	| c < k  = f1 result1 p r
-        where result1 = code_string ca old_code next_code l
-	      
-code_string ca@(c:_) old_code next_code (PT p@(PTE k _ _) l r)
-	| c > k  = f2 result2 p l 
-        where result2 = code_string ca old_code next_code r
-	
-code_string (_:cs) old_code next_code (PT (PTE k v t) l r)
-	| otherwise = f3 result3 k v l r
-        where result3 = code_string cs v next_code t
+code_string input@(c : input_file2) old_code next_code PTNil
+  | next_code >= 4096 = (input, old_code, PTNil)
+  | otherwise = (input, old_code, PT (PTE c next_code PTNil) PTNil PTNil)
 
-f1 (csl,nl,l') p r = (csl, nl, PT p l' r)
-f2 (csr,nr,r') p l = (csr, nr, PT p l r')
-f3 (cs',n,t') k v l r = (cs', n, PT (PTE k v t') l r)
--}
-	
-{- ???
-code_string ca@(c:cs) old_code next_code (PT p@(PTE k v t) l r)
-	| c < k  = f1 result1 p r
-	| c > k  = f2 result2 p l 
-	| otherwise = f3 result3 k v l r
-	where
-         result1 = code_string ca old_code next_code l
-         result2 = code_string ca old_code next_code r
-         result3 = code_string cs v next_code t
+code_string [] old_code next_code code_table
+  = ([], old_code, PTNil)
 
-	 f1 (csl,nl,l') p r = (csl, nl, PT p l' r)
-	 f2 (csr,nr,r') p l = (csr, nr, PT p l r')
-	 f3 (cs',n,t') k v l r = (cs', n, PT (PTE k v t') l r)
--}
-
-#define CBOX(c) (c)
-#define _PTE_(a,b,c) (PTE (a) (b) (c))
-#define _TRIP_(a,b,c) (a,b,c)
-#define ILIT(i) (i)
-#define _GE_ >=
-
-code_string input@(CBOX(c) : input2) old_code next_code (PT p@(PTE k v t) l r)
-    | CBOX(c) <  CBOX(k) = {-_scc_ "cs1"-} (f1 r1 p r)
-    | CBOX(c) >  CBOX(k) = {-_scc_ "cs2"-} (f2 r2 p l)
-    | otherwise {- CBOX(c) == CBOX(k) -} = {-_scc_ "cs3"-} (f3 r3 k v l r)
-    where {
-        r1 = code_string input old_code next_code l;
-        r2 = code_string input old_code next_code r;
-        r3 = code_string input2 v next_code t;
-
-        f1 _TRIP_(input_l,nl,l2) p r   = _TRIP_(input_l,nl,PT p l2 r);
-        f2 _TRIP_(input_r,nr,r2) p l   = _TRIP_(input_r,nr,PT p l r2);
-        f3 _TRIP_(input2,n,t2) k v l r = _TRIP_(input2, n, PT _PTE_(k, v, t2) l r);
-    }
-
-code_string input@(CBOX(c) : input_file2) old_code next_code PTNil
-    =   if (next_code _GE_ ILIT(4096)) 
-        then {- _scc_ "cs4"-} _TRIP_(input, old_code, PTNil)
-        else {- _scc_ "cs5"-} _TRIP_(input, old_code, PT _PTE_(c, next_code, PTNil) PTNil PTNil)
-
-code_string [] old_code next_code code_table = {-_scc_ "cs6"-} _TRIP_([], old_code, PTNil)
-
-#endif
-
-{- We want the inital table to be balanced, but this is expensive to compute
+{-
+ - We want the inital table to be balanced, but this is expensive to compute
  - as a rebalance is needed evert two inserts (yuk!). So we do the ordinary
  - infix-order binary tree insert but give the keys in such an order as to
  - give a balanced tree.
@@ -161,8 +75,7 @@ code_string [] old_code next_code code_table = {-_scc_ "cs6"-} _TRIP_([], old_co
  -}
 
 initial_table :: CodeTable
-initial_table
-    = foldr tab_insert PTNil balanced_list
+initial_table = foldr tab_insert PTNil balanced_list
 
 tab_insert n = insert (toEnum n) n
 
@@ -189,4 +102,3 @@ bal_list4
        231,236,234,233,235,238,237,239,248,244,242,241,243,246,245,247,252]
 bal_list5
     = [250,249,251,254,253,255]
-

@@ -12,21 +12,3 @@ main = do
     s <- getContents
     let (nPart, rest) = (head (reads s)) :: (Int, String)
     putStr (takeWhile ((/=) '\n') s ++ (pic nPart))
-
-{- OLD 1.2:
-main :: [Response] -> [Request]
-main resps =
-	[
-	Echo True,
-	AppendChan stderr "Enter the number of particles: ",
-	ReadChan stdin,
-	calcpic (resps!!2)
-	]
-
-calcpic (Str s) =
-	AppendChan
-	    stdout
-	    (takeWhile ((/=) '\n') s ++ (pic nPart))
-	where
-	    (nPart, rest) = (head (reads s)) :: (Int, String)
--}

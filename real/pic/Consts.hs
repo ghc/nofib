@@ -6,8 +6,8 @@
 --
 module Consts (charge, mass, nCell, nStep, maxDepth) where
 
-import	PicType
-import	Utils
+import PicType
+import Utils
 
 nCell, nStep, maxDepth :: Indx
 charge, mass :: Value

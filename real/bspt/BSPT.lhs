@@ -4,16 +4,16 @@
 	operations thereon.
 
 >	(	BSPT(..),Status(..),Point,Region,Line,
->		Face,Faces(..),buildBSPT,bsp',bsp'',mkCell, partFaces,
+>		Face,Faces,buildBSPT,bsp',bsp'',mkCell, partFaces,
 >		scanLine,countLeaves,classifyPoint,area, 
 >		foldBSPT)
 
 > where
-> import EuclidGMS (	Location(..),Partition(..),Region,
+> import EuclidGMS (	Location(..),Partition,Region,
 >			 mkPart,getPart,newRegion,location,renderBorder,
 >			 bisect,toBack,findVertices,flip_YORK,
->			 Point(..),Line,Face(..),Faces(..),Halfspace(..),
->			 space,convert,triangleArea, Segment(..) )
+>			 Point(..),Line,Face(..),Faces,Halfspace(..),
+>			 space,convert,triangleArea,Segment )
 > import GeomNum 
 > import Stdlib (mapcat,const3)
 > import Libfuns

@@ -1,7 +1,0 @@
-interface LMLbitops where
-{-:"Pand":-} :: Int->Int->Int
-{-:"Por":-} :: Int->Int->Int
-{-:"Pxor":-} :: Int->Int->Int
-{-:"Plsh":-} :: Int->Int->Int
-{-:"Prsh":-} :: Int->Int->Int
-{-:"Pcompl":-} :: Int->Int

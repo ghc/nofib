@@ -1,7 +1,7 @@
 -- LML original: Sandra Foubister, 1990
 -- Haskell translation: Colin Runciman, May 1991
 
-module Progfuns (tileprompt, tilequit, tiletrans, potatotile, State(..)) where
+module Progfuns (tileprompt, tilequit, tiletrans, potatotile, State) where
 
 import Mgrfuns
 import Drawfuns

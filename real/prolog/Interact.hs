@@ -4,7 +4,7 @@
 --
 -- uses Haskell B. version 0.99.3
 --
-module Interact(Interactive(..), skip, end, readln, writeln, readch) where
+module Interact(Interactive, skip, end, readln, writeln, readch) where
 
 -- The functions defined in this module provide basic facilities for
 -- writing line-oriented interactive programs (i.e. a function mapping

@@ -1,4 +1,4 @@
-module Env (Env(..), initEnv, lookupEnv, enterEnv) where
+module Env (Env, initEnv, lookupEnv, enterEnv) where
 
 import Ast
 import BasicNumber

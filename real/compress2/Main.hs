@@ -17,14 +17,6 @@ main = getContents >>= \ i ->
 -- option for turning off block compression in this program. The maximum
 -- number of bits is imported from the encode module.
 
-#ifdef DEBUG
-compress cs = f codes
-              where
-              output = outputCodes codes
-              codes = encode (snd output) cs
-              f [] = []
-              f (c:cs) = show c ++ "\n" ++ f cs
-#else
 compress = magic_header . processInput
 
 magic_header cs
@@ -46,4 +38,3 @@ processInput cs
        where
        output = outputCodes codes
        codes = encode (snd output) cs
-#endif

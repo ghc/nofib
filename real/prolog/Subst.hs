@@ -4,7 +4,7 @@
 --
 -- uses Haskell B. version 0.99.3
 --
-module Subst(Subst(..), nullSubst, (->>), (@@), apply, unify) where
+module Subst(Subst, nullSubst, (->>), (@@), apply, unify) where
 
 import PrologData
 

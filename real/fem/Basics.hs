@@ -32,9 +32,9 @@ showlj l x
         bs | l <= length ns   = 1
            | otherwise        = l - length ns
 
-azip :: [a] -> [b] -> [Assoc a b]
+azip :: [a] -> [b] -> [(a,b)]
 
 azip [] [] = []
-azip ( x : ls ) ( x' : ls' ) = (x := x') : (azip ls ls')
+azip ( x : ls ) ( x' : ls' ) = (x,x') : (azip ls ls')
 
 

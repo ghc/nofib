@@ -4,18 +4,17 @@
 	Operations here are more application based.
 
 >		(	Region,mkRegion,getRegion,newRegion,
->			Partition(..),mkPart,getPart,
+>			Partition,mkPart,getPart,
 > 			Location(..),location, flip_YORK,
-> 			bisect,toBack,--UNUSED: toFront,
-> 			section,findVertices,
+> 			bisect,toBack,section,findVertices,
 >			inScreen,renderBorder,
 >			-- And the following to reduce imports higher up
->			Point(..),Halfspace(..),Line,Face(..),Faces(..),space,convert,
->			mkFace,mkPoint,drawSegment,triangleArea, Segment(..))
+>			Point(..),Halfspace(..),Line,Face(..),Faces,space,convert,
+>			mkFace,mkPoint,drawSegment,triangleArea, Segment)
 
 > where
 > import GeomNum
-> import Euclid (Point(..),Line,Halfspace(..),Face(..),Faces(..),Segment(..),
+> import Euclid (Point(..),Line,Halfspace(..),Face(..),Faces,Segment,
 >		 mkFace,getMyLine,getSegment,drawSegment,mkPoint,
 >		 space,solve,invert,
 >		 triangleArea,mkPolygon,convert)

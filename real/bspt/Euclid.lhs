@@ -6,10 +6,8 @@
 
 >	(	Point(..),Halfspace(..),Line,
 > 		Face(..),mkFace,getSegment,getMyLine,
->		Faces(..),Segment(..),
-> 		eqn,solve,space,
->		convert,invert,--UNUSED:parallel,
-> 		triangleArea,
+>		Faces,Segment,eqn,solve,space,
+>		convert,invert,triangleArea,
 > 		mkPoint,mkPolygon,drawSegment)
 
 > where

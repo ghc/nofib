@@ -80,6 +80,7 @@
 module Vector(Vec, makevec, boundvec, vecsub, incrvec, updvec, maxupdvec,
               vecprod, displayvec) where
 
+import Array
 import Basics
 
 data Vec a = VEC Int (Array Int a)
@@ -88,11 +89,11 @@ displayvec :: (Show a) => Vec a -> [Char]
 
 vecprod :: (Num a) => Vec a -> Vec a -> a
 
-updvec  :: Vec a -> [Assoc Int a] -> Vec a
+updvec  :: Vec a -> [(Int,a)] -> Vec a
 
-maxupdvec  :: (Num a, Ord a) => Vec a -> [Assoc Int a] -> Vec a
+maxupdvec  :: (Num a, Ord a) => Vec a -> [(Int,a)] -> Vec a
 
-incrvec :: (Num a) => Vec a -> [Assoc Int a] -> Vec a
+incrvec :: (Num a) => Vec a -> [(Int,a)] -> Vec a
 
 vecsub  :: Vec a -> Int -> a
 
@@ -100,30 +101,25 @@ boundvec :: Vec a -> Int
 
 makevec :: Int -> (Int -> a) -> Vec a
 
-makevec n f = 
-	VEC n (array (1,n) [ i := f i | i <- [1..n] ])
+makevec n f = VEC n (array (1,n) [ (i,f i) | i <- [1..n] ])
 
-boundvec (VEC n _) = 
-	n 
+boundvec (VEC n _) = n 
 
-vecsub (VEC n va) i =
-	va ! i
+vecsub (VEC n va) i = va ! i
 
 updvec (VEC n va) s =
-        VEC n (accum f va s)
-	where
-	f b c = c
+  VEC n (accum f va s)
+ where
+  f b c = c
 
-maxupdvec (VEC n va) s =
-        VEC n (accum max va s)
+maxupdvec (VEC n va) s = VEC n (accum max va s)
 
-incrvec (VEC n va) s = 
-	VEC n (accum (+) va s)
+incrvec (VEC n va) s = VEC n (accum (+) va s)
 
 vecprod v1 v2 = 
-	sum [(vecsub v1 i) * (vecsub v2 i) | i <- [1..n] ]
-	where 
-        n = boundvec v1
+  sum [(vecsub v1 i) * (vecsub v2 i) | i <- [1..n] ]
+ where 
+  n = boundvec v1
 
 displayvec v =
 	"< " ++ 

@@ -3,13 +3,15 @@ where
 
 import Encode (CodeEvent(..))
 
-import Word -- partain: from HBC library
+-- Start of code added for ghc
+w2i x = word2Int# x
+i2w x = int2Word# x
 
--- partain added
-iNTOR  x y = wordToInt (bitOr  (fromInt x) (fromInt y))
-iNTLSH x i = wordToInt (bitLsh (fromInt x) i)
-iNTRSH x i = wordToInt (bitRsh (fromInt x) i)
--- end partain addition
+intAnd (I# x) (I# y) = I# (w2i (and# (i2w x) (i2w y)))
+intOr  (I# x) (I# y) = I# (w2i (or# (i2w x) (i2w y)))
+intLsh (I# x) (I# y) = I# (w2i (shiftL# (i2w x) y))
+intRsh (I# x) (I# y) = I# (w2i (shiftRL# (i2w x) y))
+-- End of code added for ghc
 
 outputCodes :: [CodeEvent] -> (String, [Int])
 outputCodes cs = (map toEnum (fst result), snd result)
@@ -32,11 +34,7 @@ output nbits stillToGo r_off prev (Clear : cs)
       padBits = nbits - ((9 - stillToGo) * 2)
       take' n l = if n < 0 then take 1 l else take n l
 
-#ifdef DEBUG
-output nbits stillToGo r_off prev css@(Code (code, _, _) : cs)
-#else
 output nbits stillToGo r_off prev css@(Code code : cs)
-#endif
 
     | stillToGo == 0 = output nbits 8 0 0 css
     | otherwise = if (nbits + r_off) >= 16 then
@@ -45,17 +43,12 @@ output nbits stillToGo r_off prev css@(Code code : cs)
                       (byte1 : fst rest2, outBits : snd rest2)
       where
       r_off' = 8 - r_off
-      byte1 = iNTOR prev (iNTLSH code r_off)
-      byte2 = iNTRSH code r_off'
-      byte3 = iNTRSH byte2 8
+      byte1 = intOr prev (intLsh code r_off)
+      byte2 = intRsh code r_off'
+      byte3 = intRsh byte2 8
       outBits = if stillToGo == 1 then nbits else 0
       rest1 = output nbits (stillToGo-1) ((r_off+nbits) `mod` 8) byte3 cs
       rest2 = output nbits (stillToGo-1) ((r_off+nbits) `mod` 8) byte2 cs
-
-#ifdef DEBUG
-output nbits stillToGo r_off prev (CheckRatio _ : cs) 
-         = output nbits stillToGo r_off prev cs
-#endif
 
 padding :: [Int]
 padding = [255, 255 ..]

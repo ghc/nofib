@@ -3,7 +3,7 @@
 	Module that produces the interpretation of the users input
 	producing a list of human readable operation specifications
 
->		(Command, Operations(..), Operation(..), interpret)
+>		(Command, Operations, Operation, interpret)
 
 > where
 
