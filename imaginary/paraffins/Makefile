@@ -5,7 +5,6 @@ include $(TOP)/mk/boilerplate.mk
 # we don't want to include paraffins.c
 SRCS=Main.hs
 SRC_RUNTEST_OPTS += +RTS -H20m -RTS
-SRC_HC_OPTS += -syslib lang # for Int(fromInt)
 
 include $(TOP)/mk/target.mk
 
