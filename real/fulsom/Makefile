@@ -8,7 +8,7 @@ SRC_HC_OPTS += -cpp
 SRCS =  Csg.hs Fulsom.hs Interval.hs Kolor.hs Matrix.hs Oct.hs Patchlevel.hs \
 	Quad.hs Raster.hs Shapes.hs Types.hs Vector.hs
 
-SRC_RUNTEST_OPTS += 7
+PROG_ARGS = 7
 
 include $(TOP)/mk/target.mk
 

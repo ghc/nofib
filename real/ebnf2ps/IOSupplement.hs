@@ -1,3 +1,4 @@
+{-# OPTIONS -cpp #-}
 --                            -*- Mode: Haskell -*- 
 -- Copyright 1994 by Peter Thiemann
 -- IOSupplement.hs --- some enhancements to the IO operations
@@ -9,6 +10,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: IOSupplement.hs,v $
+-- Revision 1.7  2002/01/29 11:03:21  simonmar
+-- Tweaks to make the real suite run with GHCi.
+--
 -- Revision 1.6  1999/01/18 19:38:46  sof
 -- Misc (backward compatible) changes to make srcs acceptable
 -- to a Haskell 98 compiler.

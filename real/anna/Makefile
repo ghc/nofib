@@ -1,8 +1,7 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-SRC_RUNTEST_OPTS += \
-  -i big.cor
+STDIN_FILE = big.cor
 
 # don't: -poscript ./anna.postscript
 # This just sums the output to save including the entire output file
