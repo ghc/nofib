@@ -5,7 +5,7 @@
 -}
 
 import System
-import Char(isSpace,isDigit,isAlpha)--1.3
+import Char(isSpace,isDigit,isAlpha)
 
 data Tree e = Node Key (Tree e) (Tree e) | Leaf Key e | Empty deriving Show{-was:Text-}
 type Key = Int
@@ -87,7 +87,7 @@ readTree fk s t =
 readInt :: String -> (Int,String)
 readInt s = readInt' 0 s where
 	readInt' n s@(c:cs) | isDigit c = readInt' (n*10+fromEnum c-fromEnum '0') cs
-	readInt' n s =                    (n,dropWhile isSpace s)
+	readInt' n s = let s' = dropWhile isSpace s in (n,s')
 
 
 {-
@@ -112,10 +112,12 @@ join (Node k l r) t j = join l t (join r t j)
 -}
 
 main = do
-   ~(f1 : ~(f2 : _ )) <- getArgs
-   c1 <- readFile f1
-   c2 <- readFile f2
-   let a = readTree  (\(x,_,_)->x) c1 Empty
-   let b = readTree  (\(x,_,_)->x) c2 Empty 
-   print (forceTree (join a b Empty))
+   argv <- getArgs
+   case argv of
+      ~(f1 : ~(f2 : _ )) <- getArgs
+      c1 <- readFile f1
+      c2 <- readFile f2
+      let a = readTree  (\(x,_,_)->x) c1 Empty
+      let b = readTree  (\(x,_,_)->x) c2 Empty 
+      print (forceTree (join a b Empty))
 -- print (join a b Empty)
