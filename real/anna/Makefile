@@ -2,7 +2,6 @@ TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
 SRC_RUNTEST_OPTS += \
-  -prescript ./anna.prescript \
   -i big.cor
 
 # don't: -poscript ./anna.postscript
