@@ -1,9 +1,8 @@
 --simple.hs--
 -- The Simple code:
 --  translated to haskell by an id to ph translator, hand annotated for toplevel
---  types, constant types and array strictness.  Toplevel comments were readded
- 
---   by hand.
+--  types, constant types and array strictness.  Toplevel comments were readded 
+--  by hand.
 
 -- ORIGINAL COMMENTS
 --
