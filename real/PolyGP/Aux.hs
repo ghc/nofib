@@ -1,11 +1,11 @@
 {---------------------------------------------------------------
  --
- -- Aux.hs : contains supporting function defination for the system.
+ -- Auxil.hs : contains supporting function defination for the system.
  -- T.Yu@cs.ucl.ac.uk	September 25, 1997
  --
  --------------------------------------------------------------}
 
-module Aux where
+module Auxil where
 import Local(args,retType,testData,myName,expectResults,maxScore,evalFitness,printFitness)
 import Header(TypeExp(..),ParseTree(..),Expression(..),Population(..))
 import Create(createTree,extract)

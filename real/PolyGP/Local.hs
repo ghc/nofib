@@ -10,7 +10,7 @@ import Header (Expression(..),TypeExp(..),ExpressionList(..))
 import Array(Array, array)                
 import Char(ord)
 --import Eval(atoi)
---import Aux(indexL)
+--import Auxil(indexL)
 
 -- termEnv -----------------------------------------------------------------------------------
 -- This is the terminal set for Map program

@@ -7,7 +7,7 @@
 
 module Main where
 import Header(Expression(..),TypeExp(..))
-import Aux (getParas, create, evolve, displayPop)
+import Auxil (getParas, create, evolve, displayPop)
 import System (getArgs)
 import Random (randomInts,randomDoubles)
 
