@@ -1,3 +1,11 @@
+{-# OPTIONS -syslib exts #-}
+
+module Main where
+import Array
+import Ix
+import GlaExts( Num(fromInt) )	-- Shouldn't really use this in a benchmark,
+				-- but don't want change wrt old baselines
+
 --simple.hs--
 -- The Simple code:
 --  translated to haskell by an id to ph translator, hand annotated for toplevel
@@ -44,9 +52,6 @@
 -- % make grid-max as the second argument for it.
 
 
-module Main where
-import Array
-import Ix
 infixr 1 =:
 type Assoc a b = (a,b)
 (=:) = (,)
