@@ -18,7 +18,7 @@ import Table
 import Knowledge
 import Match
 import Search
-import IO--1.3
+import IO hiding( try )	-- try is defined by Search
 import System--1.3
 
 -- The `main' function reads in the data file before interacting with user.
