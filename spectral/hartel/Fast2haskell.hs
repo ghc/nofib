@@ -3,7 +3,7 @@
 import PrelGHC;
 import Complex;
 import Array;
-import PrelBase ( Int(..) );
+import PrelBase;
 
 type Complex_type = Complex Double;
 type Array_type b = Array Int b;
