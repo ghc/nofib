@@ -1,38 +1,39 @@
-# $Id: Makefile,v 1.2 1996/11/26 15:44:36 dnt Exp $
+# $Id: Makefile,v 1.3 1996/11/27 18:43:03 dnt Exp $
 
 TOP = ..
+include $(TOP)/nofib/mk/site.mk
 
 SUBDIRS =
 
-ifeq ($(IncludeImaginaryNoFibTests), YES)
+ifeq ($(ImaginaryNoFibTests), YES)
   SUBDIRS += imaginary
 endif
 
-ifeq ($(IncludeSpectralNoFibTests), YES)
+ifeq ($(SpectralNoFibTests), YES)
   SUBDIRS += spectral
 endif
 
-ifeq ($(IncludeRealNoFibTests), YES)
+ifeq ($(RealNoFibTests), YES)
   SUBDIRS += real
 endif
 
-ifeq ($(IncludePENDINGNoFibTests), YES)
+ifeq ($(PENDINGNoFibTests), YES)
   SUBDIRS += PENDING
 endif
 
-ifeq ($(IncludeUNUSEDNoFibTests), YES)
+ifeq ($(UNUSEDNoFibTests), YES)
   SUBDIRS += UNUSED
 endif
 
-ifeq ($(IncludeGHC_ONLYNoFibTests), YES)
+ifeq ($(GHC_ONLYNoFibTests), YES)
   SUBDIRS += GHC_ONLY
 endif
 
-ifeq ($(IncludePRIVATENoFibTests), YES)
+ifeq ($(PRIVATENoFibTests), YES)
   SUBDIRS += PRIVATE
 endif
 
-ifeq ($(IncludeParallelNoFibTests), YES)
+ifeq ($(ParallelNoFibTests), YES)
   SUBDIRS += parallel
 endif
 

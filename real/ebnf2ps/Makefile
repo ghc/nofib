@@ -11,3 +11,6 @@ HappyParser.hs : HappyParser.ly
 	$(RM) HappyParser.hs
 	happy HappyParser.ly
 	@chmod 444 HappyParser.hs
+
+clean ::
+	$(RM) HappyParser.hs

@@ -18,8 +18,6 @@ import Lookup -- stub
 
 import Parse
 
-import Tags
-
 import Kernel
 
 import Sub_Core1

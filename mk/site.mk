@@ -1,5 +1,17 @@
 #-----------------------------------------------------------------------------
-# $Id: site.mk,v 1.2 1996/11/26 15:44:59 dnt Exp $
+# $Id: site.mk,v 1.3 1996/11/27 18:43:19 dnt Exp $
+
+#-----------------------------------------------------------------------------
+# Set these flags to YES or NO to determine which sets of tests wil be run
+
+ImaginaryNoFibTests = YES
+SpectralNoFibTests  = YES
+RealNoFibTests      = YES
+PENDINGNoFibTests   = YES
+UNUSEDNoFibTests    = YES
+GHC_ONLYNoFibTests  = YES
+PRIVATENoFibTests   = YES
+ParallelNoFibTests  = YES
 
 #-----------------------------------------------------------------------------
 # Haskell compiler

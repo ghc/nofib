@@ -20,7 +20,7 @@ else
 endif
 
 #-----------------------------------------------------------------------------
-# The 'all' target prints out the corrent configuration and builds runtests.
+# The 'all' target prints out the current configuration and builds runtests.
 
 all ::
 	@echo HC = $(HC)

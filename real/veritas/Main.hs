@@ -40,14 +40,9 @@ import Parse
 
 --proof_edit : string list * string list -> unit 
 
-
-#ifdef PAR
-main = main'
-#else
 main = do
     ins <- getContents
     putStr (main' ins)
-#endif
 
 main' instr 
 	= rqts 
@@ -192,21 +187,3 @@ proof_edit default_ds argL
 	  	  err_handler
 	  err_handler mesg = x_error mesg /./ 
 		             ( \ _ -> proof_edit default_ds argL )
-
-
-{-
-return ( error "TOP LEVEL ERROR" ) --temp only - should not be evaluated -- see def of main
--}
-{-
-	  err_handler ( GetOpts s )
-		 -> (s ++ "\n") ++ useage (cmd))
-		 | Fail s    => (outputc std_out (s ^ "\n"); useage (cmd))
-		 |      _    => useage (cmd)
-		
-    and useage (cmd) = 
-	outputc std_out ("Usage: " ^ cmd ^ 
-				 " [-d <dataset>] " ^ 
-				 " [-s <theory>] " ^
-				 " [-t Thm|Trm|Dec|Sgn] " ^
-				 " <spec>\n");
--}
