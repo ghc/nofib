@@ -1,0 +1,21 @@
+Time-stamp: <Tue Apr 03 2001 01:37:07 Stardate: [-30]6425.12 hwloidl>
+
+This directory contains very simple GdH test programs.
+GdH, Glasgow distributed Haskell, is an extension of Haskell98 for executing
+programs on a network of machines, each running an instance of the 
+distributed runtime-system (RTS). The RTS ("sticky GUM") is an extension
+of the parallel RTS (GUM) adding explicit task placement. GdH uses
+a virtual shared heap and implicit communication. For more details see
+  http://www.cee.hw.ac.uk/~dsg/gdh
+
+At the moment GdH is still in an experimental stage.
+The compiler should know about a way "md" for building the distributed
+version of the RTS (no modifications in the compiler are necessary).
+
+This whole subdir needs integration into the nofib build machinery.
+At the moment they are standalone makefiles.
+If you want to play with them:
+- Do a make all in the GdH dir for building modified versions of some 
+  libraries.
+- Go into one of the other dirs, containing one file test programs, and 
+  do a make (prbly have to add -i../GdH)

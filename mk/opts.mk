@@ -2,7 +2,7 @@
 #
 #			    nofib/mk/opts.mk
 #
-# 	$Id: opts.mk,v 1.5 2001/02/14 14:57:43 rrt Exp $
+# 	$Id: opts.mk,v 1.6 2001/04/03 20:12:38 hwloidl Exp $
 #
 #################################################################################
 
@@ -15,7 +15,11 @@
 RUNTEST_OPTS       = $(SRC_RUNTEST_OPTS) $(WAY$(_way)_RUNTEST_OPTS) \
                      $($(NOFIB_PROG)_RUNTEST_OPTS) $(EXTRA_RUNTEST_OPTS)
 
-SRC_RUNTEST_OPTS += -ghc-timing +RTS -H10m -K10m -RTS
+ifneq "$(way)" "mp"
+# if testing GUM don't generate a -S style log file; it may well differ 
+SRC_RUNTEST_OPTS += -ghc-timing 
+endif
+SRC_RUNTEST_OPTS += +RTS -H10m -K10m -RTS
 
 #-----------------------------------------------------------------------------
 # Setting for Haskell compiler

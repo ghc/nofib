@@ -38,12 +38,19 @@ ifeq "$(way)" "mp"
 # The parallel prg is actually a Perl skript => can't strip it -- HWL
 size :: $(NOFIB_PROG_WAY)
 	@echo ==nofib== $(NOFIB_PROG): cannot strip parallel program, omitting size info
+
+runtests :: $(NOFIB_PROG_WAY) size
+	@echo ==nofib== $(NOFIB_PROG): cannot do an automatic check of stdout with the parallel system, sorry
+	@echo ==nofib== $(NOFIB_PROG): run the following command by hand
+	@echo                          ./$< $(RUNTEST_OPTS)
+	@echo ==nofib== $(NOFIB_PROG): output should be
+	@cat $(wildcard $(NOFIB_PROG).stdout*)
 else
+
 size :: $(NOFIB_PROG_WAY)
 	@$(STRIP) $(NOFIB_PROG_WAY)$(exeext)
 	@echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...
 	@$(SIZE) $(NOFIB_PROG_WAY)$(exeext)
-endif
 
 runtests :: $(NOFIB_PROG_WAY) size
 	@echo ==nofib== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
@@ -52,6 +59,8 @@ runtests :: $(NOFIB_PROG_WAY) size
 	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
 	  $(RUNTEST_OPTS)
+endif
+
 else
 size ::
 	@:
