@@ -1,5 +1,5 @@
 > module Complex_Vectors
->         (ComplexF, rootsOfUnity,thetas, norm,distance)
+>   --      (ComplexF, rootsOfUnity,thetas, norm,distance)
 > where
 > import Complex --
 
@@ -8,7 +8,9 @@
 > rootsOfUnity:: Int -> [ComplexF]
 > rootsOfUnity n = zipWith (:+) (map cos (thetas n)) 
 >                               (map sin (thetas n))
+> thetas = error "foo"
 
+> {-
 > thetas:: Int -> [Double]
 > thetas n = [(2*pi/fromInt n)*fromInt k | k<-[0 .. n-1]]
 >   -- partain addition:
@@ -21,3 +23,4 @@
 
 > distance:: [ComplexF] -> [ComplexF] -> Double
 > distance z w = norm(zipWith (-) z w)
+> -}
