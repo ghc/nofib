@@ -200,3 +200,11 @@ Does a lot of IO.readFile.
 
 
 	
+Maillist
+~~~~~~~~
+
+Uses appendFile repeatedly rather than opening the output file once,
+which leads to numerous file opens/closes.  Allocations will rise with
+the new I/O subsystem in 5.02 because the I/O buffer will be
+re-allocated on the heap for each open, whereas previously it would be
+allocated on the C heap and therefore not show up in the stats.
