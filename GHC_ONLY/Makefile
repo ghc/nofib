@@ -5,5 +5,8 @@ include $(TOP)/mk/boilerplate.mk
 # geared towards batch programs
 SUBDIRS = $(wildcard frontend* arith* bugs cg* ghclib* io* obfuscated93 po* stable*)
 
+# io018 is not interesting here (it spins)
+SUBDIRS := $(filter-out io018,$(SUBDIRS))
+
 include $(TOP)/mk/target.mk
 
