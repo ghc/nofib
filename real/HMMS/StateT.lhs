@@ -19,7 +19,7 @@ the monadic style of programming, see~\cite{Partain93}.
         \begin{haskell}{StateT}
 
 > module StateT(
->       ST(..),
+>       ST,
 >       returnST, bindST, bindST_, thenST, thenST_,
 >       startingFrom, startingWith, maplST, maprST
 >       ) where

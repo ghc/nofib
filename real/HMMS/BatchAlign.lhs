@@ -288,7 +288,7 @@ definition stands for ``tied-mixture continuation.''
 > can't_read :: String -> String
 > can't_read file = " can't read the file " ++ file
 
-> make_tm_table = amap (\as -> array (1, length as) as) .
+> make_tm_table = map (\as -> array (1, length as) as) .
 >                 accumArray (flip (:)) [] phone_bounds
 
 \end{haskell}

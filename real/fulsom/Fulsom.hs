@@ -58,6 +58,5 @@ picture n = go n pic
 
 
 go :: Int -> Csg -> [Char]
--- go n = (cdraw n) . quadoct . (octcsg n)
 go n = (cdraw n) . quadoct . (octcsg n)
 

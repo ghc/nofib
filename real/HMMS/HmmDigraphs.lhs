@@ -15,10 +15,10 @@ their nature.
 > module HmmDigraphs(
 >       module BalBinSTrees,  -- needed for ghc to compile
 >       module Phones, module Pronunciations,
->       ProbArc(..), ProbDigraphNode(..), ProbDigraphL(..),
->       ProbDigraphA(..),
->       HmmNetworkDic(..),
->       HmmState(..), HmmData(..),
+>       ProbArc, ProbDigraphNode, ProbDigraphL,
+>       ProbDigraphA,
+>       HmmNetworkDic,
+>       HmmState, HmmData,
 >       HmmTsL(..), HmmTsA(..),
 >       buildHmm,
 >       readHmms, build_hmm_array,
@@ -43,12 +43,12 @@ described in later chapters in Part~\ref{part:library}.
         The modules \verb~Phones~ and \verb~Pronunciations~ were
 defined in Chapters~\ref{ch:Phones} and~\ref{ch:Pronunciations},
 respectively.
-        \begin{verbatim}
+        \begin{haskell}
 
 > import Phones
 > import Pronunciations
 
-\end{verbatim}
+\end{haskell}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -655,7 +655,7 @@ the probabilities for all HMMs in an array.
         \begin{haskell}{get_log_probs}
 
 > get_log_probs :: (Ix a) => Array a (HmmTsL b) -> Array a (HmmTsL b)
-> get_log_probs = amap convert_to_log_probs
+> get_log_probs = map convert_to_log_probs
 
 \end{haskell}
 

@@ -16,7 +16,7 @@ structure functions that read data files.
 >#ifndef __GLASGOW_HASKELL__
 >       module Maybe,
 >#endif
->       MST(..),
+>       MST,
 >       returnMST, bindMST, thenMST
 >       ) where
 

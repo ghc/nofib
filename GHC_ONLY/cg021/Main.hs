@@ -20,6 +20,12 @@
 
    Incidentally, hbc won't have this particular problem, because it
    updates immediately.
+
+   NOTE: [March 97]  Now that stack squeezing happens when GC happens,
+   the stack is squished at GC.  So this program uses a small stack
+   in a small heap (eg 4m heap 2m stack), but in a big heap (no GC)
+   it needs a much bigger stack (10m)!  It would be better to try GC/stack
+   squeezing on stack oflo.
 -}
 
 module Main where

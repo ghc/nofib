@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: Main.hs,v $
+-- Revision 1.4  1997/03/17 20:35:26  simonpj
+-- More small changes towards 2.02
+--
 -- Revision 1.3  1997/03/14 08:08:10  simonpj
 -- Major update to more-or-less 2.02
 --
@@ -33,6 +36,7 @@
 module Main (main)
 where
 
+import IO
 import IOSupplement
 import CommandLine	(parse_cmds)
 import StringMatch	(stringMatch)
@@ -76,51 +80,59 @@ program
 	  psOutput figOutput
 	  helpFlag verbose strs
 	  | length strs < 2 || helpFlag	=
-	      getProgName >>= \ progName ->
 	      hPutStr stderr
-	      ("Usage: "++progName++" [options] BNFfile Nonterminal ...\n"
-	      ++unlines usageBlurb)
+	      		("Usage: ebnf2ps [options] BNFfile Nonterminal ...\n"
+	      		++unlines usageBlurb)
 	  | otherwise =
-	      getPath "AFMPATH" afmPathDefault >>= \afmPath ->
-	      readPathFile afmPath (ntFontName++".afm") >>= \ntAFM ->
-	      readPathFile afmPath (tFontName++".afm")  >>= \tAFM ->
-	      let
-		fc = \_ -> message "Color database not found, using fall back data\n" (sc "")
- 		sc = \rgbFileContents ->
-		  let colorTable = prepareColors rgbFileContents
+	    do
+	      afmPath <- getPath "AFMPATH" afmPathDefault
+	      ntAFM <- readPathFile afmPath (ntFontName++".afm")
+	      tAFM <- readPathFile afmPath (tFontName++".afm")
+	      rbgPath <- getPath "RGBPATH" rgbPathDefault
+	      rgbFileContents <- readPathFile rgbPath rgbFileName
+				 `catch`
+				 (do
+				    message "Color database not found, using fall back data\n"
+				    return "")
+
+	      let 
+		  colorTable = prepareColors rgbFileContents
 		                     [ntColor, tColor, lineColor, fatLineColor]
-		      colorInfo@(c1,c2,c3,c4) = (lookupColor ntColor colorTable,
+		  colorInfo@(c1,c2,c3,c4) = (lookupColor ntColor colorTable,
 		                   lookupColor tColor colorTable,
                                    lookupColor lineColor colorTable,
 		                   lookupColor fatLineColor colorTable)
-		      info = (borderDistX, borderDistY, lineWidth, fatLineWidth, arrowSize,
+		  info = (borderDistX, borderDistY, lineWidth, fatLineWidth, arrowSize,
 		          makeFont ntFontName ntFontScale ntAFM,
 		          makeFont tFontName tFontScale tAFM,
 		  	  colorInfo)
-		  in
-		    message ("using colors: "++(showsColor c1 . showsColor c2 .
-		                                showsColor c3 . showsColor c4)
-		      "\nfrom rgbPathDefault: "++show rgbPathDefault) (
-		    getPath "EBNFINPUTS" ebnfInputDefault (\inputPath ->
-		    message ("generating nonterminals: "++show nonterminals++
+
+	      message ("using colors: "++(showsColor c1 . showsColor c2 .
+		                          showsColor c3 . showsColor c4)
+		      "\nfrom rgbPathDefault: "++show rgbPathDefault)
+
+	      inputPath <- getPath "EBNFINPUTS" ebnfInputDefault
+
+  	      message ("generating nonterminals: "++show nonterminals++
 		      "\nfrom "++bnfName++
-		      "\nusing input path "++show inputPath) (
-		    readPathFile inputPath bnfName exit (\bnfContent ->
-		    if happyInput then
-		    let rawInput = theHappyParser bnfContent
-			prods | doSimplify = simplify rawInput
-			      | otherwise  = rawInput
-		    in  message "using happyInput"
-		      (writeAll outExtension (layoutAll outWrapper info prods nonterminals) done)
-		  else
-		  case map (if doSimplify then simplify else id) (parseAll bnfContent) of
-		    prods:_ ->
-		      message "using ebnfInput"
-		      (writeAll outExtension (layoutAll outWrapper info prods nonterminals) done)
-		    _ -> appendChan stderr ("Could not parse "++bnfName++"\n") exit done))))
-	      in
-		getPath "RGBPATH" rgbPathDefault (\rgbPath ->
-		readPathFile rgbPath rgbFileName fc sc)
+		      "\nusing input path "++show inputPath)
+
+	      bnfContent <- readPathFile inputPath bnfName
+
+	      if happyInput then
+		let rawInput = theHappyParser bnfContent
+	  	    prods | doSimplify = simplify rawInput
+			  | otherwise  = rawInput
+		in do
+			message "using happyInput"
+		        writeAll outExtension (layoutAll outWrapper info prods nonterminals)
+	      else
+	        case map (if doSimplify then simplify else id) (parseAll bnfContent) of
+		    prods:_ -> do 
+				  message "using ebnfInput"
+				  writeAll outExtension (layoutAll outWrapper info prods nonterminals)
+		    _ -> hPutStr stderr ("Could not parse "++bnfName++"\n")
+		
     where
 	afmPathDefault      = ["/usr/local/tex/Adobe", "/usr/local/tex/lib/TeXPS/afm", "."]
 	ebnfInputDefault    = ["."]
@@ -176,19 +188,15 @@ usageBlurb =
 
 --------------------------------------------------------------------------------
 
-writeAll ext [] cont = cont
-writeAll ext ((ntName, content): more) cont =
-	appendChan stdout content (\(WriteError str) ->
---partain:	writeFile fileName content (\(WriteError str) ->
-	  appendChan stderr ("Problem writing "++fileName++" :"++str) exit writeNext)
-	  writeNext
-    where
-	writeNext = writeAll ext more cont
-	fileName = ntName ++ ext
+writeAll ext [] = return ()
+writeAll ext ((ntName, content): more) 
+  = do
+	hPutStr stdout content
+	writeAll ext more
 
 --------------------------------------------------------------------------------
 
 str2int :: String -> Int
-str2int s = case readDec s of
-	    [] -> 0
-	    (x,_):_ -> x
+str2int s = case reads s of
+	    []    -> 0
+	    (x:_) -> x

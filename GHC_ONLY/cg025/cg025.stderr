@@ -1,12 +1,13 @@
 "cg025"
 ["Main.hs"]
-"/users/fp/partain/bin:/users/fp/partain/bin/sparc-sun-sunos4:/usr/local/bin:/usr/local/gnu/bin:/usr/local/gnu/bin/sparc-sun-sunos4:/usr/local/gnu/bin/mh/sparc-sun-sunos4:/usr/local/tex/bin/sparc-sun-sunos4:/local/fp/bin:/local/fp/bin/sparc-sun-sunos4:/local/fp/spat/shade.v8/bin:/local/fp/spat/spixtools.v8/bin:/local/sun4/bin:/usr/X11/local/bin:/usr/X11/bin:/bin:/usr/bin:/usr/ccs/bin:/sbin:/usr/ucb:/usr/etc:/etc:."
+"/ogi/staff/simonpj/bin/sparc-sunos5:/projects/pacsoft/ghc/bin/sparc-sunos5:/projects/pacsoft/ghc/sparc-sunos5/bin:/projects/unsupported/bin/sparc-sunos5:/projects/pacsoft/bin/sparc-sunos5:/usr/openwin/bin:/ogi/staff/simonpj/bin/share:/usr/local/bin:/usr/local/gnu/bin:/usr/bin:/usr/ccs/bin:/bin:/usr/ucb:/usr/local/mh/bin:/usr/local/X11/bin:/usr/bin/X11:/usr/openwin/bin:/projects/pacsoft/ghc/bin/share:/projects/unsupported/bin/share:/projects/unsupported/gnu/share/bin:/usr/local/CenterLine/bin:/usr/local/frame/bin:/projects/pacsoft/tools/psutils:.:/projects/unsupported/gnu/sparc-sunos5/bin"
 --!!! test various I/O Requests
 --
 --
 import IO
 import System
-import Trace
+import IOBase (trace)
+--import Trace ToDo: get this via GlaExts -- SOF
 
 main = do
     prog <- getProgName
@@ -20,7 +21,7 @@ main = do
     file_cts <- readFile (head args)
     hPutStr  stderr file_cts
     trace "hello, trace" $
-     catch (getEnv "__WURBLE__" >> return ()) (\ e -> error "hello, error\n")
+      catch (getEnv "__WURBLE__" >> return ()) (\ e -> error "hello, error\n")
 Trace On:
 hello, trace
 Trace Off.

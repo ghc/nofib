@@ -2,6 +2,9 @@
 
 $Locker:  $
 $Log: HappyParser.ly,v $
+Revision 1.4  1997/03/17 20:35:25  simonpj
+More small changes towards 2.02
+
 Revision 1.3  1997/03/14 08:08:08  simonpj
 Major update to more-or-less 2.02
 
@@ -124,9 +127,8 @@ here goes optCode:
 
 > {
 
-> happyError :: Int -> Int -> [Token'] -> a
-> happyError s i ts = error ("Parse error in line " ++ show i ++
->                          " [state " ++ show s ++ "]" ++
+> happyError :: Int -> [Token'] -> a
+> happyError i ts = error ("Parse error in line " ++ show i ++
 >                          case ts of
 >                          [] -> " (at EOF)\n"
 >                          _  ->  "\n" ++ show (take 20 ts) ++ "\n")

@@ -1,5 +1,8 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
-EXTRA_HC_OPTS += -fglasgow-exts
+
+SRCS = Main.hs
+SRC_HC_OPTS += -fglasgow-exts
+
 include $(TOP)/mk/target.mk
 

@@ -1,7 +1,7 @@
 
         \begin{haskell}{MathTypes}
 
-> module MathTypes( Vector(..) ) where
+> module MathTypes( Vector ) where
 
 \end{haskell}
 

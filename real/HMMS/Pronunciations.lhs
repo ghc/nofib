@@ -6,8 +6,8 @@ pronunciation models of words and utterances.
 > module Pronunciations(
 >       module Phones,
 >       module BalBinSTrees, module MaybeStateT,
->       Word(..), DigraphNode(..), Digraph(..), PrnNetwork(..),
->       DictionaryEntry(..),
+>       Word, DigraphNode, Digraph, PrnNetwork(..),
+>       DictionaryEntry,
 >       readDictionary, readsPrnNetwork, showPrnNetwork,
 >       pre_hmm
 >       ) where

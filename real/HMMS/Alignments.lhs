@@ -8,7 +8,7 @@ the alignment data.
         \begin{haskell}{Alignments}
 
 > module Alignments(
->       FrameData(..), Alignment(..), readAlignment,
+>       FrameData, Alignment, readAlignment,
 >       strip_off_frame_number
 >       ) where
 

@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: IOSupplement.hs,v $
+-- Revision 1.4  1997/03/17 20:35:25  simonpj
+-- More small changes towards 2.02
+--
 -- Revision 1.3  1997/03/14 08:08:09  simonpj
 -- Major update to more-or-less 2.02
 --
@@ -27,26 +30,26 @@
 -- $Locker:  $
 --
 
-module IOSupplement (PathCont, getPath, readPathFile)
-where
+module IOSupplement (
+	getPath, readPathFile
+   ) where
 
 import System -- 1.3
-import IOBase ( IOError (..) )
+import IO
+import IOBase ( IOError, fail, userError )
+
 --------------------------------------------------------------------------------
 
-type PathCont = [String] -> IO ()
-type FailCont = IOError -> IO ()
-type StrCont  = String -> IO ()
 
-getPath :: String -> [String] -> PathCont -> IO ()
---
--- accepts the name of an environment variable and a [String] of default paths
+getPath :: String -> [String] ->  IO [String]
+
+-- Accepts the name of an environment variable and a [String] of default paths
 -- and calls the continuation (::PathCont) with the resulting search path
---
-getPath envVar dflt cont =
-  (do {path <- getEnv envVar; cont (manglePath path dflt)})
+
+getPath envVar dflt =
+  (do {path <- getEnv envVar; return (manglePath path dflt)})
     `catch` 
-       (\ (NoSuchThing _) -> cont dflt)
+       (\ _ -> return dflt)
    
 
 -- mangle a colon separated pathstring with a default path
@@ -61,25 +64,21 @@ manglePath cs dflt = case span (/= ':') cs of
 
 --------------------------------------------------------------------------------
 
-readPathFile :: [String] -> String -> FailCont -> StrCont -> IO ()
---
+readPathFile :: [String] -> String -> IO String
+
 -- readPathFile searchPath fileName fc sc
 -- scan searchPath for fileName and read it
 -- unless fileName starts with '.' or is absolute (starts with '/')
---
-readPathFile _  fileName@('/':_) fc sc = myreadFile fileName fc sc
-readPathFile _  fileName@('.':_) fc sc = myreadFile fileName fc sc
-readPathFile [] fileName fc sc =
-	fc (userError ("readPathFile failed on :" ++ fileName))
-readPathFile (path: paths) fileName fc sc =
---	appendChan stderr ("Trying path "++fullName++"...\n") exit
-	(myreadFile fullName failCont sc)
-    where
+
+readPathFile _  fileName@('/':_) = readFile fileName
+readPathFile _  fileName@('.':_) = readFile fileName
+
+readPathFile [] fileName 
+  = fail (userError ("readPathFile failed on :" ++ fileName))
+
+readPathFile (path: paths) fileName
+  = readFile fullName `catch` 
+    (\ _ -> readPathFile paths fileName)
+  where
 	fullName   = path ++ '/': fileName
-	failCont _ = readPathFile paths fileName fc sc
 
-
-myreadFile :: String -> FailCont -> StrCont -> IO ()
-myreadFile filename fc sc
-  = catch (readFile filename	>>= \ cts -> sc cts)
-	  fc

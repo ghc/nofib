@@ -7,8 +7,8 @@ vectors.
 
 > module HmmDensities(
 >       module Native, module MathTypes, module Phones,
->       GaussianComponent(..), TiedMixture(..), TmTable(..),
->       LogDensityTable(..),
+>       GaussianComponent, TiedMixture(..), TmTable,
+>       LogDensityTable,
 >       eval_log_densities, readMixtures, readMixture, extern_to_intern
 >       ) where
 
@@ -345,7 +345,7 @@ for efficient retrieval.
 > eval_log_densities :: TmTable -> Vector -> LogDensityTable
 
 > eval_log_densities tmt x = ldt
->       where ldt = amap (amap eval_tied_mixture) tmt
+>       where ldt = map (map eval_tied_mixture) tmt
 >             eval_tied_mixture (Gm gm)   = eval_log_mixture x gm
 >             eval_tied_mixture (Tie p k) = ldt!p!k
 
