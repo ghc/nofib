@@ -2,6 +2,9 @@
 
 $Locker:  $
 $Log: HappyParser.ly,v $
+Revision 1.5  1997/11/25 11:26:56  simonm
+quick fix for new version of Happy.
+
 Revision 1.4  1997/03/17 20:35:25  simonpj
 More small changes towards 2.02
 
@@ -38,8 +41,6 @@ A happy specification for the happy input language.
 >	"}"		{ ClosingBrace }
 >	any_symbol	{ Symbol' _ }
 >	any_string	{ String' _ }
-
-%newline            	{ Symbol "\n" {- no new line token -} }
 
 > %%
 
@@ -127,8 +128,8 @@ here goes optCode:
 
 > {
 
-> happyError :: Int -> [Token'] -> a
-> happyError i ts = error ("Parse error in line " ++ show i ++
+> happyError :: [Token'] -> a
+> happyError ts = error ("Parse error in line " ++ show 0 ++
 >                          case ts of
 >                          [] -> " (at EOF)\n"
 >                          _  ->  "\n" ++ show (take 20 ts) ++ "\n")
