@@ -1,7 +1,7 @@
 module Encode (CodeEvent(..), encode, maxBits)
 where
 
-import GlaExts
+--import GlaExts
 
 data PrefixTrie a b = PTNil |
                       PT a b (PrefixTrie a b) (PrefixTrie a b) (PrefixTrie a b)
