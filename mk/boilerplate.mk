@@ -29,6 +29,9 @@ WAYS=$(NoFibWays)
 
 SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 
+HC	   = $(WithNofibHc)
+MKDEPENDHS = $(WithNofibHc)  # ToDo: wrong, if $(WithNofibHc) isn't GHC.
+
 include $(NOFIB_TOP)/mk/paths.mk
 include $(NOFIB_TOP)/mk/opts.mk
 include $(NOFIB_TOP)/mk/suffix.mk
