@@ -18,10 +18,15 @@
 
 module Main where
 
+import System
+
 infixl 9 .*
 infix 9 <*>
 
-main = putStr (show (take 1000 test))
+main = do
+ [arg] <- getArgs
+ let n = read arg :: Int
+ putStr (show (take n test))
 
 test :: StateStream 
 test = runExperiment testforce 0.02 [1.0] (State [1.0] [0.0]) 

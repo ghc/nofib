@@ -4,7 +4,7 @@ include $(TOP)/mk/boilerplate.mk
 SSUBDIRS = \
   ansi atom awards banner boyer boyer2 calendar cichelli circsim clausify \
   constraints cryptarithm1 cryptarithm2 cse eliza expert fibheaps fish \
-  fft2 gcd hartel integer last-piece life knights mandel mandel2 minimax multiplier para \
+  fft2 gcd hartel integer life knights mandel mandel2 minimax multiplier para \
   power pretty primetest puzzle rewrite scc simple sorting sphere treejoin
 
 # compreals	no suitable test data
@@ -22,6 +22,11 @@ NOT_THESE = circsim constraints cryptarithm1 cryptaritm2
 else
 NOT_THESE = 
 endif
+endif
+
+# Some tests can't be speeded up very well
+ifeq "$(mode)" "fast"
+NOT_THESE += cryptarithm1
 endif
 
 SUBDIRS = $(filter-out $(NOT_THESE), $(SSUBDIRS))

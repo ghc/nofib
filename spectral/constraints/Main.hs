@@ -5,14 +5,18 @@
 
 import Prelude hiding (Maybe(Just,Nothing))
 import List
+import System
 
 -----------------------------
 -- The main program
 -----------------------------
 
-main =  sequence_ (map try [bt, bm, bjbt, bjbt', fc])
-     where
-   	try algorithm = print (length (search algorithm (queens 10)))
+main = do
+ [arg] <- getArgs
+ let
+	n = read arg :: Int
+   	try algorithm = print (length (search algorithm (queens n)))
+ sequence_ (map try [bt, bm, bjbt, bjbt', fc])
 
 -----------------------------
 -- Figure 1. CSPs in Haskell.

@@ -5,10 +5,10 @@ import System
 main = do
   --runalltests 1 20 10000 1 20 10000
   --runalltests (-1000000) 4001 1000000 (-1000000) 4001 1000000
-  runalltests (-2100000000) 4000001 2100000000 (-2100000000) 4000001 2100000000
-  --[_1,_2,_3] <- getArgs
-  --let astart = read _1; astep = read _2; alim = read _3
-  --runalltests astart astep alim astart astep alim
+  --runalltests (-2100000000) 4000001 2100000000 (-2100000000) 4000001 2100000000
+  [_1,_2,_3] <- getArgs
+  let astart = read _1; astep = read _2; alim = read _3
+  runalltests astart astep alim astart astep alim
 
 runalltests
 	:: Integer -> Integer -> Integer

@@ -1,7 +1,8 @@
-# -----------------------------------------------------------------------------
-# $Id: Makefile,v 1.1 2001/03/02 11:44:24 simonmar Exp $
-
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
--include opts.mk
+
+FAST_OPTS = -2100000000 40000001 2100000000
+NORM_OPTS = -2100000000 4000001 2100000000
+SLOW_OPTS = -2100000000 4000001 2100000000
+
 include $(TOP)/mk/target.mk
