@@ -1,6 +1,6 @@
 "cg025"
 ["Main.hs"]
-"/ogi/staff/simonpj/bin/sparc-sunos5:/projects/pacsoft/ghc/bin/sparc-sunos5:/projects/pacsoft/ghc/sparc-sunos5/bin:/projects/unsupported/bin/sparc-sunos5:/projects/pacsoft/bin/sparc-sunos5:/usr/openwin/bin:/ogi/staff/simonpj/bin/share:/usr/local/bin:/usr/local/gnu/bin:/usr/bin:/usr/ccs/bin:/bin:/usr/ucb:/usr/local/mh/bin:/usr/local/X11/bin:/usr/bin/X11:/usr/openwin/bin:/projects/pacsoft/ghc/bin/share:/projects/unsupported/bin/share:/projects/unsupported/gnu/share/bin:/usr/local/CenterLine/bin:/usr/local/frame/bin:/projects/pacsoft/tools/psutils:.:/projects/unsupported/gnu/sparc-sunos5/bin"
+"/ogi/guest/sigbjorn/bin/sparc-sun-solaris2:/projects/pacsoft/ghc-builds/gnu/bin/sparc-sun-solaris2:/projects/pacsoft/ghc-builds/gnu/bin:/projects/pacsoft/bin/sparc-sunos5:/usr/lang:/usr/ucb:/usr/local/bin:/usr/local/X11/local/bin:/usr/local/X11/bin:/usr/bin/X11:/projects/pacsoft/ghc/bin/sparc-sunos5:/projects/pacsoft/ghc/bin/share:/projects/pacsoft/tools/haskell/ghc-0.29/bin/sparc-sun-solaris2:/projects/pacsoft/tools/haskell/ghc-2.01/bin/sparc-sun-solaris2:/projects/pacsoft/tools/haskell/:/projects/unsupported/bin/share:/projects/unsupported/bin/sparc-sunos5:/usr/local/CenterLine/bin:/usr/local/frame/bin:/usr/local/gnu/bin:/usr/local/gnu/bin:/usr/local/gnu/bin/sparc-sunos5:/usr/local/mh/bin:/bin:/etc:/usr/etc:/usr/bsd/bin:/usr/bin:/sbin:/usr/sbin:/ogi/guest/sigbjorn/bin/misc:/ogi/guest/sigbjorn/bin/share:/usr/ccs/bin:."
 --!!! test various I/O Requests
 --
 --
