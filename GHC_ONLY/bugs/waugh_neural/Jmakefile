@@ -1,0 +1,10 @@
+SRCS_LHS=Main.lhs ReadLists.lhs BpGen.lhs
+OBJS_O=  Main.o   ReadLists.o   BpGen.o
+
+NoFibMultiModuleCompileAndRun(waugh_neural,-o1 waugh_neural.stdout)
+
+NoFibHaskellCompile(waugh_neural,Main,lhs)
+NoFibHaskellCompile(waugh_neural,ReadLists,lhs)
+NoFibHaskellCompile(waugh_neural,BpGen,lhs)
+
+NoFibDependTarget(waugh_neural, $(SRCS_LHS))

@@ -1,0 +1,1 @@
+NoFibOneModuleCompileAndRun(jl_defaults,-i jl_defaults.stdin)

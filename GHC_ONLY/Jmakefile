@@ -45,6 +45,7 @@ SUBDIRS = arith001 \
 	  cg034 \
 	  cg035 \
 	  cg036 \
+	  cg037 \
 	  ghclib001 \
 	  io001 /* 1.3 I/O */ \
 	  io002 \
@@ -81,13 +82,14 @@ SUBDIRS = arith001 \
 	  po011 \
 	  po012 \
 	  net001 /* SocketPrim, BSD, Socket */ \
-	  net002 \ 
+	  net002 \
 	  net003 \
 	  net004 \
 	  net005 \
 	  net006 \
 	  net007 \
-	  net008 
+	  net008 \
+	  stable001
 
 /* LATER: specialise */
 
@@ -100,18 +102,3 @@ runtests::
 	@echo '###############################################################'
 	@echo '# GHC tests that need to be *run*                             #'
 	@echo '###############################################################'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

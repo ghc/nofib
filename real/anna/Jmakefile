@@ -17,7 +17,7 @@ OBJS_O = BaseDefs.o MyUtils.o Utils.o AbstractVals2.o SuccsAndPreds2.o \
 	FrontierDATAFN2.o FrontierGENERIC2.o StrictAn6.o ReadTable.o \
 	Main.o
 
-NoFibMultiModuleCompileAndRun(anna, -script ./anna.test )
+NoFibMultiModuleCompileAndRun(anna, -prescript ./anna.prescript -postscript ./anna.postscript -i big.cor -o1 big.sum.out )
 
 NoFibHaskellCompile(anna,BaseDefs,hs)
 NoFibHaskellCompile(anna,MyUtils,hs)

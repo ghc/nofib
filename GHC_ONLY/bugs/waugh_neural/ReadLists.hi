@@ -1,0 +1,7 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface ReadLists where
+readNumBools :: [Char] -> [Bool]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+readWhiteList :: Text a => [Char] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(SAAA)" {_A_ 1 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

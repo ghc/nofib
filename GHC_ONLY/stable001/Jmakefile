@@ -1,0 +1,28 @@
+# This is a test of my changes to the Glasgow Haskell Compiler to allow
+# C to call Haskell directly (stable pointers, performIO, etc.)
+# Note the change of compiler version!
+LIT2PGM=lit2pgm
+CC=gcc
+
+OBJS_O= Main.o Main_C.o
+
+NoFibMultiModuleCompileAndRun(stable001,)
+
+NoFibHaskellCompile(stable001,Main,hs)
+
+Main_C.o: Main_C.c
+	$(HC) -c -O Main_C.c
+
+Main_C.c: Main.lhs
+	$(LIT2PGM) -r C-code -l c -i Main.lhs -o Main_C.c
+
+Main.hs: Main.lhs
+	$(LIT2PGM) -i Main.lhs -o Main.hs
+
+/*
+	${HASKELL} -C Main.hs '-#include "registers.h"'
+	${HASKELL} -c Main.hc '-#include "registers.h"'
+
+Main:  Main.o Main_C.o
+	${HASKELL} Main.o Main_C.o -o Main '-#include "registers.h"'
+*/

@@ -1,0 +1,3 @@
+/* has a special test script */
+
+NoFibOneModuleCompileAndRun(life_space_leak, -script ./life.test)

@@ -1,7 +1,7 @@
 SRCS_LHS=Config.lhs Types.lhs Env.lhs Utils.lhs GenVal.lhs GenExp.lhs GenType.lhs Main.lhs 
 OBJS_O=  Config.o   Types.o   Env.o   Utils.o  GenVal.o   GenExp.o   GenType.o   Main.o   
 
-NoFibMultiModuleCompileAndRun(hpg,-o1 hpg.stdout -o2 hpg.stderr HaskellEndRTSFlags() -nt 8 -dt 6 -nv 15 -dv 8 -de 8)
+NoFibMultiModuleCompileAndRun(hpg,-o1 hpg.stdout HaskellEndRTSFlags() -nt 8 -dt 6 -nv 15 -dv 8 -de 8)
 
 NoFibHaskellCompile(hpg,Config,lhs)
 NoFibHaskellCompile(hpg,Env,lhs)

@@ -1,0 +1,14 @@
+SRCS_LHS=GoferPreludeBits.lhs Lib.lhs Io.lhs JobImp.lhs JobApp.lhs Lognum.lhs Main.lhs
+OBJS_O=  GoferPreludeBits.o   Lib.o   Io.o   JobImp.o   JobApp.o   Lognum.o   Main.o
+
+NoFibMultiModuleCompileAndRun(ipoole_spec_class,-o1 ipoole_spec_class.stdout)
+
+NoFibHaskellCompile(ipoole_spec_class,GoferPreludeBits,lhs)
+NoFibHaskellCompile(ipoole_spec_class,Lib,lhs)
+NoFibHaskellCompile(ipoole_spec_class,Io,lhs)
+NoFibHaskellCompile(ipoole_spec_class,JobImp,lhs)
+NoFibHaskellCompile(ipoole_spec_class,JobApp,lhs)
+NoFibHaskellCompile(ipoole_spec_class,Lognum,lhs)
+NoFibHaskellCompile(ipoole_spec_class,Main,lhs)
+
+NoFibDependTarget(ipoole_spec_class, $(SRCS_LHS))

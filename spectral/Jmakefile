@@ -2,6 +2,7 @@
 
 SUBDIRS = hartel /* this is a whole bunch of progs */ \
 	  ansi		\
+	  awards	\
 	  banner	\
 	  boyer		\
 	  boyer2 	\
@@ -11,6 +12,7 @@ SUBDIRS = hartel /* this is a whole bunch of progs */ \
 	  cse 		\
 	  eliza		\
 	  expert	\
+	  fibheaps	\
 	  fft2 		\
 	  knights 	\
 	  mandel 	\

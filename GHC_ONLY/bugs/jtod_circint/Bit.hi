@@ -1,0 +1,93 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Bit where
+import Signal(Lattice, Log, Signal, Static)
+data Bit   = Bot | WeakZero | WeakOne | Zero | One | Top
+intBit :: Int -> Bit
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+intToSigBit :: Int -> Bit
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lubBit :: Bit -> Bit -> Bit
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+passBit :: Bit -> Bit -> Bit
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "EL" _N_ _N_ #-}
+showBit :: Bit -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+sigToIntBit :: Bit -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+tt1Bit :: (Int, Int) -> Bit -> Bit
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LL)" {_A_ 2 _U_ 111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+tt2Bit :: (Int, Int, Int, Int) -> Bit -> Bit -> Bit
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _S_ "U(LLLL)" {_A_ 4 _U_ 111111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+instance Eq Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Bit -> Bit -> Bool), (Bit -> Bit -> Bool)] [_CONSTM_ Eq (==) (Bit), _CONSTM_ Eq (/=) (Bit)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+instance Num Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 11 _!_ _TUP_10 [{{Eq Bit}}, {{Text Bit}}, (Bit -> Bit -> Bit), (Bit -> Bit -> Bit), (Bit -> Bit -> Bit), (Bit -> Bit), (Bit -> Bit), (Bit -> Bit), (Integer -> Bit), (Int -> Bit)] [_DFUN_ Eq (Bit), _DFUN_ Text (Bit), _CONSTM_ Num (+) (Bit), _CONSTM_ Num (-) (Bit), _CONSTM_ Num (*) (Bit), _CONSTM_ Num negate (Bit), _CONSTM_ Num abs (Bit), _CONSTM_ Num signum (Bit), _CONSTM_ Num fromInteger (Bit), _CONSTM_ Num fromInt (Bit)] _N_
+	 (+) = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 (-) = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 (*) = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 negate = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 abs = _A_ 1 _U_ 2 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Bit) -> _APP_  _TYAPP_  error { (Bit -> Bit) } [ _NOREP_S_ "abs not defined for Signals", u0 ] _N_,
+	 signum = _A_ 1 _U_ 2 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Bit) -> _APP_  _TYAPP_  error { (Bit -> Bit) } [ _NOREP_S_ "signum not defined for Signals", u0 ] _N_,
+	 fromInteger = _A_ 1 _U_ 2 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Integer) -> _APP_  _TYAPP_  error { (Integer -> Bit) } [ _NOREP_S_ "fromInteger not defined for Signals", u0 ] _N_,
+	 fromInt = _A_ 1 _U_ 1 _N_ _S_ _!_ _N_ _N_ #-}
+instance Lattice Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 8 _!_ _TUP_7 [{{Signal Bit}}, Bit, Bit, Bit, Bit, (Bit -> Bit -> Bit), (Bit -> Bit -> Bit)] [_DFUN_ Signal (Bit), _CONSTM_ Lattice bot (Bit), _CONSTM_ Lattice top (Bit), _CONSTM_ Lattice weakZero (Bit), _CONSTM_ Lattice weakOne (Bit), _ORIG_ Bit lubBit, _ORIG_ Bit passBit] _N_
+	 bot = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit Bot [] [] _N_,
+	 top = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit Top [] [] _N_,
+	 weakZero = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit WeakZero [] [] _N_,
+	 weakOne = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit WeakOne [] [] _N_,
+	 lub = _A_ 2 _U_ 11 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit lubBit _N_,
+	 pass = _A_ 2 _U_ 11 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit passBit _N_ #-}
+instance Log Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 4 _!_ _TUP_3 [{{Lattice Bit}}, {{Static Bit}}, Bit] [_DFUN_ Lattice (Bit), _DFUN_ Static (Bit), _CONSTM_ Log dumLog (Bit)] _N_
+	 dumLog = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit Zero [] [] _N_ #-}
+instance Signal Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _N_ _N_
+	 showSig = _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit showBit _N_,
+	 zero = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit Zero [] [] _N_,
+	 one = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit One [] [] _N_,
+	 initial = _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Bit Zero [] [] _N_,
+	 tt1 = _A_ 1 _U_ 12 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit tt1Bit _N_,
+	 tt2 = _A_ 1 _U_ 122 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit tt2Bit _N_,
+	 con10 = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 buf = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 inv = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 con11 = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 con20 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 and2 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 nimp = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 id21 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 nimp' = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 id22 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 xor = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 or2 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 nor2 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 equ2 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 inv22 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 imp' = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 inv21 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 imp = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 nand2 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 con21 = _A_ 0 _U_ 22 _N_ _N_ _N_ _N_,
+	 and3 = _A_ 3 _U_ 222 _N_ _N_ _N_ _N_,
+	 or3 = _A_ 3 _U_ 222 _N_ _N_ _N_ _N_,
+	 nand3 = _A_ 3 _U_ 222 _N_ _N_ _N_ _N_,
+	 nor3 = _A_ 3 _U_ 222 _N_ _N_ _N_ _N_,
+	 and4 = _A_ 4 _U_ 2222 _N_ _N_ _N_ _N_,
+	 or4 = _A_ 4 _U_ 2222 _N_ _N_ _N_ _N_,
+	 nand4 = _A_ 4 _U_ 2222 _N_ _N_ _N_ _N_,
+	 nor4 = _A_ 4 _U_ 2222 _N_ _N_ _N_ _N_ #-}
+instance Static Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [{{Signal Bit}}, (Int -> Bit), (Bit -> Int), (Bit -> [Char])] [_DFUN_ Signal (Bit), _ORIG_ Bit intToSigBit, _ORIG_ Bit sigToIntBit, _ORIG_ Bit showBit] _N_
+	 intToSig = _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit intToSigBit _N_,
+	 sigToInt = _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit sigToIntBit _N_,
+	 showStaticSig = _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Bit showBit _N_ #-}
+instance Text Bit
+	{-# GHC_PRAGMA _M_ Bit {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Bit, [Char])]), (Int -> Bit -> [Char] -> [Char]), ([Char] -> [([Bit], [Char])]), ([Bit] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Bit), _CONSTM_ Text showsPrec (Bit), _CONSTM_ Text readList (Bit), _CONSTM_ Text showList (Bit)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LE" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

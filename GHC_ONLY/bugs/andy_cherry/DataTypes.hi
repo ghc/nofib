@@ -1,0 +1,150 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface DataTypes where
+import GenUtils(Maybe)
+import PreludeArray(Array)
+class Presentable a where
+	userFormat :: a -> [Char]
+	 {-# GHC_PRAGMA {-meth-} _A_ 1 _U_ 12 _N_ _S_ "S" _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: u0 -> [Char]) -> u1 _N_
+		{-defm-} _A_ 2 _U_ 02 _N_ _S_ _!_ _F_ _IF_ARGS_ 1 2 XX 3 _/\_ u0 -> \ (u1 :: {{Presentable u0}}) (u2 :: u0) -> _APP_  _TYAPP_  patError# { (u0 -> [Char]) } [ _NOREP_S_ "%DDataTypes.Presentable.userFormat\"", u2 ] _N_ #-}
+type AbsGame = Game Token
+data Board   = Board (Array (Int, Int) BoardSquare) MoveNumber (Maybe Int)
+type BoardPos = (Int, Int)
+data BoardSquare   = VacantSq | WhitesSq Piece | BlacksSq Piece
+type ChessFile = Int
+type ChessRank = Int
+data Colour   = Black | White
+type ExBoardPos = (Maybe Int, Maybe Int)
+data Game a   = Game [TagStr] [a]
+data MoveNumber   = MoveNumber Int Colour
+data MoveTok   = PieceTok Piece | RankTok Int | FileTok Int | PartCastleTok | CaptureTok | MoveToTok | QueensWith | CheckTok | MateTok
+data Piece   = King | Queen | Rook | Knight | Bishop | Pawn
+data PlayMove   = PlayMove Piece (Int, Int) (Int, Int) SpecialMove
+data Quantum   = QuantumMove [Char] [Char] [Char] Board | QuantumNAG Int | QuantumComment [[Char]] | QuantumResult [Char] | QuantumAnalysis [Quantum] | QuantumPrintBoard
+type RealGame = Game Quantum
+data Result   = Win | Draw | Loss | Unknown
+data SpecialMove   = NothingSpecial | BigPawnMove | Queening Piece | EnPassant
+data SquareContent   = Vacant | Friendly | Baddy | OffBoard
+data TagStr   = TagStr [Char] [Char]
+data Token   = StringToken [Char] | AsterixToken | LeftABToken | RightABToken | NAGToken Int | NAGAnnToken Int [Char] | SymbolToken [Char] | CommentToken [[Char]] | LeftSBToken | RightSBToken | LeftRBToken | RightRBToken | IntToken Int | PeriodToken | AnalToken [Token]
+boardSize :: ((Int, Int), (Int, Int))
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+buildBoard :: [Char] -> Board
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+castleK :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+castleQ :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+changeColour :: Colour -> Colour
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Colour) -> case u0 of { _ALG_ _ORIG_ DataTypes White  -> _!_ _ORIG_ DataTypes Black [] []; _ORIG_ DataTypes Black  -> _!_ _ORIG_ DataTypes White [] []; _NO_DEFLT_ } _N_ #-}
+charToMoveTok :: Char -> Maybe MoveTok
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+compExBPandBP :: (Maybe Int, Maybe Int) -> (Int, Int) -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(SL)U(LL)" {_A_ 4 _U_ 1111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+decMove :: MoveNumber -> MoveNumber
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LE)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+displayBoard :: Colour -> Board -> [[Char]]
+	{-# GHC_PRAGMA _A_ 0 _U_ 21 _N_ _N_ _N_ _N_ #-}
+extendBP :: (Int, Int) -> (Maybe Int, Maybe Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LL)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+extractDestFromPlayMove :: PlayMove -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAU(LL)A)" {_A_ 2 _U_ 22 _N_ _N_ _F_ _IF_ARGS_ 0 2 XX 3 \ (u0 :: Int) (u1 :: Int) -> _!_ _TUP_2 [Int, Int] [u0, u1] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: PlayMove) -> case u0 of { _ALG_ _ORIG_ DataTypes PlayMove (u1 :: Piece) (u2 :: (Int, Int)) (u3 :: (Int, Int)) (u4 :: SpecialMove) -> u3; _NO_DEFLT_ } _N_ #-}
+extractSpecialFromPlayMove :: PlayMove -> SpecialMove
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAAS)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: SpecialMove) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: PlayMove) -> case u0 of { _ALG_ _ORIG_ DataTypes PlayMove (u1 :: Piece) (u2 :: (Int, Int)) (u3 :: (Int, Int)) (u4 :: SpecialMove) -> u4; _NO_DEFLT_ } _N_ #-}
+extractSrcFromPlayMove :: PlayMove -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AU(LL)AA)" {_A_ 2 _U_ 22 _N_ _N_ _F_ _IF_ARGS_ 0 2 XX 3 \ (u0 :: Int) (u1 :: Int) -> _!_ _TUP_2 [Int, Int] [u0, u1] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: PlayMove) -> case u0 of { _ALG_ _ORIG_ DataTypes PlayMove (u1 :: Piece) (u2 :: (Int, Int)) (u3 :: (Int, Int)) (u4 :: SpecialMove) -> u2; _NO_DEFLT_ } _N_ #-}
+getBoardColour :: Board -> Colour
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AU(AE)A)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: Colour) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 3 \ (u0 :: Board) -> case u0 of { _ALG_ _ORIG_ DataTypes Board (u1 :: Array (Int, Int) BoardSquare) (u2 :: MoveNumber) (u3 :: Maybe Int) -> case u2 of { _ALG_ _ORIG_ DataTypes MoveNumber (u4 :: Int) (u5 :: Colour) -> u5; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+getHeaderInfo :: [TagStr] -> ([Char], [Char], Maybe Int, Result, [Char], [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+getMoveColour :: MoveNumber -> Colour
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AE)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: Colour) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: MoveNumber) -> case u0 of { _ALG_ _ORIG_ DataTypes MoveNumber (u1 :: Int) (u2 :: Colour) -> u2; _NO_DEFLT_ } _N_ #-}
+getOpenName :: Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _N_ _N_} _F_ _IF_ARGS_ 0 1 X 4 \ (u0 :: Int) -> _NOREP_S_ "Foo" _N_ #-}
+getOpening :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+getSquarePiece :: BoardSquare -> Maybe Piece
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+getTagStr :: [Char] -> [Char] -> [TagStr] -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+incMove :: MoveNumber -> MoveNumber
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LE)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+initMoveNumber :: MoveNumber
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+lookupBoard :: Board -> (Int, Int) -> SquareContent
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLA)U(U(P)L)" {_A_ 4 _U_ 1122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lookupBoardPiece :: Board -> (Int, Int) -> Maybe Piece
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(U(U(SS)P)AA)U(U(P)U(P))" {_A_ 5 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lookupBoardSquare :: Board -> (Int, Int) -> BoardSquare
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(U(U(SS)P)AA)U(U(P)U(P))" {_A_ 5 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lookupSquare :: Colour -> BoardSquare -> SquareContent
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "LS" _N_ _N_ #-}
+mkColBoardSq :: Colour -> Piece -> BoardSquare
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "EL" _F_ _ALWAYS_ \ (u0 :: Colour) (u1 :: Piece) -> case u0 of { _ALG_ _ORIG_ DataTypes White  -> _!_ _ORIG_ DataTypes WhitesSq [] [u1]; _ORIG_ DataTypes Black  -> _!_ _ORIG_ DataTypes BlacksSq [] [u1]; _NO_DEFLT_ } _N_ #-}
+mkPlayMove :: Piece -> (Int, Int) -> (Int, Int) -> PlayMove
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+mkResult :: [Char] -> Result
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+startBoard :: Board
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _APP_  _ORIG_ DataTypes buildBoard [ _NOREP_S_ "rnbqkbnr/pppppppp/32/PPPPPPPP/RNBQKBNR" ] _N_ #-}
+userFormatBoardPos :: (Int, Int) -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LL)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+userFormatExBoardPos :: (Maybe Int, Maybe Int) -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SS)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+userFormatFile :: Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+userFormatRank :: Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+instance Presentable Board
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (Board) _N_
+	 userFormat = _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+instance Presentable Colour
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (Colour) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+instance Presentable a => Presentable (Game a)
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 2 _U_ 2 _N_ _S_ "LS" _N_ _N_ #-}
+instance Presentable MoveNumber
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (MoveNumber) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "U(U(P)E)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+instance Presentable Piece
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (Piece) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+instance Presentable PlayMove
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (PlayMove) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "U(ELLL)" {_A_ 4 _U_ 1111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+instance Presentable Quantum
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (Quantum) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+instance Presentable Result
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (Result) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+instance Presentable SpecialMove
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (SpecialMove) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+instance Presentable SquareContent
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (SquareContent) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+instance Presentable TagStr
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (TagStr) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "U(LL)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+instance Presentable Token
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Presentable userFormat (Token) _N_
+	 userFormat = _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+instance Presentable a => Presentable [a]
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 2 _U_ 2 _N_ _S_ "LS" _N_ _N_ #-}
+instance Eq Colour
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Colour -> Colour -> Bool), (Colour -> Colour -> Bool)] [_CONSTM_ Eq (==) (Colour), _CONSTM_ Eq (/=) (Colour)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+instance Eq Piece
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Piece -> Piece -> Bool), (Piece -> Piece -> Bool)] [_CONSTM_ Eq (==) (Piece), _CONSTM_ Eq (/=) (Piece)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+instance Eq SpecialMove
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(SpecialMove -> SpecialMove -> Bool), (SpecialMove -> SpecialMove -> Bool)] [_CONSTM_ Eq (==) (SpecialMove), _CONSTM_ Eq (/=) (SpecialMove)] _N_
+	 (==) = _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_ #-}
+instance Eq SquareContent
+	{-# GHC_PRAGMA _M_ DataTypes {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(SquareContent -> SquareContent -> Bool), (SquareContent -> SquareContent -> Bool)] [_CONSTM_ Eq (==) (SquareContent), _CONSTM_ Eq (/=) (SquareContent)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+

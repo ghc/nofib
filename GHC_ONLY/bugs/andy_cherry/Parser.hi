@@ -1,0 +1,8 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Parser where
+import DataTypes(Game, Token)
+pgnLexer :: [Char] -> [Token]
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+pgnParser :: (Int -> Bool) -> [Char] -> [Game Token]
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+

@@ -7,7 +7,7 @@ SRCS_HS = Numbers.hs Vectors.hs EdgePlate.hs Matrices.hs Rotate.lhs \
 OBJS_O = Numbers.o Vectors.o EdgePlate.o Matrices.o Rotate.o Geometric.o \
 	 IO.o Solve.o Postscript.o Preds.o Cross.o Comparing.o Memo.o Hide.o Main.o
 
-NoFibMultiModuleCompileAndRun(hidden,-i hidden.stdin -o1 hidden.stdout -o1 hidden.stdout2 -o2 hidden.stderr objects/four.plate)
+NoFibMultiModuleCompileAndRun(hidden,-i hidden.stdin -o1 hidden.stdout -o1 hidden.stdout2 -o1 hidden.stdout3 -o2 hidden.stderr objects/four.plate)
 
 NoFibHaskellCompile(hidden,Numbers,hs)
 NoFibHaskellCompile(hidden,Vectors,hs)

@@ -122,8 +122,8 @@ will not occur.
  
 > upto :: Int -> Ncont -> Cont
 > upto n nc (MkEnv (r:rs) cs ts vs te ve le op)
-> --    =  nc x (MkEnv rs cs ts vs te ve le op)
->     =  appendChan stderr (show x ++ " ") exit ((nc x) (MkEnv rs cs ts vs te ve le op))
+>     =  nc x (MkEnv rs cs ts vs te ve le op)
+> --  =  appendChan stderr (show x ++ " ") exit ((nc x) (MkEnv rs cs ts vs te ve le op))
 >        where
 >        x :: Int
 >        x  =  fromIntegral (fst (properFraction (r * (fromIntegral (n+one)))))

@@ -1,0 +1,70 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Lib where
+import PreludeIO(IOError, Request, Response)
+type Coord = (Int, Int)
+type Coord2 = (Int, Int)
+absolute :: Float -> Float
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+addCoord :: (Num a, Num b) => (a, b) -> (a, b) -> (a, b)
+	{-# GHC_PRAGMA _A_ 4 _U_ 1111 _N_ _S_ "LLU(LL)U(LL)" {_A_ 5 _U_ 11221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+hd :: [a] -> a
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+hugenum :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [2147483647#] _N_ #-}
+iSqrt :: Int -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+inside :: (Int, Int) -> ((Int, Int), (Int, Int)) -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(U(P)L)U(SS)" {_A_ 4 _U_ 2111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+isDecimalFraction :: [Char] -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+isInt :: [Char] -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+isNat :: [Char] -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _S_ "LSL" _N_ _N_ #-}
+maxBy :: Ord a => (b -> a) -> [b] -> b
+	{-# GHC_PRAGMA _A_ 3 _U_ 121 _N_ _S_ "LLS" _N_ _N_ #-}
+minBy :: Ord a => (b -> a) -> [b] -> b
+	{-# GHC_PRAGMA _A_ 3 _U_ 121 _N_ _S_ "LLS" _N_ _N_ #-}
+numVal :: [Char] -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Lib strToInt _N_ #-}
+number :: [Char] -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+occurences :: Eq a => a -> [a] -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 121 _N_ _N_ _N_ _SPECIALISE_ [ Char ] 1 { _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ } #-}
+plotSurface :: [Char] -> [[Int]] -> (IOError -> [Response] -> [Request]) -> ([Response] -> [Request]) -> [Response] -> [Request]
+	{-# GHC_PRAGMA _A_ 4 _U_ 12221 _N_ _N_ _N_ _N_ #-}
+position :: Eq a => a -> [a] -> Int
+	{-# GHC_PRAGMA _A_ 3 _U_ 121 _N_ _S_ "LLS" _N_ _SPECIALISE_ [ Char ] 1 { _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ } #-}
+quadSolve :: Float -> Float -> Float -> (Float, Float)
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "U(P)LL" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+readTable :: [Char] -> [[Int]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+relativeTo :: (Num a, Num b) => (a, b) -> (a, b) -> (a, b)
+	{-# GHC_PRAGMA _A_ 4 _U_ 1111 _N_ _S_ "LLU(LL)U(LL)" {_A_ 5 _U_ 11221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+scaleCoord :: Float -> (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(LL)" {_A_ 3 _U_ 211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+sortBy :: Ord a => (b -> a) -> [b] -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 221 _N_ _N_ _N_ _N_ #-}
+sqDistance :: Num a => (a, a) -> (a, a) -> a
+	{-# GHC_PRAGMA _A_ 1 _U_ 222 _N_ _S_ "U(LLSLLLLLLL)" _N_ _N_ #-}
+strToFloat :: [Char] -> Float
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+strToInt :: [Char] -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+subCoord :: (Num a, Num b) => (a, b) -> (a, b) -> (a, b)
+	{-# GHC_PRAGMA _A_ 4 _U_ 1111 _N_ _S_ "LLU(LL)U(LL)" {_A_ 5 _U_ 11221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+tl :: [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ PreludeList tail _N_ #-}
+toDouble :: Real a => a -> Double
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _F_ _IF_ARGS_ 1 2 CX 6 _/\_ u0 -> \ (u1 :: {{Real u0}}) (u2 :: u0) -> let {(u6 :: Ratio Integer) = case u1 of { _ALG_ _TUP_3 (u3 :: {{Num u0}}) (u4 :: {{Enum u0}}) (u5 :: u0 -> Ratio Integer) -> _APP_  u5 [ u2 ]; _NO_DEFLT_ }} in _APP_  _CONSTM_ Fractional fromRational (Double) [ u6 ] _N_ #-}
+toFloat :: Real a => a -> Float
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _F_ _IF_ARGS_ 1 2 CX 6 _/\_ u0 -> \ (u1 :: {{Real u0}}) (u2 :: u0) -> let {(u6 :: Ratio Integer) = case u1 of { _ALG_ _TUP_3 (u3 :: {{Num u0}}) (u4 :: {{Enum u0}}) (u5 :: u0 -> Ratio Integer) -> _APP_  u5 [ u2 ]; _NO_DEFLT_ }} in _APP_  _CONSTM_ Fractional fromRational (Float) [ u6 ] _N_ #-}
+tupled :: (a -> b) -> (a, a) -> (b, b)
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(LL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+writeTable :: Text a => [[a]] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ } #-}
+writeTableN :: Text a => [[a]] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _N_ #-}
+

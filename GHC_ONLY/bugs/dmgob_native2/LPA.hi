@@ -1,0 +1,48 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface LPA where
+type Filter a = [a] -> [a]
+type Frame a = [a]
+type LPA_Filter = (Float, [Float])
+type Signal a = [a]
+type Window = [Float]
+analyze :: Int -> Int -> [Float] -> (Float, [Float])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _N_ _N_ _N_ #-}
+autocorr :: Fractional a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _SPECIALISE_ [ Float ] 1 { _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ } #-}
+cepstra :: (Float, [Float]) -> [Float]
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+check_for_end :: [[a]] -> [[a]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+combine :: Num a => [a] -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 111 _N_ _N_ _N_ _SPECIALISE_ [ Float ] 1 { _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ } #-}
+delayAdd :: Num a => [a] -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 212 _N_ _N_ _N_ _SPECIALISE_ [ Float ] 1 { _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ } #-}
+dot :: Num a => [a] -> [a] -> a
+	{-# GHC_PRAGMA _A_ 1 _U_ 211 _N_ _N_ _N_ _SPECIALISE_ [ Float ] 1 { _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ } #-}
+durbin :: Int -> [Float] -> (Float, [Float])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(P)S" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+durbin_step :: Fractional a => [a] -> (a, [a]) -> (a, [a])
+	{-# GHC_PRAGMA _A_ 1 _U_ 222 _N_ _N_ _N_ _SPECIALISE_ [ Float ] 1 { _A_ 2 _U_ 21 _N_ _S_ "LU(LL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ } #-}
+fir :: [Float] -> [Float] -> [Float]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+frames :: Int -> Int -> [a] -> [[a]]
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+hamming_window :: Int -> [Float]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+log10 :: Float -> Float
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+new_as :: Num a => [a] -> a -> [a]
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LSL" _N_ _SPECIALISE_ [ Float ] 1 { _A_ 2 _U_ 22 _N_ _S_ "SL" _N_ _N_ } #-}
+new_k :: Fractional a => [a] -> (a, [a]) -> a
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _S_ "U(LSAA)" {_A_ 2 _U_ 2121 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Float ] 1 { _A_ 2 _U_ 21 _N_ _S_ "LU(U(P)S)" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ } #-}
+preemph :: Float -> [Float] -> [Float]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _N_ _N_ _N_ #-}
+tails :: [a] -> [[a]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+window :: [Float] -> [Float] -> [Float]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+window' :: Num a => [a] -> [a] -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1112 _N_ _N_ _N_ _SPECIALISE_ [ Float ] 1 { _A_ 3 _U_ 112 _N_ _S_ "SLL" _N_ _N_ } #-}
+windows :: Int -> Int -> [Float] -> [[Float]]
+	{-# GHC_PRAGMA _A_ 2 _U_ 122 _N_ _N_ _N_ _N_ #-}
+

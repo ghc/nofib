@@ -1,0 +1,10 @@
+SRCS_HS = Append.lhs Main.lhs Types.lhs
+OBJS_O  = Append.o   Main.o   Types.o
+ 
+NoFibMultiModuleCompileAndRun(cvh_unboxing,-o1 cvh_unboxing.stdout)
+
+NoFibHaskellCompile(cvh_unboxing,Append,lhs)
+NoFibHaskellCompile(cvh_unboxing,Main,lhs)
+NoFibHaskellCompile(cvh_unboxing,Types,lhs)
+
+NoFibDependTarget(cvh_unboxing, $(SRCS_HS))

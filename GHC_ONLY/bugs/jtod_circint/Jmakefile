@@ -1,0 +1,11 @@
+SRCS_HS=Main.hs Bit.hs LogFun.hs Signal.hs
+OBJS_O= Main.o  Bit.o  LogFun.o  Signal.o
+
+NoFibMultiModuleCompileAndRun(jtod_circint,-o1 jtod_circint.stdout)
+
+NoFibHaskellCompile(jtod_circint,Main,hs)
+NoFibHaskellCompile(jtod_circint,Bit,hs)
+NoFibHaskellCompile(jtod_circint,LogFun,hs)
+NoFibHaskellCompile(jtod_circint,Signal,hs)
+
+NoFibDependTarget(jtod_circint, $(SRCS_HS))

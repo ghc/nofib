@@ -2,7 +2,7 @@ SRCS_HS= Norm.hs S_Array.hs Defs.hs Input_proc.hs Elefac.hs S_matrix.hs Asb_rout
 
 OBJS_O= Norm.o S_Array.o Defs.o Input_proc.o Elefac.o S_matrix.o Asb_routs.o C_matrix.o L_matrix.o Rhs_Asb_routs.o Min_degree.o Chl_routs.o Chl_decomp.o Chl_method.o Tol_cal.o Jcb_method.o TG_iter.o Main.o
 
-NoFibMultiModuleCompileAndRun(fluid,-i fluid.stdin -o1 fluid.stdout -o1 fluid.stdout2)
+NoFibMultiModuleCompileAndRun(fluid,-i fluid.stdin -o1 fluid.stdout -o1 fluid.stdout2 -o1 fluid.stdout3)
 
 NoFibHaskellCompile(fluid,Norm,hs)
 NoFibHaskellCompile(fluid,S_Array,hs)

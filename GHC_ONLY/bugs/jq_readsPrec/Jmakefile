@@ -1,0 +1,1 @@
+NoFibOneModuleCompileAndRun(jq_readsPrec,-i jq_readsPrec.stdin)

@@ -1,0 +1,7 @@
+SRCS_LHS = LPA.lhs Main.lhs
+OBJS_O   = LPA.o   Main.o
+
+NoFibMultiModuleCompileAndRun(dmgob_native2, -i dmgob_native2.stdin -o1 dmgob_native2.stdout)
+
+NoFibHaskellCompile(dmgob_native2,LPA,lhs)
+NoFibHaskellCompile(dmgob_native2,Main,lhs)

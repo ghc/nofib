@@ -75,6 +75,7 @@ CAT3(module,way,.o) : module.isuf					@@\
 #ifndef NoFibLinkPgm__
 #define NoFibLinkPgm__(progname,way,way_opts,objlistvar)		     @@\
 CAT3(all_,progname,way) :: CAT2(progname,way)				     @@\
+CAT2(all,way) :: CAT2(progname,way)					     @@\
 									     @@\
 CAT2(progname,way) :: $(objlistvar)					     @@\
 	NoFibAt $(RM) CAT2(progname,way)				     @@\
@@ -93,6 +94,7 @@ CAT3(runtest_,test,way) :: CAT2(prog,way)				@@\
 	NoFibAt size CAT2(prog,way)					@@\
 	@echo ==nofib== CAT2(test,way)\: time to run CAT2(prog,way) follows... @@\
 runtests:: CAT3(runtest_,test,way)					@@\
+CAT2(runtests,way) :: CAT3(runtest_,test,way)				@@\
 CAT3(runtest_,test,way)::						@@\
 	@$(RUNSTDTEST) CAT3(./,prog,way)		\		@@\
 		RunStdTestTimeCmd 			\		@@\
@@ -115,7 +117,9 @@ CAT3(clean_,prog,way) ::						@@\
 #define NoFibMultiModuleCompileAndRun__(testname,way,way_opts,runstdtest_opts)	@@\
 									@@\
 all :: CAT3(all_,testname,way)						@@\
+CAT2(all,way) :: CAT3(all_,testname,way)				@@\
 runtests :: CAT3(runtest_,testname,way)					@@\
+CAT2(runtests,way) :: CAT3(runtest_,testname,way)			@@\
 clean :: CAT3(clean_,testname,way)					@@\
 									@@\
 NoFibLinkPgm__(testname,way,way_opts,CAT2(OBJS_O,way))			@@\
@@ -210,6 +214,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_a,$(HC_OPTS_a),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_a(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_a,$(HC_OPTS_a))
+#define NoFibDependWay_a -s_a
 
 #else  /* ! NoFib_UserWay_a */
 #define NoFibHaskellCompile_a(test,module,isuf) /*none*/
@@ -218,6 +223,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_a(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_a(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_a(testname,runopts) /*none*/
+#define NoFibDependWay_a /*none*/
 #endif /* ! NoFib_UserWay_a */
 
 #if NoFib_UserWay_b == YES
@@ -233,6 +239,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_b,$(HC_OPTS_b),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_b(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_b,$(HC_OPTS_b))
+#define NoFibDependWay_b -s_b
 
 #else  /* ! NoFib_UserWay_b */
 #define NoFibHaskellCompile_b(test,module,isuf) /*none*/
@@ -241,6 +248,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_b(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_b(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_b(testname,runopts) /*none*/
+#define NoFibDependWay_b /*none*/
 #endif /* ! NoFib_UserWay_b */
 
 #if NoFib_UserWay_c == YES
@@ -256,6 +264,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_c,$(HC_OPTS_c),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_c(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_c,$(HC_OPTS_c))
+#define NoFibDependWay_c -s_c
 
 #else  /* ! NoFib_UserWay_c */
 #define NoFibHaskellCompile_c(test,module,isuf) /*none*/
@@ -264,6 +273,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_c(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_c(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_c(testname,runopts) /*none*/
+#define NoFibDependWay_c /*none*/
 #endif /* ! NoFib_UserWay_c */
 
 #if NoFib_UserWay_d == YES
@@ -279,6 +289,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_d,$(HC_OPTS_d),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_d(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_d,$(HC_OPTS_d))
+#define NoFibDependWay_d -s_d
 
 #else  /* ! NoFib_UserWay_d */
 #define NoFibHaskellCompile_d(test,module,isuf) /*none*/
@@ -287,6 +298,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_d(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_d(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_d(testname,runopts) /*none*/
+#define NoFibDependWay_d /*none*/
 #endif /* ! NoFib_UserWay_d */
 
 #if NoFib_UserWay_e == YES
@@ -302,6 +314,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_e,$(HC_OPTS_e),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_e(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_e,$(HC_OPTS_e))
+#define NoFibDependWay_e -s_e
 
 #else  /* ! NoFib_UserWay_e */
 #define NoFibHaskellCompile_e(test,module,isuf) /*none*/
@@ -310,6 +323,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_e(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_e(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_e(testname,runopts) /*none*/
+#define NoFibDependWay_e /*none*/
 #endif /* ! NoFib_UserWay_e */
 
 #if NoFib_UserWay_f == YES
@@ -324,7 +338,8 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibMultiModuleCompileAndRun_f(testname,runstdtest_opts) \
 	NoFibMultiModuleCompileAndRun__(testname,_f,$(HC_OPTS_f),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_f(testname,runopts) \
-	NoFibOneModuleCompileAndRun__(testname,runopts,_f,$(HC_OPTS_f))
+	NoFibOneModuleCompileAndRun__(testname,runopts,_f,$(HC_OPTS_f)
+#define NoFibDependWay_f -s_f
 
 #else  /* ! NoFib_UserWay_f */
 #define NoFibHaskellCompile_f(test,module,isuf) /*none*/
@@ -333,6 +348,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_f(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_f(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_f(testname,runopts) /*none*/
+#define NoFibDependWay_f /*none*/
 #endif /* ! NoFib_UserWay_f */
 
 #if NoFib_UserWay_g == YES
@@ -348,6 +364,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_g,$(HC_OPTS_g),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_g(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_g,$(HC_OPTS_g))
+#define NoFibDependWay_g -s_g
 
 #else  /* ! NoFib_UserWay_g */
 #define NoFibHaskellCompile_g(test,module,isuf) /*none*/
@@ -356,6 +373,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_g(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_g(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_g(testname,runopts) /*none*/
+#define NoFibDependWay_g /*none*/
 #endif /* ! NoFib_UserWay_g */
 
 #if NoFib_UserWay_h == YES
@@ -371,6 +389,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_h,$(HC_OPTS_h),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_h(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_h,$(HC_OPTS_h))
+#define NoFibDependWay_h -s_h
 
 #else  /* ! NoFib_UserWay_h */
 #define NoFibHaskellCompile_h(test,module,isuf) /*none*/
@@ -379,6 +398,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_h(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_h(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_h(testname,runopts) /*none*/
+#define NoFibDependWay_h /*none*/
 #endif /* ! NoFib_UserWay_h */
 
 #if NoFib_UserWay_i == YES
@@ -394,6 +414,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_i,$(HC_OPTS_i),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_i(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_i,$(HC_OPTS_i))
+#define NoFibDependWay_i -s_i
 
 #else  /* ! NoFib_UserWay_i */
 #define NoFibHaskellCompile_i(test,module,isuf) /*none*/
@@ -402,6 +423,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_i(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_i(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_i(testname,runopts) /*none*/
+#define NoFibDependWay_i /*none*/
 #endif /* ! NoFib_UserWay_i */
 
 #if NoFib_UserWay_j == YES
@@ -417,6 +439,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_j,$(HC_OPTS_j),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_j(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_j,$(HC_OPTS_j))
+#define NoFibDependWay_j -s_j
 
 #else  /* ! NoFib_UserWay_j */
 #define NoFibHaskellCompile_j(test,module,isuf) /*none*/
@@ -425,6 +448,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_j(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_j(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_j(testname,runopts) /*none*/
+#define NoFibDependWay_j /*none*/
 #endif /* ! NoFib_UserWay_j */
 
 #if NoFib_UserWay_k == YES
@@ -440,6 +464,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_k,$(HC_OPTS_k),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_k(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_k,$(HC_OPTS_k))
+#define NoFibDependWay_k -s_k
 
 #else  /* ! NoFib_UserWay_k */
 #define NoFibHaskellCompile_k(test,module,isuf) /*none*/
@@ -448,6 +473,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_k(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_k(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_k(testname,runopts) /*none*/
+#define NoFibDependWay_k /*none*/
 #endif /* ! NoFib_UserWay_k */
 
 #if NoFib_UserWay_l == YES
@@ -463,6 +489,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_l,$(HC_OPTS_l),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_l(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_l,$(HC_OPTS_l))
+#define NoFibDependWay_l -s_l
 
 #else  /* ! NoFib_UserWay_l */
 #define NoFibHaskellCompile_l(test,module,isuf) /*none*/
@@ -471,6 +498,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_l(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_l(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_l(testname,runopts) /*none*/
+#define NoFibDependWay_l /*none*/
 #endif /* ! NoFib_UserWay_l */
 
 #if NoFib_UserWay_m == YES
@@ -486,6 +514,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_m,$(HC_OPTS_m),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_m(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_m,$(HC_OPTS_m))
+#define NoFibDependWay_m -s_m
 
 #else  /* ! NoFib_UserWay_m */
 #define NoFibHaskellCompile_m(test,module,isuf) /*none*/
@@ -494,6 +523,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_m(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_m(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_m(testname,runopts) /*none*/
+#define NoFibDependWay_m /*none*/
 #endif /* ! NoFib_UserWay_m */
 
 #if NoFib_UserWay_n == YES
@@ -509,6 +539,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_n,$(HC_OPTS_n),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_n(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_n,$(HC_OPTS_n))
+#define NoFibDependWay_n -s_n
 
 #else  /* ! NoFib_UserWay_n */
 #define NoFibHaskellCompile_n(test,module,isuf) /*none*/
@@ -517,6 +548,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_n(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_n(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_n(testname,runopts) /*none*/
+#define NoFibDependWay_n /*none*/
 #endif /* ! NoFib_UserWay_n */
 
 #if NoFib_UserWay_o == YES
@@ -532,6 +564,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 	NoFibMultiModuleCompileAndRun__(testname,_o,$(HC_OPTS_o),runstdtest_opts)
 #define NoFibOneModuleCompileAndRun_o(testname,runopts) \
 	NoFibOneModuleCompileAndRun__(testname,runopts,_o,$(HC_OPTS_o))
+#define NoFibDependWay_o -s_o
 
 #else  /* ! NoFib_UserWay_o */
 #define NoFibHaskellCompile_o(test,module,isuf) /*none*/
@@ -540,6 +573,7 @@ don't} use ways \tr{_a} to \tr{_g} (with those visible tags).
 #define NoFibCleanupPgm_o(prog,objlistvar) /*none*/
 #define NoFibMultiModuleCompileAndRun_o(testname,runstdtest_opts) /*none*/
 #define NoFibOneModuleCompileAndRun_o(testname,runopts) /*none*/
+#define NoFibDependWay_o /*none*/
 #endif /* ! NoFib_UserWay_o */
 \end{code}
 
@@ -717,12 +751,23 @@ NoFibOneModuleCompileAndRun_o(testname,runopts)
 @NoFibDependTarget@: generate rules to compute dependencies for all
 Haskell files in @deps@.
 \begin{code}
+#ifndef NoFibDependWays
+#define NoFibDependWays \
+NoFibDependWay_a NoFibDependWay_b NoFibDependWay_c \
+NoFibDependWay_d NoFibDependWay_e NoFibDependWay_f \
+NoFibDependWay_g NoFibDependWay_h NoFibDependWay_i \
+NoFibDependWay_j NoFibDependWay_k NoFibDependWay_l \
+NoFibDependWay_m NoFibDependWay_n NoFibDependWay_o
+#endif
+
 #ifndef NoFibDependTarget
 #define NoFibDependTarget(test,deps)				@@\
 MkDependHSNeededHere(depend)					@@\
 								@@\
+MKDEPENDWAYFLAGS = NoFibDependWays				@@\
+								@@\
 depend:: deps							@@\
-	$(MKDEPENDHS) $(MKDEPENDHSFLAGS) -- $(HCFLAGS) $(CAT2(HC_OPTS_,test)) -- deps
+	$(MKDEPENDHS) $(MKDEPENDWAYFLAGS) $(MKDEPENDHSFLAGS) -- $(HCFLAGS) $(CAT2(HC_OPTS_,test)) -- deps
 #endif /* NoFibDependTarget */
 \end{code}
 

@@ -1,0 +1,11 @@
+SRCS_LHS = MaybeStateT.lhs Main.lhs
+OBJS_O   = MaybeStateT.o   Main.o
+
+NoFibMultiModuleCompileAndRun(dmgob_native1, test_data -o1 dmgob_native1.stdout)
+
+NoFibHaskellCompile(dmgob_native1,MaybeStateT,lhs)
+NoFibHaskellCompile(dmgob_native1,Main,lhs)
+
+/* "generate_vectors" is used to make the test data.
+   It can be done by hand.
+ */

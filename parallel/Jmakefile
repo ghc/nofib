@@ -3,6 +3,7 @@
 SUBDIRS = cfd 	\
 	  dcbm	\
 	  linsolv \
+	  par001 \
 	  pfib	\
 	  ray	\
 	  prsa	\
