@@ -18,6 +18,7 @@ all ::
 all :: runtests
 endif
 
+ifneq "$(HC_FAIL)" "YES"
 $(NOFIB_PROG) : $(OBJS)
 	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
@@ -26,6 +27,7 @@ $(NOFIB_PROG) : $(OBJS)
 		echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...; \
 		$(SIZE) $@; \
 	fi;
+endif
 
 ifneq "$(NOFIB_PROG)" ""
 runtests :: $(NOFIB_PROG)
