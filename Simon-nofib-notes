@@ -61,6 +61,13 @@ specialisation is broken.
 	Spectral suite
 ---------------------------------------
 
+Eliza
+~~~~~
+In June 2002, GHC 5.04 emitted four successive
+    NOTE: Simplifier still going after 4 iterations; bailing out.
+messages.  I suspect that the simplifer is looping somehow.
+
+
 Mandel
 ~~~~~~
 Relies heavily on having a specialised version of Complex.magnitude
