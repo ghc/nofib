@@ -1,0 +1,183 @@
+	--------------------------------------------
+		Notes on nofib programs
+	--------------------------------------------
+
+Every time I do performance tuning on GHC I re-discover wrinkles in
+particular nofib programs.   I intend to record these wrinkles herein.
+
+
+NOTE: With 4.09 we introduced Unicode.  That means that (C# x) always allocates,
+whereas it didn't before.  So allocations go up a bit.
+
+---------------------------------------
+	Imaginary suite
+---------------------------------------
+
+
+gen_regexps
+~~~~~~~~~~~
+I found that there were some very bad loss-of-arity cases in PrelShow.  
+  In particular, we had:
+
+	showl ""       = showChar '"' s
+	showl ('"':xs) = showString "\\\"" . showl xs
+	showl (x:xs)   = showLitChar x . showl xs
+
+  Trouble is, we get
+	showl = \xs -> case xs of
+			  ...
+			  (x:xs) -> let f = showLitChar x
+					g = showl xs
+				    in \s -> f (g x)
+  which is TERRIBLE.  We can't spot that showLitChar has arity 2 because
+  it looks like this:
+
+	...other eqns...
+        showLitChar c = showString ('\\' : asciiTab!!ord c)
+
+  notice that the (asciiTab!!orc c) is outside the \s, so GHC can't rewrite it to
+
+	showLitChar c =  \s -> showString ('\\' : asciiTab!!ord c) s
+
+  So I've changed PrelShow.showLitChar to use explicit \s.  Even then, showl
+  doesn't work, because GHC can't see that showl xs can be pushed inside the \s.
+  So I've put an explict \s there too.  
+
+	showl ""       s = showChar '"' s
+	showl ('"':xs) s = showString "\\\"" (showl xs s)
+	showl (x:xs)   s = showLitChar x (showl xs s)
+
+  Net result: imaginary/gen_regexps more than halves in allocation!
+
+
+---------------------------------------
+	Spectral suite
+---------------------------------------
+
+Multiplier
+~~~~~~~~~~
+In spectral/multiplier, we have 
+    xor = lift21 forceBit f
+      where f :: Bit -> Bit -> Bit
+	    f 0 0 = 0
+	    f 0 1 = 1
+	    f 1 0 = 1
+	    f 1 1 = 0
+  Trouble is, f is CPR'd, and that means that instead of returning
+  the constants I# 0, I# 1, it returns 0,1 and then boxes them.
+  So allocation goes up.  I don't see a way around this.
+
+
+Parstof
+~~~~~~~
+spectral/hartel/parstof ends up saying
+	case (unpackCString "x") of { c:cs -> ... }
+  quite a bit.   We should spot these and behave accordingly.
+
+
+Knights
+~~~~~~~
+In knights/KnightHeuristic, we don't find that possibleMoves is strict
+(with important knock-on effects) unless we apply rules before floating
+out the literal list [A,B,C...].
+Similarly, in f_se (F_Cmp ...) in listcompr (but a smaller effect)
+
+
+Expert
+~~~~~~
+In spectral/expert/Search.ask there's a statically visible CSE. Catching this 
+depends almost entirely on chance, which is a pity.
+
+
+
+Fish
+~~~~
+The performance of fish depends crucially on inlining scale_vec2.
+It turns out to be right on the edge of GHC's normal threshold size, so
+small changes to the compiler can knock it to and fro.
+
+
+Puzzle
+~~~~~~
+The main function is 'transfer'.  It has some complicated join points, and
+I found that in my experimental proto 4.09 compiler I had 
+
+	let ds = go xs in
+	let $j = .... ds ... in
+	case e of
+	  p1 -> $j
+	  p2 -> $j
+	  p3 -> ds
+
+But ds wasn't getting inlined because we couldn't spot that it was actually
+only being used once.   Keith's analyser should find this!
+
+
+Also, making concat into a good producer made a large gain.
+
+My proto 4.09 still allocates more, partly because of more full laziness relative
+to 4.08; I don't know why that happens
+
+
+Sphere
+~~~~~~
+A key function is vecsub, which looks like this (after w/w)
+
+$wvecsub
+  = \ ww :: Double  ww1 :: Double ww2 :: Double
+      ww3 :: Double ww4 :: Double ww5 :: Double ->
+	let { a = case ww of wild { D# x ->
+	      	  case ww3 of wild1 { D# y ->
+	      	  let { a1 = -## x y
+	      	  } in  $wD# a1
+	      	  } } } in
+	let { a1 = case ww1 of wild { D# x ->
+	      	   case ww4 of wild1 { D# y ->
+	      	   let { a2 = -## x y
+	      	   } in  $wD# a2
+	      	   } } } in
+	let { a2 = case ww2 of wild { D# x ->
+	      	   case ww5 of wild1 { D# y ->
+	      	   let { a3 = -## x y
+	      	   } in  $wD# a3
+	      	   } } 
+	} in  (# a, a1, a2 #)
+
+Currently it gets guidance: IF_ARGS 6 [2 2 2 2 2 2] 25 4
+It occurs in a context like
+
+	case $wvecsub a b c d e f of  (# p, q, r #) ->
+	case p of		      D# p' ->
+	case q of		      D# q' ->
+        case r of		      D# r' ->
+
+So it would be much, much better to inline it.  But the result-discounting
+doesn't "see" that the three results are each taken apart, and that's the
+problem.
+
+One question is this: why did minusDouble get inlined? If it didn't then
+$vecsub would look much smaller:
+
+$wvecsub
+  = \ ww :: Double  ww1 :: Double ww2 :: Double
+      ww3 :: Double ww4 :: Double ww5 :: Double ->
+	let { a  = minusDouble ww  ww3 } in
+	let { a1 = minusDouble ww1 ww4 } in
+	let { a2 = minusDouble ww2 ww5 } in
+	(# a, a1, a2 #)
+
+Reason minusDouble gets inlined: because we are trying to get update in place.
+So I added a flag -funfolding-update-in-place to enable this "optimisation".
+Omitting the flag gives much better inlining for $wvecsub at least.
+
+
+Sphere also does 60,000 calls to hPutStr, so I/O plays a major role.  Currently
+this I/O does a *lot* of allocation, much of it since the adddition of thread-safety.
+
+
+---------------------------------------
+	Real suite
+---------------------------------------
+
+
+	
