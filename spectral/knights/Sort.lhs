@@ -12,9 +12,6 @@ which can be referenced in the current scope as {\tt sort}.
 \begin{code}
 module Sort(insertSort,mergeSort,quickSort,lazySort)  where
 
-import PrelNum( Num(fromInt) )
--- import GlaExts( Num(fromInt) )	-- Shouldn't really use this in a benchmark,
-				-- but don't want change wrt old baselines
 \end{code}
 %%%%%%%%%%%%%%%%%%%%%%I n s e r t i o n   S o r t%%%%%%%%%%%%%%%%%%%%%%
 \section{Insertion Sort}
