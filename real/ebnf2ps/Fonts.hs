@@ -1,8 +1,9 @@
-{-# OPTIONS -syslib lang #-}
-
 --------------------------------------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: Fonts.hs,v $
+-- Revision 1.7  2000/01/24 17:14:26  simonmar
+-- Undo fromInt changes: already converted to fromIntegral.
+--
 -- Revision 1.6  1999/12/08 09:56:37  simonmar
 -- -syslib updates for new libraries.
 --
@@ -35,8 +36,7 @@
 module Fonts (FONT, makeFont, fontDescender, stringWidth, stringHeight, fontName, fontScale, noFont)
 where
 
-import Char
-import GlaExts ( Num(fromInt) )
+import Char--1.3
 
 -- not in 1.3
 readDec :: (Integral a) => ReadS a
