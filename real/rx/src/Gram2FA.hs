@@ -113,9 +113,9 @@ tnfa2grammar opts name b @ (TNFA consb allb startsb movesb) =
 	; let h = listToFM n	
 	; let c @ (TNFA consc allc startsc movesc) = 
 		mapTNFA opts (lookupWithDefaultFM h (error "tnfa2grammar.c")) b
-	; sequence [ push (v, Right t)   
+	; sequence_ [ push (v, Right t)   
 		| (v, ts) <- fmToList movesc, t <- setToList ts ]
-	; sequence [ push (name, Left s) | s <- setToList startsc ]
+	; sequence_[ push (name, Left s) | s <- setToList startsc ]
 	}
 
 --------------------------------------------------------------------------
@@ -123,7 +123,7 @@ tnfa2grammar opts name b @ (TNFA consb allb startsb movesb) =
 mkgs :: Opts -> Env (Auto) (Auto) -> Set String -> Exp -> [(String, Exp)]
 	-> MK String
 mkgs opts env vars x rs =
-    do	{ sequence (map (mkg opts env vars) rs)
+    do	{ sequence_ (map (mkg opts env vars) rs)
 	; start <- gensym
 	; mkg opts env vars (start, x)
 	; return start
@@ -142,7 +142,7 @@ mkg opts env vars (name, App id []) =
     push (name, Left (idname id))
 
 mkg opts env vars (name, App id xs) | idname id == "++" =
-    sequence 	[ do	{ nx <- gensym
+    sequence_ 	[ do	{ nx <- gensym
 			; push (name, Left nx) 
 			; mkg opts env vars (nx, x)
 			}

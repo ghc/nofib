@@ -13,6 +13,7 @@ where
 import Maybes
 import Char
 import Lex
+import Monad
 
 import PI
 import Ids
@@ -59,14 +60,14 @@ paOp = llitp "Op" (\ cs -> and [not (isAlphanum' c) && not(isDel c) | c <- cs])
 
 paFnLikeDef :: Bool -> PIS Id
 paFnLikeDef def = 
-    	do { cs <-         paFn; makeidS   def cs Fn Fn }
-    ++	do { n <-         paNat; makenatS  def n        }
-    ++	do { cs <- paParen paOp; makeidS   def cs Op Fn }
+    		do { cs <-         paFn; makeidS   def cs Fn Fn }
+    `mplus`	do { n <-         paNat; makenatS  def n        }
+    `mplus`	do { cs <- paParen paOp; makeidS   def cs Op Fn }
 
 paOpLikeDef :: Bool -> PIS Id
 paOpLikeDef def = 
-    	do { cs <-         paOp; makeidS   def cs Op Op }
-    ++	do { cs <- paBackq paFn; makeidS   def cs Fn Op }
+    		do { cs <-         paOp; makeidS   def cs Op Op }
+    `mplus`	do { cs <- paBackq paFn; makeidS   def cs Fn Op }
 
 
 -- normally, don't create identifiers
@@ -80,15 +81,15 @@ paOpLike = paOpLikeDef False
 paCApp :: PIS Exp
 -- a closed (parenthesised) expression
 paCApp =
-	do { xs <- paBrace (paCommas paExp); return (Coll CSet xs) }
-    ++	do { xs <- paBracket (paCommas paExp); return (Coll CList xs) }
-    ++	do { xs <- paParen (paCommas paExp)
-	   ; case xs of [x] -> return x; _ -> return (Coll CTuple xs) 
-           }
-    ++ 	do { x <- paFnLike
-	   ; x' <- putarityS (idname x) 0
-	   ; return (App x' [])
-	   }
+		do { xs <- paBrace (paCommas paExp); return (Coll CSet xs) }
+    `mplus`	do { xs <- paBracket (paCommas paExp); return (Coll CList xs) }
+    `mplus`	do { xs <- paParen (paCommas paExp)
+	   	; case xs of [x] -> return x; _ -> return (Coll CTuple xs) 
+           	}
+    `mplus` 	do { x <- paFnLike
+	  	; x' <- putarityS (idname x) 0
+		; return (App x' [])
+		}
 
 stairway :: Exp -> [Exp] -> PIS Exp
 stairway x xs =
@@ -139,17 +140,17 @@ papp id args =
 paExp :: PIS Exp
 -- sequence App op App op ... App
 paExp = 
-    do 	{ x <- paApp ++ paMCApp
+    do 	{ x <- paApp `mplus` paMCApp
 	; xs <- paExpRest
 	; return (glue (Left x : xs))
 	}
 
 -- we store Left App, Right op (these are Ids in fact)
 paExpRest = 
-    do 	{ op <- paOpLike; arg <- paApp ++ paMCApp; rest <- paExpRest
+    do 	{ op <- paOpLike; arg <- paApp `mplus` paMCApp; rest <- paExpRest
 	; return (Right op : Left arg : rest)
 	}
-    ++ return []
+    `mplus` return []
 
 ------------------------------------------------------------------
 
@@ -165,11 +166,11 @@ paCmd =
 
 	   }
 
-    ++	do { llit "unlocal"
-	   ; poplocals
-	   }
+    `mplus`	do { llit "unlocal"
+	   	; poplocals
+		}
 
-    ++	do { llit "global"
+    `mplus`	do { llit "global"
 
 	-- bit of trickery here: open new local group, read ids
 	   ; pushlocals
@@ -181,30 +182,30 @@ paCmd =
 	   ; poplocals
 	   }
 
-    ++	do { llit "infix"; n <- paNat; ops <- paCommas paOpLike
-	   ; sequence [ putprecS (idname op) n Nn | op <- ops ]
-	   }
-    ++ 	do { llit "infixl"; n <- paNat; ops <- paCommas paOpLike
-	   ; sequence [ putprecS (idname op) n Lft | op <- ops ]
-	   }
-    ++	do { llit "infixr"; n <- paNat; ops <- paCommas paOpLike
-	   ; sequence [ putprecS (idname op) n Rght | op <- ops ]
-	   }
+    `mplus`	do { llit "infix"; n <- paNat; ops <- paCommas paOpLike
+	   	; sequence_ [ putprecS (idname op) n Nn | op <- ops ]
+	   	}
+    `mplus` 	do { llit "infixl"; n <- paNat; ops <- paCommas paOpLike
+	   	; sequence_ [ putprecS (idname op) n Lft | op <- ops ]
+	   	}
+    `mplus`	do { llit "infixr"; n <- paNat; ops <- paCommas paOpLike
+	   	; sequence_ [ putprecS (idname op) n Rght | op <- ops ]
+	   	}
 
     -- obsolete?
-    ++ 	do { llit "arity"; n <- paNat; fns <- paCommas paFnLike
-	   ; sequence [ putarityS (idname fn) n | fn <- fns ]
-	   }
+    `mplus` 	do { llit "arity"; n <- paNat; fns <- paCommas paFnLike
+	   	; sequence_ [ putarityS (idname fn) n | fn <- fns ]
+	   	}
 
-    ++ 	do { llit "form"; fn <- paFnLike
-	   ; do { llit "="; cs <- paString 
-		; putformS (idname fn) (Passive cs)
-		}
-	   ++ do{ n <- paNat; llit "="; cs <- paString 
-		; putformS (idname fn) (Active n cs)
-		}
-	   ; return ()
-	   }
+    `mplus` 	do { llit "form"; fn <- paFnLike
+	   	; do { llit "="; cs <- paString 
+			; putformS (idname fn) (Passive cs)
+			}
+	   	`mplus` do{ n <- paNat; llit "="; cs <- paString 
+			; putformS (idname fn) (Active n cs)
+			}
+	   	; return ()
+	   	}
 	
 
 
@@ -214,7 +215,7 @@ paCmd =
 --paTop :: PIS (Maybe Exp)
 paTop  = 
       	do	{ paCmd ; return Nothing }
-    ++	do	{ x <- paExp ; opt (llit ";"); return (Just x) }
+    `mplus` do	{ x <- paExp ; opt (llit ";"); return (Just x) }
     
 
 -------------------------------------------------------------------

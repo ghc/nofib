@@ -2,7 +2,7 @@
 #
 #			    nofib/mk/opts.mk
 #
-# 	$Id: opts.mk,v 1.3 1998/10/21 16:47:47 sof Exp $
+# 	$Id: opts.mk,v 1.4 1999/02/10 17:03:01 simonm Exp $
 #
 #################################################################################
 
@@ -15,7 +15,7 @@
 RUNTEST_OPTS       = $(SRC_RUNTEST_OPTS) $(WAY$(_way)_RUNTEST_OPTS) \
                      $($(NOFIB_PROG)_RUNTEST_OPTS) $(EXTRA_RUNTEST_OPTS)
 
-SRC_RUNTEST_OPTS += -ghc-timing +RTS -H20m -K10m -RTS
+SRC_RUNTEST_OPTS += -ghc-timing +RTS -H10m -K10m -RTS
 
 #-----------------------------------------------------------------------------
 # Setting for Haskell compiler

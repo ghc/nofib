@@ -1,10 +1,10 @@
---%
---% (c) The GRASP/AQUA Project, Glasgow University, 1992-1996
+-- %
+-- % (c) The GRASP/AQUA Project, Glasgow University, 1992-1996
 
 -- with changes by myself (joe@informatik.uni-jena.de)
 
---%
---\section[Maybes]{The `Maybe' types and associated utility functions}
+-- %
+-- \section[Maybes]{The `Maybe' types and associated utility functions}
 --
 
 
@@ -49,20 +49,20 @@ the (Just x) = x; the Nothing = error "the"
 
 --
 --
---%************************************************************************
---%*									*
---\subsection[Maybe type]{The @Maybe@ type}
---%*									*
---%************************************************************************
+-- %************************************************************************
+-- %*									*
+-- \subsection[Maybe type]{The @Maybe@ type}
+-- %*									*
+-- %************************************************************************
 --
 maybeToBool :: Maybe a -> Bool
 maybeToBool Nothing  = False
 maybeToBool (Just x) = True
 --
---@catMaybes@ takes a list of @Maybe@s and returns a list of
---the contents of all the @Just@s in it.	@allMaybes@ collects
---a list of @Justs@ into a single @Just@, returning @Nothing@ if there
---are any @Nothings@.
+-- @catMaybes@ takes a list of @Maybe@s and returns a list of
+-- the contents of all the @Just@s in it.	@allMaybes@ collects
+-- a list of @Justs@ into a single @Just@, returning @Nothing@ if there
+-- are any @Nothings@.
 --
 
 
@@ -73,8 +73,8 @@ allMaybes (Just x  : ms) = case (allMaybes ms) of
 			     Nothing -> Nothing
 			     Just xs -> Just (x:xs)
 --
---@firstJust@ takes a list of @Maybes@ and returns the
---first @Just@ if there is one, or @Nothing@ otherwise.
+-- @firstJust@ takes a list of @Maybes@ and returns the
+-- first @Just@ if there is one, or @Nothing@ otherwise.
 --
 firstJust :: [Maybe a] -> Maybe a
 firstJust [] = Nothing
@@ -92,8 +92,8 @@ expectJust :: String -> Maybe a -> a
 expectJust err (Just x) = x
 expectJust err Nothing  = error ("expectJust " ++ err)
 --
---The Maybe monad
---~~~~~~~~~~~~~~~
+-- The Maybe monad
+-- ~~~~~~~~~~~~~~~
 seqMaybe :: Maybe a -> Maybe a -> Maybe a
 seqMaybe (Just x) _  = Just x
 seqMaybe Nothing  my = my
@@ -104,11 +104,11 @@ returnMaybe = Just
 failMaybe :: Maybe a
 failMaybe = Nothing
 --
---Lookup functions
---~~~~~~~~~~~~~~~~
+-- Lookup functions
+-- ~~~~~~~~~~~~~~~~
 --
---@assocMaybe@ looks up in an assocation list, returning
---@Nothing@ if it fails.
+-- @assocMaybe@ looks up in an assocation list, returning
+-- @Nothing@ if it fails.
 --
 assocMaybe :: (Eq a) => [(a,b)] -> a -> Maybe b
 
@@ -120,10 +120,10 @@ assocMaybe alist key
 
 
 --
---@mkLookupFun eq alist@ is a function which looks up
---its argument in the association list @alist@, returning a Maybe type.
---@mkLookupFunDef@ is similar except that it is given a value to return
---on failure.
+-- @mkLookupFun eq alist@ is a function which looks up
+-- its argument in the association list @alist@, returning a Maybe type.
+-- @mkLookupFunDef@ is similar except that it is given a value to return
+-- on failure.
 --
 mkLookupFun :: (key -> key -> Bool)	-- Equality predicate
 	    -> [(key,val)] 		-- The assoc list
@@ -146,12 +146,12 @@ mkLookupFunDef eq alist deflt s
       []    -> deflt
       (a:_) -> a
 --
---%************************************************************************
---%*									*
---\subsection[MaybeErr type]{The @MaybeErr@ type}
---%*									*
---%************************************************************************
---
+-- %************************************************************************
+-- %*									*
+-- \subsection[MaybeErr type]{The @MaybeErr@ type}
+-- %*									*
+-- %************************************************************************
+-- 
 data MaybeErr val err = Succeeded val | Failed err
 --
 thenMaB :: MaybeErr val1 err -> (val1 -> MaybeErr val2 err) -> MaybeErr val2 err
@@ -167,9 +167,9 @@ failMaB :: err -> MaybeErr val err
 failMaB e = Failed e
 --
 --
---@listMaybeErrs@ takes a list of @MaybeErrs@ and, if they all succeed, returns
---a @Succeeded@ of a list of their values.  If any fail, it returns a
---@Failed@ of the list of all the errors in the list.
+-- @listMaybeErrs@ takes a list of @MaybeErrs@ and, if they all succeed, returns
+-- a @Succeeded@ of a list of their values.  If any fail, it returns a
+-- @Failed@ of the list of all the errors in the list.
 --
 listMaybeErrs :: [MaybeErr val err] -> MaybeErr [val] [err]
 listMaybeErrs
@@ -180,9 +180,9 @@ listMaybeErrs
     combine (Succeeded v) (Failed errs)	 = Failed errs
     combine (Failed err)  (Failed errs)	 = Failed (err:errs)
 --
---@foldlMaybeErrs@ works along a list, carrying an accumulator; it
---applies the given function to the accumulator and the next list item,
---accumulating any errors that occur.
+-- @foldlMaybeErrs@ works along a list, carrying an accumulator; it
+-- applies the given function to the accumulator and the next list item,
+-- accumulating any errors that occur.
 --
 foldlMaybeErrs :: (acc -> input -> MaybeErr acc err)
 	       -> acc

@@ -34,7 +34,7 @@ recomment (c : cs) = recomment cs
 -- treat TeX operators 
 updown c = c `elem` "_^'"
 
-isAlphanum' c = isAlphanum c || updown c
+isAlphanum' c = isAlphaNum c || updown c
 
 -------------------------------------------------------
 

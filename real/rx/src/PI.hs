@@ -29,6 +29,7 @@ where
 
 import Options
 import Ids
+import Monad
 
 import IdStack
 
@@ -48,7 +49,7 @@ type PIS v = PY (Opts, IdStack) v
 ------------------------------------------------------------------------
 
 instance Functor (PY a) where
-    map f (PY p) = PY (\ x -> 
+    fmap f (PY p) = PY (\ x -> 
 	p x `act` (\ (v, x) -> (f v, x)))
 
 instance Monad (PY a) where
@@ -56,11 +57,9 @@ instance Monad (PY a) where
     PY p >>= g = PY (\ x -> 
 	p x `into` (\ (v, x') -> unPY (g v) x'))
 
-instance MonadZero (PY a) where
-    zero = PY (\ x -> failP "PY.zero")
-
 instance MonadPlus (PY a) where
-    (PY p) ++ (PY q) = PY ( \ x -> p x ||! q x )
+    mzero = PY (\ x -> failP "PY.zero")
+    (PY p) `mplus` (PY q) = PY ( \ x -> p x ||! q x )
 
 --------------------------------------------------------------------------
 
@@ -153,7 +152,7 @@ llit x = lift (lit x)
 llitp msg p = lift (litp msg p)
 
 lmany1 p = do { x <- p; xs <- lmany p; return (x : xs) }
-lmany  p = lmany1 p ++ return []
+lmany  p = lmany1 p `mplus` return []
 
 p `lsepBy1` q = 
     do 	{ x <- p
@@ -161,10 +160,10 @@ p `lsepBy1` q =
 	; return (x : ys)
 	}
 
-p `lsepBy` q = p `lsepBy1` q ++ return []
+p `lsepBy` q = p `lsepBy1` q `mplus` return []
 
 
-opt p = map Just p ++ return Nothing
+opt p = fmap Just p `mplus` return Nothing
 
 ----------------------------------------------------------------------
 

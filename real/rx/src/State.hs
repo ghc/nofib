@@ -16,7 +16,7 @@ dosym :: Sym (Int, [s]) a -> (a, [s])
 dosym (Sym f) = let ((_, x), r) = f (0, []) in (r, x)
 
 instance Functor (Sym s) where 
-	map f (Sym s) = Sym (\ c -> 
+	fmap f (Sym s) = Sym (\ c -> 
 		let (d, a) = s c in (d, f a) )
 
 instance Monad (Sym s) where

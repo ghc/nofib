@@ -43,16 +43,16 @@ import FAcon
 newtype FIO s = FIO (Either String s); unFIO (FIO n) = n
 
 instance Functor FIO where
-    map f (FIO (Left l)) = FIO (Left l)
-    map f (FIO (Right r)) = FIO (Right (f r))
+    fmap f (FIO (Left l)) = FIO (Left l)
+    fmap f (FIO (Right r)) = FIO (Right (f r))
 
 instance Monad FIO where
     return x = FIO (Right x)
     FIO (Left l) >>= f = FIO (Left l)
     FIO (Right r) >>= f = f r
 
-instance MonadZero FIO where
-    zero = FIO (Left "some error")
+-- instance MonadPlus FIO where
+--    mzero = FIO (Left "some error")
 
 oops :: String -> FIO a
 oops cs = FIO (Left cs)
