@@ -1,9 +1,0 @@
-SRCS_HS = Main.hs Rsa.hs
-OBJS_O = Main.o Rsa.o
-
-NoFibMultiModuleCompileAndRun(prsa,-o1 prsa.stdout)
-
-NoFibHaskellCompile(prsa,Main,hs)
-NoFibHaskellCompile(prsa,Rsa,hs)
-
-NoFibDependTarget(prsa, $(SRCS_HS))

@@ -19,8 +19,7 @@ import List(partition)--1.3
 import Ix--1.3
 
 import Norm 
-import {-fool mkdependHS; ToDo: rm-}
-	Parallel
+import Parallel
 
 infixl 9 !^
 

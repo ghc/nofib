@@ -1,8 +1,7 @@
 module Defs where
 
 import S_Array
-import {-fool mkdependHS; ToDo: rm-}
-	Parallel
+import Parallel
 
 type Frac_type = Float
 

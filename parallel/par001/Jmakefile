@@ -1,2 +1,0 @@
-/* see comments in Main.hs */
-NoFibOneModuleCompileAndRun(par001, 84000 -o1 par001.stdout)
