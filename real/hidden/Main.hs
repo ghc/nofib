@@ -1,11 +1,15 @@
-module Main where
+module Main(main) where
 import Numbers
 import Vectors
 import Hide
 import MyIO
-import EdgePlate	( Input(..) ) -- partain
+import EdgePlate	( Input(..) )  -- partain
 import Postscript	( Output(..) ) -- partain
+import IOHandle -- 1.3
+import IO       -- 1.3
 
-main = readChan stdin abort
-		(getFilename (process (\viewdir -> hiddenline viewdir. map read. lines)) .
-		 lines)
+main = 
+  do
+   ls <- hGetContents stdin
+   (getFilename $
+      process (\viewdir -> hiddenline viewdir. map read. lines)) (lines ls)

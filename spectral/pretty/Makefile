@@ -1,4 +1,5 @@
-TOP = ../../..
-PROG = pretty
-SRCS = CharSeq.hs Pretty.hs Main.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+-include opts.mk
+include $(TOP)/mk/target.mk
+

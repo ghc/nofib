@@ -21,16 +21,20 @@ This module gathers the others together to generate and print the program.
 > import GenType
 > import GenVal
 > import GenExp
+> import System -- 1.3 
+> import IO     -- 1.3
 
 \end{haskell}
 
 \prog{main} is the name of the main \HPG\ function.
 The Haskell report requires that the entry point to the program executable
-is called \prog{main} and is of type \prog{Dialogue}.
+is called \prog{main} and is of type \prog{IO ()e}.
 \begin{haskell}
 
-> main :: Dialogue
-> main  =  getArgs exit (parse_args defaultArgs . unlines)
+> main :: IO ()
+> main  =  do
+>   argv <- getArgs
+>   parse_args defaultArgs (unlines argv)
 
 \end{haskell}
 
@@ -68,7 +72,7 @@ It is edited from output produced by \prog{mkhprog}, a command line parser
 generator (see~\cite{north} for further details).
 \begin{haskell}
 
-> parse_args :: Args -> String -> Dialogue
+> parse_args :: Args -> String -> IO ()
 > parse_args (MkArgs x1 x2 x3 x4 x5 x6 x7 x8) ('-':'s':rest)
 >     =  readval reads
 >        (\val -> parse_args (MkArgs val x2 x3 x4 x5 x6 x7 x8)) rest
@@ -186,7 +190,7 @@ further details).
 \prog{readstring} reads a string from the command line.
 \begin{haskell}
 
-> readstring :: (String -> String -> Dialogue) -> String -> Dialogue
+> readstring :: (String -> String -> IO ()) -> String -> IO ()
 > readstring f ""  =  f "" ""
 > readstring f cs@(c:cs')
 >     =  f s t
@@ -202,8 +206,8 @@ It is used for reading integers and the random number generator seed
 values.
 \begin{haskell}
 
-> readval :: (Read a) => ReadS a -> (a -> String -> Dialogue) -> String
->                        -> Dialogue
+> readval :: (Read a) => ReadS a -> (a -> String -> IO ()) -> String
+>                        -> IO ()
 > readval readsfn f str
 >     =  case thing of
 >            []    -> usage defaultArgs
@@ -218,9 +222,9 @@ values.
 It prints a message giving a template for usage of \prog{hpg}.
 \begin{haskell}
 
-> usage :: Args -> Dialogue
+> usage :: Args -> IO ()
 > usage (MkArgs s nt dt nv dv de mn _)
->     =  appendChan stderr
+>     =  hPutStr stderr
 >        ("Usage: hpg [-s (Int,Int,Int)] [-nt Int] [-dt Int] \
 >                    \[-nv Int] [-dv Int] [-de Int] [-m String] [-o String]\n\
 >         \    -s   random number generator seeds (default " ++ show s ++ ")\n\
@@ -231,6 +235,5 @@ It prints a message giving a template for usage of \prog{hpg}.
 >         \    -de  depth of expressions to be generated (" ++ show de ++ ")\n\
 >         \    -m   output module name (" ++ mn ++ ")\n\
 >         \    -o   output file name (stdout)\n")
->        exit done
 
 \end{haskell}

@@ -2,6 +2,9 @@
 
 $Locker:  $
 $Log: HappyParser.ly,v $
+Revision 1.3  1997/03/14 08:08:08  simonpj
+Major update to more-or-less 2.02
+
 Revision 1.2  1996/07/25 21:23:57  partain
 Bulk of final changes for 2.01
 
@@ -15,6 +18,7 @@ A happy specification for the happy input language.
 > module HappyParser (theHappyParser) where
 > import AbstractSyntax
 > import Lexer
+> import PrelBase
 > }
 
 > %name localHappyParser

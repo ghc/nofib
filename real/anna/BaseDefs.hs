@@ -253,7 +253,7 @@ data Domain = Two
             | Lift1 [Domain]
             | Lift2 [Domain]
             | Func  [Domain] Domain
-              deriving (Eq, Ord, Show{-was:Text-})
+              deriving (Eq, Ord, Show, Read)
 
 data Route = Zero
            | One

@@ -1,5 +1,7 @@
 --!!! test of datatype with many unboxed fields
 --
+import PrelBase
+
 main = putStr (shows (selectee1 + selectee2) "\n")
 
 data Tfo = Tfo Float# Float# Float# Float# Float# Float# Float# Float# Float# Float# Float# Float#

@@ -3,7 +3,8 @@
 --
 import IO
 import System
-import Trace
+import IOBase (trace)
+--import Trace ToDo: get this via GlaExts -- SOF
 
 main = do
     prog <- getProgName

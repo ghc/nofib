@@ -1,5 +1,8 @@
+module Main(main) where
+
 import IO -- 1.3
-import GHCio
+import IOBase -- tryIO 1.3
+--import GHCio
 
 import Directory (removeFile)
 

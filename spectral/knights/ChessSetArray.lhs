@@ -48,6 +48,7 @@ information prevents unnecessary traversal of the trail.
 
 
 \begin{code}
+import Array
 import Sort(quickSort)
 
 type Tile     = (Int,Int)
@@ -81,8 +82,8 @@ instance Show ChessSet where
 createBoard::Int -> Tile -> ChessSet
 createBoard x t = Board x 1 t t onlyFirst
 		  where
-		     onlyFirst = empty // ((tileIndex x t):=1)
-		     empty     = array (1,x*x) [ i:=0 | i<-[1..x*x]]
+		     onlyFirst = empty // [(tileIndex x t, 1)]
+		     empty     = array (1,x*x) [ (i,0) | i<-[1..x*x]]
 
 sizeBoard::ChessSet -> Int
 sizeBoard (Board s _ _ _ _) = s
@@ -92,7 +93,7 @@ noPieces (Board _ n _ _ _) = n
 
 addPiece::Tile -> ChessSet -> ChessSet
 addPiece t (Board s n l f ts) =Board s (n+1) t f 
-				    (ts //(tileIndex s t :=n+1))
+				    (ts // [(tileIndex s t, n+1)])
 \end{code}
 
 
@@ -103,7 +104,7 @@ depending on the representation ensures the remaining trail is valid.
 \begin{code}
 deleteFirst::ChessSet -> ChessSet
 deleteFirst (Board s n l f ts) = Board s n l l 
-				       (ts // (tileIndex s f :=0))
+				       (ts // [(tileIndex s f, 0)])
 \end{code}
 
 {\bf Note:} the below function does not change the trail.

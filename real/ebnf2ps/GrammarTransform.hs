@@ -10,6 +10,9 @@
 -- 
 -- $Locker:  $
 -- $Log: GrammarTransform.hs,v $
+-- Revision 1.2  1997/03/14 08:08:06  simonpj
+-- Major update to more-or-less 2.02
+--
 -- Revision 1.1  1996/01/08 20:02:35  partain
 -- Initial revision
 --
@@ -22,6 +25,7 @@ module GrammarTransform (simplify) where
 
 import AbstractSyntax
 
+simplify :: [Production] -> [Production]
 simplify = map simplify' . simp3
 
 -- simp1 gets the body of a ProdFactor as an argument

@@ -1,5 +1,10 @@
-TOP = ../../..
-PROG = knights
-SRCS = Sort.lhs Queue.lhs ChessSetList.lhs KnightHeuristic.lhs Main.lhs
-EXTRA_RUNTESTFLAGS = 8 3
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+# SRC_HC_OPTS += -syslib hbc
+
+# Arguments for the test program
+SRC_RUNTEST_OPTS = 8 3
+
+include $(TOP)/mk/target.mk
+

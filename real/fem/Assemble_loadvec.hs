@@ -31,7 +31,7 @@ assemble  s till_now_d ii =
 	till_now_d ++ d_this'
 	where
 	d_this' = filter valid_degree (azip degrees loads)
-	valid_degree (dgr := x) = (dgr /=0)
+	valid_degree (dgr , x) = (dgr /=0)
 	degrees = getndgr s node
 	loads   = [px,py,m]
 	(node,px,py,m) = getpld s ii

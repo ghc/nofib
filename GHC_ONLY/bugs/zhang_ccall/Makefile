@@ -1,7 +1,7 @@
-TOP = ../../../..
-PROG = zhang_ccall
-LIBS = ccall.o
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
 
-ccall.o : ccall.c
-	$(CC) -c $(CFLAGS) ccall.c
+SRC_HC_OPTS += -fglasgow-exts
+
+include $(TOP)/mk/target.mk
+

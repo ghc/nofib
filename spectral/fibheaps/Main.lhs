@@ -50,7 +50,7 @@ first understand binomial queues.  See, for example, David King's
 
 > -- partain
 >module Main (main) where
->import PreludeGlaST
+>import ST
 >import Array
 >import System
 

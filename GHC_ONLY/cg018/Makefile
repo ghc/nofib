@@ -1,4 +1,7 @@
-TOP = ../../..
-PROG = cg018
-EXTRA_HCFLAGS = -fglasgow-exts
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+EXTRA_HC_OPTS += -fglasgow-exts
+
+include $(TOP)/mk/target.mk
+

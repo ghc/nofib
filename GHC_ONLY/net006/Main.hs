@@ -19,9 +19,9 @@ message	    = "Hello World"
 
 
 main =
-    socket AF_UNIX Datagram 0				>>= \ s ->
-    connect s (SockAddrUnix "sock")			>>
+    socket AF_UNIX Datagram 0		>>= \ s ->
+    connect s (SockAddrUnix "sock")	>>
     
-    writeSocket s message				>>
-    shutdown s 2					>>
+    writeSocket s message		>>
+    shutdown s ShutdownBoth		>>
     sClose s

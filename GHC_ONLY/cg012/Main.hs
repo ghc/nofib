@@ -1,5 +1,8 @@
 --!!! move arguments around on the stacks, mainly the B stack
 
+import PrelBase	( Float#, Double#, Int#, Int(..) )
+
+
 main = print foo
 
 foo = I#

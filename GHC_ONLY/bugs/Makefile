@@ -1,14 +1,4 @@
 TOP = ../../..
-SUBDIRS = 10queens andy_cherry cvh_unboxing dmgob_native1 dmgob_native2 \
-	  fast2haskell ipoole_spec_class jq_readsPrec jl_defaults \
-	  jtod_circint jules_xref jules_xref2 lennart_array lennart_range \
-	  lex life_space_leak north_array sanders_array waugh_neural \
-	  zhang_ccall
+include $(TOP)/mk/boilerplate.mk
+include $(TOP)/mk/target.mk
 
-# andre_monad: boring -- the correct answer is a divide-by-zero
-# NOT REALLY A BUG: fun_insts
-# NOT A BUG AS FAR AS I CAN TELL: north_lias
-# NOT A BUG: stk overflow is expected w/ stranal: hill_stk_oflow
-# TESTS OLD ccall (now irrelevant): areid_pass
-
-include $(TOP)/nofib/mk/nofib.mk

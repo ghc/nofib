@@ -1,6 +1,9 @@
 --------------------------------------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: Fonts.hs,v $
+-- Revision 1.3  1997/03/14 08:08:05  simonpj
+-- Major update to more-or-less 2.02
+--
 -- Revision 1.2  1996/07/25 21:23:54  partain
 -- Bulk of final changes for 2.01
 --
@@ -30,7 +33,6 @@ readInt radix isDig digToInt s =
     [(foldl1 (\n d -> n * radix + d) (map (fromInt . digToInt) ds), r)
 	| (ds,r) <- nonnull isDig s ]
 
-ord = (fromEnum :: Char -> Int)
 ord_0 :: Num a => a
 ord_0 = fromInt (ord '0')
 

@@ -1,5 +1,4 @@
 TOP = ../../..
-PROG = areid_pass
-EXTRA_RUNTESTFLAGS = 
-include $(TOP)/nofib/mk/nofib.mk
+include $(TOP)/mk/boilerplate.mk
+include $(TOP)/mk/target.mk
 

@@ -4,7 +4,7 @@ import Vectors
 import IO--1.3
 import System(getArgs)--1.3
 
-type InputCont = String -> IO ()
+type InputCont = [String] -> IO ()
 
 getFilename :: (String -> InputCont) -> InputCont
 getFilename success inp = 
@@ -33,24 +33,25 @@ usage = hPutStr stderr "Usage: hiddenline [filename of object]\n"
 
 
 getDirection,getit :: (Vector -> InputCont) -> InputCont
-getDirection success =
+getDirection success inp =
 	hPutStr stderr ("Give a view direction in the form of: x,y,z\n"++
 			   "or 'quit' to stop\n") >>
-	getit success
+	getit success inp
 
-getit success [] = return ()
+getit success          [] = return ()
 getit success ("quit":ls) = return ()
-getit success (l:ls) =
-	case  reads ("vec ["++l++"]") of
-		[(v,_)] -> success v ls
-		_ -> hPutStr stderr "again: " >> (getit success ls)
+getit success      (l:ls) =
+ case reads ("vec ["++l++"]") of
+  [(v,_)] -> success v ls
+  _       -> hPutStr stderr "again: " >> getit success ls
 
 
 process :: (Vector -> String -> String) -> String -> InputCont
 process f filename =
-	getDirection (\viewdir ->
-			readFile filename >>= \ cs ->
-			printFrom viewdir (process f filename) cs
+	getDirection 
+                (\ viewdir ls ->
+		   readFile filename >>= \ cs ->
+		   printFrom viewdir (process f filename) cs ls
 		)
-	where printFrom viewdir cont cs =
-		putStr (f viewdir cs) >> cont
+	where printFrom viewdir cont cs ls =
+		putStr (f viewdir cs) >> cont ls

@@ -1,40 +1,27 @@
-# $Id: Makefile,v 1.3 1996/11/27 18:43:03 dnt Exp $
+#################################################################################
+#
+#			    nofib/Makefile
+#
+#		Toplevel Makefile for the nofib project
+#
+# 		$Id: Makefile,v 1.4 1997/03/14 08:02:40 simonpj Exp $
+#
+#################################################################################
 
-TOP = ..
-include $(TOP)/nofib/mk/site.mk
+TOP = .
+include $(TOP)/mk/boilerplate.mk
 
-SUBDIRS =
+# Set up which parts of the nofib suite that is to be
+# run. See $(FPTOOLS_TOP)/mk/config.mk, which tells you how
+# to set NoFibSubDirs
+#
+# As usual,if you want to override these, create
+# $(FPTOOLS)/mk/build.mk containing the flags and options
+# you want to use in a build tree.
+SUBDIRS = $(NoFibSubDirs)
 
-ifeq ($(ImaginaryNoFibTests), YES)
-  SUBDIRS += imaginary
-endif
 
-ifeq ($(SpectralNoFibTests), YES)
-  SUBDIRS += spectral
-endif
+# Include the standard targets, one of which
+# causes make to descend into the SUBDIRS.
+include $(TOP)/mk/target.mk
 
-ifeq ($(RealNoFibTests), YES)
-  SUBDIRS += real
-endif
-
-ifeq ($(PENDINGNoFibTests), YES)
-  SUBDIRS += PENDING
-endif
-
-ifeq ($(UNUSEDNoFibTests), YES)
-  SUBDIRS += UNUSED
-endif
-
-ifeq ($(GHC_ONLYNoFibTests), YES)
-  SUBDIRS += GHC_ONLY
-endif
-
-ifeq ($(PRIVATENoFibTests), YES)
-  SUBDIRS += PRIVATE
-endif
-
-ifeq ($(ParallelNoFibTests), YES)
-  SUBDIRS += parallel
-endif
-
-include $(TOP)/nofib/mk/nofib.mk

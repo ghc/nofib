@@ -1,5 +1,8 @@
-TOP = ../../..
-PROG = net002
-EXTRA_RUNTESTFLAGS = -script ./not-really-hahaha
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+SRC_HC_OPTS += -syslib ghc
+SRC_RUNTEST_OPTS += -script ./not-really-hahaha
+
+include $(TOP)/mk/target.mk
 

@@ -1,6 +1,8 @@
 module Main (main) where
 
-import PreludeGlaST
+--import PreludeGlaST
+import ST
+import STBase
 
 po :: Double -> Double
 po rd = 0.5 + 0.5 * erf ((rd / 1.04) / sqrt 2)

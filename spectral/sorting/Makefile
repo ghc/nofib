@@ -1,5 +1,8 @@
-TOP = ../../..
-PROG = sorting
-SRCS = Sort.hs Main.hs
-EXTRA_RUNTESTFLAGS = -i Sort.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+# Input arguments for test
+SRC_RUNTEST_OPTS += -i Sort.hs
+
+include $(TOP)/mk/target.mk
+

@@ -1,4 +1,4 @@
-TOP = ../../../..
-PROG = jl_defaults
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
+include $(TOP)/mk/target.mk
 

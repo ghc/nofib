@@ -23,11 +23,11 @@ The interface is as follows:
 \begin{haskell}
 
 > module Env (
->     Cont(..), Ncont(..), Econt(..), Vcont(..), Xcont(..), Xscont(..),
->     Answer(..),
+>     Cont, Ncont, Econt, Vcont, Xcont, Xscont,
+>     Answer,
 >     Env, make_Env,
 >     upto, choose, choosew,
->     Output(..), default_output,
+>     Output, default_output,
 >     get_constructors, get_val_names, get_type_names, get_all_type_names,
 >     get_all_type_decls, get_all_val_decls, get_all_lambdas, get_type,
 >     get_output,
@@ -36,6 +36,7 @@ The interface is as follows:
 
 > import Config
 > import Types
+> import IO -- 1.3
 
 \end{haskell}
 
@@ -72,7 +73,7 @@ As the Haskell Program Generator produces output, its result must be of
 type \prog{Dialogue}, so \prog{Answer} is just a type synonym:
 \begin{haskell}
 
-> type Answer    =  Dialogue
+> type Answer    =  IO () --Dialogue
 
 \end{haskell}
 
@@ -122,7 +123,7 @@ will not occur.
  
 > upto :: Int -> Ncont -> Cont
 > upto n nc (MkEnv (r:rs) cs ts vs te ve le op)
->     =  nc x (MkEnv rs cs ts vs te ve le op)
+>     =  hPutStr stderr (show x ++ " ") >> nc x (MkEnv rs cs ts vs te ve le op)
 > --  =  appendChan stderr (show x ++ " ") exit ((nc x) (MkEnv rs cs ts vs te ve le op))
 >        where
 >        x :: Int
@@ -205,14 +206,15 @@ The output stream is carried as part of the environment as an element of
 type \prog{Output}, defined as:
 \begin{haskell}
 
-> type Output  =  String -> FailCont -> SuccCont -> Dialogue
+> --type Output  =  String -> FailCont -> SuccCont -> Dialogue
+> type Output  =  String -> IO ()
 
 \end{haskell}
 The default value is:
 \begin{haskell}
 
 > default_output :: Output
-> default_output  =  appendChan stdout
+> default_output  str =  putStr str
 
 \end{haskell}
 

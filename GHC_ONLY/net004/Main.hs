@@ -10,10 +10,10 @@ TESTS:
 -}
 
 
-module Main where
+module Main(main) where
 
 import SocketPrim
-import LibSystem
+import System
 
 
 starbuck    = "130.209.240.81"

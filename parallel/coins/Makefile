@@ -1,5 +1,7 @@
-TOP = ../../..
-PROG = coins
-EXTRA_HCFLAGS = -cpp
-SRCS = ParForce.hs coins.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+SRC_HC_OPTS += -cpp
+
+include $(TOP)/mk/target.mk
+

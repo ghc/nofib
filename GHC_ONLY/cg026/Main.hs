@@ -2,10 +2,12 @@
 --
 module Main ( main ) where
 
-import PreludeGlaST
+import PrelBase --ghc1.3
+import GlaExts
+import ST
 
-import Ratio -- 1.3
-import Array -- 1.3
+import Ratio   -- 1.3
+import Array   -- 1.3
 
 main = putStr
 	 (test_chars	++ "\n" ++
@@ -43,7 +45,7 @@ test_ints
 	  newIntArray (0, (size-1))	>>= \ arr# ->
 
 	    -- fill in all elements; elem i has i^2 put in it
-	  fill_in arr# 0# (size# `minusInt#` 1#) >>
+	  fill_in arr# 0# (size# -# 1#) >>
 
 	    -- freeze the puppy:
 	  freezeIntArray arr#
@@ -80,7 +82,7 @@ test_addrs
 	  newAddrArray (0, (size-1))	>>= \ arr# ->
 
 	    -- fill in all elements; elem i has i^2 put in it
-	  fill_in arr# 0# (size# `minusInt#` 1#) >>
+	  fill_in arr# 0# (size# -# 1#) >>
 
 	    -- freeze the puppy:
 	  freezeAddrArray arr#
@@ -121,7 +123,7 @@ test_floats
 	  newFloatArray (0, (size-1))	>>= \ arr# ->
 
 	    -- fill in all elements; elem i has "i * pi" put in it
-	  fill_in arr# 0# (size# `minusInt#` 1#) >>
+	  fill_in arr# 0# (size# -# 1#) >>
 
 	    -- freeze the puppy:
 	  freezeFloatArray arr#
@@ -158,7 +160,7 @@ test_doubles
 	  newDoubleArray (0, (size-1))	>>= \ arr# ->
 
 	    -- fill in all elements; elem i has "i * pi" put in it
-	  fill_in arr# 0# (size# `minusInt#` 1#) >>
+	  fill_in arr# 0# (size# -# 1#) >>
 
 	    -- freeze the puppy:
 	  freezeDoubleArray arr#

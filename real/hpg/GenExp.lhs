@@ -425,6 +425,8 @@ to the association values comprising the array, and then reassembles
 them to form the array.
 \begin{haskell}
 
+> type Assoc a b = (a,b)
+>
 > gen_array_exp :: Genfn ((Value,Value), [Assoc Value Value])
 > gen_array_exp dp ((v,v'), avs) ec
 >     =  gen_exp (dp-one) (Tuple_val [v,v'])

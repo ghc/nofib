@@ -1,4 +1,6 @@
 
+import GHC;
+import PrelBase	( Int(..) );
 import Complex;
 import Array;
 

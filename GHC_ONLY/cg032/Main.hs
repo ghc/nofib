@@ -1,5 +1,7 @@
 --!! pattern-matching failure on functions that return Int#
 
+import PrelBase --ghc1.3
+
 main = putStr (shows (I# (foo bar1 bar2)) "\n")
   where
     bar1 = Bar1 40 (39,38) resps

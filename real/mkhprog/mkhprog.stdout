@@ -1,14 +1,16 @@
 module Main (main) where
 
+import System (getArgs)
+
 defaultArgs :: Args
 defaultArgs  =  MkArgs ?? ?? ?? ?? ?? "" "" ?? ?? False ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? "" "" ?? ?? ?? False False ?? ?? ?? ?? ?? ?? ??
 
-usage :: Dialogue
-usage  =  appendChan stderr "Usage: prog [-a Int] [-b Float] [-c Foo] [-d Bar] [-e Double] [-f String] [-g String] [-h Int] [-j Double] [-k] [-n Basil] [-p Knob] [-q Wizzle] [-r Wissle] [-s Wibble] [-t Widdle] [-A Int] [-B Float] [-C Foo] [-D Bar] [-E Double] [-F String] [-G String] [-H Int] [-I Float] [-J Double] [-K] [-L] [-M Buzzle] [-N Basil] [-P Knob] [-Q Wizzle] [-R Wissle] [-S Wibble] [-T Widdle]" exit done
+usage :: IO ()
+usage  =  hPutStr stderr "Usage: prog [-a Int] [-b Float] [-c Foo] [-d Bar] [-e Double] [-f String] [-g String] [-h Int] [-j Double] [-k] [-n Basil] [-p Knob] [-q Wizzle] [-r Wissle] [-s Wibble] [-t Widdle] [-A Int] [-B Float] [-C Foo] [-D Bar] [-E Double] [-F String] [-G String] [-H Int] [-I Float] [-J Double] [-K] [-L] [-M Buzzle] [-N Basil] [-P Knob] [-Q Wizzle] [-R Wissle] [-S Wibble] [-T Widdle]"
 
 data Args  =  MkArgs Int Float Foo Bar Double String String Int Double Bool Basil Knob Wizzle Wissle Wibble Widdle Int Float Foo Bar Double String String Int Float Double Bool Bool Buzzle Basil Knob Wizzle Wissle Wibble Widdle deriving ()
 
-parse_args :: Args -> String -> Dialogue
+parse_args :: Args -> String -> IO ()
 parse_args (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 x21 x22 x23 x24 x25 x26 x27 x28 x29 x30 x31 x32 x33 x34 x35) ('-':'a':rest)
     =  readval reads (\val -> parse_args (MkArgs val x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 x21 x22 x23 x24 x25 x26 x27 x28 x29 x30 x31 x32 x33 x34 x35)) rest
 parse_args (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 x21 x22 x23 x24 x25 x26 x27 x28 x29 x30 x31 x32 x33 x34 x35) ('-':'b':rest)
@@ -83,15 +85,15 @@ parse_args (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x1
     =  usage
 parse_args (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 x21 x22 x23 x24 x25 x26 x27 x28 x29 x30 x31 x32 x33 x34 x35)  rest  =  prog x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 x21 x22 x23 x24 x25 x26 x27 x28 x29 x30 x31 x32 x33 x34 x35 (lines rest)
 
-main :: Dialogue
-main  =  getArgs exit (parse_args defaultArgs . unlines)
+main :: IO ()
+main  =  getArgs >>= (parse_args defaultArgs . unlines)
 
-readbool :: (String -> Dialogue) -> String -> Dialogue
+readbool :: (String -> IO ()) -> String -> IO ()
 readbool f ""         =  f ""
 readbool f ('\n':cs)  =  f cs
 readbool f _          =  usage
 
-readstring :: (String -> String -> Dialogue) -> String -> Dialogue
+readstring :: (String -> String -> IO ()) -> String -> IO ()
 readstring f ""  =  f "" ""
 readstring f cs@(c:cs')
     =  f s t
@@ -100,8 +102,8 @@ readstring f cs@(c:cs')
        (s,t1)  =  span ((/=) '\n') st
        t       =  if t1 == "" then t1 else (tail t1)
 
-readval :: (Text a) => ReadS a -> (a -> String -> Dialogue) -> String
-                       -> Dialogue
+readval :: (Read a) => ReadS a -> (a -> String -> IO ()) -> String
+                       -> IO ()
 readval readsfn f str
     =  case thing of
            []    -> usage

@@ -1,4 +1,5 @@
 \begin{code}
+import PrelBase
 import Types
 import Append
 

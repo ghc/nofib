@@ -1,7 +1,9 @@
 module WriteRoutines (outputCodes)
 where
 
+import PrelBase
 import Encode (CodeEvent(..))
+import IOBase -- TEMP
 
 -- Start of code added for ghc
 w2i x = word2Int# x
@@ -14,7 +16,7 @@ intRsh (I# x) (I# y) = I# (w2i (shiftRL# (i2w x) y))
 -- End of code added for ghc
 
 outputCodes :: [CodeEvent] -> (String, [Int])
-outputCodes cs = (map toEnum (fst result), snd result)
+outputCodes cs = (map (\x -> trace (show x) (toEnum x)) (fst result), snd result)
                where result = output 9 8 0 0 cs       -- assume 9 bit start
 
 output :: Int -> Int -> Int -> Int -> [CodeEvent] -> ([Int], [Int])

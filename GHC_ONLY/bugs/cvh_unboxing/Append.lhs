@@ -3,6 +3,7 @@
 \begin{code}
 module Append where
 
+import PrelBase
 import Types
 \end{code}
 

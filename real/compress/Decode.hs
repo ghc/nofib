@@ -21,6 +21,7 @@
 module Decode (decode)
 where
 
+import Prelude hiding( lookup )		-- lookup defined locally
 import Defaults
 import BinConv
 

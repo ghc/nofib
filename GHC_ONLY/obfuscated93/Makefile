@@ -1,3 +1,4 @@
 TOP = ../../..
-SUBDIRS = launchbury rittri
-include $(TOP)/nofib/mk/nofib.mk
+include $(TOP)/mk/boilerplate.mk
+include $(TOP)/mk/target.mk
+

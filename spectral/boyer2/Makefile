@@ -1,4 +1,5 @@
-TOP = ../../..
-PROG = boyer2
-SRCS = Lisplikefns.hs Checker.hs Rewritefns.hs Rulebasetext.hs Main.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+-include opts.mk
+include $(TOP)/mk/target.mk
+

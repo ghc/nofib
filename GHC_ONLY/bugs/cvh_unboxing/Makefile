@@ -1,4 +1,7 @@
-TOP = ../../../..
-PROG = cvh_unboxing
-SRCS = Types.lhs Append.lhs Main.lhs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
+
+SRC_HC_OPTS += -fglasgow-exts
+
+include $(TOP)/mk/target.mk
+

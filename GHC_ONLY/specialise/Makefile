@@ -1,3 +1,5 @@
 TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
 SUBDIRS = $(wildcard spec* code* clausify*)
-include $(TOP)/nofib/mk/nofib.mk
+include $(TARGET_MK)
+

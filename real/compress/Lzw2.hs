@@ -1,3 +1,5 @@
+--	Lzw2.hs looks like an earlier version of Lzw.hs
+
 module Main (main){-export list added by partain-} where {
 
 -- partain: with "ghc -cpp -DSLEAZY_UNBOXING", you get (guess what)?

@@ -1,4 +1,7 @@
-TOP = ../../..
-PROG = io004
-EXTRA_RUNTESTFLAGS = -x42
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+SRC_RUNTEST_OPTS += -x42
+
+include $(TOP)/mk/target.mk
+

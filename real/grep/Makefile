@@ -1,5 +1,7 @@
-TOP = ../../..
-PROG = grep
-SRCS = Parsers.hs StringMatch.hs Main.lhs
-EXTRA_RUNTESTFLAGS = grep.stdin apat
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+SRC_RUNTEST_OPTS += grep.stdin apat
+
+include $(TOP)/mk/target.mk
+

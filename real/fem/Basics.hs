@@ -8,7 +8,9 @@
 -- **********************************************************************
 
 
-module Basics(showrj,showlj, azip) where
+module Basics(showrj,showlj, azip, module Array) where
+
+import Array
 
 
 showlj, showrj :: (Show a) => Int -> a -> [Char]

@@ -1,6 +1,9 @@
 module Encode (CodeEvent(..), encode, maxBits)
 where
 
+import GHC
+import IOBase (trace) -- TEMP
+
 data PrefixTrie a b = PTNil |
                       PT a b (PrefixTrie a b) (PrefixTrie a b) (PrefixTrie a b)
 
@@ -95,6 +98,7 @@ build_table lo hi
      = if lo > hi then
            PTNil
        else let mid = (lo + hi) `div` 2 in
+	      trace (show (lo,hi,mid))
               PT (toEnum mid) mid PTNil
                    (build_table lo (mid - 1))
                    (build_table (mid + 1) hi)

@@ -1,3 +1,4 @@
-TOP = ../../../..
-PROG = sanders_array
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
+include $(TOP)/mk/target.mk
+

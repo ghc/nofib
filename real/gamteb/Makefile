@@ -1,6 +1,5 @@
-TOP = ../../..
-PROG = gamteb
-SRCS = Consts.hs GamtebType.hs Distance.hs InitTable.hs Utils.hs Pair.hs \
-       PhotoElec.hs RoulSplit.hs Compton.hs TransPort.hs Output.hs \
-       GamtebMain.hs Main.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+-include opts.mk
+include $(TOP)/mk/target.mk
+

@@ -163,15 +163,17 @@ then the following output is produced:
 \begin{verbatim}
 module Main (main) where
 
+import System (getArgs)
+
 defaultArgs :: Args
 defaultArgs  =  MkArgs False "" ??
 
-usage :: Dialogue
-usage  =  appendChan stderr "Usage: prog [-b] [-s String] [-f Foo]" exit done
+usage :: IO ()
+usage  =  print "Usage: prog [-b] [-s String] [-f Foo]"
 
 data Args  =  MkArgs Bool String Foo deriving ()
 
-parse_args :: Args -> String -> Dialogue
+parse_args :: Args -> String -> IO ()
 parse_args (MkArgs x1 x2 x3) ('-':'b':rest)
     =  readbool (parse_args (MkArgs True x2 x3)) rest
 parse_args (MkArgs x1 x2 x3) ('-':'s':rest)
@@ -182,8 +184,10 @@ parse_args (MkArgs x1 x2 x3) ('-': _ :rest)
     =  usage
 parse_args (MkArgs x1 x2 x3)  rest  =  prog x1 x2 x3 (lines rest)
 
-main :: Dialogue
-main  =  getArgs exit (parse_args defaultArgs . unlines)
+main :: IO ()
+main  = do
+   argv <- getArgs
+   parse_args defaultArgs (unlines argv)
 
 and auxiliary functions ...
 \end{verbatim}
@@ -255,6 +259,8 @@ The program starts with a module header which just exports \prog{main}.
 
 > module Main (main) where
 
+> import System (getArgs)
+
 \end{haskell}
 
 The \prog{main} function acquires the command line arguments and passes
@@ -263,8 +269,10 @@ in \prog{defaultEnv} (see Annex~\ref{env} for a description of the
 environment).
 \begin{haskell}
 
-> main :: Dialogue
-> main  =  getArgs exit (parse_args defaultEnv . unlines)
+> main :: IO ()
+> main  =  do
+>  argv <- getArgs 
+>  parse_args defaultEnv (unlines argv)
 
 \end{haskell}
 
@@ -274,7 +282,7 @@ environment \prog{e} appropriately and then passes the remainder of
 the command line and the modified environment to \prog{next}.
 \begin{haskell}
 
-> parse_args :: Env -> String -> Dialogue
+> parse_args :: Env -> String -> IO ()
 > parse_args (MkEnv x1 x2 x3) ('-':'l':rest)
 >     =  readbool (parse_args (MkEnv True x2 x3)) rest
 > parse_args (MkEnv x1 x2 x3) ('-':'m':rest)
@@ -333,11 +341,10 @@ and that none of the characters are duplicated.
 \prog{usage} prints a message saying how \prog{mkhprog} should be used.
 \begin{haskell}
 
-> usage :: Dialogue
-> usage
->     =  appendChan stderr
->        "Usage: mkhprog [-l] [-m module_name] [-o file_name] [[-flag type] ...]"
->        exit done
+> usage :: IO ()
+> usage = 
+>     putStr
+>      "Usage: mkhprog [-l] [-m module_name] [-o file_name] [[-flag type] ...]"
 
 \end{haskell}
 
@@ -360,7 +367,7 @@ functions, each generating one part.
 
 > do_header :: Cont -> Cont
 > do_header c
->     =  modname (\s -> writeln ("module " ++ s ++ " (main) where") c)
+>     =  modname (\s -> writeln ("module " ++ s ++ " (main) where\n\nimport System (getArgs)") c)
 
 \end{haskell}
 
@@ -388,9 +395,9 @@ command line arguments are invalid.
 
 > do_usage :: [(String, String)] -> Cont -> Cont
 > do_usage sps
->     =  writeln "usage :: Dialogue"
->        . writeln ("usage  =  appendChan stderr \"Usage: prog"
->                   ++ concat (map f sps) ++ "\" exit done")
+>     =  writeln "usage :: IO ()"
+>        . writeln ("usage  =  hPutStr stderr \"Usage: prog"
+>                   ++ concat (map f sps) ++ "\"")
 >        where
 >        f (['-',c], "Bool")  =  " [-" ++ [c] ++ "]"
 >        f (['+',c], "Bool")  =  " [(+|-)" ++ [c] ++ "]"
@@ -418,7 +425,7 @@ main program, \prog{prog}.
 
 > do_parse_args :: [(String, String)] -> Cont -> Cont
 > do_parse_args sps
->     =  writeln "parse_args :: Args -> String -> Dialogue"
+>     =  writeln "parse_args :: Args -> String -> IO ()"
 >        . foldr (.) end
 >        (zipWith3 do_one_flag (repeat n) [1..] sps)
 >        where
@@ -456,16 +463,16 @@ The functions are described in Annex~\ref{auxfns}
 
 > do_auxfns :: Cont -> Cont
 > do_auxfns
->     =    writeln "main :: Dialogue\n\
->                  \main  =  getArgs exit (parse_args defaultArgs . unlines)"
+>     =    writeln "main :: IO ()\n\
+>                  \main  =  getArgs >>= (parse_args defaultArgs . unlines)"
 >        . nl
->        . writeln "readbool :: (String -> Dialogue) -> String -> Dialogue\n\
+>        . writeln "readbool :: (String -> IO ()) -> String -> IO ()\n\
 >                  \readbool f \"\"         =  f \"\"\n\
 >                  \readbool f ('\\n':cs)  =  f cs\n\
 >                  \readbool f _          =  usage"
 >        . nl
->        . writeln "readstring :: (String -> String -> Dialogue) -> String \
->                                \-> Dialogue\n\
+>        . writeln "readstring :: (String -> String -> IO ()) -> String \
+>                                \-> IO ()\n\
 >                  \readstring f \"\"  =  f \"\" \"\"\n\
 >                  \readstring f cs@(c:cs')\n\
 >                  \    =  f s t\n\
@@ -475,8 +482,8 @@ The functions are described in Annex~\ref{auxfns}
 >                  \       t       =  if t1 == \"\" then t1 else (tail t1)"
 >        . nl
 >        . writeln "readval :: (Read a) => ReadS a \
->                             \-> (a -> String -> Dialogue) -> String\n\
->                  \                       -> Dialogue\n\
+>                             \-> (a -> String -> IO ()) -> String\n\
+>                  \                       -> IO ()\n\
 >                  \readval readsfn f str\n\
 >                  \    =  case thing of\n\
 >                  \           []    -> usage\n\
@@ -557,17 +564,17 @@ and then executes its continuation, \prog{c}.
 > writeln :: String -> Cont -> Cont
 > writeln str c
 >     =  islit (\b ->
->        output (\f ->
+>        output (\f env ->
 >            let
 >              str'   =  (if b then (lit str) else str) ++ "\n"
 >              lit s  =  "> " ++ foldr ((++) . conv) "" s
 >              conv '\n'  =  "\n> "
 >              conv c     =  [c]
 >	     in
->		f str' exit . c))
+>		f str' >> c env))
 
 > nl :: Cont -> Cont
-> nl c  =  output (\f -> f "\n" exit . c)
+> nl c = output (\f env -> f "\n" >> c env)
 
 \end{haskell}
 
@@ -604,7 +611,7 @@ newline or nothing: if it is, then \prog{f} is applied to the rest of
 the string \prog{str}; if not, \prog{usage} is called.
 \begin{haskell}
 
-> readbool :: (String -> Dialogue) -> String -> Dialogue
+> readbool :: (String -> IO ()) -> String -> IO ()
 > readbool f ""         =  f ""
 > readbool f ('\n':cs)  =  f cs
 > readbool f _          =  usage
@@ -624,7 +631,7 @@ remainder of \prog{str} after removing \prog{s} and a newline character, if
 \prog{s} is followed by one.
 \begin{haskell}
 
-> readstring :: (String -> String -> Dialogue) -> String -> Dialogue
+> readstring :: (String -> String -> IO ()) -> String -> IO ()
 > readstring f ""  =  f "" ""
 > readstring f cs@(c:cs')
 >       =  f s t
@@ -648,8 +655,8 @@ Since \prog{mkhprog} does not itself use \prog{readval}, its code does
 not form part of this literate Haskell script.
 \begin{verbatim}
 
-readval :: (Read a) => ReadS a -> (a -> String -> Dialogue) -> String
-		       -> Dialogue
+readval :: (Read a) => ReadS a -> (a -> String -> IO ()) -> String
+		       -> IO ()
 readval readsfn f str
     =  case thing of
            []    -> usage
@@ -670,7 +677,7 @@ the rest of the program's output.
 Thus we may define a data type for continuations thus:
 \begin{haskell}
 
-> type Cont  =  Env -> Dialogue
+> type Cont  =  Env -> IO ()
 
 \end{haskell}
 
@@ -678,7 +685,7 @@ The null continuation, which does nothing, is
 \begin{haskell}
 
 > stop :: Cont
-> stop e  =  done
+> stop e  =  return ()
 
 \end{haskell}
 
@@ -745,8 +752,8 @@ argument to the output channel given by the \prog{Output} environment
 component.
 \begin{haskell}
 
-> output :: ((String -> FailCont -> SuccCont -> Dialogue) -> Cont) -> Cont
-> output oc e@(MkEnv _ _ Stdout)    =  oc (appendChan stdout) e
+> output :: ((String -> IO ()) -> Cont) -> Cont
+> output oc e@(MkEnv _ _ Stdout)    =  oc (putStr) e
 > output oc e@(MkEnv _ _ (File f))  =  oc (appendFile f) e
 
 \end{haskell}

@@ -1,5 +1,6 @@
-module GHCmain where
+module Main(mainPrimIO) where
 
-import PreludeGlaST
+import ST
+import STBase
 
-mainPrimIO = _ccall_ puts "123\n"
+mainPrimIO = _ccall_ puts "123\n" >> return ()

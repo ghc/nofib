@@ -1,11 +1,14 @@
 -- mimic "hbc_library" module, Word.
 -- [seriously non-std Haskell here]
---
+
 module Word2 (
 	Bits(..),		-- class
 	Byte, Short, Word,	-- data types: abstract
 	byteToInt, shortToInt, wordToInt
     ) where
+
+import GHC
+import PrelBase
 
 infixl 8 `bitLsh`, `bitRsh`
 infixl 7 `bitAnd`

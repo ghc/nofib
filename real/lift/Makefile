@@ -1,4 +1,5 @@
-TOP = ../../..
-PROG = lift
-SRCS = Utilities.lhs LambdaLift.lhs Print.lhs Test.hs Main.lhs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+-include opts.mk
+include $(TOP)/mk/target.mk
+

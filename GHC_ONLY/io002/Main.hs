@@ -4,9 +4,11 @@ main =
     getEnv "TERM" >>= \ term -> 
     putStr term >>
     putChar '\n' >>
-    getEnv "One fish, two fish, red fish, blue fish" >>= \ fish -> 
-    putStr fish >>
-    putChar '\n'
+    (getEnv "One fish, two fish, red fish, blue fish" >>= \ fish -> 
+      putStr fish >> putChar '\n')
+      `catch`
+    (\ err ->putStr (show err) >> putChar '\n')
+
 
 
 

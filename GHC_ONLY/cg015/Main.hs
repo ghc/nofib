@@ -1,13 +1,14 @@
 module GHCmain ( mainPrimIO ) where
 
-import PreludeGlaST
+import GlaExts
+import PrelBase
 
 data CList = CNil | CCons Int# CList
 
 mk :: Int# -> CList
 mk n  = if (n ==# 0#)
 	then CNil
-	else CCons 1# (mk (n `minusInt#` 1#))
+	else CCons 1# (mk (n -# 1#))
 
 clen :: CList -> Int#
 clen CNil = 0#

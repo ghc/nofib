@@ -1,4 +1,7 @@
-TOP = ../../../..
-PROG = fast2haskell
-SRCS = Word2.hs Fast2haskell.hs Main.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
+
+SRC_HC_OPTS += -fglasgow-exts
+
+include $(TOP)/mk/target.mk
+

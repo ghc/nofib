@@ -1,0 +1,20 @@
+#################################################################################
+#
+#			Leaf Makefile template for nofib
+#
+#		Copy this Makefile to each new leaf nofib program directory,
+#			and fill in any program-specific stuff
+#
+#################################################################################
+
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+
+# Program-specific stuff goes here.
+# Notably, you can add extra compile, link, or runtests options
+#	SRC_HC_OPTS += ...
+#	SRC_LD_OPTS += ...
+#	SRC_RUNTEST_OPTS += ...
+
+include $(TOP)/mk/target.mk
+

@@ -22,14 +22,14 @@ pretty x
           = "\n  " ++ show (h+1) ++ " contains " ++ show x
              ++ f (n+x) (h+1) xs
 
-main resps 
-   = [AppendChan stdout banner,
-      ReadChan stdin,
-      mySeq d (AppendChan stdout 
-              ( "\n\n" ++ pretty (map length (amAllUpSlices d))))]
-      where 
-         inText = (\(Str s) -> s) (resps !! 1)
+main
+   = putStr banner	>>
+     getContents	>>= \ inText ->
+     let
          d = first (head (reads inText))
+     in
+     mySeq d (putStr ("\n\n" ++ pretty (map length (amAllUpSlices d))))
+   where 
          banner = concat 
                    [ "\nMonster 0.400r: generates all points in a domain.\n",
                      "Copyright (c) Julian Seward 1992",

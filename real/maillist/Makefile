@@ -1,6 +1,5 @@
-TOP = ../../..
-PROG = maillist
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+-include opts.mk
+include $(TOP)/mk/target.mk
 
-clean ::
-	$(RM) addresses.tex

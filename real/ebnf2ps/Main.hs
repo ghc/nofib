@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: Main.hs,v $
+-- Revision 1.3  1997/03/14 08:08:10  simonpj
+-- Major update to more-or-less 2.02
+--
 -- Revision 1.2  1996/07/25 21:24:02  partain
 -- Bulk of final changes for 2.01
 --
@@ -117,7 +120,7 @@ program
 		    _ -> appendChan stderr ("Could not parse "++bnfName++"\n") exit done))))
 	      in
 		getPath "RGBPATH" rgbPathDefault (\rgbPath ->
-		readPathFile rgbPath rgbFileName fc sc))))
+		readPathFile rgbPath rgbFileName fc sc)
     where
 	afmPathDefault      = ["/usr/local/tex/Adobe", "/usr/local/tex/lib/TeXPS/afm", "."]
 	ebnfInputDefault    = ["."]

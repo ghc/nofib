@@ -1,4 +1,4 @@
-TOP = ../../../..
-PROG = 10queens
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
+include $(TOP)/mk/target.mk
 

@@ -1,12 +1,14 @@
 \begin{code}
-import PreludeGlaST
-import GHCio(stThen)
+module Main(main) where
+
+--import PreludeGlaST
+--old:import GHCio(stThen)
 --old:import PreludeGlaMisc
 
-main =	makeStablePtr test	`stThen` \ stablePtr ->
+main =	makeStablePtr test	>>= \ stablePtr ->
 	((_casm_GC_ ``SaveAllStgRegs(); test1(%0); RestoreAllStgRegs();'' stablePtr)
 						:: PrimIO ())
-				`stThen` \ _ ->
+				>>= \ _ ->
 	return ()
 
 test :: IO Int
@@ -16,8 +18,8 @@ test =
 	in 
 	_ccall_ printf
 	      "The stable pointer has just been used to print this number %d\n" (f 100)
-				`stThen` \ _ ->
-	return 42
+				>>= \ _ ->
+	return 5
 \end{code}
 
 This is a rather exciting experiment in using the new call

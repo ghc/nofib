@@ -32,7 +32,7 @@ import Matrix
 
 -- This is a test module
 
-main x = [AppendChan stdout blah]
+main = print blah
 
 -- blah = go 5 plane  -- do a profile plot on this...
 -- blah = go 5 (Geom g (RotY 0.1))

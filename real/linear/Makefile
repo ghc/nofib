@@ -1,5 +1,5 @@
-TOP = ../../..
-PROG = linear
-SRCS = Utils.lhs Densematrix.lhs AbsDensematrix.lhs Matrix.lhs Misc.lhs \
-       Input.lhs Cg.lhs AbsCg.lhs Matlib.lhs Absmatlib.lhs Main.lhs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+-include opts.mk
+include $(TOP)/mk/target.mk
+

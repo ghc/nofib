@@ -1,8 +1,8 @@
-# $Id: Makefile,v 1.2 1996/11/26 14:39:54 dnt Exp $
-
 TOP = ../../..
+include $(TOP)/mk/boilerplate.mk
+SUBDIRS= comp_lab_zift wave4main wang typecheck transform \
+solid sched nucleic2 parstof listcopy listcompr ida genfft fft \
+event
 
-SUBDIRS = comp_lab_zift event fft genfft ida listcompr listcopy \
-  nucleic2 parstof sched solid transform typecheck wang wave4main
+include $(TOP)/mk/target.mk
 
-include $(TOP)/nofib/mk/nofib.mk

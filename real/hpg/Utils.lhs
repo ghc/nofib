@@ -13,6 +13,7 @@ This module contains useful utility functions needed throughout the \HPG.
 >     cmap, rep, print_str, split_str, finish
 >     ) where
 
+> import Char
 > import Config
 > import Types
 > import Env
@@ -58,7 +59,7 @@ then executes its continuation, \prog{c}.
 \begin{haskell}
 
 > print_str :: String -> Cont -> Cont
-> print_str s c  =  get_output (\op -> op s exit . c)
+> print_str s c  =  get_output (\ op e -> op s >> c e)
 
 \end{haskell}
 
@@ -89,6 +90,6 @@ line characters in \prog{s}.
 \begin{haskell}
 
 > finish :: Cont
-> finish e  =  done
+> finish e  = return ()
 
 \end{haskell}

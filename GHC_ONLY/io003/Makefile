@@ -1,4 +1,5 @@
-TOP = ../../..
-PROG = io003
-EXTRA_RUNTESTFLAGS = with some arguments
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+EXTRA_RUNTEST_OPTS = with some arguments
+include $(TOP)/mk/target.mk
+

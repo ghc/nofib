@@ -3,6 +3,8 @@
 --
 module Main ( main ) where
 
+import PrelBase
+
 main = do
     putStr (shows (sum ([1..1{-30-}]++[1..1{-40-}]++[11,22])) "\n")
     putStr (shows (prog 1{-30-} 1{-40-}) "\n")
@@ -33,9 +35,9 @@ add_up :: Int# -> [Foo a] -> [Foo a] -> Int#
 
 add_up acc [] [] = acc
 add_up acc [] ys  = add_up acc ys []
-add_up acc (x:xs) (y:ys) = add_up (acc `plusInt#` add x y) xs ys
+add_up acc (x:xs) (y:ys) = add_up (acc +# add x y) xs ys
 add_up acc (x:xs) [] = add_up acc xs []
 
 add :: Foo a -> Foo a -> Int#
 add (MkFoo _ _ _ _ _ x) (MkFoo _ _ _ _ _ y)
-  = x `plusInt#` y
+  = x +# y

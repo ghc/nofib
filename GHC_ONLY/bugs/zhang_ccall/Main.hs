@@ -1,6 +1,6 @@
 module Main where
 
-import PreludeGlaST
+import STBase
 
 main = putStr (shows res "\n")
 	where

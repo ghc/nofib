@@ -3,6 +3,7 @@
 \begin{code}
 module Mandel where
 import PortablePixmap
+import Complex
 default ()
 
 \end{code}
@@ -33,7 +34,7 @@ mandel c@(cr :+ ci)  = infiniteMandel
            where
 		infiniteMandel = c : (map fn infiniteMandel)
 		fn::Complex Double -> Complex Double
-		fn (r :+ i) = ((r*r) - (i*i) + cr ) :+ (2*(r*i)) + ci
+		fn (r :+ i) = ((r*r) - (i*i) + cr ) :+ ((2*(r*i)) + ci)
 \end{code}
 The function @mandel@ is the functional equivalent of the mandelbrot
 polynomial(\ref{poly}); operationally it generates an infinite list of 

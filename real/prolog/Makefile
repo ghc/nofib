@@ -1,4 +1,6 @@
-TOP = ../../..
-PROG = prolog
-SRCS = Parse.hs PrologData.hs Interact.hs Subst.hs Engine.hs Version.hs Main.hs
-include $(TOP)/nofib/mk/nofib.mk
+TOP = ../..
+include $(TOP)/mk/boilerplate.mk
+HS_SRCS:=$(filter-out PureEngine.hs StackEngine.hs,$(HS_SRCS))
+-include opts.mk
+include $(TOP)/mk/target.mk
+

@@ -1,4 +1,4 @@
-module Postscript(Output(..),draw)where
+module Postscript(Output, draw)where
 import Numbers
 import Vectors
 import EdgePlate

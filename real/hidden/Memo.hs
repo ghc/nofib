@@ -3,8 +3,10 @@ import Numbers
 import Vectors
 import EdgePlate
 import Comparing(above)
+import Ix
+import Array
 
-data Triangle a = a :^ a deriving (Eq,Ord)
+data Triangle a = a :^ a deriving (Eq,Ord, {-1.3-}Show)
 
 instance (Enum a,Ix a) => Ix (Triangle a) where
 	range (t0 :^ b0 , t1 :^ b1) =
@@ -21,7 +23,7 @@ instance (Enum a,Ix a) => Ix (Triangle a) where
 
 mkmemo :: (Plate -> Plate -> a) -> Object -> Array (Triangle Int) a
 mkmemo f obj =
-	array (2:^1 , len:^(len-1)) [(top:^bottom) := f ls ks
+	array (2:^1 , len:^(len-1)) [((top:^bottom) , f ls ks)
 				    |ls@(Plt top _) <- obj
 				    ,ks@(Plt bottom _) <- obj
 				    ,top > bottom]
