@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Miscellaneous stuff for the frontiers algorithm.   ===--
---===                                    FrontierMisc.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Miscellaneous stuff for the frontiers algorithm.   ===--
+-- ===                                    FrontierMisc.hs ===--
+-- ==========================================================--
 
 module FrontierMisc2 where
 import BaseDefs
@@ -14,7 +14,7 @@ import AbstractMisc
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 fsZULB :: Rep -> Rep -> Rep
 
@@ -31,7 +31,7 @@ fsZULB_2 (Min1Max0 aru f1u f0u) (Min1Max0 arl f1l f0l)
    = Min1Max0 aru f1l f0u
 
 
---==========================================================--
+-- ==========================================================--
 --
 fmSelect :: Int ->
             [FrontierElem] ->
@@ -55,7 +55,7 @@ fmSelect a_rand up_space down_space fromTop
          else Just (first  selected_pair)
 
 
---==========================================================--
+-- ==========================================================--
 --
 fmIsNothing :: Maybe a -> Bool
 
@@ -63,7 +63,7 @@ fmIsNothing Nothing   = True
 fmIsNothing (Just _)  = False
 
 
---==========================================================--
+-- ==========================================================--
 --
 fmMaxIntersection :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -71,7 +71,7 @@ fmMaxIntersection xx yy
    = avMaxfrel [ x `avGLBfrel` y | x <- xx, y <- yy ]
 
 
---==========================================================--
+-- ==========================================================--
 --
 fmMinIntersection :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -79,7 +79,7 @@ fmMinIntersection xx yy
    = avMinfrel [ x `avLUBfrel` y | x <- xx, y <- yy ]
 
 
---==========================================================--
+-- ==========================================================--
 --
 fmReviseMinXX :: [Domain] ->
                  [FrontierElem] -> 
@@ -101,7 +101,7 @@ fmReviseMinXX ds trial_min_xx args
          optimised_result
 
 
---==========================================================--
+-- ==========================================================--
 --
 fmReviseMaxYY :: [Domain] -> 
                  [FrontierElem] -> 
@@ -123,6 +123,6 @@ fmReviseMaxYY ds trial_max_yy args
          optimised_result
 
 
---==========================================================--
---=== end                                FrontierMisc.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                FrontierMisc.hs ===--
+-- ==========================================================--

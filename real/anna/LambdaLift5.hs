@@ -1,8 +1,8 @@
 
---==========================================================--
---=== The Lambda-lifter                                  ===--
---===                                     LambdaLift5.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === The Lambda-lifter                                  ===--
+-- ===                                     LambdaLift5.hs ===--
+-- ==========================================================--
 
 module LambdaLift5 where
 import BaseDefs
@@ -12,7 +12,7 @@ import Dependancy
 
 import List(nub) -- 1.3
 
---==========================================================--
+-- ==========================================================--
 -- First, put "split" lambda abstractions back together.
 -- Largely decorative, but it seems like a sensible thing to do.
 --
@@ -34,7 +34,7 @@ llMergeLams (ELet rf defs e)
    = ELet rf (map2nd llMergeLams defs) (llMergeLams e)
 
 
---==========================================================--
+-- ==========================================================--
 -- Now give a name to all anonymous lambda abstractions.
 -- As it happens, they all get the same name, but that's not
 -- a problem: they get different names later on.
@@ -58,7 +58,7 @@ llName (ELet rf defs e)
         fix (n, non_lam_e) = (n, llName non_lam_e)
 
 
---==========================================================--
+-- ==========================================================--
 -- Next, travel over the tree and attach a number to each
 -- name, making them all unique.  This implicitly defines the
 -- scope bindings used.
@@ -109,7 +109,7 @@ llUnique ns dict (ELet rf defs e)
      in (final_ns, ELet rf new_defs new_e)
 
 
---==========================================================--
+-- ==========================================================--
 -- Makes sure a set of names is unique.
 --
 llCheckUnique :: [Naam] -> 
@@ -126,7 +126,7 @@ llCheckUnique names
            else myFail ("Duplicate identifiers in the same scope:\n\t" ++ show dups)
 
 
---==========================================================--
+-- ==========================================================--
 -- By now each variable is uniquely named, let bound vars have
 -- been given a leading underscore, and, importantly, each lambda term
 -- has an associated let-binding.  Now do a free variables pass.
@@ -173,7 +173,7 @@ llFreeVars (ECase e alts)
      in (utSetUnion eFree free, ACase e' alts')
 
 
---==========================================================--
+-- ==========================================================--
 -- Extract the set equations.
 --
 llEqns :: AnnExpr Naam (Set Naam) ->
@@ -197,7 +197,7 @@ llEqns (_, ALet rf defs body)
      in  eqnsHere ++ innerEqns ++ nextEqns
 
 
---==========================================================--
+-- ==========================================================--
 -- Now we use the information from the previous pass to
 -- fix up usages of functions.
 --
@@ -239,7 +239,7 @@ llAddParams env (_, ALet rFlag defs body)
              in (n, ELam new_params (llAddParams env (df, non_lambda_rhs)))
 
 
---==========================================================--
+-- ==========================================================--
 -- The only thing that remains to be done is to flatten
 -- out the program, by lifting out all the let (and hence lambda)
 -- bindings to the top level.
@@ -293,7 +293,7 @@ llFlatten (ELet rf dl rhs)
         inside (name, (inDs, frhs)) = inDs
 
 
---==========================================================--
+-- ==========================================================--
 -- The transformed program is now correct, but hard to read
 -- because all variables have a number on.  This function
 -- detects non-contentious variable names and deletes 
@@ -355,7 +355,7 @@ llPretty (scDefs, scFrees)
         (scDefs2, scFrees2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 llSplitSet :: Set Naam -> (Set Naam, Set Naam)
 
@@ -366,7 +366,7 @@ llSplitSet list
             (fs, vs) -> (utSetFromList fs, utSetFromList vs)
 
 
---==========================================================--
+-- ==========================================================--
 --
 llZapBuiltins :: [Naam] -> Eqn -> Eqn
 
@@ -374,7 +374,7 @@ llZapBuiltins builtins (EqnNVC n v c)
    = EqnNVC n v (utSetFromList (filter (`notElem` builtins) (utSetToList c)))
 
 
---==========================================================--
+-- ==========================================================--
 --
 llSolveIteratively :: [Eqn] -> AList Naam (Set Naam)
 
@@ -392,7 +392,7 @@ llSolveIteratively eqns
              in  case llSplitSet allSub of (facc, vacc) -> (n, vacc)
 
 
---==========================================================--
+-- ==========================================================--
 -- Map a function over a core tree.
 -- *** Haskell-B 9972 insists on restricted signature, why? ***
 --
@@ -412,7 +412,7 @@ llMapCoreTree f (ECase sw alts)
         [(cn, (map f ps, llMapCoreTree f rhs)) | (cn, (ps, rhs)) <- alts]
 
 
---==========================================================--
+-- ==========================================================--
 --
 llMain :: [Naam] ->
           CExprP Naam ->
@@ -444,6 +444,6 @@ llMain builtInNames expr doPretty =
    in  (exprDepended, prettyNewParams)
 
 
---==========================================================--
---=== end                                 LambdaLift5.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                 LambdaLift5.hs ===--
+-- ==========================================================--

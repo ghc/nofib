@@ -13,6 +13,10 @@ module Parse
 
 import Char -- 1.3
 
+#if __HASKELL1__ < 5
+#define isAlphaNum isAlphanum
+#endif
+
 infixr 1      `elseP`
 infix  2      `thenP`
 infix  2      `eachP`
@@ -74,7 +78,7 @@ upperP        =  isUpper    `filterP` itemP
 lowerP        =  isLower    `filterP` itemP
 alphaP        =  isAlpha    `filterP` itemP
 digitP        =  isDigit    `filterP` itemP
-alphanumP     =  isAlphanum `filterP` itemP
+alphanumP     =  isAlphaNum `filterP` itemP
 surroundP             :: String -> Parses x -> String -> Parses x
 surroundP l xP r      =  lexP l       `thenP` (\_ ->
                          xP           `thenP` (\x ->

@@ -10,6 +10,10 @@
 -- 
 -- $Locker:  $
 -- $Log: Color.hs,v $
+-- Revision 1.3  1999/01/18 19:38:46  sof
+-- Misc (backward compatible) changes to make srcs acceptable
+-- to a Haskell 98 compiler.
+--
 -- Revision 1.2  1996/07/25 21:23:51  partain
 -- Bulk of final changes for 2.01
 --
@@ -29,6 +33,7 @@ import List ((\\)) -- 1.3
 
 type Color = (Int, Int, Int)
 
+noColor :: Color
 noColor = (-1, -1, -1)
 
 {-

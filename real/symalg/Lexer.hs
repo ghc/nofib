@@ -2,6 +2,10 @@ module Lexer (Lexeme(..), lexer) where
 
 import Char -- 1.3
 
+#if __HASKELL1__ < 5
+#define isAlphaNum isAlphanum
+#endif
+
 -- lexeme
 data Lexeme = Ide String
 	    | Evar String
@@ -19,7 +23,7 @@ lexer ""      = ([], True)
 lexer r@(c:s) = 
 	if isSpace c      then lexer (dropWhile isSpace s)
 	else if isAlpha c then 
-                          let (str1,str2) = span isAlphanum r
+                          let (str1,str2) = span isAlphaNum r
                           in current_lexeme (Ide str1) str2
 	else if isDigit c then 
                           let (lexeme, rest) = (lexerNum r)
@@ -30,7 +34,7 @@ lexer r@(c:s) =
 	else if c == '('  then current_lexeme Lparen s
 	else if c == ')'  then current_lexeme Rparen s
 	else if c == ','  then current_lexeme Comma s
-	else if c == '$'  then let (str1,str2) = span isAlphanum s
+	else if c == '$'  then let (str1,str2) = span isAlphaNum s
                                in current_lexeme (Evar ('$':str1)) str2
 	else (consume s, False)
  where

@@ -126,7 +126,7 @@ firstPiece::ChessSet -> Tile
 firstPiece (Board _ _ _ f _) = f
 
 pieceAtTile::Tile -> ChessSet -> Int
-pieceAtTile x (Board s _ _ _ts)
+pieceAtTile x (Board s _ _ _ ts)
    = ts ! (tileIndex s x)
 
 isSquareFree::Tile -> ChessSet -> Bool

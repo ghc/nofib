@@ -1,4 +1,4 @@
---!!! strongly-connected components of a graph
+-- !!! strongly-connected components of a graph
 -- (courtesy mainly of John Launchbury)
 
 import Digraph

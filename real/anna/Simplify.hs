@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Simplification of abstract expressions ...         ===--
---===                                        Simplify.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Simplification of abstract expressions ...         ===--
+-- ===                                        Simplify.hs ===--
+-- ==========================================================--
 
 module Simplify where
 import BaseDefs
@@ -12,7 +12,7 @@ import AbstractVals2
 import AbstractEval2
 import Apply
 
---==========================================================--
+-- ==========================================================--
 --
 siVectorise :: HExpr Naam -> HExpr Naam
 
@@ -33,7 +33,7 @@ siVectorise h@(HPoint _) = h
 siVectorise (HMeet es) = HMeet (map siVectorise es)
 
 
---==========================================================--
+-- ==========================================================--
 --
 siSimplify :: HExpr Naam -> HExpr Naam
 
@@ -46,7 +46,7 @@ siSimplify hexpr
         else  siSimplify hexpr_after_one_cycle
 
 
---==========================================================--
+-- ==========================================================--
 --
 siHOpt :: HExpr Naam -> HExpr Naam
 
@@ -58,7 +58,7 @@ siHOpt (HLam vs e)    = HLam vs (siHOpt e)
 siHOpt (HTable t)     = HTable (map2nd siHOpt t)
 
 
---==========================================================--
+-- ==========================================================--
 -- meet-literal simplification
 --
 siHOpt_meet :: [HExpr Naam] -> HExpr Naam
@@ -79,7 +79,7 @@ siHOpt_meet es
      else        aeMkMeet (HPoint onelit) ((HPoint onelit):nonlits)
 
 
---==========================================================--
+-- ==========================================================--
 -- case-of-case simplification
 -- literal-function-applied-to-literal simplification
 --
@@ -94,6 +94,6 @@ siHOpt_app (HPoint p1) (HPoint p2)
 siHOpt_app h1_other h2_other = HApp h1_other h2_other
 
 
---==========================================================--
---=== end                                    Simplify.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                    Simplify.hs ===--
+-- ==========================================================--

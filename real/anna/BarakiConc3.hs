@@ -1,8 +1,8 @@
 	
---==========================================================--
---=== Implementation of Gebreselassie Baraki's           ===--
---=== polymorphism stuff                   BarakiConc.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Implementation of Gebreselassie Baraki's           ===--
+-- === polymorphism stuff                   BarakiConc.hs ===--
+-- ==========================================================--
 
 module BarakiConc3 where
 import BaseDefs
@@ -16,12 +16,12 @@ import AbsConc3
 import BarakiMeet
 
 
---==================================================--
---=== Application of a embedding functor (e-app) ===--
---=== to a point.                                ===--
---==================================================--
+-- ==================================================--
+-- === Application of a embedding functor (e-app) ===--
+-- === to a point.                                ===--
+-- ==================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 bcEApp_d :: DRRSubst -> DExpr -> Domain
 
@@ -37,7 +37,7 @@ bcEApp_d rho (DXVar alpha)
    = bcGetD (utSureLookup rho "bcEApp_d" alpha)
 
 
---==========================================================--
+-- ==========================================================--
 --
 bcEApp :: DRRSubst -> DExpr -> Route -> Route
 
@@ -69,12 +69,12 @@ bcEApp rho (DXFunc dxss dxt) (Rep rep)
          bcEdotFdotC rho dxt repDomain rep dxss
 
 
---=============================================--
---=== Composition of an embedding functor e ===--
---=== with a function f, hence: e.f         ===--
---=============================================--
+-- =============================================--
+-- === Composition of an embedding functor e ===--
+-- === with a function f, hence: e.f         ===--
+-- =============================================--
 
---==========================================================--
+-- ==========================================================--
 --
 bcEdotF :: DRRSubst ->   -- binds domain variables to Points
            DExpr ->      -- the embedding functor "e"
@@ -143,13 +143,13 @@ bcEdotF
 
 
 
---=============================================--
---=== Composition of a function f with a    ===--
---=== list of closure functors [c1 ... cn], ===--
---=== hence: "f.[c1 ... cn]"                ===--
---=============================================--
+-- =============================================--
+-- === Composition of a function f with a    ===--
+-- === list of closure functors [c1 ... cn], ===--
+-- === hence: "f.[c1 ... cn]"                ===--
+-- =============================================--
 
---==========================================================--
+-- ==========================================================--
 --
 bcFdotC :: DRRSubst ->   -- binds domain variables to Points
            [DExpr] ->    -- the closure functor "[c1 ... cn]"
@@ -166,7 +166,7 @@ bcFdotC rho dxs newDs (Func dss dt) rep
          new_rep
           
 
---==========================================================--
+-- ==========================================================--
 -- apply some function to the max0 frontiers of a function
 -- and recalculate the corresponding min1 frontiers.
 --
@@ -193,7 +193,7 @@ bcApplyF0 f dss (Rep2 lf mf hfs)
          Rep2 new_lf new_mf new_hfs
 
 
---==========================================================--
+-- ==========================================================--
 --
 bcApplyF0_2 :: (FrontierElem -> FrontierElem) -> 
                [Domain] -> 
@@ -207,14 +207,14 @@ bcApplyF0_2 f dss fr@(Min1Max0 ar f1 f0)
          Min1Max0 ar new_f1 new_f0
 
 
---=================================================--
---=== Given embedding functor "e", function "f" ===--
---=== and closure functor "c", computes         ===--
---=== "e.f.c" (ie "Ge.f2.Fc", in accordance     ===--
---=== with Baraki's theory).                    ===--
---=================================================--
+-- =================================================--
+-- === Given embedding functor "e", function "f" ===--
+-- === and closure functor "c", computes         ===--
+-- === "e.f.c" (ie "Ge.f2.Fc", in accordance     ===--
+-- === with Baraki's theory).                    ===--
+-- =================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 bcEdotFdotC :: DRRSubst ->  -- binds domain variables to Points
                DExpr ->     -- target domain functor, "Ge"
@@ -232,18 +232,18 @@ bcEdotFdotC rho g_e fDomain@(Func fds fdt) f f_cs
          Rep e_dot_f_dot_c
 
 
---==========================================================--
+-- ==========================================================--
 --
 bcGetR (d, r, t) = r
 bcGetD (d, r, t) = d
 bcGetT (d, r, t) = t
 
 
---=========================================================--
---=== Do Baraki-style concretisation of function points ===--
---=========================================================--
+-- =========================================================--
+-- === Do Baraki-style concretisation of function points ===--
+-- =========================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 bcMakeInstance :: 
          Bool ->    -- True if use Baraki, False if use Conc
@@ -403,7 +403,7 @@ bcMakeInstance
    = acMakeInstance s_or_l simplest rho_d f
 
 
---==========================================================--
+-- ==========================================================--
 --
 bcClean :: DExpr -> DExpr
 
@@ -415,6 +415,6 @@ bcClean (DXLift2 dxs)       = DXLift2 (map bcClean dxs)
 bcClean (DXVar v)           = DXVar v
 bcClean (DXFunc dxss dxt)   = DXFunc (map bcClean dxss) (bcClean dxt)
 
---==========================================================--
---=== end                                  BarakiConc.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                  BarakiConc.hs ===--
+-- ==========================================================--

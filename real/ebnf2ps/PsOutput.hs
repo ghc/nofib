@@ -1,6 +1,10 @@
 --------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: PsOutput.hs,v $
+-- Revision 1.2  1999/01/18 19:38:47  sof
+-- Misc (backward compatible) changes to make srcs acceptable
+-- to a Haskell 98 compiler.
+--
 -- Revision 1.1  1996/01/08 20:02:34  partain
 -- Initial revision
 --
@@ -30,6 +34,7 @@ import Info (Container (..), GObject (..), TDirection (..), WrapperType (..), IN
 type PsState = (Color, FONT, Int, ShowS)
 type PsTrafo = PsState -> PsState
 
+initialState :: PsState
 initialState = (noColor, noFont, -1, id)
 
 setColor :: Color -> PsTrafo

@@ -1,8 +1,8 @@
  
---==========================================================--
---=== Successors and predecessors of a point in a        ===--
---=== finite lattice.                  SuccsAndPreds2.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Successors and predecessors of a point in a        ===--
+-- === finite lattice.                  SuccsAndPreds2.hs ===--
+-- ==========================================================--
 
 module SuccsAndPreds2 where
 import BaseDefs
@@ -11,23 +11,23 @@ import MyUtils
 import AbstractVals2
 
 
---==========================================================--
---===                                                    ===--
---=== "succs" and "preds" of a point, where:             ===--
---===                                                    ===--
---===    succs(x) = Min (complement (downclose (x)))     ===--
---===    preds(x) = Max (complement (upclose (x)))       ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === "succs" and "preds" of a point, where:             ===--
+-- ===                                                    ===--
+-- ===    succs(x) = Min (complement (downclose (x)))     ===--
+-- ===    preds(x) = Max (complement (upclose (x)))       ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 spSuccs :: Point -> [Point]
 
 spSuccs (d1, r1) = [(d1, r) | r <- spSuccsR d1 r1]
 
 
---==========================================================--
+-- ==========================================================--
 --
 spSuccsR :: Domain -> Route -> [Route]
 
@@ -54,7 +54,7 @@ spSuccsR d@(Func _ _) (Rep r)
    = map Rep (spSuccsRep d r)
 
 
---==========================================================--
+-- ==========================================================--
 --
 spSuccsRep :: Domain -> Rep -> [Rep]
 
@@ -83,7 +83,7 @@ spSuccsRep (Func dss (Lift2 dts)) (Rep2 lf mf hfs)
          map isoRouteInv isoSuccs
 
 
---==========================================================--
+-- ==========================================================--
 --
 spSuccsFrel :: [Domain] -> FrontierElem -> [FrontierElem]
 
@@ -94,7 +94,7 @@ spSuccsFrel ds (MkFrel rs)
    = map MkFrel (myListVariants (map avBottomR ds) (myZipWith2 spSuccsR ds rs))
 
 
---==========================================================--
+-- ==========================================================--
 --
 spLEmb :: [Rep] -> Frontier -> Rep
 
@@ -102,7 +102,7 @@ spLEmb hfBottoms h
    = Rep1 h hfBottoms
 
 
---==========================================================--
+-- ==========================================================--
 --
 spLLift :: [Route] -> [Domain] -> [Domain] -> [Rep] -> Rep
 
@@ -116,7 +116,7 @@ spLLift initTops initDss hfDomains hfs_reps
          Rep1 new_lf hfs_reps
 
 
---==========================================================--
+-- ==========================================================--
 --
 spLLift_aux :: Int -> [Route] -> [Domain] -> Domain -> Rep -> Rep
 
@@ -128,7 +128,7 @@ spLLift_aux des_arity initTops initDss (Func dss (Lift2 dts)) (Rep2 lf mf hfs)
    = spLLift_reduce_arity_as_top des_arity initTops initDss (RepTwo lf)
 
 
---==========================================================--
+-- ==========================================================--
 --
 spLLift_reduce_arity_as_top :: Int -> [Route] -> [Domain] -> Rep -> Rep
 
@@ -144,14 +144,14 @@ spLLift_reduce_arity_as_top des_arity initTops initDss
          RepTwo (Min1Max0 des_arity new_f1 new_f0)
 
 
---==========================================================--
+-- ==========================================================--
 --
 spPreds :: Point -> [Point]
 
 spPreds (d1, r1) = [(d1, r) | r <- spPredsR d1 r1]
 
 
---==========================================================--
+-- ==========================================================--
 --
 spPredsR :: Domain -> Route -> [Route]
 
@@ -186,7 +186,7 @@ spPredsR d@(Func _ _) (Rep r)
    = map Rep (spPredsRep d r)
 
 
---==========================================================--
+-- ==========================================================--
 --
 spPredsRep :: Domain -> Rep -> [Rep]
 
@@ -216,7 +216,7 @@ spPredsRep (Func dss (Lift2 dts)) (Rep2 lf mf hfs)
          map isoRouteInv isoPreds
 
 
---==========================================================--
+-- ==========================================================--
 --
 spPredsFrel :: [Domain] -> FrontierElem -> [FrontierElem]
 
@@ -227,21 +227,21 @@ spPredsFrel ds (MkFrel rs)
    = map MkFrel (myListVariants (map avTopR ds) (myZipWith2 spPredsR ds rs))
 
 
---==========================================================--
+-- ==========================================================--
 --
 spGLift :: Frontier -> [Rep] -> Rep
 
 spGLift lfTop hfs2 = Rep1 lfTop hfs2
 
 
---==========================================================--
+-- ==========================================================--
 --
 spGEmb :: Frontier -> [Domain] -> Rep
 
 spGEmb lf hfTargDs = Rep1 lf (map (spGEmb_aux lf) hfTargDs)
 
 
---==========================================================--
+-- ==========================================================--
 --
 spGEmb_aux :: Frontier -> Domain -> Rep
 
@@ -261,7 +261,7 @@ spGEmb_aux lf (Func dss dt)
         dt
 
 
---==========================================================--
+-- ==========================================================--
 --
 spGEmb_increase_arity_ignore :: Frontier -> [Domain] -> Rep
 
@@ -279,7 +279,7 @@ spGEmb_increase_arity_ignore (Min1Max0 ar f1 f0) dss
          RepTwo (Min1Max0 (ar + length dss) new_f1 new_f0)
 
 
---==========================================================--
+-- ==========================================================--
 --
 spMax0FromMin1 :: [Domain] -> [FrontierElem] -> [FrontierElem]
 
@@ -291,7 +291,7 @@ spMax0FromMin1_aux tops dss f1
                  (map (spPredsFrel dss) f1))
 
 
---==========================================================--
+-- ==========================================================--
 --
 spMin1FromMax0 :: [Domain] -> [FrontierElem] -> [FrontierElem]
 
@@ -303,6 +303,6 @@ spMin1FromMax0_aux bottoms dss f0
                  (map (spSuccsFrel dss) f0))
 
 
---==========================================================--
---=== end                              SuccsAndPreds2.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                              SuccsAndPreds2.hs ===--
+-- ==========================================================--

@@ -22,6 +22,13 @@ vectors.
 > import HmmConstants
 > import Array--1.3
 
+#if __HASKELL1__ < 5
+#define amap map
+#else
+#define amap fmap
+#endif
+
+
 \end{haskell}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -343,7 +350,7 @@ for efficient retrieval.
 > eval_log_densities :: TmTable -> Vector -> LogDensityTable
 
 > eval_log_densities tmt x = ldt
->       where ldt = map (map eval_tied_mixture) tmt
+>       where ldt = amap (amap eval_tied_mixture) tmt
 >             eval_tied_mixture (Gm gm)   = eval_log_mixture x gm
 >             eval_tied_mixture (Tie p k) = ldt!p!k
 

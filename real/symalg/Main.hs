@@ -6,7 +6,7 @@ import Env
 import Print
 import Eval
 import BasicNumber -- partain
-import IO(isEOF)
+import IO --(isEOF,hFlush,stdout)
 
 ----------------------------------------------------------------------------
 
@@ -18,14 +18,18 @@ prompt = "-> "
 main :: IO ()
 main = cmdloop (initEnv [])
   where
-    cmdloop env = putStr prompt >>
-		  getLine >>= (\l ->
-		  if l == "exit" then return () else
-		     let (res, nenv) = cmd_process (l, env)
-			 res1 = if res=="" then ""
-					   else res++"\n" in
-		       putStr res1 >> cmdloop nenv)
+    cmdloop env = do
+        putStr prompt
+        hFlush stdout
+        l <- getLine
+        if l == "exit" then 
+	   return ()
+	 else do
+           let (res, nenv) = cmd_process (l, env)
+	   putStrLn res
+	   cmdloop nenv
 
+#if 0
     -- partain: getLine isn't in 1.3 I/O any more
     getLine :: IO String
     getLine =  get ""
@@ -40,6 +44,7 @@ main = cmdloop (initEnv [])
 		    return (reverse s)
 		 else
 		    get (c:s)
+#endif
 
 ----------------------------------------------------------------------------
 

@@ -1,12 +1,12 @@
 
---==========================================================--
---=== Find frontiers using Hunt's algorithm.             ===--
---=== Only works for functions whose result lattice      ===--
---=== does not contain any function spaces               ===--
---=== ("data functions").                                ===--
---===                                                    ===--
---===                                  FrontierDATAFN.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Find frontiers using Hunt's algorithm.             ===--
+-- === Only works for functions whose result lattice      ===--
+-- === does not contain any function spaces               ===--
+-- === ("data functions").                                ===--
+-- ===                                                    ===--
+-- ===                                  FrontierDATAFN.hs ===--
+-- ==========================================================--
 
 module FrontierDATAFN2 where
 import BaseDefs
@@ -21,7 +21,7 @@ import FrontierMisc2
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 fdImprove :: (Route -> Route) ->    -- coercion function
              MemoList ->            -- possibly useful info
@@ -51,7 +51,7 @@ fdImprove coerce memo dss naive max0_super min1_super
          (new_max0, new_min1)
 
 
---==========================================================--
+-- ==========================================================--
 --
 fdFind :: ACMode ->
           HExpr Naam ->        -- tree of abstract function
@@ -148,7 +148,7 @@ fdFind s_or_l hexpr (Func dss (Lift2 dts)) small_argds big_argds
           midfact_memo_additions ++ hifact_memo_additions)
 
 
---==========================================================--
+-- ==========================================================--
 --
 fdFind_aux :: ACMode ->
               [Domain] ->          -- small argument domains
@@ -190,7 +190,7 @@ fdFind_aux s_or_l small_argds big_argds dts hexpr prev_hfs coerce
          (hifacts, hf_memo_additions)
 
 
---==========================================================--
+-- ==========================================================--
 --
 fdIdent :: Route -> Route
 fdIdent p  = p
@@ -222,7 +222,7 @@ fdIsZero :: Route -> Bool
 fdIsZero x = case x of {Zero -> True; One -> False}
 
 
---==========================================================--
+-- ==========================================================--
 --
 fdFs2 :: ACMode -> 
          HExpr Naam ->         -- the tree
@@ -254,7 +254,7 @@ fdFs2 s_or_l hexpr small_argds big_argds min1_prev max0_prev coerce
 --     f0 == spMax0FromMin1 dss f1
 
 
---==========================================================--
+-- ==========================================================--
 --
 fdFs_aux :: ACMode ->
             HExpr Naam ->        -- the tree
@@ -303,6 +303,6 @@ fdFs_aux s_or_l hexpr small_argds big_argds
        
 
 
---==========================================================--
---=== end                              FrontierDATAFN.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                              FrontierDATAFN.hs ===--
+-- ==========================================================--

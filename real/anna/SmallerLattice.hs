@@ -1,10 +1,10 @@
 
---==========================================================--
---=== Find a smaller versions of big lattices when  we   ===--
---=== we reckon that the big lattice is too expensive    ===--
---=== to work in.                                        ===--
---===                                  SmallerLattice.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Find a smaller versions of big lattices when  we   ===--
+-- === we reckon that the big lattice is too expensive    ===--
+-- === to work in.                                        ===--
+-- ===                                  SmallerLattice.hs ===--
+-- ==========================================================--
 
 
 module SmallerLattice where
@@ -15,7 +15,7 @@ import AbsConc3
 
 import List(nub,transpose) -- 1.3
 
---==========================================================--
+-- ==========================================================--
 --
 {- partain: moved to BaseDefs.hs:
 
@@ -28,13 +28,13 @@ instance (Text a, Ord a) => Num (ExceptionInt a) where
       = MkExInt (i1 * i2) (xs1 ++ xs2)
 -}
 
---==========================================================--
+-- ==========================================================--
 --
 sl_1 = MkExInt 1 []
 sl_2 = MkExInt 2 []
 
 
---==========================================================--
+-- ==========================================================--
 --
 slCard :: AList Domain Int -> Domain -> DomainInt
 
@@ -59,7 +59,7 @@ slCard rho (Func dss dt)
             non_fn_d -> slCard rho norm_func_domain
 
 
---==========================================================--
+-- ==========================================================--
 --
 slNorm :: Domain -> Domain
 
@@ -81,7 +81,7 @@ slNorm (Func dss dt)
    = Func (sort (map slNorm dss)) (slNorm dt)
 
 
---==========================================================--
+-- ==========================================================--
 --
 slReduce :: Domain -> [Domain]
 
@@ -117,7 +117,7 @@ slReduce (Func dss dt)
          [Two]
 
 
---==========================================================--
+-- ==========================================================--
 --
 slMakeSequence :: AList Domain Int -> -- lattice size table
                   Int ->              -- scaleup ratio
@@ -177,7 +177,7 @@ slMakeSequence table scaleup_ratio dss lowlimit highlimit
          (usePart, notUsePart)
 
 
---==========================================================--
+-- ==========================================================--
 --
 slMakeOneSequence :: AList Domain Int -> Int -> [Domain] -> [(DInt, Int)]
 
@@ -246,7 +246,7 @@ slMakeOneSequence table scaleup_ratio ds
 
          
 
---==========================================================--
+-- ==========================================================--
 --
 slRecover :: Eq a => [a] -> (a -> a -> Bool) -> AList a [a]
 
@@ -264,7 +264,7 @@ slRecover latt leq
         [(s, iaboves s) | s <- latt]
 
 
---==========================================================--
+-- ==========================================================--
 --
 slDijkstra :: Eq a => [(a, a, Int)] -> a -> a -> [(a, Int)]
 
@@ -276,7 +276,7 @@ slDijkstra roads start end
         route
 
 
---==========================================================--
+-- ==========================================================--
 --
 slDijkstra_aux :: Eq a => [(a, a, Int)] -> 
                           a -> 
@@ -307,7 +307,7 @@ slDijkstra_aux roads end considered
         (best, bestcost, bestback) : slDijkstra_aux roads end considered2
 
 
---==========================================================--
+-- ==========================================================--
 --
 slDijkstra_unlink :: Eq a => a -> a -> [(a, Int, a)] -> [(a, Int)]
 
@@ -318,6 +318,6 @@ slDijkstra_unlink start here costs
           (cell, cost) : slDijkstra_unlink start back costs
 
 
---==========================================================--
---=== end                              SmallerLattice.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                              SmallerLattice.hs ===--
+-- ==========================================================--

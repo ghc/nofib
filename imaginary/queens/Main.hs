@@ -1,4 +1,4 @@
---!!! count the number of solutions to the "n queens" problem.
+-- !!! count the number of solutions to the "n queens" problem.
 -- (grabbed from LML dist)
 
 main = print (nsoln 10)

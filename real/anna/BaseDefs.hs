@@ -1,7 +1,7 @@
 
---==========================================================--
---=== Base declarations                      BaseDefs.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Base declarations                      BaseDefs.hs ===--
+-- ==========================================================--
 
 module BaseDefs where
 
@@ -365,14 +365,14 @@ data PartialExpr = NoOp
                    deriving (Eq)
 
 
---===============================================================--
---=== Definition of the static component                      ===--
---===---------------------------------------------------------===--
---=== The static component carries around all information     ===--
---=== which remains unchanged throughout strictness analysis. ===--
---=== This avoids having to pass around vast hordes of        ===--
---=== parameters containing static information.               ===--
---===============================================================--
+-- ===============================================================--
+-- === Definition of the static component                      ===--
+-- ===---------------------------------------------------------===--
+-- === The static component carries around all information     ===--
+-- === which remains unchanged throughout strictness analysis. ===--
+-- === This avoids having to pass around vast hordes of        ===--
+-- === parameters containing static information.               ===--
+-- ===============================================================--
      
 type StaticComponent 
     =  ( 
@@ -401,6 +401,6 @@ type StaticComponent
         )
 
 
---==========================================================--
---=== end                                    BaseDefs.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                    BaseDefs.hs ===--
+-- ==========================================================--

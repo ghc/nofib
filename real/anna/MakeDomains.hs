@@ -1,7 +1,7 @@
 
---==========================================================--
---=== Build abstract domains     File: MakeDomains.m (1) ===--
---==========================================================--
+-- ==========================================================--
+-- === Build abstract domains     File: MakeDomains.m (1) ===--
+-- ==========================================================--
 
 module MakeDomains where
 import BaseDefs
@@ -10,7 +10,7 @@ import Dependancy
 
 import List(nub) -- 1.3
 
---==========================================================--
+-- ==========================================================--
 --
 mdFreeTVarsIn :: TypeDef ->  -- a type definition
                  [Naam]      -- variables free in it
@@ -27,7 +27,7 @@ mdFreeTVarsIn (tn, tvl, cal)
         allTVs (TDefCons n tel) = n:concat (map allTVs tel)
 
 
---==========================================================--
+-- ==========================================================--
 --
 mdMakeEdges :: [TypeDef] ->    -- all type definitions
                [(Naam, Naam)]  -- all edges resulting (from, to)
@@ -41,7 +41,7 @@ mdMakeEdges tdl
         mergeFromTo (f, tol) = [(f, t) | t <- tol]
 
 
---==========================================================--
+-- ==========================================================--
 --
 mdTypeDependancy :: [TypeDef] ->    -- all type definitions
                     TypeDependancy  -- list of groups & rec flag
@@ -63,7 +63,7 @@ mdTypeDependancy tdl
                                               | otherwise  = findAIn rest
 
 
---==========================================================--
+-- ==========================================================--
 --
 mdIsRecursiveType :: TypeDependancy -> 
                      Naam ->
@@ -77,6 +77,6 @@ mdIsRecursiveType typedependancy typeName
            | otherwise               = search rest
 
      
---==========================================================--
---=== end                              MakeDomains.m (1) ===--
---==========================================================--
+-- ==========================================================--
+-- === end                              MakeDomains.m (1) ===--
+-- ==========================================================--

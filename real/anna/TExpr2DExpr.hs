@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Turn type expressions into domain expressions.     ===--
---===                                     TExpr2DExpr.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Turn type expressions into domain expressions.     ===--
+-- ===                                     TExpr2DExpr.hs ===--
+-- ==========================================================--
 
 module TExpr2DExpr where
 import BaseDefs
@@ -14,7 +14,7 @@ import TypeCheck5
 
 import List(nub) -- 1.3
 
---==========================================================--
+-- ==========================================================--
 -- This may need fixing up if we start instantiating domain
 -- variables to expressions which contain other domain
 -- variables within them.
@@ -52,7 +52,7 @@ txGetInstantiations simplest usage
                            else panic "txGetInstantiations"
 
 
---==========================================================--
+-- ==========================================================--
 --
 tx2dxAnnTree :: TypeDependancy ->
                 AnnExpr Naam TExpr ->
@@ -61,7 +61,7 @@ tx2dxAnnTree :: TypeDependancy ->
 tx2dxAnnTree td tree = tcMapAnnExpr (tx2dx td) tree
 
 
---==========================================================--
+-- ==========================================================--
 --
 tx2dx :: TypeDependancy -> TExpr -> DExpr
 
@@ -85,6 +85,6 @@ tx2dx_aux td env (TCons tname targs)
      then DXLift2 (map (tx2dx_aux td env) targs)
      else DXLift1 (map (tx2dx_aux td env) targs)
 
---==========================================================--
---=== end                                 TExpr2DExpr.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                 TExpr2DExpr.hs ===--
+-- ==========================================================--

@@ -37,6 +37,12 @@ described in later chapters in Part~\ref{part:library}.
 > import Array--1.3
 > import Ix--1.3
 
+#if __HASKELL1__ < 5
+#define amap map
+#else
+#define amap fmap
+#endif
+
 \end{verbatim}
 
 
@@ -655,7 +661,7 @@ the probabilities for all HMMs in an array.
         \begin{haskell}{get_log_probs}
 
 > get_log_probs :: (Ix a) => Array a (HmmTsL b) -> Array a (HmmTsL b)
-> get_log_probs = map convert_to_log_probs
+> get_log_probs = amap convert_to_log_probs
 
 \end{haskell}
 

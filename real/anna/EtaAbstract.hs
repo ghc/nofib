@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Add parameters to supercombinators which           ===--
---=== otherwise return functions          EtaAbstract.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Add parameters to supercombinators which           ===--
+-- === otherwise return functions          EtaAbstract.hs ===--
+-- ==========================================================--
 
 module EtaAbstract where
 import BaseDefs
@@ -10,7 +10,7 @@ import Utils
 import MyUtils
 
 
---==========================================================--
+-- ==========================================================--
 -- Doesn't assume that the tree has been lambda-lifted.
 -- It does however assume that all lambda-terms are 
 -- directly attached to a let-binding.
@@ -46,7 +46,7 @@ eaEtaAbstract ae@(tau, ALet rf defs body)
      in (tau, ALet rf fixedDefs (eaEtaAbstract body))
         
 
---==========================================================--
+-- ==========================================================--
 --
 eaMain :: (Naam, AnnExpr Naam TExpr) ->
           [TExpr] ->
@@ -66,7 +66,7 @@ eaMain (scname, (tau, ALam vs (tau2, rhs))) argTs resT
      in (scname, (tau, ALam (vs++newArgs) newBody))
 
 
---==========================================================--
+-- ==========================================================--
 --
 eaMakeApChain :: [((Naam, TExpr), TExpr)] ->
                  AnnExpr Naam TExpr ->
@@ -77,7 +77,7 @@ eaMakeApChain (((v, vtype), vaptype):rest) app
    = eaMakeApChain rest (vaptype, AAp app (vtype, AVar v))
 
 
---==========================================================--
+-- ==========================================================--
 --
 eaMakeNewArgs :: Int -> [Naam] -> [Naam]
 
@@ -89,7 +89,7 @@ eaMakeNewArgs n vs
      in newNames
 
 
---==========================================================--
+-- ==========================================================--
 --
 eaCurry :: TExpr -> [TExpr] -> TExpr
 
@@ -97,7 +97,7 @@ eaCurry resT []           = resT
 eaCurry resT (argT:argTs) = TArr argT (eaCurry resT argTs)
 
 
---==========================================================--
+-- ==========================================================--
 --
 eaUncurry :: TExpr -> ([TExpr], TExpr)
 
@@ -111,8 +111,8 @@ eaUncurry (TCons tcon targs)
    = ([], TCons tcon targs)
 
 
---==========================================================--
---=== end                                 EtaAbstract.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                 EtaAbstract.hs ===--
+-- ==========================================================--
 
 

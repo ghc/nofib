@@ -23,6 +23,10 @@ import Matrix
 import Types
 import Interval
 
+#if __HASKELL1__ < 5
+#define realToFrac fromRealFrac
+#endif
+
 -- no is returned when there is "no" change to the csg.
 no = error ("Evaluated dead csg.")
 
@@ -55,8 +59,8 @@ calc (Object (Sphere a b c r)) rgb xyz
        f rgb zyx = (sphere zyx,no,rgb,False)
        sphere :: (R3 BI) -> BI
        sphere (x,y,z) = sqr (x-a') + sqr (y-b') + sqr (z-c') - sqr r'
-       a' = fromRealFrac a ; b' = fromRealFrac b ; c' = fromRealFrac c
-       r' = fromRealFrac r
+       a' = realToFrac a ; b' = realToFrac b ; c' = realToFrac c
+       r' = realToFrac r
 
 calc (Object (Cube a b c r)) rgb xyz
     = (ans,newc',rgb,bool)

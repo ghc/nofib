@@ -1,15 +1,15 @@
 	
---==========================================================--
---=== Domain expressions.                                ===--
---===                                      DomainExpr.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Domain expressions.                                ===--
+-- ===                                      DomainExpr.hs ===--
+-- ==========================================================--
 
 module DomainExpr where
 import BaseDefs
 import Utils
 import MyUtils
 
---==========================================================--
+-- ==========================================================--
 --
 dxApplyDSubst_2 :: DExpr -> Domain
 
@@ -25,7 +25,7 @@ dxApplyDSubst_2 (DXFunc dxs dxt)    = Func (map dxApplyDSubst_2 dxs)
                                            (dxApplyDSubst_2 dxt)
 
 
---==========================================================--
+-- ==========================================================--
 --
 dxApplyDSubst :: DSubst -> DExpr -> Domain
 
@@ -41,7 +41,7 @@ dxApplyDSubst rho (DXFunc dxs dxt)   = Func (map (dxApplyDSubst rho) dxs)
                                             (dxApplyDSubst rho dxt)
 
 
---==========================================================--
+-- ==========================================================--
 --
 dxNormaliseDExpr :: DExpr -> DExpr
 
@@ -56,7 +56,7 @@ dxNormaliseDExpr (DXLift2 dxs)   = DXLift2 (map dxNormaliseDExpr dxs)
 dxNormaliseDExpr (DXVar v)       = DXVar v
 
 
---==========================================================--
+-- ==========================================================--
 --
 dxContainsFnSpace :: DExpr -> Bool
 
@@ -67,7 +67,7 @@ dxContainsFnSpace (DXFunc _ _)    = True
 dxContainsFnSpace (DXVar _)       = False
 
 
---==========================================================--
+-- ==========================================================--
 --
 dxContainsSubsidiaryFnSpace :: DExpr -> Bool
 
@@ -87,7 +87,7 @@ dxContainsSubsidiaryFnSpace (DXVar _)
    = False
 
 
---==========================================================--
+-- ==========================================================--
 --        big       small
 dxDiff :: Domain -> Domain -> (DExpr, DSubst)
 
@@ -140,6 +140,6 @@ dxDiff_list other1 other2
    = panic "dxDiff_list: unequal lists"
 
 
---==========================================================--
---=== end                                  DomainExpr.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                  DomainExpr.hs ===--
+-- ==========================================================--

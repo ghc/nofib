@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Computes inverses of function applications.        ===--
---===                                         Inverse.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Computes inverses of function applications.        ===--
+-- ===                                         Inverse.hs ===--
+-- ==========================================================--
 
 module Inverse where
 import BaseDefs
@@ -14,7 +14,7 @@ import AbstractMisc
 import Apply
 
 
---==========================================================--
+-- ==========================================================--
 --
 inMinInverse :: Bool -> Domain -> Route -> Route -> [FrontierElem]
 
@@ -23,7 +23,7 @@ inMinInverse mindless fDomain (Rep f) res
    | otherwise  = second (inMMI fDomain f res)
 
 
---==========================================================--
+-- ==========================================================--
 --
 inMaxInverse :: Bool -> Domain -> Route -> Route -> [FrontierElem]
 
@@ -32,7 +32,7 @@ inMaxInverse mindless fDomain (Rep f) res
    | otherwise  = first (inMMI fDomain f res)
 
 
---==========================================================--
+-- ==========================================================--
 --
 inMMI_mindless :: Domain -> Rep -> Route -> ([FrontierElem], [FrontierElem])
 
@@ -41,7 +41,7 @@ inMMI_mindless (Func dss dt) f a
      in (avMaxfrel totalInverseImage, avMinfrel totalInverseImage)
 
 
---==========================================================--
+-- ==========================================================--
 --
 inNormalise :: [FrontierElem] -> 
                [FrontierElem] -> 
@@ -54,7 +54,7 @@ inNormalise max min
          (new_max, new_min)
 
 
---==========================================================--
+-- ==========================================================--
 --
 inIntersect :: ([FrontierElem], [FrontierElem]) ->
                ([FrontierElem], [FrontierElem]) ->
@@ -66,7 +66,7 @@ inIntersect (max1, min1) (max2, min2)
      in  inNormalise new_max new_min
 
 
---==========================================================--
+-- ==========================================================--
 --
 inMMI :: Domain -> Rep -> Route -> ([FrontierElem], [FrontierElem])
 
@@ -148,7 +148,7 @@ inMMI dss f a
    = inMMI_mindless dss f a
 
 
-----==========================================================--
+-- ==========================================================--
 ----
 --inPapL :: Point -> [Point] -> Point
 --
@@ -169,7 +169,7 @@ inMMI dss f a
 --         RFunc (RepTwo (Min1Max0 (ar-argCount) newf1 newf0)))
 --
 
---==========================================================--
+-- ==========================================================--
 --
 inInverse_mindless :: [Domain] -> Rep -> Route -> [FrontierElem]
 
@@ -190,7 +190,7 @@ inInverse_mindless argDomains f a
 --inTrace :: Bool -> Bool
 --inTrace x = x
 
---==========================================================--
---=== end                                     Inverse.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                     Inverse.hs ===--
+-- ==========================================================--
 

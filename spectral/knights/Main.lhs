@@ -14,6 +14,11 @@ import KnightHeuristic
 import Queue
 import System--1.3
 import Char--1.3
+
+#if __HASKELL1__ >= 5
+#define fail ioError
+#endif
+
 \end{code}
 
 %%%%%%%%%%%%%%%%%%%%% B O D Y  O F  M O D U L E %%%%%%%%%%%%%%%%%%%%%

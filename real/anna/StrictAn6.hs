@@ -1,7 +1,7 @@
 
---==========================================================--
---=== Strictness analyser -- v6             StrictAn6.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Strictness analyser -- v6             StrictAn6.hs ===--
+-- ==========================================================--
 
 module StrictAn6 where
 import BaseDefs
@@ -24,7 +24,7 @@ import AbsConc3
 import List(transpose) -- 1.3
 import Char(isLower,isUpper)
 
---==========================================================--
+-- ==========================================================--
 -- Call analyser and format results
 --
 saMain :: AnnExpr Naam TExpr ->
@@ -98,7 +98,7 @@ saMain typedTree typeDAR simplestTEnv freeVars builtins dataDefs flags table
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saSettingInfo :: Int -> Int -> Int -> Int -> Int -> Bool -> Bool -> String
 
@@ -123,7 +123,7 @@ saSettingInfo pLim mLim lLim uLim sRat mindless_inv use_baraki
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saGroups :: StaticComponent -> 
             AList Naam (HExpr Naam) -> 
@@ -226,7 +226,7 @@ saGroups statics beta ((True, defs):rest)
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saFixStartup :: StaticComponent ->
                 [Naam] ->             -- names of fns in groups
@@ -277,7 +277,7 @@ saFixStartup
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saNonRecStartup :: StaticComponent ->
                    Naam ->             -- name of fn
@@ -329,7 +329,7 @@ saNonRecStartup
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saNonRecSearch :: StaticComponent ->
                   Naam ->               -- name of fn
@@ -413,7 +413,7 @@ saNonRecSearch
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saFixMain :: StaticComponent ->
              [Naam] ->               -- names of fns in group
@@ -510,7 +510,7 @@ saFixMain
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saFixAtSizeLive :: StaticComponent ->
                    [Route] ->            -- live abstractions
@@ -593,7 +593,7 @@ saFixAtSizeLive
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saFixAtSizeSafe :: StaticComponent ->
                    [Route] ->            -- safe abstractions
@@ -668,7 +668,7 @@ saFixAtSizeSafe
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 saFinalExpansion :: StaticComponent -> 
                     [Domain] ->
@@ -695,7 +695,7 @@ saFinalExpansion
         result
 
 
---==========================================================--
+-- ==========================================================--
 --
 saIsResult :: SAInfo -> Bool
 
@@ -705,7 +705,7 @@ saIsResult anyElse           = False
 saGetResult (SAResult name domain route) = route
 
 
---==========================================================--
+-- ==========================================================--
 --
 saPrinter :: StaticComponent -> Bool -> SAInfo -> [Char]
 
@@ -742,7 +742,7 @@ saPrinter_aux use ((s,ds):sds)
      ++ show ds ++ "\n" ++ saPrinter_aux use sds
 
 
---==========================================================--
+-- ==========================================================--
 --
 saUndoCAFkludge :: [SAInfo] -> [SAInfo]
 
@@ -769,7 +769,7 @@ saUndoCAFkludge (saInfo:saInfos)
          this ++ rest
 
 
---==========================================================--
+-- ==========================================================--
 --
 saCAFkludge, saCAFkludgeInverse :: Domain -> Domain
 
@@ -781,7 +781,7 @@ saCAFkludgeInverse (Func dss dt) = Func dss dt
 saCAFkludgeInverse non_fn_dom    = non_fn_dom
 
 
---==========================================================--
+-- ==========================================================--
 --
 saMkFunc :: [Domain] -> Domain -> Domain
 
@@ -789,7 +789,7 @@ saMkFunc []  dt = dt
 saMkFunc dss dt = Func dss dt
 
 
---==========================================================--
+-- ==========================================================--
 --
 saSequenceIsEmpty (use, noUse)       = null use
 saGetNextRec      ((u:us), noUse)    = u
@@ -798,13 +798,13 @@ saGetSeqTail      (u:us, noUse)      = (us, noUse)
 saGivenUpEarly    (use, noUse)       = not (null noUse)
 
 
---==========================================================--
+-- ==========================================================--
 --
 saGetArgs (Func dss dt) = dss
 saGetRes  (Func dss dt) = dt
 
 
---==========================================================--
+-- ==========================================================--
 --
 saMakeSizeInfo :: Sequence -> [Naam] -> [SAInfo]
 
@@ -817,7 +817,7 @@ saMakeSizeInfo (use, noUse) names
          myZipWith3 SASizes names useT noUseT2
 
 
---==========================================================--
+-- ==========================================================--
 --
 saHSubst :: RSubst ->
             HExpr Naam ->
@@ -833,7 +833,7 @@ saHSubst fenv (HTable t)        = HTable (map2nd (saHSubst fenv) t)
 saHSubst fenv (HVAp f es)       = HVAp (saHSubst fenv f) (map (saHSubst fenv) es)
 
 
---==========================================================--
+-- ==========================================================--
 --
 saMkGroups :: AnnExpr Naam DExpr -> 
             DefnGroup (AnnDefn Naam DExpr)
@@ -842,7 +842,7 @@ saMkGroups (_, ALet rf subdefs rest) = (rf, subdefs):saMkGroups rest
 saMkGroups (_, anyThingElse        ) = []
 
 
---==========================================================--
+-- ==========================================================--
 -- The strictness analyser proper: the magic function "S"
 -- Now rather heavily modified (in version 0.300 and above)
 -- and no longer bearing much relationship to the original
@@ -1058,7 +1058,7 @@ sa statics beta (dtau, ACase (dtau_sw, expr_sw) alts)
          result
 
 
---==========================================================--
+-- ==========================================================--
 --
 saMkCargs :: [TypeDef] -> AList Naam [ConstrElem]
 
@@ -1072,6 +1072,6 @@ saMkCargs ((typename, tvars, calts):rest)
         find v (v2:vs) = if v == v2 then 0 else 1 + find v vs
 
 
---==========================================================--
---=== End                                   StrictAn6.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === End                                   StrictAn6.hs ===--
+-- ==========================================================--

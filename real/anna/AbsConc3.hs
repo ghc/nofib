@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Concretisation of function points.                 ===--
---===                                        AbsConc3.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Concretisation of function points.                 ===--
+-- ===                                        AbsConc3.hs ===--
+-- ==========================================================--
 
 module AbsConc3 where
 import BaseDefs
@@ -14,7 +14,7 @@ import AbstractMisc
 import DomainExpr
 
 
---==========================================================--
+-- ==========================================================--
 -- 
 acUncurryWRT :: Domain -> Domain -> Domain
 --              small     big
@@ -48,7 +48,7 @@ acUncurryWRT (Func ds_s dt_s) (Func ds_b dt_b)
         totally_fixed
 
 
---==========================================================--
+-- ==========================================================--
 -- 
 acNormAndCurried :: Domain -> Domain -> (Domain, Domain)
 
@@ -57,7 +57,7 @@ acNormAndCurried small_d big_d
      in (big_d_u, acUncurryWRT small_d big_d_u)
 
 
---==========================================================--
+-- ==========================================================--
 --              big domain   smaller domain
 acCompatible :: Domain ->    Domain      -> Bool
 --
@@ -83,7 +83,7 @@ acCompatible _ _
    = False
 
 
---==========================================================--
+-- ==========================================================--
 -- 
 acConc :: ACMode -> Domain -> Domain -> Route -> Route
 
@@ -105,7 +105,7 @@ acConc s_or_l big_d small_d small_r
          else  acConcData s_or_l big_d_u small_d small_r
 
 
---==========================================================--
+-- ==========================================================--
 --                      big       small
 --
 acConcData :: ACMode -> Domain -> Domain -> Route -> Route
@@ -128,7 +128,7 @@ acConcData s_or_l (Lift2 dbs) (Lift2 dss) (UpUp2 rs)
    = UpUp2 (myZipWith3 (acConc s_or_l) dbs dss rs)
 
 
---==========================================================--
+-- ==========================================================--
 --                     big_c     big_u     small
 acConcRep :: ACMode -> Domain -> Domain -> Domain -> Rep -> Rep
 
@@ -146,7 +146,7 @@ acConcRep s_or_l big_d_c@(Func dss_b_c dt_b_c)
            concd_all
 
 
---==========================================================--
+-- ==========================================================--
 -- Concretise target domain of a function.  
 --                    target_big    rep_current
 acConcTarget :: ACMode -> Domain -> Domain -> Rep -> Rep
@@ -235,7 +235,7 @@ acConcTarget
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 ac_increase_arity_safe :: Int ->        -- arity increase
                           [Domain] ->   -- existing arg domains
@@ -255,7 +255,7 @@ ac_increase_arity_safe arity_increase argds new_argds fr
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 ac_increase_arity_live :: Int ->        -- arity increase
                           [Domain] ->   -- existing arg domains
@@ -275,7 +275,7 @@ ac_increase_arity_live arity_increase argds new_argds fr
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 ac_ia_aux :: ACMode ->     -- mode
              Int ->        -- arity increase
@@ -296,7 +296,7 @@ ac_ia_aux
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 ac_extend_fr :: ACMode -> 
                 [Domain] -> 
@@ -316,7 +316,7 @@ ac_extend_fr s_or_l final_argds f1 f0 new_points
             Live -> (new_f1_live, new_f0_live)
 
 
---==========================================================--
+-- ==========================================================--
 --                            big_args    small_args
 acConcSource_aux :: ACMode -> [Domain] -> [Domain] -> Frontier -> Frontier
 
@@ -337,7 +337,7 @@ acConcSource_aux Live dbs dss (Min1Max0 ar f1 f0)
          Min1Max0 ar new_f1 new_f0
 
 
---==========================================================--
+-- ==========================================================--
 -- Concretise source domain of a function
 --                        big       small
 acConcSource :: ACMode -> Domain -> Domain -> Rep -> Rep
@@ -382,7 +382,7 @@ acConcSource s_or_l (Func dss_b (Lift2 dts_b))
          Rep2 new_lf new_mf new_hfs
 
 
---==========================================================--
+-- ==========================================================--
 -- Figure out the domain of the thing created by acConcSource.
 --               big       small
 acConcSourceD :: Domain -> Domain -> Domain
@@ -411,7 +411,7 @@ acConcSourceD (Func dss_b (Lift2 dts_b)) (Func dss_s (Lift2 dts_s))
         Func dss_res (Lift1 dts_res) -> Func dss_res (Lift2 dts_res)
 
 
---==========================================================--
+-- ==========================================================--
 --
 acMakeInstance :: ACMode ->  -- should be Safe for real applications
                   DExpr ->   -- simplest instance domain of point (DXFunc _ _)
@@ -437,6 +437,6 @@ acMakeInstance s_or_l
        acConc s_or_l finalDomain basicDomain f_simplest
 
 
---==========================================================--
---=== end                                    AbsConc3.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                    AbsConc3.hs ===--
+-- ==========================================================--

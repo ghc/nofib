@@ -1,10 +1,10 @@
 
---==========================================================--
---=== Specialised meet to speed up calculation of meets  ===--
---=== in Gebre's polymorphic generalisation system       ===--
---===                                                    ===--
---===                                      BarakiMeet.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Specialised meet to speed up calculation of meets  ===--
+-- === in Gebre's polymorphic generalisation system       ===--
+-- ===                                                    ===--
+-- ===                                      BarakiMeet.hs ===--
+-- ==========================================================--
 
 
 module BarakiMeet where
@@ -18,7 +18,7 @@ import SuccsAndPreds2
 infix 9 %%
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmNorm :: Domain -> Route -> Route
 
@@ -57,14 +57,14 @@ bmNorm_frel dss (MkFrel fels)
    = MkFrel (myZipWith2 bmNorm dss fels)
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmGLB :: Route -> Route -> Route
 
 bmGLB (Rep rep1) (Rep rep2) = Rep (bmGLBrep rep1 rep2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmGLBrep :: Rep -> Rep -> Rep
 
@@ -77,7 +77,7 @@ bmGLBrep (Rep2 lf1 mf1 hfs1) (Rep2 lf2 mf2 hfs2)
           (myZipWith2 bmGLBrep hfs1 hfs2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmGLBfrontier :: Frontier -> Frontier -> Frontier
 
@@ -88,7 +88,7 @@ bmGLBfrontier (Min1Max0 ar1 _ f0a) (Min1Max0 ar2 _ f0b)
    = Min1Max0 ar1 [] (bmGLBmax0frontier f0a f0b)
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmGLBmax0frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -102,7 +102,7 @@ bmMaxAddPtfrel x ys
 pt `bmBelowMax0frel` f = myAny (pt `bmBelowEQfrel`) f
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmBelowEQfrel :: FrontierElem -> FrontierElem -> Bool
 
@@ -110,7 +110,7 @@ bmBelowEQfrel (MkFrel rs1) (MkFrel rs2)
    = myAndWith2 (%%) rs1 rs2
 
 
---==========================================================--
+-- ==========================================================--
 --
 (%%) :: Route -> Route -> Bool
 
@@ -131,7 +131,7 @@ UpUp2 rs1    %%   _           = False
 Rep rep1     %%   Rep rep2    = bmBelowEQrep rep1 rep2
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmBelowEQrep :: Rep -> Rep -> Bool
 
@@ -148,7 +148,7 @@ bmBelowEQrep (Rep2 lf1 mf1 hfs1) (Rep2 lf2 mf2 hfs2)
      myAndWith2 bmBelowEQrep hfs1 hfs2
 
 
---==========================================================--
+-- ==========================================================--
 --
 bmBelowEQfrontier :: Frontier -> Frontier -> Bool
 
@@ -166,6 +166,6 @@ bmBelowEQfrontier (Min1Max0 ar1 _ f0a) (Min1Max0 ar2 _ f0b)
      in
          outer f0b
 
---==========================================================--
---=== end                                  BarakiMeet.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                  BarakiMeet.hs ===--
+-- ==========================================================--

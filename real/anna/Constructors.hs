@@ -1,8 +1,8 @@
 
---==========================================================--
---=== Constructor functions                              ===--
---===                                    Constructors.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Constructor functions                              ===--
+-- ===                                    Constructors.hs ===--
+-- ==========================================================--
 
 module Constructors where
 import BaseDefs
@@ -15,7 +15,7 @@ import AbstractMisc
 import Inverse
 import Apply
 
---==========================================================--
+-- ==========================================================--
 --
 coMakeConstructorInstance :: Bool ->         -- True == use mindless inverse
                              [ConstrElem] -> -- tells about constructor args
@@ -102,7 +102,7 @@ coMakeConstructorInstance mi cargs simplest_init usage
         else  Rep        (coCGen_aux mi tagTable actual)
 
 
---==========================================================--
+-- ==========================================================--
 --
 coCGen_aux :: Bool ->
               AList Route [FrontierElem] -> -- the tag/value table
@@ -148,7 +148,7 @@ coCGen_aux mi tt (Func dss gDomain@(Func dss2 dt))
      in  coCGen_aux mi newtt (Func (dss++dss2) dt)
 
 
---==========================================================--
+-- ==========================================================--
 --
 coCGen_aux_cross :: Bool -> 
                     AList [Route] [FrontierElem] -> 
@@ -193,6 +193,6 @@ coCGen_aux_cross mi tt dss dts
 
 
 
---==========================================================--
---=== end                                Constructors.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                Constructors.hs ===--
+-- ==========================================================--

@@ -1,8 +1,8 @@
  
---==========================================================--
---=== Revised domain operations for HO analysis          ===--
---===                                   AbstractVals2.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Revised domain operations for HO analysis          ===--
+-- ===                                   AbstractVals2.hs ===--
+-- ==========================================================--
 
 module AbstractVals2 where
 import BaseDefs
@@ -15,13 +15,13 @@ infix 9 /\   -- Binary GLB for routes
 infix 9 \/   -- Binary LUB for routes
 
 
---==========================================================--
---===                                                    ===--
---=== Top and bottom points of domains.                  ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === Top and bottom points of domains.                  ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 avUncurry :: [Domain] -> Domain -> Domain
 
@@ -29,7 +29,7 @@ avUncurry dss (Func dss2 dt) = Func (dss++dss2) dt
 avUncurry dss non_func_dom   = Func dss non_func_dom
 
 
---==========================================================--
+-- ==========================================================--
 --
 avTopR :: Domain -> Route
 
@@ -39,7 +39,7 @@ avTopR (Lift2 ds)        = UpUp2 (map avTopR ds)
 avTopR d@(Func dss dt)   = Rep (avTopR_aux d)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avTopR_aux_2 :: [Domain] -> Frontier
 
@@ -47,7 +47,7 @@ avTopR_aux_2 dss
    = Min1Max0 (length dss) [MkFrel (map avBottomR dss)] []
 
 
---==========================================================--
+-- ==========================================================--
 --
 avTopR_aux :: Domain -> Rep
 
@@ -69,7 +69,7 @@ avTopR_aux (Func dss (Lift2 dts))
          Rep2 lf lf hfs
 
 
---==========================================================--
+-- ==========================================================--
 --
 avBottomR :: Domain -> Route
 
@@ -79,7 +79,7 @@ avBottomR (Lift2 ds)        = Stop2
 avBottomR d@(Func dss dt)   = Rep (avBottomR_aux d)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avBottomR_aux_2 :: [Domain] -> Frontier
 
@@ -87,7 +87,7 @@ avBottomR_aux_2 dss
    = Min1Max0 (length dss) [] [MkFrel (map avTopR dss)]
 
 
---==========================================================--
+-- ==========================================================--
 --
 avBottomR_aux :: Domain -> Rep
 
@@ -109,7 +109,7 @@ avBottomR_aux (Func dss (Lift2 dts))
          Rep2 lf lf hfs
 
 
---==========================================================--
+-- ==========================================================--
 --
 avIsBottomR :: Route -> Bool
 
@@ -123,7 +123,7 @@ avIsBottomR (UpUp2 _)   = False
 avIsBottomR (Rep r)     = avIsBottomRep r
 
 
---==========================================================--
+-- ==========================================================--
 --
 avIsBottomRep :: Rep -> Bool
 
@@ -135,7 +135,7 @@ avIsBottomRep (Rep2 (Min1Max0 lf_ar lf_f1 lf_f0) mf hfs)
    = null lf_f1
 
 
---==========================================================--
+-- ==========================================================--
 -- Is this correct?  I think so.
 --
 avIsTopR :: Route -> Bool
@@ -150,7 +150,7 @@ avIsTopR (UpUp2 rs)   = myAll avIsTopR rs
 avIsTopR (Rep r)      = avIsTopRep r
 
 
---==========================================================--
+-- ==========================================================--
 --
 avIsTopRep :: Rep -> Bool
 
@@ -162,13 +162,13 @@ avIsTopRep (Rep2 lf mf hfs)
    = myAll avIsTopRep hfs
 
 
---==========================================================--
---===                                                    ===--
---=== Partial ordering predicates for points in domains. ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === Partial ordering predicates for points in domains. ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 (<<) :: Route -> Route -> Bool
 
@@ -189,7 +189,7 @@ UpUp2 rs1    <<   _           = False
 Rep rep1     <<   Rep rep2    = avBelowEQrep rep1 rep2
 
 
---==========================================================--
+-- ==========================================================--
 -- A little bit of Cordy-style loop unrolling
 -- although not actually tail-strict :-)
 --
@@ -239,7 +239,7 @@ avLEQR_list (a1:a2:a3:a4:as@(_:_)) (b1:b2:b3:b4:bs@(_:_))
 avLEQR_list _ _            = panic "avLEQR_list: unequal lists"
 
 
---==========================================================--
+-- ==========================================================--
 --
 avBelowEQfrel :: FrontierElem -> FrontierElem -> Bool
 
@@ -247,7 +247,7 @@ avBelowEQfrel (MkFrel rs1) (MkFrel rs2)
    = avLEQR_list rs1 rs2
 
 
---==========================================================--
+-- ==========================================================--
 --
 avBelowEQfrontier :: Frontier -> Frontier -> Bool
 
@@ -268,7 +268,7 @@ avBelowEQfrontier (Min1Max0 ar1 f1a f0a) (Min1Max0 ar2 f1b f0b)
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 avBelowEQrep :: Rep -> Rep -> Bool
 
@@ -285,13 +285,13 @@ avBelowEQrep (Rep2 lf1 mf1 hfs1) (Rep2 lf2 mf2 hfs2)
      myAndWith2 avBelowEQrep hfs1 hfs2
 
 
---==========================================================--
---===                                                    ===--
---=== LUB and GLB operations for Points.                 ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === LUB and GLB operations for Points.                 ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
---==========================================================--
+-- ==========================================================--
 --
 (\/) :: Route -> Route -> Route
 
@@ -311,7 +311,7 @@ p@(UpUp2 rs1)  \/  q              = p
 p@(Rep rep1)   \/  q@(Rep rep2)   = Rep (avLUBrep rep1 rep2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avLUBfrel :: FrontierElem -> FrontierElem -> FrontierElem
 
@@ -319,7 +319,7 @@ avLUBfrel (MkFrel rs1) (MkFrel rs2)
    = MkFrel (myZipWith2 (\/) rs1 rs2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avLUBfrontier :: Frontier -> Frontier -> Frontier
 
@@ -328,7 +328,7 @@ avLUBfrontier (Min1Max0 ar1 f1a f0a) (Min1Max0 ar2 f1b f0b)
    = Min1Max0 ar1 (avLUBmin1frontier f1a f1b) (avLUBmax0frontier f0a f0b)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avLUBrep :: Rep -> Rep -> Rep
 
@@ -341,7 +341,7 @@ avLUBrep (Rep2 lf1 mf1 hfs1) (Rep2 lf2 mf2 hfs2)
           (myZipWith2 avLUBrep hfs1 hfs2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avLUBmin1frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -349,7 +349,7 @@ avLUBmin1frontier f1a f1b
    = sort (foldr avMinAddPtfrel f1a f1b)  {-OPTIMISE-}
 
 
---==========================================================--
+-- ==========================================================--
 --
 avLUBmax0frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -357,7 +357,7 @@ avLUBmax0frontier f0a f0b
    = sort (avMaxfrel [ x `avGLBfrel` y | x <- f0a, y <- f0b ])
 
 
---==========================================================--
+-- ==========================================================--
 --
 (/\) :: Route -> Route -> Route
 
@@ -377,7 +377,7 @@ p@(UpUp2 rs1)  /\  q                = q
 p@(Rep rep1)   /\  q@(Rep rep2)     = Rep (avGLBrep rep1 rep2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avGLBfrel :: FrontierElem -> FrontierElem -> FrontierElem
 
@@ -385,7 +385,7 @@ avGLBfrel (MkFrel rs1) (MkFrel rs2)
    = MkFrel (myZipWith2 (/\) rs1 rs2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avGLBfrontier :: Frontier -> Frontier -> Frontier
 
@@ -394,7 +394,7 @@ avGLBfrontier (Min1Max0 ar1 f1a f0a) (Min1Max0 ar2 f1b f0b)
    = Min1Max0 ar1 (avGLBmin1frontier f1a f1b) (avGLBmax0frontier f0a f0b)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avGLBrep :: Rep -> Rep -> Rep
 
@@ -407,7 +407,7 @@ avGLBrep (Rep2 lf1 mf1 hfs1) (Rep2 lf2 mf2 hfs2)
           (myZipWith2 avGLBrep hfs1 hfs2)
 
 
---==========================================================--
+-- ==========================================================--
 --
 avGLBmax0frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -415,7 +415,7 @@ avGLBmax0frontier f0a f0b
    = sort (foldr avMaxAddPtfrel f0a f0b)  {-OPTIMISE-}
 
 
---==========================================================--
+-- ==========================================================--
 --
 avGLBmin1frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
 
@@ -423,13 +423,13 @@ avGLBmin1frontier f1a f1b
    = sort (avMinfrel [ x `avLUBfrel` y | x <- f1a, y <- f1b ])
 
 
---==========================================================--
---===                                                    ===--
---=== Min and Max operations for frontiers.              ===--
---=== Note avBelowMax0/avAboveMin1 expect Frel's to be   ===--
---=== of the same length.                                ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === Min and Max operations for frontiers.              ===--
+-- === Note avBelowMax0/avAboveMin1 expect Frel's to be   ===--
+-- === of the same length.                                ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
 pt `avBelowMax0frel` f = myAny (pt `avBelowEQfrel`) f
 
@@ -448,11 +448,11 @@ avMinfrel = foldr avMinAddPtfrel []
 avMaxfrel = foldr avMaxAddPtfrel []
 
 
---==========================================================--
---===                                                    ===--
---=== Min and Max operations for Routes                  ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === Min and Max operations for Routes                  ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
 pt `avBelowMax0R` f = myAny (pt <<) f
 
@@ -471,11 +471,11 @@ avMinR = foldr avMinAddPtR []
 avMaxR = foldr avMaxAddPtR []
 
 
---==========================================================--
---===                                                    ===--
---=== Min and Max operations for Reps                    ===--
---===                                                    ===--
---==========================================================--
+-- ==========================================================--
+-- ===                                                    ===--
+-- === Min and Max operations for Reps                    ===--
+-- ===                                                    ===--
+-- ==========================================================--
 
 pt `avBelowMax0rep` f = myAny (pt `avBelowEQrep`) f
 
@@ -494,6 +494,6 @@ avMinrep = foldr avMinAddPtrep []
 avMaxrep = foldr avMaxAddPtrep []
 
 
---==========================================================--
---=== end                               AbstractVals2.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                               AbstractVals2.hs ===--
+-- ==========================================================--

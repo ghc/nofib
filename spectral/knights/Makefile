@@ -1,7 +1,7 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-# SRC_HC_OPTS += -syslib hbc
+SRC_HC_OPTS += -cpp
 
 # Arguments for the test program
 SRC_RUNTEST_OPTS += 8 3

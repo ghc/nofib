@@ -1,8 +1,8 @@
  
---==========================================================--
---=== Miscellaneous operations in the Abstract value     ===--
---=== world.                             AbstractMisc.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Miscellaneous operations in the Abstract value     ===--
+-- === world.                             AbstractMisc.hs ===--
+-- ==========================================================--
 
 module AbstractMisc where
 import BaseDefs
@@ -13,21 +13,21 @@ import SuccsAndPreds2
 
 import List(nub) -- 1.3
 
---==========================================================--
+-- ==========================================================--
 --
 amIAboves :: Domain -> Route -> [Route]
 
 amIAboves d r = map (r \/) (spSuccsR d r)
 
 
---==========================================================--
+-- ==========================================================--
 --
 amIBelows :: Domain -> Route -> [Route]
 
 amIBelows d r = map (r /\) (spPredsR d r)
 
 
---==========================================================--
+-- ==========================================================--
 --
 amPushUpFF :: Domain -> [Route] -> [Route]
 
@@ -35,7 +35,7 @@ amPushUpFF d [] = []
 amPushUpFF d xs = nub (concat (map (amIAboves d) xs))
 
 
---==========================================================--
+-- ==========================================================--
 --
 amPushDownFF :: Domain -> [Route] -> [Route]
 
@@ -43,7 +43,7 @@ amPushDownFF d [] = []
 amPushDownFF d xs = nub (concat (map (amIBelows d) xs))
 
 
---==========================================================--
+-- ==========================================================--
 --
 amAllUpSlices :: Domain -> [[Route]]
 
@@ -51,7 +51,7 @@ amAllUpSlices d
    = takeWhile (not.null) (iterate (amPushUpFF d) [avBottomR d])
 
 
---==========================================================--
+-- ==========================================================--
 --
 amAllDownSlices :: Domain -> [[Route]]
 
@@ -59,7 +59,7 @@ amAllDownSlices d
    = takeWhile (not.null) (iterate (amPushDownFF d) [avTopR d])
 
 
---==========================================================--
+-- ==========================================================--
 --
 amAllRoutes :: Domain -> [Route]
 
@@ -76,7 +76,7 @@ amAllRoutes (Func dss dt)
    = concat (amAllUpSlices (Func dss dt))
 
 
---==========================================================--
+-- ==========================================================--
 --
 amUpCloseOfMinf :: Domain -> [Route] -> [Route]
 
@@ -87,7 +87,7 @@ amUpCloseOfMinf d q@(x:_)
             (avMinR [ y \/ z | y <- q, z <- spSuccsR d x ]))
 
 
---==========================================================--
+-- ==========================================================--
 --
 amDownCloseOfMaxf :: Domain -> [Route] -> [Route]
 
@@ -98,7 +98,7 @@ amDownCloseOfMaxf d q@(x:_)
             (avMaxR [ y /\ z | y <- q, z <- spPredsR d x ]))
 
 
---==========================================================--
+-- ==========================================================--
 --
 amAllRoutesMinusTopJONES :: Domain -> [Route]
 
@@ -106,7 +106,7 @@ amAllRoutesMinusTopJONES d
    = amDownCloseOfMaxf d (spPredsR d (avTopR d))
 
 
---==========================================================--
+-- ==========================================================--
 --
 --amAllRoutesMinusTopMINE :: Domain -> [Route]
 --
@@ -120,7 +120,7 @@ amAllRoutesMinusTopJONES d
 --         concat allSlices
 
 
---==========================================================--
+-- ==========================================================--
 --
 amEqualPoints :: Point -> Point -> Bool
 
@@ -130,7 +130,7 @@ amEqualPoints (d1, r1) (d2, r2)
      else   panic "Comparing points in different domains."
 
 
---==========================================================--
+-- ==========================================================--
 --
 amIsaHOF :: Domain -> Bool
 
@@ -139,7 +139,7 @@ amIsaHOF (Func dss dt)
      myAny amContainsFunctionSpace dss
 
 
---==========================================================--
+-- ==========================================================--
 --
 amContainsFunctionSpace :: Domain -> Bool
 
@@ -149,14 +149,14 @@ amContainsFunctionSpace (Lift2 dss)   = myAny amContainsFunctionSpace dss
 amContainsFunctionSpace (Func _ _)    = True
 
 
---==========================================================--
+-- ==========================================================--
 --
 amIsDataFn :: Domain -> Bool
 
 amIsDataFn (Func _ dt) = not (amContainsFunctionSpace dt)
 
 
---==========================================================--
+-- ==========================================================--
 --
 amRepArity :: Rep -> Int
 
@@ -165,7 +165,7 @@ amRepArity (Rep1 (Min1Max0 lf_ar lf_f1 lf_f0) hfs)      = lf_ar
 amRepArity (Rep2 (Min1Max0 lf_ar lf_f1 lf_f0) mf hfs)   = lf_ar
 
 
---==========================================================--
+-- ==========================================================--
 --
 amStrongNormalise :: Domain -> Domain
 
@@ -185,7 +185,7 @@ amStrongNormalise (Func dss non_func_res)
    = Func (map amStrongNormalise dss) (amStrongNormalise non_func_res)
 
 
---==========================================================--
+-- ==========================================================--
 --
 amMeetIRoutes :: Domain -> [Route]
 
@@ -200,7 +200,7 @@ amMeetIRoutes (Lift2 ds)
      map UpUp2 (myListVariants (map avTopR ds) (map amMeetIRoutes ds))
 
 
---==========================================================--
---=== end                                AbstractMisc.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                                AbstractMisc.hs ===--
+-- ==========================================================--
 

@@ -36,11 +36,11 @@ type FeedBack = Status HashFun
 cichelli :: FeedBack
 cichelli = findhash hashkeys
                 where
---#ifdef SORTED
+-- #ifdef SORTED
                 hashkeys = (blocked.freqsorted) attribkeys
---#else
+-- #else
 --                hashkeys = blocked attribkeys
---#endif
+-- #endif
 
 	
 findhash :: [Key] -> FeedBack 

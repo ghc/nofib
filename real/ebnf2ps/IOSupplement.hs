@@ -9,6 +9,10 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: IOSupplement.hs,v $
+-- Revision 1.6  1999/01/18 19:38:46  sof
+-- Misc (backward compatible) changes to make srcs acceptable
+-- to a Haskell 98 compiler.
+--
 -- Revision 1.5  1998/02/19 17:02:22  simonm
 -- updates for library re-organisation in GHC 3.01.
 --
@@ -39,6 +43,10 @@ module IOSupplement (
 
 import System -- 1.3
 import IO
+
+#if __HASKELL1__ >= 5
+#define fail ioError
+#endif
 
 --------------------------------------------------------------------------------
 

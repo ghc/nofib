@@ -7,6 +7,11 @@ import System -- 1.3
 import List -- 1.3
 import Char -- 1.3
 
+-- To keep it backward compatible with pre-Haskell 98 compilers..
+#if __HASKELL1__ >= 5
+#define fail ioError
+#endif
+
 -- Picture handling:
 
 infixr 5 `above`, `beside`

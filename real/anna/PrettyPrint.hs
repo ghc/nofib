@@ -1,21 +1,21 @@
 
---==========================================================--
---=== Pretty-printer                   prettyprint.m (1) ===--
---==========================================================--
+-- ==========================================================--
+-- === Pretty-printer                   prettyprint.m (1) ===--
+-- ==========================================================--
 
 module PrettyPrint where
 import BaseDefs
 import Utils
 import MyUtils
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintCExpr :: CExpr -> [Char]
 
 ppPrintCExpr = utiMkStr . ppPrintCExprMain
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintCExprMain (EVar v) = utiStr v
 ppPrintCExprMain (ENum n) = utiNum n
@@ -55,7 +55,7 @@ ppPrintCExprMain (ECase sw al)
      `utiAppend` (utiStr "\nend"))))
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintAlter (cn, (cal, cexp)) 
    = (utiStr "  ") `utiAppend` ((utiStr cn) 
@@ -66,7 +66,7 @@ ppPrintAlter (cn, (cal, cexp))
 
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintRAp    (EVar v)      = utiStr v
 ppPrintRAp    (ENum n)      = utiNum n
@@ -75,7 +75,7 @@ ppPrintRAp    e             = (utiStr "(") `utiAppend` ((ppPrintCExprMain e)
                                `utiAppend` (utiStr ")"))
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintLAp    (EVar v)      = utiStr v
 ppPrintLAp    (ENum n)      = utiNum n
@@ -87,7 +87,7 @@ ppPrintLAp    e             = (utiStr "(") `utiAppend` ((ppPrintCExprMain e)
                               `utiAppend` (utiStr ")"))
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintTypeDef :: TypeDef -> [Char]
 
@@ -103,14 +103,14 @@ ppPrintTypeDefMain (tn, tal, tcl)
          (map ppPrintConstrAlt tcl) ) )))))
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintConstrAlt (cn, ctes) 
    = (utiStr cn) `utiAppend` ((utiStr " ") `utiAppend`
      ((utiInterleave (utiStr " ") (map ppPrintTDefExpr ctes) )))
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintTDefExpr (TDefVar n) = utiStr n
 
@@ -121,7 +121,7 @@ ppPrintTDefExpr (TDefCons n te)
      ((utiStr ")" )))))
 
 
---==========================================================--
+-- ==========================================================--
 --
 ppPrintParsed :: AtomicProgram -> [Char]
 
@@ -132,7 +132,7 @@ ppPrintParsed (tds, ce)
         tdsChars (t:ts) = "\n" ++ (ppPrintTypeDef t) ++ ";\n\n" 
                           ++ (tdsChars ts)
 
---==========================================================--
---=== End                              prettyprint.m (1) ===--
---==========================================================--
+-- ==========================================================--
+-- === End                              prettyprint.m (1) ===--
+-- ==========================================================--
 

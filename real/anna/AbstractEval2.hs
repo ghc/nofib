@@ -1,8 +1,8 @@
  
---==========================================================--
---=== Reduction of abstract expressions                  ===--
---===                                   AbstractEval2.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === Reduction of abstract expressions                  ===--
+-- ===                                   AbstractEval2.hs ===--
+-- ==========================================================--
 
 module AbstractEval2 where
 import BaseDefs
@@ -11,7 +11,7 @@ import MyUtils
 import AbstractVals2
 import Apply
 
---==========================================================--
+-- ==========================================================--
 --
 aeEval :: HExpr Naam -> HExpr Naam
 
@@ -38,7 +38,7 @@ aeEval   (HApp f@(HPoint _) e)
 aeEval x = panic "aeEval(4)"
 
 
---==========================================================--
+-- ==========================================================--
 --
 aeEvalConst :: HExpr Naam -> Route
 
@@ -46,7 +46,7 @@ aeEvalConst e
    = case aeEval e of {HPoint p -> p; _ -> panic "aeEvalConst"}
 
 
---==========================================================--
+-- ==========================================================--
 --
 aeEvalExact :: HExpr Naam -> [HExpr Naam] -> Route
 
@@ -55,7 +55,7 @@ aeEvalExact (HLam vs e) args
        {HPoint p -> p; _ -> panic "aeEvalExact"}
 
 
---==========================================================--
+-- ==========================================================--
 --
 aeSubst :: AList Naam (HExpr Naam) -> HExpr Naam -> HExpr Naam
 
@@ -68,7 +68,7 @@ aeSubst rho (HApp e1 e2)  = HApp (aeSubst rho e1) (aeSubst rho e2)
 aeSubst rho (HVAp f es)   = HVAp (aeSubst rho f) (map (aeSubst rho) es)
 
 
---==========================================================--
+-- ==========================================================--
 --
 aeMkMeet :: HExpr Naam -> [HExpr Naam] -> HExpr Naam
 
@@ -77,6 +77,6 @@ aeMkMeet bottom [x]   = x
 aeMkMeet bottom xs    = HMeet xs
 
 
---==========================================================--
---=== end                               AbstractEval2.hs ===--
---==========================================================--
+-- ==========================================================--
+-- === end                               AbstractEval2.hs ===--
+-- ==========================================================--
