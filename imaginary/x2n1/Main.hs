@@ -1,4 +1,4 @@
-{-# OPTIONS -syslib exts #-}
+{-# OPTIONS -syslib lang #-}
 
 {-
 Date: Tue, 15 Dec 92 14:39:56 +0100

@@ -1,5 +1,3 @@
-{-# OPTIONS -syslib exts #-}
-
 module Main where
 import Array
 import Ix

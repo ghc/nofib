@@ -1,8 +1,11 @@
-{-# OPTIONS -syslib exts #-}
+{-# OPTIONS -syslib lang #-}
 
 --------------------------------------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: Fonts.hs,v $
+-- Revision 1.6  1999/12/08 09:56:37  simonmar
+-- -syslib updates for new libraries.
+--
 -- Revision 1.5  1999/11/26 10:29:54  simonpj
 -- fromInt wibble
 --

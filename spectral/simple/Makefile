@@ -7,6 +7,8 @@ SRCS = Main.hs
 # Main is rather big
 Main_HC_OPTS = -H15m
 
+SRC_HC_OPTS += -syslib lang
+
 SRC_RUNTEST_OPTS += +RTS -K3m -H20m -RTS
 
 include $(TOP)/mk/target.mk

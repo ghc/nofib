@@ -1,4 +1,4 @@
-> {-# OPTIONS -syslib exts #-}
+> {-# OPTIONS -syslib lang #-}
 > module Euclid
 
 	Module contains definitions of Points and Lines and related

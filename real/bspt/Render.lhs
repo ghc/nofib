@@ -1,4 +1,4 @@
-> {-# OPTIONS -syslib exts #-}
+> {-# OPTIONS -syslib lang #-}
 > module Render 
 
 	Render controls the displaying of BSP images and

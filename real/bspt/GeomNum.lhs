@@ -1,4 +1,4 @@
-> {-# OPTIONS -syslib exts #-}
+> {-# OPTIONS -syslib lang #-}
 > module GeomNum 
 
 	Defines the Geometric Number class and gives instances

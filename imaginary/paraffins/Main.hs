@@ -1,5 +1,5 @@
 
-{-# OPTIONS -syslib exts #-}
+{-# OPTIONS -syslib lang #-}
 
 {-
  - Id Example Program

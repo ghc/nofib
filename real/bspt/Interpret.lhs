@@ -1,4 +1,4 @@
-> {-# OPTIONS -syslib exts #-}
+> {-# OPTIONS -syslib lang #-}
 > module Interpret 
 
 	Module that produces the interpretation of the users input
