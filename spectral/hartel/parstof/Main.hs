@@ -550,7 +550,10 @@ data
         ((:) (f_lexcvt (f_mvtok_empty c_tok_ELSE) c_lex_ELSE) ((:) (f_lexcvt (f_mvtok_empty c_tok_FI) c_lex_FI) ((:) 
         (f_lexcvt (f_mvtok_empty c_tok_CASE) c_lex_CASE) ((:) (f_lexcvt (f_mvtok_string c_tok_uppid) c_lex_uppid) ((:) (f_lexcvt 
         (f_mvtok_string c_tok_str) c_lex_str) c_matchtoklist2)))))))))))));
-    c_matchtok=f_lexalt c_matchtoklist;
+      c_matchtok=f_lexalt c_matchtoklist;
+-- TEMP: when testing
+--    c_matchtok = f_lexalt [f_lexcvt (f_mvtok_string c_tok_lowid) c_lex_lowid];
+
     f_do_tokenize a_prog a_lineno=
         let { 
             f_do_tokenize_SWI_2 (a_prog_hd:a_prog_tl)=(:) (f_mvltok_error c_tok_error a_prog_hd c_err_comment a_lineno) [];
@@ -983,7 +986,9 @@ data
             f_main_SWI_0 (F_Emess_known a_kmess a_line)=a_kmess
          } in  (++) (f_sumcode (f_concat (f_map ((.) ((.) f_main_SWI_1 c_par_proglist) f_tokenize) [c_the_program|a_i<-
             [(1 :: Int)..a_n]]))) "\n";
-    c_the_program=(++) "main ip =\n" ((++) "  i2str (optim (myMain deciem))\n" ((++) ";\n" ((++) "\n" ((++) "TYPE tJobdef    = [ JOBDEF, int, int, int, tJobdef, tJobdef ] ;\n" ((++) "TYPE tJobstat   = [ JOBSTAT, int, int, int, int, tJobdef ] ;\n" 
+-- TEMP: when testing
+--    c_the_program = "main ip";
+      c_the_program=(++) "main ip =\n" ((++) "  i2str (optim (myMain deciem))\n" ((++) ";\n" ((++) "\n" ((++) "TYPE tJobdef    = [ JOBDEF, int, int, int, tJobdef, tJobdef ] ;\n" ((++) "TYPE tJobstat   = [ JOBSTAT, int, int, int, int, tJobdef ] ;\n" 
         ((++) "TYPE tTree      = [ LEAF, int |\n" ((++) "                    TREE, tTree, tTree ] ;\n" ((++) "TYPE tProc      = [ PROC, int, tJobstat ] ;\n" ((++) "\n" ((++) "\n" ((++) "\n" ((++) "emptyjobdef     = [JOBDEF, 0     , 0 , 0, emptyjobdef, emptyjobdef] ;\n" 
         ((++) "solo            = [JOBDEF, 1     , 0, 10, emptyjobdef, emptyjobdef] ;\n" ((++) "trio            = [JOBDEF, 1    , 10, 20     , child1     , child2] ;\n" ((++) "\n" ((++) "child1          = [JOBDEF, 2     , 0, 30, emptyjobdef, emptyjobdef] ;\n" ((++) "child2          = [JOBDEF, 3     , 0, 10, emptyjobdef, emptyjobdef] ;\n" ((++) "\n" ((++) "septiem         = [JOBDEF, 1    , 20, 20, job2    , job3              ] ;\n" 
         ((++) "\n" ((++) "job2            = [JOBDEF, 2    , 19, 10, job4    , job5              ] ;\n" ((++) "job3            = [JOBDEF, 3    , 18, 30, job6    , job7              ] ;\n" ((++) "job4            = [JOBDEF, 4     , 0, 38, emptyjobdef, emptyjobdef] ;\n" ((++) "job5            = [JOBDEF, 5     , 0, 50, emptyjobdef, emptyjobdef] ;\n" ((++) "job6            = [JOBDEF, 6     , 0, 10, emptyjobdef, emptyjobdef] ;\n" ((++) "job7            = [JOBDEF, 7     , 0, 40, emptyjobdef, emptyjobdef] ;\n" 
