@@ -112,8 +112,6 @@ join (Node k l r) t j = join l t (join r t j)
 -}
 
 main = do
-   argv <- getArgs
-   case argv of
       ~(f1 : ~(f2 : _ )) <- getArgs
       c1 <- readFile f1
       c2 <- readFile f2
