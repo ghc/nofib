@@ -84,7 +84,7 @@ import Basics
 
 data Vec a = VEC Int (Array Int a)
 
-displayvec :: (Text a) => Vec a -> [Char]
+displayvec :: (Show a) => Vec a -> [Char]
 
 vecprod :: (Num a) => Vec a -> Vec a -> a
 

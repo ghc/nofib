@@ -209,12 +209,12 @@ fsApp [ALo1] xs h
         Up1 _  -> One
 
 fsApp ((AHi1 n x d):as) xs h
-   = let app_res       = fsEvalConst h (myTake n xs)
+   = let app_res       = fsEvalConst h (take n xs)
          nth_upp_obj   = case app_res of
                             Stop1   -> avBottomR d
                             Up1 rs  -> rs ## x
      in
-         fsApp as (myDrop n xs) (HPoint nth_upp_obj)
+         fsApp as (drop n xs) (HPoint nth_upp_obj)
 
 fsApp [ALo2] xs h
    = case fsEvalConst h xs of
@@ -229,13 +229,13 @@ fsApp [AMid2] xs h
         UpUp2 _  -> One
 
 fsApp ((AHi2 n x d):as) xs h
-   = let app_res       = fsEvalConst h (myTake n xs)
+   = let app_res       = fsEvalConst h (take n xs)
          nth_upp_obj   = case app_res of
                             Stop2     -> avBottomR d
                             Up2       -> avBottomR d
                             UpUp2 rs  -> rs ## x
      in
-         fsApp as (myDrop n xs) (HPoint nth_upp_obj)
+         fsApp as (drop n xs) (HPoint nth_upp_obj)
 
 
 --==========================================================--

@@ -48,6 +48,6 @@ freshI                =  getCounterI          `thenI` (\c  ->
                                               returnI (TVar ("a" ++ show c))))
 freshesI              :: Int -> Infer [MonoType]
 freshesI 0            =                       returnI []
-freshesI (n+1)        =  freshI               `thenI` (\x  ->
-                         freshesI n           `thenI` (\xs ->
+freshesI n            =  freshI               `thenI` (\x  ->
+                         freshesI (n-1)       `thenI` (\xs ->
                                               returnI (x:xs)))

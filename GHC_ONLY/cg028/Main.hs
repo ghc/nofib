@@ -1,4 +1,4 @@
-main _ = [AppendChan stdout (shows (f (read "42.0")) "\n")]
+main = putStr (shows (f (read "42.0")) "\n")
 
 -- f compiled to bogus code with ghc 0.18 and earlier
 -- switch() on a DoubleReg

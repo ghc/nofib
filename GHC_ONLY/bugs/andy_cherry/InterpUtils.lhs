@@ -2,6 +2,7 @@
 
 > import GenUtils
 > import DataTypes
+> import Array -- 1.3
 
 %------------------------------------------------------------------------------
 
@@ -155,7 +156,7 @@ Now filter out the moves it *cant* be.
 >	-> [(Piece,ChessFile,ChessRank)]
 > getCurrPieces (Board arr (MoveNumber _ col) _) pc corr_file =
 >	[ (p,x,y) |
->		((x,y) := r) <- assocs arr,
+>		((x,y), r) <- assocs arr,
 >		lookupSquare col r == Friendly,
 >		(Just p) <- [getSquarePiece r],
 >		p == pc,
@@ -285,24 +286,24 @@ ToDo: add en-passant
 > makeAMove :: Board -> PlayMove -> Board
 > makeAMove board@(Board brd mv@(MoveNumber _ col) _)
 >	move@(PlayMove piece pos pos' NothingSpecial)  =
->	Board (brd //  [ pos := VacantSq,
->			pos' := mkColBoardSq col piece ])
+>	Board (brd //  [ pos =: VacantSq,
+>			pos' =: mkColBoardSq col piece ])
 >			(incMove mv) Nothing
 > makeAMove board@(Board brd mv@(MoveNumber _ col) _)
 >	move@(PlayMove piece pos@(f,_) pos' BigPawnMove)  =
->	Board (brd //  [ pos := VacantSq,
->			pos' := mkColBoardSq col piece ])
+>	Board (brd //  [ pos =: VacantSq,
+>			pos' =: mkColBoardSq col piece ])
 >			(incMove mv) (Just f)
 > makeAMove board@(Board brd mv@(MoveNumber _ col) _)
 >	move@(PlayMove piece pos@(f,_) pos' (Queening q))  =
->	Board (brd //  [ pos := VacantSq,
->			pos' := mkColBoardSq col q])
+>	Board (brd //  [ pos =: VacantSq,
+>			pos' =: mkColBoardSq col q])
 >			(incMove mv) (Just f)
 > makeAMove board@(Board brd mv@(MoveNumber _ col) _)	-- ASSERT ?
 >	move@(PlayMove piece (f,_) (f',_) EnPassant) =
->	Board (brd // [ (f,st) := VacantSq,
->			(f',fn) := mkColBoardSq col Pawn,
->			(f',st) := VacantSq ])
+>	Board (brd // [ (f,st) =: VacantSq,
+>			(f',fn) =: mkColBoardSq col Pawn,
+>			(f',st) =: VacantSq ])
 >			(incMove mv) Nothing
 >   where (st,fn) = case col of
 >		      White -> (5,6)
@@ -310,29 +311,29 @@ ToDo: add en-passant
 
 > makeACastleK (Board brd mv@(MoveNumber _ White) _) =
 >	Board (brd //
->	      [	(5,1) := VacantSq,
->		(6,1) := mkColBoardSq White Rook,
->		(7,1) := mkColBoardSq White King,
->		(8,1) := VacantSq ]) (incMove mv) Nothing
+>	      [	(5,1) =: VacantSq,
+>		(6,1) =: mkColBoardSq White Rook,
+>		(7,1) =: mkColBoardSq White King,
+>		(8,1) =: VacantSq ]) (incMove mv) Nothing
 > makeACastleK (Board brd mv@(MoveNumber _ Black) _) =
 
 >	Board (brd //
->	      [	(5,8) := VacantSq,
->		(6,8) := mkColBoardSq Black Rook,
->		(7,8) := mkColBoardSq Black King,
->		(8,8) := VacantSq ]) (incMove mv) Nothing
+>	      [	(5,8) =: VacantSq,
+>		(6,8) =: mkColBoardSq Black Rook,
+>		(7,8) =: mkColBoardSq Black King,
+>		(8,8) =: VacantSq ]) (incMove mv) Nothing
 > makeACastleQ (Board brd mv@(MoveNumber _ White) _) =
 >	Board (brd //
->	      [	(5,1) := VacantSq,
->		(4,1) := mkColBoardSq White Rook,
->		(3,1) := mkColBoardSq White King,
->		(1,1) := VacantSq ]) (incMove mv) Nothing
+>	      [	(5,1) =: VacantSq,
+>		(4,1) =: mkColBoardSq White Rook,
+>		(3,1) =: mkColBoardSq White King,
+>		(1,1) =: VacantSq ]) (incMove mv) Nothing
 > makeACastleQ (Board brd mv@(MoveNumber _ Black) _) =
 >	Board (brd //
->	      [	(5,8) := VacantSq,
->		(4,8) := mkColBoardSq Black Rook,
->		(3,8) := mkColBoardSq Black King,
->		(1,8) := VacantSq ]) (incMove mv) Nothing
+>	      [	(5,8) =: VacantSq,
+>		(4,8) =: mkColBoardSq Black Rook,
+>		(3,8) =: mkColBoardSq Black King,
+>		(1,8) =: VacantSq ]) (incMove mv) Nothing
 
 > disAmb _ [_] = ""
 > disAmb (a,b) t@[(n,m),(x,y)] 

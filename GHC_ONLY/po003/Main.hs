@@ -1,4 +1,5 @@
-import LibPosix
+import IO
+import Posix
 
 main = 
     openFile "po003.out" WriteMode >>= \ h ->

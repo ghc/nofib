@@ -13,6 +13,7 @@ This test program is courtesy of Andrew Partridge.
 -}
 module Main(main) where
 
+import System
 import Parallel
 
 result x
@@ -28,7 +29,7 @@ force :: [Int] -> ()
 force [] = ()
 force (x:xs) = x `seq` (force xs)
 
-main = getArgs exit ( \[a1] ->
-          let x = fst (head (readDec a1)) in
-              appendChan stdout (show (result x)) exit done
-       )
+main = do
+    ~[a1] <- getArgs
+    let x = fst (head ((reads::ReadS Int) a1))
+    putStr (show (result x))

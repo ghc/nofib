@@ -28,6 +28,7 @@ Kevin
 --	Bronze	50 points
 
 import QSort
+import List((\\))
 
 -- Generate all possible permutations of length m from a list of scores
 perms m [] = []

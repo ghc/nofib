@@ -25,7 +25,7 @@ editor cmdL initial update quit_check finish
 	= initial NONE NONE NONE NONE NONE                      /./
 	  ( \ st -> process_cmds cmdL update quit_check st st ) /.>/
 	  finish 				                /./
-	  (\ ( state' , _ ) -> return state' )
+	  (\ ( state' , _ ) -> reTurn state' )
 
 process_cmds cmdL update quit_check prev state 
 	= update prev state ./.
@@ -35,10 +35,10 @@ process_cmds cmdL update quit_check prev state
 	  err_handler
 	  where
 	  exp "Quit" 
-		= return state
+		= reTurn state
 {-
 		= quit_check state     /./
-		  ( \ st -> if st then return state  
+		  ( \ st -> if st then reTurn state  
 		      		  else process_cmds cmdL update 
 						        quit_check state state )
 -}
@@ -48,7 +48,7 @@ process_cmds cmdL update quit_check prev state
 	        process_cmds cmdL update quit_check state 
 {-
 	      = do_cmd cmdL state cmd 			   /.>/
-		(x_show_tactics ./. return (error ""))     /./
+		(x_show_tactics ./. reTurn (error ""))     /./
 	        ( \ ( st , _ ) -> process_cmds cmdL update quit_check state st )
 -}
 
@@ -86,7 +86,7 @@ do_cmd cmdL state cmd
 	= case my_assocs cmd cmdL of
 	       SOME cmd_fn -> cmd_fn state 
 	       NONE        -> x_error ( "Bad command: " ++ cmd ) /./ 
-	       		      ( \ _ -> return state  )
+	       		      ( \ _ -> reTurn state  )
 
 my_assocs :: String -> [(String,b)] -> Option b
 

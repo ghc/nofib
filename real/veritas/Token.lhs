@@ -136,17 +136,17 @@
 > mk_bdr :: Char -> Binder_conn
 
 >{-
-> mk_bdr x | ord x == 208 = Pi
+> mk_bdr x | fromEnum x == 208 = Pi
 
-> mk_bdr x | ord x == 211 = Sigma
+> mk_bdr x | fromEnum x == 211 = Sigma
 
-> mk_bdr x | ord x == 236 = Lambda
+> mk_bdr x | fromEnum x == 236 = Lambda
 
-> mk_bdr x | ord x == 177 = Forall
+> mk_bdr x | fromEnum x == 177 = Forall
 
-> mk_bdr x | ord x == 178 = Exists
+> mk_bdr x | fromEnum x == 178 = Exists
 
-> mk_bdr x | ord x == 229 = Choose
+> mk_bdr x | fromEnum x == 229 = Choose
 >-}
 
 > mk_bdr '\208' = Pi

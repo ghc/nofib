@@ -45,7 +45,7 @@
 	Status is an enumeration of classifications of points with
 	respect to objects.
 
-> data Status = In | Out | On deriving (Eq,Text)
+> data Status = In | Out | On deriving (Eq,Show{-was:Text-})
 
 	A partitioning is a triple of Faces representing the faces
 	(w.r.t. a partition) in the rear halfspace, coincident to, and 

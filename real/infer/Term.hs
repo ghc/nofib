@@ -8,8 +8,9 @@ data  Term    =  Var VarId
               |  Abs VarId Term
               |  App Term Term
               |  Let VarId Term Term
-instance Text Term where
+instance Show Term where
       showsPrec d  =  showsTerm d
+instance Read Term where
       readsPrec d  =  readsTerm
 readsTerm, readsAbs, readsAtomics, readsAtomic, readsVar :: Parses Term
 readsTerm     =       readsAbs

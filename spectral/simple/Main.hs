@@ -47,52 +47,50 @@
 -- driver
 module Main where
 --partain:import Seq
-seq x y = y -- partain
+import Array--1.3
+import Ix--1.3
+infixr 1 =:
+type Assoc a b = (a,b)
+(=:) = (,)
 
-main :: Dialogue
-main = readChan stdin exit (\ userInput -> runSimple (lines userInput))
+main = getContents >>= \ userInput -> runSimple (lines userInput)
 
-runSimple :: [String] -> Dialogue
+runSimple :: [String] -> IO ()
 runSimple inputLines = 
-  readInt "Run_simple :  " inputLines
-	(\ num1 inputLines1 ->
-	   if num1 >= 0  then reportSimple num1 else reportSimple2 (- num1))
+  readInt "Run_simple :  " inputLines >>= \ num1 ->
+  if num1 >= 0  then reportSimple num1 else reportSimple2 (- num1)
 	  
+readInt:: String -> [String] -> IO Int
+readInt prompt inputLines =
+      putStr prompt >>
+      (case inputLines of 
+	 (l1:rest) -> case (reads l1) of
+		       [(x,"")] -> return x
+		       _ -> error "Error"
+	 _ -> error "Eof Error")
 
-
-readInt:: String -> [String] -> (Int -> [String] -> Dialogue) -> Dialogue
-readInt prompt inputLines succ =
-      appendChan stdout prompt exit
-          (case inputLines of 
- 	     (l1:rest) -> case (reads l1) of
-       			   [(x,"")] -> succ x rest
-                           _ -> appendChan stdout "Error" exit done
-             _ -> appendChan stdout "Eof Error" exit done)
-
-reportSimple :: Int -> Dialogue
+reportSimple :: Int -> IO ()
 reportSimple iterations =
-  appendChan stdout 
+  putStr
     (mix "\n" (let {(u,v,r,z,alpha,s,rho,p,q,epsilon,theta,deltat,err) = simple_total iterations}
 			in [show "RESULT u,v,r,z,alpha,s,rho,p,q,epsilon,theta,deltat err",
 			    show "<" ++ show u ++ "," ++ show v ++ "," ++ show r ++ "," ++ show z ++ ","
 			    ++ show alpha ++ "," ++ show s ++ "," ++ show rho ++ "," ++ show p ++ ","
 			    ++ show q ++ ","++ show epsilon ++ ","++ show theta ++ ","
 			    ++ show deltat ++ ","++ show err ++ ">" ])
-		     ++ "\n" ++ "done\n")
-		exit done
+		     ++ "\n" ++ "done")
 
 
-reportSimple2 :: Int -> Dialogue
+reportSimple2 :: Int -> IO ()
 reportSimple2 iterations =
-  appendChan stdout 
+  putStr
     (mix "\n" (let {((mat0,mat1),(mat2,mat3),mat4,mat5,mat6,mat7,mat8,mat9,mat10,a,b) = simple iterations}
 			in [show "RESULT ",show "U",show mat0,show "V",show mat1,show "R",
 			    show mat2,show "Z", show mat3,show "Alpha", show mat4,show "S",
 			    show mat5,show "Rho", show mat6,show "P",
 			    show mat7,show "Q", show mat8,show "epsilon", show mat9,"theta",
 			    show mat10,show a, show b])
-		     ++ "\n" ++ "done\n")
-		exit done
+		     ++ "\n" ++ "done")
 
 
 
@@ -135,7 +133,7 @@ strictArrays_3 (a1, a2, a3) = (strictArray a1, strictArray a2, strictArray a3)
 
 
 array_unzip :: [Assoc a b] -> (b -> c) -> [Assoc a c]
-array_unzip ivs sel = [ i := (sel vs) | (i := vs) <- ivs]
+array_unzip ivs sel = [ i =: (sel vs) | (i, vs) <- ivs]
 
 pHbounds :: ((a, b), (c, d)) -> ((a, c), (b, d))
 pHbounds ((x_low,x_high),(y_low,y_high)) = ((x_low,y_low),(x_high,y_high))
@@ -250,31 +248,31 @@ compute_initial_state _ =
               reflect_area_vol reflect_function = 
                  (reflect_function alpha', reflect_function s') ;
               (alpha', s') = (arrays_2 (pHbounds dimension_all_zones)
-                              ([zone:= zone_area_vol x zone
+                              ([zone=: zone_area_vol x zone
                                    | zone <- interior_zones]++
-                               [zone:= reflect_area_vol (reflect_south zone)
+                               [zone=: reflect_area_vol (reflect_south zone)
                                    | zone <- north_zones]++
-                               [zone:= reflect_area_vol (reflect_north zone)
+                               [zone=: reflect_area_vol (reflect_north zone)
                                    | zone <- south_zones]++
-                               [zone:= reflect_area_vol (reflect_west zone)
+                               [zone=: reflect_area_vol (reflect_west zone)
                                    | zone <- east_zones]++
-                               [zone:= reflect_area_vol (reflect_east zone)
+                               [zone=: reflect_area_vol (reflect_east zone)
                                    | zone <- west_zones]))
               } in strictArrays_2 (alpha', s') ;
        rho = strictArray (array (pHbounds dimension_all_zones)
-              ([zone:= (1.4::Double) | zone <- all_zones])) ;
+              ([zone=: (1.4::Double) | zone <- all_zones])) ;
        p = make_pressure rho theta ;
        q = all_zero_zones () ;
        epsilon = make_energy rho theta ;
        theta = strictArray (array (pHbounds dimension_all_zones)
-                ([zone:= (10.0::Double) | zone <- interior_zones]++
-                 [zone:= constant_heat_source
+                ([zone=: (10.0::Double) | zone <- interior_zones]++
+                 [zone=: constant_heat_source
                      | zone <- north_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- south_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- east_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- west_zones])) ;
        deltat = (0.01::Double) ;
        c = (0.0 :: Double)
@@ -314,7 +312,7 @@ make_velocity (u, w) (r, z) p q alpha rho deltat =
               } in ((u!node) + deltat * u_dot, 
                    (w!node) + deltat * w_dot)
        } in strictArrays_2 (arrays_2 (pHbounds dimension_interior_nodes)
-             ([node:= velocity node | node <- interior_nodes]))
+             ([node=: velocity node | node <- interior_nodes]))
 
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -- %% Make_position
@@ -343,18 +341,18 @@ make_area_density_volume rho s x' =
           (reflect_function alpha', 
           reflect_function s', reflect_function rho') ;
        (alpha', s', rho') = (arrays_3 (pHbounds dimension_all_zones)
-                             ([zone:= interior_area zone
+                             ([zone=: interior_area zone
                                   | zone <- interior_zones]++
-                              [zone:= reflect_area_vol_density 
+                              [zone=: reflect_area_vol_density 
                                          (reflect_south zone)
                                   | zone <- north_zones]++
-                              [zone:= reflect_area_vol_density 
+                              [zone=: reflect_area_vol_density 
                                          (reflect_north zone)
                                   | zone <- south_zones]++
-                              [zone:= reflect_area_vol_density 
+                              [zone=: reflect_area_vol_density 
                                          (reflect_west zone)
                                   | zone <- east_zones]++
-                              [zone:= reflect_area_vol_density 
+                              [zone=: reflect_area_vol_density 
                                          (reflect_east zone)
                                   | zone <- west_zones]))
        } in strictArrays_3 (alpha', s', rho')
@@ -409,15 +407,15 @@ make_viscosity p (u', w') (r', z') alpha' rho' =
        reflect_viscosity_cdelta direction zone = 
           ((q'!direction zone) * (qb!(nbc!zone)), (0.0 :: Double)) ;
        (q', d) = (arrays_2 (pHbounds dimension_all_zones)
-                  ([zone:= interior_viscosity zone
+                  ([zone=: interior_viscosity zone
                        | zone <- interior_zones]++
-                   [zone:= reflect_viscosity_cdelta 
+                   [zone=: reflect_viscosity_cdelta 
                               south zone | zone <- north_zones]++
-                   [zone:= reflect_viscosity_cdelta 
+                   [zone=: reflect_viscosity_cdelta 
                               north zone | zone <- south_zones]++
-                   [zone:= reflect_viscosity_cdelta 
+                   [zone=: reflect_viscosity_cdelta 
                               west zone | zone <- east_zones]++
-                   [zone:= reflect_viscosity_cdelta 
+                   [zone=: reflect_viscosity_cdelta 
                               east zone | zone <- west_zones]))
        } in strictArrays_2 (q', d)
 
@@ -510,15 +508,15 @@ make_temperature p epsilon rho theta rho' q' =
                            theta_1
               } in theta_2
        } in strictArray (array (pHbounds dimension_all_zones)
-             ([zone:= interior_temperature zone
+             ([zone=: interior_temperature zone
                   | zone <- interior_zones]++
-              [zone:= constant_heat_source
+              [zone=: constant_heat_source
                   | zone <- north_zones]++
-              [zone:= constant_heat_source
+              [zone=: constant_heat_source
                   | zone <- south_zones]++
-              [zone:= constant_heat_source
+              [zone=: constant_heat_source
                   | zone <- east_zones]++
-              [zone:= constant_heat_source
+              [zone=: constant_heat_source
                   | zone <- west_zones]))
 
 make_cc :: (DblArray) -> (DblArray) -> DblArray
@@ -527,14 +525,14 @@ make_cc alpha' theta_hat =
        interior_cc zone = ((0.0001::Double) * ((**) (theta_hat!zone) (2.5::Double))) 
                           / (alpha'!zone) ;
        cc = (array (pHbounds dimension_all_zones)
-             ([zone:= interior_cc zone | zone <- interior_zones]++
-              [zone:= reflect_south zone cc
+             ([zone=: interior_cc zone | zone <- interior_zones]++
+              [zone=: reflect_south zone cc
                   | zone <- north_zones]++
-              [zone:= reflect_north zone cc
+              [zone=: reflect_north zone cc
                   | zone <- south_zones]++
-              [zone:= reflect_west zone cc
+              [zone=: reflect_west zone cc
                   | zone <- east_zones]++
-              [zone:= reflect_east zone cc
+              [zone=: reflect_east zone cc
                   | zone <- west_zones]))
        } in strictArray cc
 
@@ -544,7 +542,7 @@ make_sigma deltat rho' alpha' =
        interior_sigma zone = (((rho'!zone) * (alpha'!zone)) 
                              * specific_heat) / deltat
        } in strictArray (array (pHbounds dimension_interior_zones)
-             ([zone:= interior_sigma zone
+             ([zone=: interior_sigma zone
                   | zone <- interior_zones]))
 
 make_gamma :: (DblArray, DblArray) -> (DblArray)-> ((Int, Int) -> (Int, Int)) -> ((Int, Int) -> (Int, Int)) -> DblArray
@@ -563,12 +561,12 @@ make_gamma (r', z') cc succeeding adjacent =
                  (((2.0::Double) * c1) * c2) / (c1 + c2)
               } in cross_section * specific_conductivity
        } in strictArray (array (pHbounds dimension_all_zones)
-             ([zone:= interior_gamma zone
+             ([zone=: interior_gamma zone
                   | zone <- interior_zones]++
-              [zone:= (0.0 :: Double) | zone <- north_zones]++
-              [zone:= (0.0 :: Double) | zone <- south_zones]++
-              [zone:= (0.0 :: Double) | zone <- east_zones]++
-              [zone:= (0.0 :: Double) | zone <- west_zones]))
+              [zone=: (0.0 :: Double) | zone <- north_zones]++
+              [zone=: (0.0 :: Double) | zone <- south_zones]++
+              [zone=: (0.0 :: Double) | zone <- east_zones]++
+              [zone=: (0.0 :: Double) | zone <- west_zones]))
 
 make_ab :: (DblArray) -> (DblArray) -> (DblArray) -> ((Int, Int) -> (Int, Int))
  -> (DblArray, DblArray)
@@ -587,15 +585,15 @@ make_ab theta sigma gamma preceding =
               result2 = nume2 / denom
               } in seq (result1 + result2) (result1,result2) ;
        (a, b) = (arrays_2 (pHbounds dimension_all_zones)
-                 ([zone:= interior_ab zone
+                 ([zone=: interior_ab zone
                       | zone <- interior_zones]++
-                  [zone:= ((0.0 :: Double), theta!zone)
+                  [zone=: ((0.0 :: Double), theta!zone)
                       | zone <- north_zones]++
-                  [zone:= ((0.0 :: Double), theta!zone)
+                  [zone=: ((0.0 :: Double), theta!zone)
                       | zone <- south_zones]++
-                  [zone:= ((0.0 :: Double), theta!zone)
+                  [zone=: ((0.0 :: Double), theta!zone)
                       | zone <- east_zones]++
-                  [zone:= ((0.0 :: Double), theta!zone)
+                  [zone=: ((0.0 :: Double), theta!zone)
                       | zone <- west_zones]))
        } in strictArrays_2 (a, b)
 
@@ -605,15 +603,15 @@ make_theta a b succeeding int_zones =
        interior_theta zone = (a!zone) * (theta!succeeding zone) 
                              + (b!zone) ;
        theta = (array (pHbounds dimension_all_zones)
-                ([zone:= interior_theta zone
+                ([zone=: interior_theta zone
                      | zone <- int_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- north_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- south_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- east_zones]++
-                 [zone:= constant_heat_source
+                 [zone=: constant_heat_source
                      | zone <- west_zones]))
        } in strictArray theta
 
@@ -627,15 +625,15 @@ make_pressure rho' theta' =
        boundary_p direction zone = 
           (pbb!(nbc!zone)) + (pb!(nbc!zone)) * (p!direction zone) ;
        p = (array (pHbounds dimension_all_zones)
-            ([zone:= zonal_pressure (rho'!zone) (theta'!zone)
+            ([zone=: zonal_pressure (rho'!zone) (theta'!zone)
                  | zone <- interior_zones]++
-             [zone:= boundary_p south zone
+             [zone=: boundary_p south zone
                  | zone <- north_zones]++
-             [zone:= boundary_p north zone
+             [zone=: boundary_p north zone
                  | zone <- south_zones]++
-             [zone:= boundary_p west zone
+             [zone=: boundary_p west zone
                  | zone <- east_zones]++
-             [zone:= boundary_p east zone
+             [zone=: boundary_p east zone
                  | zone <- west_zones]))
        } in strictArray p
 
@@ -647,16 +645,16 @@ make_energy :: (DblArray) -> (DblArray) -> DblArray
 make_energy rho' theta' = 
    let {
        epsilon' = (array (pHbounds dimension_all_zones)
-                   ([zone:= zonal_energy (rho'!zone) 
+                   ([zone=: zonal_energy (rho'!zone) 
                                (theta'!zone)
                         | zone <- interior_zones]++
-                    [zone:= reflect_south zone epsilon'
+                    [zone=: reflect_south zone epsilon'
                         | zone <- north_zones]++
-                    [zone:= reflect_north zone epsilon'
+                    [zone=: reflect_north zone epsilon'
                         | zone <- south_zones]++
-                    [zone:= reflect_west zone epsilon'
+                    [zone=: reflect_west zone epsilon'
                         | zone <- east_zones]++
-                    [zone:= reflect_east zone epsilon'
+                    [zone=: reflect_east zone epsilon'
                         | zone <- west_zones]))
        } in strictArray epsilon'
 
@@ -961,32 +959,32 @@ specific_heat = 0.1 ::Double
 
 p_coeffs :: DblArray
 p_coeffs = strictArray (array ((0, 0),(2, 2))
-            ([(1, 1) := 0.06698]++
-             [(i, j):= 0.0 | i <- [0..2],j <- [0..2], not (i == 1 && j == 1)]))
+            ([(1, 1) =: 0.06698]++
+             [(i, j)=: 0.0 | i <- [0..2],j <- [0..2], not (i == 1 && j == 1)]))
 
 e_coeffs:: DblArray
 e_coeffs = strictArray (array ((0, 0),(2, 2))
-            ([(0, 1) := 0.1]++
-             [(i, j):= 0.0 | i <- [0..2],j <- [0..2], not (i == 0 && j == 1)]))
+            ([(0, 1) =: 0.1]++
+             [(i, j)=: 0.0 | i <- [0..2],j <- [0..2], not (i == 0 && j == 1)]))
 
 p_poly = strictArray (array ((1, 1),(4, 5))
-          ([(i, j):= p_coeffs | i <- [1..4],j <- [1..5]]))
+          ([(i, j)=: p_coeffs | i <- [1..4],j <- [1..5]]))
 
 e_poly = strictArray (array ((1, 1),(4, 5))
-          ([(i, j):= e_coeffs | i <- [1..4],j <- [1..5]]))
+          ([(i, j)=: e_coeffs | i <- [1..4],j <- [1..5]]))
 
 rho_table:: DblVector
 rho_table = strictArray (array (1, 3)
-             ([1 := 0.0]++
-              [2 := 1.0]++
-              [3 := 100.0]))
+             ([1 =: 0.0]++
+              [2 =: 1.0]++
+              [3 =: 100.0]))
 
 theta_table:: DblVector
 theta_table = strictArray (array (1, 4)
-               ([1 := 0.0]++
-                [2 := 3.0]++
-                [3 := 300.0]++
-                [4 := 3000.0]))
+               ([1 =: 0.0]++
+                [2 =: 3.0]++
+                [3 =: 300.0]++
+                [4 =: 3000.0]))
 
 extract_energy_tables_from_constants = 
    (e_poly, 2, rho_table, theta_table)
@@ -996,35 +994,35 @@ extract_pressure_tables_from_constants =
 
 nbc :: Array (Int, Int) Int
 nbc = strictArray (array (pHbounds dimension_all_zones)
-       ([(i, j):= 1 | i <- [kmin],j <- [lmin + 1..lmax]]++
-        [(i, j):= 2 | i <- [kmax + 1],j <- [lmin + 1..lmax]]++
-        [(i, j):= 1 | j <- [lmin],i <- [kmin + 1..kmax]]++
-        [(i, j):= 1 | j <- [lmax + 1],i <- [lmin + 1..lmax]]++
-        [(i, j):= 4 | i <- [kmin],j <- [lmin]]++
-        [(i, j):= 4 | i <- [kmin],j <- [lmax + 1]]++
-        [(i, j):= 4 | i <- [kmax + 1],j <- [lmin]]++
-        [(i, j):= 4 | i <- [kmax + 1],j <- [lmax + 1]]))
+       ([(i, j)=: 1 | i <- [kmin],j <- [lmin + 1..lmax]]++
+        [(i, j)=: 2 | i <- [kmax + 1],j <- [lmin + 1..lmax]]++
+        [(i, j)=: 1 | j <- [lmin],i <- [kmin + 1..kmax]]++
+        [(i, j)=: 1 | j <- [lmax + 1],i <- [lmin + 1..lmax]]++
+        [(i, j)=: 4 | i <- [kmin],j <- [lmin]]++
+        [(i, j)=: 4 | i <- [kmin],j <- [lmax + 1]]++
+        [(i, j)=: 4 | i <- [kmax + 1],j <- [lmin]]++
+        [(i, j)=: 4 | i <- [kmax + 1],j <- [lmax + 1]]))
 
 pbb :: DblVector
 pbb = strictArray (array (1, 4)
-       ([2 := 6.0]++
-        [i:= 0.0 | i <- [1..4], not (i == 2)]))
+       ([2 =: 6.0]++
+        [i=: 0.0 | i <- [1..4], not (i == 2)]))
 
 pb:: DblVector
 pb = strictArray (array (1, 4)
-      ([i:= 1.0 | i <- [1..4], not (i == 2 || i == 3)]++
-       [i:= 0.0 | i <- [2..3]]))
+      ([i=: 1.0 | i <- [1..4], not (i == 2 || i == 3)]++
+       [i=: 0.0 | i <- [2..3]]))
 
 qb:: DblVector
 qb = pb
 
 all_zero_nodes :: a -> DblArray
 all_zero_nodes _ = strictArray (array (pHbounds dimension_all_nodes)
-                    ([node:= 0.0 | node <- all_nodes]))
+                    ([node=: 0.0 | node <- all_nodes]))
 
 all_zero_zones :: a -> DblArray
 all_zero_zones _ = strictArray (array (pHbounds dimension_all_zones)
-                    ([zone:= 0.0 | zone <- all_zones]))
+                    ([zone=: 0.0 | zone <- all_zones]))
 
 make_position_matrix :: ((Int, Int) -> (Double, Double)) -> (DblArray, DblArray)
 make_position_matrix interior_function = 
@@ -1049,36 +1047,36 @@ make_position_matrix interior_function =
               } in boundary_position rx zx ry zy ra 
                       za ;
        (r', z') = (arrays_2 (pHbounds dimension_all_nodes)
-                   ([node:= interior_function node
+                   ([node=: interior_function node
                         | node <- interior_nodes]++
-                    [node:= reflect_node south southeast 
+                    [node=: reflect_node south southeast 
                                farsouth node
                         | node <- north_nodes]++
-                    [node:= reflect_node north northeast 
+                    [node=: reflect_node north northeast 
                                farnorth node
                         | node <- south_nodes]++
-                    [node:= reflect_node west southwest 
+                    [node=: reflect_node west southwest 
                                farwest node | node <- east_nodes]++
-                    [node:= reflect_node east southeast 
+                    [node=: reflect_node east southeast 
                                fareast node | node <- west_nodes]++
-                    [node:= reflect_node southwest west 
+                    [node=: reflect_node southwest west 
                                farwest node | node <- north_east_corner]++
-                    [node:= reflect_node northwest west 
+                    [node=: reflect_node northwest west 
                                farwest node | node <- south_east_corner]++
-                    [node:= reflect_node southeast south 
+                    [node=: reflect_node southeast south 
                                farsouth node
                         | node <- north_west_corner]++
-                    [node:= reflect_node northeast east 
+                    [node=: reflect_node northeast east 
                                fareast node | node <- south_west_corner]++
-                    [node:= reflect_node south southwest 
+                    [node=: reflect_node south southwest 
                                farsouth node
                         | node <- west_of_north_east]++
-                    [node:= reflect_node north northwest 
+                    [node=: reflect_node north northwest 
                                farnorth node
                         | node <- west_of_south_east]++
-                    [node:= reflect_node west northwest 
+                    [node=: reflect_node west northwest 
                                farwest node | node <- north_of_south_east]++
-                    [node:= reflect_node east northeast 
+                    [node=: reflect_node east northeast 
                                fareast node | node <- north_of_south_west]))
        } in strictArrays_2 (r', z')
 

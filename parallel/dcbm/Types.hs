@@ -9,7 +9,7 @@ data Tree =	Tip Entity | Tip_Acc Int Int | Node1 Tree Int Tree |
 			Node2 Tree Int Tree Int Tree
 		deriving Eq
 
-data BOOL = TRUE | FALSE | UNKNOWN deriving (Text)
+data BOOL = TRUE | FALSE | UNKNOWN deriving (Show{-was:Text-})
 
 -- The type of Database Transactions
 type Transaction = Dbt -> (Msgt,Dbt)
@@ -51,6 +51,6 @@ data Dbt = Root Tree Tree Tree [Histrt]
 -}
 
 data Msgt = Ok Int | Error Int 
-	deriving (Eq,Text)
+	deriving (Eq,Show{-was:Text-})
 
 

@@ -77,11 +77,11 @@ other (debugging) unparses
 
 > unparse' sg ( Sym n1 n2 _ att )
 >	= case attval Symbol_Style att  of
->		Named   -> lookup sg n1 n2 (-1)
+>		Named   -> lookUp sg n1 n2 (-1)
 >		Indexed -> "\168" ++ show n1 ++ "," ++ show n2 ++ "\169"
 
 > unparse' sg ( Const i j k _ _ )
-> 	= lookup sg i j k
+> 	= lookUp sg i j k
 
 > unparse' sg ( App tm1 tm2 _ _ )
 >	= "(" ++ unparse' sg tm1 ++ " " ++ unparse' sg tm2 ++ ")"
@@ -275,13 +275,13 @@ N.B. Implies needs extended sg
 
 
 
-> lookup ( Extend dc sg _ ) 0 i2 i3
+> lookUp ( Extend dc sg _ ) 0 i2 i3
 >	= lookup_dc dc [] i2 i3
 
-> lookup ( Extend dc sg _ ) ( i1 + 1 ) i2 i3
->	= lookup sg i1 i2 i3
+> lookUp ( Extend dc sg _ ) i1 i2 i3 | i1 > 0
+>	= lookUp sg (i1-1) i2 i3
 
-> lookup _ _ _ _ = "symbol not found "
+> lookUp _ _ _ _ = "symbol not found "
 
 
 
@@ -305,11 +305,11 @@ N.B. Implies needs extended sg
 >		   Datatype_Name nmL -> Name " Unexpected Datatype "
 
 
-> lookup_dc ( Decpair dc1 dc2 attL ) dcl ( i + 1 ) k
+> lookup_dc ( Decpair dc1 dc2 attL ) dcl i k | i > 0
 >	= case attval Dec_Style attL of
 >--		Grouped   -> --HERE
->		Grouped   ->  lookup_dc dc1 ( dc2 : dcl ) i k
->		Ungrouped -> lookup_dc dc1 ( dc2 : dcl ) i k
+>		Grouped   ->  lookup_dc dc1 ( dc2 : dcl ) (i-1) k
+>		Ungrouped -> lookup_dc dc1 ( dc2 : dcl ) (i-1) k
 
 > lookup_dc ( Data _ _ attL ) _ 0 k
 >	= lookup_ctr nmL k
@@ -327,8 +327,8 @@ N.B. Implies needs extended sg
 >		   Symbol_Name nm'   -> nm'
 >		   Datatype_Name nmL -> Name " Unexpected Datatype "
 
-> lookup_dc _ ( dc : dcl ) ( i + 1 ) k
->	= lookup_dc dc dcl i k
+> lookup_dc _ ( dc : dcl ) i k | i > 0
+>	= lookup_dc dc dcl (i-1) k
 
 > lookup_dc _ _ _ _ = " symbol not found "
 
@@ -338,8 +338,8 @@ N.B. Implies needs extended sg
 
 
 
-> lookup_ctr ( nm : nml ) ( k + 1 )
->	= lookup_ctr nml k
+> lookup_ctr ( nm : nml ) k | k > 0
+>	= lookup_ctr nml (k-1)
 
 > lookup_ctr ( nm : nml ) 0
 >	= case nm of

@@ -2,6 +2,7 @@
 
 > import GenUtils
 > import DataTypes
+> import Char -- 1.3
 
 This is a PGN lexer. Simple, and straightforward.
 

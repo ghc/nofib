@@ -36,7 +36,7 @@ nullSubst               :: Subst
 nullSubst i              = Var i
 
 (->>)                   :: Id -> Term -> Subst
-(i ->> t) j | j==i       = t
+(->>) i t j | j==i       = t
             | otherwise  = Var j
 
 (@@)                    :: Subst -> Subst -> Subst

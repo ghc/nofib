@@ -10,6 +10,7 @@ import Utils
 import MyUtils
 import Dependancy
 
+import List(nub) -- 1.3
 
 --==========================================================--
 -- First, put "split" lambda abstractions back together.
@@ -87,7 +88,7 @@ llUnique ns dict (ECase sw alts)
 llUnique ns dict (EVar v)
    = case utLookup dict v of
         Just v2 -> (ns, EVar v2)
-        Nothing -> fail ("No such variable \"" ++ v ++ "\"")
+        Nothing -> myFail ("No such variable \"" ++ v ++ "\"")
 
 llUnique ns dict (ELam vs e)
    = let (new_ns, new_params) = utGetNames ns (llCheckUnique vs)
@@ -122,7 +123,7 @@ llCheckUnique names
             | otherwise = getdups (y:xys)
          dups = getdups (sort names)
      in if null dups then names 
-           else fail ("Duplicate identifiers in the same scope:\n\t" ++ show dups)
+           else myFail ("Duplicate identifiers in the same scope:\n\t" ++ show dups)
 
 
 --==========================================================--

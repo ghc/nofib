@@ -107,12 +107,12 @@ integer_list_to_char_list [] = [];
             : integer_list_to_char_list l;
     integer_list_to_char_list2 [] n = CBOX(_CHR_ (n _MUL_ ILIT(16))) : [];
 
-main :: Dialogue;
-main = readChan stdin abort (\input_string -> main2 input_string);
+main :: IO ();
+main = getContents >>= \input_string -> main2 input_string;
 
-main2 :: String -> Dialogue;
+main2 :: String -> IO ();
 main2 input_string
-    =   appendChan stdout output_list abort done
+    = putStr output_list
     where {
         output_list = integer_list_to_char_list code_list;
         code_list = lzw_code_file input_string create_code_table ILIT(256);

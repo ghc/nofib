@@ -10,7 +10,6 @@ import Substitution	( Sub )
 import Maybe		( Maybe )
 import Infer
 
-main          :: Dialogue
 main          =  interact
                    ( showsString (show testEnv ++ prompt)
                    . concat

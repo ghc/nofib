@@ -9,18 +9,19 @@ import Auxprogfuns
 import Layout
 import Tilefuns
 
-main ~(Str fromMgr : _) =
-  [ReadChan stdin, AppendChan stdout toMgr]
-  where
-  toMgr = setmode 7 ++
-          shapewindow [0,0,1150,900] ++
-          setup ++
-          potatotile ([],1,initalist) (lines fromMgr) ++
-          shapewindow [0,0,500,500] ++
-          font 8 ++
-          textreset ++
-          clear ++
-          func 15 
+main = do
+    fromMgr <- getContents
+    let
+	  toMgr = setmode 7 ++
+		  shapewindow [0,0,1150,900] ++
+		  setup ++
+		  potatotile ([],1,initalist) (lines fromMgr) ++
+		  shapewindow [0,0,500,500] ++
+		  font 8 ++
+		  textreset ++
+		  clear ++
+		  func 15 
+    putStr toMgr
 
 
 

@@ -2,6 +2,11 @@
 -- of Bird and Wadler's ``Introduction to functional programming'', with
 -- two ways of printing the calendar ... as in B+W, or like UNIX `cal':
 
+import IO -- 1.3
+import System -- 1.3
+import List -- 1.3
+import Char -- 1.3
+
 -- Picture handling:
 
 infixr 5 `above`, `beside`
@@ -24,12 +29,12 @@ empty         :: (Int,Int) -> Picture
 empty (h,w)    = copy h (copy w ' ')
 
 block, blockT :: Int -> [Picture] -> Picture
-block n        = stack . map spread . group n
-blockT n       = spread . map stack . group n
+block n        = stack . map spread . groop n
+blockT n       = spread . map stack . groop n
 
-group         :: Int -> [a] -> [[a]]
-group n []     = []
-group n xs     = take n xs : group n (drop n xs)
+groop         :: Int -> [a] -> [[a]]
+groop n []     = []
+groop n xs     = take n xs : groop n (drop n xs)
 
 lframe        :: (Int,Int) -> Picture -> Picture
 lframe (m,n) p = (p `beside` empty (h,n-w)) `above` empty (m-h,n)
@@ -96,18 +101,19 @@ cal year = unlines (banner year `above` body year)
 
 -- For a standalone calendar program:
 
-main = getArgs exit (\strs ->
-       case strs of [year] -> calFor year
-                    _      -> appendChan stdout "Usage: cal year\n" exit done)
+main = do
+    strs <- getArgs
+    case strs of [year] -> calFor year
+                 _      -> fail (userError "Usage: cal year\n")
 
 
-calFor year | illFormed = appendChan stderr "Bad argument" exit done
-            | otherwise = appendChan stdout (cal yr) exit done
+calFor year | illFormed = fail (userError "Bad argument")
+            | otherwise = putStr (cal yr)
               where illFormed = null ds || not (null rs)
                     (ds,rs)   = span isDigit year
                     yr        = atoi ds
                     atoi s    = foldl (\a d -> 10*a+d) 0 (map toDigit s)
-                    toDigit d = ord d - ord '0'
+                    toDigit d = fromEnum d - fromEnum '0'
        
 
 -- End of calendar program

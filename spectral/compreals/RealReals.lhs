@@ -2,6 +2,9 @@
 
 \begin{verbatim}
 $Log: RealReals.lhs,v $
+Revision 1.2  1996/07/25 21:30:49  partain
+Bulk of final changes for 2.01
+
 Revision 1.1  1996/01/08 20:05:19  partain
 Initial revision
 
@@ -323,8 +326,9 @@ This is not quite true as the root needs to be real.
 
 \section{@RealReal@ is an instance of @Text@}
 
-> instance Text RealReal where
+> instance Read RealReal where
 >   readsPrec p    = readSigned readRealReal
+> instance Show RealReal where
 >   showsPrec p rx = showString (showRat p (makeRational rx))
 
 > makeRational :: RealReal -> QRational

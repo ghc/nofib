@@ -5,11 +5,11 @@
 --
 -- uses Haskell B. version 0.99.3
 --
-module Parse(Parser(..), fail, okay, tok, sat, orelse, seq, do,
+module Parse(Parser, faiL, okay, tok, sat, orelse, seQ, doo,
              sptok, just, listOf, many, sp, many1) where
 
-infixr 6 `seq`
-infixl 5 `do`
+infixr 6 `seQ`
+infixl 5 `doo`
 infixr 4 `orelse`
 
 --- Type definition:
@@ -25,7 +25,7 @@ type Parser a = [Char] -> [(a,[Char])]
 
 --- Primitive parsers:
 
--- fail     is a parser which always fails.
+-- faiL     is a parser which always fails.
 -- okay v   is a parser which always succeeds without consuming any characters
 --          from the input string, with parsed value v.
 -- tok w    is a parser which succeeds if the input stream begins with the
@@ -34,8 +34,8 @@ type Parser a = [Char] -> [(a,[Char])]
 -- sat p    is a parser which succeeds with value c if c is the first input
 --          character and c satisfies the predicate p.
 
-fail        :: Parser a 
-fail inn      = []
+faiL        :: Parser a 
+faiL inn      = []
 
 okay        :: a -> Parser a  
 okay v inn    = [(v,inn)]
@@ -52,10 +52,10 @@ sat p (c:inn) = [ (c,inn) | p c ]
 
 -- p1 `orelse` p2 is a parser which returns all possible parses of the input
 --                string, first using the parser p1, then using parser p2.
--- p1 `seq` p2    is a parser which returns pairs of values (v1,v2) where
+-- p1 `seQ` p2    is a parser which returns pairs of values (v1,v2) where
 --                v1 is the result of parsing the input string using p1 and
 --                v2 is the result of parsing the remaining input using p2.
--- p `do` f       is a parser which behaves like the parser p, but returns
+-- p `doo` f       is a parser which behaves like the parser p, but returns
 --                the value f v wherever p would have returned the value v.
 --
 -- just p         is a parser which behaves like the parser p, but rejects any
@@ -69,13 +69,13 @@ sat p (c:inn) = [ (c,inn) | p c ]
 --                separators parsed using the parser s.
 
 orelse             :: Parser a -> Parser a -> Parser a 
-(p1 `orelse` p2) inn = p1 inn ++ p2 inn
+orelse p1 p2 inn = p1 inn ++ p2 inn
  
-seq                :: Parser a -> Parser b -> Parser (a,b)
-(p1 `seq` p2) inn    = [((v1,v2),inn2) | (v1,inn1) <- p1 inn, (v2,inn2) <- p2 inn1]
+seQ                :: Parser a -> Parser b -> Parser (a,b)
+seQ p1 p2 inn    = [((v1,v2),inn2) | (v1,inn1) <- p1 inn, (v2,inn2) <- p2 inn1]
 
-do                 :: Parser a -> (a -> b) -> Parser b 
-(p `do` f) inn       = [(f v, inn1) | (v,inn1) <- p inn]
+doo                 :: Parser a -> (a -> b) -> Parser b 
+doo p f inn       = [(f v, inn1) | (v,inn1) <- p inn]
 
 just               :: Parser a -> Parser a
 just p inn           = [ (v,"") | (v,inn')<- p inn, dropWhile (' '==) inn' == "" ]
@@ -88,13 +88,13 @@ sptok               =  sp . tok
 
 many               :: Parser a  -> Parser [a]
 many p              = q
-                      where q = ((p `seq` q) `do` makeList) `orelse` (okay [])
+                      where q = ((p `seQ` q) `doo` makeList) `orelse` (okay [])
 
 many1              :: Parser a -> Parser [a]
-many1 p             = p `seq` many p `do` makeList
+many1 p             = p `seQ` many p `doo` makeList
 
 listOf             :: Parser a -> Parser b -> Parser [a]
-listOf p s          = p `seq` many (s `seq` p) `do` nonempty
+listOf p s          = p `seQ` many (s `seQ` p) `doo` nonempty
                       `orelse` okay []
                       where nonempty (x,xs) = x:(map snd xs)
 

@@ -18,7 +18,7 @@ data
     f_var_cmp::T_var -> T_var -> Int;
     f_var_cmp a_vx a_vy=
         let { 
-            f_char_cmp a_x a_y=((-) :: (Int -> Int -> Int)) (ord a_x) (ord a_y)
+            f_char_cmp a_x a_y=((-) :: (Int -> Int -> Int)) (fromEnum a_x) (fromEnum a_y)
          } in  f_list_cmp f_char_cmp a_vx a_vy;
     f_var_less,f_var_equal,f_var_greater::T_var -> T_var -> Bool;
     f_var_less a_vx a_vy=((<) :: (Int -> Int -> Bool)) (f_var_cmp a_vx a_vy) (0 :: Int);
@@ -188,7 +188,7 @@ data
     c_cmp_greater::Int;
     c_cmp_greater=(1 :: Int);
     f_cmp_c::Char -> Char -> Int;
-    f_cmp_c a_x a_y=((-) :: (Int -> Int -> Int)) (ord a_x) (ord a_y);
+    f_cmp_c a_x a_y=((-) :: (Int -> Int -> Int)) (fromEnum a_x) (fromEnum a_y);
     f_cmp_string::[Char] -> [Char] -> Int;
     f_cmp_string a_xs a_ys=f_list_cmp f_cmp_c a_xs a_ys;
     f_cmp_i::Int -> Int -> Int;
@@ -309,8 +309,8 @@ data
     f_const a_x a_y=a_x;
     f_digit::Char -> Bool;
     f_digit a_x=
-        if (((<=) :: (Int -> Int -> Bool)) (ord '0') (ord a_x))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_x) (ord '9'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum '0') (fromEnum a_x))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_x) (fromEnum '9'))
         else 
             False;
     f_drop::Int -> [t1] -> [t1];
@@ -375,14 +375,14 @@ data
     f_letter::Char -> Bool;
     f_letter a_c=
         if (
-            if (((<=) :: (Int -> Int -> Bool)) (ord 'a') (ord a_c))
-            then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'z'))
+            if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'a') (fromEnum a_c))
+            then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'z'))
             else 
                 False)
         then True
         else 
-        if (((<=) :: (Int -> Int -> Bool)) (ord 'A') (ord a_c))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'Z'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'A') (fromEnum a_c))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'Z'))
         else 
             False;
     f_limit::[Double] -> Double;
@@ -401,7 +401,7 @@ data
                 else 
                     ((:) [] [])
          } in  
-            if (((==) :: (Int -> Int -> Bool)) (ord a_a) (ord '\o012'))
+            if (((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum '\o012'))
             then ((:) [] (f_lines a_x))
             else 
                 ((:) ((:) a_a (head r_xs)) (tail r_xs));
@@ -523,5 +523,5 @@ data
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
     c_input=(1000 :: Int);
-    main r = [AppendChan "stdout" (f_main c_input)]
+    main = putStr (f_main c_input)
 }

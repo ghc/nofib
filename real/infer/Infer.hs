@@ -1,6 +1,8 @@
 module Infer (inferTerm) where
 
-import  List                  (minus)
+import List(nub)
+
+import  MyList                  (minus)
 import  Type                  (TVarId (..), TConId (..), MonoType (..), PolyType (All),
                                arrow, freeTVarMono)
 import  Term                  (VarId (..), Term (Var, Abs, App, Let))

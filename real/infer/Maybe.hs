@@ -3,7 +3,7 @@ module Maybe
        failM, orM, guardM, filterM, theM, existsM, useM)
       where
 
-data  Maybe x  =  Just x | Nothing
+--1.3: data  Maybe x  =  Just x | Nothing
 returnM               ::  x -> Maybe x
 returnM x             =   Just x
 eachM                 ::  Maybe x -> (x -> y) -> Maybe y

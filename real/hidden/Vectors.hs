@@ -37,8 +37,9 @@ instance Num Vector where
 	signum v	= norm v
 	fromInteger 0	= Vec [0,0,0]
 
-instance Text Vector where
+instance Show Vector where
 	showsPrec p (Vec v) = showParen (p>9) (showString "vec ". showList v)
+instance Read Vector where
 	readsPrec p = readParen (p>9) rd
 		      where rd s = [(Vec ns,u) | ("vec",t) <- lex s,
 						 (ns,u)    <- readList t,

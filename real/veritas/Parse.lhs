@@ -1,6 +1,7 @@
 
 > module Parse where
 
+> import Char(isDigit)--1.3
 > import Token
 
 > import Unparse
@@ -525,7 +526,7 @@ tags
 >	= if in_tgL then ( tag' tg argL : tmL2 , tkL3 ) 
 >	            else ( sym_id : tmL1 , tkL2' ) 
 >	  where
->	  sym_id = lookup nm sg 
+>	  sym_id = lookUp nm sg 
 >	  ( tmL1 , tkL2' ) = term' pst tmnL tkL
 >	  ( tmL2 , tkL3 )  = term' pst tmnL tkL2
 >	  ( in_tgL , tg@( _ , arg_kndL , _ )) = fetch_tg nm tgL 
@@ -675,7 +676,7 @@ symbol names
 > aterm ( _ , sg ) tmnl ( Clr nm : tkl )
 >	= ( sym_id , tkl ) -- also checks tag list
 >	  where
->	  sym_id = lookup nm sg 
+>	  sym_id = lookUp nm sg 
 
 > aterm sg tmnl ( tk : tkl )
 >	= ( Prs_Err (" unexpected '" ++ disp_tk tk ++ "' (aterm -- no tmnl check)" ) , dmy )
@@ -937,7 +938,7 @@ the name parse, the error is passed back unchanged (case nm).
 Names consist of a single string identifier or an operator declaration
 contained in `{' `}'.
 
->-- name :: [Token] -> ( Maybe Name' , [Token] )
+>-- name :: [Token] -> ( MayBe Name' , [Token] )
 
 If a `{' character is found, the identifier of the operator will be next on
 the list (id). The functions `optyp' and `opprc' are then used to find
@@ -1106,7 +1107,7 @@ fn clauses -- incomplete
 
 
 > ident_type sg ( Clr nm : tkl )
->	= case lookup nm sg of
+>	= case lookUp nm sg of
 >		( True , Const i j k _ _ ) -> Ok ( i , j , k )	
 >	        otherwise                  -> ident_type sg tkl
 
@@ -1490,7 +1491,7 @@ lookup function analogous to table lookup (used outside parser)
 (returns option type)
 
 > lookup_name sg nm
->	= case lookup nm sg of
+>	= case lookUp nm sg of
 >		Opnd (Itrm tm ) -> SOME tm	
 >		Prs_Err _       -> NONE
 >		_               -> error "could be ok, check 'lookup_name' in parse.lhs"
@@ -1510,9 +1511,9 @@ when it is encountered.
 The first (top level) function initialises the count for `i' and calls 
 `lookup'' to search each declaration of the signature (sg).
 
-> lookup :: String -> Sgn -> Flagged_ITrm
+> lookUp :: String -> Sgn -> Flagged_ITrm
 
-> lookup nm sg 
+> lookUp nm sg 
 >	= lookup' isg nm 0
 >	  where
 >	  isg = internal_Sgn sg

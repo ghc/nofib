@@ -34,9 +34,15 @@ module S_Array (
 
 import Norm
 
+import Array--1.3
+import Ix--1.3
+import List -- 1.3
+
 infixl 9 !^
 infixl 9 //^
 infix  4 :^:
+
+type Assoc a b = (a,b)
 
 {-
 		definitions of data types
@@ -46,9 +52,9 @@ infix  4 :^:
 type Ix_type = Int
 
 -- data type of default value
-data Maybe a =
-	Nothing | Just a
-	deriving (Eq)
+--1.3:data Maybe a =
+--	Nothing | Just a
+--	deriving (Eq)
 
 -- data type of radix trie
 data Bin_Trie a =
@@ -113,7 +119,7 @@ s_def_array b@(b1,_) def_v asocs =
 	sz = size b
 	-- remove trivial associations
 	new_as =
-		filter (\(i:=v)->v/=def_v) asocs
+		filter (\(i,v)->v/=def_v) asocs
 
 s_listArray b vs =
 	-- default value is set to Nothing
@@ -158,7 +164,7 @@ s_elems (Mk_t_Array b sz default_v b_trie) =
 	flatten _ _ (Leaf v) = [v]
 
 s_assocs a =
-	zipWith (\x y->(x:=y)) (s_indices a) (s_elems a)
+	zipWith (\x y->(x,y)) (s_indices a) (s_elems a)
 
 -- new function for obtaining non-trivial associations
 sparse_assocs (Mk_t_Array (b1,_) sz _ b_trie) =
@@ -168,12 +174,12 @@ sparse_assocs (Mk_t_Array (b1,_) sz _ b_trie) =
 		(flatten_sparse n s' br1) ++ (flatten_sparse (n+s') s' br2)
 		where s' = s `div` 2
 	flatten_sparse _ _ Null = []
-	flatten_sparse n _ (Leaf v) = [n:=v]
+	flatten_sparse n _ (Leaf v) = [(n,v)]
 
 (//^) (Mk_t_Array b@(b1,_) sz default_v b_trie) asocs =
 	if check_as b asocs
 	then
-		if undefined default_v  -- check if default is defined
+		if undefinedd default_v  -- check if default is defined
 		then
 			-- not defined, directly update
 			Mk_t_Array b sz default_v
@@ -186,10 +192,10 @@ sparse_assocs (Mk_t_Array (b1,_) sz _ b_trie) =
 	where
 	def_v = get_just_v default_v
 	-- conversion function
-	convt = \(i:=v) ->
+	convt = \(i,v) ->
 		if ( v==def_v )
-		then (i:=Null)
-		else (i:=Leaf v)
+		then (i,Null)
+		else (i,Leaf v)
 	-- trie update function
 	do_update br _ [] = br
 	do_update br s as =
@@ -198,11 +204,11 @@ sparse_assocs (Mk_t_Array (b1,_) sz _ b_trie) =
 				fork (do_update br1 s' as1) (do_update br2 s' (map_as s' as2))
 				where
 				s' = s `div` 2
-				(as1,as2) = partition (\(i:=_)->(i<s')) as
+				(as1,as2) = partition (\(i,_)->(i<s')) as
 			Null -> gen_trie s as
 			(Leaf _) ->
 				case as of
-					[_:=v] -> v
+					[(_,v)] -> v
 					_ -> err_multi
 
 s_accum f (Mk_t_Array b@(b1,_) sz default_v b_trie) asocs =
@@ -212,7 +218,7 @@ s_accum f (Mk_t_Array b@(b1,_) sz default_v b_trie) asocs =
 		(do_accum b_trie sz (map_as b1 asocs))
 	else err_out
 	where
-	defed = not (undefined default_v)
+	defed = not (undefinedd default_v)
 	def_v = get_just_v default_v
 	-- generate a radix trie, slightly different from gen_trie
 	gen_a_trie _ [] = Null
@@ -221,13 +227,13 @@ s_accum f (Mk_t_Array b@(b1,_) sz default_v b_trie) asocs =
 		fork (gen_a_trie s' as1) (gen_a_trie s' (map_as s' as2))
 		where
 		s' = s `div` 2
-		(as1,as2) = partition (\(i:=_)->(i<s')) as
+		(as1,as2) = partition (\(i,_)->(i<s')) as
 	-- generate a leaf with accumulated value
 	gen_leaf v as =
 		if defed && (x == def_v)
 		then Null
 		else Leaf x
-		where x = foldl f v (map (\(_:=v')->v') as)
+		where x = foldl f v (map (\(_,v')->v') as)
 	-- update radix trie with accumulated values
 	do_accum br _ [] = br
 	do_accum br s as =
@@ -236,7 +242,7 @@ s_accum f (Mk_t_Array b@(b1,_) sz default_v b_trie) asocs =
 				fork (do_accum br1 s' as1) (do_accum br2 s' (map_as s' as2))
 				where
 				s' = s `div` 2
-				(as1,as2) = partition (\(i:=_)->(i<s')) as
+				(as1,as2) = partition (\(i,_)->(i<s')) as
 			Null -> gen_a_trie s as
 			(Leaf v) -> gen_leaf v as
 
@@ -248,7 +254,7 @@ s_amap f (Mk_t_Array b sz default_v b_trie) =
 	where
 	-- modify default value if necessary
 	new_def_v =
-		if undefined default_v
+		if undefinedd default_v
 		then default_v
 		else Just ((f.get_just_v) default_v)
 	-- function for replacing leaves with new values
@@ -279,39 +285,39 @@ err_multi = error "s_array: multiple value definitions!"
 
 convt_as ::
 	Ix_type -> [Assoc Ix_type a] -> [Assoc Ix_type (Bin_Trie a)]
-convt_as = \s -> map (\(i:=v) -> (i-s):=Leaf v)
+convt_as = \s -> map (\ (i,v) -> ((i-s),Leaf v))
 
 map_as :: Ix_type -> [Assoc Ix_type a] -> [Assoc Ix_type a]
-map_as = \s -> map (\(i:=v)->(i-s):=v)
+map_as = \s -> map (\ (i,v)->((i-s),v))
 
 check_as :: (Ix_type,Ix_type) -> [Assoc Ix_type a] -> Bool
-check_as = \b asocs -> and (map (\(i := _) -> inRange b i) asocs)
+check_as = \b asocs -> and (map (\(i , _) -> inRange b i) asocs)
 
 -- functions for generating radix tries
 
 -- generate a trie from [Assoc Ix_type (Bin_Trie a)]
 gen_trie :: Ix_type -> [Assoc Ix_type (Bin_Trie a)] -> Bin_Trie a
 gen_trie _ [] = Null
-gen_trie 1 [_:=v] = v
+gen_trie 1 [(_,v)] = v
 gen_trie 1 _ = err_multi
 gen_trie s as =
 	fork (gen_trie s' as1) (gen_trie s' (map_as s' as2))
 	where
 	s' = s `div` 2
-	(as1,as2) = partition (\(i:=_)->(i<s')) as
+	(as1,as2) = partition (\(i,_)->(i<s')) as
 
 -- generate a trie from [(Bin_Trie a)]
 gen_trie_from_list :: Ix_type -> [Bin_Trie a] -> Bin_Trie a
 gen_trie_from_list _ [] = Null
 gen_trie_from_list 0 [t] = t
 gen_trie_from_list n sub_ts =
-	gen_trie_from_list (n-1) (group sub_ts )
+	gen_trie_from_list (n-1) (groop sub_ts )
 
 -- group subtries
-group :: [Bin_Trie a] -> [Bin_Trie a]
-group (t1:t2:rest) = (fork t1 t2) : (group rest)
-group [t] = [fork t Null]
-group _ = []
+groop :: [Bin_Trie a] -> [Bin_Trie a]
+groop (t1:t2:rest) = (fork t1 t2) : (groop rest)
+groop [t] = [fork t Null]
+groop _ = []
 
 -- generate a fork
 fork :: Bin_Trie a -> Bin_Trie a -> Bin_Trie a
@@ -326,9 +332,9 @@ empty_trie Null = True
 empty_trie _ = False
 
 -- test if a default value is defined
-undefined :: Maybe a -> Bool
-undefined Nothing = True
-undefined _ = False
+undefinedd :: Maybe a -> Bool
+undefinedd Nothing = True
+undefinedd _ = False
 
 -- value retrieve functions
 
@@ -404,13 +410,15 @@ instance (Eq a) => Eq (S_array a) where
 		definitions for class Text
 -}
 
-instance (Text a) =>
-	Text (S_array a) where
+instance (Show a) =>
+	Show (S_array a) where
 	showsPrec p a =
 		showParen (p>9) (
 		showString "array " .
 		shows (s_bounds a) . showChar ' ' .
 		shows (s_assocs a))
+instance (Read a) =>
+	Read (S_array a) where
 	readsPrec p =
 		readParen (p>9)
 		(\r ->
@@ -427,8 +435,8 @@ instance (Text a) =>
 			]
 		)
 
-instance (Text a) =>
-	Text (Bin_Trie a) where
+instance (Show a) =>
+	Show (Bin_Trie a) where
 	showsPrec p t =
 		case t of
 		Null -> showString "Null"

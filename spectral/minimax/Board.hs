@@ -54,30 +54,7 @@ initialBoard = [[Empty,Empty,Empty],
 		[Empty,Empty,Empty],
 		[Empty,Empty,Empty]]
 
-data Evaluation = XWin | OWin | Score Int deriving (Text,Eq)
-{- OLD: partain
-instance Eq Evaluation where
-    XWin       == XWin	     = True
-    OWin       == OWin	     = True
-    (Score i1) == (Score i2) = i1 == i2
-    _	       == _          = False
-    a	  /= b	   = not (a == b)
-
-instance Text Evaluation where
-    showsPrec d XWin = showString "XWin"
-    showsPrec d OWin = showString "OWin"
-    showsPrec d (Score i) = showParen (d >= 10) showStr
-	where
-	  showStr = showString "Score" . showChar ' ' . showsPrec 10 i
-
-    readsPrec p = error "no readsPrec for Evaluations"
-    readList = error "no readList for Evaluations"
-    showList []	= showString "[]"
-    showList (x:xs)
-		= showChar '[' . shows x . showl xs
-		  where showl []     = showChar ']'
-			showl (x:xs) = showChar ',' . shows x . showl xs
--}
+data Evaluation = XWin | OWin | Score Int deriving (Show{-was:Text-},Eq)
 
 eval 3 = XWin
 eval (-3) = OWin

@@ -81,7 +81,7 @@ of depth $\leq$ \prog{dp}.
 >     =  let vsc [v,v']
 >                =  upto (max_array_len-one)
 >                   (\r -> let vsc' vs  =  vc (Array_val (v,v'')
->                                                 (zipWith (:=) vrng vs))
+>                                                 (zipWith (,) vrng vs))
 >                              vrng     =  take (r+one) (vrange (v,v'))
 >                              v''      =  case vrng of
 >                                              []    -> v'
@@ -117,7 +117,7 @@ type \prog{bt}.
 > gen_basic_val Bool_type vc
 >     =  choose [True, False] (\b -> vc (Bool_val b))
 > gen_basic_val Char_type vc
->     =  upto maxchar (\r -> vc (Char_val (chr r)))
+>     =  upto maxchar (\r -> vc (Char_val (toEnum r)))
 
 \end{haskell}
 The integer generation function is pretty rough and ready.

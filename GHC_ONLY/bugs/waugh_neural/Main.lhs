@@ -35,10 +35,9 @@ The following constants set the training problem and parameters:
 |			IO and Main Program				      |
 -------------------------------------------------------------------------------
 
-> main :: Dialogue
-> main = readFile name exit $
->        \s -> appendChan stdout (program s "") exit $
->	 done
+> main = do
+>   s <- readFile name
+>   putStr (program s "")
 
 > program :: String -> ShowS
 > program s

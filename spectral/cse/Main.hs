@@ -32,7 +32,7 @@ labelTree   :: GenTree a -> GenTree (Label,a)
 labelTree t  = label t `startingWith` 0
                where label (Node x xs) = incr           `bind` \n  ->
                                          mmapl label xs `bind` \ts ->
-                                         return (Node (n,x) ts)
+                                         retURN (Node (n,x) ts)
 
 -- Convert tree after labelling each node to a labelled graph: ---------------
 
@@ -52,16 +52,16 @@ unGraph ((n,x,cs):ts) = Node x (map (unGraph . find) cs)
 unGraph'     :: LabGraph String -> GenTree (Int,String)
 unGraph' lg   = ung lg `startingWith` []
  where ung ((n,x,cs):ts) = mif (visited n)
-                                 (return (Node (n,"<>") []))
+                                 (retURN (Node (n,"<>") []))
                                  (mmapl (ung . find) cs `bind` \ts ->
-                                  return (Node (n,x) ts))
+                                  retURN (Node (n,x) ts))
                            where find c = dropWhile (\(d,_,_) -> c/=d) ts
 
 visited      :: Label -> SM [Label] Bool
 visited n     = fetch                               `bind` \us ->
-                if n `elem` us then return True
+                if n `elem` us then retURN True
                                else set (n:us)      `bind` \_ -> 
-                                    return False
+                                    retURN False
 
 -- Find (and eliminate) repeated subtrees in a labelled graph: ---------------
 -- Described as a transformation on labelled graphs:  During the calculation
@@ -79,7 +79,7 @@ findCommon  = snd . foldr sim (id,[])
                                rcs = map r cs
 
 (+=>)          :: Eq a => a -> b -> (a -> b) -> (a -> b)
-(x +=> fx) f y  = if x==y then fx else f y
+(+=>) x fx f y  = if x==y then fx else f y
 
 -- Common subexpression elimination: -----------------------------------------
 
@@ -88,7 +88,7 @@ cse  = findCommon . ltGraph . labelTree
 
 -- Pretty printers: ----------------------------------------------------------
 
-instance Text a => Text (GenTree a) where
+instance Show a => Show (GenTree a) where
     showsPrec d (Node x ts)
         | null ts   = shows x
         | otherwise = showChar '(' . shows x
@@ -123,7 +123,7 @@ draw (Node x ts) = grp (s1 ++ pad width x ++ "]") (space (width+3)) (stLoop ts)
        width      = 4
        pcGraphics = False
 
-showGraph   :: Text a => LabGraph a -> String
+showGraph   :: Show a => LabGraph a -> String
 showGraph [] = "[]\n"
 showGraph xs = "[" ++ loop (map show xs)
                where loop [x]    = x ++ "]\n"
@@ -134,7 +134,7 @@ showGraph xs = "[" ++ loop (map show xs)
 plus x y = Node "+" [x,y]
 mult x y = Node "*" [x,y]
 prod xs  = Node "X" xs
-zero     = Node "0" []
+zerO     = Node "0" []
 a        = Node "a" []
 b        = Node "b" []
 c        = Node "c" []
@@ -145,10 +145,10 @@ example0 = a
 example1 = plus a a
 example2 = plus (mult a b) (mult a b)
 example3 = plus (mult (plus a b) c) (plus a b)
-example4 = prod (scanl plus zero [a,b,c,d])
-example5 = prod (scanr plus zero [a,b,c,d])
+example4 = prod (scanl plus zerO [a,b,c,d])
+example5 = prod (scanr plus zerO [a,b,c,d])
 
-main  = appendChan "stdout" -- writeFile "csoutput"
+main  = putStr -- writeFile "csoutput"
          (unlines (map (\t -> let c = cse t
                               in  copy 78 '-'            ++
                                   "\nExpression:\n"      ++ show t      ++
@@ -156,8 +156,6 @@ main  = appendChan "stdout" -- writeFile "csoutput"
                                   "\nLabelled graph:\n"  ++ showGraph c ++
                                   "\nSimplified tree:\n" ++ showCse c)
                        examples))
-         exit
-         done
         where
          showCse                  = drawTree
                                     . mapGenTree (\(n,s) -> show n++":"++s)

@@ -202,7 +202,7 @@ It is used for reading integers and the random number generator seed
 values.
 \begin{haskell}
 
-> readval :: (Text a) => ReadS a -> (a -> String -> Dialogue) -> String
+> readval :: (Read a) => ReadS a -> (a -> String -> Dialogue) -> String
 >                        -> Dialogue
 > readval readsfn f str
 >     =  case thing of

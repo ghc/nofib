@@ -4,13 +4,14 @@ pronunciation models of words and utterances.
         \begin{haskell}{Pronunciations}
 
 > module Pronunciations(
->       Phones..,
->       BalBinSTrees.., MaybeStateT..,
+>       module Phones,
+>       module BalBinSTrees, module MaybeStateT,
 >       Word(..), DigraphNode(..), Digraph(..), PrnNetwork(..),
 >       DictionaryEntry(..),
 >       readDictionary, readsPrnNetwork, showPrnNetwork,
 >       pre_hmm
 >       ) where
+> import Char(isSpace,toUpper,isDigit)
 
 \end{haskell}
 
@@ -190,7 +191,7 @@ the data type inherit properties from the class \verb~Text~ so we can
 easily read and write the representation as plain text.
         \begin{haskell}{PrnNetwork}
 
-> data PrnNetwork a = PrnN Int [Int] [Int] (Digraph a)  deriving Text
+> data PrnNetwork a = PrnN Int [Int] [Int] (Digraph a)  deriving Show{-was:Text-}
 
 \end{haskell}
         The Haskell representation for the pronunciation network for
@@ -336,7 +337,7 @@ read.  The function \verb~readsItem~ is defined in the module
 \verb~PlainTextIO~ (Chapter~\ref{ch:PlainTextIO}).
         \begin{haskell}{readsPrnNetwork}
  
-> readsPrnNetwork :: (Text d) => MST [Char] (PrnNetwork d)
+> readsPrnNetwork :: (Read d) => MST [Char] (PrnNetwork d)
 > readsPrnNetwork = readsItem           `thenMST`  \ n  ->
 >                   readsItem           `thenMST`  \ is ->
 >                   readsItem           `thenMST`  \ ts ->
@@ -352,7 +353,7 @@ the node data.  The first argument, \verb~n~, is the number of nodes
 in the digraph.
         \begin{haskell}{readsDigraph}
 
-> readsDigraph :: (Text d) => Int -> MST [Char] (Digraph d)
+> readsDigraph :: (Read d) => Int -> MST [Char] (Digraph d)
 > readsDigraph n = if n <= 0
 >                  then returnMST []
 >                  else readsNode            `thenMST` \ node ->
@@ -372,7 +373,7 @@ Thus, we need to be explicit about the fact that the first item to be
 read is an \verb~Int~.
         \begin{haskell}{readsNode}
 
-> readsNode :: (Text d) => MST [Char] (DigraphNode d)
+> readsNode :: (Read d) => MST [Char] (DigraphNode d)
 > readsNode = readsInt          `thenMST` \ _  ->       -- node index
 >             readsItem         `thenMST` \ d  ->       -- node data
 >             readsItem         `thenMST` \ preds ->    -- pred list
@@ -830,7 +831,7 @@ for a word in the dictionary file (see Section~\ref{sc:dictionary}).
 \end{haskell}
 \fixhaskellspacing\begin{haskell}{showIndexedDigraphNode}
 
-> showIndexedDigraphNode :: (Text d) => (Int, DigraphNode d) -> String
+> showIndexedDigraphNode :: (Show d) => (Int, DigraphNode d) -> String
 > showIndexedDigraphNode (n,(d,ps)) =
 >       shows n ('\t' : shows d ("  \t" ++ show ps))
 

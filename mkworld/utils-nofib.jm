@@ -1,4 +1,3 @@
-# line 10 "utils-nofib.ljm"
 #ifndef FilesToClean
 #define FilesToClean /*none*/
 #endif

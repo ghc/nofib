@@ -13,6 +13,7 @@ import RoulSplit
 import PhotoElec
 import Compton
 import Pair
+(=:) a b = (a,b)
 
 -- transport a particle
 
@@ -25,13 +26,13 @@ transPort p prob =
 	    	    doCompton = (r1 < (pComp / (pTot-pPhot)))
 		    (res, stat) = collision p' prob doCompton
 	    	  in
-		  (res, [nc:=1]++stat))
+		  (res, [nc=:1]++stat))
 	    else (let
 		    pos' = transPos pos dir dSurf
 	            p' = Part pos' dir w e eIndx cell seed
 		    (res, stat) = noCollision p' prob surf
 	    	  in
-		  (res, [nnc:=1]++stat))
+		  (res, [nnc=:1]++stat))
 	where
 	    (Part pos dir w e eIndx cell seed) = p
 	    (pComp,pPair,pPhot,pTot) = prob
@@ -45,9 +46,9 @@ transPort p prob =
 noCollision :: Particle -> Probability -> Int -> ([Result], [Stat])
 noCollision p@(Part pos dir w e eIndx cell seed) prob surf =
 	case surf of
-	    1 -> ([(scatter, eIndx):=w], [ns:=1]) 
-	    2 -> ([(escape, eIndx):=w], [ne:=1]) 
-	    4 -> ([(transit, eIndx):=w], [nt:=1]) 
+	    1 -> ([(scatter, eIndx)=:w], [ns=:1]) 
+	    2 -> ([(escape, eIndx)=:w], [ne=:1]) 
+	    4 -> ([(transit, eIndx)=:w], [nt=:1]) 
 	    3 -> -- cross internal surface
 		 -- particle will split, die in russian roulette, or continue
 		 -- cell = [1..] causes roulet or split to alternate
@@ -57,7 +58,7 @@ noCollision p@(Part pos dir w e eIndx cell seed) prob surf =
 		            (r1, s1) = transPort p1 prob
 		            (r2, s2) = transPort p2 prob
 		    	  in
-			  (r1++r2, [nsp:=1]++s1++s2))
+			  (r1++r2, [nsp=:1]++s1++s2))
 	    	    else
 			(let
 			    (p', stat', roulKill) = roulet p
@@ -75,7 +76,7 @@ noCollision p@(Part pos dir w e eIndx cell seed) prob surf =
 collision :: Particle -> Probability -> Bool -> ([Result], [Stat])
 collision p prob doCompton =
 	if (wgtKill) 
-	  then ([], [nwk:=1])
+	  then ([], [nwk=:1])
 	  else
 	    if (doCompton)
 	      then	-- compton scattering
@@ -83,14 +84,14 @@ collision p prob doCompton =
 		    (p'', prob', comptonCut) = compton p'
 		 in
 		 if (comptonCut)
-		    then ([], [nek:=1])
+		    then ([], [nek=:1])
 		    else transPort p'' prob')
 	      else	-- pair production
 	    	(let
 		    (p'', prob', pairCut) = pair p'
 		 in
 		 if (pairCut) 
-		    then ([], [nek:=1])
+		    then ([], [nek=:1])
 		    else transPort p'' prob')
 	where
 	    (Part pos dir w e eIndx cell seed) = p

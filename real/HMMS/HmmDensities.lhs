@@ -6,7 +6,7 @@ vectors.
         \begin{haskell}{HmmDensities}
 
 > module HmmDensities(
->       Native.., MathTypes.., Phones..,
+>       module Native, module MathTypes, module Phones,
 >       GaussianComponent(..), TiedMixture(..), TmTable(..),
 >       LogDensityTable(..),
 >       eval_log_densities, readMixtures, readMixture, extern_to_intern
@@ -22,6 +22,7 @@ vectors.
 
 > import Phones         -- application-specific modules
 > import HmmConstants
+> import Array--1.3
 
 \end{haskell}
 
@@ -397,8 +398,8 @@ number of component Gaussian densities in the mixture.
 
 > readGaussians  0      = returnMST []
 
-> readGaussians (m+1)   = readGaussian      `bindMST` \ g ->
->                         readGaussians m   `bindMST` \ gs ->
+> readGaussians m       = readGaussian        `bindMST` \ g ->
+>                         readGaussians (m-1) `bindMST` \ gs ->
 >                         returnMST (g:gs)
 
 \end{haskell}

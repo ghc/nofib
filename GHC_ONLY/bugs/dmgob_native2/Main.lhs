@@ -12,7 +12,7 @@
 > import LPA     -- the linear predictive analysis module
 
 
-> main = hGetContents stdin	>>= \bs ->
+> main = getContents	>>= \bs ->
 >        putStr (program bs)
 > {- 1.2
 > main = readChan stdin exit                            $ \bs ->

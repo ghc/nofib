@@ -1,4 +1,3 @@
-# line 8 "only4-nofib-nhc.ljm"
 HC_OPTS_anna = HaskellCompilerHeapSize(16000000)
 
 HC_OPTS_bspt_Main = HaskellCompilerRunCpp()
@@ -15,7 +14,6 @@ HC_OPTS_parser_Main = HaskellCompilerHeapSize(12000000)
 HC_OPTS_veritas_Main = HaskellCompilerRunCpp()
 HC_OPTS_veritas_Parse = HaskellCompilerHeapSize(10000000)
 HC_OPTS_veritas_ThmTactics = HaskellCompilerHeapSize(10000000)
-# line 27 "only4-nofib-nhc.ljm"
 HC_OPTS_cichelli = HaskellCompilerRunCpp()
 HC_OPTS_knights_Sort = HaskellCompilerRunCpp()
 HC_OPTS_minimax = HaskellCompilerRunCpp()
@@ -54,6 +52,5 @@ NOFIB_RUN_transform	= -H24m -A1m
 NOFIB_RUN_typecheck	= -H24m -A1m
 NOFIB_RUN_wang		= -H24m -A1m
 NOFIB_RUN_wave4main	= -H24m -A1m
-# line 69 "only4-nofib-nhc.ljm"
 HC_OPTS_dmgob_hmms  	= -ilib
 NOFIB_RUN_dmgob_hmms	= -H32m -A1m

@@ -18,9 +18,10 @@ Message-ID: <swordfish.740931041@minster.york.ac.uk>
 
 import	{-fool mkdependHS; ToDo: rm-}
 	Parallel
+import List(transpose)--1.3
 
 main = par (unigrid d) (par (unigrid dr) (par (unigrid ur) (
-       appendChan stdout (concat (parmap find hidden)) abort done
+       putStr (concat (parmap find hidden))
        )))
     where
     find word = seq (unilist2 dirs) (word ++ " " ++ concat dirs ++ "\n")

@@ -27,21 +27,21 @@ type Trans = State -> [[Char]] -> ([Char], State, [[Char]])
 tiletrans :: Trans
 
 tiletrans (dlist,sel,tilist) (('m':'s':'a':' ':rest):inpt) =
-    	if      intsave   x y then do tsave
-     	else if intclear  x y then do tclear
-        else if intget    x y then do tget
-	else if intile4   x y then do t4'
-        else if inquit    x y then do q
-        else if inbigtile x y then do delsq
-        else if intoalter x y then do tofiddle'
-        else if intotile  x y then do totile'
-        else if intodraw  x y then do todesign'
-        else if inpicarea x y then do sel'
-        else if inhelp    x y then do tohelp'
+    	if      intsave   x y then doo tsave
+     	else if intclear  x y then doo tclear
+        else if intget    x y then doo tget
+	else if intile4   x y then doo t4'
+        else if inquit    x y then doo q
+        else if inbigtile x y then doo delsq
+        else if intoalter x y then doo tofiddle'
+        else if intotile  x y then doo totile'
+        else if intodraw  x y then doo todesign'
+        else if inpicarea x y then doo sel'
+        else if inhelp    x y then doo tohelp'
         else tiletrans (dlist,sel,tilist) inpt
         where
         [x,y]  = stoil rest
-	do fun = fun rest (dlist,sel,tilist) inpt
+	doo fun = fun rest (dlist,sel,tilist) inpt
 
 tiletrans (dlist,sel,tilist) (('m':'s':'b':' ':rest):inpt) =
 	if inbigtile x y then inv' rest (dlist,sel,tilist) inpt
@@ -50,14 +50,14 @@ tiletrans (dlist,sel,tilist) (('m':'s':'b':' ':rest):inpt) =
         [x,y]  = stoil rest
 
 tiletrans (dlist,sel,tilist) (('m':'s':'c':' ':rest):inpt) =
-    if      indesign x y then do rl
-    else if indsave  x y then do dsave
-    else if indclear x y then do dclear
-    else if indget   x y then do dget
+    if      indesign x y then doo rl
+    else if indsave  x y then doo dsave
+    else if indclear x y then doo dclear
+    else if indget   x y then doo dget
     else tiletrans (dlist,sel,tilist) (('m':'s':'a':' ':rest):inpt)
     where
     [x,y]  = stoil rest
-    do fun = fun rest (dlist,sel,tilist) inpt
+    doo fun = fun rest (dlist,sel,tilist) inpt
 
 tiletrans state (('m':'s':'d':' ':rest):inpt) =
        (inithelp ++ out,state,inpt)

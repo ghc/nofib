@@ -1,5 +1,5 @@
 module Vtslib( Option(..) , Sum(..) , forall , exists , assoc ,
-		haskey , uncurry , curry , for , map' , Core_datatype.. )
+		haskey , uncurry , curry , for , map' , module Core_datatype )
 	      where
 	
 import Core_datatype
@@ -97,7 +97,7 @@ haskey key al
     (* Return an uncurried version of a curried function *)
 -}
 
-uncurry f (a,b) = f a b
+--in 1.3: uncurry f (a,b) = f a b
 
 
 
@@ -106,7 +106,7 @@ uncurry f (a,b) = f a b
     (* Return a curried version of an uncurried function *)
 -}
 
-curry f a b = f (a,b)
+--in 1.3: curry f a b = f (a,b)
 
 
 
@@ -123,8 +123,8 @@ for i f y = for (i-1) f ( f y )
 {-
     fun str_to_int s =
 	    let val s_len = size s
-		val zero_ord = ord "0"
-		val nine_ord = ord "9"
+		val zero_ord = fromEnum "0"
+		val nine_ord = fromEnum "9"
 		fun is_digit i = i >= zero_ord andalso i <= nine_ord
 		fun convert si i = 
 			if si >= s_len 
@@ -133,7 +133,7 @@ for i f y = for (i-1) f ( f y )
 				 convert (si + 1) (i * 10 - zero_ord + ordof (s,si))
 			else raise Str_to_int
 	    in if s_len > 1 then
-		   if ordof (s, 0) = ord "~" then
+		   if ordof (s, 0) = fromEnum "~" then
 			~ (convert 1 0)
 		   else 
 			convert 0 0

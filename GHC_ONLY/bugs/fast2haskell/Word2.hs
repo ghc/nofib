@@ -51,14 +51,21 @@ instance Num Word where
 	  = case integer2Int# a# s# d# of { z# ->
 	    Word (i2w z#) }
 
-instance Text Word where
+instance Show Word where
 	showsPrec _ (Word w) =
-		let i = toInteger (I# (w2i w)) + (if geWord# w (i2w 0#) then 0 else  2*(toInteger maxInt + 1))
+		let i = toInteger (I# (w2i w)) + (if geWord# w (i2w 0#) then 0 else  2*(toInteger maxBound + 1))
 		in  showString (conv 8 i)
 
 conv :: Int -> Integer -> String
 conv 0 _ = ""
-conv n i = conv (n-1) q ++ ["0123456789ABCDEF"!!r] where (q, r) = quotRem i 16
+
+-- Was: 
+-- 	conv n i = conv (n-1) q ++ ["0123456789ABCDEF"!!r] where (q, r) = quotRem (fromInteger i) 16
+-- But !!'s type has changed (Haskell 1.3) to take an Int index
+
+conv n i = conv (n-1) q ++ ["0123456789ABCDEF"!!fromInteger r] 
+         where 
+	   (q, r) = quotRem i 16
 
 ------------------------------------------------------------------
 data Short = Short Int# deriving (Eq, Ord)

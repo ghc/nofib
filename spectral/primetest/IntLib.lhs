@@ -1,5 +1,8 @@
 \section{Some Integer Functions}
 %$Log: IntLib.lhs,v $
+%Revision 1.2  1996/07/25 21:32:53  partain
+%Bulk of final changes for 2.01
+%
 %Revision 1.1  1996/01/08 20:04:20  partain
 %Initial revision
 %
@@ -11,7 +14,8 @@ In this module we define some useful functions on Integers.
 
 > module IntLib (readInteger, showInteger, makeNumber, chop,
 >                powerMod, cubeRoot, log2) where 
-> rcsid = "$Header: /srv/cvs/cvs.haskell.org/fptools/nofib/spectral/primetest/IntLib.lhs,v 1.1 1996/01/08 20:04:20 partain Exp $"
+> import List--1.3
+> rcsid = "$Header: /srv/cvs/cvs.haskell.org/fptools/nofib/spectral/primetest/IntLib.lhs,v 1.2 1996/07/25 21:32:53 partain Exp $"
 
 \subsection{Reading and Writing}
 
@@ -46,9 +50,9 @@ storage, it should be a candidate for being a built-in within the
 Haskell library.
 
 > powerMod :: Integer -> Integer -> Integer -> Integer
-> powerMod a 0     m = 1
-> powerMod a (b+1) m
->  = f a' b a'
+> powerMod a 0 m = 1
+> powerMod a b m
+>  = f a' (b-1) a'
 >    where a' = a `mod` m
 >          f a 0 c = c
 >          f a b c = g a b where

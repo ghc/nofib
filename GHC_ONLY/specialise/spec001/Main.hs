@@ -23,8 +23,9 @@ doalist as0
 
 dolist xs = alisttolist (doalist (listtoalist xs))
 
-main = readChan stdin abort (\ input ->
-       appendChan stdout (unlines (map dolist (lines input))) abort done)
+main = do
+    input <- getContents
+    putStr (unlines (map dolist (lines input)))
 
 
 data AListChar = ANilChar | AConsChar Char# AListChar

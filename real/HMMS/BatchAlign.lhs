@@ -44,7 +44,11 @@ They were documented in earlier chapters (Part~\ref{part:modules}).
 > import Viterbi
 > import HmmConstants
 >#if __HASKELL1__ >= 3
-> import LibSystem	( getArgs )
+> import System	( getArgs )
+> import Array
+> import IO
+> type Assoc a b = (a,b)
+> (=:) a b = (a,b)
 >#endif
 
 \end{verbatim}
@@ -140,19 +144,19 @@ responsibility of the user to make sure the density map file is
 correctly structured).
         \begin{figure}
         \begin{verbatim}
-                (AA,    [1 := Mix, 2 := Mix, 3 := Mix])
-                (AE,    [1 := Mix, 2 := Mix, 3 := Mix])
-                (AH,    [1 := Mix, 2 := Mix, 3 := Mix])
-                (AO,    [1 := Mix, 2 := Mix, 3 := Mix])
-                (AW,    [1 := Mix, 2 := Mix, 3 := Mix])
-                (AX,    [1 := Mix, 2 := Mix, 3 := Mix])
+                (AA,    [1 =: Mix, 2 =: Mix, 3 =: Mix])
+                (AE,    [1 =: Mix, 2 =: Mix, 3 =: Mix])
+                (AH,    [1 =: Mix, 2 =: Mix, 3 =: Mix])
+                (AO,    [1 =: Mix, 2 =: Mix, 3 =: Mix])
+                (AW,    [1 =: Mix, 2 =: Mix, 3 =: Mix])
+                (AX,    [1 =: Mix, 2 =: Mix, 3 =: Mix])
         \end{verbatim}
         \caption[]{The first six lines of an example density map file.}
         \label{fg:density-map-file}
         \end{figure}
         \begin{haskell}{DensityMap}
 
-> data DensityMap = Mix | TiedM Phone HmmState  deriving Text
+> data DensityMap = Mix | TiedM Phone HmmState  deriving (Read, Show)
 
 \end{haskell}
 
@@ -162,12 +166,12 @@ Hence, the lines shown in Figure~\ref{fg:density-map-file} would be
 restructured as shown in Figure~\ref{fg:restructure}.
         \begin{figure}
         \begin{verbatim}
-            [(AA, 1 := Mix), (AA, 2 := Mix), (AA, 3 := Mix)]
-            [(AE, 1 := Mix), (AE, 2 := Mix), (AE, 3 := Mix)]
-            [(AH, 1 := Mix), (AH, 2 := Mix), (AH, 3 := Mix)]
-            [(AO, 1 := Mix), (AO, 2 := Mix), (AO, 3 := Mix)]
-            [(AW, 1 := Mix), (AW, 2 := Mix), (AW, 3 := Mix)]
-            [(AX, 1 := Mix), (AX, 2 := Mix), (AX, 3 := Mix)]
+            [(AA, 1 =: Mix), (AA, 2 =: Mix), (AA, 3 =: Mix)]
+            [(AE, 1 =: Mix), (AE, 2 =: Mix), (AE, 3 =: Mix)]
+            [(AH, 1 =: Mix), (AH, 2 =: Mix), (AH, 3 =: Mix)]
+            [(AO, 1 =: Mix), (AO, 2 =: Mix), (AO, 3 =: Mix)]
+            [(AW, 1 =: Mix), (AW, 2 =: Mix), (AW, 3 =: Mix)]
+            [(AX, 1 =: Mix), (AX, 2 =: Mix), (AX, 3 =: Mix)]
         \end{verbatim}
         \caption[]{The results of applying the function {\tt
 restructure} to each of the first six lines of the example density map
@@ -260,9 +264,9 @@ definition stands for ``tied-mixture continuation.''
 >              [Assoc Phone (Assoc Int TiedMixture)] ->
 >              IO TmTable
 
-> build_tmt dir ((p,k:=t):rps) as =
+> build_tmt dir ((p,(k,t)):rps) as =
 >       case t of
->       TiedM q s -> build_tmt  dir  rps  ((p:=(k:=Tie q s)):as)
+>       TiedM q s -> build_tmt  dir  rps  ((p=:(k=:Tie q s)):as)
 >       Mix       -> let
 >                      file = get_gm_fname  dir  p  k
 >                    in
@@ -274,7 +278,7 @@ definition stands for ``tied-mixture continuation.''
 >                                             m' = extern_to_intern m
 >                                           in
 >                                             build_tmt dir rps
->                                               ((p:=(k:=Gm m')):as)
+>                                               ((p=:(k=:Gm m')):as)
 >                                      else error (can't_read file)
 
 > build_tmt  _ [] as = return (make_tm_table as)

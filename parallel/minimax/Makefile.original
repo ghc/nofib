@@ -1,0 +1,124 @@
+MODULES =         ParForce.hs Game.hs Tree.hs Wins.hs Board.hs Prog.hs Main.hs      
+
+YMODS = ${MODULES} 
+YINTS=$(YMODS:%.hs=%.hi)
+YINTS_mg=$(YMODS:%.hs=%_mg.hi)
+YINTS_mp=$(YMODS:%.hs=%_mp.hi)
+YINTS_hbcpp=$(YMODS:%.hs=%_hbcpp.hi)
+YOBJS=$(YMODS:%.hs=%.o)
+YOBJS_mg=$(YMODS:%.hs=%_mg.o)
+YOBJS_mp=$(YMODS:%.hs=%_mp.o)
+YOBJS_hbcpp=$(YMODS:%.hs=%_hbcpp.o)
+
+GHC = ghc
+GSGHC = ghc -gransim
+GUM = ghc -parallel
+HBCPP = hbcpp
+
+EXTRA = 
+FLAGS = -fvia-C -fglasgow-exts -cpp  -DPRINT -DARGS
+GHC_FLAGS =   -DSEQ $(FLAGS) $(EXTRA)
+GSGHC_FLAGS = -USEQ -hisuf '_mg.hi' -osuf '_mg.o' $(FLAGS) $(EXTRA)
+GUM_FLAGS =   -USEQ -hisuf '_mp.hi' -osuf '_mp.o' $(FLAGS) $(EXTRA)
+HBCPP_FLAGS = -M -DHBCPP  $(FLAGS) $(EXTRA)
+
+.PRECIOUS: $(YINTS) $(YOBJS) 
+
+# ######################################################################
+# GNU make dependencies
+# ######################################################################
+
+%.o: %.hs
+	$(GHC) $(GHC_FLAGS) -c $*.hs
+
+%_mg.o: %.hs
+	$(GSGHC) $(GSGHC_FLAGS) -c $*.hs
+
+%_mg.hi: %.hs
+	$(GSGHC) $(GSGHC_FLAGS) -c $*.hs
+
+%_mp.o: %.hs
+	$(GUM) $(GUM_FLAGS) -c $*.hs
+
+%_mp.hi: %.hs
+	$(GUM) $(GUM_FLAGS) -c $*.hs
+
+%_hbcpp.o: %.hs
+	-rm $*.o $*.hi
+	$(HBCPP) $(HBCPP_FLAGS) $(FLAGS) -c -o $*_hbcpp.o $*.hs
+	-cp $*.hi $*_hbcpp.hi
+	-mv $*.o $*_hbcpp.o
+
+%_hbcpp.hi: %.hs
+	-rm $*.o $*.hi
+	$(HBCPP) $(HBCPP_FLAGS) $(FLAGS) -c -o $*_hbcpp.o $*.hs
+	-cp $*.hi $*_hbcpp.hi
+	-mv $*.o $*_hbcpp.o
+
+## ######################################################################
+# Uncomment these lines (and the .SUFFIXES line above) if you use std make
+# rather than GNU make
+# Replace all _mg.o by .mgo and _mp.o by .mpo below!
+## ######################################################################
+
+#.hs.o:
+#	$(GHC) $(GHC_FLAGS) -c $*.hs
+#
+#.hs.mgo:
+#	$(GSGHC) $(GSGHC_FLAGS) -c -o $*.mgo $*.hs
+#
+#.hs.mpo:
+#	$(GSGUM) $(GSGUM_FLAGS) -c -o $*.mpo $*.hs
+#
+# ######################################################################
+
+all: seq gransim gum
+
+seq: minimax
+
+gransim: minimax_mg
+
+gum: minimax_mp
+
+# ######################################################################
+
+minimax: ${YOBJS}
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+minimax_mp: ${YOBJS_mp}
+	$(GUM) $(GUM_FLAGS) -o $@ $^
+
+minimax_mg: ${YOBJS_mg}
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+minimax_hbcpp: ${YOBJS_hbcpp}
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+clean:
+	-rm ${YOBJS} ${YOBJS_mp} ${YOBJS_mg} ${YOBJS_hbcpp} minimax minimax_mp minimax_mg minimax_hbcpp
+
+# extra dependencies
+Libfuns.o	:
+Wins.o		:
+Tree.o		:
+Board.o		: Wins.hi
+Game.o		: Tree.hi Board.hi Wins.hi
+Prog.o          : Board.hi Wins.hi Tree.hi Game.hi
+Main.o          : Prog.hi
+
+Wins_mg.o		:
+Tree_mg.o		:
+Board_mg.o		: Wins_mg.hi
+Game_mg.o		: Tree_mg.hi Board_mg.hi Wins_mg.hi
+Prog_mg.o          : Board_mg.hi Wins_mg.hi Tree_mg.hi Game_mg.hi
+Main_mg.o          : Prog_mg.hi
+
+Wins_hbcpp.o		:
+Tree_hbcpp.o		:
+Board_hbcpp.o		: Wins_hbcpp.hi
+Game_hbcpp.o		: Tree_hbcpp.hi Board_hbcpp.hi Wins_hbcpp.hi
+Prog_hbcpp.o          : Board_hbcpp.hi Wins_hbcpp.hi Tree_hbcpp.hi Game_hbcpp.hi
+Main_hbcpp.o          : Prog_hbcpp.hi
+

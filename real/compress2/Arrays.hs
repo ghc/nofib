@@ -17,10 +17,10 @@ where
 infixl 9 !^
 infixl 9 //^
 
-data Maybe a = Nothing | Just a deriving Text
-data TArray a = Tarray Int Int Int (BinTree a) deriving Text
-data BinTree a = Leaf a | Branch (BinTree a) (BinTree a) | Empty deriving Text
-data Direction = Left | Right deriving Text
+--data Maybe a = Nothing | Just a deriving Show{-was:Text-}
+data TArray a = Tarray Int Int Int (BinTree a) deriving Show{-was:Text-}
+data BinTree a = Leaf a | Branch (BinTree a) (BinTree a) | Empty deriving Show{-was:Text-}
+data Direction = Left | Right deriving Show{-was:Text-}
 
 mkTArray ::  Int -> Int -> TArray a
 mkTArray lo hi = Tarray lo hi (maxBits 1) Empty

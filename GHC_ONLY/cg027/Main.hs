@@ -3,8 +3,8 @@
 
 class (Num a, Integral a) => Foo a
 
-main _ = [AppendChan stdout (shows (f ((fromInteger 21)::Foo a => a)
-				      ((fromInteger 37)::Foo a => a)) "\n")]
+main = putStr (shows (f ((fromInteger 21)::Foo a => a)
+			((fromInteger 37)::Foo a => a)) "\n")
 
 f :: Foo a => a -> a -> Integer
 

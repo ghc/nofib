@@ -1,7 +1,7 @@
 --!!! test super-dictionary grabification
 --
 
-main _ = [AppendChan stdout (show (is_one (1.2::Double)))]
+main = putStr (show (is_one (1.2::Double)))
 
 is_one :: RealFloat a => a -> Bool
 

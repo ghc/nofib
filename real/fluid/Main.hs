@@ -20,17 +20,11 @@ main = run
 #else
 import Input_proc
 
-main =
-	readChan stdin abort
-	(\fs_cs_str ->
-		(read_fs_cs fs_cs_str) `bindTo` ( \ (datafile,fs_cs) ->
-		readFile datafile abort
-		(\data_str ->
-			appendChan stdout (run fs_cs (read_data data_str)) abort done
-		) )
-	)
-    where
-    	bindTo x k = k x -- haskell 1.0 "let"
+main = do
+    fs_cs_str <- getContents
+    let (datafile,fs_cs) = read_fs_cs fs_cs_str
+    data_str <- readFile datafile
+    putStr (run fs_cs (read_data data_str))
 #endif
 
 run (mon,m_iter,m_toler,max_jcb_iter,jcb_toler,relax,dlt_t)

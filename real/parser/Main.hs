@@ -5,7 +5,7 @@
 --==========================================================--
 
 module Main where
-
+import Char -- 1.3
 ----------------------------------------------------------
 -- Lexemes                                              --
 ----------------------------------------------------------
@@ -68,7 +68,7 @@ data Lex = Lcon             -- constructor used as prefix:
          | Lof
          | Lwhere
 
-         | Leof deriving (Eq, Text)
+         | Leof deriving (Eq, Show{-was:Text-})
 
 {- 
    Lexing rules:
@@ -399,17 +399,17 @@ leStringToInt :: String -> Int
 
 leStringToInt
    = let s2i []      = 0
-         s2i (d:ds)  = (ord d - ord '0') + 10 *s2i ds
+         s2i (d:ds)  = (fromEnum d - fromEnum '0') + 10 *s2i ds
      in s2i . reverse
 
 
 --==========================================================--
 --
 leFail l n m
-  = fail ("Lexical error, line " ++ show l ++ ", col " ++ show n ++ 
+  = faiL ("Lexical error, line " ++ show l ++ ", col " ++ show n ++ 
           ":\n   " ++ m )
 
-fail m = error ( "\n\n" ++ m ++ "\n" )
+faiL m = error ( "\n\n" ++ m ++ "\n" )
 
 --==========================================================--
 --=== end                                       Lexer.hs ===--
@@ -514,8 +514,8 @@ laMain
 
 --module AbsSyntax where
 
-data Maybe a = Nothing 
-             | Just a
+--1.3:data Maybe a = Nothing 
+--             | Just a
 
 type AList a b = [(a, b)]
 
@@ -523,27 +523,27 @@ type Id = String
 
 data Module 
    = MkModule Id [TopDecl]
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data FixityDecl
    = MkFixDecl Id (Fixity, Int)
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data DataDecl
    = MkDataDecl Id ([Id], [ConstrAltDecl])
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data TopDecl
    = MkTopF FixityDecl
    | MkTopD DataDecl
    | MkTopV ValBind
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data Fixity
    = InfixL
    | InfixR
    | InfixN
-             deriving (Eq,Text)
+             deriving (Eq,Show{-was:Text-})
 
 type ConstrAltDecl
    = (Id, [TypeExpr])
@@ -553,16 +553,16 @@ data TypeExpr = TypeVar    Id
               | TypeCon    Id [TypeExpr]
               | TypeList   TypeExpr
               | TypeTuple  [TypeExpr]
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data ValBind
    = MkValBind Int Lhs Expr
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data Lhs
    = LhsPat Pat
    | LhsVar Id [Pat]
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data Pat 
    = PatVar Id
@@ -570,7 +570,7 @@ data Pat
    | PatWild
    | PatList   [Pat]
    | PatTuple  [Pat]
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data Expr
    = ExprVar      Id
@@ -587,17 +587,17 @@ data Expr
    | ExprIf       Expr Expr Expr
    | ExprBar
    | ExprFail
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data ExprCaseAlt
    = MkExprCaseAlt Pat Expr
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 data Literal
    = LiteralInt     Int
    | LiteralChar    Char
    | LiteralString  String
-             deriving (Text)
+             deriving (Show{-was:Text-})
 
 --==========================================================--
 --=== end                                   AbsSyntax.hs ===--
@@ -910,8 +910,8 @@ paLiteral :: Parser Literal
 paLiteral
    = pgAlts 
      [
-        pgApply (LiteralInt.leStringToInt) (pgItem Lintlit),
-        pgApply (LiteralChar.head)         (pgItem Lcharlit),
+        pgApply (LiteralInt . leStringToInt) (pgItem Lintlit),
+        pgApply (LiteralChar . head)         (pgItem Lcharlit),
         pgApply LiteralString              (pgItem Lstringlit)
      ]
 
@@ -1339,15 +1339,11 @@ hsPrecTable = [
   ("&&",	(InfixR, 3))]
 
 
-main resps
-   = [ReadChan stdin, --ReadFile "big_big_test.hs", --"test.fp",
-      AppendChan stdout (showx parser_res)]
-                        --(show tokens)]
-     where
-          cs = case resps !! 0 of
-                  Str s -> s
-          tokens = laMain cs
-          parser_res = parser_test tokens
+main = do
+    cs <- getContents
+    let tokens = laMain cs
+    let parser_res = parser_test tokens
+    putStr (showx parser_res)
 
 showx (PFail t) 
  = "\n\nFailed on token: " ++ show t ++  "\n\n"

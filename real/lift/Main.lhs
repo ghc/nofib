@@ -8,9 +8,18 @@ Main program for lambda lifter
 > import Print
 > import Test
 
+> main =
+
+>	putStr ("\nInput expression " ++ pprintExpr inputExpr ++
+>		"\nResult\n" ++ output ++
+>		"\nFully lazy \n" ++ pprintSCs (fullyLazyLift inputExpr) ++
+>		"\n")
+>     where
+>     inputExpr = program
+>     output = pprintSCs (lambdaLift inputExpr)
+
+> {- OLD: 1.2
 > main ~(Str argString : ~(Str input : rest)) = 
-
-
 
 --> 	GetArgs :
 --> 	ReadFile file :
@@ -31,6 +40,7 @@ Main program for lambda lifter
 >     file = args !! 0
 >     inputExpr = program
 >     output = pprintSCs (lambdaLift inputExpr)
+>-}
 
 
 |my_splitAt| splits a list into a list of lists, starting a new list

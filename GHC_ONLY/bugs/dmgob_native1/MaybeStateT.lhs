@@ -22,6 +22,6 @@ wrapped around the pair containing the return value and the state.
 > returnMST x   = \s -> Just (x, s)
 
 > bindMST       :: MST s a -> (a -> MST s b) -> MST s b
-> bindMST m k s =  m s `thenMaybe` \(x, s') -> k x s'
+> bindMST m k s =  m s >>= \(x, s') -> k x s'
 
 \end{haskell}

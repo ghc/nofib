@@ -1,16 +1,19 @@
 module CommandLine (parse_cmds) where
 -- Copyright 1994 by Peter Thiemann
 
+import System--1.3
+import IO--1.3
+
 defaultArgs :: Args
 defaultArgs  =  MkArgs "Times-Roman" 10 "black" "Times-Roman" 10 "black" "black" "black" 500 500 30 100 200 "rgb.txt" False False True False False False
 
-usage :: Dialogue
-usage  =  appendChan stderr "Usage: prog [-ntFont String] [-ntScale Int] [-ntColor String] [-tFont String] [-tScale Int] [-tColor String] [-lineColor String] [-fatLineColor String] [-borderDistX Int] [-borderDistY Int] [-lineWidth Int] [-fatLineWidth Int] [-arrowSize Int] [-rgbFileName String] [-happy] [(+|-)simplify] [(+|-)ps] [(+|-)fig] [-help] [-verbose]" exit done
+usage :: IO ()
+usage  =  hPutStr stderr "Usage: prog [-ntFont String] [-ntScale Int] [-ntColor String] [-tFont String] [-tScale Int] [-tColor String] [-lineColor String] [-fatLineColor String] [-borderDistX Int] [-borderDistY Int] [-lineWidth Int] [-fatLineWidth Int] [-arrowSize Int] [-rgbFileName String] [-happy] [(+|-)simplify] [(+|-)ps] [(+|-)fig] [-help] [-verbose]"
 
 data Args  =  MkArgs String Int String String Int String String String Int Int Int Int Int String Bool Bool Bool Bool Bool Bool deriving ()
-type ProgType = String -> Int -> String -> String -> Int -> String -> String -> String -> Int -> Int -> Int -> Int -> Int -> String -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> [String] -> Dialogue
+type ProgType = String -> Int -> String -> String -> Int -> String -> String -> String -> Int -> Int -> Int -> Int -> Int -> String -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> [String] -> IO ()
 
-parse_args :: ProgType -> Args -> [String] -> Dialogue
+parse_args :: ProgType -> Args -> [String] -> IO ()
 parse_args prog (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20) ("-ntFont":rest)
     =  readstring (\str -> parse_args prog (MkArgs str x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20)) rest
 parse_args prog (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20) ("-ntScale":rest)
@@ -61,18 +64,17 @@ parse_args prog (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x
     =  usage
 parse_args prog (MkArgs x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20)  rest  =  prog x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 x13 x14 x15 x16 x17 x18 x19 x20 rest
 
-parse_cmds :: ProgType -> Dialogue
-parse_cmds prog =  getArgs exit (parse_args prog defaultArgs)
+parse_cmds :: ProgType -> IO ()
+parse_cmds prog =  getArgs >>= parse_args prog defaultArgs
 
-readbool :: ([String] -> Dialogue) -> [String] -> Dialogue
+readbool :: ([String] -> IO ()) -> [String] -> IO ()
 readbool f = f
 
-readstring :: (String -> [String] -> Dialogue) -> [String] -> Dialogue
+readstring :: (String -> [String] -> IO ()) -> [String] -> IO ()
 readstring f (str: rest) = f str rest
 readstring f []          = usage
 
-readval :: (Text a) => ReadS a -> (a -> [String] -> Dialogue) -> [String]
-                       -> Dialogue
+readval :: (Read a) => ReadS a -> (a -> [String] -> IO ()) -> [String] -> IO ()
 readval readsfn f (str: rest)
     =  case readsfn str of
            ((val, ""):_) -> f val rest

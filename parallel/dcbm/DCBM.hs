@@ -362,4 +362,4 @@ checksum [] = 0
 stoi :: String -> Int
 stoi st = stoi' (reverse st)
 	where	stoi' [] = 0
-		stoi' (x:xs) = ord x - ord '0' + 10 * stoi' xs
+		stoi' (x:xs) = fromEnum x - fromEnum '0' + 10 * stoi' xs

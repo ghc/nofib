@@ -27,6 +27,7 @@ instance Foo a => Foo [a] where
     op1 a b = null a
 
 -- try it:
-main _ = [ AppendChan stdout (show (op2 (3::Int)    3.14159)),
-	   AppendChan stdout (show (op2 'X' 	    3.14159)),
-	   AppendChan stdout (show (op2 ([]::[Char])3.14159)) ]
+main = do
+    putStr (show (op2 (3::Int)    3.14159))
+    putStr (show (op2 'X' 	  3.14159))
+    putStr (show (op2 ([]::[Char])3.14159))

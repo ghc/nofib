@@ -14,7 +14,7 @@ random_numbers (s1,s2,s3)
 
 -- partain: changed to cvt spaces into newlines (easier to see bugs)
 
-main = appendChan stdout (map cvt (shows (take 1000 (random_numbers (9807, 65, 32975))) "\n")) exit done
+main = putStr (map cvt (shows (take 1000 (random_numbers (9807, 65, 32975))) "\n"))
   where
     cvt ' ' = '\n'
     cvt c   = c

@@ -7,6 +7,7 @@ import Op
 import Parser
 import Env
 import Eval
+import Ratio--1.3
 
 -- print an abstract syntax tree
 printAst :: Ast -> Env -> String

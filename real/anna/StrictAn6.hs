@@ -21,7 +21,8 @@ import FrontierGENERIC2
 import SmallerLattice
 import AbsConc3
 
-
+import List(transpose) -- 1.3
+import Char(isLower,isUpper)
 
 --==========================================================--
 -- Call analyser and format results

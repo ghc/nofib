@@ -6,12 +6,12 @@ import Parse
 
 
 
-accumulate :: (state->a->(b,state)) -> state -> [a] -> ([b],state)
-accumulate f st [] = ([],st)
-accumulate f st (a:as) = (b:bs,st'')
+akkumulate :: (state->a->(b,state)) -> state -> [a] -> ([b],state)
+akkumulate f st [] = ([],st)
+akkumulate f st (a:as) = (b:bs,st'')
 	where
 	(b,st') = f st a
-	(bs,st'') = accumulate f st' as
+	(bs,st'') = akkumulate f st' as
 
 getParameters :: [Line] -> ([PElement],Int,[Line])
 getParameters lines = (pe,ticks,lines')
@@ -45,7 +45,7 @@ scaleAct m a@(Act n i r g f t) 	| m==t = a
 				| otherwise = Act n (i*c) (r*c) (g*c) (f*c) (t*c)
 					where	c = m `div` t
 
-data Sparks = Sp Int Int Int Int Int deriving (Text,Eq)
+data Sparks = Sp Int Int Int Int Int deriving (Show{-was:Text-},Eq)
 	-- bucket sprkd sused resum lost 
 
 numberSp (Sp n _ _ _ _) = n
@@ -54,7 +54,7 @@ used (Sp _ _ u _ _ ) = u
 resumed (Sp _ _ _ r _) = r
 lost (Sp _ _ _ _ l) = l
 
-data Activities = Act Int Int Int Int Int Int deriving (Text,Eq)
+data Activities = Act Int Int Int Int Int Int deriving (Show{-was:Text-},Eq)
 	-- bucket idle redn gc flush/read total
 
 numberAct (Act b _ _ _ _ _) = b
@@ -64,7 +64,7 @@ gc (Act _ _ _ g _ _) = g
 flush (Act _ _ _ _ f _) = f
 total (Act _ _ _ _ _ t) = t
 
-data Line =  Ln PElement Activities Sparks | PEs PElement | BucketFull Int | Null deriving (Text,Eq)
+data Line =  Ln PElement Activities Sparks | PEs PElement | BucketFull Int | Null deriving (Show{-was:Text-},Eq)
 
 instance Parse Line where
 	parseType ('B':string) = 
@@ -97,7 +97,7 @@ instance Parse Line where
 instance Ord Line where
 	(<=) x@(Ln _ (Act b _ _ _ _ _) _) y@(Ln _ (Act b' _ _ _ _ _) _) = b<=b'
 
-data PElement = PE String Int deriving (Eq,Text)
+data PElement = PE String Int deriving (Eq,Show{-was:Text-})
 
 instance Parse PElement where
 	parseType string = (PE name no,more)

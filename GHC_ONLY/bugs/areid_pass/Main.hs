@@ -20,7 +20,7 @@ instance Wrapper Int where
   wrapup a = a `thenIO_Int#` \ x# -> returnIO (I# x#)
 
 instance Wrapper Char where
-  wrapup a = a `thenIO_Int#` \ x# -> returnIO (chr (I# x#))
+  wrapup a = a `thenIO_Int#` \ x# -> returnIO (toEnum (I# x#))
 
 instance Wrapper Bool where
   wrapup a = a `thenIO_Int#` \ x# -> returnIO (x# /=# 0#)
@@ -32,7 +32,7 @@ instance Pass Int where
   pass (I# i#) = i#
 
 instance Pass Char where
-  pass c = pass (ord c)
+  pass c = pass (fromEnum c)
 
 instance Pass Bool where
   pass True = 0#

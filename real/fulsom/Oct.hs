@@ -95,9 +95,9 @@ calcn csg xyz = normalise (makevector f0 f1 f2 f3)
 
 
 pruneoct :: Int -> Oct -> Oct
-pruneoct 0     (O_Sub c os) = O_Full c
-pruneoct (n+1) (O_Sub c os) = O_Sub c (map (pruneoct n) os)
-pruneoct n      o           = o
+pruneoct 0 (O_Sub c os) = O_Full c
+pruneoct n (O_Sub c os) = O_Sub c (map (pruneoct (n-1)) os)
+pruneoct n o            = o
 
 octcsg :: Int -> Csg -> Oct
 octcsg depth = (pruneoct depth) . makeoct

@@ -1,12 +1,11 @@
-# line 13 "macros-nofib.ljm"
 #ifndef RunStdTestTimeCmd
 #define RunStdTestTimeCmd -t $(TIME)
 #endif
-# line 22 "macros-nofib.ljm"
+
 #ifndef NoFibAt
 #define NoFibAt @
 #endif
-# line 34 "macros-nofib.ljm"
+
 #ifndef ProjectMakeVarsForAllinSubdirs
 #define ProjectMakeVarsForAllinSubdirs HC="$(HC)" EXTRA_HC_OPTS="$(EXTRA_HC_OPTS)"
 #endif
@@ -14,17 +13,17 @@
 #ifndef ProjectMakeVarsForRunTestsinSubdirs
 #define ProjectMakeVarsForRunTestsinSubdirs HC="$(HC)" EXTRA_HC_OPTS="$(EXTRA_HC_OPTS)"
 #endif
-# line 63 "macros-nofib.ljm"
+
 #ifndef NoFibHaskellCompile__
 #define NoFibHaskellCompile__(test,way,way_opts,module,isuf)		@@\
 CAT3(module,way,.o) : module.isuf					@@\
-	NoFibAt $(RM) $@						@@\
+	NoFibAt : do not $(RM) $@						@@\
 	@echo ==nofib== test\: time to compile $@ follows...		@@\
 	NoFibAt $(TIME) $(HC) -c -o $@ way_opts $(HCFLAGS) $(CAT2(HC_OPTS_,test)) $(CAT4(HC_OPTS_,test,_,module)) module.isuf @@\
 	@echo ==nofib== test\: size of $@ follows...			@@\
 	NoFibAt size $@
 #endif /* NoFibHaskellCompile__ */
-# line 75 "macros-nofib.ljm"
+
 #ifndef NoFibLinkPgm__
 #define NoFibLinkPgm__(progname,way,way_opts,objlistvar)		     @@\
 CAT3(all_,progname,way) :: CAT2(progname,way)				     @@\
@@ -37,7 +36,7 @@ CAT2(progname,way) :: $(objlistvar)					     @@\
 	@echo ==nofib== CAT2(progname,way)\: size of CAT2(progname,way) follows... @@\
 	NoFibAt size CAT2(progname,way)
 #endif /* NoFibLinkPgm__ */
-# line 90 "macros-nofib.ljm"
+
 #ifndef NoFibRunPgm__
 #define NoFibRunPgm__(test,prog,way,runstdtest_opts)			@@\
 CAT3(runtest_,test,way) :: CAT2(prog,way)				@@\
@@ -52,13 +51,13 @@ CAT3(runtest_,test,way)::						@@\
 		$(RUNSTDTEST_FLAGS) runstdtest_opts 	\		@@\
 		$(CAT2(NOFIB_RUN,way)) $(CAT2(NOFIB_RUN_,test))
 #endif /* NoFibRunPgm__ */
-# line 107 "macros-nofib.ljm"
+
 #ifndef NoFibCleanupPgm__
 #define NoFibCleanupPgm__(prog,way,objlistvar)				@@\
 CAT3(clean_,prog,way) ::						@@\
 	$(RM) CAT2(prog,way) $(objlistvar)
 #endif /* NoFibCleanupPgm__ */
-# line 115 "macros-nofib.ljm"
+
 #ifndef NoFibMultiModuleCompileAndRun__
 
 #define NoFibMultiModuleCompileAndRun__(testname,way,way_opts,runstdtest_opts)	@@\
@@ -74,7 +73,7 @@ NoFibRunPgm__(testname,testname,way,runstdtest_opts)			@@\
 NoFibCleanupPgm__(testname,way,CAT2(OBJS_O,way))
 
 #endif /* NoFibMultiModuleCompileAndRun__ */
-# line 138 "macros-nofib.ljm"
+
 #ifndef NoFibOneModuleCompileAndRun__
 #define NoFibOneModuleCompileAndRun__(testname,runopts,way,way_opts)	@@\
 									@@\
@@ -82,7 +81,7 @@ NoFibMultiModuleCompileAndRun__(testname,way,way_opts,-o1 testname.stdout runopt
 									@@\
 NoFibHaskellCompile__(testname,way,way_opts,Main,hs)
 #endif /* NoFibOneModuleCompileAndRun__ */
-# line 156 "macros-nofib.ljm"
+
 #ifndef NoFib_UserWay_a
 #define NoFib_UserWay_a NO
 #endif /* ! NoFib_UserWay_a */
@@ -128,7 +127,7 @@ NoFibHaskellCompile__(testname,way,way_opts,Main,hs)
 #ifndef NoFib_UserWay_o
 #define NoFib_UserWay_o NO
 #endif /* ! NoFib_UserWay_o */
-# line 204 "macros-nofib.ljm"
+
 #if NoFib_UserWay_a == YES
 #define NoFibHaskellCompile_a(test,module,isuf) \
 	NoFibHaskellCompile__(test,_a,$(HC_OPTS_a),module,isuf)
@@ -503,7 +502,6 @@ NoFibHaskellCompile__(testname,way,way_opts,Main,hs)
 #define NoFibOneModuleCompileAndRun_o(testname,runopts) /*none*/
 #define NoFibDependWay_o /*none*/
 #endif /* ! NoFib_UserWay_o */
-# line 581 "macros-nofib.ljm"
 #ifndef NoFibHaskellCompile
 #define NoFibHaskellCompile(test,module,isuf)	\
 NoFibHaskellCompile__(test,,$(HC_OPTS_std),module,isuf) 	\
@@ -523,7 +521,6 @@ NoFibHaskellCompile_m(test,module,isuf)		\
 NoFibHaskellCompile_n(test,module,isuf)		\
 NoFibHaskellCompile_o(test,module,isuf)
 #endif /* NoFibHaskellCompile */
-# line 603 "macros-nofib.ljm"
 #ifndef NoFibLinkPgm
 #define NoFibLinkPgm(target,progname,objlistvar)	\
 NoFibLinkPgm__(target,progname,$(HC_OPTS_std),objlistvar)		\
@@ -543,7 +540,6 @@ NoFibLinkPgm_m(target,progname,objlistvar)		\
 NoFibLinkPgm_n(target,progname,objlistvar)		\
 NoFibLinkPgm_o(target,progname,objlistvar)
 #endif /* NoFibLinkPgm */
-# line 625 "macros-nofib.ljm"
 #ifndef NoFibRunPgm
 #define NoFibRunPgm(test,prog,runstdtest_opts)	\
 NoFibRunPgm__(test,prog,,runstdtest_opts)	\
@@ -563,7 +559,6 @@ NoFibRunPgm_m(test,prog,runstdtest_opts)	\
 NoFibRunPgm_n(test,prog,runstdtest_opts)	\
 NoFibRunPgm_o(test,prog,runstdtest_opts)
 #endif /* NoFibRunPgm */
-# line 647 "macros-nofib.ljm"
 #ifndef NoFibCleanupPgm
 #define NoFibCleanupPgm(prog,objlistvar)	\
 NoFibCleanupPgm__(prog,,objlistvar)		\
@@ -583,7 +578,6 @@ NoFibCleanupPgm_m(prog,objlistvar)		\
 NoFibCleanupPgm_n(prog,objlistvar)		\
 NoFibCleanupPgm_o(prog,objlistvar)
 #endif /* NoFibCleanupPgm */
-# line 669 "macros-nofib.ljm"
 #ifndef NoFibMultiModuleCompileAndRun
 #define NoFibMultiModuleCompileAndRun(testname,runstdtest_opts)	@@\
 								@@\
@@ -624,7 +618,6 @@ NoFibMultiModuleCompileAndRun_m(testname,runstdtest_opts)	\
 NoFibMultiModuleCompileAndRun_n(testname,runstdtest_opts)	\
 NoFibMultiModuleCompileAndRun_o(testname,runstdtest_opts)
 #endif /* NoFibMultiModuleCompileAndRun */
-# line 712 "macros-nofib.ljm"
 #ifndef NoFibOneModuleCompileAndRun
 #define NoFibOneModuleCompileAndRun(testname,runopts) @@\
 OBJS_O = Main.o					@@\
@@ -662,7 +655,6 @@ NoFibOneModuleCompileAndRun_m(testname,runopts) \
 NoFibOneModuleCompileAndRun_n(testname,runopts) \
 NoFibOneModuleCompileAndRun_o(testname,runopts)
 #endif /* NoFibOneModuleCompileAndRun */
-# line 754 "macros-nofib.ljm"
 #ifndef NoFibDependWays
 #define NoFibDependWays \
 NoFibDependWay_a NoFibDependWay_b NoFibDependWay_c \

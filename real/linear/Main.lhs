@@ -127,7 +127,7 @@ main resps
 
 
 \begin{code}
-main _ = [AppendChan stdout result]
+main = putStr result
           where
           result = test bilu test_data 4 conv2
 

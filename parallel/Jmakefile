@@ -1,10 +1,15 @@
 #define IHaveSubdirs
 
-SUBDIRS = cfd 	\
-	  dcbm	\
-	  linsolv \
-	  par001 \
-	  pfib	\
-	  ray	\
-	  prsa	\
-	  soda	
+SUBDIRS = cfd 		\
+	  dcbm		\
+	  linsolv 	\
+	  par001 	\
+	  pfib		\
+	  ray		\
+	  prsa		\
+	  soda		\
+	  coins		\
+	  minimax	\
+	  parfact 	\
+	  bom		\
+	  NESL

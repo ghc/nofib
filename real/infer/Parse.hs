@@ -11,6 +11,8 @@ module Parse
        useP)                                          --  using a parser      
       where
 
+import Char -- 1.3
+
 infixr 1      `elseP`
 infix  2      `thenP`
 infix  2      `eachP`

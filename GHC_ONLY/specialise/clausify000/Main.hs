@@ -9,31 +9,32 @@
 module Main ( main ) where
 
 -- the main program: reads stdin and writes stdout
-main = scc "CAF:main" 
-       readChan stdin exit ( \input ->
-       appendChan stdout (clausify input) exit done)
+main = _scc_ "CAF:main" 
+    do
+	input <- getContents
+	putStr (clausify input)
 
 -- convert lines of propostions input to clausal forms
-clausify input = scc "clausify"
+clausify input = _scc_ "clausify"
 	         concat
 		 (interleave (repeat "prop> ")
 		             (map clausifyline (lines input)))
 
-clausifyline = scc "CAF:clausifyline"
+clausifyline = _scc_ "CAF:clausifyline"
 	       concat . map disp . clauses . parse
 
 -- the main pipeline from propositional formulae to printed clauses
-clauses = scc "CAF:clauses" unicl . split . disin . negin . elim
+clauses = _scc_ "CAF:clauses" unicl . split . disin . negin . elim
 
--- clauses = (scc "unicl" unicl) . (scc "split" split) .
---           (scc "disin" disin) . (scc "negin" negin) .
---           (scc "elim"  elim)
+-- clauses = (_scc_ "unicl" unicl) . (_scc_ "split" split) .
+--           (_scc_ "disin" disin) . (_scc_ "negin" negin) .
+--           (_scc_ "elim"  elim)
 
--- clauses = (\x -> scc "unicl" unicl x) .
---           (\x -> scc "split" split x) .
---           (\x -> scc "disin" disin x) . 
---           (\x -> scc "negin" negin x) .
---           (\x -> scc "elim"  elim x)
+-- clauses = (\x -> _scc_ "unicl" unicl x) .
+--           (\x -> _scc_ "split" split x) .
+--           (\x -> _scc_ "disin" disin x) . 
+--           (\x -> _scc_ "negin" negin x) .
+--           (\x -> _scc_ "elim"  elim x)
 
 data StackFrame = Ast Formula | Lex Char
 
@@ -46,7 +47,7 @@ data Formula =
   Eqv Formula Formula 
 
 -- separate positive and negative literals, eliminating duplicates
-clause p = scc "clause"
+clause p = _scc_ "clause"
            let 
            clause' (Dis p q)       x   = clause' p (clause' q x)
            clause' (Sym s)       (c,a) = (insert s c , a)
@@ -54,20 +55,20 @@ clause p = scc "clause"
 	   in
 	   clause' p ([] , [])
 
-conjunct p = scc "conjunct"
+conjunct p = _scc_ "conjunct"
 	     case p of 
 	     (Con p q) -> True
 	     p         -> False
 
 -- shift disjunction within conjunction
-disin p = scc "disin"
+disin p = _scc_ "disin"
 	  case p of 
 	  (Con p q) -> Con (disin p) (disin q)
 	  (Dis p q) -> disin' (disin p) (disin q)
 	  p         -> p
 
 -- auxilary definition encoding (disin . Dis)
-disin' p r = scc "disin'"
+disin' p r = _scc_ "disin'"
 	     case p of
 	     (Con p q) -> Con (disin' p r) (disin' q r)
 	     p         -> case r of
@@ -75,13 +76,13 @@ disin' p r = scc "disin'"
 			  q         -> Dis p q
 
 -- format pair of lists of propositional symbols as clausal axiom
-disp p = scc "disp"
+disp p = _scc_ "disp"
 	 case p of
 	 (l,r) -> interleave l spaces ++ "<="
 	          ++ interleave spaces r ++ "\n"
 
 -- eliminate connectives other than not, disjunction and conjunction
-elim f = scc "elim"
+elim f = _scc_ "elim"
 	 case f of
 	 (Sym s)    -> Sym s
 	 (Not p)    -> Not (elim p)
@@ -91,10 +92,10 @@ elim f = scc "elim"
          (Eqv f f') -> Con (elim (Imp f f')) (elim (Imp f' f))
 
 -- remove duplicates and any elements satisfying p
-filterset p s = scc "filterset"
+filterset p s = _scc_ "filterset"
 	        filterset' [] p s
 
-filterset' res p l = scc "filterset'"
+filterset' res p l = _scc_ "filterset'"
 		     case l of
 		     []     -> []
                      (x:xs) -> if (notElem x res) && (p x) then
@@ -103,20 +104,20 @@ filterset' res p l = scc "filterset'"
 				   filterset' res p xs
 
 -- insertion of an item into an ordered list
-insert x l = scc "insert"
+insert x l = _scc_ "insert"
 	     case l of
              []     -> [x]
              (y:ys) -> if x < y then x:(y:ys)
                        else if x > y then y : insert x ys
                        else y:ys
 
-interleave xs ys = scc "interleave"
+interleave xs ys = _scc_ "interleave"
 	 	   case xs of
 		   (x:xs) -> x : interleave ys xs
   		   []     -> []
 
 -- shift negation to innermost positions
-negin f = scc "negin"
+negin f = _scc_ "negin"
 	  case f of
           (Not (Not p))   -> negin p
           (Not (Con p q)) -> Dis (negin (Not p)) (negin (Not q))
@@ -126,7 +127,7 @@ negin f = scc "negin"
 	  p               -> p
 
 -- the priorities of symbols during parsing
-opri c = scc "opri"
+opri c = _scc_ "opri"
 	 case c of
          '(' -> 0
          '=' -> 1
@@ -136,11 +137,11 @@ opri c = scc "opri"
          '~' -> 5
 
 -- parsing a propositional formula
-parse t = scc "parse" 
+parse t = _scc_ "parse" 
 	  let [Ast f] = parse' t []
 	  in f
 
-parse' cs s = scc "parse'"
+parse' cs s = _scc_ "parse'"
 	      case cs of
 	      []      -> redstar s
 	      (' ':t) -> parse' t s
@@ -153,7 +154,7 @@ parse' cs s = scc "parse'"
                          else parse' t (Lex c : s)
 
 -- reduction of the parse stack
-red l = scc "red" 
+red l = _scc_ "red" 
 	case l of
 	(Ast p : Lex '=' : Ast q : s) -> Ast (Eqv q p) : s
 	(Ast p : Lex '>' : Ast q : s) -> Ast (Imp q p) : s
@@ -162,14 +163,14 @@ red l = scc "red"
 	(Ast p : Lex '~' : s)         -> Ast (Not p) : s
 
 -- iterative reduction of the parse stack
-redstar = scc "CAF:redstar" 
+redstar = _scc_ "CAF:redstar" 
 	  while ((/=) 0 . spri) red
 
-spaces = scc "CAF:spaces" 
+spaces = _scc_ "CAF:spaces" 
 	 repeat ' '
 
 -- split conjunctive proposition into a list of conjuncts
-split p = scc "split" 
+split p = _scc_ "split" 
 	  let
           split' (Con p q) a = split' p (split' q a)
           split' p a = p : a
@@ -177,21 +178,21 @@ split p = scc "split"
 	  split' p []
 
 -- priority of the parse stack
-spri s = scc "spri"
+spri s = _scc_ "spri"
 	 case s of
 	 (Ast x : Lex c : s) -> opri c
          s -> 0
 
 -- does any symbol appear in both consequent and antecedant of clause
-tautclause p = scc "tautclause"
+tautclause p = _scc_ "tautclause"
 	       case p of
 	       (c,a) -> -- [x | x <- c, x `elem` a] /= []
 			any (\x -> x `elem` a) c
 
 -- form unique clausal axioms excluding tautologies
-unicl = scc "CAF:unicl"
+unicl = _scc_ "CAF:unicl"
 	filterset (not . tautclause) . map clause
 
 -- functional while loop
-while p f x = scc "while"
+while p f x = _scc_ "while"
 	      if p x then while p f (f x) else x

@@ -2,6 +2,7 @@
 
 module Main where
 
+import IO
 import FiniteMap
 import Util
 
@@ -66,10 +67,10 @@ test2 size
   where
     fm1,fm2 :: FiniteMap Int Int
 
-    fms1 = [singletonFM i 1 | i <- [1..size]]
+    fms1 = [unitFM i 1 | i <- [1..size]]
     fm1 = foldr (plusFM_C (+)) emptyFM fms1
 
-    fms2 = [singletonFM 1 i | i <- [1..size]]
+    fms2 = [unitFM 1 i | i <- [1..size]]
     fm2 = foldr (plusFM_C (+)) emptyFM fms2
 
     sum1 = foldr (+) 0 (eltsFM fm1)

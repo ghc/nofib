@@ -65,19 +65,19 @@ binder_tag_list
 -}
 
 
-encode_trm_tag tag = chr (encode tag trm_tag_list)
+encode_trm_tag tag = toEnum (encode tag trm_tag_list)
     
-encode_dec_tag tag = chr (encode tag dec_tag_list)
+encode_dec_tag tag = toEnum (encode tag dec_tag_list)
 
-encode_sgn_tag tag = chr (encode tag sgn_tag_list)
+encode_sgn_tag tag = toEnum (encode tag sgn_tag_list)
 
-encode_unary_tag tag = chr (encode tag unary_tag_list)
+encode_unary_tag tag = toEnum (encode tag unary_tag_list)
 
-encode_binary_tag tag = chr (encode tag binary_tag_list)
+encode_binary_tag tag = toEnum (encode tag binary_tag_list)
 
-encode_binder_tag tag = chr (encode tag binder_tag_list)
+encode_binder_tag tag = toEnum (encode tag binder_tag_list)
 
-encode_con_tag tag = chr (encode tag con_tag_list)
+encode_con_tag tag = toEnum (encode tag con_tag_list)
 
 
 
@@ -454,4 +454,4 @@ str_to_constant (ch:s1)
 temp function
 -}
 
-str_to_att ( a : x)  = ( ( Name_Style , Symbol_Name ( Name [ chr a ]) ) , x )  
+str_to_att ( a : x)  = ( ( Name_Style , Symbol_Name ( Name [ toEnum a ]) ) , x )  

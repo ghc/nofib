@@ -29,6 +29,7 @@ need to read any of them.
 >     sep_list
 >     ) where
 
+> import Char (isAlpha) -- 1.3
 > import Config
 
 \end{haskell}
@@ -85,7 +86,7 @@ as instances of
 \prog{Text} for later use in printing the generated program.
 \begin{haskell}
 
-> instance Text Argtype where
+> instance Show Argtype where
 >     showsPrec _ (Name_type tn)    =  showString tn
 >     showsPrec _ (Basic_type bt)   =  shows bt
 >     showsPrec _ (List_type at)    =  lsq . shows at . rsq
@@ -96,12 +97,12 @@ as instances of
 >            (array_type_name . space . showsPrec apply_prec at
 >             . space . showsPrec apply_prec at')
 
-> instance Text Base_type where
+> instance Show Base_type where
 >     showsPrec _ (Num_type k)  =  shows k
 >     showsPrec _ Bool_type     =  bool_type_name
 >     showsPrec _ Char_type     =  char_type_name
 
-> instance Text Num_kind where
+> instance Show Num_kind where
 >     showsPrec _ Int_type      =  int_type_name
 >     showsPrec _ Integer_type  =  integer_type_name
 >     showsPrec _ Float_type    =  float_type_name
@@ -147,7 +148,7 @@ See section~\ref{numbers} for a note on numeric values in the \HPG).
 >                |  List_val   [Value]
 >                |  Tuple_val  [Value]
 >                |  Tagged_val Constructor [Value]
->                |  Array_val  (Value,Value) [Assoc Value Value]
+>                |  Array_val  (Value,Value) [(Value, Value)]
 >      deriving (Eq)
 
 > type Val_name  =  String
@@ -158,7 +159,7 @@ We declare \prog{Value} as an instance of \prog{Text} for later use in
 printing the generated program.
 \begin{haskell}
 
-> instance Text Value where
+> instance Show Value where
 >     showsPrec d (Num_val Int_type n)      =  showsPrec d n
 >     showsPrec d (Num_val Integer_type n)  =  showsPrec d n
 >     showsPrec d (Num_val Float_type n)    =  showsPrec d (int_to_float n)
@@ -280,7 +281,7 @@ We declare \prog{Expression} as an instance of \prog{Text} for later use in
 printing the generated program.
 \begin{haskell}
 
-> instance Text Expression where
+> instance Show Expression where
 >     showsPrec d (Apply_exp e1 e2)
 >         =  showParen (d > apply_prec)
 >            (showsPrec apply_prec e1 . space . showsPrec (apply_prec+one) e2)

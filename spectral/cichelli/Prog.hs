@@ -12,11 +12,8 @@ import Key
 prog :: String -> String
 prog _ = show cichelli
 
-#if 0
-data Status a = NotEver Int | YesIts Int a deriving Text
-#else
 data Status a = NotEver Int | YesIts Int a deriving ()
-instance (Text a) => Text (Status a) where
+instance (Show a) => Show (Status a) where
     showsPrec d (NotEver i) = showParen (d >= 10) showStr
       where
 	showStr = showString "NotEver" . showChar ' ' . showsPrec 10 i
@@ -26,15 +23,14 @@ instance (Text a) => Text (Status a) where
 	showStr = showString "YesIts" . showChar ' ' . showsPrec 10 i
 		  . showChar ' ' . showsPrec 10 a
 
-    readsPrec p = error "no readsPrec for Statuses"
-    readList = error "no readList for Statuses"
+--  readsPrec p = error "no readsPrec for Statuses"
+--  readList = error "no readList for Statuses"
     showList []	= showString "[]"
     showList (x:xs)
 		= showChar '[' . shows x . showl xs
 		  where showl []     = showChar ']'
 			showl (x:xs) = showChar ',' . shows x . showl xs
 
-#endif
 type FeedBack = Status HashFun
 
 cichelli :: FeedBack

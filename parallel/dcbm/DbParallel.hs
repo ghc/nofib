@@ -1,11 +1,11 @@
-module DbParallel where
+module DbParallel (module DbParallel, par, seq) where
 import Types
 
 import Parallel
 
-infixr  `seqt`, `seqe`, `seqi`, `seql`, `seqm`, `seqd`
-
+infixr  `seqt`, `seqi`, `seql`, `seqm`, `seqd`
 #ifndef PAR
+infixr  `seqe`
 (Tip _) `seqt` y = y
 _       `seqt` y = y
 

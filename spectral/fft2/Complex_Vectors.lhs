@@ -1,6 +1,7 @@
 > module Complex_Vectors
 >         (ComplexF(..), rootsOfUnity,thetas, norm,distance)
 > where
+> import Complex --
 
 > type ComplexF = Complex Double
 

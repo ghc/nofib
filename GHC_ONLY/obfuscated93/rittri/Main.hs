@@ -26,11 +26,11 @@ toBeIsToDoAndToDoIsToBeSaidConFuTse
 -- main functions ----------------------------------------------------------
 
   g  =	interact$map
-	    chr.g.map
-	    ord
+	    toEnum.g.map
+	    fromEnum
 main =
  toBeIsToDoAndToDoIsToBeSaidConFuTse(let h=a;t=x where x x=i(long x)x(h t x)
-						       q v w x z =- y w:x
+						       q v w x z = - y w:x
 						       a = g q f
 						       f x y = justRight x
 							     && goodSize y

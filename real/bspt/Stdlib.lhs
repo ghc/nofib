@@ -5,7 +5,7 @@
 
 
 
->	(	mapcat,map2,mappair,sequence,
+>	(	mapcat,map2,mappair,seQuence,
 > 		middle,mkset,between,pair,--UNUSED: pairUp,curry,
 > 		{-const,-}const3,splitAt_YORK,numval,toNum,all_YORK)
 
@@ -89,13 +89,13 @@
 		int.
 
 > toNum :: Char -> Int
-> toNum x = (ord x - ord '0')
+> toNum x = (fromEnum x - fromEnum '0')
 
  
-        sequence: Concatenates a list of strings.
+        seQuence: Concatenates a list of strings.
 
-> sequence :: [String] -> String
-> sequence = concat
+> seQuence :: [String] -> String
+> seQuence = concat
 
 	all_YORK : rename the badly named prelude function
 		and.

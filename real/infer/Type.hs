@@ -7,7 +7,8 @@ module Type
 
 import Parse
 import Shows
-import List
+import MyList
+import List(nub)--1.3
 
 type  TVarId          =  String
 type  TConId          =  String
@@ -30,8 +31,9 @@ instance Eq MonoType where
     other1	     == other2		 = False
 -- end of too bad
 
-instance  Text MonoType  where
+instance  Read MonoType  where
       readsPrec d     =  readsMono d
+instance  Show MonoType  where
       showsPrec d     =  showsMono d
 
 readsMono             :: Int -> Parses MonoType
@@ -66,8 +68,9 @@ showsMono d (TCon kk tts)
       =  showsParenIf (d>9)
          (showsString kk .
           showsStar (\tt -> showsString " " . showsMono 10 tt) tts)
-instance  Text PolyType  where
+instance  Read PolyType  where
       readsPrec d             =  reads `eachP` polyFromMono
+instance  Show PolyType  where
       showsPrec d (All xs t)  =  showsString "All " . showsString (unwords xs) .
                                  showsString ". " . showsMono 0 t
 polyFromMono          :: MonoType -> PolyType

@@ -13,6 +13,11 @@ OBJS_O  = Parsers.o StringMatch.o Info.o Fonts.o IOSupplement.o \
 
 NoFibMultiModuleCompileAndRun(ebnf2ps, ebnf2ps.stdin apat -o1 ebnf2ps.stdout)
 
+HappyParser.hs : HappyParser.ly
+	$(RM) HappyParser.hs
+	happy HappyParser.ly
+	@chmod 444 HappyParser.hs
+
 NoFibHaskellCompile(ebnf2ps,Parsers,hs)
 NoFibHaskellCompile(ebnf2ps,StringMatch,hs)
 NoFibHaskellCompile(ebnf2ps,Info,hs)

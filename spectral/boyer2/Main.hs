@@ -86,4 +86,4 @@ report :: Bool -> String
 report True  = "The term is a tautology\n"
 report False = "The term is not a tautology\n"
 
-main _ = [AppendChan stdout (report testresult)]
+main = putStr (report testresult)

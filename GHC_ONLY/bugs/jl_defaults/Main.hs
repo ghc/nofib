@@ -19,3 +19,6 @@ main=interact
 b=g
 --p::(Integer,Integer)->Integer->Integer
 default (Integer)
+-- 1.3
+ord = (fromEnum :: Char -> Int)
+chr = (toEnum   :: Int  -> Char)

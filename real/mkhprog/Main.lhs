@@ -474,7 +474,7 @@ The functions are described in Annex~\ref{auxfns}
 >                  \       (s,t1)  =  span ((/=) '\\n') st\n\
 >                  \       t       =  if t1 == \"\" then t1 else (tail t1)"
 >        . nl
->        . writeln "readval :: (Text a) => ReadS a \
+>        . writeln "readval :: (Read a) => ReadS a \
 >                             \-> (a -> String -> Dialogue) -> String\n\
 >                  \                       -> Dialogue\n\
 >                  \readval readsfn f str\n\
@@ -648,7 +648,7 @@ Since \prog{mkhprog} does not itself use \prog{readval}, its code does
 not form part of this literate Haskell script.
 \begin{verbatim}
 
-readval :: (Text a) => ReadS a -> (a -> String -> Dialogue) -> String
+readval :: (Read a) => ReadS a -> (a -> String -> Dialogue) -> String
 		       -> Dialogue
 readval readsfn f str
     =  case thing of

@@ -1,20 +1,20 @@
 module Main where
 
-data Vertex = V Int deriving (Text)
+data Vertex = V Int deriving (Read, Show)
 
-main::Dialogue
-main = readChan stdin exit (\userInput -> (parseVertex.lines) userInput report)
+main = do
+    userInput <- getContents
+    (parseVertex.lines) userInput report
 
-report::Vertex -> Dialogue
-report int = appendChan "stdout" (show int) exit done
+report::Vertex -> IO ()
+report int = putStr (show int)
 
-parseVertex::[String] -> (Vertex -> Dialogue) -> Dialogue
+parseVertex::[String] -> (Vertex -> IO ()) -> IO ()
 parseVertex inputLines cont
- = (case inputLines of
+ = case inputLines of
       (l1:rest) -> case (reads l1) of
                      [(x,"")] -> cont x
-                     other        -> appendChan stdout
-
+                     other    -> putStr
                                       ((showString "Error - retype the edges\n".                                      shows other) "")
-                                     exit done
-      _         -> appendChan stdout "No Vertex" exit done)
+      _         -> putStr "No Vertex"
+

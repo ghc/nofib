@@ -1,7 +1,7 @@
 --!!! test simple Integer things
 --
-main _
-  = [AppendChan stdout (shows integer_list "\n")]
+main
+  = putStr (shows integer_list "\n")
   where
     int_list :: [Int]
     integer_list :: [Integer]

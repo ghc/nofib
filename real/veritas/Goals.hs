@@ -223,7 +223,7 @@ initialize dset thy styp spec NONE
           exp ( SOME (tr@(TreeSt t@(Tree goal goalL dn _ _) spine gst)))
 		= show_goal gst t          ...
                   show_subgoals gst goalL  ./.
-                  return tr 
+                  reTurn tr 
           exp NONE 
 		= end_x 	./.
 		  return_err "no state" 
@@ -231,13 +231,13 @@ initialize dset thy styp spec NONE
 
 get_tree :: (Option String) -> (Option String) -> (Option String) ->
 		(Option String) -> (Option String) -> Xin -> 
-	 	 Xst ( Maybe (Option (Tree_state GOAL b Global_state )) String )
+	 	 Xst ( MayBe (Option (Tree_state GOAL b Global_state )) String )
 
 get_tree dset thy styp spec errmesg
 	= x_form True (input_form dset thy styp spec errmesg) /./
 	  exp
 	  where
-	  exp NONE = return NONE 
+	  exp NONE = reTurn NONE 
 
           exp ( SOME [OutText ds, OutText ty, OutText sp, OutRadio st] )
 		= parse_fn /.>/
@@ -252,13 +252,13 @@ get_tree dset thy styp spec errmesg
 --                                   _     -> return_err "Bad Type" 
 		  mkspec ctr p_fn sp
 			= case p_fn sg ps sp of
-				Ok res   -> return ( ctr res )
+				Ok res   -> reTurn ( ctr res )
 				Bad mesg -> return_err mesg 
 			  where
 			  ps = default_tag_tbl
 
 		  exp2 ( obj , uid )
-			= return ( SOME tst )
+			= reTurn ( SOME tst )
 			  where
                           tst = TreeSt tr [] gst
                   	  tr  = Tree gl [] NONE ( \ x y -> y ) NONE
@@ -358,11 +358,11 @@ update_state (TreeSt   ( Tree goal1 goalL1 dn1 _ _ ) spine1 gst1 )
 my_quit current 
 	= x_form True form /./ exp
 	  where
-	  exp NONE       = return False 
-	  exp ( SOME _ ) = return True 
+	  exp NONE       = reTurn False 
+	  exp ( SOME _ ) = reTurn True 
 	  form = [InComment "\n\nSelect ok to Quit\n\n"]
 
 
 
-finish = end_x ./. return (error "Finish state evaluated") 
+finish = end_x ./. reTurn (error "Finish state evaluated") 
 

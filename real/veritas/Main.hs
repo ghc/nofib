@@ -41,12 +41,12 @@ import Parse
 --proof_edit : string list * string list -> unit 
 
 
-#ifndef PAR
-main ~( Str ins : _ )
-	= [ReadChan stdin ,AppendChan stdout ( main' ins ) ]
-			
-#else
+#ifdef PAR
 main = main'
+#else
+main = do
+    ins <- getContents
+    putStr (main' ins)
 #endif
 
 main' instr 
@@ -88,10 +88,10 @@ parse_dec lt sg s
 goto_next tr@(TreeSt t _ _) 
 	= tree_top tr /./
 	  (\ tr' -> case tree_search incomplete_tree False t of
-	       	        ((iL,_):_) -> return ( tree_goto iL tr )
+	       	        ((iL,_):_) -> reTurn ( tree_goto iL tr )
 	                _          -> case search_tree of
-				          ((iL,_):_) -> return(tree_goto iL tr')
-				          _          -> return tr 
+				          ((iL,_):_) -> reTurn(tree_goto iL tr')
+				          _          -> reTurn tr 
 			  	      where
 			              (TreeSt t' _ _) = tr' 
 	  			      search_tree = tree_search 
@@ -115,14 +115,14 @@ goto_named tr@(TreeSt t _ _ )
 	  where
 	  exp ( SOME [OutText uid] , tr' ) 
 		  = case tree_search is_node True t' of
-			 ((iL,_):_) -> return ( tree_goto iL tr' )
+			 ((iL,_):_) -> reTurn ( tree_goto iL tr' )
 			 _          -> x_set_status "No such node"  ./.
-				       return tr 
+				       reTurn tr 
 		    where
 		    (TreeSt t' _ _ ) = tr'
 		    is_node (Tree (Goal _ _ _ uid' _ _ _ _) _ _ _ _ ) 
 				= uid == uid'
-	  exp _ = return tr 
+	  exp _ = reTurn tr 
 
 	  form = [InComment "Goto Node",
 		  InComment "",

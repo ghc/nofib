@@ -7,6 +7,7 @@ module ElecField (elecField) where
 
 import	PicType
 import	Consts
+import Array--1.3
 
 -- Phase III: Calculate electric fields
 -- the x and y components of the electric field are approximated
@@ -15,15 +16,15 @@ import	Consts
 elecField :: Phi -> Electric
 elecField phi =
 	(array ((0,0), (n,n))
-	([(i,j) := (phi!(i-1,j) - phi!(i,j)) 
+	([((i,j) , (phi!(i-1,j) - phi!(i,j)))
 			| i <- [1..n], j <- [0..n]]++
-	 [(0,j) := (phi!(n,j) - phi!(0,j)) 
+	 [((0,j) , (phi!(n,j) - phi!(0,j)))
 			| j <- [0..n]]),
 
 	array ((0,0), (n,n))
-	([(i,j) := (phi!(i,j+1) - phi!(i,j)) 
+	([((i,j) , (phi!(i,j+1) - phi!(i,j)))
 			| i <- [0..n], j <- [0..(n-1)]]++
-	 [(i,n) := (phi!(i,0) - phi!(i,n)) 
+	 [((i,n) , (phi!(i,0) - phi!(i,n)) )
 			| i <- [0..n]]))
 	where
 	    n = nCell-1

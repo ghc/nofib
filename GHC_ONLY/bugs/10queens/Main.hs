@@ -26,5 +26,5 @@ where {
     f_foldr a_op a_r []=a_r;
     f_foldr a_op a_r (a_a:a_x)=a_op a_a (f_foldr a_op a_r a_x);
     f_map a_f a_x=[a_f a_a|a_a<-a_x];
-    main r = [AppendChan "stdout" (f_main c_input)]
+    main = putStr (f_main c_input)
 }

@@ -94,34 +94,31 @@ type UserInput = [FileName]
 
 maxLineLength = 35 :: Int
 
-main :: Dialogue
-main =	appendChan stdout 
-	"\n\nWelcome to the LaTex Mailing List Generator.\n\
-	\(Please type Cntrl-D at file prompt to exit.)\n" exit $
-	readChan stdin exit $ (\s ->
-	mainLoop (lines s) )
+main =	do
+    putStr "\n\nWelcome to the LaTex Mailing List Generator.\n\
+		\(Please type Cntrl-D at file prompt to exit.)\n"
+    s <- getContents
+    mainLoop (lines s)
 
-mainLoop :: UserInput -> Dialogue
+mainLoop :: UserInput -> IO ()
 mainLoop fns = 
-	appendChan stdout "\nFile to be converted: " exit $
+	putStr "\nFile to be converted: " >>
 	case fns of
-	  []        -> 	appendChan stdout "\nGoodbye!\n" exit done
-	  (fn:fns') -> 	readFile fn
-			  (\err -> appendChan stdout 
-				   ("\nCan't read " ++fn++ "; try again.\n")
-				   exit (mainLoop fns')) $
-			process (fn ++ ".tex") fns'
+	  []        -> 	putStr "\nGoodbye!\n"
+	  (fn:fns') -> 	catch (readFile fn)
+			  (\err -> putStr ("\nCan't read " ++fn++ "; try again.\n") >>
+				   mainLoop fns') >>= \ stuff ->
+			process (fn ++ ".tex") fns' stuff
 
-process :: FileName -> UserInput -> String -> Dialogue
+process :: FileName -> UserInput -> String -> IO ()
 process out fns rawText = 
 	writeFile out "% Latex Mailing List.\n\n\
                       \\\input{labels.sty}\n\n\
-                      \\\begin{document}\n\n"     exit $
+                      \\\begin{document}\n\n"     >>
 	loop (paras (lines rawText))
-	where loop [] = appendFile out "\n\\end{document}\n" exit $
-			appendChan stdout 
-                        ("\nConversion completed; file " ++out++ " written.\n")
-                        exit (mainLoop fns)
+	where loop [] = appendFile out "\n\\end{document}\n" >>
+			putStr ("\nConversion completed; file " ++out++ " written.\n") >>
+                        mainLoop fns
 	      loop ps = writePage out ps loop
 
 paras :: [Line] -> [Entry]
@@ -130,14 +127,16 @@ paras lns = p : paras (dropWhile blankLine lns')
 	    where (p,lns')  = break blankLine lns
 		  blankLine = all (\c -> c==' ' || c=='\t')
 
-writePage :: FileName -> [Entry] -> ([Entry]->Dialogue) -> Dialogue
+writePage :: FileName -> [Entry] -> ([Entry]-> IO ()) -> IO ()
 writePage out ps cont =
-	appendFile out "\\lpage\n" exit $
-	writeBlock out ps long  9 $ (\ps->
-	writeBlock out ps long  9 $ (\ps->
-	writeBlock out ps long  9 $ (\ps->
-	writeBlock out ps short 3 $
-	cont )))
+	appendFile out "\\lpage\n" >>
+	writeBlock out ps long  9  >>= \ ps ->
+	writeBlock out ps long  9  >>= \ ps ->
+	writeBlock out ps long  9  >>= \ ps ->
+	writeBlock out ps short 3  >>
+	cont
+
+-- got to here (partain)
 
 long  = "{\\lblock{\n"
 short = "{\\sblock{\n"

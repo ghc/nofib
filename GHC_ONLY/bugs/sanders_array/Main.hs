@@ -7,6 +7,9 @@ Date: Mon, 28 Oct 91 17:02:19 GMT
 I'm struggling with the following code fragment at the moment:
 -}
 
+import Array -- 1.3
+import Ix    -- 1.3
+
 conv_list :: (Ix a, Ix b) => [a] -> [b] -> [[c]] -> Array (a,b) c -> Array (a,b) c
 conv_list [] _ _ ar = ar
 conv_list _ _ [] ar = ar
@@ -19,7 +22,7 @@ conv_elems row [] _ ar = ar
 conv_elems _ _ [] ar = ar
 conv_elems row (col:cls) (rt:rts) ar
       = conv_elems row cls rts ar'
-        where ar' = ar // [(row,col) := rt]
+        where ar' = ar // [((row,col), rt)]
 
 ar :: Array (Int, Int) Int
 ar = conv_list [(1::Int)..(3::Int)] [(1::Int)..(3::Int)] ar_list init_ar
@@ -31,7 +34,7 @@ ar_list = [[1,2,3],
            [6,7,8],
            [10,12,15]]
 
-main = appendChan stdout (show ar) abort done
+main = putStr (show ar)
 
 {-
 What it tries to do is turn a list of lists into a 2-d array in an incremental

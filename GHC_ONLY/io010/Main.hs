@@ -1,4 +1,4 @@
-import LibDirectory (getCurrentDirectory, setCurrentDirectory, 
+import Directory (getCurrentDirectory, setCurrentDirectory, 
                      createDirectory, removeDirectory, getDirectoryContents)
 
 main =
@@ -11,7 +11,7 @@ main =
         removeDirectory "foo" >>
         putStr "Okay\n"
     else
-        fail "Oops"
+        fail (userError "Oops")
 
 
 dot :: String -> Bool

@@ -1,6 +1,9 @@
 --------------------------------------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: Fonts.hs,v $
+-- Revision 1.2  1996/07/25 21:23:54  partain
+-- Bulk of final changes for 2.01
+--
 -- Revision 1.1  1996/01/08 20:02:33  partain
 -- Initial revision
 --
@@ -16,10 +19,38 @@
 module Fonts (FONT, makeFont, fontDescender, stringWidth, stringHeight, fontName, fontScale, noFont)
 where
 
+import Char--1.3
+
+-- not in 1.3
+readDec :: (Integral a) => ReadS a
+readDec = readInt 10 isDigit (\d -> ord d - ord_0)
+
+readInt :: (Integral a) => a -> (Char -> Bool) -> (Char -> Int) -> ReadS a
+readInt radix isDig digToInt s =
+    [(foldl1 (\n d -> n * radix + d) (map (fromInt . digToInt) ds), r)
+	| (ds,r) <- nonnull isDig s ]
+
+ord = (fromEnum :: Char -> Int)
+ord_0 :: Num a => a
+ord_0 = fromInt (ord '0')
+
+nonnull                 :: (Char -> Bool) -> ReadS String
+nonnull p s             =  [(cs,t) | (cs@(_:_),t) <- [span p s]]
+
+readSigned :: (Real a) => ReadS a -> ReadS a
+readSigned readPos = readParen False read'
+		     where read' r  = read'' r ++
+				      [(-x,t) | ("-",s) <- lex r,
+						(x,t)   <- read'' s]
+			   read'' r = [(n,s)  | (str,s) <- lex r,
+		      				(n,"")  <- readPos str]
+
+
+
 data FONT = FONT String Int Int (String -> Int)
 
 instance Eq FONT where
-  (FONT s1 m1 n1 f1 == FONT s2 m2 n2 f2) = s1 == s2 && m1 == m2 && n1 == n2
+  FONT s1 m1 n1 f1 == FONT s2 m2 n2 f2 = s1 == s2 && m1 == m2 && n1 == n2
 
 noFont = FONT "" 0 0 (const 0)
 
@@ -52,7 +83,7 @@ makeFont fontName fontScale fontAfm =
 	theDescender = getDescender parsedAfm
 
 getStringWidth :: [Afm] -> String -> Int
-getStringWidth afms str = sum (map (getCharWidth afms . ord) str)
+getStringWidth afms str = sum (map (getCharWidth afms . fromEnum) str)
 
 getCharWidth :: [Afm] -> Int -> Int
 getCharWidth (CharMetric charNo charWX charName llx lly urx ury: afms) chNo

@@ -14,5 +14,5 @@
 >		pl (a:l) = par a (pl l)
 
 	
-> seq x y = y	
+> --1.3:seq x y = y	
 		

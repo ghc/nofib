@@ -50,15 +50,15 @@
 
 > (...) :: Xio_fn -> Xio_fn -> Xin -> Xio
 
-> ( f ... g ) xin
+> (...) f g xin
 >	= f xin \\\ g
 
 
 composition f - output fn, g - input fn with state (st)
 
-> (./.) :: Xio_fn -> ( Xin -> Xst ( Maybe a b )) -> Xin -> Xst ( Maybe a b )
+> (./.) :: Xio_fn -> ( Xin -> Xst ( MayBe a b )) -> Xin -> Xst ( MayBe a b )
 
-> ( f ./. g ) xin
+> (./.) f g xin
 >	= ( xin2 , st, xout' ++ xout2 )
 >         where
 >         ( xin', xout' )  = f xin
@@ -76,8 +76,8 @@ utility to apply a list of functions to a state
 
 
 
-> --partain: (|||) :: Maybe a b -> ( a -> Maybe c d ) -> Maybe c d
-> (|||) :: Maybe a b -> ( a -> Maybe c b ) -> Maybe c b
+> --partain: (|||) :: MayBe a b -> ( a -> MayBe c d ) -> MayBe c d
+> (|||) :: MayBe a b -> ( a -> MayBe c b ) -> MayBe c b
 
 > ( Ok s ) ||| f
 > 	= f s
@@ -120,7 +120,7 @@ vanilla Maybe composed with IO fn
 
 
 
-> (///) :: Xst (Maybe a b) -> ( a -> Xin -> Xst (Maybe c b)) -> Xst (Maybe c b)
+> (///) :: Xst (MayBe a b) -> ( a -> Xin -> Xst (MayBe c b)) -> Xst (MayBe c b)
 
 > x@( xin , st , xout ) /// f
 >	= sendout x x'
@@ -134,16 +134,16 @@ vanilla Maybe composed with IO fn
 
 as above except second argument not fully evaluated
 
-> (/./) :: (Xin -> Xst (Maybe a b)) -> ( a -> Xin -> Xst (Maybe c b)) 
->					           -> Xin -> Xst (Maybe c b)
+> (/./) :: (Xin -> Xst (MayBe a b)) -> ( a -> Xin -> Xst (MayBe c b)) 
+>					           -> Xin -> Xst (MayBe c b)
 
-> ( f /./ g ) xin
+> (/./) f g xin
 >	= f xin /// g 
 
 
 
 
-> (/>/) :: Xst (Maybe a b) -> ( Xin -> Xst (Maybe c b)) -> Xst (Maybe (a,c) b)
+> (/>/) :: Xst (MayBe a b) -> ( Xin -> Xst (MayBe c b)) -> Xst (MayBe (a,c) b)
 
 > x1@( xin , st , xout ) />/ f
 >	= sendout x1 x1'
@@ -161,10 +161,10 @@ as above except second argument not fully evaluated
 
 
 
-> (/.>/) :: (Xin -> Xst (Maybe a b)) -> ( Xin -> Xst (Maybe c b)) 
->					       -> Xin -> Xst (Maybe (a,c) b)
+> (/.>/) :: (Xin -> Xst (MayBe a b)) -> ( Xin -> Xst (MayBe c b)) 
+>					       -> Xin -> Xst (MayBe (a,c) b)
 
-> ( f /.>/ g ) xin
+> (/.>/) f g xin
 >	= f xin />/ g 
 
 
@@ -187,16 +187,16 @@ as above except form list as state output rather than nested two tuples
 
 
 
-> (/.:>/) :: (Xin -> Xst (Maybe a b)) -> ( Xin -> Xst (Maybe [a] b)) 
->					       -> Xin -> Xst (Maybe [a] b)
+> (/.:>/) :: (Xin -> Xst (MayBe a b)) -> ( Xin -> Xst (MayBe [a] b)) 
+>					       -> Xin -> Xst (MayBe [a] b)
 
-> ( f /.:>/ g ) xin
+> (/.:>/) f g xin
 >	= f xin /:>/ g 
 
 
 error handler
 
-> ( f `handle` handler ) xin
+> handle f handler xin
 >	= f xin `ihandle` handler 
 
 > ihandle x@( xin , st , _ ) handler 
@@ -211,7 +211,7 @@ error handler
 
 
 
-push non-Maybe Xio fn into valid Maybe result with unused non-xio
+push non-MayBe Xio fn into valid MayBe result with unused non-xio
 result
 
 > mk_ok x_fn arg 
@@ -255,7 +255,7 @@ append a character to the end of a list
 
 > return_err st xin = ( xin, Bad st , [] )
 
-> return st xin = ( xin, Ok st, [] )
+> reTurn st xin = ( xin, Ok st, [] )
 
 
 

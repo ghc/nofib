@@ -53,4 +53,4 @@
        where   strToInt' _ [] = 0
                strToInt' x (a:l) = (charToInt a)*(10^x) + (strToInt' (x-1) l)
  charToInt :: Char -> Int
- charToInt x = (ord x - ord '0')
+ charToInt x = (fromEnum x - fromEnum '0')

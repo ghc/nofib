@@ -6,7 +6,6 @@
 
 module Main where
 
-main :: Dialogue
 main = print (final nums)
 
 nums :: [Int]

@@ -2,6 +2,7 @@ import DCBM
 import Types
 import DbParallel
 import Fwif
+import System (getArgs)
 
 {-
   The following is the main body of the program. It attempts to create the database,	
@@ -11,7 +12,9 @@ import Fwif
 
 
 --main = interact (\s -> result s ++ "\n")
-main = getArgs abort (print.result)
+main = do
+    argv <- getArgs
+    print (result argv)
 
 result argv =
 	if length argv < 3 then 	"Usage: tps txs disk"

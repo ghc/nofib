@@ -1,6 +1,7 @@
 module BasicNumber (BasicNumber (..), makeReal, makeRational, RealT{-partain-}) where
 
 import RealM
+import Ratio--1.3
 
 data BasicNumber = BasIntegerC Integer
                  | BasRationalC Rational
@@ -171,7 +172,7 @@ instance Floating BasicNumber where
     atanh    = error "atanh : Not yet implemented"
 -------------------------------------------------------------------------------
 
-instance Text BasicNumber where
+instance Show BasicNumber where
 
     showsPrec _ (BasRealC x) s  = intPart ++ "." ++ fracPart ++ s
                                 where 
@@ -189,10 +190,12 @@ instance Text BasicNumber where
                                                        evalX
 
                                   pad 0 a     = []
-                                  pad (n+1) a = a:(pad n a)
+                                  --WAS:pad (n+1) a = a:(pad n a)
+                                  pad n a = a:(pad (n-1) a)
     showsPrec _ (BasRationalC x) s = shows x s
     showsPrec _ (BasIntegerC x) s  = shows x s
     ---------------------------------------------------------------------------
+instance Read BasicNumber where
     
     readsPrec p s = if allZeros frac
                     then map int2BasNum (readsPrec p int)

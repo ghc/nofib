@@ -90,7 +90,7 @@ x_send s ins
 
 x_send_argL argL 
 	= x_send x_multi_arg_esc_seq      ...
-	  x_send [chr (length argL)]      ...
+	  x_send [toEnum (length argL)]      ...
 	  app ( map x_send_arg argL )     ...
 	  x_send x_end_arg_esc_seq
 
@@ -103,7 +103,7 @@ x_send_arg arg
 
 x_multi_send x_send_fn argL 
 	= x_send x_multi_arg_esc_seq	               ...
-	  x_send [chr (length argL)]                   ...
+	  x_send [toEnum (length argL)]                   ...
 	  app (map (x_multi_send_arg x_send_fn) argL)  ...
 	  x_send x_end_arg_esc_seq
 
@@ -122,7 +122,7 @@ x_get_argL
 	  (\ ( argL, esc ) 
 		-> if esc /= x_end_arg_esc_seq
 		          then return_err mesg 
-		          else return argL  )
+		          else reTurn argL  )
 	  where
 	  mesg = "Bad argument terminator " 
 
@@ -130,9 +130,9 @@ x_get_argL
 
 
 
-x_get_i_args :: Int -> Xin -> Xst ( Maybe [String] String )
+x_get_i_args :: Int -> Xin -> Xst ( MayBe [String] String )
 
-x_get_i_args 0 = return [] 
+x_get_i_args 0 = reTurn [] 
 
 x_get_i_args i = x_get_arg          /.:>/
 		 x_get_i_args (i-1) 
@@ -140,14 +140,14 @@ x_get_i_args i = x_get_arg          /.:>/
 
 
 
-x_get_arg :: Xin -> Xst ( Maybe String String )
+x_get_arg :: Xin -> Xst ( MayBe String String )
 
 x_get_arg ( c : ist , rsps , glno )
 	| c == esc_seq = if [ c , c' ] == x_inter_arg_esc_seq 
-			      then return "" ( ist2, rsps , glno )
+			      then reTurn "" ( ist2, rsps , glno )
 	                      else return_err mesg ( ist2 , rsps , glno )
 	| otherwise    = x_get_arg ( ist, rsps , glno )             /// 
-	                 (\ str -> return ( c : str ))
+	                 (\ str -> reTurn ( c : str ))
 			 where
 	                 mesg = "Bad argument escape" 
 			 ( c' : ist2 ) = ist
@@ -161,7 +161,7 @@ x_get_arg_no
 	  where
 	  exp esc_seq xin
 		| esc_seq == x_multi_arg_esc_seq
-			 = return ( ord c ) ( ist , rsps , glno )
+			 = reTurn ( fromEnum c ) ( ist , rsps , glno )
 		| otherwise
 		         = return_err "Expected multiple arguments" xin 
 	  		   where
@@ -179,17 +179,17 @@ x_multi_get_arg x_get_fn
 	  (\ ( argL, esc ) 
 		-> if esc /= x_end_arg_esc_seq
 			    then return_err mesg 
-		            else return argL )
+		            else reTurn argL )
 	  where
 	  mesg = "Bad argument terminator " 
 
 
 
 
-x_multi_get_i_args :: (Xin -> Xst ( Maybe b c )) -> Int -> Xin 
-						-> Xst ( Maybe [b] c )
+x_multi_get_i_args :: (Xin -> Xst ( MayBe b c )) -> Int -> Xin 
+						-> Xst ( MayBe [b] c )
 
-x_multi_get_i_args x_get_fn 0 = return [] 
+x_multi_get_i_args x_get_fn 0 = reTurn [] 
 
 x_multi_get_i_args x_get_fn i 
 	= x_get_fn 			     /.:>/
@@ -199,7 +199,7 @@ x_multi_get_i_args x_get_fn i
 
 
 x_get_esc_seq ( a : b : ist , rsps , glno )
-	= return [ a , b ] ( ist , rsps , glno )
+	= reTurn [ a , b ] ( ist , rsps , glno )
 
 
 
@@ -221,7 +221,7 @@ x_get_cmd
 	  exp ( esc_seq, argL ) 
 		| esc_seq /= x_cmd_esc_seq
 		            = return_err "Expected command"
-		| otherwise = return ( head argL )
+		| otherwise = reTurn ( head argL )
 
 
 
@@ -245,7 +245,7 @@ x_error error_mesg
 	  exp esc_seq 
 	     | esc_seq /= x_cancel_esc_seq
 		         = return_err "Expected cancel" 
-	     | otherwise = return ( error "" )
+	     | otherwise = reTurn ( error "" )
 
 
 
@@ -260,7 +260,7 @@ x_form answer infoL
 	  x_send_bool answer             ...
 	  x_multi_send x_send_info infoL ./.
 	  if answer then x_get_form 
-	 	    else return NONE 
+	 	    else reTurn NONE 
 
 
 	    
@@ -415,10 +415,10 @@ x_get_form
 	  where
 	  exp esc_seq 
 	    | esc_seq == x_cancel_esc_seq 
-		    = return NONE 
+		    = reTurn NONE 
 	    | esc_seq == x_form_esc_seq
 		    = x_multi_get_arg x_get_info           /./
-		      (\ arg -> return ( SOME arg ))
+		      (\ arg -> reTurn ( SOME arg ))
 	    | otherwise 
 		    = return_err " XError Expected form escape" 
 		     
@@ -432,13 +432,13 @@ x_get_info
 	  exp ( esc_seq, argL ) 
 	    | esc_seq == x_single_text_esc_seq ||
 	      esc_seq == x_multi_text_esc_seq 
-		    = return ( OutText ( head argL ))
+		    = reTurn ( OutText ( head argL ))
 	    | esc_seq == x_toggle_esc_seq 
-		    = return ( OutToggle argL )
+		    = reTurn ( OutToggle argL )
 	    | esc_seq == x_radio_esc_seq 
-		    = return ( OutRadio ( head argL ))
+		    = reTurn ( OutRadio ( head argL ))
 	    | esc_seq == x_subtrm_esc_seq
-		    = return ( OutSubterm ( head argL ))
+		    = reTurn ( OutSubterm ( head argL ))
 	    | otherwise
 		    = return_err " XError Bad form escape sequence" 
 
@@ -453,15 +453,15 @@ x_send_subtrm (STData iL i j stinfoL)
 
 
 x_send_num i 
-	= x_send [ chr ((i `div` 256) `mod` 256) , chr (i `mod` 256) ]
+	= x_send [ toEnum ((i `div` 256) `mod` 256) , toEnum (i `mod` 256) ]
 
 
 {-
 x_get_num ( msc : lsc : ist , rsps )
 	= x_send str ( ist , rsps ) ./.
-	  return "" 
+	  reTurn "" 
 	  where
-	  str = show ( ord msc * 256 + ord lsc ) ++ "\n" 
+	  str = show ( fromEnum msc * 256 + fromEnum lsc ) ++ "\n" 
 -}
 
 

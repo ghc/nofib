@@ -24,7 +24,7 @@ where
 import Defaults
 import BinConv
 
-data Optional a = NONE | SOME a deriving (Eq, Text)
+data Optional a = NONE | SOME a deriving (Eq, Show{-was:Text-})
 
 {- We ideally want to store the table as an array but these are inefficient
  - so we use a list instead. We don't use the tree used by encode since we
@@ -110,7 +110,7 @@ unfold n t_len t
         (prefix, c) = lookup n t
         SOME n' = prefix
 
-data DecompTable = Branch DecompTable DecompTable | Leaf (Optional Int, Char) deriving (Text)
+data DecompTable = Branch DecompTable DecompTable | Leaf (Optional Int, Char) deriving (Show{-was:Text-})
 
 {- Insert a code pair into the table. The position of the code is given by
  - the breakdown of the key into its binary digits
@@ -155,5 +155,5 @@ lookup' _  _ = error "tree insert error - seek professional help"
 init_table = mk_init_table 0 (Leaf (SOME 99999, '@'))
 
 mk_init_table 256 t = t
-mk_init_table n t = mk_init_table (n+1) (insert n (NONE, chr n) t)
+mk_init_table n t = mk_init_table (n+1) (insert n (NONE, toEnum n) t)
 

@@ -5,7 +5,15 @@
 --
 import	Pic
 import  PicType	-- added by partain
+import IO(hPutStr,stderr)--1.3
 
+main = do
+    hPutStr stderr "Enter the number of particles: "
+    s <- getContents
+    let (nPart, rest) = (head (reads s)) :: (Int, String)
+    putStr (takeWhile ((/=) '\n') s ++ (pic nPart))
+
+{- OLD 1.2:
 main :: [Response] -> [Request]
 main resps =
 	[
@@ -21,3 +29,4 @@ calcpic (Str s) =
 	    (takeWhile ((/=) '\n') s ++ (pic nPart))
 	where
 	    (nPart, rest) = (head (reads s)) :: (Int, String)
+-}

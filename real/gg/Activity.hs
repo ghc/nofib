@@ -23,7 +23,7 @@ activityGraph ordering selectpes statFile =
 	active = if selectpes==[] then length pes-1 else length selectpes
 	maxticks = active*ticks
 	(pes,ticks,orderedStats) = getParameters stats
-	(traces,aggs) = (accumulate (processAct (map extractor order)) nullstate.
+	(traces,aggs) = (akkumulate (processAct (map extractor order)) nullstate.
 					gatherAct (Act 0 0 0 0 0 0).
 					map (scaleAct ticks).
 					getAct selectpes) orderedStats

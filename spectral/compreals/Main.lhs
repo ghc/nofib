@@ -2,6 +2,9 @@
 
 \begin{verbatim}
 $Log: Main.lhs,v $
+Revision 1.2  1996/07/25 21:30:47  partain
+Bulk of final changes for 2.01
+
 Revision 1.1  1996/01/08 20:05:20  partain
 Initial revision
 
@@ -15,13 +18,12 @@ calculator type language.
 
 For the moment on the other hand it just prints a given number.
 
-> main :: Dialogue
-> main = readChan stdin abort (foldr output done . map doLine . lines)
+> main = getContents >>= foldr output . map doLine . lines
 
 Printing out @String@'s is easy:
 
-> output :: String -> Dialogue -> Dialogue
-> output string dialogue = appendChan stdout (string++"\n") abort dialogue
+> output :: String -> IO () -> IO ()
+> output string dialogue = putStr (string++"\n") >> dialogue
 
 The @doLine@ function parses the line, if it is syntactically correct
 it then evaluates the expression returning the answer string.
@@ -87,7 +89,7 @@ it then evaluates the expression returning the answer string.
 > parseInteger :: String -> Integer
 > parseInteger = makeNumber 10 . map number
 >                where number :: Char -> Integer
->                      number c = toInteger (ord c - ord '0')
+>                      number c = toInteger (fromEnum c - fromEnum '0')
 
 > makeNumber :: Integer -> [Integer] -> Integer
 > makeNumber m = foldl f 0

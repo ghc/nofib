@@ -16,7 +16,7 @@
 > where
 > import GeomNum
 > import Euclid (Point(..),Line,Halfspace(..),Face(..),Faces(..),Segment(..),
->		 mkFace,getLine,getSegment,drawSegment,mkPoint,
+>		 mkFace,getMyLine,getSegment,drawSegment,mkPoint,
 >		 space,solve,invert,
 >		 triangleArea,mkPolygon,convert)
 > import Params (renderTop,renderHeight,renderLeft,windowWidth)
@@ -30,7 +30,7 @@
 > mkPart region line = Fc (section region line) line
 
 > getPart :: Partition -> Line
-> getPart p = getLine p
+> getPart p = getMyLine p
 
 
 	The type Region describes a convex sub_space as the space formed

@@ -311,7 +311,7 @@ value \prog{c}.
 \begin{haskell}
 
 > gen_decode_exp :: Genfn Char
-> gen_decode_exp dp c  =  unary_exp int_to_char_name (dp-one) (int_val (ord c))
+> gen_decode_exp dp c  =  unary_exp int_to_char_name (dp-one) (int_val (fromEnum c))
 
 \end{haskell}
 
@@ -429,7 +429,7 @@ them to form the array.
 > gen_array_exp dp ((v,v'), avs) ec
 >     =  gen_exp (dp-one) (Tuple_val [v,v'])
 >        (\e -> cmap [binary_exp assoc_name (dp-one) v1 v2
->                         | v1 := v2 <- avs]
+>                         | (v1, v2) <- avs]
 >        (\es -> ec (Array_exp e (List_exp es))))
 
 \end{haskell}

@@ -19,9 +19,9 @@ data ATree a b = ALeaf
                | ABranch (ATree a b) a b (ATree a b) Int
                  deriving (Eq)
      
-data Maybe a = Nothing 
-             | Just a 
-               deriving (Eq)
+--1.3:data Maybe a = Nothing 
+--             | Just a 
+--               deriving (Eq)
 
 data Reply a b = Ok a
                | Fail b
@@ -91,10 +91,10 @@ data SAInfo = SAResult    String Domain Route
 ----------------------------------------------------------
 
 data ExceptionInt a = MkExInt Int [a]
-                      deriving (Eq, Ord, Text)
+                      deriving (Eq, Ord, Show{-was:Text-})
 
 {- partain: moved from SmallerLattice.hs -}
-instance (Text a, Ord a) => Num (ExceptionInt a) where
+instance (Show{-was:Text-} a, Ord a) => Num (ExceptionInt a) where
 
    (MkExInt i1 xs1) + (MkExInt i2 xs2) 
       = MkExInt (i1 + i2) (xs1 ++ xs2)
@@ -244,16 +244,16 @@ type TypeDependancy = DefnGroup Naam
 type Point = (Domain, Route)
 
 data FrontierElem = MkFrel [Route]
-                    deriving (Eq, Ord, Text)
+                    deriving (Eq, Ord, Show{-was:Text-})
 
 data Frontier = Min1Max0 Int [FrontierElem] [FrontierElem]
-                deriving (Eq, Ord, Text)
+                deriving (Eq, Ord, Show{-was:Text-})
 
 data Domain = Two
             | Lift1 [Domain]
             | Lift2 [Domain]
             | Func  [Domain] Domain
-              deriving (Eq, Ord, Text)
+              deriving (Eq, Ord, Show{-was:Text-})
 
 data Route = Zero
            | One
@@ -263,12 +263,12 @@ data Route = Zero
            | Up2
            | UpUp2 [Route]
            | Rep Rep
-             deriving (Eq, Ord, Text)
+             deriving (Eq, Ord, Show{-was:Text-})
 
 data Rep = RepTwo Frontier
          | Rep1 Frontier [Rep]
          | Rep2 Frontier Frontier [Rep]
-           deriving (Eq, Ord, Text)
+           deriving (Eq, Ord, Show{-was:Text-})
 
 data DExpr = DXTwo                        
            | DXLift1  [DExpr]         
@@ -287,7 +287,7 @@ type DExprEnv = AList String DExpr
      
 data ConstrElem = ConstrRec
                 | ConstrVar Int
-                  deriving (Eq, Ord, Text)
+                  deriving (Eq, Ord, Show{-was:Text-})
 
 
 ----------------------------------------------------------
@@ -336,7 +336,7 @@ data HExpr a = HApp (HExpr a) (HExpr a)
              | HMeet [HExpr a]  -- must be at least one in list
              | HPoint Route
              | HTable (AList Route (HExpr a))
-               deriving (Eq, Text)
+               deriving (Eq, Show{-was:Text-})
 
      
 ----------------------------------------------------------

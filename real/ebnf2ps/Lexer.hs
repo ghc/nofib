@@ -1,5 +1,6 @@
 module Lexer where
 -- Copyright 1994 by Peter Thiemann
+import Char -- 1.3
 
 ------------------------------------------------------------------------------
 --NOW the lexer
@@ -8,7 +9,7 @@ module Lexer where
 data Token
 	= Ident String | Symbol String | String String
 
-instance Text Token where
+instance Show Token where
   showsPrec n (Ident s)  = showChar '[' . showString s . showString "] "
   showsPrec n (Symbol s) = showChar '<' . showString s . showString "> "
   showsPrec n (String s) = showChar '"' . showString s . showString "\" "

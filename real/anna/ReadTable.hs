@@ -9,6 +9,7 @@ import Utils
 import MyUtils
 import Parser2
 
+import Char(isDigit) -- 1.3
 
 --==========================================================--
 --
@@ -17,13 +18,13 @@ rtReadTable :: String -> [(Domain, Int)]
 rtReadTable s
    = case rtTable (rtLex 1 s) of
         PFail [] 
-           -> fail "Unexpected end of lattice table"
+           -> myFail "Unexpected end of lattice table"
         PFail ((n,t):_) 
-           -> fail ("Syntax error in lattice table, line " ++ show n ++ ".")
+           -> myFail ("Syntax error in lattice table, line " ++ show n ++ ".")
         POk tab [] 
            -> tab
         POk tab ((n,t):_) 
-           -> fail ("Syntax error in lattice table, line " ++ show n ++ ".")
+           -> myFail ("Syntax error in lattice table, line " ++ show n ++ ".")
 
 
 --==========================================================--
@@ -51,7 +52,7 @@ rtLex n (c:cs)
    | isDigit c 
    = (n, c:takeWhile isDigit cs):rtLex n (dropWhile isDigit cs)
    | otherwise 
-   = fail ("Illegal character " ++ show c ++
+   = myFail ("Illegal character " ++ show c ++
            " in lattice table, line " ++ show n ++ "." )
 
 

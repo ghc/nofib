@@ -20,6 +20,9 @@ import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
 import Asb_routs
+import Ix--1.3
+infix 1 =:
+(=:) a b = (a,b)
 
 -----------------------------------------------------------
 -- Forward substitution for the Choleski method.  Called --
@@ -27,7 +30,7 @@ import Asb_routs
 -----------------------------------------------------------
 
 lower_part u off_diag =
-	dropWhile (\(i:=_)->i<=u) (sparse_assocs off_diag)
+	dropWhile (\(i,_)->i<=u) (sparse_assocs off_diag)
 
 -- forward substitution
 fwd_sbs chl_fac b_old =
@@ -50,8 +53,8 @@ fwd_sbs chl_fac b_old =
 		new_b =
 			s_accum (-) b
 			[
-				k := list_inner_prod (drop (j-l) new_x) vs
-				| (k:=(j,vs)) <- lower_part u off_diag
+				k =: list_inner_prod (drop (j-l) new_x) vs
+				| (k,(j,vs)) <- lower_part u off_diag
 			]
 		-- generate solution for one block
 		gen_block_x i x_res =
@@ -93,9 +96,9 @@ bwd_sbs chl_fac y =
 			(s_listArray block_bounds [y!^i|i<-range block_bounds])
 			( concat
 				[ 
-					zipWith (\l v->l:=v) (range (j,u))
+					zipWith (\l v->l=:v) (range (j,u))
 					(map ((*) (x_res!^k)) vs)
-					| (k:=(j,vs)) <- lower_part u off_diag
+					| (k,(j,vs)) <- lower_part u off_diag
 				]
 			)
 		-- generate solution for one block
@@ -103,13 +106,13 @@ bwd_sbs chl_fac y =
 			if i<l
 			then x_res1
 			else
-				gen_block_x (i-1) new_b1 (x_res1//^[i:=new_x])
+				gen_block_x (i-1) new_b1 (x_res1//^[i=:new_x])
 			where
 			new_x = (b!^i) / (diag!^i)
 			(j,vs) = off_diag!^i
 			new_b1 =
 				s_accum (-) b
-				(zipWith (\l v->l:=v) (range (j,i-1)) (map ((*) new_x) vs))
+				(zipWith (\l v->l=:v) (range (j,i-1)) (map ((*) new_x) vs))
 
 -----------------------------------------------------------
 -- The driving function for the Choleski method.         --
@@ -129,5 +132,5 @@ chl_method (chl_fac,o_to_n) b scalor =
 	x = bwd_sbs chl_fac (fwd_sbs chl_fac new_b)
 	new_b = 
 		s_array bnds
-		(map (\(i:=v)->(o_to_n!^i):=v) (s_assocs b))
+		(map (\(i,v)->(o_to_n!^i)=:v) (s_assocs b))
 	bnds = s_bounds b

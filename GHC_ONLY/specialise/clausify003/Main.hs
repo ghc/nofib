@@ -4,5 +4,6 @@ import PreludeClausify (clausify)
 
 -- the main program: reads stdin and writes stdout
 main = scc "CAF:main" 
-       readChan stdin exit ( \input ->
-       appendChan stdout (clausify input) exit done)
+    do
+	input <- getContents
+	putStr (clausify input)

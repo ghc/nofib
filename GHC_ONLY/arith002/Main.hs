@@ -1,7 +1,9 @@
 --!!! basic Rational operations
 --
-main _
-  = [AppendChan stdout
+import Ratio
+
+main
+  = putStr
        (-- Ratio Ints
 	show [i0a, i0b, i0c, i2a, i2b, im2a, im2b, i_pi, i_misc]
     ++  "\n"
@@ -24,7 +26,6 @@ main _
 --  ++	show []
 --  ++  "\n"
 	)
-    ]
   where  
     i0a, i0b, i0c, i2a, i2b, im2a, im2b, i_pi, i_misc :: Ratio Int
 

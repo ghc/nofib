@@ -4,7 +4,10 @@
     ordered, but not necessarily balanced.
 -}
 
-data Tree e = Node Key (Tree e) (Tree e) | Leaf Key e | Empty deriving Text
+import System
+import Char(isSpace,isDigit,isAlpha)--1.3
+
+data Tree e = Node Key (Tree e) (Tree e) | Leaf Key e | Empty deriving Show{-was:Text-}
 type Key = Int
 
 
@@ -12,7 +15,7 @@ type Key = Int
     The Maybe type is used to distinguish success or failure.
 -}
 
-data Maybe a = Succ a | Fail
+--1.3 replaced: data Maybe a = Succ a | Fail
 
 
 {-
@@ -41,18 +44,18 @@ insertT k e Empty = Leaf k e
 
 {-
     "lookupT" looks up the record (entity) whose key is specified,
-    in the tree argument.  It returns Succ e if the key value
-    exists, or Fail otherwise.
+    in the tree argument.  It returns Just e if the key value
+    exists, or Nothing otherwise.
 -}
 
 lookupT :: Key -> Tree entity -> Maybe entity
 lookupT k (Node k' l r) | k <= k' = lookupT k l
 		        | otherwise = lookupT k r
 
-lookupT k (Leaf k' e) | k == k' = Succ e
-		      | otherwise = Fail
+lookupT k (Leaf k' e) | k == k' = Just e
+		      | otherwise = Nothing
 
-lookupT k Empty = Fail
+lookupT k Empty = Nothing
 
 
 {-
@@ -83,7 +86,7 @@ readTree fk s t =
 
 readInt :: String -> (Int,String)
 readInt s = readInt' 0 s where
-	readInt' n s@(c:cs) | isDigit c = readInt' (n*10+ord c-ord '0') cs
+	readInt' n s@(c:cs) | isDigit c = readInt' (n*10+fromEnum c-fromEnum '0') cs
 	readInt' n s =                    (n,dropWhile isSpace s)
 
 
@@ -97,8 +100,8 @@ join :: Tree Entity -> Tree Entity -> Tree Join -> Tree Join
 join Empty _ j = j
 join _ Empty j = j
 join (Leaf k (a,b,c)) t j =  case lookupT c t of
-			 Fail -> j
-			 Succ (d,e,f) -> insertT c (a,b,c,d,e) j
+			 Nothing -> j
+			 Just (d,e,f) -> insertT c (a,b,c,d,e) j
 join (Node k l r) t j = join l t (join r t j)
 
 
@@ -108,18 +111,11 @@ join (Node k l r) t j = join l t (join r t j)
     of the join is discarded.
 -}
 
-main :: Dialogue
-main = getArgs abort ( \ (s1 : s2 : _ ) -> run s1 s2)
-
-run :: String -> String -> Dialogue
-run f1 f2 =
-       readFile f1 abort ( \ c1 ->
-       readFile f2 abort ( \ c2 ->
-       let a = readTree  (\(x,_,_)->x) c1 Empty
-           b = readTree  (\(x,_,_)->x) c2 Empty 
-       in
-	   print (forceTree (join a b Empty))
---	   print (join a b Empty)
-       ))
-
-
+main = do
+   ~(f1 : ~(f2 : _ )) <- getArgs
+   c1 <- readFile f1
+   c2 <- readFile f2
+   let a = readTree  (\(x,_,_)->x) c1 Empty
+   let b = readTree  (\(x,_,_)->x) c2 Empty 
+   print (forceTree (join a b Empty))
+-- print (join a b Empty)

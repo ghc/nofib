@@ -109,6 +109,7 @@ test_paraffins_until n = let
     array (1,n) [i := (let { (bv,cv) = result!i} in (length bv) + (length cv))
                       | i <- [1..n]]
 
-main = appendChan stdout "Type in N: " abort $
-       readChan stdin abort $ \ input ->
-       appendChan stdout (show (test_paraffins_until (read (head (lines input))))) abort done
+main = do
+    putStr "Type in N: "
+    input <- getContents
+    putStr (show (test_paraffins_until (read (head (lines input)))))

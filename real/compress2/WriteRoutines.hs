@@ -12,7 +12,7 @@ iNTRSH x i = wordToInt (bitRsh (fromInt x) i)
 -- end partain addition
 
 outputCodes :: [CodeEvent] -> (String, [Int])
-outputCodes cs = (map chr (fst result), snd result)
+outputCodes cs = (map toEnum (fst result), snd result)
                where result = output 9 8 0 0 cs       -- assume 9 bit start
 
 output :: Int -> Int -> Int -> Int -> [CodeEvent] -> ([Int], [Int])

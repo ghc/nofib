@@ -6,6 +6,7 @@ import Env
 import Print
 import Eval
 import BasicNumber -- partain
+import IO(isEOF)
 
 ----------------------------------------------------------------------------
 

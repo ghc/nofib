@@ -24,7 +24,7 @@ where
 
 type Token = String -- "(" or ")" or "Lisp Symbol"
 
-data Lisplist = Nil | Atom Token | Cons (Lisplist, Lisplist) deriving (Eq,Text)
+data Lisplist = Nil | Atom Token | Cons (Lisplist, Lisplist) deriving (Eq,Show{-was:Text-})
 
 -- These functions create a Lisplist from a list of characters 
 
@@ -101,7 +101,7 @@ assoc (_, _) 	    	  = Nil
 -}
 
 type LUTentry = (Token, [Lisplist] )
-data LUT = Empty | Node (LUT, LUTentry, LUT) deriving (Text)
+data LUT = Empty | Node (LUT, LUTentry, LUT) deriving (Show{-was:Text-})
 
 
 newLUT :: LUT

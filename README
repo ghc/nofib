@@ -1,11 +1,14 @@
 This is the root directory of the "NoFib Haskell benchmark suite";
-version 0.26 (to match our other Glasgow functional-programming
+version 2.01 (to match our other Glasgow functional-programming
 tools).
+
+The main change between version 0.26 and 2.01 is that the programs
+have been converted to Haskell 1.3 (insofar as I could be bothered).
 
 We have yet to release the NoFib stuff as we intended -- everything
 tidied up -- because it's a lot of work for very few brownie points.
-As it is, however, it is quite useful as a Haskell-compiler test
-suite, so we are not keeping it to ourselves.
+Probably we never will.  As it is, however, it is quite useful as a
+Haskell-compiler test suite, so we are not keeping it to ourselves.
 
 This version has *MANY* shortcomings, some of which I hope you will
 report, so we can get something "real" out the door.
@@ -13,11 +16,11 @@ report, so we can get something "real" out the door.
 There are some restrictions on the use of this software.  First of
 all, the copyright for the individual programs remains with their
 authors (unless they have explicitly said otherwise).  Second, we (the
-AQUA project at University of Glasgow) retain the copyright to any
-changes made to the programs *and* to the collection of programs
-itself.  Third, for this "not-0.26" non-release, it would be dishonest
-to suggest that any results are related to the still-in-the-future
-"NoFib benchmark suite".  So please do not make any such claims.
+Glasgow Haskell project at University of Glasgow) retain the copyright
+to any changes made to the programs *and* to the collection of
+programs itself.  Third, for 2.01, it would be dishonest to suggest
+that any results are related to the still-in-the-future "NoFib
+benchmark suite".  So please do not make any such claims.
 
 A position paper about the suite is in docs/paper/paper.dvi, and it
 includes more than enough indication as to how we intend this suite to
@@ -30,11 +33,9 @@ in order to run it. [NOTE: doesn't exist yet; see sketchy notes below]
 The file BUGS is a list of things we *know* are not right [ALSO
 VIRTUALLY USELESS].  Help would be most welcome...
 
-You may sent comments or bug reports about this suite either to me
-(partain@dcs.glasgow.ac.uk) or (glasgow-haskell-bugs@dcs.glasgow.ac.uk).
+You may sent comments or bug reports about this suite either to the
+Glasgow Haskell bugs list <glasgow-haskell-bugs@dcs.gla.ac.uk>.
 They will be most welcome.
-
-Will Partain
 
 == SKETCHY NOTES ==================================================
 

@@ -3,7 +3,9 @@
 -- 
 module Main where 
 
-data Maybe a = Nothing | Just a
+import Char -- 1.3
+
+--1.3:data Maybe a = Nothing | Just a
 
 data ATree a b = ALeaf
                | ABranch (ATree a b) a [b] (ATree a b) Int
@@ -101,9 +103,9 @@ xref stab lineno (c:cs)
         in  xref (avAdd stab (c:word) lineno) lineno rest
      else xref stab lineno cs
 
-main resps = [ReadChan stdin,
-              AppendChan stdout (pp_tree (xref ALeaf 1
-                (case resps !! 0 of Str s -> s)))]
+main = do
+    s <- getContents
+    putStr (pp_tree (xref ALeaf 1 s))
 
 {-
 Date: Thu, 29 Oct 92 19:38:31 GMT

@@ -28,9 +28,10 @@
 --
 -- Enjoy!
 ------------------------------------------------------------------------------
+import Char -- 1.3
+import List -- 1.3
 -- main: added by partain
-main = readChan   stdin  abort ( \ stuff ->
-       appendChan stdout (say stuff) abort done )
+main = do { stuff <- getContents; putStr (say stuff) }
 
 ------------------------------------------------------------------------------
 
@@ -39,10 +40,10 @@ say   = ('\n':) . unlines . map join . transpose . map picChar
 
 -- mapping characters to letters: --------------------------------------------
 
-picChar c  | isUpper c  = alphas !! (ord c - ord 'A')
-           | isLower c  = alphas !! (ord c - ord 'a')
+picChar c  | isUpper c  = alphas !! (fromEnum c - fromEnum 'A')
+           | isLower c  = alphas !! (fromEnum c - fromEnum 'a')
            | isSpace c  = blank
-           | isDigit c  = digits !! (ord c - ord '0')
+           | isDigit c  = digits !! (fromEnum c - fromEnum '0')
            | c=='/'     = slant
            | c=='\\'    = reverse slant
            | otherwise  = head ([ letter | (c',letter) <- punct, c'==c ]

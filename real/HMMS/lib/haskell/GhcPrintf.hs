@@ -51,7 +51,7 @@ fmt cs us =
 	    []     -> argerr
 	    u:us'' ->
 		(case c of
-		'c' -> adjust ("", [chr (toint u)])
+		'c' -> adjust ("", [toEnum (toint u)])
 		'd' -> adjust (fmti u)
 		'x' -> adjust ("", fmtu 16 u)
 		'o' -> adjust ("", fmtu 8  u)
@@ -68,7 +68,7 @@ fmti (UInt i)     = if i < 0 then
 		    else
 			("", itos i)
 fmti (UInteger i) = if i < 0 then ("-", itos (-i)) else ("", itos i)
-fmti (UChar c)    = fmti (UInt (ord c))
+fmti (UChar c)    = fmti (UInt (fromEnum c))
 fmti u		  = baderr
 
 fmtu b (UInt i)     = if i < 0 then
@@ -76,7 +76,7 @@ fmtu b (UInt i)     = if i < 0 then
 		      else
 			  itosb b (toInteger i)
 fmtu b (UInteger i) = itosb b i
-fmtu b (UChar c)    = itosb b (toInteger (ord c))
+fmtu b (UChar c)    = itosb b (toInteger (fromEnum c))
 fmtu b u            = baderr
 
 maxi :: Integer
@@ -84,7 +84,7 @@ maxi = (toInteger maxInt + 1) * 2
 
 toint (UInt i)     = i
 toint (UInteger i) = toInt i
-toint (UChar c)    = ord c
+toint (UChar c)    = fromEnum c
 toint u		   = baderr
 
 tostr (UString s) = s
@@ -96,10 +96,10 @@ todbl u           = baderr
 
 itos n = 
 	if n < 10 then 
-	    [chr (ord '0' + toInt n)]
+	    [toEnum (fromEnum '0' + toInt n)]
 	else
 	    let (q, r) = quotRem n 10 in
-	    itos q ++ [chr (ord '0' + toInt r)]
+	    itos q ++ [toEnum (fromEnum '0' + toInt r)]
 
 chars = array (0,15) (zipWith (:=) [0..] "0123456789abcdef")
 itosb :: Integer -> Integer -> String
@@ -111,7 +111,7 @@ itosb b n =
 	    itosb b q ++ [chars!r]
 
 stoi :: Int -> String -> (Int, String)
-stoi a (c:cs) | isDigit c = stoi (a*10 + ord c - ord '0') cs
+stoi a (c:cs) | isDigit c = stoi (a*10 + fromEnum c - fromEnum '0') cs
 stoi a cs                 = (a, cs)
 
 getSpecs :: Bool -> Bool -> String -> [UPrintf] -> (Int, Int, Bool, Bool, String, [UPrintf])

@@ -17,8 +17,8 @@ import Core_datatype
 int_to_str :: Int -> String
 
 int_to_str i 
-	| i < 256   = [ chr 0 , chr i ]
-	| i < 65536 = [] -- [ chr ((i `div` 256) `rem` 256) , chr (i `rem` 256) ]
+	| i < 256   = [ toEnum 0 , toEnum i ]
+	| i < 65536 = [] -- [ toEnum ((i `div` 256) `rem` 256) , toEnum (i `rem` 256) ]
 	| otherwise = error "Bind" -- ** exn
 
 

@@ -7,7 +7,8 @@
 -- pascal code apparently provided by Robert Migliaccio (mig@ms.uky.edu).
 -------------------------------------------------------------------------------
 
-main :: Dialogue
+import Char -- 1.3
+
 main  = interact (("\n\
 		    \Hi! I'm Eliza. I am your personal therapy computer.\n\
 		    \Please tell me your problem.\n\

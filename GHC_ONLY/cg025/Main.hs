@@ -1,25 +1,20 @@
 --!!! test various I/O Requests
 --
 --
+import IO
+import System
 import Trace
 
-main  = getProgName			    exit ( \ prog ->
-    	appendChan stderr (shows prog "\n") exit (
-
-	getArgs				    exit ( \ args ->
-	appendChan stderr (shows args "\n") exit (
-
-	getEnv "PATH"			    exit ( \ path ->
-	appendChan stderr (shows path "\n") exit (
-
-	readChan stdin			    exit ( \ stdin_txt ->
-	appendChan stdout stdin_txt	    exit (
-
-	readFile (head args)		    exit ( \ file_cts ->
-	appendChan stderr file_cts	    exit (
-
-	trace "hello, trace"			 (
-	getEnv "__WURBLE__" (error "hello, error\n") ( \ _ ->
-
-	done
-	))))))))))))
+main = do
+    prog <- getProgName
+    hPutStr stderr (shows prog "\n")
+    args <- getArgs
+    hPutStr stderr (shows args "\n")
+    path <- getEnv "PATH"
+    hPutStr stderr (shows path "\n")
+    stdin_txt <- getContents
+    putStr stdin_txt
+    file_cts <- readFile (head args)
+    hPutStr  stderr file_cts
+    trace "hello, trace" $
+     catch (getEnv "__WURBLE__" >> return ()) (\ e -> error "hello, error\n")

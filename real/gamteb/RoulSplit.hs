@@ -17,10 +17,10 @@ roulet (Part pos dir w e eIndx cell seed) =
 	if (r1 < 0.5)
 	    then -- not killed in russian roulette
 		(Part pos dir (2*w) e eIndx 1 seed',
-		[nr:=1, wrg:=w], False)
+		[(nr,1), (wrg,w)], False)
 	    else -- killed in russian roulette
 		(Part pos dir 0 e eIndx 1 seed',
-		[nr:=1, nrk:=1, wrl:=w], True)
+		[(nr,1), (nrk,1), (wrl,w)], True)
 	where
 	    (r1, r2) = genRand seed
 	    (seed', r3) = genRand r2

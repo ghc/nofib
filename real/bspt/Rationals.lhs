@@ -4,13 +4,14 @@
 
 > where
  
+> import Ratio--1.3
 > infix 7 :%%
 
 
 	Data declaration for Rationals. 
 	Rationals are defined in terms of Ints.
   
-> data Rationals = Int :%% Int deriving (Text,Eq)
+> data Rationals = Int :%% Int deriving (Show{-was:Text-},Eq)
 
 	LazyRationals instance of Ord declared with
 	simple degeneration to lazyInteger where

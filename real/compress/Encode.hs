@@ -164,7 +164,7 @@ initial_table :: CodeTable
 initial_table
     = foldr tab_insert PTNil balanced_list
 
-tab_insert n = insert (chr n) n
+tab_insert n = insert (toEnum n) n
 
 balanced_list
     = [128,64,32,16,8,4,2,1,0,3,6,5,7,12,10,9,11,14,13,15,24,20,18,17,19,22,

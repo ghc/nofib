@@ -2,7 +2,7 @@ module Main where
 
 import SocketPrim
 import BSD
-import LibSystem
+import System
 
 
 main =
@@ -17,6 +17,6 @@ main =
     getHostByAddr AF_INET haddr			>>= \ (HostEntry hname _ _ _) ->
     putStr ("Connected to : " ++ hname ++ "\n") >>
     writeSocket s message			>>
-    shutdown s 2				>>
+    shutdown s ShutdownBoth			>>
     sClose s
 

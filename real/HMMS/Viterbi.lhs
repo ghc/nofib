@@ -5,7 +5,7 @@ Chapter~\ref{ch:HmmDigraphs} described how to take a pronunciation
 network and turn it into a single HMM.
         \begin{haskell}{Viterbi}
 
-> module Viterbi( HmmDigraphs.., HmmDensities.., align ) where
+> module Viterbi( module HmmDigraphs, module HmmDensities, align ) where
 
 > import Extrema
 > import Lists
@@ -13,6 +13,7 @@ network and turn it into a single HMM.
 
 > import HmmDigraphs
 > import HmmDensities
+> import Array--1.3
 
 \end{haskell}
 
@@ -205,8 +206,8 @@ probabilities.
 >       where
 >       bnds = bounds pdg
 >       nu0  = accumArray (flip const) minFloat bnds
->                 [ i := let (p,s) = fst (pdg!i)
->                        in  a + lt!p!s          | (i,a) <- is]
+>                 [ (i , let (p,s) = fst (pdg!i)
+>                        in  a + lt!p!s)         | (i,a) <- is]
 
 \end{haskell}
 

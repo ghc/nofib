@@ -91,11 +91,11 @@ Synonyms for various combinators.
 Perform the first Job, discard any result, then perform the second job.
 \begin{vb}
 
-> (>>>)      :: Job s1 s2 a -> Job s2 s3 b -> Job s1 s3 b
-> (a >>> b)  = a >>>= (\_ -> b)
+> (>>>)     :: Job s1 s2 a -> Job s2 s3 b -> Job s1 s3 b
+> a >>> b   = a >>>= (\_ -> b)
 
 > (>>)      :: Job s1 s2 a -> Job s2 s2 b -> Job s1 s2 b
-> (a >> b)  = a >>= (\_ -> b)
+> a >> b    = a >>= (\_ -> b)
 
 \end{verbatim}\end{vb}\end{Def}
 
@@ -107,7 +107,7 @@ an unhandled error, perform the second job.
 
 
 > (?)       :: Job s s a -> Job s s a -> Job s s a   
-> (a ? b)   = a `handle` (\x -> b)
+> a ? b     = a `handle` (\x -> b)
 
 \end{verbatim}\end{vb}\end{Def}
 
@@ -245,7 +245,7 @@ position.
 \begin{vb}
 
 > clearScreen :: Task s s
-> clearScreen = putStr (map chr [27, 91, 72, 27, 91, 50, 74])
+> clearScreen = putStr (map toEnum [27, 91, 72, 27, 91, 50, 74])
 
 
 \end{verbatim}\end{vb}\end{Def}

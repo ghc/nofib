@@ -20,10 +20,10 @@ import LinSolv (linSolv)
 -- Functions for I/O
 -- ----------------------------------------------------------------------------
 
-seq :: [String] -> Dialogue
+seq :: [String] -> IO ()
 
-seq []      = done
-seq (s1:ss) = appendChan stdout s1 abort (seq ss)
+seq []      = return ()
+seq (s1:ss) = putStr s1 >> seq ss
 
 {-
 getCpuTime fail succ resps = 

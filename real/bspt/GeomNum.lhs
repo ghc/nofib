@@ -25,11 +25,11 @@
 		[y,x]CoordInRange - how to work out if a co_ordinate is on screen
 				(screen defined in Params.hs)
 		ratio - find the ratio of two number in simplest terms
-		zero, positive, negative - methods for determining the sign of a number
+		zerO, positive, negative - methods for determining the sign of a number
 		fromInt - How to coerce an integer the number type.
 
 > 	rnd :: a->Int
-> 	zero,positive,negative :: a->Bool
+> 	zerO,positive,negative :: a->Bool
 >	ratio :: a -> a -> (a,a)
 > 	xCoordInRange :: a->Bool
 > 	yCoordInRange :: a->Bool
@@ -38,7 +38,7 @@
 > instance GeomNumb Rationals where
 
 >	rnd = rndNR
->	zero a = (a==0)
+>	zerO a = (a==0)
 >	positive a = signum a > 0
 >	negative a = signum a < 0
 >    	ratio 0 y = if (positive y) then (0,1) else (0,-1)

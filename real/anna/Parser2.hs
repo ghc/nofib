@@ -9,6 +9,9 @@ import Utils
 import MyUtils
 import MakeDomains
 
+import List(nub) -- 1.3
+import Char(isAlpha,isDigit) -- 1.3
+
 --====================================--
 --=== Lexical analyser             ===--
 --====================================--
@@ -243,14 +246,14 @@ paSyntax
    = get_parse . paProgram
      where
         get_parse (PFail [])
-           = fail "Syntax error: Unexpected end of source text"
+           = myFail "Syntax error: Unexpected end of source text"
 
         get_parse (PFail ((n,t):_))
-           = fail ( "Syntax error: unexpected token \"" ++ t ++
+           = myFail ( "Syntax error: unexpected token \"" ++ t ++
                     "\" on line " ++ show ( n :: Int ))
 
         get_parse (POk _ ((n,t):_:_))
-           = fail ( "Syntax error: unexpected token \"" ++ t ++
+           = myFail ( "Syntax error: unexpected token \"" ++ t ++
                     "\" on line " ++ show ( n :: Int ))
 
         get_parse (POk prog [(999999, "$$$")]) = prog
@@ -291,7 +294,7 @@ paNum = paSat paIsNum `paApply` paNumval
 --================================================--
 paNumval :: [Char] -> Int
 paNumval cs 
-   = sum (powers 1 (map (\d -> ord d - 48) (reverse cs)))
+   = sum (powers 1 (map (\d -> fromEnum d - 48) (reverse cs)))
      where
         powers n [] = []
         powers n (h:t) = n*h : powers ((10 :: Int) *n) t
@@ -550,7 +553,7 @@ paParse :: [Char] -> (TypeDependancy, AtomicProgram)
 paParse fileContents
    = if typeDefErrors == "" 
         then (dependResult, (typeDefs, mainExpr)) 
-        else fail typeDefErrors
+        else myFail typeDefErrors
      where
         (typeDefs, mainExpr) = paProgramToAtomic parsedProgram
         dependResult = mdTypeDependancy typeDefs

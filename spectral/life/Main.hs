@@ -4,7 +4,7 @@
 --    (from John Launchbury)  --
 --------------------------------
 
-main inp = [AppendChan stdout ("\FF" ++ life 30 start)]
+main = putStr ("\FF" ++ life 30 start)
 
 start :: [[Int]]
 start = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],

@@ -137,7 +137,7 @@ spLLift_reduce_arity_as_top des_arity initTops initDss
    | ar == des_arity
    = f
    | ar >  des_arity
-   = let shorten (MkFrel rs) = MkFrel (myTake des_arity rs)
+   = let shorten (MkFrel rs) = MkFrel (take des_arity rs)
          new_f1 = map shorten f1
          new_f0 = spMax0FromMin1_aux initTops initDss new_f1
      in

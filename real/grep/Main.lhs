@@ -1,6 +1,8 @@
 > module Main where
 
 > import Parsers
+> import System -- 1.3 (partain)
+> import IO--1.3
 
 > infixr 8 +.+ , +.. , ..+
 > infixl 7 <<< , <<*
@@ -22,19 +24,18 @@
 
 ----------------------------------------------------------------------
 
-> main :: Dialogue
-> main = getArgs exit parse_args
+> main = getArgs >>= \ args -> parse_args args
 
-> parse_args :: [String] -> Dialogue
+> parse_args :: [String] -> IO ()
 > parse_args (regexp: files) =
 > 	let acc = acceptor (fst(head(nnRegexp regexp)))
 > 	    acc' = unlines . filter acc . lines
 > 	in
-> 	    readChan stdin exit (\inp -> 
-> 	    appendChan stdout (acc' inp) exit done)
+> 	    getContents >>= \ inp ->
+> 	    putStr (acc' inp)
 > parse_args _ =
-> 	getProgName exit (\progName ->
->	appendChan stderr ("Usage: " ++ progName ++ " regexp\n") exit done)
+> 	getProgName >>= \progName ->
+>	hPutStr stderr ("Usage: " ++ progName ++ " regexp\n")
 
 {-
   Atom		= character | "\\" character | "." | "\\(" Regexp "\\) .

@@ -126,8 +126,8 @@ complete_thm_input lt gst (ThmSpec tm)
 	= x_form True form /./
 	  exp
 	  where
-	  exp NONE = return NONE 
-	  exp ( SOME [OutText s]) = return ( SOME [s] )
+	  exp NONE = reTurn NONE 
+	  exp ( SOME [OutText s]) = reTurn ( SOME [s] )
 	  form = [InComment "Complete Theorem", InMultiText "Derivation" ""]
 
 {-
@@ -292,10 +292,10 @@ disj_input lt gst _
 	= x_form True form /./
 	  exp
 	  where
-	  exp NONE = return NONE 
+	  exp NONE = reTurn NONE 
 
 	  exp ( SOME [OutRadio s1,OutText s2] ) 
-		= return ( SOME [s1,s2] )
+		= reTurn ( SOME [s1,s2] )
 
 	  form = [InComment "Disjunction",
 		  InRadio "Argument Type" 0 ["Derivation","Specification"],
@@ -387,10 +387,10 @@ rewrite_input gst lt (ThmSpec tm)
 	= x_form True form /./
 	  exp
 	  where
-	  exp NONE -> return NONE 
+	  exp NONE -> reTurn NONE 
 	
 	  exp ( SOME [OutSubterm s1,OutText s2,OutRadio s3] )
-		= return ( SOME [s1,s2,s3] )
+		= reTurn ( SOME [s1,s2,s3] )
 	
 	  exp _ = return_err "Unexected arguments returned" 
 
@@ -465,9 +465,9 @@ axiom_arg_fn gst lt (ThmSpec tm)
 	= x_form True form /./
 	  exp
 	  where
-	  exp NONE = return NONE 
+	  exp NONE = reTurn NONE 
 
-	  exp ( SOME [OutText s] ) = return ( SOME [s] )
+	  exp ( SOME [OutText s] ) = reTurn ( SOME [s] )
 
 	  form = [InComment "Tactic: Axiom", InSingleText "Name Of Axiom" ""]
 
@@ -700,10 +700,10 @@ lemma_input gst lt (ThmSpec tm)
 	= x_form True form /./
 	  exp
 	  where
-	  exp NONE = return NONE 
+	  exp NONE = reTurn NONE 
 
 	  exp ( SOME [OutText s1,OutText s2] ) 
-		= return ( SOME [s1,s2] )
+		= reTurn ( SOME [s1,s2] )
 
 	  form = [InComment "Add lemma", 
 		  InSingleText "Name " "",
@@ -717,9 +717,9 @@ rw_input str gst lt (ThmSpec tm)
 	= x_form True form /./
 	  exp
 	  where`
-	  exp NONE = return NONE 
+	  exp NONE = reTurn NONE 
 
-	  exp ( SOME [OutSubterm s] ) = return ( SOME [s] )
+	  exp ( SOME [OutSubterm s] ) = reTurn ( SOME [s] )
 
 	  exp  _ = return_err "Unexected arguments returned" 
 
@@ -867,9 +867,9 @@ exists_elim_input gst lt (ThmSpec tm)
 	  exp
 	  where
 	  exp ( SOME [OutText s1,OutRadio s2] ) 
-		= return ( SOME [s1,s2] )
+		= reTurn ( SOME [s1,s2] )
 
-	  exp _ = return NONE 
+	  exp _ = reTurn NONE 
 
 	  form = [InComment "Exists Elimination",
 		  InMultiText "Existential Object" "",
@@ -894,5 +894,5 @@ triv auto_tac
 	    snd (lift_tactic hyp_tac)       `orelse`
 	    snd (lift_tactic auto_tac)      `orelse`
 	    snd (lift_tactic taut_tac)      `orelse`
-	    ( \ trst -> return trst )
+	    ( \ trst -> reTurn trst )
 

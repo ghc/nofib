@@ -2,6 +2,7 @@
         \begin{haskell}{Phones}
 
 > module Phones( Phone(..), phone_bounds, phone_list ) where
+> import Ix--1.3
 
 \end{haskell}
 
@@ -25,7 +26,7 @@ between-word sounds are defined as data constructors for the type
 >       DX  |                                           -- flap
 >       -- between-word sounds --
 >       SIL                                             -- silence
->       deriving (Eq, Ord, Enum, Ix, Text)
+>       deriving (Eq, Ord, Enum, Ix, Read, Show)
 
 \end{haskell}
         The data constructors are the same as a subset of the symbols

@@ -4,7 +4,7 @@ Michaelson for SML, converted to (parallel) Haskell by Kevin Hammond!
 > import {-fool mkdependHS; ToDo: rm-}
 >	Parallel
 
-> main = appendChan stdout (top 15 10.0 7.0 6.0 sc) abort done
+> main = putStr (top 15 10.0 7.0 6.0 sc)
 > -- main = appendChan stdout (top 50 10.0 7.0 10.0 sc) abort done
 
 > type Coord = (Double,Double,Double)

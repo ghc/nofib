@@ -24,9 +24,7 @@
 
 module Main where
 
---main :: Dialogue
-
-main _ = munch 100000 (inf 3)
+main = munch 100000 (inf 3)
 
 data Stream a
   = MkStream a a a a a a a a a (Stream a)
@@ -35,13 +33,13 @@ data Stream a
 inf :: Int -> Stream Int
 inf n = MkStream n n n n n n n n n (inf n)
 
-munch :: Int -> Stream a -> [Request]
+munch :: Int -> Stream a -> IO ()
 
-munch n Empty = [] -- error "this never happens!\n"
+munch n Empty = return () -- error "this never happens!\n"
     -- this first equation mks it non-strict in "n"
     -- (NB: call the "error" makes it strict)
 
-munch 0 _ = [AppendChan stdout "I succeeded!\n"]
+munch 0 _ = putStr "I succeeded!\n"
 munch n s = case (f n s) of
 	      (True, rest) -> rest
 	      (False, _)   -> error "this never happens either\n"

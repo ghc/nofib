@@ -272,8 +272,8 @@ data
     f_const a_x a_y=a_x;
     f_digit::Char -> Bool;
     f_digit a_x=
-        if (((<=) :: (Int -> Int -> Bool)) (ord '0') (ord a_x))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_x) (ord '9'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum '0') (fromEnum a_x))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_x) (fromEnum '9'))
         else 
             False;
     f_drop::Int -> [t1] -> [t1];
@@ -338,14 +338,14 @@ data
     f_letter::Char -> Bool;
     f_letter a_c=
         if (
-            if (((<=) :: (Int -> Int -> Bool)) (ord 'a') (ord a_c))
-            then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'z'))
+            if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'a') (fromEnum a_c))
+            then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'z'))
             else 
                 False)
         then True
         else 
-        if (((<=) :: (Int -> Int -> Bool)) (ord 'A') (ord a_c))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'Z'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'A') (fromEnum a_c))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'Z'))
         else 
             False;
     f_limit::[Double] -> Double;
@@ -364,7 +364,7 @@ data
                 else 
                     ((:) [] [])
          } in  
-            if (((==) :: (Int -> Int -> Bool)) (ord a_a) (ord '\o012'))
+            if (((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum '\o012'))
             then ((:) [] (f_lines a_x))
             else 
                 ((:) ((:) a_a (head r_xs)) (tail r_xs));
@@ -486,5 +486,5 @@ data
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
     c_input=(6 :: Int);
-    main r = [AppendChan "stdout" (f_main c_input)]
+    main = putStr (f_main c_input)
 }

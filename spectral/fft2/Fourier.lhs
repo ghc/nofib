@@ -4,6 +4,8 @@
 
 > where
 
+> import Complex--1.3
+> import List(transpose)--1.3
 > import Complex_Vectors
                 
 > fft:: [ComplexF] -> [ComplexF] -- Warning: works only for n=2^km
@@ -21,8 +23,8 @@
 
 > ffth:: [ComplexF] -> [ComplexF] -> [ComplexF]
 > ffth xs us
->  | n>1    =             (replicate fftEvn) `plus` 
->             (us `times` (replicate fftOdd))
+>  | n>1    =             (replikate fftEvn) `plus` 
+>             (us `times` (replikate fftOdd))
 >  | n==1   = xs
 >  where
 >    fftEvn = ffth (evns xs) uEvns
@@ -41,7 +43,7 @@
 > dft xs
 >  = map((1/(fromInt n))*) (dfth fs xs us)
 >  where
->    us = replicate(map conjugate (rootsOfUnity n))
+>    us = replikate(map conjugate (rootsOfUnity n))
 >    fs = factors n
 >    n = length xs
 >    fromInt = fromInteger . toInteger -- partain addition
@@ -52,7 +54,7 @@
 > dftinv xs
 >  = dfth fs xs us
 >  where
->    us = replicate(rootsOfUnity n)
+>    us = replikate(rootsOfUnity n)
 >    fs = factors n
 >    n = length xs
 
@@ -73,7 +75,7 @@
 > sft xs
 >  = map((1/(fromInt n))*) (sfth n xs us)
 >  where
->    us = replicate(map conjugate (rootsOfUnity n))
+>    us = replikate(map conjugate (rootsOfUnity n))
 >    n = length xs
 >    fromInt = fromInteger . toInteger -- partain addition
 
@@ -81,7 +83,7 @@
 > sftinv xs
 >  = sfth n xs us
 >  where
->    us = replicate(rootsOfUnity n)
+>    us = replikate(rootsOfUnity n)
 >    n = length xs
 
 > sfth:: Int -> [ComplexF] -> [ComplexF] -> [ComplexF]
@@ -104,7 +106,7 @@
 
 > plus  = zipWith (+)
 > times = zipWith (*)
-> replicate = cycle
+> replikate = cycle
 > repl n = concat . take n . repeat
 > everyNth n = (map head).(takeWhile (/=[])).(iterate (drop n))
 

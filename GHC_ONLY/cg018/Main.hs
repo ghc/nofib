@@ -1,6 +1,6 @@
 --!!! test of datatype with many unboxed fields
 --
-main _ = [AppendChan stdout (shows (selectee1 + selectee2) "\n")]
+main = putStr (shows (selectee1 + selectee2) "\n")
 
 data Tfo = Tfo Float# Float# Float# Float# Float# Float# Float# Float# Float# Float# Float# Float#
 

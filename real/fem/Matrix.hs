@@ -44,7 +44,7 @@ intchcol :: Int -> Int -> Mat a -> Mat a
 
 interchmat :: (Int,Int) -> (Int,Int) -> Mat a -> Mat a
 
-displaymat :: (Text a) => Mat a -> [Char]
+displaymat :: (Show a) => Mat a -> [Char]
 
 makemat (nr,nc) g =
 	MAT (nr,nc) 

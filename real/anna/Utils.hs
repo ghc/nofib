@@ -15,7 +15,7 @@ import BaseDefs
 --
 copy :: Int -> a -> [a]
 
-copy n x = myTake (max 0 n) xs where xs = x:xs
+copy n x = take (max 0 n) xs where xs = x:xs
 
 
 --==========================================================--

@@ -24,15 +24,15 @@ apPap_2 :: Int -> Frontier -> [Route] -> Frontier
 apPap_2 argCount (Min1Max0 ar f1 f0) args
    = let newf1 
             = sort (avMinfrel 
-                   [MkFrel (myDrop argCount fel) 
+                   [MkFrel (drop argCount fel) 
                    | MkFrel fel <- f1, 
-                     myAndWith2 (<<) (myTake argCount fel) args
+                     myAndWith2 (<<) (take argCount fel) args
                    ])
          newf0 
             = sort (avMaxfrel 
-                   [MkFrel (myDrop argCount fel) 
+                   [MkFrel (drop argCount fel) 
                    | MkFrel fel <- f0,
-                     myAndWith2 (<<) args (myTake argCount fel)
+                     myAndWith2 (<<) args (take argCount fel)
                    ])
          result = Min1Max0 (ar-argCount) newf1 newf0
      in

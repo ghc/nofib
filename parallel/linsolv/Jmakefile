@@ -1,7 +1,7 @@
 SRCS_HS = Main.hs CRA.hs LinSolv-par.hs Matrix-list.hs ModArithm.hs ParForce.hs
 OBJS_O = Main.o CRA.o LinSolv-par.o Matrix-list.o ModArithm.o ParForce.o
 
-NoFibMultiModuleCompileAndRun(linsolv,)
+NoFibMultiModuleCompileAndRun(linsolv, -o1 linsolv.stdout)
 
 NoFibHaskellCompile(linsolv,Main,hs)
 NoFibHaskellCompile(linsolv,CRA,hs)

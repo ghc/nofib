@@ -69,7 +69,7 @@ instance Eq ChessSet where
 instance Ord ChessSet where
     _ <= _ = True			
 
-instance Text ChessSet where
+instance Show ChessSet where
    showsPrec p board@(Board s n l f ts) 
       = showString "Move number " . (showsPrec p n).
 	showString "\n" . showString (printBoard s (elems ts) 1)

@@ -2,9 +2,7 @@ module Main where
 
 import PreludeGlaST
 
-main =
-	appendChan stdout (shows res "\n")
-	exit done
+main = putStr (shows res "\n")
 	where
 	res = unsafePerformPrimIO (
 		ca `thenPrimIO` \r -> returnPrimIO r)

@@ -21,6 +21,4 @@ one that works.
 -- I have turned this into a general test of extreme constants.
 -- WDP 94/12
 
-main _ = [
- AppendChan stdout (shows (1.82173691287639817263897126389712638972163e-300::Double) "\n")
- ]
+main = putStr (shows (1.82173691287639817263897126389712638972163e-300::Double) "\n")

@@ -36,7 +36,9 @@ David
 
 module Main(main) where
 
-main _ = [AppendChan stdout res]
+import Ix -- 1.3
+
+main = putStr res
 
 res = concat (map clauses (take 7 (repeat "(a = a = a) = (a = a = a) = (a = a = a)")))
 

@@ -641,11 +641,7 @@ Finally:
 
 --> testq tt = (layn . map show' . nub) (enumerate tt)
 
-> main resps 
->    = [AppendChan stdout 
->         (show 
->             (apply_cds `myElem` (enumerate (Fn [Fn [Two], Two])))
->         )]
+> main = putStr (show (apply_cds `myElem` (enumerate (Fn [Fn [Two], Two]))))
 >
 > i `myElem` [] = False
 > i `myElem` (x:xs) = if i == x then True else i `myElem` xs 

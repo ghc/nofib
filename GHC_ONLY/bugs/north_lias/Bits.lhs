@@ -5,13 +5,13 @@
 >     showit, showits, new_line, pad
 >     ) where
 
-> type Cont  =  Dialogue
+> type Cont  =  IO () --was: Dialogue
 
 > showit :: (Text a) => a -> Cont -> Cont
-> showit x c  =  appendChan stdout (show x) exit c
+> showit x c  =  putStr (show x) >> c
 
 > showits :: String -> Cont -> Cont
-> showits x c  =  appendChan stdout x exit c
+> showits x c  =  putStr x >> c
 
 > new_line :: Cont -> Cont
 > new_line  =  showits "\n"

@@ -343,7 +343,7 @@ bcMakeInstance
                 allIndices 
                    = myCartesianProduct individualIndices
             in 
-                myTake (max 1 threshold) allIndices
+                take (max 1 threshold) allIndices
 
        --------------------------------------
        -- The tops of the instance domains --

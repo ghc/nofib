@@ -1,0 +1,130 @@
+# Time-stamp: <Mon Jul 22 1996 20:23:23 Stardate: [-31]7849.03 hwloidl>
+# ######################################################################
+# .SUFFIXES: .hs .mgo .mpo
+
+GHC = ghc
+GSGHC = ghc -gransim 
+GUM = ghc -parallel
+HBCPP = hbcpp
+
+EXTRA = 
+FLAGS = -fvia-C -cpp  -DCUT_OFF=10 -DPRINT -DARGS
+GHC_FLAGS =   -DSEQ -syslib hbc $(FLAGS) $(EXTRA)
+GSGHC_FLAGS = -USEQ -hisuf '_mg.hi' -osuf '_mg.o' -syslib hbc $(FLAGS) $(EXTRA)
+GUM_FLAGS =   -USEQ -hisuf '_mp.hi' -osuf '_mp.o' -syslib hbc $(FLAGS) $(EXTRA)
+HBCPP_FLAGS = -M -DHBCPP $(FLAGS) $(EXTRA)
+LIBTIME_FLAGS = 
+
+# ######################################################################
+# GNU make dependencies
+# ######################################################################
+
+%.o: %.hs
+	$(GHC) $(GHC_FLAGS) -c $*.hs
+
+%_mg.o: %.hs
+	$(GSGHC) $(GSGHC_FLAGS) -c $*.hs
+
+%_mp.o: %.hs
+	$(GUM) $(GUM_FLAGS) -c $*.hs
+
+%_hbcpp.o: %.hs
+	-rm $*.o $*.hi
+	$(HBCPP) $(HBCPP_FLAGS) $(FLAGS) -c -o $*_hbcpp.o $*.hs
+	-cp $*.hi $*_hbcpp.hi
+	-mv $*.o $*_hbcpp.o
+
+## ######################################################################
+# Uncomment these lines (and the .SUFFIXES line above) if you use std make
+# rather than GNU make
+# Replace all _mg.o by .mgo and _mp.o by .mpo below!
+## ######################################################################
+
+#.hs.o:
+#	$(GHC) $(GHC_FLAGS) -c $*.hs
+#
+#.hs.mgo:
+#	$(GSGHC) $(GSGHC_FLAGS) -c -o $*.mgo $*.hs
+#
+#.hs.mpo:
+#	$(GSGUM) $(GSGUM_FLAGS) -c -o $*.mpo $*.hs
+#
+# ######################################################################
+
+all: seq gransim gum     
+
+seq: parfact parfib partree tak 
+
+gransim: parfact_mg parfib_mg partree_mg tak_mg
+
+gum: parfact_mp parfib_mp partree_mp tak_mp
+
+# ######################################################################
+
+parfact: parfact.hs
+	$(GHC) $(GHC_FLAGS) -o $@ $<
+
+parfact_mp: parfact.hs
+	$(GUM) $(GUM_FLAGS) -o $@ $<
+
+parfact_mg: parfact.hs
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $<
+
+parfact_hbcpp: parfact.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $<
+
+seqfact: parfact.hs
+	-rm -fr seqfact.hs
+	ln -s parfact.hs seqfact.hs
+	$(GHC) -cpp $(GHC_DEFINES) -o seqfact seqfact.hs
+
+# ######################################################################
+
+parfib: parfib.hs
+	$(GHC) $(GHC_FLAGS) -o $@ $<
+
+parfib_mp: parfib.hs
+	$(GUM) $(GUM_FLAGS) -o $@ $<
+
+parfib_mg: parfib.hs
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $<
+
+parfib_hbcpp: parfib.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $<
+
+# ######################################################################
+
+tak: tak.hs
+	$(GHC) $(GHC_FLAGS) -fglasgow-exts -o $@ $<
+
+tak_mp: tak.hs
+	$(GUM) $(GUM_FLAGS) -fglasgow-exts -o $@ $<
+
+tak_mg: tak.hs
+	$(GSGHC) $(GSGHC_FLAGS) -fglasgow-exts -o $@ $<
+
+tak_hbcpp: tak.hs
+	$(HBCPP) $(HBCPP_FLAGS) -fglasgow-exts -o $@ $<
+
+# ######################################################################
+
+partree: tree.o partree.o 
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+partree_mp: tree_mp.o partree_mp.o
+	$(GUM) $(GUM_FLAGS) -o $@ $^
+
+partree_mg: tree_mg.o partree_mg.o
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+partree_hbcpp: tree_hbcpp.o partree_hbcpp.o
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+clean:
+	-rm parfact_mg parfib_mg partree_mg tak_mg \
+	    parfact_hbcpp parfib_hbcpp partree_hbcpp tak_hbcpp \
+	    parfact parfib partree tak  \
+	    *.o
+

@@ -95,7 +95,7 @@ theory_form = [
 
 show_goal_cmd tr@(TreeSt t _ gst) 
 	= x_display title display ./.
-	  return tr 
+	  reTurn tr 
 	  where
 	  title   = (case obj of 
 			ThmSpec _ -> "Thm Goal No: "
@@ -109,11 +109,11 @@ show_goal_cmd tr@(TreeSt t _ gst)
 
 
 show_subgoal_cmd :: Int -> (Tree_state GOAL b (c, d, e)) -> Xin 
-			-> Xst ( Maybe (Tree_state GOAL b (c, d, e)) f )
+			-> Xst ( MayBe (Tree_state GOAL b (c, d, e)) f )
 
 show_subgoal_cmd i tr@( TreeSt (Tree _ tl _ _ _) _ gst) 
 	= x_display title display ./.
-	  return tr 
+	  reTurn tr 
 	  where
 	  title = ( case obj of 
  			ThmSpec _ -> "Thm Goal No: "
@@ -136,7 +136,7 @@ show_theory tr@( TreeSt (Tree g _ _ _ _) _ gst)
 		= show_theory' tr display_Sgn g
           disp ( SOME [(OutRadio "Just Names")] )
                 = show_theory' tr summary_Sgn g 
-          disp _ = return tr 
+          disp _ = reTurn tr 
 
 	  display_Sgn = error "unimplemented in display"
 	  summary_Sgn = error "unimplemented in display"
@@ -148,14 +148,14 @@ show_theory tr@( TreeSt (Tree g _ _ _ _) _ gst)
 
 show_theory' tr unparse_fn (Goal _ _ _ uid _ True sg lt) 
 	= x_display title display ./.
-	  return tr 
+	  reTurn tr 
           where
           title   = "Signature of Node No. " ++ uid
           display = unparse_fn sg
 
 show_theory' tr unparse_fn (Goal _ _ _ _ _ False _ _) 
 	= x_set_status "Theory not yet defined" ./.
-	  return tr 
+	  reTurn tr 
 
 
 
@@ -165,25 +165,25 @@ show_object tr@( TreeSt (Tree g _ _ _ _) _ gst)
 	= case g of
               	Goal _ _ _ uid _ True sg lt 
 	            -> show_obj sg gst' sg att NONE NONE NONE NONE /./
-		       ( \ _ -> return tr )
+		       ( \ _ -> reTurn tr )
 		       where
 --	               gst' = get_default_ps gst
 	               gst' = gst -- find get_default_ps
 		       att  = get_attributes gst
                 Goal _ _ _ _ _ False _ _ 
 		    -> x_set_status "Theory not yet defined" ./.
-		       return tr 
+		       reTurn tr 
 
 
 
 
 show_com t@(Tree (Goal _ _ (SOME com) uid _ _ _ _) _ _ _ _) 
 	= x_display ("Comment for Node No: " ++ uid) com ./.	
-	  return t 
+	  reTurn t 
 
 show_com t@(Tree (Goal _ _ NONE _ _ _ _ _) _ _ _ _) 
 	= x_set_status "No Comment defined"  ./.
-	  return t 
+	  reTurn t 
 
 
 get_comment (Tree (Goal _ _ NONE _ _ _ _ _) _ _ _ _) = ""
@@ -222,11 +222,11 @@ show_obj sg ps lt attL ty sp win err
 	= x_form True (make_form ty sp win err) /./
 	  exp 
 	  where
-	  exp NONE = return "" 
+	  exp NONE = reTurn "" 
 
 	  exp ( SOME [OutRadio obj_type, OutText obj_spec, OutRadio win] ) 
 		= display_fn (show_fn obj_spec) ./.
-	  	  return "" 
+	  	  reTurn "" 
 	          where
 		  display_fn = case win of
 				       "Own"     -> own_win obj_type
@@ -241,7 +241,7 @@ show_obj sg ps lt attL ty sp win err
 -}
 				      _     -> show_error
 
---	  exp _ = return ""  
+--	  exp _ = reTurn ""  
 
 {-
 			handle 
@@ -328,7 +328,7 @@ split_line = split '\n'
 
 show_comment tr@(TreeSt t _ _) 
 	= show_com t                /./
-	  (\ _ -> return tr )
+	  (\ _ -> reTurn tr )
 
 
 
@@ -337,8 +337,8 @@ edit_comment tr @ (TreeSt t tl gst)
 	  exp
 	  where
 	  exp (SOME [OutText com']) 
-		= return ( TreeSt (set_comment com' t) tl gst )
-	  exp _ = return tr 
+		= reTurn ( TreeSt (set_comment com' t) tl gst )
+	  exp _ = reTurn tr 
 
           com = get_comment t
 
@@ -346,7 +346,7 @@ edit_comment tr @ (TreeSt t tl gst)
 
 show_arguments tr@(TreeSt t _ _) 
 	= show_args t      ./.
-	  return tr 
+	  reTurn tr 
 
 
 
@@ -363,4 +363,4 @@ show_args t@(Tree (Goal _ _ _ _ _ _ _ _) _ _ _ _)
 
 
 show_tactics t = x_show_tactics ./. 
-		 return t 
+		 reTurn t 

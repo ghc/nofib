@@ -399,7 +399,7 @@ This is a distribution of a continuous variable in the range 0 to 1.
 \EndFile
 
 
-  tabulate2D :: (Text a, Text b, Text c) => Int -> [a] -> [b] -> (a->b->c) -> String
+  tabulate2D :: (Show{-was:Text-} a, Show{-was:Text-} b, Show{-was:Text-} c) => Int -> [a] -> [b] -> (a->b->c) -> String
 
 > tabulate2D w alist blist f
 >	= (jshow2' " ") ++ "   " ++ concat (map jshow alist) ++ "\n\n" ++
@@ -411,7 +411,7 @@ This is a distribution of a continuous variable in the range 0 to 1.
 >	  jshow2' x = (ljustify (w*2) (take w (show x))) ++ " "
 >	  
 
-> tabulate1D :: (Text a, Text b) => Int -> [a] -> (a->b) -> String
+> tabulate1D :: (Show{-was:Text-} a, Show{-was:Text-} b) => Int -> [a] -> (a->b) -> String
 > tabulate1D w alist f
 >	= unlines [jshow a ++ "   " ++ jshow (f  a)
 >                | a <- alist]

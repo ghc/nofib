@@ -2,10 +2,10 @@ module Signal where
 
 import LogFun
 
-class (Eq a, Text a, Num a) => Signal a where
+class (Eq a, Show{-was:Text-} a, Num a) => Signal a where
   showSig :: a -> String
 
-  zero, one, initial :: a
+  zerO, one, initial :: a
 
   tt1 :: TT1 -> a -> a
   tt2 :: TT2 -> a -> a -> a
@@ -70,7 +70,7 @@ class (Lattice a, Static a) => Log a where
 class (Lattice a, Dynamic a) => Sig a where
   dumSig :: a
 
-data Stream a = Snil | Scons a (Stream a)  deriving (Eq,Text)
+data Stream a = Snil | Scons a (Stream a)  deriving (Eq,Show{-was:Text-})
 
 shead :: Stream a -> a
 shead (Scons x xs) = x
@@ -89,10 +89,14 @@ smap f (Scons x xs) = Scons (f x) (smap f xs)
 stake, sdrop :: Int -> Stream a -> Stream a
 
 stake 0 xs = xs
-stake (i+1) (Scons x xs) = Scons x (stake i xs)
+--should be: stake (i+1) (Scons x xs) = Scons x (stake i xs)
+stake i (Scons x xs) | i < 0     = error "Signal.stake: < 0"
+		     | otherwise = Scons x (stake (i-1) xs)
 
 sdrop 0 xs = xs
-sdrop (i+1) (Scons x xs) = sdrop i xs
+--should be:sdrop (i+1) (Scons x xs) = sdrop i xs
+sdrop i (Scons x xs) | i < 0	 = error "Signal.sdrop: < 0"
+		     | otherwise = sdrop i xs
 
 smap2 :: (a->b->c) -> Stream a -> Stream b -> Stream c
 smap2 f as bs =
@@ -123,7 +127,7 @@ instance (Lattice a, Static a) => Lattice (Stream a) where
   pass     = smap2 pass
 
 instance (Signal a, Static a) => Signal (Stream a) where
-  zero = srepeat zero
+  zerO = srepeat zerO
   one  = srepeat one
   tt1  = smap . tt1
   tt2  = smap2 . tt2

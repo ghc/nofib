@@ -59,10 +59,10 @@ data
     T_t_par t1=F_Par_fail T_t_emess | F_Par_succ t1 (T_list T_token);
 data 
     T_t_tokv=C_Tokv_E | F_Tokv_ch Char | F_Tokv_i Int | F_Tokv_str (T_list Char) | F_Tokv_err Char (T_list Char);
-    f_ceq a_a a_b=((==) :: (Int -> Int -> Bool)) (ord a_a) (ord a_b);
-    c_char0val=ord '0';
-    f_cle a_a a_b=((<=) :: (Int -> Int -> Bool)) (ord a_a) (ord a_b);
-    f_clt a_a a_b=((<) :: (Int -> Int -> Bool)) (ord a_a) (ord a_b);
+    f_ceq a_a a_b=((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum a_b);
+    c_char0val=fromEnum '0';
+    f_cle a_a a_b=((<=) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum a_b);
+    f_clt a_a a_b=((<) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum a_b);
     f_fpar_bestmess a_m1 a_m2=
         let { 
             f_fpar_bestmess_SWI_24 C_Emess_uk=a_m2;
@@ -94,7 +94,7 @@ data
             if (((==) :: (Int -> Int -> Bool)) a_i (0 :: Int))
             then a_s
             else 
-                (f_i2str_0 r_d ((:) (chr r_r) a_s));
+                (f_i2str_0 r_d ((:) (toEnum r_r) a_s));
     f_i2str a_i=
         if (((==) :: (Int -> Int -> Bool)) a_i (0 :: Int))
         then "0"
@@ -399,8 +399,8 @@ data
             '@';
     c_llex_escaped_char=f_lexalt (f_map f_lexlit ((:) 'n' ((:) 't' ((:) 'f' ((:) '\o134' 
         ((:) '\o047' ((:) '\o042' [])))))));
-    f_flex_escape_hnums a_hnum1 a_hnum2=chr (((+) :: (Int -> Int -> Int)) (((*) :: (Int -> Int -> Int)) (16 :: Int) (((-) :: (Int -> Int -> Int)) (ord a_hnum1) (ord '0'))) 
-        (((-) :: (Int -> Int -> Int)) (ord a_hnum2) (ord '0')));
+    f_flex_escape_hnums a_hnum1 a_hnum2=toEnum (((+) :: (Int -> Int -> Int)) (((*) :: (Int -> Int -> Int)) (16 :: Int) (((-) :: (Int -> Int -> Int)) (fromEnum a_hnum1) (fromEnum '0'))) 
+        (((-) :: (Int -> Int -> Int)) (fromEnum a_hnum2) (fromEnum '0')));
     c_llex_hnum=f_lexalt ((:) c_llex_num ((:) (f_lexlit 'A') ((:) (f_lexlit 'B') 
         ((:) (f_lexlit 'C') ((:) (f_lexlit 'D') ((:) (f_lexlit 'E') ((:) 
         (f_lexlit 'F') [])))))));
@@ -429,7 +429,7 @@ data
         let { 
             (r_patt_st,r_patt_fun)=a_patt
          } in  (r_patt_st,f_lexrepplus_do a_join a_init r_patt_fun);
-    f_flex_muladd a_total a_digit=((-) :: (Int -> Int -> Int)) (((+) :: (Int -> Int -> Int)) (((*) :: (Int -> Int -> Int)) (10 :: Int) a_total) (ord a_digit)) (ord '0');
+    f_flex_muladd a_total a_digit=((-) :: (Int -> Int -> Int)) (((+) :: (Int -> Int -> Int)) (((*) :: (Int -> Int -> Int)) (10 :: Int) a_total) (fromEnum a_digit)) (fromEnum '0');
     c_lex_int=f_lexrepplus f_flex_muladd (0 :: Int) c_llex_num;
     f_mvtok_empty a_toktag a_val=(a_toktag,C_Tokv_E);
     c_tok_TYPE=(15 :: Int);
@@ -776,9 +776,9 @@ data
          } in  f_fparoptoapp_left_do (f_reverse r_ope_li) r_ope_ex;
     f_isupper a_c=
         let { 
-            r_ci=ord a_c
+            r_ci=fromEnum a_c
          } in  
-            if ((&&) (((>=) :: (Int -> Int -> Bool)) r_ci (ord 'A')) (((<=) :: (Int -> Int -> Bool)) r_ci (ord 'Z')))
+            if ((&&) (((>=) :: (Int -> Int -> Bool)) r_ci (fromEnum 'A')) (((<=) :: (Int -> Int -> Bool)) r_ci (fromEnum 'Z')))
             then True
             else 
                 False;
@@ -1034,7 +1034,7 @@ data
     f_sumcode a_xs=
         let { 
             f_sumcode' [] a_sum a_n=(++) (strict_show_i (((+) :: (Int -> Int -> Int)) a_sum a_n)) ((:) '/' (strict_show_i a_n));
-            f_sumcode' (a_x:a_xs) a_sum a_n=f_sumcode' a_xs (((+) :: (Int -> Int -> Int)) a_sum (ord a_x)) (((+) :: (Int -> Int -> Int)) a_n (1 :: Int))
+            f_sumcode' (a_x:a_xs) a_sum a_n=f_sumcode' a_xs (((+) :: (Int -> Int -> Int)) a_sum (fromEnum a_x)) (((+) :: (Int -> Int -> Int)) a_n (1 :: Int))
          } in  f_sumcode' a_xs (0 :: Int) (0 :: Int);
     f_abs::Double -> Double;
     f_abs a_x=
@@ -1057,8 +1057,8 @@ data
     f_const a_x a_y=a_x;
     f_digit::Char -> Bool;
     f_digit a_x=
-        if (((<=) :: (Int -> Int -> Bool)) (ord '0') (ord a_x))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_x) (ord '9'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum '0') (fromEnum a_x))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_x) (fromEnum '9'))
         else 
             False;
     f_drop::Int -> [t1] -> [t1];
@@ -1123,14 +1123,14 @@ data
     f_letter::Char -> Bool;
     f_letter a_c=
         if (
-            if (((<=) :: (Int -> Int -> Bool)) (ord 'a') (ord a_c))
-            then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'z'))
+            if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'a') (fromEnum a_c))
+            then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'z'))
             else 
                 False)
         then True
         else 
-        if (((<=) :: (Int -> Int -> Bool)) (ord 'A') (ord a_c))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'Z'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'A') (fromEnum a_c))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'Z'))
         else 
             False;
     f_limit::[Double] -> Double;
@@ -1149,7 +1149,7 @@ data
                 else 
                     ((:) [] [])
          } in  
-            if (((==) :: (Int -> Int -> Bool)) (ord a_a) (ord '\o012'))
+            if (((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum '\o012'))
             then ((:) [] (f_lines a_x))
             else 
                 ((:) ((:) a_a (head r_xs)) (tail r_xs));
@@ -1271,5 +1271,5 @@ data
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
     c_input=(40 :: Int);
-    main r = [AppendChan "stdout" (f_main c_input)]
+    main = putStr (f_main c_input)
 }

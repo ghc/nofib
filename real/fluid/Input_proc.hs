@@ -16,6 +16,7 @@ module Input_proc ( read_fs_cs, read_data ) where
 import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
+(=:) a b = (a,b)
 
 -----------------------------------------------------------
 -- reading a Int                                         --
@@ -130,21 +131,21 @@ read_data f =
 		(rd_pair rd_int rd_flt) line_size)) bnd_total rest8
 	-- velocity steering vector
 	v_steer = 
-		s_array (1,e_total) (map (\(i:_:rest)->i:=rest) v_vals)
+		s_array (1,e_total) (map (\(i:_:rest)->i=:rest) v_vals)
 	-- pressure steering vector
 	p_steer =
-		s_array (1,e_total) (map (\(i:_:rest)->i := rest)
+		s_array (1,e_total) (map (\(i:_:rest)->i =: rest)
 		(map (take (p_nodel+2)) v_vals))
 	-- node coordinates
 	coord =
-		s_array (1,n_total) (map (\(i,(x:y:_))->i := (x,y)) c_vals)
+		s_array (1,n_total) (map (\(i,(x:y:_))->i =: (x,y)) c_vals)
 	v_init =
 		map (\(i,(x:y:_))->(i,(x,y))) init_vals
 	-- velocity initial conditions
 	init_u =
 		(
 			s_def_array (1,n_total) (0::Frac_type)
-			[ i := 
+			[ i =: 
 				if x_fixed!^i
 				then
 					(fst.snd.head) (dropWhile (\t->(fst t)/=i) bry_xys)
@@ -152,7 +153,7 @@ read_data f =
 				| (i,v) <- v_init
 			],
 			s_def_array (1,n_total) (0::Frac_type)
-			[ i :=
+			[ i =:
 				if y_fixed!^i
 				then
 					(snd.snd.head) (dropWhile (\t->(fst t)/=i) bry_xys)
@@ -163,7 +164,7 @@ read_data f =
 	-- pressure initial conditions
 	init_p =
 		s_def_array (1,p_total) (0::Frac_type)
-		[ i :=
+		[ i =:
 			(
 				if i `elem` p_fixed
 				then (snd.head) (dropWhile (\t->(fst t)/=i) p_cond)
@@ -179,15 +180,15 @@ read_data f =
 	-- velocity nodes which are fixed in the x direction
 	x_fixed =
 		s_def_array (1,n_total) False
-		[	i:=True | (i,((1,_):_)) <- bry_vals]
+		[	i=:True | (i,((1,_):_)) <- bry_vals]
 	-- velocity nodes which are fixed in the y direction
 	y_fixed =
 		s_def_array (1,n_total) False
-		[ i:=True | (i,(_:(1,_):_)) <- bry_vals]
+		[ i=:True | (i,(_:(1,_):_)) <- bry_vals]
 	-- all boundary nodes
 	all_bry =
 		s_def_array (1,n_total) False
-		[ i:=True | (i,_) <- bry_vals ]
+		[ i=:True | (i,_) <- bry_vals ]
 	-- fixed pressure nodes
 	p_fixed = map fst p_cond
 	p_cond =

@@ -18,7 +18,7 @@ sparkGraph ordering selectpes statFile = initGraph "Spark Activity Graph" (pes,s
 	f a = (colourSpark a,displaySpark a,aggr a aggs)
 	(pes,ticks,orderedStats) = getParameters stats
 	height = axisScale h
-	(traces,(aggs,h,w)) = accumulate(processSparks (map extractor order)) nullstate
+	(traces,(aggs,h,w)) = akkumulate(processSparks (map extractor order)) nullstate
 					(gatherSp (Sp 0 0 0 0 0) (getSp selectpes orderedStats))
 	order = reverse ordering
 	stats = parseFile statFile

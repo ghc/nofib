@@ -7,11 +7,13 @@
 --!            descr,
 --!            destr_update, indassoc, lowbound, tabulate, upbound, update, valassoc) where {
             import Word;
+	    import Complex; -- 1.3
+	    import Array; -- 1.3
             type Complex_type   = Complex Double;
             type Array_type b   = Array Int b;
-            type Assoc_type a   = Assoc Int a;
+            type Assoc_type a   = (Int, a);
             type Descr_type     = (Int,Int);
-            abortstr      str                 = abort (OtherError str);
+            abortstr      str                 = error ("abort:"++str); -- abort (OtherError str);
             delay         x                   = abortstr "delay not implemented";
             fix           :: (x -> x) -> x;
             fix           f                   = fix_f where {fix_f = f fix_f};
@@ -44,17 +46,17 @@
             descr         :: Int -> Int -> Descr_type;
             descr         l    u              = (l,u);
             destr_update  :: Array_type x -> Int -> x -> Array_type x;
-            destr_update  ar  i  x            = ar // [i:=x];
+            destr_update  ar  i  x            = ar // [(i,x)];
             indassoc      :: Assoc_type x -> Int;
-            indassoc      (i:=v)              = i;
+            indassoc      (i, v)              = i;
             lowbound      :: Descr_type -> Int;
             lowbound      (l,u)               = l;
             tabulate      :: (Int -> x) -> Descr_type -> Array_type x;
-            tabulate      f (l,u)             = array (l,u) [i := f i | i <- [l..u]];
+            tabulate      f (l,u)             = array (l,u) [(i, f i) | i <- [l..u]];
             upbound       :: Descr_type -> Int;
             upbound       (l,u)               = u;
             update        :: Array_type x -> Int -> x -> Array_type x;
-            update        ar i x              = ar // [i:=x];
+            update        ar i x              = ar // [(i,x)];
             valassoc      :: Assoc_type x -> x;
-            valassoc      (i:=v)              = v;
+            valassoc      (i, v)              = v;
 --!       }

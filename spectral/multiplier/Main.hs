@@ -90,8 +90,7 @@ inputs.
 
 module Main where
 
-main :: Dialogue
-main input = [AppendChan stdout go]
+main = putStr go
 
 -------------------------------------------------------------------
 -- Definition of the output and the simulation parameters
@@ -164,11 +163,11 @@ multiplier :: Int -> B -> W -> W -> (B,W,W,W)
 
 multiplier k start a b = (ready, regA, regB, regP)
   where
-    regP = wlat (2*k) (wmux1 (2*k) start sum (rept (2*k) zero))
+    regP = wlat (2*k) (wmux1 (2*k) start sum (rept (2*k) zerO))
     (ovfl,sum) = add (2*k) regP (wmux1 (2*k) lsbB
-                   (rept (2*k) zero) regA) zero
+                   (rept (2*k) zerO) regA) zerO
     regA = wlat (2*k) (wmux1 (2*k) start (shl (2*k) regA)
-                   (rept k zero ++ a))
+                   (rept k zerO ++ a))
     regB = wlat k (wmux1 k start (shr k regB) b)
     lsbB = head (drop (k-1) regB)
     ready = or2 (regIs0 (2*k) regA) (regIs0 k regB)
@@ -183,20 +182,23 @@ regIs0 k xs = wideAnd (map inv xs)
 -- Combinational shifters
 
 shl :: Int -> W -> W
-shl k xs = drop 1 xs ++ [zero]
+shl k xs = drop 1 xs ++ [zerO]
 
 shr :: Int -> W -> W
-shr k xs = [zero] ++ take (k-1) xs
+shr k xs = [zerO] ++ take (k-1) xs
 
 -------------------------------------------------------------------
 -- Adder
 
 add :: Int -> W -> W -> B -> (B,W)
 add 0 xs ys cin = (cin,[])
-add (k+1) (x:xs) (y:ys) cin = (cout,s:ss)
+--should be:add (k+1) (x:xs) (y:ys) cin = (cout,s:ss)
+add k (x:xs) (y:ys) cin
+  | k < 0     = error "Main.add < 0"
+  | otherwise = (cout,s:ss)
   where
   (cout,s) = fulladd x y c
-  (c,ss) = add k xs ys cin
+  (c,ss) = add (k-1) xs ys cin
 
 halfadd :: B -> B -> (B,B)
 halfadd x y = (and2 x y, xor x y)
@@ -220,7 +222,11 @@ bdemux1 c a = (and2 (inv c) a, and2 c a)
 
 bdemux :: Int -> [B] -> B -> [B]
 bdemux 0 [] x = [x]
-bdemux (n+1) as x = bdemux n (tail as) p ++ bdemux n (tail as) q
+--should be:bdemux (n+1) as x = bdemux n (tail as) p ++ bdemux n (tail as) q
+bdemux n as x 
+ | n < 0 = error "bdemux; n < 0"
+ | otherwise = let n' = n-1 in
+  bdemux n' (tail as) p ++ bdemux n' (tail as) q
   where (p,q) = bdemux1 (head as) x
 
 -------------------------------------------------------------------
@@ -237,7 +243,9 @@ wreg n sto (x:xs) =
 
 wlat :: Int -> [B] -> [B]
 wlat 0 xs = []
-wlat (k+1) (x:xs) = latch x : wlat k xs
+--should be:wlat (k+1) (x:xs) = latch x : wlat k xs
+wlat k (x:xs) | k < 0 = error "wlat"
+	      | otherwise = latch x : wlat (k-1) xs
 
 -------------------------------------------------------------------
 -- Primitive components
@@ -245,8 +253,8 @@ wlat (k+1) (x:xs) = latch x : wlat k xs
 latch :: B -> B
 latch a = 0:a
 
-zero, one :: B
-zero = 0:zero
+zerO, one :: B
+zerO = 0:zerO
 one  = 1:one
 
 inv = lift11 forceBit f
@@ -375,30 +383,30 @@ lift22 force1 force2 f (x:xs) (y:ys) =
 
 word11 :: Int -> (a->b) -> [a] -> [b]
 word11 0 f as = []
-word11 (k+1) f as = f (head as) : word11 k f (tail as)
+word11 k f as = f (head as) : word11 (k-1) f (tail as)
 
 word21 :: Int -> (a->b->c) -> [a] -> [b] -> [c]
 word21 0 f as bs = []
-word21 (k+1) f as bs =
-  f (head as) (head bs) : word21 k f (tail as) (tail bs)
+word21 k f as bs =
+  f (head as) (head bs) : word21 (k-1) f (tail as) (tail bs)
 
 word31 :: Int -> (a->b->c->d) -> [a] -> [b] -> [c] -> [d]
 word31 0 f as bs cs = []
-word31 (k+1) f as bs cs =
+word31 k f as bs cs =
   f (head as) (head bs) (head cs) :
-    word31 k f (tail as) (tail bs) (tail cs)
+    word31 (k-1) f (tail as) (tail bs) (tail cs)
 
 word12 :: Int -> (a->(b,c)) -> [a] -> ([b],[c])
 word12 0 f as = ([],[])
-word12 (k+1) f as = (b:bs,c:cs)
+word12 k f as = (b:bs,c:cs)
   where (b,c) = f (head as)
-        (bs,cs) = word12 k f (tail as)
+        (bs,cs) = word12 (k-1) f (tail as)
 
 word22 :: Int -> (a->b->(c,d)) -> [a] -> [b] -> ([c],[d])
 word22 0 f as bs = ([],[])
-word22 (k+1) f as bs = (c:cs,d:ds)
+word22 k f as bs = (c:cs,d:ds)
   where (c,d) = f (head as) (head bs)
-        (cs,ds) = word22 k f (tail as) (tail bs)
+        (cs,ds) = word22 (k-1) f (tail as) (tail bs)
 
 -------------------------------------------------------------------
 -- Conversions
@@ -447,7 +455,7 @@ bitrep n = ntrans n . map (ibits n)
 
 rept :: Int -> a -> [a]
 rept 0 x = []
-rept (i+1) x = x : rept i x
+rept i x = x : rept (i-1) x
 
 mksepline c = "\n" ++ rept 79 c ++ "\n"
 sepline = mksepline '-'

@@ -12,6 +12,8 @@ import DomainExpr
 import MakeDomains
 import TypeCheck5
 
+import List(nub) -- 1.3
+
 --==========================================================--
 -- This may need fixing up if we start instantiating domain
 -- variables to expressions which contain other domain
@@ -36,8 +38,8 @@ txGetInstantiations simplest usage
                 usage_arity = length dxss2
                 (new_dxss2, new_dxt2) =
                    if usage_arity > basis_arity
-                   then (myTake basis_arity dxss2, 
-                         DXFunc (myDrop basis_arity dxss2) dxt2)
+                   then (take basis_arity dxss2, 
+                         DXFunc (drop basis_arity dxss2) dxt2)
                    else (dxss2, dxt2)
             in  gi dxt1 new_dxt2 ++ concat (myZipWith2 gi dxss1 new_dxss2)
 

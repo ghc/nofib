@@ -36,8 +36,8 @@ acUncurryWRT (Func ds_s dt_s) (Func ds_b dt_b)
               then   Func ds_b dt_b
               else
               if     small_arity < big_arity
-              then   Func (myTake small_arity ds_b) 
-                          (Func (myDrop small_arity ds_b) dt_b)
+              then   Func (take small_arity ds_b) 
+                          (Func (drop small_arity ds_b) dt_b)
               else   panic "acUncurryWRT"
          totally_fixed 
             = case fixed_at_outer_level of
@@ -205,7 +205,7 @@ acConcTarget
          hfds_big   = map (avUncurry dss) dts_b
          hfds_targ  = myZipWith2 doOne hfds_small hfds_big
          doOne (Func xxss_s xxt_s) (Func xxss_b xxt_b)
-            = let xxss_fin = myDrop (length xxss_s) xxss_b
+            = let xxss_fin = drop (length xxss_s) xxss_b
               in
                   if     null xxss_fin
                   then   xxt_b
@@ -224,7 +224,7 @@ acConcTarget
          hfds_big   = map (avUncurry dss) dts_b
          hfds_targ  = myZipWith2 doOne hfds_small hfds_big
          doOne (Func xxss_s xxt_s) (Func xxss_b xxt_b)
-            = let xxss_fin = myDrop (length xxss_s) xxss_b
+            = let xxss_fin = drop (length xxss_s) xxss_b
               in
                   if     null xxss_fin
                   then   xxt_b
@@ -321,7 +321,7 @@ ac_extend_fr s_or_l final_argds f1 f0 new_points
 acConcSource_aux :: ACMode -> [Domain] -> [Domain] -> Frontier -> Frontier
 
 acConcSource_aux Safe dbs dss (Min1Max0 ar f1 f0)
-   = let dbs_used = myTake ar dbs
+   = let dbs_used = take ar dbs
          new_f0 = map ( \(MkFrel pts) ->
                   MkFrel (myZipWith3 (acConc Safe) dbs_used dss pts)) f0
          new_f1 = spMin1FromMax0 dbs_used new_f0
@@ -329,7 +329,7 @@ acConcSource_aux Safe dbs dss (Min1Max0 ar f1 f0)
          Min1Max0 ar new_f1 new_f0
 
 acConcSource_aux Live dbs dss (Min1Max0 ar f1 f0)
-   = let dbs_used = myTake ar dbs
+   = let dbs_used = take ar dbs
          new_f1 = map ( \(MkFrel pts) ->
                   MkFrel (myZipWith3 (acConc Live) dbs_used dss pts)) f1
          new_f0 = spMax0FromMin1 dbs_used new_f1
@@ -397,7 +397,7 @@ acConcSourceD (Func dss_b (Lift1 dts_b)) (Func dss_s (Lift1 dts_s))
          hf_resultants   = myZipWith2 acConcSourceD hf_big_ds hf_small_ds
          hf_res2         = map drop_lf_ar hf_resultants
          drop_lf_ar (Func ess et) 
-            = let ess2 = myDrop low_fac_arity ess
+            = let ess2 = drop low_fac_arity ess
               in     if null ess2 
               then   et
               else   Func ess2 et

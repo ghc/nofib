@@ -1,7 +1,7 @@
 --!!! test quot/rem/div/mod functions on Ints and Integers
 --
-main _
-  = [AppendChan stdout
+main
+  = putStr
        (-- w/ Ints and Integers
 	show (unzipWith div ints_list)
     	++ "\n"
@@ -27,7 +27,7 @@ main _
     	++ "\n"
 	++ show (unzipWith law2 integers_list)
     	++ "\n"
-    	)]
+    	)
   where
     ints_list :: [(Int, Int)]
     integers_list :: [(Integer, Integer)]

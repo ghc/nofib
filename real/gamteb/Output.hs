@@ -9,7 +9,7 @@ import	GamtebType
 import	Consts
 import	Utils
 import	InitTable
-
+import Array--1.3
 
 outGamteb :: Int -> [Stat] -> [Result] -> [Char]
 outGamteb nPart stats results =
@@ -54,7 +54,7 @@ outStats stats =
 -- output result list
 outResultsRaw :: [Result] -> [Char]
 outResultsRaw [] = []
-outResultsRaw (((i, t):=w):rs) =
+outResultsRaw (((i, t), w):rs) =
 	   "Result: index " ++ show i
 	++ "  type " ++ show t
 	++ "  weight " ++ show w ++ "\n"

@@ -58,10 +58,10 @@ implementation of rewriting.
 
 EXCEPTIONS
 
-> data Maybe a = Just a | Nothing
+> --1.3:data Maybe a = Just a | Nothing
 
 > succeed x             = Just x
-> fail                  = Nothing
+> croak                 = Nothing
 
 > exists Nothing        = False
 > exists x              = True
@@ -74,7 +74,7 @@ EXCEPTIONS
 > (Just x) ?? y         = x
 > Nothing ?? y          = y
 
-> (p ## q) s            = p s ||| q s
+> (##) p q s            = p s ||| q s
 
 > p -=> x               = if p then Just x else Nothing
 
@@ -106,7 +106,7 @@ EXCEPTIONS
 > pair x y              = (x, y)
 
 > cross              :: (a -> c) -> (b -> d) -> (a,b) -> (c,d)
-> (f `cross` g) (x,y)     = (f x, g y)
+> cross f g (x,y)     = (f x, g y)
 
 EXPRESSIONS
 
@@ -167,8 +167,8 @@ Some parsing tools:
 > seq2 f p q            = squash . lift g . p
 >                         where g (x, s) = lift (f x `cross` id) (q s)
 
-> seq                   :: ([SYNVAL] -> SYNVAL) -> ([PARSER] -> PARSER)
-> seq f ps              = build (mk_list f) (foldr (seq2 mk_cons) empty ps)
+> seQ                   :: ([SYNVAL] -> SYNVAL) -> ([PARSER] -> PARSER)
+> seQ f ps              = build (mk_list f) (foldr (seq2 mk_cons) empty ps)
 > mk_cons x (List xs)   = List (x:xs)
 > mk_list f (List xs)   = f xs
 
@@ -185,8 +185,8 @@ Some parsing tools:
 
 > look_for c            = sp (pchar (== c))
 
-> pchar p []            = fail
-> pchar p (c:s)         = if p c then succeed (MkString [c], s) else fail
+> pchar p []            = croak
+> pchar p (c:s)         = if p c then succeed (MkString [c], s) else croak
 
 > string_of kind s = (chars /= "") -=> (MkString chars, s')
 >                    where chars = takeWhile kind s
@@ -194,17 +194,17 @@ Some parsing tools:
 
 The parser itself:
 
-> p_eqn = seq q_eqn [p_expr, look_for '=', p_expr]
+> p_eqn = seQ q_eqn [p_expr, look_for '=', p_expr]
 > q_eqn [lhs, eq, rhs] = List [lhs, rhs]
 
-> p_expr = seq q_op [p_term, p_op, p_term] ## p_term
+> p_expr = seQ q_op [p_term, p_op, p_term] ## p_term
 > q_op [Expr a, MkString op, Expr b] = Expr (Func op [a, b])
 
-> p_term = seq q_func [p_ident, look_for '(', 
+> p_term = seQ q_func [p_ident, look_for '(', 
 >                       list_of p_expr ',', look_for ')'] ## p_prim
 > q_func [MkString fun, lb, List args, rb] = Expr (Func fun (map unExpr args))
 
-> p_prim = p_name ## seq (!! 1) [look_for '(', p_expr, look_for ')']
+> p_prim = p_name ## seQ (!! 1) [look_for '(', p_expr, look_for ')']
 
 > p_name = build q_name p_ident
 > q_name (MkString s) = if s!!0 >= 'a' && s!!0 <= 'z' then Expr (Var s)
@@ -268,7 +268,7 @@ SUBTERMS and REPLACEMENT
 >                              where replace' t = replace t k u
 
 > modify (x:a) 0 f = (f x) : a
-> modify (x:a) (i+1) f = x : (modify a i f)
+> modify (x:a) i f = x : (modify a (i-1) f)
 
 
 MATCHING
@@ -279,11 +279,11 @@ MATCHING
 > match' s (Var v, t) 
 >       = if not (exists u) then succeed ((v, t):s)
 >         else if the u == t then succeed s
->         else fail
+>         else croak
 >         where u = assoc s v
 > match' s (Func f a, Func g b)
->       = if f == g then prop_fold match' s (a `zip` b) else fail
-> match' s (Func f a, Var v) = fail
+>       = if f == g then prop_fold match' s (a `zip` b) else croak
+> match' s (Func f a, Var v) = croak
 
 
 REWRITING
@@ -294,7 +294,7 @@ REWRITING
 > rewrite (Eqn n (l, r)) = lift (sub r) . match l
 
 > try_all :: [TACTIC] -> TACTIC
-> try_all = foldr (##) (const fail)
+> try_all = foldr (##) (const croak)
 
 > inside :: TACTIC -> TACTIC
 > inside rw t = first_ok [ lift (replace t k) (rw u) 
@@ -311,12 +311,12 @@ UNIFICATION
 > unify' s (Var v, u) = univar s v u
 > unify' s (Func f a, Var v) = univar s v (Func f a)
 > unify' s (Func f a, Func g b)
->       = if f == g then prop_fold unify' s (a `zip` b) else fail
+>       = if f == g then prop_fold unify' s (a `zip` b) else croak
 
 > univar s v u = if exists t then unify' s (the t, u)
 >                else if u == Var v then succeed s
 >                else if not ( occurs v u') then succeed (comp_sub [(v, u')] s)
->                else fail
+>                else croak
 >                where t = assoc s v
 >                      u' = sub u s
 
@@ -437,7 +437,7 @@ RECURSIVE PATH ORDERING
 >                    where p x = rel x y
 
 > delete :: RELATION a b -> a -> [b] -> Maybe [b]
-> delete eq x [] = fail
+> delete eq x [] = croak
 > delete eq x (y:ys) = if eq x y then succeed ys
 >                      else lift (y:) (delete eq x ys)
 
@@ -594,7 +594,7 @@ KNUTH-BENDIX COMPLETION
         
 > resolve :: TACTIC -> CRIT_PAIR -> Maybe CRIT_PAIR
 > resolve tac pr
->       = if lhs' == rhs' then fail
+>       = if lhs' == rhs' then croak
 >         else succeed (lhs', rhs')
 >         where lhs' = simplify tac (fst pr)
 >               rhs' = simplify tac (snd pr)

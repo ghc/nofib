@@ -117,7 +117,7 @@ inMMI (Func dss (Lift2 dts)) (Rep2 lf mf hfs) a
 --inMMI f@(DFunc dssf Two, RFunc (RepTwo (Min1Max0 arf f1 f0)))
 --      g@(DFunc dssg Two, RFunc (RepTwo (Min1Max0 arg g1 g0)))
 --    | arf > arg && {-INVARIANT-}
---      dssg == myDrop (length dssf - length dssg) dssf {-INVARIANT-}
+--      dssg == drop (length dssf - length dssg) dssf {-INVARIANT-}
 --    = let (g1Max, g1Min) = inMMI g (Two, One)
 --          (g0Max, g0Min) = inMMI g (Two, Zero)
 --          fMaxs = [inPapL f fels | MkFrel fels <- g1Min]
@@ -129,7 +129,7 @@ inMMI (Func dss (Lift2 dts)) (Rep2 lf mf hfs) a
 --inMMI f@(DFunc dssf (Lift dtf), RFunc (RepLift lff hff))
 --      g@(DFunc dssg (Lift dtg), RFunc (RepLift lfg hfg))
 --    | dtf == dtg && {-INVARIANT-}
---      dssg == myDrop (length dssf - length dssg) dssf {-INVARIANT-}
+--      dssg == drop (length dssf - length dssg) dssf {-INVARIANT-}
 --    = let lofac_f = (DFunc dssf Two, RFunc (RepTwo lff))
 --          lofac_g = (DFunc dssg Two, RFunc (RepTwo lfg))
 --          hifac_f = (avUncurryDomain (DFunc dssf dtf), RFunc hff)
@@ -155,8 +155,8 @@ inMMI dss f a
 --inPapL (DFunc dss Two, RFunc (RepTwo (Min1Max0 ar f1 f0))) args
 --   = let argCount = length args
 --         argDomainAfter = revDrop argCount dss
---         revDrop n = reverse . myDrop n . reverse
---         revTake n = reverse . myTake n . reverse
+--         revDrop n = reverse . drop n . reverse
+--         revTake n = reverse . take n . reverse
 --         newf1 = sort (avMinfrel [MkFrel (revDrop argCount fel) |
 --                                  MkFrel fel <- f1,
 --                                  and (myZipWith2 avBelowEQ
@@ -180,7 +180,7 @@ inInverse_mindless argDomains f a
             = case a of { Rep r -> r }
          actualArgDomains 
             = if     isPartialApp 
-              then   myTake (amRepArity f - amRepArity aRep) argDomains
+              then   take (amRepArity f - amRepArity aRep) argDomains
               else   argDomains
          allArgs
             = myCartesianProduct (map amAllRoutes actualArgDomains)

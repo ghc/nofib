@@ -11,12 +11,12 @@ decrypt n d = concat . map (decode . power d n . read) . lines
 
 code :: String -> Integer
 code = foldl accum 0
-  where accum x y = (128 * x) + fromIntegral (ord y)
+  where accum x y = (128 * x) + fromIntegral (fromEnum y)
 
 decode :: Integer -> String
 decode n = reverse (expand n)
    where expand 0 = []
-         expand x = chr (fromIntegral (x `mod` 128)) : expand (x `div` 128)
+         expand x = toEnum (fromIntegral (x `mod` 128)) : expand (x `div` 128)
 
 collect :: Int -> [a] -> [[a]]
 collect 0 xs = []

@@ -31,8 +31,19 @@ import Kolor
 import Matrix
 import Patchlevel
 
+import System
+
 -- main x = [AppendChan stdout picture]
 
+main = do
+    argv <- getArgs
+    let
+	n = case argv of
+	      [a] -> read a
+	      _   -> 7
+    putStr (picture n)
+
+{- OLD 1.2:
 main = getArgs exit (\argv -> 
        let arg = case argv of {[w] -> words w; _ -> []}
            [n] = if length arg == 1
@@ -40,7 +51,7 @@ main = getArgs exit (\argv ->
                    else [7]
        in
            appendChan stdout (picture n) exit done)
-
+-}
 
 
 picture n = go n pic

@@ -25,7 +25,7 @@ getRestWord xs@(x:xs')
    | (x >= 'a' && x <= 'z') || (x >= 'A' && x <= 'Z') || (x >= '0' && x <= '9')
    = case getRestWord xs' of 
         (ys,zs) -> if (x >= 'A' && x <= 'Z')
-                   then (chr (ord x + (32::Int)):ys, zs)
+                   then (toEnum (fromEnum x + (32::Int)):ys, zs)
                    else (x:ys, zs)
    | otherwise 
    = ([],xs)
@@ -59,8 +59,15 @@ dispNos :: [Int] -> String
 dispNos []     = ""
 dispNos (n:ns) = ' ':(show n ++ dispNos ns)
 
+main = do
+    input <- getContents
+    exceptions <- catch (readFile "exceptions") (\ e -> return "")
+    putStr (xref (lines exceptions) input)
+
+{- OLD 1.2:
 main = readChan stdin abort (\input ->
        readFile "exceptions"
                 (\errors     -> output (xref []                 input))
                 (\exceptions -> output (xref (lines exceptions) input)))
        where output s = appendChan stdout s abort done
+-}

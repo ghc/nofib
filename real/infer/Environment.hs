@@ -28,8 +28,9 @@ domEnv                ::  Env -> [VarId]
 domEnv env            =   domFM (rep env)
 freeTVarEnv           ::  Env -> [TVarId]
 freeTVarEnv env       =   concat (map freeTVarPoly (ranFM (rep env)))
-instance  Text Env  where
+instance  Read Env  where
       readsPrec d  =  readsEnv
+instance  Show Env  where
       showsPrec d  =  showsEnv
 readsEnv              :: Parses Env
 readsEnv              =  listP readsPair `eachP` makeEnv

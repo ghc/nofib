@@ -58,8 +58,8 @@ eaMain (scname, (tau, ALam vs (tau2, rhs))) argTs resT
          reqdArity    = length argTs
          newArgsReqd  = reqdArity - actualArity
          newArgs      = eaMakeNewArgs newArgsReqd vs
-         newArgsTypes = myZip2 newArgs (myDrop actualArity argTs)
-         appArgTLists = map ((flip myDrop) argTs) 
+         newArgsTypes = myZip2 newArgs (drop actualArity argTs)
+         appArgTLists = map ((flip drop) argTs) 
                             (actualArity `myIntsFromTo` (reqdArity-1))
          appTypes     = map (eaCurry resT) appArgTLists
          newBody      = eaMakeApChain (myZip2 newArgsTypes appTypes) (tau2, rhs)

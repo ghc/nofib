@@ -2,14 +2,12 @@
 > where             --     Rex Page (rpage@trc.amoco.com)
 > import Fourier    --     Amoco Production Research, Sep 1992
 > import Complex_Vectors
+> import Complex--1.3
 
-> main = appendChan 
->          stdout 
+> main = putStr
 >          ("result1 = " ++ show result1 ++ "\n" ++
 >	    "result2 = " ++ show result2 ++ "\n" ++
 >	    "result3 = " ++ show result3 ++ "\n")
->          exit
->          done
 
 > result1 =
 

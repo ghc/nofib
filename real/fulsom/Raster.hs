@@ -107,7 +107,7 @@ shade (RGB r g b) = round ((sqrt r)*255)
 
 wordy :: [Int] -> [Char]
 wordy  []  = []
-wordy (a:bs) = (chr b):(chr c):(wordy bs)
+wordy (a:bs) = (toEnum b):(toEnum c):(wordy bs)
   where
      (b,c) = a `divMod` 256
 

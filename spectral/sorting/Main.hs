@@ -2,8 +2,9 @@ module Main where
 
 import Sort
 
-main ~(Str cs: _)
-  = ReadChan stdin : [AppendChan stdout (mangle "quickSort" cs)]
+main = do
+    cs <- getContents
+    putStr (mangle "quickSort" cs)
 
 mangle :: String{-opt-} -> String{-input to sort-} -> String{-output-}
 mangle opt inpt

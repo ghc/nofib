@@ -2,8 +2,7 @@ module Main where
 import Signal
 import Bit
 
-main xs =
-  [AppendChan stdout test]
+main = putStr test
 
 test = stest
 

@@ -27,7 +27,7 @@ data ArgType = Flag | Arg
 
 
 
-getops :: [Char] -> [[Char]] -> Maybe ([(Char, Option [Char])], [[Char]]) [Char]
+getops :: [Char] -> [[Char]] -> MayBe ([(Char, Option [Char])], [[Char]]) [Char]
 
 getops template argL 
 	= Ok ( [ ('t',SOME "Trm")], ["hello"])
@@ -36,7 +36,7 @@ getops template argL
 
 
 process_flags :: [(Char, ArgType)] -> [[Char]] 
-			    -> Maybe ([(Char, Option [Char])], [[Char]]) [Char]
+			    -> MayBe ([(Char, Option [Char])], [[Char]]) [Char]
 
 process_flags pattern [] = Ok ([], [])
 
@@ -58,7 +58,7 @@ process_flags pattern (arg : argL)
 
 
 process_options :: [(Char, ArgType)] -> Bool -> [Char] -> [a] 
-				      -> Maybe ([(Char, Option a)], [a]) [Char]
+				      -> MayBe ([(Char, Option a)], [a]) [Char]
 
 process_options pattern allow_arg (opt : optL) argL 
 	= case (assoc opt pattern, (allow_arg, optL, argL)) of

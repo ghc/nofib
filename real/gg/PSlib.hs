@@ -5,7 +5,7 @@ module PSlib where
 
 type Postscript = String
 
-data Point = Pt Int Int  deriving (Eq,Text)
+data Point = Pt Int Int  deriving (Eq,Show{-was:Text-})
 
 initialise header = header ++  "/SMALL /Helvetica findfont 4 scalefont def\n" ++
 				"/SMALLBOLD /Helvetica-Bold findfont 4 scalefont def\n" ++

@@ -10,7 +10,9 @@ Ghc has the wrong semantics for arrays as exemplified by this simple
 program:
 -}
 
-main = print (array (1,1) [ 1:=2, 1:=3 ])
+import Array -- 1.3
+
+main = print (array (1,1) [ (1,2), (1,3) ])
 
 {-
 As can be seen from the reference implementation in the report this

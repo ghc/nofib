@@ -1,9 +1,0 @@
-{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
-interface IO where
-import PreludeIO(Request, Response)
-import Vectors(Vector)
-getFilename :: ([Char] -> [[Char]] -> [Response] -> [Request]) -> [[Char]] -> [Response] -> [Request]
-	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
-process :: (Vector -> [Char] -> [Char]) -> [Char] -> [[Char]] -> [Response] -> [Request]
-	{-# GHC_PRAGMA _A_ 0 _U_ 2211 _N_ _N_ _N_ _N_ #-}
-

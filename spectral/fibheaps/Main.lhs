@@ -51,12 +51,14 @@ first understand binomial queues.  See, for example, David King's
 > -- partain
 >module Main (main) where
 >import PreludeGlaST
+>import Array
+>import System
 >#define thenST_ seqST
->#define runST _runST
 >#define sequenceST listST
 >#define newArr newArray
 >#define readArr readArray
 >#define writeArr writeArray
+>type Assoc a b = (a,b)
 
                          --------------------
 
@@ -87,12 +89,12 @@ We use Assoc instead of simple pairs for compatibility with accumArray.
 
 >type TaggedTree a = Assoc Int (Tree a)
 >
->degree (k := t) = k
->tree (k := t) = t
+>degree (k, t) = k
+>tree (k, t) = t
 
 Given a tagged tree, extract and tag its children.
 
->getChildren (n := Node x ts) = zipWith (:=) [n-1,n-2 .. ] ts
+>getChildren (n, Node x ts) = zipWith (,) [n-1,n-2 .. ] ts
 
 Extract the minimum element from a tagged tree.
 
@@ -125,7 +127,7 @@ Miscellaneous stuff.
 >log2 1 = 0
 >log2 n = 1 + log2 (n `div` 2)
 
->data Maybe a = Zero | One a
+>data MyMaybe a = Zero | One a
 
                          --------------------
 
@@ -154,7 +156,7 @@ Now, the following operations are trivial.
 >isEmptyFH EmptyFH = True
 >isEmptyFH (FH _ _ _) = False
 >
->singleFH x = FH 1 (0 := Node x []) EmptyBag
+>singleFH x = FH 1 (0, Node x []) EmptyBag
 >
 >insertFH x xs = meldFH (singleFH x) xs
 >
@@ -194,12 +196,12 @@ In the first implementation, there are three steps.
 >  let
 >    d = log2 (n-1) -- maximum possible degree
 >
->    ins a (i := t) =
+>    ins a (i, t) =
 >        readArr a i `thenST` \e ->
 >        case e of
 >          Zero -> writeArr a i (One t)
 >          One t2 -> writeArr a i Zero `thenST_`
->                    ins a (i+1 := link t t2)
+>                    ins a (i+1, link t t2)
 
 Note that after inserting all the trees, the array contains trees
 in the same pattern as the bits of n-1.  Since we know that the
@@ -213,21 +215,21 @@ the highest slot of the array.
 >          One t -> getMin' a d t EmptyBag 0
 >    getMin' a mini mint b i =
 >        if i >= d then
->          returnST (mini := mint,b)
+>          returnST ((mini, mint),b)
 >        else
 >          readArr a i `thenST` \e ->
 >          case e of
 >            Zero -> getMin' a mini mint b (i+1)
 >            One t -> if root mint <= root t then
->                       getMin' a mini mint (ConsBag (i := t) b) (i+1)
+>                       getMin' a mini mint (ConsBag (i, t) b) (i+1)
 >                     else
->                       getMin' a i t (ConsBag (mini := mint) b) (i+1)
+>                       getMin' a i t (ConsBag (mini, mint) b) (i+1)
 >            
 >  in 
 >    runST (newArr (0,d) Zero `thenST` \a ->
 >           applyToAll (ins a) f `thenST_`
 >           sequenceST (map (ins a) (getChildren tt)) `thenST_`
->           getMin a `thenST` \(tt,f) ->
+>           getMin a `thenST` \ (tt,f) ->
 >           returnST (FH (n-1) tt f))
 
                          --------------------
@@ -251,7 +253,7 @@ functionally.
 >            startup i ts (next:rest) = combine i ts next rest
 >
 >            combine i [] next rest = startup (i+1) next rest
->            combine i [t] next rest = (i := t) : startup (i+1) next rest
+>            combine i [t] next rest = (i, t) : startup (i+1) next rest
 >            combine i (t1:t2:ts) next rest =
 >                combine i ts (link t1 t2 : next) rest
 >
@@ -293,5 +295,5 @@ Testing...
 >test n = fibSort (randoms n) == fibSort' (randoms n)
 
 >--partain
->main = getArgs exit $ \ [n] ->
->	appendChan stdout (shows (test (read n)) "\n") exit done
+>main = getArgs >>= \ [n] ->
+>	putStr (show (test (read n)))

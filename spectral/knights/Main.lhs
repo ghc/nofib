@@ -12,6 +12,8 @@ module Main(main) where
 import ChessSetList (Tile(..)) -- partain:for hbc
 import KnightHeuristic
 import Queue
+import System--1.3
+import Char--1.3
 \end{code}
 
 %%%%%%%%%%%%%%%%%%%%% B O D Y  O F  M O D U L E %%%%%%%%%%%%%%%%%%%%%
@@ -31,12 +33,12 @@ the knights tour with a board of size $y$; where $x$ and $y$ represent
 the first and second command line option respectively.
 
 \begin{code}
-main::[Response] -> [Request]
-main=getArgs abort (\ss ->
+main:: IO ()
+main=getArgs >>= \ss ->
      if (argsOk ss) then
-        appendChan stdout (printTour ss) abort done 
+        putStr (printTour ss)
      else 
-        appendChan stdout usageString abort done)
+        fail (userError usageString)
      where
         usageString= "\nUsage: knights <board size> <no solutions> \n"
 	argsOk ss = (length ss == 2) && (foldr ((&&) . all_digits) True ss)
@@ -48,7 +50,7 @@ printTour ss
      where
         [size,number]     = map (strToInt 0) ss
 	strToInt y []     = y
-	strToInt y (x:xs) = strToInt (10*y+(ord x - ord '0')) xs
+	strToInt y (x:xs) = strToInt (10*y+(fromEnum x - fromEnum '0')) xs
 	pp []		  = []
 	pp ((x,y):xs)     = "\nKnights tour with " ++ (show x)  ++ 
 	   	            " backtracking moves\n" ++ (show y) ++

@@ -18,7 +18,7 @@ poolGraph selectpes statFile =
 	height = axisScale h
 	stats = parseFile statFile
 	(traces,((sparks,used,resumed),_,h,width)) 
-		= accumulate processSparks nullstate (gatherSp (Sp 0 0 0 0 0) (getSp selectpes orderedStats))
+		= akkumulate processSparks nullstate (gatherSp (Sp 0 0 0 0 0) (getSp selectpes orderedStats))
 
 
 processSparks ((c'',u'',r''),l'',m,_) (Sp n c u r l) 
@@ -37,7 +37,7 @@ gatherSp t l@(a:as) | numberSp t==numberSp a = gatherSp (addSparks t a) as
 
 addSparks (Sp _ a b c d) (Sp n a' b' c' d') = Sp n (a+a') (b+b') (c+c') (d+d')
 
-data Trace = T Int [Int] deriving Text
+data Trace = T Int [Int] deriving Show{-was:Text-}
 
 nullstate = ((0,0,0),0,0,0)
 

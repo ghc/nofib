@@ -1,6 +1,6 @@
         \begin{haskell}{NativeIO}
 
-> module NativeIO( Native..,  MaybeStateT.., NativeIO.. ) where
+> module NativeIO( module Native,  module MaybeStateT, module NativeIO ) where
 
 > import Native
 

@@ -10,7 +10,7 @@ run :: [(Int,Int,Int,Int)]
 run = squarelimit (0, 0) (640, 0) (0,640)
 
 -- partain: avoid X11
-main i = [AppendChan stdout (shows run "\n")]
+main = putStr (shows run "\n")
 
 {-
 roundrun = [Draw_line a b c d | (a, b, c, d) <- run]

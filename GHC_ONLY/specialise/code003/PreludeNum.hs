@@ -17,10 +17,12 @@ instance  Eq Int#  where
     x == y = eqInt# x y
     x /= y = neInt# x y
 
-instance  Text Int#  where
+instance  Read Int#  where
     readsPrec p s = map (\ (I# i#, s) -> (i#, s)) (readsPrec p s)
-    showsPrec p x = showsPrec p (I# x)
     readList s = map (\ (x, s) -> (local_map (\ (I# i#) -> i#) x, s)) (readList s)
+
+instance  Show Int#  where
+    showsPrec p x = showsPrec p (I# x)
     showList l = showList (local_map I# l)
 
 instance  Num Int#  where

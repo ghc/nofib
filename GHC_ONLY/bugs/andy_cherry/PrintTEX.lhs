@@ -2,6 +2,8 @@
 
 > import GenUtils
 > import DataTypes
+> import Array -- 1.3
+> import Char -- 1.3
 
 This is the driver that prints a file suitable for input into latex.
 

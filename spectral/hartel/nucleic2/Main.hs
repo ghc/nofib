@@ -884,5 +884,5 @@ mainPrimIO =
 	_ccall_ printf ``"%f\n"'' (F# most_distant) `seqPrimIO`
 	returnPrimIO ()
 #else
-main = prints ({-run=-} most_distant_atom pseudoknot) "\n"
+main = print ({-run=-} most_distant_atom pseudoknot)
 #endif

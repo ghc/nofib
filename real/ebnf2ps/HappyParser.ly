@@ -2,6 +2,9 @@
 
 $Locker:  $
 $Log: HappyParser.ly,v $
+Revision 1.2  1996/07/25 21:23:57  partain
+Bulk of final changes for 2.01
+
 Revision 1.1  1996/01/08 20:02:36  partain
 Initial revision
 
@@ -138,7 +141,7 @@ A postprocessor to make happy happy.
 >             | Percent | DoublePercent | OpenBrace | ClosingBrace
 >             | Colon | Semicolon | DoubleColon | Bar
 
-> instance Text Token' where
+> instance Show Token' where
 >   showsPrec n (Ident' s) = showChar '[' . showString s . showString "] "
 >   showsPrec n (Symbol' s) = showChar '<' . showString s . showString "> "
 >   showsPrec n (String' s) = showChar '"' . showString s . showString "\" "

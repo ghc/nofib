@@ -47,9 +47,11 @@ instance
 		normal x `andAnd` normal y `andAnd` normal z `andAnd`
 		normal u `andAnd` normal v `andAnd` normal w
 
+{- not in 1.3:
 instance (Normal a, Normal b) =>
 	Normal (Assoc a b) where
 	normal (i:=v) = normal i `andAnd` normal v
+-}
 
 instance Normal Bool where
 	normal True = True

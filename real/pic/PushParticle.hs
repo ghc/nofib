@@ -7,6 +7,7 @@ module PushParticle (pushParticle) where
 
 import	PicType
 import	Consts
+import Array--1.3
 
 -- Phase IV: Particle push
 -- Each particle has an initial velocity determined by its motion during the

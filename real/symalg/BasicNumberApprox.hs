@@ -3,6 +3,8 @@ module BasicNumberApprox (equ, lt, gt, lte, gte, ne, rabs, rsignum,
 
 import RealM
 import BasicNumber
+import Ratio--1.3
+import List(genericDrop, genericTake)--1.3
 
 -- This module contains a set of routines which need a precision
 -- argument to work for reals. For example, two real numbers can
@@ -93,16 +95,17 @@ basicNumber2str (BasRealC x) prec =
                                                      + prec
                                   intPart = if lenBeforeDecimal <= 0
                                             then "0"
-                                            else take lenBeforeDecimal
+                                            else genericTake lenBeforeDecimal
                                                       evalX
                                   fracPart = if lenBeforeDecimal < 0
                                              then (pad (- lenBeforeDecimal)
                                                        '0') ++
                                                   evalX
-                                             else drop lenBeforeDecimal
+                                             else genericDrop lenBeforeDecimal
                                                        evalX
                                   pad 0 a     = []
-                                  pad (n+1) a = a:(pad n a)
+                                  --WAS:pad (n+1) a = a:(pad n a)
+                                  pad n a = a:(pad (n-1) a)
 basicNumber2str (BasRationalC x) _ = show x
 basicNumber2str (BasIntegerC x) _ = show x
 -------------------------------------------------------------------------------

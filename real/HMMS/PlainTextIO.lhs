@@ -1,8 +1,9 @@
         \begin{haskell}{PlainTextIO}
 
-> module PlainTextIO( MaybeStateT.., PlainTextIO.. ) where
+> module PlainTextIO( module MaybeStateT, module PlainTextIO ) where
 
 > import MaybeStateT
+> import Char(isSpace)--1.3
 
 \end{haskell}
 
@@ -36,7 +37,7 @@ includes up to 32 characters from the input stream to help the user
 find the problem.
         \begin{haskell}{readElements}
 
-> readElements :: (Text a) => [Char] -> [a]
+> readElements :: (Read a) => [Char] -> [a]
 > readElements cs =
 >       let cs' = dropWhile isSpace cs in
 >       case reads cs' of
@@ -54,7 +55,7 @@ find the problem.
 \end{haskell}
         \fixhaskellspacing\begin{haskell}{readsItem}
 
-> readsItem :: (Text a) => MST [Char] a
+> readsItem :: (Read a) => MST [Char] a
 > readsItem cs =
 >       case reads cs of
 >       [(a, cs')] -> Just (a, cs')

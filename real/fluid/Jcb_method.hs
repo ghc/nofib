@@ -17,6 +17,7 @@ import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
 import Asb_routs
 import Tol_cal
+import Ix--1.3
 
 -----------------------------------------------------------
 -- Jacobi iteration method:                              --
@@ -40,7 +41,7 @@ jcb_method
 	-> Frac_type
 	-> (My_Array Int Frac_type, My_Array Int Frac_type)
 
-sparse_elems = \y -> map (\(_:=x)->x) (sparse_assocs y)
+sparse_elems = \y -> map (\(_,x)->x) (sparse_assocs y)
 
 jcb_method f_step el_det_fac asb_table v_steer
 	(all_bry,(x_fixed,y_fixed)) (b1,b2) scalor

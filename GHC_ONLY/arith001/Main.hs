@@ -1,17 +1,16 @@
 --!!! conversions: Double <=> Rational/Integer things
 --
-main _
-  = [AppendChan stdout
-       (show r42  ++ "\n" ++
-	show nu42 ++ ", " ++
-	show de42 ++ "\n" ++
-	show nu42d ++ ", " ++
-	show de42d ++ "\n" ++
-	show s2 ++ ", " ++
-	show e2 ++ "\n" ++
-	show s ++ ", " ++
-	show e ++ "\n" )
-    ]
+import Ratio
+
+main = putStr (show r42  ++ "\n" ++
+	       show nu42 ++ ", " ++
+	       show de42 ++ "\n" ++
+	       show nu42d ++ ", " ++
+	       show de42d ++ "\n" ++
+	       show s2 ++ ", " ++
+	       show e2 ++ "\n" ++
+	       show s ++ ", " ++
+	       show e ++ "\n" )
   where  
     d42 :: Double
     r42 :: Rational

@@ -54,7 +54,7 @@ represents the type of the data to be retrieved.
 
 > data BalBinSTree a b =
 >       Nil | Node a b (BalBinSTree a b) (BalBinSTree a b)
->       deriving Text
+>       deriving Show{-was:Text-}
 
 \end{haskell}
 
@@ -214,7 +214,7 @@ other keys and to the class \verb~Text~ so that an informative error
 message can be printed when a key is not found.
         \begin{haskell}{bbstLookUp}
 
-> bbstLookUp :: (Ord a, Text a) => BalBinSTree a b -> a -> b
+> bbstLookUp :: (Ord a, Show{-was:Text-} a) => BalBinSTree a b -> a -> b
 
 > bbstLookUp Nil x  =  error ("key " ++ shows x " not found in tree")
 
@@ -257,7 +257,7 @@ type class \verb~Text~.  The function uses tab characters to indent
 the different levels.
         \begin{haskell}{bbstShowKeys}
 
-> bbstShowKeys :: (Text a) => Int -> BalBinSTree a b -> String
+> bbstShowKeys :: (Show{-was:Text-} a) => Int -> BalBinSTree a b -> String
 
 > bbstShowKeys ntabs Nil  =  tabs ntabs ++ "NIL\n"
 

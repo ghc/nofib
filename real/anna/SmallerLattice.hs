@@ -13,6 +13,7 @@ import MyUtils
 import Utils
 import AbsConc3
 
+import List(nub,transpose) -- 1.3
 
 --==========================================================--
 --
@@ -141,7 +142,7 @@ slMakeSequence table scaleup_ratio dss lowlimit highlimit
          -- outer list: one elem per function
          -- inner list: the sequence for a particular function
          equalLengths :: [[OneFuncSize]]
-         equalLengths = map (reverse.myTake limit) initially
+         equalLengths = map (reverse.take limit) initially
 
          -- transpose, to get it round the way we need it
          -- outer list: the sequence, one elem contains all functions at a 
@@ -161,8 +162,8 @@ slMakeSequence table scaleup_ratio dss lowlimit highlimit
          -- adjust limit and equalLengthsT to reflect the fact that
          -- we've decided to ignore the first lowDrop lattice-sets
          limit2 = limit - lowDrop
-         equalLengthsT2 = myDrop lowDrop equalLengthsT
-         maxSizes2 = reverse (myDrop lowDrop maxSizes)
+         equalLengthsT2 = drop lowDrop equalLengthsT
+         maxSizes2 = reverse (drop lowDrop maxSizes)
 
          -- upper limit: throw away if any size above threshold,
          -- but not to the extent of throwing them all away
@@ -208,7 +209,7 @@ slMakeOneSequence table scaleup_ratio ds
          sizes2
             = if    null unsizables
               then  sizes
-              else  fail ( "\n\nNo size for:\n\n" ++
+              else  myFail ( "\n\nNo size for:\n\n" ++
                            (layn.map show) (nub unsizables))
 
          -- recover the iaboves relation

@@ -445,7 +445,7 @@ leStringToInt :: String -> Int
 
 leStringToInt
    = let s2i []      = 0
-         s2i (d:ds)  = (ord d - ord '0') + 10 *s2i ds
+         s2i (d:ds)  = (fromEnum d - fromEnum '0') + 10 *s2i ds
      in s2i . reverse
 
 
@@ -560,8 +560,8 @@ laMain
 
 --module AbsSyntax where
 
-data Maybe a = Nothing 
-             | Just a
+--1.3:data Maybe a = Nothing 
+--             | Just a
 
 type AList a b = [(a, b)]
 

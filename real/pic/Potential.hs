@@ -8,6 +8,7 @@ module Potential (potential) where
 import	PicType
 import	Consts
 import	Utils
+import Array--1.3
 
 -- Given charge density matrix, rho
 -- Compute new electrostatic potential phi' where del2(phi') = rho
@@ -42,7 +43,7 @@ vCycle phi rho n depth =
 	    rho' = residual phi' rho n
 	    rCoarse = coarseMesh rho' n
 	    eZero = array ((0,0), (nHalf',nHalf')) 
-			[(i,j) := 0.0 | i<-[0..nHalf'], j<-[0..nHalf']]
+			[((i,j), 0.0) | i<-[0..nHalf'], j<-[0..nHalf']]
 	    eCoarse = vCycle eZero rCoarse nHalf (depth-1)
 
 
@@ -79,7 +80,7 @@ relax mesh mesh' n =
 correct :: Phi -> Mesh -> Indx -> Indx -> Phi
 correct phi eCoarse n' nHalf =
 	array ((0,0), (n,n))
-	[(i,j) := phi!(i,j) + eFine!(i,j) | i <- [0..n], j <- [0..n]]
+	[((i,j) , phi!(i,j) + eFine!(i,j)) | i <- [0..n], j <- [0..n]]
 	where
 	    eFine = fineMesh eCoarse nHalf
 	    n = n'-1

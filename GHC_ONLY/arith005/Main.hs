@@ -1,7 +1,7 @@
 --!!! test RealFrac ops (ceiling/floor/etc.) on Floats/Doubles
 --
-main _
-  = [AppendChan stdout
+main
+  = putStr
        (-- {Float,Double} inputs, {Int,Integer} outputs
 	show ((map ceiling float_list) :: [Int])
     	++ "\n"
@@ -43,7 +43,7 @@ main _
     	++ "\n"
 	++ show ((map properFraction double_list) :: [(Integer,Double)])
     	++ "\n"
-    	)]
+    	)
   where
     float_list :: [Float]
     double_list :: [Double]

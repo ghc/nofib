@@ -5,7 +5,7 @@ import Key
 data Key = K String Char Char Int {- String, end letters, length of string -}
 data HashSet = H (Maybe Int) (Maybe Int) [Int]
 type HashFun = [(Char,Int)]  {- Association list of Character to values -}
-data Maybe a = Nothing | Just a deriving Text
+--1.3:data Maybe a = Nothing | Just a deriving Text
 
 ends :: Key -> String
 ends (K _ a z _) = [a,z]

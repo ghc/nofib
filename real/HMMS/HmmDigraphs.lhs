@@ -13,8 +13,8 @@ their nature.
         \begin{haskell}{HmmDigraphs}
 
 > module HmmDigraphs(
->       BalBinSTrees..,  -- needed for ghc to compile
->       Phones.., Pronunciations..,
+>       module BalBinSTrees,  -- needed for ghc to compile
+>       module Phones, module Pronunciations,
 >       ProbArc(..), ProbDigraphNode(..), ProbDigraphL(..),
 >       ProbDigraphA(..),
 >       HmmNetworkDic(..),
@@ -34,6 +34,8 @@ described in later chapters in Part~\ref{part:library}.
 > import BalBinSTrees
 > import Lists( mapfst, mapsnd, mapAccumlfst )
 > import PlainTextIO
+> import Array--1.3
+> import Ix--1.3
 
 \end{verbatim}
 
@@ -251,7 +253,7 @@ the probabilistic digraph. The type inherits the methods of the class
         \begin{haskell}{HmmTsL}
 
 > data HmmTsL a = HmmTsL  Int  [ProbArc]  [ProbArc]  (ProbDigraphL a) 
->                 deriving Text
+>                 deriving (Read, Show)
 
 \end{haskell}
 
@@ -548,8 +550,8 @@ function \verb~accum~ can be used because the probabilistic digraph
 
 > change_preds  hmma  (HmmTsA is _ pdg, ps)  =  accum op pdg new_preds
 >     where
->     new_preds = [i := [(p, q + pi_i) | j <- ps,
->                                       (p,q) <- stop_states (hmma!j)]
+>     new_preds = [(i, [(p, q + pi_i) | j <- ps,
+>                                       (p,q) <- stop_states (hmma!j)])
 >                  | (i, pi_i) <- is ]
 >
 >     (x, y) `op` z = (x, z++y)
@@ -625,7 +627,7 @@ since we declared the type \verb~HmmTsL~ to be a member of the class
 \verb~Text~.
         \begin{haskell}{readHmms}
 
-> readHmms :: [Char] -> [Assoc Phone (HmmTsL Int)]
+> readHmms :: [Char] -> [(Phone, (HmmTsL Int))]
 > readHmms = readElements
 
 \end{haskell}
@@ -634,7 +636,7 @@ since we declared the type \verb~HmmTsL~ to be a member of the class
         The HMMs are stored in an array for efficient random access.
         \begin{haskell}{build_hmm_array}
 
-> build_hmm_array :: [Assoc Phone (HmmTsL HmmState)] ->
+> build_hmm_array :: [(Phone, (HmmTsL HmmState))] ->
 >                     Array Phone (HmmTsL HmmState)
 > build_hmm_array = array phone_bounds
 

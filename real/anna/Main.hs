@@ -15,6 +15,8 @@ import EtaAbstract
 import StrictAn6
 import ReadTable
 
+import System -- partain: for 1.3
+import Char(isDigit)
 
 --==========================================================--
 --
@@ -172,16 +174,28 @@ anna flags name
 
 --==========================================================--
 --
-main :: [Response] -> [Request]
+--main :: [Response] -> [Request]
 
-main resps 
+main :: IO ()
+
+main = do
+    raw_args <- getArgs
+    let cmd_line_args = maGetFlags raw_args
+    anna_dir <- getEnv "ANNADIR"
+    tableStr <- readFile (anna_dir++"/anna_table")
+    file_contents <- getContents
+    let table = rtReadTable tableStr
+    putStr (maStrictAn table cmd_line_args file_contents)
+
+{- OLD 1.2
+main resps
    = [
       GetArgs,
       fr 0 (GetEnv "ANNADIR"),
-      fr 1 (ReadFile (anna_dir++"/anna_table")),
+      fr 1 (ReadFile ),
       fr 2 (ReadChan stdin),
-      fr 3 (AppendChan stdout (maStrictAn table cmd_line_args file_contents))
-     ] ++ fr 4 []
+      fr 3 (AppendChan stdout )
+     ] ++ fr 4 [] (maStrictAn table cmd_line_args file_contents)
      where
         cmd_line_args = case (resps ## 0) of
            StrList ss -> maGetFlags ss
@@ -189,11 +203,11 @@ main resps
 
         anna_dir = case (mySeq cmd_line_args (resps ## 1)) of
            Str s -> s
-           _     -> fail "Environment variable \"ANNADIR\" is not set."
+           _     -> myFail "Environment variable \"ANNADIR\" is not set."
 
         tableStr = case (mySeq anna_dir (resps ## 2)) of
            Str s -> s
-           _     -> fail ("Can't read " ++ anna_dir ++ "/anna_table")
+           _     -> myFail ("Can't read " ++ anna_dir ++ "/anna_table")
 
         file_contents = case (mySeq (head tableStr) (resps ## 3)) of
            Str s -> s
@@ -208,7 +222,7 @@ main resps
                     _       -> x
 
         table = rtReadTable tableStr
-
+-}
 
 --==========================================================--
 --
@@ -242,7 +256,7 @@ maGetFlags
   (('-':'f':'S':'c':'a':'l':'e':'U':'p':f):fs)
     = (ScaleUp (paNumval (filter isDigit f))): maGetFlags fs
 
-maGetFlags (other:_) = fail ("Unknown flag: " ++ other ++ maUsage )
+maGetFlags (other:_) = myFail ("Unknown flag: " ++ other ++ maUsage )
 
 
 --==========================================================--

@@ -7,6 +7,7 @@ module ChargeDensity (chargeDensity) where
 
 import	PicType
 import	Consts
+import Array--1.3
 
 -- Phase I: calculate the charge density rho
 -- Each particle represents an amount of charge distributed over an entire cell.
@@ -34,10 +35,10 @@ chargeDensity (xyPos, xyVel) =
 accumCharge :: [Position] -> [MeshAssoc]
 accumCharge [] = []
 accumCharge ((x,y):xys) =
-	[(i ,j ) := charge * (1-dx) * (1-dy)] ++
-	[(i',j ) := charge * dx * (1-dy)] ++
-	[(i ,j') := charge * (1-dx) * dy] ++
-	[(i',j') := charge * dx * dy] ++
+	[((i ,j ) , charge * (1-dx) * (1-dy))] ++
+	[((i',j ) , charge * dx * (1-dy))] ++
+	[((i ,j') , charge * (1-dx) * dy)] ++
+	[((i',j') , charge * dx * dy)] ++
 	accumCharge xys
 	where
 	    i = truncate x

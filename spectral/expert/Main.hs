@@ -18,6 +18,8 @@ import Table
 import Knowledge
 import Match
 import Search
+import IO--1.3
+import System--1.3
 
 -- The `main' function reads in the data file before interacting with user.
 -- The `process' function takes the contents of the file and the input from the
@@ -28,6 +30,19 @@ import Search
 -- output.  The questions are also extracted and used to help build the
 -- information table which contains question-and-answer pairs.
 
+main = do
+    prog <- getProgName
+    args <- getArgs
+    case args of
+      [filename] -> getData filename
+      []	 -> getData "animals"
+      _		 -> hPutStr stderr ("Usage: " ++ prog ++ " datafile\n")
+
+getData filename = do
+    contents <- readFile filename
+    interact (process contents)
+
+{- OLD 1.2:
 main rs =
    GetProgName : GetArgs :
    let (r0:r1:rrs) = rs in
@@ -45,6 +60,7 @@ getData filename rs =
       Failure ioerr -> [AppendChan stderr
          ("Unable to read file " ++ filename ++ "\n")]
       Str contents -> interact (process contents) rrs
+-}
 
 process contents input =
    "Solving: " ++ showPhrase problem ++ "\n" ++

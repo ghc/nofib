@@ -36,9 +36,9 @@ fdImprove coerce memo dss naive max0_super min1_super
          (zero_result_pairs, one_result_pairs) 
             = splitList (fdIsZero.coerce.second) memo
          zero_nodes_max
-            = avMaxfrel (map (MkFrel.first) zero_result_pairs)
+            = avMaxfrel (map (MkFrel . first) zero_result_pairs)
          one_nodes_min
-            = avMinfrel (map (MkFrel.first) one_result_pairs)
+            = avMinfrel (map (MkFrel . first) one_result_pairs)
          new_max0
             = (if naive then [MkFrel (map avTopR dss)] else max0_super)
               `avLUBmax0frontier` 

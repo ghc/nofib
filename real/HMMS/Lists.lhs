@@ -10,6 +10,7 @@ Standard Prelude.
 >               foldr1_2op,
 >               hamming
 >       ) where
+> import List(genericSplitAt)--1.3
 
 \end{haskell}
 
@@ -29,7 +30,7 @@ of empty lists.
 > blocks n []	=  []
 > blocks n xs   =  block : blocks n rest
 >       where
->	(block, rest) = splitAt n xs
+>	(block, rest) = genericSplitAt n xs
 
 \end{haskell}
 

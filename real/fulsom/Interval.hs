@@ -25,7 +25,7 @@ module Interval(Interval, (#), pt, sqr,
 
 infix 4 #,:#:
 
-data Interval a = Pt a | a :#: a deriving (Text)
+data Interval a = Pt a | a :#: a deriving (Show{-was:Text-})
 
 
 pt a  = Pt a
@@ -45,7 +45,7 @@ instance (Ord a) => Ord (Interval a) where
   max  = ivMax
 
 
-instance (Num a,Ord a,Eq a,Text a) => Num (Interval a) where
+instance (Num a,Ord a,Eq a,Show{-was:Text-} a) => Num (Interval a) where
   (+)		= ivPlus
   (*)		= ivMult
   negate	= ivNegate

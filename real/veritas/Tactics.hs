@@ -24,17 +24,17 @@ import Type_defs
 data TACTIC 
 	= Tactic String		
 		 ( Global_state -> Lookup_table -> Obj -> Xin ->
-				Xst ( Maybe ( Option [String] ) String ) )
+				Xst ( MayBe ( Option [String] ) String ) )
 		 ( Global_state -> Sgn -> Lookup_table -> Option [String] -> Obj
-		    -> Maybe ([Obj] , ( [Option Done] -> Option Done )) String )
+		    -> MayBe ([Obj] , ( [Option Done] -> Option Done )) String )
 
 data Ordered_tactic 
 	= OrdTactic String
 		    ( Global_state -> Lookup_table -> Obj -> Xin ->
-				Xst ( Maybe ( Option [String] ) String ) )
+				Xst ( MayBe ( Option [String] ) String ) )
 		    ( Global_state -> Sgn -> Lookup_table -> 
 			Option [String] -> Obj -> 
-			 Maybe ( [Obj] , [Lookup_table] , [Bool] ,
+			 MayBe ( [Obj] , [Lookup_table] , [Bool] ,
 			    ([Option Done] -> [Bool] -> 
 				( [Bool] , [Sgn] , Option Done ))) String )
 
@@ -58,7 +58,7 @@ lift_tactic (Tactic name arg_fn subgoal_fn)
 			  exp'' 
 			  where
 	                  exp'' subtrees
-			       = return ( TreeSt (vf' gst t1) spine gst )
+			       = reTurn ( TreeSt (vf' gst t1) spine gst )
 			  	 where
 	  	  	         vf' = lift_tactic_valid valid_fn
 	  	                 g1 =Goal (SOME name) args com uid obj rw sg lt
@@ -84,7 +84,7 @@ lift_ordtactic (OrdTactic name arg_fn subgoal_fn)
 			 exp''
 			 where
 		         exp'' subtrees
-				= return ( TreeSt (vf' gst t1) spine gst )
+				= reTurn ( TreeSt (vf' gst t1) spine gst )
 			  	  where
 	  	  	  	  vf' = lift_ordtactic_valid valid_fn
 	  	          	  g1 =Goal (SOME name) args com uid obj rw sg lt
@@ -125,14 +125,14 @@ make_goal1 sg lt ( obj : objL ) glL
 	  ( \ gl -> make_goal1  sg lt objL ( glL <: gl ))
 
 make_goal1 _ _ [] glL 
-	= return glL 
+	= reTurn glL 
 
 
 
 
 make_goal1' sg lt obj
 	= genuid /./
-	  ( \ uid -> return ( Tree (Goal NONE NONE NONE uid obj True sg lt)
+	  ( \ uid -> reTurn ( Tree (Goal NONE NONE NONE uid obj True sg lt)
 							 [] NONE id' NONE ))
 
 
@@ -142,14 +142,14 @@ make_goal2 sg ((lt, (rw, obj)) : pL ) glL
 	  ( \ gl -> make_goal2  sg pL ( glL <: gl ))
 
 make_goal2 _ [] glL 
-	= return glL 
+	= reTurn glL 
 
 
 
 
 make_goal2' sg lt rw obj
 	= genuid /./
-	  ( \ uid -> return ( Tree (Goal NONE NONE NONE uid 
+	  ( \ uid -> reTurn ( Tree (Goal NONE NONE NONE uid 
 					obj rw sg lt) [] NONE id' NONE ))
 
 
@@ -162,4 +162,4 @@ set_info (Tree (Goal cmd arg com uid obj _ _ lt) tl dn vf u , (rw,sg))
 
 id' x y = y
 
-null_arg_fn gst lt spc = return NONE 
+null_arg_fn gst lt spc = reTurn NONE 

@@ -1,6 +1,11 @@
 > module DataTypes where
 
 > import GenUtils
+> import Array -- 1.3
+> import Ix
+> import Char
+> infix 1 =: -- 1.3
+> (=:) a b = (a,b)
 
 %------------------------------------------------------------------------------
 
@@ -81,8 +86,8 @@ Now the ranks and files.
 > userFormatExBoardPos (Just f,Nothing) = userFormatFile f 
 > userFormatExBoardPos (Nothing,Just r) = userFormatRank r
 > userFormatExBoardPos _ = ""
-> userFormatRank r = [chr (r + 48)]
-> userFormatFile f = [chr (f + 96)]
+> userFormatRank r = [toEnum (r + 48)]
+> userFormatFile f = [toEnum (f + 96)]
 
 %------------------------------------------------------------------------------
 
@@ -243,9 +248,9 @@ These are the components of a move.
 
 
 > getOpening eco@[a,b,c] |  a >= 'A' && a <= 'E' && isDigit b && isDigit c 
->    = getOpenName ((ord a - ord 'A') * 100 
->		+ (ord b - ord '0') * 10 
->		+ (ord c - ord '0')) ++ " " ++ eco
+>    = getOpenName ((fromEnum a - fromEnum 'A') * 100 
+>		+ (fromEnum b - fromEnum '0') * 10 
+>		+ (fromEnum c - fromEnum '0')) ++ " " ++ eco
 > getOpening other = other
 
 > getOpenName :: Int -> String
@@ -549,7 +554,7 @@ This uses forsyth notation.
 > buildBoard :: String -> Board
 > buildBoard str = Board brd initMoveNumber Nothing
 >    where
->	brd = array boardSize (zipWith (:=) allSq (mkPieces str))
+>	brd = array boardSize (zipWith (=:) allSq (mkPieces str))
 >	allSq = [ (x,y) | y <- reverse [1..8::Int],x <- [1..8::Int]]
 >	mkPieces :: String -> [BoardSquare]
 >	mkPieces (hd:rest) | hd `elem` "KQRNBPkqrnbp" = pc : mkPieces rest

@@ -40,14 +40,14 @@ data Prim = Sphere FType FType FType FType
           | Cube   FType FType FType FType
           | Plane  FType FType FType FType
           | X | Y | Z
-	  deriving Text
+	  deriving Show{-was:Text-}
 
 data Ops  = RotX FType
           | RotY FType
           | RotZ FType
           | Scale FType FType FType
           | Trans FType FType FType
-	  deriving Text
+	  deriving Show{-was:Text-}
 
 data Csg  = Object Prim
           | Geom Csg Ops
@@ -58,7 +58,7 @@ data Csg  = Object Prim
           | Inter Csg Csg
           | Sub   Csg Csg
           | Comp  Csg
---	  deriving Text
+--	  deriving Show{-was:Text-}
 
 
 -- type CsgOut = (R1 BI,Csg,Color,Bool)
@@ -71,7 +71,7 @@ type Calc = Color -> (R3 BI) -> CsgOut
 ----------------------------------------------------------
 
 data Color = RGB FType FType FType
-	  deriving Text
+	  deriving Show{-was:Text-}
 
 ----------------------------------------------------------
 -- Matrix
@@ -92,7 +92,7 @@ type R1 a = (a,a)
 ----------------------------------------------------------
 
 data Oct = O_Full Color | O_Empty | O_Sub Color [Oct]
-	  deriving Text
+	  deriving Show{-was:Text-}
 
 ----------------------------------------------------------
 -- Quad
@@ -101,7 +101,7 @@ data Oct = O_Full Color | O_Empty | O_Sub Color [Oct]
 data Quad = Q_Empty | Q_Full Color
           | Q_Sub Color [Quad]
           | Q_NewXY FType FType FType
-	  deriving Text
+	  deriving Show{-was:Text-}
 
 ----------------------------------------------------------
 -- Vector

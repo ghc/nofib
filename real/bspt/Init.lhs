@@ -18,7 +18,7 @@
 >		 button2TextOrigin,button3TextOrigin,gap,renderRegion,
 >		 treeRegion,windowRegion,noTextRegion,textRegion,mouseRegion,
 >		 textIn,textDown,buttonIndent,buttonWidth,buttonHeight)
-> import Stdlib (map2,mapcat,sequence)
+> import Stdlib (map2,mapcat,seQuence)
 > import MGRlib (setEvent, setMode, setCursor, textReset, clear,
 >		 line, movePrintTo, printOver, setTextRegion, writeVert)
 
@@ -31,7 +31,7 @@
 			 is pressed.
 
 > initialiseMouse :: String
-> initialiseMouse = sequence [	setEvent 1 "%p\n",
+> initialiseMouse = seQuence [	setEvent 1 "%p\n",
 >				setEvent 2 (delimiter++"\n")]
 
 
@@ -44,7 +44,7 @@
 			  Finally it switches to the 'notext' region.
 			  
 > initialiseScreen :: String
-> initialiseScreen =  	sequence [	setMode 7,
+> initialiseScreen =  	seQuence [	setMode 7,
 >					setCursor 5, 
 >					textReset, 
 >					clear,
@@ -62,7 +62,7 @@
 			Button Pad and the Mouse State diagram.
 
 > drawScreen :: String
-> drawScreen = 	sequence [	line [0,renderHeight+1,windowWidth,renderHeight+1],
+> drawScreen = 	seQuence [	line [0,renderHeight+1,windowWidth,renderHeight+1],
 >		 	      	line [renderLeft-1,0,renderLeft-1,windowHeight],
 >				drawButtons buttons,
 >				drawMouse]
@@ -77,7 +77,7 @@
 			state.	
 
 > drawMouse :: String
-> drawMouse = sequence [	movePrintTo mouseCaptionAcross mouseCaptionDown "Mouse", 
+> drawMouse = seQuence [	movePrintTo mouseCaptionAcross mouseCaptionDown "Mouse", 
 > 		    		drawBox mouseBox,
 > 				drawBox button1Box,
 > 				drawBox button2Box,
@@ -92,7 +92,7 @@
 
 > labelButtons :: (String,String) -> (String,String) -> String
 > labelButtons (label2_1,label2_2) (label3_1,label3_2)
-> 			= sequence [	toMouseRegion,
+> 			= seQuence [	toMouseRegion,
 > 			  		writeVert button2TextOrigin (map2 spacer label2_1 label2_2),
 > 					writeVert button3TextOrigin (map2 spacer label3_1 label3_2),
 > 			  		toNoTextRegion]
@@ -120,7 +120,7 @@
 > clearButton (_,d,_) = clearRegion (button d)
 
 > clearRegion :: [Int] -> String
-> clearRegion region = sequence [setTextRegion (inside region), clear, toNoTextRegion]
+> clearRegion region = seQuence [setTextRegion (inside region), clear, toNoTextRegion]
 
 > clearText :: String
 > clearText = clear
@@ -166,7 +166,7 @@
 			box on the pad at a depth d and labelling it.
 
 > drawButton :: Button -> String
-> drawButton (_,d,name) = sequence [ 	printOver textIn (d+textDown) name,
+> drawButton (_,d,name) = seQuence [ 	printOver textIn (d+textDown) name,
 > 					drawBox [buttonIndent,d,buttonWidth,buttonHeight]  ]
 
 
@@ -175,14 +175,14 @@
 		indicates the button selected.
 	
 > mark :: Command -> String
-> mark cmd = sequence [	toScreenRegion,
+> mark cmd = seQuence [	toScreenRegion,
 >			mapcatButton clearButton cmd buttons,
 >			toNoTextRegion]
 
 	noMark: Restores the buttons after an operation has taken place
 
 > noMark :: Command -> String
-> noMark cmd = sequence [	toScreenRegion, 
+> noMark cmd = seQuence [	toScreenRegion, 
 >			mapcatButton title cmd buttons, 
 >			toNoTextRegion]
 > 		where 	
@@ -205,7 +205,7 @@
 		at point (x,y) and of height h and width w.
 
 > drawBox :: [Int] -> String
-> drawBox [x,y,width,height] = sequence [	line [x,y,x,y+height],
+> drawBox [x,y,width,height] = seQuence [	line [x,y,x,y+height],
 > 				 		line [x,y+height,x+width,y+height],
 > 						line [x+width,y+height,x+width,y],
 > 						line [x+width,y,x,y]]
@@ -216,7 +216,7 @@
 		returned to full screen.
 
 > reset :: String
-> reset = sequence [mark Quit, textReset, setCursor 0]
+> reset = seQuence [mark Quit, textReset, setCursor 0]
 
         indicate : Unlabels all button but the one selected,
                         evaluates the string given
@@ -224,7 +224,7 @@
  
 > indicate :: Command -> [String] -> String
 > indicate Null _ = ""
-> indicate cmd str = mark cmd ++ sequence str ++ noMark cmd
+> indicate cmd str = mark cmd ++ seQuence str ++ noMark cmd
  
 
         unlabelButtons, labelDefinePoly, labelClassify:

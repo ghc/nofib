@@ -7,8 +7,9 @@ module Main where
 bigtuple2 = bigtuple1
 untuple2  = untuple1
 
-main = readChan stdin abort (\ input ->
-       appendChan stdout (unlines (map dolist (lines input))) abort done)
+main = do
+    input <- getContents
+    putStr (unlines (map dolist (lines input)))
 
 dolist l = untuple1 (bigtuple1 l) ++ ['\n'] ++ untuple2 (bigtuple2 l)
 

@@ -1,7 +1,7 @@
 --!! worker/wrapper turns ( \ <absent> -> Int# ) function
 --!! into Int# -- WRONG
 
-main resps = [AppendChan stdout (shows true_or_false "\n")]
+main = putStr (shows true_or_false "\n")
   where
     true_or_false
       = case (cmp_name True imp1 imp2) of

@@ -8,8 +8,11 @@ yet evaluated, returning TRUE, FALSE or UNKNOWN, respectively.  Again,
 it does not evaluate its argument.
 
 \begin{code}
-interface Primitives where
-import Types(BOOL)
-eq :: a -> a -> Bool
-boolval :: Bool -> BOOL
+interface Primitives 1
+__exports__
+Primitives eq (..)
+Primitives boolval (..)
+__declarations__
+Primitives.eq	   :: __forall__ [a] a -> a -> Prelude.Bool;
+Primitives.boolval :: Prelude.Bool -> Types.BOOL;
 \end{code}

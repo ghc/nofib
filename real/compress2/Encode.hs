@@ -14,7 +14,7 @@ data CodeEvent =
                  Code Int |
 #endif
                  NewWordSize |
-                 Clear deriving Text
+                 Clear deriving Show{-was:Text-}
 
 data CodeState = CS
                  Int {-# STRICT #-}
@@ -118,7 +118,7 @@ build_table lo hi
      = if lo > hi then
            PTNil
        else let mid = (lo + hi) `div` 2 in
-              PT (chr mid) mid PTNil
+              PT (toEnum mid) mid PTNil
                    (build_table lo (mid - 1))
                    (build_table (mid + 1) hi)
 

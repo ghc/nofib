@@ -11,7 +11,7 @@
 module Basics(showrj,showlj, azip) where
 
 
-showlj, showrj :: (Text a) => Int -> a -> [Char]
+showlj, showrj :: (Show a) => Int -> a -> [Char]
 
 rep :: Int -> a -> [a]
 

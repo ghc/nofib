@@ -93,7 +93,7 @@ dxDiff :: Domain -> Domain -> (DExpr, DSubst)
 
 dxDiff db ds
    = case
-        doStatefulOp2 dxDiff_aux (ord 'a', []) ds db
+        doStatefulOp2 dxDiff_aux (fromEnum 'a', []) ds db
      of
         (dexpr, (num, dsubst)) -> (dexpr, dsubst)
 
@@ -103,8 +103,8 @@ dxDiff_aux Two Two
 
 dxDiff_aux Two not_two
    = fetchS                                  `thenS`  ( \ (n, sub) ->
-     assignS (n+1, ([chr n], not_two):sub)   `thenS`  ( \ () ->
-     returnS (DXVar [chr n])
+     assignS (n+1, ([toEnum n], not_two):sub)   `thenS`  ( \ () ->
+     returnS (DXVar [toEnum n])
      ))
 
 dxDiff_aux (Lift1 ds1) (Lift1 ds2)

@@ -4,13 +4,13 @@
 
 > import Kernel
 
-> data Maybe a b = Ok a | Bad b deriving ( Eq )
+> data MayBe a b = Ok a | Bad b deriving ( Eq )
 
 > data Token = Rvd String | Clr String | Bdr Binder_conn |
 >	       IfxBdr String | IfxOp String | Scan_Err String
 >	         deriving ( Eq )
 >   -- partain:
-> instance Text Token
+> instance Show Token
 
 
 >-- data Oprtype = Pre | Post | BinL | BinR deriving ( Eq )

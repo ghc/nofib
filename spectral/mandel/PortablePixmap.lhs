@@ -102,7 +102,7 @@ data PixMap = Pixmap Integer Integer Int [(Int,Int,Int)]
 createPixmap::Integer -> Integer -> Int -> [(Int,Int,Int)] -> PixMap
 createPixmap width height max colours = Pixmap width height max colours
 
-instance Text PixMap where
+instance Show PixMap where
 	showsPrec prec (Pixmap x y z rgbs) = showHeader x y z . showRGB rgbs
 
 
@@ -114,9 +114,9 @@ showHeader x y z 	= showString "P6\n" . showBanner .
 
 showRGB::[(Int,Int,Int)] ->  ShowS
 showRGB [] 		= id
-showRGB ((r,g,b):rest)  = showChar (chr r) .
-			  showChar (chr g) .
-			  showChar (chr b) .
+showRGB ((r,g,b):rest)  = showChar (toEnum r) .
+			  showChar (toEnum g) .
+			  showChar (toEnum b) .
 			  showRGB rest
 
 showSpace  = showChar ' '

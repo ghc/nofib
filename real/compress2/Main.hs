@@ -8,8 +8,8 @@ where
 import Encode
 import WriteRoutines
 
-main = readChan stdin abort (\ i ->
-           appendChan stdout (compress i) abort done)
+main = getContents >>= \ i ->
+	putStr (compress i)
            
 -- The output is given by a magic header consisting of two fixed numbers,
 -- and a third representing the maximum number of bits used per code and
@@ -28,7 +28,7 @@ compress cs = f codes
 compress = magic_header . processInput
 
 magic_header cs
-     = "\o037\o235" ++ [chr third_byte] ++ cs
+     = "\o037\o235" ++ [toEnum third_byte] ++ cs
        where
        third_byte = block_compress + maxBits
        block_compress = 128  -- 0   if block compression is not required

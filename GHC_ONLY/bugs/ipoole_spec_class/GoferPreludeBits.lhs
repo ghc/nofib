@@ -52,7 +52,7 @@ SCCS: %W% %G%
 >                              [ x ] ++
 >                        qsort [ u | u<-xs, u>=x ]
 
-> undefined = error "undefined"
+> --1.3: undefined = error "undefined"
 
 \end{vb}
 

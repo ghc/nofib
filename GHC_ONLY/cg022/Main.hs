@@ -3,8 +3,8 @@
 
 module Main where
 
-main _ = [f (AppendChan stdout "a")
-	    (take 1000000 (repeat True))
-	    (AppendChan stdout "b")]
+main = f (putStr "a")
+	 (take 1000000 (repeat True))
+	 (putStr "b")
 
 f a ns b = if last ns then a else b

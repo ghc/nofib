@@ -6,8 +6,8 @@ type SM s a       = s -> (s, a)
 
 -- Primitive monad operators -------------------------------------------------
 
-return           :: a -> SM s a
-return x          = \s -> (s, x)
+retURN           :: a -> SM s a
+retURN x          = \s -> (s, x)
 
 bind             :: SM s a -> (a -> SM s b) -> SM s b
 m `bind` f        = \s -> let (s',a) = m s in f a s'
@@ -21,24 +21,24 @@ mmap f m          = \s -> let (s',a)  = m s in (s', f a)
 -- General monad operators ---------------------------------------------------
 
 mmapl            :: (a -> SM s b) -> ([a] -> SM s [b])
-mmapl f []        = return []
+mmapl f []        = retURN []
 mmapl f (a:as)    = f a             `bind` \b ->
                     mmapl f as      `bind` \bs ->
-                    return (b:bs)
+                    retURN (b:bs)
 
 mmapr            :: (a -> SM s b) -> ([a] -> SM s [b])
-mmapr f []        = return []
+mmapr f []        = retURN []
 mmapr f (x:xs)    = mmapr f xs      `bind` \ys ->
                     f x             `bind` \y  ->
-                    return (y:ys)
+                    retURN (y:ys)
 
 mfoldl           :: (a -> b -> SM s a) -> a -> [b] -> SM s a
-mfoldl f a []     = return a
+mfoldl f a []     = retURN a
 mfoldl f a (x:xs) = f a x           `bind` \fax ->
                     mfoldl f fax xs
 
 mfoldr           :: (a -> b -> SM s b) -> b -> [a] -> SM s b
-mfoldr f a []     = return a
+mfoldr f a []     = retURN a
 mfoldr f a (x:xs) = mfoldr f a xs   `bind` \y ->
                     f x y
 

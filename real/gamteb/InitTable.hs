@@ -7,14 +7,14 @@ module InitTable (ergs, xComp, xPair, xPhot) where
 
 import GamtebType
 import Consts
-
+import Array--1.3
 
 -- initialize the cross section tables
 -- these tables are constant, used with the energy and energy index
 -- in calculating probabilities
 
 ergs :: Array Indx Value
-ergs = array (1,numLev) (zipWith (:=) [1..numLev] (map f2 erg))
+ergs = array (1,numLev) (zipWith (,) [1..numLev] (map f2 erg))
 	where erg = 
 		[0.001, 0.0015, 0.002, 0.003, 0.004, 0.005, 0.006, 0.008,
 		0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08,
@@ -23,7 +23,7 @@ ergs = array (1,numLev) (zipWith (:=) [1..numLev] (map f2 erg))
 		10.0, 15.0, 20.0]
 	
 xComp :: Array Indx Value
-xComp = array (1,numLev) (zipWith (:=) [1..numLev] (map f1 xc))
+xComp = array (1,numLev) (zipWith (,) [1..numLev] (map f1 xc))
 	where xc = 
 		[0.015, 0.0296, 0.0451, 0.0717, 0.0913, 0.105, 0.115, 0.128, 
 		0.137, 0.152, 0.160, 0.165, 0.165, 0.163, 0.160, 0.153, 
@@ -32,7 +32,7 @@ xComp = array (1,numLev) (zipWith (:=) [1..numLev] (map f1 xc))
 		0.0154, 0.0114, 0.00913]
 	
 xPair :: Array Indx Value
-xPair = array (1,numLev) (zipWith (:=) [1..numLev] (map f1 xp))
+xPair = array (1,numLev) (zipWith (,) [1..numLev] (map f1 xp))
 	where xp = 
 		[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
 		0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -40,7 +40,7 @@ xPair = array (1,numLev) (zipWith (:=) [1..numLev] (map f1 xp))
 		0.00343, 0.00414, 0.00547, 0.00652]
 	
 xPhot :: Array Indx Value
-xPhot = array (1,numLev) (zipWith (:=) [1..numLev] (map f1 xpe))
+xPhot = array (1,numLev) (zipWith (,) [1..numLev] (map f1 xpe))
 	where xpe = 
 		[2010.0, 632.0, 280.0, 87.7, 37.3, 18.9, 10.4, 4.01, 
 		1.91, 0.489, 0.192, 0.0491, 0.0186, 0.00887, 0.00481, 

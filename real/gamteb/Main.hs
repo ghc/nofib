@@ -4,8 +4,15 @@
 --      1990 August
 --
 import	GamtebMain
+import IO--1.3
 
-main :: [Response] -> [Request]
+main = do
+    hPutStr stderr "Enter the scale of computation: "
+    s <- getContents
+    let (scale, rest) = (head (reads s)) :: (Int, String)
+    putStr (takeWhile ((/=) '\n') s ++ (gamteb scale))
+
+{- OLD: 1.2
 main resps =
 	[
 	Echo True,
@@ -20,3 +27,4 @@ calcgamteb (Str s) =
 	    (takeWhile ((/=) '\n') s ++ (gamteb scale))
 	where
 	    (scale, rest) = (head (reads s)) :: (Int, String)
+-}

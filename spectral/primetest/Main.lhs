@@ -7,6 +7,9 @@
 
 % RCS amended stuff
 %$Log: Main.lhs,v $
+%Revision 1.2  1996/07/25 21:32:56  partain
+%Bulk of final changes for 2.01
+%
 %Revision 1.1  1996/01/08 20:04:20  partain
 %Initial revision
 %
@@ -18,8 +21,8 @@
 %
 %$Author: partain $
 %$State: Exp $
-%$Revision: 1.1 $
-%$Date: 1996/01/08 20:04:20 $
+%$Revision: 1.2 $
+%$Date: 1996/07/25 21:32:56 $
 
 % Constant stuff (at the moment).
 
@@ -44,13 +47,7 @@ Manchester M13 9PL, UK.}
 Let's begin by giving Lester's line based command intepreter for
 programs with @state@.
 
-> main :: Dialogue
-> main = readChan stdin abort (foldr output done . process . lines)
-
-Printing out @String@'s is easy:
-
-> output :: String -> Dialogue -> Dialogue
-> output string dialogue = appendChan stdout (string++"\n") abort dialogue
+> main = getContents >>= \ cts -> sequence (map putStr (process (lines cts)))
 
 The @process@ function takes a list of input lines and produces a list
 of output lines.

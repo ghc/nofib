@@ -1,11 +1,12 @@
 \begin{code}
 import PreludeGlaST
-import PreludeGlaMisc
+import GHCio(stThen)
+--old:import PreludeGlaMisc
 
-main =	makeStablePtr test	`thenPrimIO` \ stablePtr ->
+main =	makeStablePtr test	`stThen` \ stablePtr ->
 	((_casm_GC_ ``SaveAllStgRegs(); test1(%0); RestoreAllStgRegs();'' stablePtr)
 						:: PrimIO ())
-				`seqPrimIO`
+				`stThen` \ _ ->
 	return ()
 
 test :: IO Int
@@ -15,7 +16,7 @@ test =
 	in 
 	_ccall_ printf
 	      "The stable pointer has just been used to print this number %d\n" (f 100)
-					`seqPrimIO`
+				`stThen` \ _ ->
 	return 42
 \end{code}
 

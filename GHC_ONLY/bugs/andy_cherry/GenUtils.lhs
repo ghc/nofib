@@ -33,10 +33,11 @@ All the code below is understood to be in the public domain.
 >	combinePairs,
 >	formatText ) where
 
+> import Array	-- 1.3
+> import Ix	-- 1.3
+
 >#ifndef __GLASGOW_HASKELL__
 
-> import {-fool mkdependHS-}
->	 Maybe (Maybe(..))
 > import {-fool mkdependHS-}
 >	 Trace
 
@@ -49,9 +50,12 @@ HBC has it in one of its builtin modules
 
 >#if defined(__GLASGOW_HASKELL__) || defined(__GOFER__)
 
-> data Maybe a = Nothing | Just a deriving (Eq,Ord,Text)
+> --in 1.3: data Maybe a = Nothing | Just a deriving (Eq,Ord,Text)
 
 >#endif
+> infix 1 =: -- 1.3
+> type Assoc a b = (a,b) -- 1.3
+> (=:) a b = (a,b)
 
 > mapMaybe :: (a -> Maybe b) -> [a] -> [b]
 > mapMaybe f [] = []
@@ -87,7 +91,7 @@ This version returns nothing, if *any* one fails.
 > joinMaybe _ Nothing  (Just g) = Just g
 > joinMaybe f (Just g) (Just h) = Just (f g h)
 
-> data MaybeErr a err = Succeeded a | Failed err deriving (Eq,Text)
+> data MaybeErr a err = Succeeded a | Failed err deriving (Eq,Show{-was:Text-})
 
 @mkClosure@ makes a closure, when given a comparison and iteration loop. 
 Be careful, because if the functional always makes the object different, 
@@ -214,15 +218,15 @@ Note again the use of partiual application.
 
 > arrCond bds pairs fnPairs def = (!) arr'
 >   where
->       arr' = array bds [ t := head
->                       ([ r | (p := r) <- pairs, elem t p ] ++
->                        [ r | (f := r) <- fnPairs, f t ] ++
+>       arr' = array bds [ t =: head
+>                       ([ r | (p, r) <- pairs, elem t p ] ++
+>                        [ r | (f, r) <- fnPairs, f t ] ++
 >                        [ def ])
 >               | t <- range bds ]
 
 > memoise :: (Ix a) => (a,a) -> (a -> b) -> a -> b
 > memoise bds f = (!) arr
->   where arr = array bds [ t := f t | t <- range bds ]
+>   where arr = array bds [ t =: f t | t <- range bds ]
 
 Quite neat this. Formats text to fit in a column.
 

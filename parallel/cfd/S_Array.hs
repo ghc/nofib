@@ -1,5 +1,5 @@
 module S_Array (
-		My_Array(..), S_array(..),     -- counterpart of Array
+		My_Array, S_array(..),     -- counterpart of Array
 		s_listArray,
 		(!^),                      -- counterpart of (!)
 		s_bounds,                  -- counterpart of bounds
@@ -15,6 +15,9 @@ module S_Array (
 	)
 	where
 
+import List(partition)--1.3
+import Ix--1.3
+
 import Norm 
 import {-fool mkdependHS; ToDo: rm-}
 	Parallel
@@ -25,14 +28,17 @@ infixl 9 !^
 		definitions of data types
 -}
 
+type Assoc a b = (a,b) -- 1.3
+
 -- data type of index
 type Ix_type = Int
 type My_Array a b = S_array b
 
 -- data type of default value
-data Maybe a =
-	Nothing | Just a
-	deriving ()
+--1.3:data Maybe a =
+--	Nothing | Just a
+--	deriving ()
+
 -- data type of radix trie
 data Bin_Trie a =
 	Null | Leaf a | Fork Int (Bin_Trie a) (Bin_Trie a)
@@ -83,7 +89,7 @@ s_accum f (Mk_t_Array b@(b1,_) default_v b_trie) asocs =
 		(do_accum b_trie (size b) (map_as b1 asocs))
 	else err_out
 	where
-	defed = not (undefined default_v)
+	defed = not (undefinedd default_v)
 	def_v = get_just_v default_v
 	-- generate a radix trie, slightly different from gen_trie
 	gen_a_trie _ [] = Null
@@ -92,13 +98,13 @@ s_accum f (Mk_t_Array b@(b1,_) default_v b_trie) asocs =
 		fork s' (gen_a_trie s' as1) (gen_a_trie s' (map_as s' as2))
 		where
 		s' = s `div` 2
-		(as1,as2) = partition (\(i:=_)->(i<s')) as
+		(as1,as2) = partition (\(i, _)->(i<s')) as
 	-- generate a leaf with accumulated value
 	gen_leaf v as =
 		if defed && (x == def_v)
 		then Null
 		else leaf x
-		where x = foldl f v (map (\(_:=v')->v') as)
+		where x = foldl f v (map (\(_, v')->v') as)
 	-- update radix trie with accumulated values
 	do_accum br _ [] = br
 	do_accum br s as =
@@ -106,7 +112,7 @@ s_accum f (Mk_t_Array b@(b1,_) default_v b_trie) asocs =
 			(Fork s' br1 br2) ->
 				fork s' (do_accum br1 s' as1) (do_accum br2 s' (map_as s' as2))
 				where
-				(as1,as2) = partition (\(i:=_)->(i<s')) as
+				(as1,as2) = partition (\(i, _)->(i<s')) as
 			Null -> gen_a_trie s as
 			(Leaf v) -> gen_leaf v as
 
@@ -120,7 +126,7 @@ s_amap f (Mk_t_Array b default_v b_trie) =
 	where
 	-- modify default value if necessary
 	new_def_v =
-		if undefined default_v
+		if undefinedd default_v
 		then Nothing
 		else Just ((f.get_just_v) default_v)
 	-- function for replacing leaves with new values
@@ -157,7 +163,7 @@ arr_merg f (Mk_t_Array b def_v1 t1) (Mk_t_Array _ def_v2 t2) =
 	just_v1 = get_just_v def_v1
 	just_v2 = get_just_v def_v2
 	dv =
-		if not (undefined def_v1 || undefined def_v2)
+		if not (undefinedd def_v1 || undefinedd def_v2)
 		then Just (f just_v1 just_v2)
 		else Nothing
 	t_op (Fork s br11 br12) (Fork _ br21 br22) =
@@ -181,10 +187,10 @@ err_undefed = error "2" -- "s_array: value not defined!"
 err_multi = error "3" -- "s_array: multiple value definitions!"
 
 map_as :: Int -> [Assoc Int a] -> [Assoc Int a]
-map_as = \s -> map (\(i:=v)->(i-s):=v)
+map_as = \s -> map (\(i,v)->((i-s),v))
 
 check_as :: (Int, Int) -> [Assoc Int a] -> Bool
-check_as = \b asocs -> and (map (\(i := _) -> inRange b i) asocs)
+check_as = \b asocs -> and (map (\(i , _) -> inRange b i) asocs)
 
 -- generate a fork
 fork :: Int -> Bin_Trie a -> Bin_Trie a -> Bin_Trie a
@@ -205,9 +211,9 @@ empty_trie _ = False
 
 -- value retrieve functions
 
-undefined :: Maybe a -> Bool
-undefined Nothing = True
-undefined _ = False
+undefinedd :: Maybe a -> Bool
+undefinedd Nothing = True
+undefinedd _ = False
 
 -- locate a leaf ( or a Null node )
 find_leaf :: Bin_Trie a-> Int -> Bin_Trie a

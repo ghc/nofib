@@ -41,7 +41,7 @@ data Tree_state a b c
 
 lift_non_io_tree_fn tree_fn t@(TreeSt tr tr_st gst) 
 	= tree_fn tr |.| 
-	  ( \ res -> return ( TreeSt res tr_st gst )) 
+	  ( \ res -> reTurn ( TreeSt res tr_st gst )) 
 	  `handle` 
           failtest t 
 
@@ -58,7 +58,7 @@ lift_non_io_tree_fn tree_fn t@(TreeSt tr tr_st gst)
 
 lift_io_tree_fn tree_fn t@(TreeSt tr tr_st gst) 
 	= tree_fn tr /./ 
-	  ( \ fn_res -> return ( TreeSt fn_res tr_st gst )) 
+	  ( \ fn_res -> reTurn ( TreeSt fn_res tr_st gst )) 
 	  `handle` 
 	  failtest t 
 
@@ -66,7 +66,7 @@ lift_io_tree_fn tree_fn t@(TreeSt tr tr_st gst)
 
 lift_non_io_tree_st_fn tree_fn tr_tr_st 
 	= tree_fn tr_tr_st |.|
-	  return  
+	  reTurn  
 	  `handle`
 	  failtest tr_tr_st 
 
@@ -75,23 +75,23 @@ lift_non_io_tree_st_fn tree_fn tr_tr_st
 lift_io_tree_st_fn tree_fn tr_tr_st 
 	= tree_fn tr_tr_st 
 	  `handle` 
-	  (\ _  -> return tr_tr_st )
+	  (\ _  -> reTurn tr_tr_st )
 
 
 failtest t s 
 	= x_error s        /./
-	  ( \ _ -> return t )
+	  ( \ _ -> reTurn t )
 
 
 
 
-replace :: b -> Int -> [b] -> Maybe [b] String
+replace :: b -> Int -> [b] -> MayBe [b] String
 
 replace = replace' []
 
 
 
-replace' :: [b] -> b -> Int -> [b] -> Maybe [b] String
+replace' :: [b] -> b -> Int -> [b] -> MayBe [b] String
 
 replace' rl x 0 (_ : l) = Ok ( rl ++ (x : l))
 

@@ -54,7 +54,7 @@ A packeage for log representations of numbers.
 
 > instance RealFrac Lognum
 
-> instance Text Lognum 
+> instance Show{-was:Text-} Lognum 
 
 > mylog :: Int -> Double -> Double
 > mylog n x = if toDouble x < 0.0 then error ("mylog" ++ show n) else log x

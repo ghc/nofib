@@ -9,6 +9,8 @@ import BaseDefs
 import Utils
 import MyUtils
 
+import List(nub) -- 1.3
+
 --==========================================================--
 --=== Formatting of results                              ===--
 --==========================================================--
@@ -80,7 +82,7 @@ tcShowtExpr :: TExpr ->
 tcShowtExpr t 
    = pretty' False t
      where 
-       pretty' b (TVar tvname) = [' ', chr (96+(lookup tvname tvdict))]
+       pretty' b (TVar tvname) = [' ', toEnum (96+(lookup tvname tvdict))]
        pretty' b (TCons "int" []) = " int"
        pretty' b (TCons "bool" []) = " bool"
        pretty' b (TCons "char" []) = " char"
@@ -263,7 +265,7 @@ tcExtend phi tvn t
     | tvn `notElem` (tcTvars_in t)
     = Ok ((tcDelta tvn t) `tcScomp` phi)
     | otherwise
-    = fail
+    = myFail
          (   "Type error in source program:\n\n"         ++
              "Circular substitution:\n      "            ++
 	      tcShowtExpr (TVar tvn)                     ++ 
@@ -301,7 +303,7 @@ tcUnify phi (TCons tcn ts, TCons tcn' ts')
    = tcUnifyl phi (ts `zip` ts')
 
 tcUnify phi (t1, t2)
-   = fail
+   = myFail
         (   "Type error in source program:\n\n"          ++
             "Cannot unify\n      "                       ++
             tcShowtExpr t1                               ++
@@ -597,7 +599,7 @@ tccase tds gamma ns sw cs als res
 -- and resulting expressions so as to reflect the 
 -- sequence of constructors in the definition
  = if length tdCNames /=  length (nub cs)
-      then  fail
+      then  myFail
             "Error in source program: missing alternatives in CASE"
       else tccase1 tds gamma ns1 sw reOals reOres newTVs tdInUse
      where
@@ -617,7 +619,7 @@ tcReorder :: [Naam] -> [(Naam,b)] -> [b]
 tcReorder []     uol =  []
 tcReorder (k:ks) uol 
    = (utLookupDef uol k 
-        (fail
+        (myFail
             ("Error in source program: undeclared constructor '" ++ k ++
                "' in CASE") ) )
         : tcReorder ks uol 
@@ -817,9 +819,9 @@ tcGetTypeDef :: [TypeDef] ->    -- type definitions
 
 tcGetTypeDef tds cs 
    = if length tdefset == 0 
-        then fail "Undeclared constructors in use"
+        then myFail "Undeclared constructors in use"
      else if length tdefset > 1
-        then fail "CASE expression contains mixed constructors"
+        then myFail "CASE expression contains mixed constructors"
      else head tdefset
      where
         tdefset = nub

@@ -1,0 +1,159 @@
+# Time-stamp: <Mon Jul 22 1996 11:37:58 Stardate: [-31]7847.21 hwloidl>
+# ######################################################################
+# .SUFFIXES: .hs .mgo .mpo
+
+LIT2PGM = lit2pgm
+
+GHC = ghc
+GSGHC = ghc -gransim
+GSGUM = ghc -parallel
+HBCPP = hbcpp
+
+EXTRA = 
+FLAGS =  -fvia-C -cpp -fglasgow-exts -fhaskell-1.3 -syslib ghc -syslib hbc -DPRINT -DARGS -DDATA_PARALLEL -DDC_PARALLEL
+GHC_FLAGS =     -DSEQ $(FLAGS) $(EXTRA) 
+PROFGHC_FLAGS = -DSEQ -prof -hisuf '_p.hi' -osuf '_p.o' $(FLAGS) $(EXTRA) 
+GSGHC_FLAGS =   -USEQ -hisuf '_mg.hi' -osuf '_mg.o' $(FLAGS) $(EXTRA)
+GSGUM_FLAGS =   -USEQ -hisuf '_mp.hi' -osuf '_mp.o' $(FLAGS) $(EXTRA)
+HBCPP_FLAGS = -M -DHBCPP $(FLAGS) $(EXTRA)
+
+# ######################################################################
+# GNU make dependencies
+# ######################################################################
+
+%.hs:	%.lhs
+	$(LIT2PGM) -o $@ $^
+
+%.o: %.hs
+	$(GHC) $(GHC_FLAGS) -c $*.hs
+
+%_p.o: %.hs
+	$(GHC) $(PROFGHC_FLAGS) -c $*.hs
+
+%_mg.o: %.hs
+	$(GSGHC) $(GSGHC_FLAGS) -c $*.hs 
+
+%_mp.o: %.hs
+	$(GSGUM) $(GSGUM_FLAGS)  -c $*.hs
+
+%_hbcpp.o: %.hs
+	-rm $*.o $*.hi
+	$(HBCPP) $(HBCPP_FLAGS) $(FLAGS) -c -o $*_hbcpp.o $*.hs
+	-cp $*.hi $*_hbcpp.hi
+	-mv $*.o $*_hbcpp.o
+
+## ######################################################################
+# Uncomment these lines (and the .SUFFIXES line above) if you use std make
+# rather than GNU make
+# Replace all _mg.o by .mgo and _mp.o by .mpo below!
+## ######################################################################
+
+#.hs.o:
+#	$(GHC) $(GHC_FLAGS) -c $*.hs
+#
+#.hs.mgo:
+#	$(GSGHC) $(GSGHC_FLAGS) -c -o $*.mgo $*.hs
+#
+#.hs.mpo:
+#	$(GSGUM) $(GSGUM_FLAGS) -c -o $*.mpo $*.hs
+#
+# ######################################################################
+
+all: seq gransim gum
+
+seq: qh fft integrate sieve
+
+gransim: qh_mg fft_mg integrate_mg sieve_mg
+
+gum: qh_mp fft_mp integrate_mp sieve_mp
+
+# ######################################################################
+
+qh: GranRandom.o quick_hull.o
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+qh_p: GranRandom_p.o  quick_hull_p.o
+	$(GHC) $(PROFGHC_FLAGS) -o $@ $^
+
+qh_mp: GranRandom_mp.o  quick_hull_mp.o
+	$(GSGUM) $(GSGUM_FLAGS) -o $@ $^
+
+qh_mg: StrategiesV_mg.o GranRandom_mg.o quick_hull_mg.o 
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+qh_hbcpp: GranRandom_hbcpp.o  quick_hull.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+fft: StrategiesV.o GranRandom.o fft.o
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+fft_p: StrategiesV_p.o GranRandom_p.o fft_p.o
+	$(GHC) $(PROFGHC_FLAGS) -o $@ $^
+
+fft_mp: StrategiesV_mp.o GranRandom_mp.o fft_mp.o
+	$(GSGUM) $(GSGUM_FLAGS) -o $@ $^
+
+fft_mg: StrategiesV_mg.o GranRandom_mg.o fft_mg.o
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+fft_hbcpp: fft.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+integrate: integrate.o
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+integrate_p: StrategiesV_p.o integrate_p.o
+	$(GHC) $(PROFGHC_FLAGS) -o $@ $^
+
+integrate_mp: StrategiesV_mp.o integrate_mp.o
+	$(GSGUM) $(GSGUM_FLAGS) -o $@ $^
+
+integrate_mg: StrategiesV_mg.o integrate_mg.o
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+integrate_hbcpp: integrate.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+sieve: sieve.o
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+sieve_p: sieve_p.o
+	$(GHC) $(PROFGHC_FLAGS) -o $@ $^
+
+sieve_mp: sieve_mp.o
+	$(GSGUM) $(GSGUM_FLAGS) -o $@ $^
+
+sieve_mg: StrategiesV_mg.o sieve_mg.o 
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+sieve_hbcpp: sieve.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+mi: rand.o matrix-inverse.o
+	$(GHC) $(GHC_FLAGS) -o $@ $^
+
+mi_p: rand_p.o matrix-inverse_p.o
+	$(GHC) $(PROFGHC_FLAGS) -o $@ $^
+
+mi_mp: rand_mp.o matrix-inverse_mp.o
+	$(GSGUM) $(GSGUM_FLAGS) -o $@ $^
+
+mi_mg: StrategiesV_mg.o rand_mg.o matrix-inverse_mg.o 
+	$(GSGHC) $(GSGHC_FLAGS) -o $@ $^
+
+mi_hbcpp: matrix-inverse.hs
+	$(HBCPP) $(HBCPP_FLAGS) -o $@ $^
+
+# ######################################################################
+
+clean:
+	-rm qh fft integrate sieve qh_mg fft_mg integrate_mg sieve_mg qh_mp fft_mp integrate_mp sieve_mp *.o
+

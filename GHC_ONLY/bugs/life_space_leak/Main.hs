@@ -11,9 +11,9 @@ data Tuple2 a b = T2 a b
 data Tuple3 a b c = T3 a b c
 
 
-main resps = [AppendChan stdout (listChar_string
+main = putStr (listChar_string
                     (append1 (C1 '\FF' N)
-                             (life1 (generations ()) (start ()))))]
+                             (life1 (generations ()) (start ()))))
 
 listChar_string :: L Char -> String
 listChar_string N = []
@@ -175,12 +175,16 @@ iterate1 f x = C1 x (iterate1 f (f x))
 take1 :: Int -> L (L Int) -> L (L Int)
 take1 0 _ = N
 take1 _ N = N
-take1 (n+1) (C1 x xs) = C1 x (take1 n xs)
+--should be:take1 (n+1) (C1 x xs) = C1 x (take1 n xs)
+take1 n (C1 x xs) | n < 0     = error "Main.take1"
+		  | otherwise = C1 x (take1 (n-1) xs)
 
 take2 :: Int -> L Int -> L Int
 take2 0 _ = N
 take2 _ N = N
-take2 (n+1) (C1 x xs) = C1 x (take2 n xs)
+--should be:take2 (n+1) (C1 x xs) = C1 x (take2 n xs)
+take2 n (C1 x xs) | n < 0     = error "Main.take2"
+		  | otherwise = C1 x (take2 (n-1) xs)
 
 take3 :: Int -> L (L (L Int))
              -> L (L (L Int))

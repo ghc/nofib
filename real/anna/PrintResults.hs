@@ -58,7 +58,7 @@ prAllPoints d
 
         -- k turns a number into its ascii representation
         k :: Int -> Char
-        k n = chr (n+48)
+        k n = toEnum (n+48)
 
 
 --==========================================================--
@@ -92,7 +92,7 @@ prRoute :: Domain -> Route -> [Char]
 
 prRoute d r
    = let k :: Int -> Char
-         k n = chr (n + 48)
+         k n = toEnum (n + 48)
      in
          map k (prRouteMain d r)
 

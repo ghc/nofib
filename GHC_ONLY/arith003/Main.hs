@@ -1,7 +1,11 @@
 --!!! test arithmetic operations from "Prelude" (gcd, ldm, etc.)
 --
-main _
-  = [AppendChan stdout
+main
+  = let
+	minInt = minBound :: Int
+	maxInt = maxBound :: Int
+    in
+    putStr
        (-- w/ Ints
 	show [
 	    minInt, maxInt,
@@ -62,7 +66,7 @@ main _
 	    -- ToDo: more stuff
 	    ]
     	++ "\n"
-    	)]
+    	)
   where
     i0, i4, i4m, i6, i6m, i8, i8m :: Int
     i0 = 0

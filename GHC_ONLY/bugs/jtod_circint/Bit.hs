@@ -3,7 +3,7 @@ import LogFun
 import Signal
 
 data Bit = Bot | WeakZero | WeakOne | Zero | One | Top
-  deriving (Eq,Text)
+  deriving (Eq,Show{-was:Text-})
 
 instance Static Bit where
   intToSig = intToSigBit
@@ -21,7 +21,7 @@ instance Lattice Bit where
 instance Signal Bit where
   showSig = showBit
   initial = Zero
-  zero    = Zero
+  zerO    = Zero
   one     = One
   tt1     = tt1Bit
   tt2     = tt2Bit

@@ -15,9 +15,8 @@ used in expressions, but does not determine the characteristics.
 > flp_val :: Float
 > flp_val = 1
 
-> main :: Dialogue
 > main  =  (initial_checks flp_parms . main_identities flp_parms .
->           notification_checks flp_parms) done
+>           notification_checks flp_parms) (return ())
 >          where
 >          flp_parms  =  makeFloatParms flp_val
 

@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: IOSupplement.hs,v $
+-- Revision 1.2  1996/07/25 21:23:58  partain
+-- Bulk of final changes for 2.01
+--
 -- Revision 1.1  1996/01/08 20:02:33  partain
 -- Initial revision
 --
@@ -26,9 +29,9 @@ where
 
 --------------------------------------------------------------------------------
 
-type PathCont = [String] -> Dialogue
+type PathCont = [String] -> IO ()
 
-getPath :: String -> [String] -> PathCont -> Dialogue
+getPath :: String -> [String] -> PathCont -> IO ()
 --
 -- accepts the name of an environment variable and a [String] of default paths
 -- and calls the continuation (::PathCont) with the resulting search path
@@ -49,7 +52,7 @@ manglePath cs dflt = case span (/= ':') cs of
 
 --------------------------------------------------------------------------------
 
-readPathFile :: [String] -> String -> FailCont -> StrCont -> Dialogue
+readPathFile :: [String] -> String -> FailCont -> StrCont -> IO ()
 --
 -- readPathFile searchPath fileName fc sc
 -- scan searchPath for fileName and read it

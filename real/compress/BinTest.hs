@@ -1,6 +1,6 @@
 module BinTest (main) where
 
-main = appendChan stdout (show (result 1000)) abort done
+main = putStr (show (result 1000))
 
 result 0 = []
 result n = codes_to_ascii (3077, 1192) ++ result (n-1)

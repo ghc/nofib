@@ -5,6 +5,7 @@
 %\begin{verbatim}
 
 > module Lib where
+> import Char(isDigit) -- 1.3
 > import GoferPreludeBits
 
 % 
@@ -100,7 +101,7 @@ minuses into an integer.
 >       	= loop 0 xs where
 >           loop n [] = n
 >           loop n (' ':xs) = n
->           loop n (x:xs) | isDigit x = loop (10*n+(ord x - ord '0')) xs
+>           loop n (x:xs) | isDigit x = loop (10*n+(fromEnum x - fromEnum '0')) xs
 >      	                  | otherwise = error ("strToInt: " ++ xs)
 
 > toFloat :: Real a => a -> Float
@@ -326,7 +327,7 @@ into [[Int]]
 \begin{Def}{writeTable} the converse of readTable.
 \begin{vb}
 
-> writeTable:: Text a => [[a]] -> String
+> writeTable:: Show{-was:Text-} a => [[a]] -> String
 > writeTable = unlines . map unwords . (map . map) show
 
 \end{verbatim}\end{vb}\end{Def}
@@ -334,7 +335,7 @@ into [[Int]]
 \begin{Def}{writeTableN} like readTable, but number each line.
 \begin{vb}
 
-> writeTableN:: Text a => [[a]] -> String
+> writeTableN:: Show{-was:Text-} a => [[a]] -> String
 > writeTableN = layn . map unwords . (map . map) show
 
 \end{verbatim}\end{vb}\end{Def}

@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: Main.hs,v $
+-- Revision 1.2  1996/07/25 21:24:02  partain
+-- Bulk of final changes for 2.01
+--
 -- Revision 1.1  1996/01/08 20:02:39  partain
 -- Initial revision
 --
@@ -42,7 +45,6 @@ import Color
 import Info
 
 --------------------------------------------------------------------------------
-main :: Dialogue
 main =  parse_cmds program
 --------------------------------------------------------------------------------
 program   
@@ -57,7 +59,7 @@ program
 	  -> Bool
 	  -> Bool -> Bool
 	  -> Bool -> Bool
-	  -> [String] -> Dialogue
+	  -> [String] -> IO ()
 program
 	  ntFontName ntFontScale ntColor
 	  tFontName  tFontScale  tColor
@@ -71,14 +73,14 @@ program
 	  psOutput figOutput
 	  helpFlag verbose strs
 	  | length strs < 2 || helpFlag	=
-	      getProgName exit (\progName ->
-	      appendChan stderr
+	      getProgName >>= \ progName ->
+	      hPutStr stderr
 	      ("Usage: "++progName++" [options] BNFfile Nonterminal ...\n"
-	      ++unlines usageBlurb) exit done)
+	      ++unlines usageBlurb)
 	  | otherwise =
-	      getPath "AFMPATH" afmPathDefault (\afmPath ->
-	      readPathFile afmPath (ntFontName++".afm") exit (\ntAFM ->
-	      readPathFile afmPath (tFontName++".afm")  exit (\tAFM ->
+	      getPath "AFMPATH" afmPathDefault >>= \afmPath ->
+	      readPathFile afmPath (ntFontName++".afm") >>= \ntAFM ->
+	      readPathFile afmPath (tFontName++".afm")  >>= \tAFM ->
 	      let
 		fc = \_ -> message "Color database not found, using fall back data\n" (sc "")
  		sc = \rgbFileContents ->
@@ -124,8 +126,8 @@ program
 	(outWrapper, outExtension)
 		| figOutput = (figShowsWrapper, ".fig")
 		| otherwise = (psShowsWrapper,  ".eps")
-	message what cont | verbose   = appendChan stderr (what++"\n") exit cont
-	                  | otherwise = cont
+	message what | verbose   = hPutStr stderr (what++"\n")
+	             | otherwise = return ()
 
 --------------------------------------------------------------------------------
 layoutAll :: WrapperType -> INFO -> [Production] -> [String] -> [(String, String)]

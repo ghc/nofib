@@ -6,6 +6,9 @@
 > import Interp
 > import PrintTEX
 
+> import System -- 1.3 (partain)
+> import Char -- 1.3
+
 > --fakeArgs = "game001.txt"
 > --fakeArgs = "pca2.pgn"
 > --fakeArgs = "silly.pgn"
@@ -18,6 +21,15 @@
 > version = "0.3"
 
 
+> main = do
+>	args <- getArgs
+>	let (style,fn,filename) = interpArgs args
+>	file <- readFile filename
+>	std_in <- getContents
+>	let games = pgnParser fn file	-- parse relavent pgn games
+>	putStr (prog style std_in games)
+
+>{- OLD 1.2:
 > main = 
 >	getArgs 	abort				$ \ args ->
 >	--let args = (words "-d tex analgames.pgn") in
@@ -27,6 +39,7 @@
 >	let games = pgnParser fn file	-- parse relavent pgn games
 >	in
 >	appendChan stdout (prog style std_in games) abort done
+>-}
 
 > interpArgs :: [String] -> (OutputStyle,Int -> Bool,String)
 > --interpArgs [] = (ViewGame,const True,fakeArgs)

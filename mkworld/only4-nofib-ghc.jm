@@ -1,4 +1,3 @@
-# line 12 "only4-nofib-ghc.ljm"
 #ifndef GhcVersionInUse
 # define GhcVersionInUse 27
 #endif
@@ -25,7 +24,6 @@
 #define _Hm(n) CAT3(-Rmax-heapsize,n,000000)
 #define _Km(n) CAT3(-Rmax-stksize,n,000000)
 #define _Kk(n) CAT3(-Rmax-stksize,n,000)
-# line 42 "only4-nofib-ghc.ljm"
 HC_OPTS_anna	= _Hm(16)
 HC_OPTS_anna_BaseDefs = -cpp
 
@@ -57,7 +55,7 @@ HC_OPTS_fluid_Main = -cpp
 
 HC_OPTS_gg	= _Hm(12)
 
-HC_OPTS_HMMS	= -fhaskell-1.3 if19plus(-syslib hbc)
+HC_OPTS_HMMS	= if19plus(-syslib hbc)
 HC_OPTS_HMMS_MaybeStateT = -cpp
 HC_OPTS_HMMS_BatchAlign = -cpp
 
@@ -69,14 +67,12 @@ HC_OPTS_parser	= _Hm(30) _Km(1)
 HC_OPTS_prolog	= _Hm(8)
 HC_OPTS_reptile	= _Hm(10) _Km(1)
 HC_OPTS_simple  = _Hm(12)
-HC_OPTS_symalg  = -fhaskell-1.3
 
 HC_OPTS_veritas	= _Hm(14) _Km(1)
 HC_OPTS_veritas_Main	= -cpp
 HC_OPTS_veritas_Parse	= _Hm(18)
 
 NOFIB_RUN_symalg = +RTS -H64m -RTS
-# line 95 "only4-nofib-ghc.ljm"
 HC_OPTS_awards = if19plus(-syslib hbc)
 HC_OPTS_boyer_Main = _Hm(16)
 HC_OPTS_cichelli = -cpp
@@ -105,14 +101,14 @@ HC_OPTS_wang		= -cpp if19plus(-syslib hbc)
 HC_OPTS_wave4main	= -cpp if19plus(-syslib hbc) _Hm(12) if24plus(-monly-4-regs)
 
 HC_OPTS_nucleic2	= -cpp /*-DUSE_UNBOXED_FLOATS -DUSE_GLASGOW_HACKS*/ /*nope:-DUSE_HARTEL_LAZINESS*/ -fglasgow-exts
-# line 127 "only4-nofib-ghc.ljm"
-HC_OPTS_editor3 = -fhaskell-1.3
 
-HC_OPTS_haskelldraw = -fhaskell-1.3 -fglasgow-exts -L/usr/openwin/lib -L/usr/X11/lib -lXol -lXt -lXpm -lX11
+HC_OPTS_editor3 = if19plus(-syslib posix)
 
-HC_OPTS_happy = -fhaskell-1.3 -cpp -fglasgow-exts
+HC_OPTS_haskelldraw = -fglasgow-exts -L/usr/openwin/lib -L/usr/X11/lib -lXol -lXt -lXpm -lX11
 
-HC_OPTS_lolita = -fhaskell-1.3 -cpp if19plus(-syslib hbc) if19plus(-syslib ghc) -fglasgow-exts -iutils:StaticNet:controls:tomita
+HC_OPTS_happy = -cpp -fglasgow-exts
+
+HC_OPTS_lolita = -cpp if19plus(-syslib hbc) if19plus(-syslib ghc) -fglasgow-exts -iutils:StaticNet:controls:tomita
 HC_OPTS_lolita_FeatureType = -Onot _Km(4) /* sigh */
 HC_OPTS_lolita_Roles = _Km(4)
 HC_OPTS_lolita_IMain = _Km(4)
@@ -121,11 +117,9 @@ HC_OPTS_lolita_Dial_EmShowPB = -fno-update-analysis /* sigh */
 HC_OPTS_lolita_Dial_EmReact = -fno-update-analysis /* sigh */
 HC_OPTS_lolita_ExtractRootItal = -fno-update-analysis /* sigh */
 
-HC_OPTS_nhccomp = -fhaskell-1.3 -cpp if19plus(-syslib hbc)
-# line 147 "only4-nofib-ghc.ljm"
+HC_OPTS_nhccomp = -cpp if19plus(-syslib hbc)
 HC_OPTS_linsolv = -fglasgow-exts -cpp -UNO_FILTER -DASYM_CRA -DGUM -DPAR_DET_SZ=4 -DINPUT_SIZE=4
 HC_OPTS_dcbm    = -fglasgow-exts -cpp -DPAR 
-# line 152 "only4-nofib-ghc.ljm"
 NOFIB_RUN_fulsom  = +RTS -H12m -RTS
 
 NOFIB_RUN_gamteb  = +RTS -K1500k -RTS	/* SIGH */
@@ -166,7 +160,6 @@ NOFIB_RUN_exp3_8    = +RTS -K300k -RTS
 NOFIB_RUN_primes    = +RTS -H16m -RTS
 
 /* **********  END OF all that follows ... ************* */
-# line 195 "only4-nofib-ghc.ljm"
 #if IncludeGHC_ONLYNoFibTests == YES
 
 HC_OPTS_cg012 = -fglasgow-exts
@@ -181,9 +174,8 @@ HC_OPTS_cg032 = -fglasgow-exts
 HC_OPTS_cg033 = -fglasgow-exts
 HC_OPTS_cg035 = -fglasgow-exts -fvia-C /*'-#include"math.h"'*/
 HC_OPTS_cg036 = -fglasgow-exts
-HC_OPTS_cg036 = -fhaskell-1.3
 
-HC_OPTS_ghclib001 = -fhaskell-1.3 if19plus(-syslib ghc)
+HC_OPTS_ghclib001 = if19plus(-syslib ghc)
 NOFIB_RUN_ghclib001 = +RTS -H16m -K8m -RTS
 
 NOFIB_RUN_cg021 = +RTS -H15000k -K4500k -RTS
@@ -196,51 +188,35 @@ NOFIB_RUN_cg023 = +RTS -H32k -RTS
 
 HC_OPTS_arith005 = -cpp -fno-update-analysis/*sigh*/
 
-HC_OPTS_io001 = -fhaskell-1.3
-HC_OPTS_io002 = -fhaskell-1.3
-HC_OPTS_io003 = -fhaskell-1.3
-HC_OPTS_io004 = -fhaskell-1.3
-HC_OPTS_io005 = -fhaskell-1.3
-HC_OPTS_io006 = -fhaskell-1.3
-HC_OPTS_io007 = -fhaskell-1.3
-HC_OPTS_io008 = -fhaskell-1.3
-HC_OPTS_io009 = -fhaskell-1.3 if19plus(-syslib hbc)
-HC_OPTS_io010 = -fhaskell-1.3
-HC_OPTS_io011 = -fhaskell-1.3
-HC_OPTS_io012 = -fhaskell-1.3
-HC_OPTS_io013 = -fhaskell-1.3
-HC_OPTS_io014 = -fhaskell-1.3
-HC_OPTS_io015 = -fhaskell-1.3
-HC_OPTS_io016 = -fhaskell-1.3
-HC_OPTS_io017 = -fhaskell-1.3
-HC_OPTS_io018 = -fhaskell-1.3
-HC_OPTS_io019 = -fhaskell-1.3
-HC_OPTS_io020 = -fhaskell-1.3
-HC_OPTS_io021 = -fhaskell-1.3
+HC_OPTS_io009 = if19plus(-syslib hbc)
+HC_OPTS_io012 = if19plus(-syslib ghc)
+HC_OPTS_io018 = if19plus(-syslib ghc)
+HC_OPTS_io019 = if19plus(-syslib ghc -syslib posix)
+HC_OPTS_io020 = if19plus(-syslib ghc -syslib posix)
 
-HC_OPTS_po001 = -fhaskell-1.3
-HC_OPTS_po002 = -fhaskell-1.3
-HC_OPTS_po003 = -fhaskell-1.3
-HC_OPTS_po004 = -fhaskell-1.3 -fvia-C
-HC_OPTS_po005 = -fhaskell-1.3
-HC_OPTS_po006 = -fhaskell-1.3
-HC_OPTS_po007 = -fhaskell-1.3 -fvia-C
-HC_OPTS_po008 = -fhaskell-1.3 -fvia-C
-HC_OPTS_po009 = -fhaskell-1.3 -fvia-C
-HC_OPTS_po010 = -fhaskell-1.3
-HC_OPTS_po011 = -fhaskell-1.3
-HC_OPTS_po012 = -fhaskell-1.3 -fvia-C /*??? '-#include"libposix.h"' */
+HC_OPTS_po001 = if19plus(-syslib posix -syslib ghc)
+HC_OPTS_po002 = if19plus(-syslib posix)
+HC_OPTS_po003 = if19plus(-syslib posix)
+HC_OPTS_po004 = if19plus(-syslib posix) -fvia-C
+HC_OPTS_po005 = if19plus(-syslib posix)
+HC_OPTS_po006 = if19plus(-syslib posix)
+HC_OPTS_po007 = if19plus(-syslib posix) -fvia-C
+HC_OPTS_po008 = if19plus(-syslib posix) -fvia-C
+HC_OPTS_po009 = if19plus(-syslib posix) -fvia-C
+HC_OPTS_po010 = if19plus(-syslib posix)
+HC_OPTS_po011 = if19plus(-syslib posix)
+HC_OPTS_po012 = if19plus(-syslib posix) -fvia-C /*??? '-#include"libposix.h"' */
 
-HC_OPTS_net001 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net002 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net003 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net004 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net005 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net006 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net007 = -fhaskell-1.3 if19plus(-syslib ghc)
-HC_OPTS_net008 = -fhaskell-1.3 if19plus(-syslib ghc)
+HC_OPTS_net001 = if19plus(-syslib ghc)
+HC_OPTS_net002 = if19plus(-syslib ghc)
+HC_OPTS_net003 = if19plus(-syslib ghc)
+HC_OPTS_net004 = if19plus(-syslib ghc)
+HC_OPTS_net005 = if19plus(-syslib ghc)
+HC_OPTS_net006 = if19plus(-syslib ghc)
+HC_OPTS_net007 = if19plus(-syslib ghc) if19plus(-syslib posix)
+HC_OPTS_net008 = if19plus(-syslib ghc) if19plus(-syslib posix)
 
-HC_OPTS_stable001 = -fvia-C -fglasgow-exts -fhaskell-1.3
+HC_OPTS_stable001 = -fvia-C -fglasgow-exts
 NOFIB_RUN_stable001 = +RTS -H10k -RTS
 
 /* specialisation tests, esp for unboxed specialisation */
@@ -268,19 +244,13 @@ HC_OPTS_north_lias = _Hm(32)
 
 HC_OPTS_zhang_ccall = -fglasgow-exts
 
-HC_OPTS_dmgob_native1 = -fhaskell-1.3 if19plus(-syslib hbc)
+HC_OPTS_dmgob_native1 = if19plus(-syslib hbc)
 HC_OPTS_dmgob_native1_MaybeStateT = -cpp
 
-HC_OPTS_dmgob_native2 = -fhaskell-1.3 if19plus(-syslib hbc) -cpp
+HC_OPTS_dmgob_native2 = if19plus(-syslib hbc) -cpp
 
 HC_OPTS_andy_cherry = -cpp
 HC_OPTS_ipoole_spec_class = -cpp
 HC_OPTS_waugh_neural = if19plus(-syslib hbc)
 
 #endif /* IncludeGHC_ONLYNoFibTests */
-# line 309 "only4-nofib-ghc.ljm"
-#if IncludePENDINGNoFibTests == YES
-
-HC_OPTS_simple_Size = _Hm(14)
-
-#endif /* IncludePENDINGNoFibTests */

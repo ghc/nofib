@@ -17,6 +17,7 @@ module Asb_routs
 import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
+import Ix--1.3
 
 -----------------------------------------------------------
 -- Generating a lookup table for assembling a system     --
@@ -42,7 +43,7 @@ get_asb_table total e_total nodel steer =
 	)
 	where
 	range_nodel = range (1,nodel)
-	f1 = \x y->(x:=y)
+	f1 = \x y->(x,y)
 
 -----------------------------------------------------------
 -- syntaxes for generating velocity and pressure         --

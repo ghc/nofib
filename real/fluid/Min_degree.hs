@@ -11,6 +11,7 @@ module Min_degree (min_degree) where
 import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
+import List(nub,partition)--1.3
 
 -- minimum degree ordering
 -- the entry lists in old_rows must be in assending order
@@ -20,7 +21,7 @@ min_degree old_rows = find_min init_counts [] [] []
 	-- initial row degree counts
 	init_counts =
 		s_accumArray (++) ([]::[Int]) (s_bounds old_rows)
-		(map (\(x:=y)->length y:=[x]) (s_assocs old_rows))
+		(map (\(x,y)->(length y,[x])) (s_assocs old_rows))
 	-- find rows with minimum degrees (recursive)
 	find_min counts cliques pro res =
 		if remaining == []
@@ -34,13 +35,13 @@ min_degree old_rows = find_min init_counts [] [] []
 		-- updated row counts
 		new_counts =
 			s_accumArray mg_line ([]::[Int]) (s_bounds counts)
-			((map (\(i:=js)->i:=rm_list chgd js) (sparse_assocs counts)) ++ updt)
+			((map (\(i,js)->(i,rm_list chgd js)) (sparse_assocs counts)) ++ updt)
 			where
-			chgd = mg_lines ([pivot_i]:[ js | _ := js <- updt ])
+			chgd = mg_lines ([pivot_i]:[ js | (_, js) <- updt ])
 		updt = count_update new_cols []
 		-- counts of remaining rows
 		remaining = sparse_assocs counts
-		(_:=(pivot_i:_)) = head remaining
+		(_, (pivot_i:_)) = head remaining
 		-- (List of) cliques with the processed column removed.
 		-- Also, whole clique is removed if there is less
 		-- 2 entries in it.
@@ -69,7 +70,7 @@ min_degree old_rows = find_min init_counts [] [] []
 		-- the function which updates the row counts
 		count_update (r:rs) res =
 			count_update rs
-			(((length (get_cols r (new_cols:cliques)))-1:=[r]):res)
+			(((length (get_cols r (new_cols:cliques)))-1,[r]):res)
 		count_update _ res = res
 		-- find nonzero entries
 		get_cols = \i cli ->

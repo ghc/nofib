@@ -11,7 +11,7 @@ infixl 9 ##
 
 --==========================================================--
 --
-fail msg
+myFail msg
    = error ("\n" ++ msg ++ "\n")
 
 panic msg
@@ -23,24 +23,6 @@ panic msg
 mySubtract :: Int -> Int -> Int
 
 mySubtract x y = y - x
-
-
---==========================================================--
---
-myTake :: Int -> [b] -> [b]
-
-myTake 0     _       = []
-myTake _     []      = []
-myTake (n+1) (x:xs)  = x : myTake n xs
-
-
---==========================================================--
---
-myDrop :: Int -> [b] -> [b]
-
-myDrop 0     xs      = xs
-myDrop _     []      = []
-myDrop (n+1) (_:xs)  = myDrop n xs
 
 
 --==========================================================--

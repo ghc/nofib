@@ -14,7 +14,7 @@ structure functions that read data files.
 
 > module MaybeStateT(
 >#ifndef __GLASGOW_HASKELL__
->       Maybe..,
+>       module Maybe,
 >#endif
 >       MST(..),
 >       returnMST, bindMST, thenMST
@@ -22,8 +22,6 @@ structure functions that read data files.
 
 >#ifndef __GLASGOW_HASKELL__
 > import Maybe
->#else
-> thenM = thenMaybe
 >#endif
 
 \end{haskell}
@@ -42,6 +40,10 @@ structure functions that read data files.
 
 > bindMST       :: MST s a -> (a -> MST s b) -> MST s b
 > bindMST m k s =  m s `thenM` \(x, s') -> k x s'
+>   where
+>     m `thenM` k = case m of
+>		  Nothing -> Nothing
+>		  Just a  -> k a
 
 \end{haskell}
         \fixhaskellspacing\begin{haskell}{thenMST}

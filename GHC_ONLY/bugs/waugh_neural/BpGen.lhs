@@ -17,6 +17,7 @@ Need to use modules for matrix and vector operations.
 
 > import {-fool mkdependHS-}
 >	 Random
+> import List(transpose)
 > infixl 7 $$
 
 -------------------------------------------------------------------------------
@@ -100,10 +101,13 @@ a reasonable level.
 > trainweights :: Egs -> Weights -> Int -> Double -> Double
 >		-> [Int] -> (Weights, [Double])
 > trainweights _   ws 0       _   _   _  = (ws, [])
-> trainweights egs ws (eps+1) err eta rs
+> --should be:trainweights egs ws (eps+1) err eta rs
+> trainweights egs ws eps err eta rs
+>    | eps < 0 = error "BpGen.trainweights"
+>    | otherwise
 >    = let (ws',rs')	= trainepoch egs ws (length egs) eta rs
 >	   newerr	= calcerror ws' egs
->	   (ws'', errs) = trainweights egs ws' eps err eta rs'
+>	   (ws'', errs) = trainweights egs ws' (eps-1) err eta rs'
 >      in if newerr < err then (ws',  [newerr])
 >			  else (ws'', newerr:errs)
 
@@ -113,10 +117,13 @@ as well as selecting an example.
 
 > trainepoch :: Egs -> Weights -> Int -> Double -> [Int] -> (Weights, [Int])
 > trainepoch _   ws 0        _   rs     = (ws,rs)
-> trainepoch egs ws (egno+1) eta (r:rs)
+> --should be: trainepoch egs ws (egno+1) eta (r:rs)
+> trainepoch egs ws egno eta (r:rs)
+>    | egno < 0 = error "BpGen.trainepoch"
+>    | otherwise
 >    = let (x,t) = egs !! r
 >	   ws'	 = backprop eta (classeg ws x) ws t
->      in trainepoch egs ws' egno eta rs
+>      in trainepoch egs ws' (egno-1) eta rs
 
 
 backprop causes weight changes after calculating the change
@@ -177,7 +184,10 @@ The weight sizes are taken from the list of dimensions.
 
 > multSplitAt :: Int -> Int -> [a] -> ([[a]],[a])
 > multSplitAt inner 0 xs = ([], xs)
-> multSplitAt inner (outer + 1) xs
+> --should be:multSplitAt inner (outer + 1) xs
+> multSplitAt inner outer xs
+>   | outer < 0 = error "BpGen.multSplitAt"
+>   | otherwise
 >     = let (l,  xs')  = splitAt inner xs
->	    (ls, xs'') = multSplitAt inner outer xs'
+>	    (ls, xs'') = multSplitAt inner (outer-1) xs'
 >       in (l:ls, xs'')

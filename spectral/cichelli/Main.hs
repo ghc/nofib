@@ -8,5 +8,7 @@ import Prog (prog)
 -- partain: doesn't actually look at input;
 -- real input is wired into Key.lhs
 
-main ~((Str str):_) = [ReadChan stdin, AppendChan stdout (prog str)]
+main = do
+    str <- getContents
+    putStr (prog str)
 --#endif

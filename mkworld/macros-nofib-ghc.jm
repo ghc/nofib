@@ -1,4 +1,3 @@
-# line 10 "macros-nofib-ghc.ljm"
 #ifndef RunStdTestTimeCmd
 #define RunStdTestTimeCmd -ghc-timing
 #endif

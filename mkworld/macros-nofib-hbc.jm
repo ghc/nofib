@@ -1,4 +1,3 @@
-# line 10 "macros-nofib-hbc.ljm"
 #ifndef RunStdTestTimeCmd
 #define RunStdTestTimeCmd -hbc-timing
 #endif

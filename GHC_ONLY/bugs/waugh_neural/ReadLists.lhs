@@ -13,7 +13,7 @@ Thanks to Paul Hudak for suggestions concerning getVals.
 
 readWhiteList reads a white-spaced list from a given string
 
-> readWhiteList :: (Text a) => String -> [a]
+> readWhiteList :: (Read a) => String -> [a]
 > readWhiteList = getVals reads
 
 

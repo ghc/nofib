@@ -1,5 +1,8 @@
 \section{Probabalistic Primality Testing}
 %$Log: Prime.lhs,v $
+%Revision 1.2  1996/07/25 21:32:57  partain
+%Bulk of final changes for 2.01
+%
 %Revision 1.1  1996/01/08 20:04:21  partain
 %Initial revision
 %
@@ -23,8 +26,8 @@ definitely composite when the @Bool@ is @False@.
 > multiTest :: Int -> [Int] -> Integer -> (Bool, [Int])
 > multiTest k rs n
 >  = if n <= 1 || even n then (n==2, rs) else mTest k rs
->    where mTest 0     rs = (True, rs)
->          mTest (k+1) rs = if t then mTest k rs' else (False, rs')
+>    where mTest 0 rs = (True, rs)
+>          mTest k rs = if t then mTest (k-1) rs' else (False, rs')
 >                           where (t, rs') = singleTest n (findKQ n) rs
 
 The function @findKQ@ takes an odd integer $n$ and returns the tuple
@@ -48,7 +51,7 @@ compositeness using @singleTestX@.
 
 > singleTestX n (k, q) x
 >  = t == 1 || t == n-1 || witness ts
->    where (t:ts)         = take k (iterate square (powerMod x q n))
+>    where (t:ts)         = take (fromInteger k) (iterate square (powerMod x q n))
 >          witness []     = False
 >          witness (t:ts) = if t == n-1 then True       else
 >                           if t == 1   then False      else

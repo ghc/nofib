@@ -22,7 +22,7 @@ import	ChargeDensity
 import	Potential
 import	ElecField
 import	PushParticle
-
+import Array--1.3
 
 -- PIC, particle in cell, a basic electrodynamics application
 -- Given an initial configuration of particles, follow how they move under the
@@ -93,5 +93,5 @@ initPhi partHeap =
 	where
 	    rho = chargeDensity partHeap
 	    phi0 = array ((0,0), (n,n))
-		   [(i,j):=0.0 | i <- [0..n], j <- [0..n]]
+		   [((i,j), 0.0) | i <- [0..n], j <- [0..n]]
 	    n = nCell-1

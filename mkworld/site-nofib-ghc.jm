@@ -6,7 +6,7 @@
    only4-nofib-ghc.ljm.)
 */
 #ifndef SetupHcOpts
-#define SetupHcOpts -hi-diffs -dcore-lint -link-chk
+#define SetupHcOpts -recomp -hi-diffs -dcore-lint -link-chk
 #endif
 
 #if alpha_HOST_ARCH

@@ -2,7 +2,7 @@ module Main where
 import Numbers
 import Vectors
 import Hide
-import IO
+import MyIO
 import EdgePlate	( Input(..) ) -- partain
 import Postscript	( Output(..) ) -- partain
 

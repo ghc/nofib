@@ -6,7 +6,7 @@
 module Main where
 
 a `par` b = b
-a `seq` b = b
+--1.3 a `seq` b = b
 
 -- MandTree - either contains a NS node with two subtrees
 --                   contains a EW node with two subtrees

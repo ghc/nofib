@@ -2,6 +2,9 @@
 
 \begin{verbatim}
 $Log: QRationals.lhs,v $
+Revision 1.2  1996/07/25 21:30:48  partain
+Bulk of final changes for 2.01
+
 Revision 1.1  1996/01/08 20:05:18  partain
 Initial revision
 
@@ -59,11 +62,12 @@ change to the standard prelude's rational package.
 
 > enumFromBy n k		=  n : enumFromBy (n+k) k
 
-> instance  Text QRational  where
+> instance  Read QRational  where
 >	readsPrec p		=  readParen (p > prec)
 >                                   (\r -> [(x%%y,u) | (x,s)    <- reads r,
 >                                                      ("%%",t) <- lex s,
 >                                                      (y,u)    <- reads t ])
+> instance  Show QRational  where
 >	showsPrec p (x:%%y)	= showParen (p > prec) (shows x .
 >                                                       showString " %% " .
 >                                                       shows y)

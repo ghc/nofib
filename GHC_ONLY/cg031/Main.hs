@@ -3,8 +3,9 @@
 --
 module Main ( main ) where
 
-main _ = [AppendChan stdout (shows (sum ([1..1{-30-}]++[1..1{-40-}]++[11,22])) "\n"),
-	  AppendChan stdout (shows (prog 1{-30-} 1{-40-}) "\n")]
+main = do
+    putStr (shows (sum ([1..1{-30-}]++[1..1{-40-}]++[11,22])) "\n")
+    putStr (shows (prog 1{-30-} 1{-40-}) "\n")
 
 data Foo a
   = MkFoo [a] Int# [Int] Int# [(a,Int)] Int#

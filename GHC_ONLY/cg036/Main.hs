@@ -4,7 +4,7 @@
 --
 module Main ( main, g ) where
 
-main _ = [AppendChan stdout (shows (g 42) "\n")]
+main = putStr (shows (g 42) "\n")
 
 g :: Int -> Int -> Int -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int)
 

@@ -7,7 +7,7 @@ import S_Array
 import Defs
 import Quad_def
 
-main = appendChan stdout call_tg abort done
+main = putStr call_tg
 
 call_tg =
 	tg_iter

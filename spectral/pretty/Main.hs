@@ -2,7 +2,7 @@ module Main where
 
 import Pretty
 
-main _ = [AppendChan stdout ((ppShow (80::Int) pretty_stuff) ++ "\n")]
+main = putStr ((ppShow (80::Int) pretty_stuff) ++ "\n")
  where
   pretty_stuff = ppAboves [ ppBesides [ppInt (-42), ppChar '@', ppStr "This is a string"],
 			    pp'SP,

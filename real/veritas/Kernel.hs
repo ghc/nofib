@@ -1169,15 +1169,15 @@ write_obj magic_str type_str obj file
 	    end
 		   
 	
-    val a_chr = ord "a"
-    and z_chr = ord "z"
-    and A_chr = ord "A"
-    and Z_chr = ord "Z"
-    and zero_chr = ord "0"
-    and nine_chr = ord "9"
-    and minus_chr =  ord "-"
-    and underline_chr =  ord "_"
-    and dot_cht = ord "."
+    val a_chr = fromEnum "a"
+    and z_chr = fromEnum "z"
+    and A_chr = fromEnum "A"
+    and Z_chr = fromEnum "Z"
+    and zero_chr = fromEnum "0"
+    and nine_chr = fromEnum "9"
+    and minus_chr =  fromEnum "-"
+    and underline_chr =  fromEnum "_"
+    and dot_cht = fromEnum "."
 
     (* database names must be either:	*)
     (*		lower-case alphas a-z	*)
@@ -1193,7 +1193,7 @@ write_obj magic_str type_str obj file
 			(ch = minus_chr)			orelse 
 			(ch = underline_chr)			orelse 
 			(ch = dot_cht)
-	    in forall ok_ch (map ord (explode name)) end
+	    in forall ok_ch (map fromEnum (explode name)) end
 
     in (* local *)
 

@@ -63,7 +63,7 @@ instance Eq ChessSet where
 instance Ord ChessSet where
     _ <= _ = True			
 
-instance Text ChessSet where
+instance Show ChessSet where
    showsPrec p board@(Board sze n f ts) 
       = showString (printBoard sze sortedTrail 1)
         where

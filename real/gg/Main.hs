@@ -9,28 +9,29 @@ import Activity
 import Spark
 --import Prog (prog)
 
-main = --getArgs abort (\str->appendChan stdout (show (condenseArgs str)) abort done)
-	getArgs abort (\str->control (map parseLine (condenseArgs str)))
+import System -- 1.3 (partain)
 
-control args = (if (from=="stdin") then readChan stdin (error "No input channel")
-			(\stats->controlOut stats) 
-		else readFile from (error "No input File") (\stats->controlOut stats))
-	where
-	controlOut stats = if into=="stdout" then appendChan stdout (form graph) abort done
-				else writeFile into (form graph) abort done
-		where
-		form :: (String -> Postscript)
-		form = if (sizeX==0) then (if (elem G args) then gspostscript else postscript)
-			else ePostscript (sizeX,sizeY)
-		graph :: Postscript
-		graph = if (elem P args) then poolGraph processors stats
-			else if orderSp/=[] then sparkGraph orderSp processors stats 
-				else activityGraph orderAct processors stats
-	(A orderAct) = lookup (A defaultAct) args
-	(S orderSp) = lookup (S []) args
-	(E sizeX sizeY) = lookup (E 0 0) args
-	(PS processors) = lookup (PS []) args
-	(IO (from,into)) = lookup (IO ("stdin","stdout")) args
+main = do
+    str <- getArgs
+    control (map parseLine (condenseArgs str))
+
+control args = do
+    stats <- if from=="stdin" then getContents else readFile from
+    (if into=="stdout" then putStr else writeFile into) (form (graph stats))
+  where
+    form :: (String -> Postscript)
+    form = if (sizeX==0) then (if (elem G args) then gspostscript else postscript)
+	    else ePostscript (sizeX,sizeY)
+    graph :: String -> Postscript
+    graph stats = if (elem P args) then poolGraph processors stats
+	    else if orderSp/=[] then sparkGraph orderSp processors stats 
+		    else activityGraph orderAct processors stats
+
+    (A orderAct) = lookUp (A defaultAct) args
+    (S orderSp) = lookUp (S []) args
+    (E sizeX sizeY) = lookUp (E 0 0) args
+    (PS processors) = lookUp (PS []) args
+    (IO (from,into)) = lookUp (IO ("stdin","stdout")) args
 
 condenseArgs :: [String] -> [String]
 condenseArgs [] = []
@@ -39,10 +40,10 @@ condenseArgs [a,b] = [a++" "++b]
 condenseArgs a = a
 
 	
-lookup :: Args -> [Args] -> Args
-lookup a [] = a
-lookup a (b:bs) | a==b = b
-		| otherwise = lookup a bs
+lookUp :: Args -> [Args] -> Args
+lookUp a [] = a
+lookUp a (b:bs) | a==b = b
+		| otherwise = lookUp a bs
 
 data Args = A [Activity]
 	  | S [Spark]

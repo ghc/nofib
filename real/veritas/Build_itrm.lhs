@@ -2,6 +2,7 @@ itrm building functions used by parser
 
 > module Build_itrm where
 
+> import Char(isDigit)--1.3
 > import Core_datatype
 
 > import Type_defs

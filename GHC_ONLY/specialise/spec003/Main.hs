@@ -4,7 +4,7 @@ module Main where
 
 import PreludeNum
 
-main = appendChan stdout (show values) abort done
+main = putStr (show values)
 
 values = (I# f1, I# f2, I# f3)
 

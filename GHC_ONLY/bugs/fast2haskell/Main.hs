@@ -1,6 +1,8 @@
 module Main (main) -- TEST
 where {
 import Fast2haskell;
+import Complex;--1.3
+import Array;--1.3
 
     c_eps=(5.00000e-06 :: Double);
     c_t=True;
@@ -36,7 +38,7 @@ import Fast2haskell;
             (False,(++) a_name ((++) "\tok: " ((++) (show a_ok) ((++) "\tis: " 
             (show a_try)))));
     f_chartest a_name a_ok a_try=
-        if (((==) :: (Int -> Int -> Bool)) (ord a_ok) (ord a_try))
+        if (((==) :: (Int -> Int -> Bool)) (fromEnum a_ok) (fromEnum a_try))
         then (True,"")
         else 
             (False,(++) a_name ((++) "\tok: " ((++) ((:) a_ok []) ((++) "\tis: " 
@@ -70,11 +72,11 @@ import Fast2haskell;
         else 
             False;
     c_testlist=(:) (f_inttest "array" (10 :: Int) ((!) (array (descr (1 :: Int) (3 :: Int)) ((:) 
-        ((:=) (3 :: Int) (30 :: Int)) ((:) ((:=) (1 :: Int) (10 :: Int)) ((:) ((:=) (2 :: Int) (20 :: Int)) [])))) (1 :: Int))) ((:) (f_inttest "array" (20 :: Int) 
-        ((!) (array (descr (1 :: Int) (3 :: Int)) ((:) ((:=) (3 :: Int) (30 :: Int)) ((:) ((:=) (1 :: Int) (10 :: Int)) 
-        ((:) ((:=) (2 :: Int) (20 :: Int)) [])))) (2 :: Int))) ((:) (f_inttest "array" (30 :: Int) ((!) (array (descr (1 :: Int) (3 :: Int)) 
-        ((:) ((:=) (3 :: Int) (30 :: Int)) [])) (3 :: Int))) ((:) (f_inttest "assoc" (0 :: Int) (indassoc ((:=) (0 :: Int) (1 :: Int)))) ((:) 
-        (f_inttest "assoc" (1 :: Int) (valassoc ((:=) (0 :: Int) (1 :: Int)))) ((:) (f_inttest "bounds" (1 :: Int) (lowbound (bounds 
+        ((,) (3 :: Int) (30 :: Int)) ((:) ((,) (1 :: Int) (10 :: Int)) ((:) ((,) (2 :: Int) (20 :: Int)) [])))) (1 :: Int))) ((:) (f_inttest "array" (20 :: Int) 
+        ((!) (array (descr (1 :: Int) (3 :: Int)) ((:) ((,) (3 :: Int) (30 :: Int)) ((:) ((,) (1 :: Int) (10 :: Int)) 
+        ((:) ((,) (2 :: Int) (20 :: Int)) [])))) (2 :: Int))) ((:) (f_inttest "array" (30 :: Int) ((!) (array (descr (1 :: Int) (3 :: Int)) 
+        ((:) ((,) (3 :: Int) (30 :: Int)) [])) (3 :: Int))) ((:) (f_inttest "assoc" (0 :: Int) (indassoc ((,) (0 :: Int) (1 :: Int)))) ((:) 
+        (f_inttest "assoc" (1 :: Int) (valassoc ((,) (0 :: Int) (1 :: Int)))) ((:) (f_inttest "bounds" (1 :: Int) (lowbound (bounds 
         (listArray (descr (1 :: Int) (3 :: Int)) ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) []))))))) ((:) (f_inttest "bounds" (3 :: Int) 
         (upbound (bounds (listArray (descr (1 :: Int) (3 :: Int)) ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) []))))))) 
         ((:) (f_inttest "descr" (0 :: Int) (lowbound (descr (0 :: Int) (1 :: Int)))) ((:) (f_inttest "descr" (1 :: Int) (upbound 
@@ -84,7 +86,7 @@ import Fast2haskell;
         ((:) (2 :: Int) ((:) (3 :: Int) [])))) (0 :: Int) (0 :: Int)))) ((:) (f_linttest "elems" ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) []))) 
         (elems (listArray (descr (0 :: Int) (2 :: Int)) ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) [])))))) ((:) 
         (f_linttest "elems" ((:) (1 :: Int) []) (elems (listArray (descr (0 :: Int) (0 :: Int)) ((:) (1 :: Int) ((:) (2 :: Int) 
-        ((:) (3 :: Int) [])))))) ((:) (f_inttest "indassoc" (0 :: Int) (indassoc ((:=) (0 :: Int) (1 :: Int)))) ((:) (f_linttest "listarray" 
+        ((:) (3 :: Int) [])))))) ((:) (f_inttest "indassoc" (0 :: Int) (indassoc ((,) (0 :: Int) (1 :: Int)))) ((:) (f_linttest "listarray" 
         ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) []))) (elems (listArray (descr (0 :: Int) (2 :: Int)) ((:) (1 :: Int) 
         ((:) (2 :: Int) ((:) (3 :: Int) [])))))) ((:) (f_linttest "listarray" ((:) (1 :: Int) []) (elems (listArray 
         (descr (0 :: Int) (0 :: Int)) ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) [])))))) ((:) (f_inttest "lowbound" (0 :: Int) (lowbound 
@@ -96,7 +98,7 @@ import Fast2haskell;
         ((!!) ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) [])))) (descr (0 :: Int) (2 :: Int))))) ((:) (f_linttest "tabulate" 
         ((:) (1 :: Int) []) (elems (tabulate ((!!) ((:) (1 :: Int) ((:) (2 :: Int) ((:) (3 :: Int) [])))) 
         (descr (0 :: Int) (0 :: Int))))) ((:) (f_inttest "upbound" (1 :: Int) (upbound (descr (0 :: Int) (1 :: Int)))) ((:) (f_inttest "valassoc" (1 :: Int) 
-        (valassoc ((:=) (0 :: Int) (1 :: Int)))) ((:) (f_doubtest "add_x" (0.00000 :: Double) (realPart (((+) :: (Complex_type -> Complex_type -> Complex_type)) ((:+) (0.00000 :: Double) (0.00000 :: Double)) 
+        (valassoc ((,) (0 :: Int) (1 :: Int)))) ((:) (f_doubtest "add_x" (0.00000 :: Double) (realPart (((+) :: (Complex_type -> Complex_type -> Complex_type)) ((:+) (0.00000 :: Double) (0.00000 :: Double)) 
         ((:+) (0.00000 :: Double) (0.00000 :: Double))))) ((:) (f_doubtest "add_x" (0.00000 :: Double) (imagPart (((+) :: (Complex_type -> Complex_type -> Complex_type)) ((:+) (0.00000 :: Double) (0.00000 :: Double)) ((:+) (0.00000 :: Double) (0.00000 :: Double))))) 
         ((:) (f_doubtest "add_x" (4.00000 :: Double) (realPart (((+) :: (Complex_type -> Complex_type -> Complex_type)) ((:+) (1.00000 :: Double) (2.00000 :: Double)) ((:+) (3.00000 :: Double) (4.00000 :: Double))))) ((:) 
         (f_doubtest "add_x" (6.00000 :: Double) (imagPart (((+) :: (Complex_type -> Complex_type -> Complex_type)) ((:+) (1.00000 :: Double) (2.00000 :: Double)) ((:+) (3.00000 :: Double) (4.00000 :: Double))))) ((:) (f_doubtest "complex" (1.00000 :: Double) 
@@ -127,8 +129,8 @@ import Fast2haskell;
     c_concat=f_foldr (++) [];
     f_const a_x a_y=a_x;
     f_digit a_x=
-        if (((<=) :: (Int -> Int -> Bool)) (ord '0') (ord a_x))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_x) (ord '9'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum '0') (fromEnum a_x))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_x) (fromEnum '9'))
         else 
             False;
     f_drop 0 a_x=a_x;
@@ -176,14 +178,14 @@ import Fast2haskell;
          } in  f_f (1 :: Int) a_x;
     f_letter a_c=
         if (
-            if (((<=) :: (Int -> Int -> Bool)) (ord 'a') (ord a_c))
-            then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'z'))
+            if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'a') (fromEnum a_c))
+            then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'z'))
             else 
                 False)
         then True
         else 
-        if (((<=) :: (Int -> Int -> Bool)) (ord 'A') (ord a_c))
-        then (((<=) :: (Int -> Int -> Bool)) (ord a_c) (ord 'Z'))
+        if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'A') (fromEnum a_c))
+        then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'Z'))
         else 
             False;
     f_limit (a_a:a_b:a_x)=
@@ -200,7 +202,7 @@ import Fast2haskell;
                 else 
                     ((:) [] [])
          } in  
-            if (((==) :: (Int -> Int -> Bool)) (ord a_a) (ord '\o012'))
+            if (((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum '\o012'))
             then ((:) [] (f_lines a_x))
             else 
                 ((:) ((:) a_a (head r_xs)) (tail r_xs));
@@ -290,5 +292,5 @@ data
     f_zip6 (a_a:a_u) (a_b:a_v) (a_c:a_w) (a_d:a_x) (a_e:a_y) (a_f:a_z)=(:) (a_a,a_b,a_c,a_d,a_e,a_f) (f_zip6 a_u a_v a_w a_x a_y a_z);
     f_zip6 a_u a_v a_w a_x a_y a_z=[];
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
-    main r = [AppendChan "stdout" (f_main c_input)]
+    main = putStr (f_main c_input)
 }

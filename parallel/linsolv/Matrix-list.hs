@@ -1,13 +1,16 @@
 {- 
-$Id: Matrix-list.hs,v 1.1 1996/01/08 20:07:34 partain Exp $
+$Id: Matrix-list.hs,v 1.2 1996/07/25 21:20:27 partain Exp $
 
-This is revision: $Revision: 1.1 $
+This is revision: $Revision: 1.2 $
 
 Data Encapsulation of the ADT Matrix.
 Internal representation is a list of lists.
 
 Changelog:
 $Log: Matrix-list.hs,v $
+Revision 1.2  1996/07/25 21:20:27  partain
+Bulk of final changes for 2.01
+
 Revision 1.1  1996/01/08 20:07:34  partain
 Initial revision
 
@@ -443,8 +446,8 @@ instance (Eq a) => Eq [a] where
 instance (Integral a) => Eq (SqMatrix a) where
  (==) = matEqual
 
-instance (Integral a) => Text (SqMatrix a) where
- readsPrec p  = error "readsPrec of Matrix: Not yet implemented!\n"
+instance (Integral a) => Show (SqMatrix a) where
+ --readsPrec p  = error "readsPrec of Matrix: Not yet implemented!\n"
  showsPrec p  = showsMatrix
 
 instance (Integral a) => Num (SqMatrix a) where                
@@ -461,8 +464,8 @@ instance (Integral a) => Num (SqMatrix a) where
 instance (Integral a) => Eq (Vector a) where
  (==) = vecEqual
 
-instance (Integral a) => Text (Vector a) where
- readsPrec p  = error "readsPrec of Vector: Not yet implemented!\n"
+instance (Integral a) => Show (Vector a) where
+ --readsPrec p  = error "readsPrec of Vector: Not yet implemented!\n"
  showsPrec p  = showsVector
 
 

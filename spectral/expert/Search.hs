@@ -55,18 +55,18 @@ solve db soln (Term "and" [g1,g2]) =
    concat [solve db res g2 | res <- solve db soln g1]
 
 solve db soln g =
-   if not (null rs) then lookup db soln g rs else ask info soln g
+   if not (null rs) then lookUp db soln g rs else ask info soln g
    where
    (defs,info) = db
    rs = relevant defs g
 
--- To `lookup' a simple goal using the list of rules `rs', a fresh copy of each
+-- To `lookUp' a simple goal using the list of rules `rs', a fresh copy of each
 -- rule is made (to avoid name clashes with variables about which information
 -- is already known), and `try' is used to see if the left hand side of the
 -- rule matches the goal. If it does, the goal on the right hand side of the
 -- rule is used to continue the search for solutions.
 
-lookup db soln g rs =
+lookUp db soln g rs =
    concat [try db soln' g r' | (soln',r') <- copies] where
    copies = [freshCopy soln r | r<-rs]
 

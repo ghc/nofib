@@ -15,14 +15,12 @@ import PrintSource
 import Printuvwforce
 
 
-main :: [Response] -> [Request]
+main = getContents >>= \ s -> process s
 
-main = readChan stdin abort process
-
-process :: [Char] ->  [Response] -> [Request]
+process :: [Char] ->  IO ()
 
 process s =
-	appendChan stdout a abort done
+	putStr a
         where
 		a  = source_data db ++
 		     uvwresult db uvwres ++ 

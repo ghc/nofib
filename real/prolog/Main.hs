@@ -12,21 +12,22 @@ import Interact
 import Subst
 import Engine
 import Version
+import List(nub)--1.3
 
 --- Command structure and parsing:
 
 data Command = Fact Clause | Query [Term] | Show | Error | Quit | NoChange
 
 command :: Parser Command
-command  = just (sptok "bye" `orelse` sptok "quit") `do` (\quit->Quit)
+command  = just (sptok "bye" `orelse` sptok "quit") `doo` (\quit->Quit)
                `orelse`
            just (okay NoChange)
                `orelse`
-           just (sptok "??") `do` (\show->Show)
+           just (sptok "??") `doo` (\show->Show)
                `orelse`
-           just clause `do` Fact
+           just clause `doo` Fact
                `orelse`
-           just (sptok "?-" `seq` termlist) `do` (\(q,ts)->Query ts)
+           just (sptok "?-" `seQ` termlist) `doo` (\(q,ts)->Query ts)
                `orelse`
            okay Error
 
@@ -35,27 +36,28 @@ command  = just (sptok "bye" `orelse` sptok "quit") `do` (\quit->Quit)
 signOn           :: String
 signOn            = "Mini Prolog Version 1.5 (" ++ version ++ ")\n\n"
 
-main             :: Dialogue
-main              = echo False abort
-                    (appendChan stdout signOn abort
-                    (appendChan stdout ("Reading " ++ stdlib) abort
-                    (readFile stdlib
-                      (\fail -> appendChan stdout "...not found\n" abort
-                                    (interpreter []))
-                      (\is   -> let parse   = map clause (lines is)
-                                    clauses = [ r | ((r,""):_) <- parse ]
-                                    reading = ['.'| c <- clauses] ++ "done\n"
-                                in
-                                appendChan stdout reading abort
-                                    (interpreter clauses))
-                    )))
+main              = --echo False abort
+                    putStr signOn >>
+                    putStr ("Reading " ++ stdlib) >>
+                    catch (readFile stdlib)
+                      (\fail -> putStr "...not found\n" >> return "")
+		      >>= \ is ->
+		    if null is then
+		       interpreter []
+		    else
+                      let parse   = map clause (lines is)
+                          clauses = [ r | ((r,""):_) <- parse ]
+                          reading = ['.'| c <- clauses] ++ "done\n"
+                      in
+                      putStr reading >>
+                      interpreter clauses
 
 stdlib           :: String
 stdlib            = "stdlib"
 
-interpreter      :: [Clause] -> Dialogue
-interpreter lib   = readChan stdin abort
-                    (\is -> appendChan stdout (loop startDb is) abort done)
+interpreter      :: [Clause] -> IO ()
+interpreter lib   = getContents >>= \ is ->
+                    putStr (loop startDb is)
                     where startDb = foldl addClause emptyDb lib
 
 loop             :: Database -> String -> String

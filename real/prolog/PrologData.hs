@@ -6,11 +6,13 @@
 --
 -- partain: some changes taken from Hugs 1.0 demo version
 --
-module PrologData(Id(..), Atom(..), Term(..), term, termlist, varsIn,
+module PrologData(Id, Atom, Term(..), term, termlist, varsIn,
                   Clause((:==)), clause,
-                  Database, emptyDb, renClauses, addClause, Parser(..) ) where
+                  Database, emptyDb, renClauses, addClause, Parser ) where
 
 import Parse
+import List(nub)--1.3
+import Char(isAlpha,isDigit,isUpper)
 
 infix 6 :==
 
@@ -62,7 +64,7 @@ addClause (Db rss) r@(Struct a _ :== _)
 
 --- Output functions (defined as instances of Text):
 
-instance Text Term where
+instance Show Term where
   showsPrec p (Var (n,s))
               | n==0        = showString s
               | otherwise   = showString s . showChar '_' . shows n
@@ -71,24 +73,24 @@ instance Text Term where
                                            . showWithSep "," ts
                                            . showChar ')'
 
-instance Text Clause where
+instance Show Clause where
    showsPrec p (t:==[]) = shows t . showChar '.'
    showsPrec p (t:==gs) = shows t . showString ":=="
                                  . showWithSep "," gs
                                  . showChar '.'
 
-instance Text Database where
+instance Show Database where
     showsPrec p (Db [])  = showString "-- Empty Database --\n"
     showsPrec p (Db rss) = foldr1 (\u v-> u . showChar '\n' . v)
                                   [ showWithTerm "\n" rs | (i,rs)<-rss ]
 
 --- Local functions for use in defining instances of Text:
 
-showWithSep          :: Text a => String -> [a] -> ShowS
+showWithSep          :: Show a => String -> [a] -> ShowS
 showWithSep s [x]     = shows x
 showWithSep s (x:xs)  = shows x . showString s . showWithSep s xs
 
-showWithTerm         :: Text a => String -> [a] -> ShowS
+showWithTerm         :: Show a => String -> [a] -> ShowS
 showWithTerm s xs     = foldr1 (.) [shows x . showString s | x<-xs]
 
 --- String parsing functions for Terms and Clauses:
@@ -98,15 +100,15 @@ letter       :: Parser Char
 letter        = sat (\c -> isAlpha c || isDigit c || c `elem` ":;+=-*&%$#@?/.~!")
 
 variable     :: Parser Term
-variable      = sat isUpper `seq` many letter `do` makeVar
+variable      = sat isUpper `seQ` many letter `doo` makeVar
                 where makeVar (initial,rest) = Var (0,(initial:rest))
 
 struct       :: Parser Term
-struct        = many letter `seq` (sptok "(" `seq` termlist `seq` sptok ")"
-                                       `do` (\(o,(ts,c))->ts)
+struct        = many letter `seQ` (sptok "(" `seQ` termlist `seQ` sptok ")"
+                                       `doo` (\(o,(ts,c))->ts)
                                   `orelse`
                                    okay [])
-                `do` (\(name,terms)->Struct name terms)
+                `doo` (\(name,terms)->Struct name terms)
 
 --- Exports:
 
@@ -117,10 +119,10 @@ termlist     :: Parser [Term]
 termlist      = listOf term (sptok ",")
 
 clause       :: Parser Clause
-clause        = sp struct `seq` (sptok ":==" `seq` listOf term (sptok ",")
-                                 `do` (\(from,body)->body)
+clause        = sp struct `seQ` (sptok ":==" `seQ` listOf term (sptok ",")
+                                 `doo` (\(from,body)->body)
                                 `orelse` okay [])
-                          `seq` sptok "."
-                     `do` (\(head,(goals,dot))->head:==goals)
+                          `seQ` sptok "."
+                     `doo` (\(head,(goals,dot))->head:==goals)
 
 --- End of PrologData.hs

@@ -41,7 +41,7 @@ fmSelect :: Int ->
 
 fmSelect a_rand up_space down_space fromTop
    = let min_max_pairs
-            = myTake 30 [(mi, ma) | mi <- up_space,
+            = take 30 [(mi, ma) | mi <- up_space,
                                     ma <- down_space, mi `avBelowEQfrel` ma]
          mmpl = length min_max_pairs
          n = a_rand `mod` mmpl

@@ -25,7 +25,9 @@ import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
 import Min_degree
-
+import Ix--1.3
+infix 1 =:
+(=:) a b = (a,b)
 -----------------------------------------------------------
 -- Liu's generalized envelope method adopted here.       --
 -- Reordering the system matric by firstly applying      --
@@ -54,7 +56,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 	n_bnds' = (0,p_total)
 	-- the inverse of an 1-D Int array.
 	inv_map = \a ->
-		s_array n_bnds' (map (\(i:=j)->j:=i) (s_assocs a))
+		s_array n_bnds' (map (\(i,j)->j=:i) (s_assocs a))
 	-- find the column indecies of nonzero entries in a row
 	get_js old_i map_f =
 		filter (\j->j<=i) (map ((!^) map_f) (old_rows!^old_i))
@@ -62,7 +64,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 	-- children of individual elimination tree nodes
 	chldrn = \e_tree ->
 		s_accumArray (++) [] n_bnds'
-		(map (\(i:=j)->j:=[i]) (s_assocs e_tree))
+		(map (\(i,j)->j=:[i]) (s_assocs e_tree))
 	-- the entry map from the input matrix to the output matrix
 	-- ( combination of o_to_min and min_to_n )
 	o_to_n :: (My_Array Int Int)
@@ -77,7 +79,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 --	min_to_n = s_listArray n_bnds' (range n_bnds')
 --	min_to_o = min_to_n
 	min_to_n = 
-		s_array n_bnds' ((0:=0):(fst (recur ([],1) (chn!^0))))
+		s_array n_bnds' ((0=:0):(fst (recur ([],1) (chn!^0))))
 		where
 		chn = chldrn min_e_tree
 		-- recursive postordering
@@ -88,12 +90,12 @@ orded_mat p_total el_det_fac p_steer fixed =
 				\ res r ->
 				-- current result of post-reordering
 				(recur res (chn!^r)) `bindTo` ( \ (new_reord,label) ->
-				((r:=label):new_reord,label+1) )
+				((r=:label):new_reord,label+1) )
 			)
 	-- the elimination tree of the reordered matrix
 	new_e_tree =
 		s_array n_bnds
-		( map (\(i:=j)-> (min_to_n!^i := min_to_n!^j))
+		( map (\(i,j)-> (min_to_n!^i =: min_to_n!^j))
 		( s_assocs min_e_tree ))
 	-- elimination tree of the matrix after minimum degree
 	-- ordering
@@ -112,7 +114,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 			root old@(k,old_anc) =
 				if ( (new_k==0) || (new_k==i) )
 				then old
-				else root (new_k,old_anc//^[k:=i])
+				else root (new_k,old_anc//^[k=:i])
 				where new_k = old_anc!^k
 			-- finding new parents and ancestors
 			(rss,new_ance) =
@@ -124,7 +126,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 					\ (rs,anc) k1 ->
 					-- appending a new parent
 					(root (k1,anc)) `bindTo` ( \ (r,new_anc) ->
-					(r:=i)		`bindTo` ( \ new_r ->
+					(r=:i)		`bindTo` ( \ new_r ->
 					if new_anc!^r /= 0
 					then (rs, new_anc)
 					else (new_r:rs, new_anc //^ [new_r]) ))
@@ -142,7 +144,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 					]) `bindTo` ( \ non_emp_set ->
 
 				s_def_array (l+1,p_total) (u+1,[])
-				[ i:=(j',[get_v i j | j<- range (j',min u (i-1))])
+				[ i=:(j',[get_v i j | j<- range (j',min u (i-1))])
 					| (i,j') <- non_emp_set
 				] )
 			)
@@ -164,7 +166,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 			all_non0s j arr =
 				if ( j>i || j==0 || arr!^j )
 				then arr
-				else all_non0s (new_e_tree!^j) (arr//^[j:=True])
+				else all_non0s (new_e_tree!^j) (arr//^[j=:True])
 		-- finding the first non-zero entry between l and u of the ith line
 		find_first :: (Int,Int) -> (My_Array Int Bool) -> Int
 		find_first (j1,u) non0_line = f' j1
@@ -175,7 +177,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 				else f' (j+1)
 		-- reordered matrix in a new sparse form
 		block_ends =
-			[ i | (i:=j)<-s_assocs new_e_tree, j/=(i+1) ]
+			[ i | (i,j)<-s_assocs new_e_tree, j/=(i+1) ]
 		block_bnds = zip (1:(map ((+) 1) (init block_ends))) block_ends
 		-- descendants of nodes of elimination tree
 		decnd :: My_Array Int [Int]
@@ -189,8 +191,8 @@ orded_mat p_total el_det_fac p_steer fixed =
 		s_accumArray (++) [] n_bnds
 		( concat
 			[
-				[j|(j:=_)<-sparse_assocs (old_mat!^i)] `bindTo` ( \ j_set ->
-				(i:=j_set):[j':=[i]|j'<-j_set,i/=j'] )
+				[j|(j,_)<-sparse_assocs (old_mat!^i)] `bindTo` ( \ j_set ->
+				(i=:j_set):[j'=:[i]|j'<-j_set,i/=j'] )
 				| i <- range n_bnds
 			]
 		)
@@ -201,7 +203,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 	old_mat =
 		arr //^
 		[ (arr!^i) `bindTo` ( \ ar ->
-		  i := ar //^ [i:=(ar!^i)*large_scalor] )
+		  i =: ar //^ [i=:(ar!^i)*large_scalor] )
 			| i <- fixed
 		]
 		where
@@ -211,7 +213,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 				s_accumArray (+) (0::Frac_type) (1,i) (temp!^i)
 				| i<-range n_bnds
 			]
-		temp :: My_Array Int [Assoc Int Frac_type]
+		temp :: My_Array Int [(Int,Frac_type)]
 		temp =
 			s_accumArray (++) [] n_bnds
 			( concat
@@ -221,7 +223,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 				  concat
 					[
 						(dd_mat!^ii) `bindTo` ( \ dd_m ->
-						[ i := [j := (dd_m!^jj) d_f]
+						[ i =: [j =: (dd_m!^jj) d_f]
 							| (jj,j) <- pairs, j<=i
 						] )
 						| (ii,i) <- pairs

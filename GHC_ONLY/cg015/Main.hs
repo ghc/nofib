@@ -1,4 +1,4 @@
-module Main ( mainPrimIO ) where
+module GHCmain ( mainPrimIO ) where
 
 import PreludeGlaST
 

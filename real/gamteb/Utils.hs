@@ -8,7 +8,7 @@ module Utils (xsectInterp, genRand) where
 import GamtebType
 import Consts
 import InitTable
-
+import Array((!))--1.3
 
 -- linear interpolation to get cross sections as f(erg)
 

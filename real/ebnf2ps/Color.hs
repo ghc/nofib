@@ -10,6 +10,9 @@
 -- 
 -- $Locker:  $
 -- $Log: Color.hs,v $
+-- Revision 1.2  1996/07/25 21:23:51  partain
+-- Bulk of final changes for 2.01
+--
 -- Revision 1.1  1996/01/08 20:02:35  partain
 -- Initial revision
 --
@@ -20,6 +23,9 @@
 
 module Color where
 -- (Color (..), lookupColor, showsColor, prepareColors)
+
+import Char -- 1.3
+import List ((\\)) -- 1.3
 
 type Color = (Int, Int, Int)
 
@@ -41,6 +47,7 @@ readColor1 ('w':_)	   = 7
 readColor1 _		   = -1
 -}
 
+lookupColor :: String -> [(String, (a, b, c))] -> (a, b, c)
 lookupColor colorName colorTable =
 	head [(r,g,b) | (c,(r,g,b)) <- colorTable, c == map toLower colorName]
 
@@ -60,9 +67,9 @@ decodeColors clrs ((r,g,b,name):parsedRgbFile) decoded
 	where found = [ c | c <- clrs, name == c ]
 	      foundDecoded = [ (c,(r,g,b)) | c <- found ]
 
-parseLine str = let (r,restr):_ = readDec (skipWhite str)
-		    (g,restg):_ = readDec (skipWhite restr)
-		    (b,restb):_ = readDec (skipWhite restg)
+parseLine str = let (r,restr):_ = reads{-was:readDec-} (skipWhite str)
+		    (g,restg):_ = reads{-was:readDec-} (skipWhite restr)
+		    (b,restb):_ = reads{-was:readDec-} (skipWhite restg)
 		    name = skipWhite restb
 		in  (r,g,b,name)
   where skipWhite = dropWhile isSpace

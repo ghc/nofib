@@ -48,14 +48,16 @@ instance Num Word where
 	  = case integer2Int# a# s# d# of { z# ->
 	    Word z# }
 
-instance Text Word where
+instance Show Word where
 	showsPrec _ (Word w) =
 		let i = toInteger (MkInt w) + (if w >=# 0# then 0 else  2*(toInteger maxInt + 1))
 		in  showString (conv 8 i)
 
 conv :: Int -> Integer -> String
 conv 0 _ = ""
-conv n i = conv (n-1) q ++ ["0123456789ABCDEF"!!r] where (q, r) = quotRem i 16
+conv n i = conv (n-1) q ++ ["0123456789ABCDEF"!!fromInteger r] 
+         where 
+	   (q, r) = quotRem i 16
 
 ------------------------------------------------------------------
 data Short = Short Int# deriving (Eq, Ord)

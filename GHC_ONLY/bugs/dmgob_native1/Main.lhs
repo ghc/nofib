@@ -24,7 +24,7 @@ blank line, etc.
 
 > import Native
 > import MaybeStateT
-> import LibSystem
+> import System
 
 > main = getArgs           >>= \ args ->
 >       case args of

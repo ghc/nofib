@@ -5,7 +5,7 @@
 
 
 >	(	Point(..),Halfspace(..),Line,
-> 		Face(..),mkFace,getSegment,getLine,
+> 		Face(..),mkFace,getSegment,getMyLine,
 >		Faces(..),Segment(..),
 > 		eqn,solve,space,
 >		convert,invert,--UNUSED:parallel,
@@ -17,29 +17,30 @@
 > import GeomNum
 > import MGRlib (line)
 > import Params (mouseDispx,mouseDispy,gap)
+> import Char(isDigit)--1.3
 
 
 	The data type Line is used to describe a line.
 		Ln a b c represents the line : ax + by + c = 0
 
-> data Line = Ln Numb Numb Numb deriving (Text,Eq)
+> data Line = Ln Numb Numb Numb deriving (Show{-was:Text-},Eq)
 
 	The data type Point defines a point in Euclidean space
 		Pt x y  represents the point x units along the
 			horizontal and y units down the vertical.
 	
-> data Point = Pt Numb Numb deriving (Eq,Text)
+> data Point = Pt Numb Numb deriving (Eq,Show{-was:Text-})
 
 
 	The Halfspace type enumerates the possible classifications of 
 	a point with respect to a line.
 	
-> data Halfspace = Fore | Coin | Rear deriving (Eq,Text)
+> data Halfspace = Fore | Coin | Rear deriving (Eq,Show{-was:Text-})
 
 	The type Face defines a line segment by its two end points.
 		It also stores its line equation
 
-> data Face = Fc Segment Line deriving (Eq,Text)
+> data Face = Fc Segment Line deriving (Eq,Show{-was:Text-})
 
 	The type synonym Segment defines a line segment by its two end points.
                 (pt1,pt2) is the line commencing at pt1 and finishing
@@ -59,15 +60,15 @@
 > getSegment :: Face -> Segment
 > getSegment (Fc segment _) = segment
 
-> getLine :: Face -> Line
-> getLine (Fc _ line) = line
+> getMyLine :: Face -> Line
+> getMyLine (Fc _ line) = line
 
 	space : determines the halfspace of pt w.r.t. line
 		eqn returns a value representing the dot product of point/line
-		zero,positive are GeomNum class methods. 
+		zerO,positive are GeomNum class methods. 
 
 > space :: Line -> Point -> Halfspace
-> space line pt = if zero val then Coin else
+> space line pt = if zerO val then Coin else
 >		  if positive val then Fore
 >		  else Rear
 >			where val = eqn line pt
@@ -105,8 +106,8 @@
 		if the two lines are parallel. 
 
 > solve :: Line -> Line -> Point
-> solve (Ln a b c) (Ln d e f) | zero ((a*e)-(b*d)) = (Pt 0 0)
-> 			    | not (zero a) 	= solveAux (Ln a b (-c)) (Ln d e (-f))
+> solve (Ln a b c) (Ln d e f) | zerO ((a*e)-(b*d)) = (Pt 0 0)
+> 			    | not (zerO a) 	= solveAux (Ln a b (-c)) (Ln d e (-f))
 > 			    | otherwise 	= solveAux (Ln d e (-f)) (Ln a b (-c))
 
 > solveAux :: Line -> Line -> Point

@@ -67,6 +67,8 @@ add_u
 	-> (My_Array Int (Frac_type,Frac_type))
 add_u = arr_merg (\(x,y) (u,v)->(x+u,y+v))
 
+assemble :: (Normal a, Normal d) => ([a] -> c -> d) -> (b -> a) -> S_array ([b], c) -> S_array d
+
 assemble fn fe =
 	s_amap ( \(asb,rest)->
 	let l = map fe asb in

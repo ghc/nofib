@@ -24,7 +24,7 @@
 		fromInteger n		=  fromInteger n `colon_plus` 0;
 		fromInt n		=  fromInt n `colon_plus` 0
 	    };
-	    instance Text Complex_type where {
+	    instance Show Complex_type where {
 		showsPrec d (CD# a b)
 		  = showParen (d > 6)
 		      (showsPrec 7 (D# a) . showString " :+ " . showsPrec 7 (D# b))

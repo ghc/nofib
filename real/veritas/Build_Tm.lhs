@@ -118,7 +118,7 @@ have to deduce term if not explicitely given (type is U-1)
 >               Ok cnv_fn -> cnv_fn argL
 >               Bad mesg  -> TM_Err mesg
 >         where
->--	  fetch_fn :: [Cnv_Fn] -> Maybe ( [Tag_Arg] -> Trm )
+>--	  fetch_fn :: [Cnv_Fn] -> MayBe ( [Tag_Arg] -> Trm )
 >         fetch_fn ( Trm_Fn fn : _ ) = Ok fn
 >         fetch_fn ( _ : oth )       = fetch_fn oth
 >         fetch_fn []                = Bad ( "cannot convert tag " ++ str ++ " to term" )

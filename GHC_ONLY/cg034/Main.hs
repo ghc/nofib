@@ -1,4 +1,6 @@
-main _ = [AppendChan stdout (
+import Ratio -- 1.3
+
+main = putStr (
    shows tinyFloat  ( '\n'
  : shows t_f	    ( '\n'
  : shows hugeFloat  ( '\n'
@@ -11,7 +13,7 @@ main _ = [AppendChan stdout (
  : shows x_d	    ( '\n'
  : shows y_f	    ( '\n'
  : shows y_d	    ( "\n"
- )))))))))))))]
+ )))))))))))))
   where
     t_f :: Float
     t_d :: Double

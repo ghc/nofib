@@ -18,8 +18,8 @@ type	Random		= Double
 type	StatType	= Int		-- which statistic is incremented
 type	Weight		= Double	-- final weight of the particle
 type	Value		= Double
-type	Result		= Assoc (PartType, Indx) Weight
-type	Stat		= Assoc StatType Value
+type	Result		= ((PartType, Indx), Weight)
+type	Stat		= (StatType, Value)
 type	Point		= (Coord, Coord, Coord)
 type	Probability	= (Prob, Prob, Prob, Prob)
 

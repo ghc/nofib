@@ -21,15 +21,15 @@ ePostscript (reqdx,reqdy) str = initialise (stdheader++
 	showpage
 
 initGraph title pedata (topX,topY) (xlabel,ylabel) keys = 
-	drawBox (Pt 0 0) paperX paperY ++  -- setup graphwindow
+	drawBox (Pt 0 0) paperX paperY ++
 	drawBox (Pt 1 1) (paperX-2) 5 ++ 
 	drawBox (Pt 1 (paperY-7)) (paperX-2) 6 ++
 	setfont "BOLD" ++ moveto (Pt (paperX `div` 2) (paperY-6)) ++ cjustify (title) ++
 	setfont "NORM" ++
 	placePEs pedata ++
-	translate 20 25 ++			-- set origin
-	newpath ++ moveto (Pt 0 (-5)) ++ lineto (Pt 0 dimY) ++  -- print axis
-        moveto (Pt (-5) 0) ++ lineto (Pt dimX 0) ++ stroke ++   -- x and y
+	translate 20 25 ++
+	newpath ++ moveto (Pt 0 (-5)) ++ lineto (Pt 0 dimY) ++  
+        moveto (Pt (-5) 0) ++ lineto (Pt dimX 0) ++ stroke ++   
 	setfont "SMALL" ++
 	markXAxis dimX topX++
 	markYAxis dimY topY++
