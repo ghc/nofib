@@ -1,3 +1,5 @@
+{-# OPTIONS -fglasgow-exts #-}
+
 --!       module Fast2haskell (
 --!            Complex_type(..), Array_type(..), Assoc_type(..), Descr_type(..),
 --!            abortstr, delay, fix, force, iff, iffrev, seq,
@@ -6,7 +8,7 @@
 --!            land_i, lnot_i, lor_i, lshift_i, rshift_i,
 --!            descr,
 --!            destr_update, indassoc, lowbound, tabulate, upbound, update, valassoc) where {
-	    import GHC;
+	    import GlaExts;
 --            import Word;
 	    -- partain fiddle
 	    -- type Complex_type   = Complex Double;

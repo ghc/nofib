@@ -6,15 +6,13 @@ vectors.
         \begin{haskell}{HmmDensities}
 
 > module HmmDensities(
->       module Native, module MathTypes, module Phones,
+>       module MathTypes, module Phones,
 >       GaussianComponent, TiedMixture(..), TmTable,
 >       LogDensityTable,
 >       eval_log_densities, readMixtures, readMixture, extern_to_intern
 >       ) where
 
 > import Native         -- hbc library modules
-> --partain: import Maybe
-> import Printf
 
 > import Lists          -- general library modules
 > import MathTypes

@@ -1,6 +1,6 @@
+{-# OPTIONS -fglasgow-exts #-}
 
-import GHC;
-import PrelBase	( Int(..) );
+import GlaExts;
 import Complex;
 import Array;
 

@@ -7,7 +7,6 @@ import Comparing
 import Memo
 import Postscript
 import Array    -- 1.3
-import ArrBase  -- 1.3
 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- section 5: Hiding

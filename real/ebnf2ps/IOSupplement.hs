@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: IOSupplement.hs,v $
+-- Revision 1.5  1998/02/19 17:02:22  simonm
+-- updates for library re-organisation in GHC 3.01.
+--
 -- Revision 1.4  1997/03/17 20:35:25  simonpj
 -- More small changes towards 2.02
 --
@@ -36,7 +39,6 @@ module IOSupplement (
 
 import System -- 1.3
 import IO
-import IOBase ( IOError, fail, userError )
 
 --------------------------------------------------------------------------------
 

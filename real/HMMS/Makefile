@@ -53,9 +53,9 @@ HS_OBJS =   Alignments.o  	\
 	    Viterbi.o  		\
 	    BatchAlign.o
 
-SRC_MKDEPENDHS_OPTS += -syslib hbc
+SRC_MKDEPENDHS_OPTS += -syslib misc
 SRC_RUNTEST_OPTS += -o2 HMMS.stderr hmms/h9 hmms/h9.ties hmms/h9.dgs sentences
-SRC_HC_OPTS += -fglasgow-exts -syslib hbc
+SRC_HC_OPTS += -fglasgow-exts -syslib misc
 MaybeStateT_HC_OPTS += -cpp
 BatchAlign_HC_OPTS += -cpp
 

@@ -1,9 +1,8 @@
 module WriteRoutines (outputCodes)
 where
 
-import PrelBase
+import GlaExts
 import Encode (CodeEvent(..))
-import IOBase -- TEMP
 
 -- Start of code added for ghc
 w2i x = word2Int# x

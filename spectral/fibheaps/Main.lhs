@@ -52,6 +52,7 @@ first understand binomial queues.  See, for example, David King's
 >module Main (main) where
 >import ST
 >import Array
+>import MutableArray
 >import System
 
                          --------------------
@@ -109,9 +110,9 @@ is irrelevant.
 >        flatten (UnionBags b1 b2) xs = flatten b1 (flatten b2 xs)
 >
 >applyToAll :: (a -> ST s ()) -> Bag a -> ST s ()
->applyToAll f EmptyBag = returnST ()
->applyToAll f (ConsBag x b) = f x `seqST` applyToAll f b
->applyToAll f (UnionBags b1 b2) = applyToAll f b1 `seqST` applyToAll f b2
+>applyToAll f EmptyBag = return ()
+>applyToAll f (ConsBag x b) = f x >> applyToAll f b
+>applyToAll f (UnionBags b1 b2) = applyToAll f b1 >> applyToAll f b2
 
                          --------------------
 
@@ -190,10 +191,10 @@ In the first implementation, there are three steps.
 >    d = log2 (n-1) -- maximum possible degree
 >
 >    ins a (i, t) =
->        readArray a i `thenST` \e ->
+>        readArray a i >>= \e ->
 >        case e of
 >          Zero -> writeArray a i (One t)
->          One t2 -> writeArray a i Zero `seqST`
+>          One t2 -> writeArray a i Zero >>
 >                    ins a (i+1, link t t2)
 
 Note that after inserting all the trees, the array contains trees
@@ -202,15 +203,15 @@ highest order bit of n-1 is one, we know that there is a tree in
 the highest slot of the array.
 
 >    getMin a =
->        readArray a d `thenST` \e ->
+>        readArray a d >>= \e ->
 >        case e of
 >          Zero -> error "must be One" -- since array is filled as bits of n-1
 >          One t -> getMin' a d t EmptyBag 0
 >    getMin' a mini mint b i =
 >        if i >= d then
->          returnST ((mini, mint),b)
+>          return ((mini, mint),b)
 >        else
->          readArray a i `thenST` \e ->
+>          readArray a i >>= \e ->
 >          case e of
 >            Zero -> getMin' a mini mint b (i+1)
 >            One t -> if root mint <= root t then
@@ -219,11 +220,11 @@ the highest slot of the array.
 >                       getMin' a i t (ConsBag (mini, mint) b) (i+1)
 >            
 >  in 
->    runST (newArray (0,d) Zero `thenST` \a ->
->           applyToAll (ins a) f `seqST`
->           listST (map (ins a) (getChildren tt)) `seqST`
->           getMin a `thenST` \ (tt,f) ->
->           returnST (FH (n-1) tt f))
+>    runST (newArray (0,d) Zero >>= \a ->
+>           applyToAll (ins a) f >>
+>           sequence (map (ins a) (getChildren tt)) >>
+>           getMin a >>= \ (tt,f) ->
+>           return (FH (n-1) tt f))
 
                          --------------------
 

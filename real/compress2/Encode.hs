@@ -1,8 +1,7 @@
 module Encode (CodeEvent(..), encode, maxBits)
 where
 
-import GHC
-import IOBase (trace) -- TEMP
+import GlaExts
 
 data PrefixTrie a b = PTNil |
                       PT a b (PrefixTrie a b) (PrefixTrie a b) (PrefixTrie a b)
