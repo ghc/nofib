@@ -1,0 +1,263 @@
+%************************************************************************
+%*									*
+\section[mkworld-misc-nofib-ghc]{Misc stuff for @ghc@ setup of @nofib@ project}
+%*									*
+%************************************************************************
+
+The setup-wide HC options that apply to all tests uniformly are in
+\tr{utils-nofib-ghc.ljm}.
+
+\begin{code}
+/* ********** all that follows should be same as for "ghc" setup ************* */
+
+HC_OPTS_anna	= -H16m
+HC_OPTS_anna_BaseDefs = -cpp
+
+HC_OPTS_bspt	= -H12m -K1m
+HC_OPTS_bspt_GeomNum = -cpp
+HC_OPTS_bspt_Input   = -H24m
+HC_OPTS_bspt_Main = -cpp
+HC_OPTS_bspt_Prog = -cpp
+
+HC_OPTS_compress_Encode  = -cpp -H12m
+HC_OPTS_compress2 = -cpp -syslib hbc
+NOFIB_RUN_compress2 = +RTS -H16m -RTS
+
+HC_OPTS_fluid	= -H12m
+HC_OPTS_fluid_Main = -cpp
+
+HC_OPTS_gg	= -H12m
+
+HC_OPTS_HMMS	= -fhaskell-1.3 -syslib hbc
+HC_OPTS_HMMS_MaybeStateT = -cpp
+HC_OPTS_HMMS_BatchAlign = -cpp
+
+HC_OPTS_hpg	= -H8m
+HC_OPTS_infer	= -K2m
+HC_OPTS_lift	= -H8m -K1m
+HC_OPTS_mkhprog	= -H12m
+HC_OPTS_parser	= -H30m -K1m
+HC_OPTS_prolog	= -H8m
+HC_OPTS_reptile	= -H10m -K1m
+HC_OPTS_simple  = -H12m
+HC_OPTS_symalg  = -fhaskell-1.3
+
+HC_OPTS_veritas	= -H14m -K1m
+HC_OPTS_veritas_Main	= -cpp
+HC_OPTS_veritas_Parse	= -H18m
+\end{code}
+
+\begin{code}
+HC_OPTS_boyer_Main = -H16m
+HC_OPTS_cichelli = -cpp
+HC_OPTS_knights_Sort = -cpp
+HC_OPTS_knights_ChessSetList = -H14m
+HC_OPTS_multiplier_Main = -H14m
+HC_OPTS_minimax = -cpp
+HC_OPTS_rewrite_Main = -H14m
+/* HC_OPTS_fft_Word = -fglasgow-exts */
+
+HC_OPTS_comp_lab_zift	= -cpp -syslib hbc
+HC_OPTS_event		= -cpp -syslib hbc
+HC_OPTS_fft		= -cpp -syslib hbc
+HC_OPTS_genfft		= -cpp -syslib hbc
+HC_OPTS_ida		= -cpp -syslib hbc
+HC_OPTS_listcompr	= -cpp -syslib hbc
+HC_OPTS_listcopy	= -cpp -syslib hbc
+HC_OPTS_parstof		= -cpp -syslib hbc -H30m -K1m
+HC_OPTS_sched		= -cpp -syslib hbc
+HC_OPTS_solid		= -cpp -syslib hbc -H30m -K3m
+HC_OPTS_transform	= -cpp -syslib hbc -H12m
+HC_OPTS_typecheck	= -cpp -syslib hbc
+HC_OPTS_wang		= -cpp -syslib hbc
+HC_OPTS_wave4main	= -cpp -syslib hbc -H12m
+
+HC_OPTS_nucleic2	= -cpp /*-DUSE_UNBOXED_FLOATS -DUSE_GLASGOW_HACKS*/ /*nope:-DUSE_HARTEL_LAZINESS*/ -fglasgow-exts
+\end{code}
+
+For our ``private benchmarks,'' which piggy-back on Nofib:
+\begin{code}
+HC_OPTS_editor3 = -fhaskell-1.3
+
+HC_OPTS_haskelldraw = -fhaskell-1.3 -fglasgow-exts -L/usr/openwin/lib -L/usr/X11/lib -lXol -lXt -lXpm -lX11
+
+HC_OPTS_happy = -fhaskell-1.3 -cpp -fglasgow-exts
+
+HC_OPTS_lolita = -fhaskell-1.3 -cpp -syslib hbc -syslib ghc -fglasgow-exts -iutils:StaticNet:controls:tomita
+HC_OPTS_lolita_FeatureType = -Onot -K4m /* sigh */
+HC_OPTS_lolita_Roles = -K4m
+HC_OPTS_lolita_IMain = -K4m
+HC_OPTS_lolita_Dial_EmCausePB = -fno-update-analysis /* sigh */
+HC_OPTS_lolita_Dial_EmShowPB = -fno-update-analysis /* sigh */
+HC_OPTS_lolita_Dial_EmReact = -fno-update-analysis /* sigh */
+HC_OPTS_lolita_ExtractRootItal = -fno-update-analysis /* sigh */
+
+HC_OPTS_nhccomp = -fhaskell-1.3 -cpp -syslib hbc
+\end{code}
+
+For the parallel benchmarks:
+\begin{code}
+HC_OPTS_linsolv = -fglasgow-exts -cpp -UNO_FILTER -DASYM_CRA -DGUM -DPAR_DET_SZ=4 -DINPUT_SIZE=4
+HC_OPTS_dcbm    = -fglasgow-exts -cpp -DPAR 
+\end{code}
+
+\begin{code}
+NOFIB_RUN_fulsom  = +RTS -H12m -RTS
+
+NOFIB_RUN_gamteb  = +RTS -K1500k -RTS	/* SIGH */
+
+NOFIB_RUN_hidden  = +RTS -K1m -RTS	/* fairly random number; SIGH */
+
+/*??? NOFIB_RUN_HMMS	  = +RTS -H54M -K1M -RTS*/
+NOFIB_RUN_reptile = +RTS -H6m -RTS
+
+NOFIB_RUN_life	   = +RTS -H32m -RTS
+
+NOFIB_RUN_maillist = +RTS -K100k -RTS
+
+NOFIB_RUN_cichelli = +RTS -H6m -RTS
+
+NOFIB_RUN_comp_lab_zift	= +RTS -H20m -K10m -RTS
+NOFIB_RUN_event		= +RTS -H24m -K4500k -RTS
+NOFIB_RUN_fft		= +RTS -H24m -K1m -RTS
+NOFIB_RUN_genfft	= +RTS -H20m -K10m -RTS
+NOFIB_RUN_ida		= +RTS -H24m -K1m -RTS
+NOFIB_RUN_listcompr	= +RTS -H24m -K1m -RTS
+NOFIB_RUN_listcopy	= +RTS -H24m -K1m -RTS
+NOFIB_RUN_parstof	= +RTS -H24m -K1m -RTS
+NOFIB_RUN_sched		= +RTS -H24m -K1m -RTS
+NOFIB_RUN_solid		= +RTS -H24m -K1m -RTS
+NOFIB_RUN_transform	= +RTS -H24m -K1m -RTS
+NOFIB_RUN_typecheck	= +RTS -H24m -K6m -RTS
+NOFIB_RUN_wang		= +RTS -H24m -K6m -RTS
+NOFIB_RUN_wave4main	= +RTS -H24m -K1m -RTS
+
+NOFIB_RUN_clausify  = +RTS -K200k -RTS
+
+NOFIB_RUN_simple    = +RTS -H16m -K1m -RTS
+
+NOFIB_RUN_treejoin  = +RTS -H32m -K2m
+
+NOFIB_RUN_exp3_8    = +RTS -K200k -RTS
+NOFIB_RUN_primes    = +RTS -H16m -RTS
+
+/* **********  END OF all that follows ... ************* */
+\end{code}
+
+\begin{code}
+#if IncludeGHC_ONLYNoFibTests == YES
+
+HC_OPTS_cg012 = -fglasgow-exts
+HC_OPTS_cg015 = -fglasgow-exts
+HC_OPTS_cg018 = -fglasgow-exts
+HC_OPTS_cg025 = -syslib hbc
+HC_OPTS_cg026 = -fglasgow-exts
+HC_OPTS_cg029 = -fglasgow-exts
+HC_OPTS_cg030 = -fglasgow-exts
+HC_OPTS_cg031 = -fglasgow-exts
+HC_OPTS_cg032 = -fglasgow-exts
+HC_OPTS_cg033 = -fglasgow-exts
+HC_OPTS_cg035 = -fglasgow-exts -fvia-C /*'-#include"math.h"'*/
+HC_OPTS_cg036 = -fglasgow-exts
+
+HC_OPTS_ghclib001 = -fhaskell-1.3 -syslib ghc
+NOFIB_RUN_ghclib001 = +RTS -H16m -K8m -RTS
+
+NOFIB_RUN_cg021 = +RTS -H15000k -K4500k -RTS
+
+NOFIB_RUN_cg022 = +RTS -H10m -RTS
+
+HC_OPTS_cg023 = -H14m
+NOFIB_RUN_cg023 = +RTS -H32k -RTS
+	/* the whole point of cg023 is that it runs in small space */
+
+HC_OPTS_arith005 = -cpp -fno-update-analysis/*sigh*/
+
+HC_OPTS_io001 = -fhaskell-1.3
+HC_OPTS_io002 = -fhaskell-1.3
+HC_OPTS_io003 = -fhaskell-1.3
+HC_OPTS_io004 = -fhaskell-1.3
+HC_OPTS_io005 = -fhaskell-1.3
+HC_OPTS_io006 = -fhaskell-1.3
+HC_OPTS_io007 = -fhaskell-1.3
+HC_OPTS_io008 = -fhaskell-1.3
+HC_OPTS_io009 = -fhaskell-1.3 -syslib hbc
+HC_OPTS_io010 = -fhaskell-1.3
+HC_OPTS_io011 = -fhaskell-1.3
+HC_OPTS_io012 = -fhaskell-1.3
+HC_OPTS_io013 = -fhaskell-1.3
+HC_OPTS_io014 = -fhaskell-1.3
+HC_OPTS_io015 = -fhaskell-1.3
+HC_OPTS_io016 = -fhaskell-1.3
+HC_OPTS_io017 = -fhaskell-1.3
+HC_OPTS_io018 = -fhaskell-1.3
+HC_OPTS_io019 = -fhaskell-1.3
+HC_OPTS_io020 = -fhaskell-1.3
+HC_OPTS_io021 = -fhaskell-1.3
+
+HC_OPTS_po001 = -fhaskell-1.3
+HC_OPTS_po002 = -fhaskell-1.3
+HC_OPTS_po003 = -fhaskell-1.3
+HC_OPTS_po004 = -fhaskell-1.3 -fvia-C
+HC_OPTS_po005 = -fhaskell-1.3
+HC_OPTS_po006 = -fhaskell-1.3
+HC_OPTS_po007 = -fhaskell-1.3 -fvia-C
+HC_OPTS_po008 = -fhaskell-1.3 -fvia-C
+HC_OPTS_po009 = -fhaskell-1.3 -fvia-C
+HC_OPTS_po010 = -fhaskell-1.3
+HC_OPTS_po011 = -fhaskell-1.3
+HC_OPTS_po012 = -fhaskell-1.3 -fvia-C /*??? '-#include"libposix.h"' */
+
+HC_OPTS_net001 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net002 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net003 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net004 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net005 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net006 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net007 = -fhaskell-1.3 -syslib ghc
+HC_OPTS_net008 = -fhaskell-1.3 -syslib ghc
+
+/* specialisation tests, esp for unboxed specialisation */
+HC_OPTS_spec001	    = -fglasgow-exts
+HC_OPTS_spec003	    = -fglasgow-exts
+HC_OPTS_clausify001 = -fglasgow-exts
+HC_OPTS_clausify002 = -fglasgow-exts
+HC_OPTS_clausify003 = -fglasgow-exts
+
+/* keep the heap down on 10queens in the hope it will not "loop" */
+NOFIB_RUN_10queens = +RTS -H1m -RTS
+
+HC_OPTS_fast2haskell = -H20m
+HC_OPTS_fast2haskell_Word2 = -fglasgow-exts
+
+HC_OPTS_cvh_unboxing = -fglasgow-exts
+
+HC_OPTS_areid_pass = -fglasgow-exts
+
+NOFIB_RUN_jules_xref = +RTS -K1m -H20m -RTS
+
+NOFIB_RUN_life_space_leak = +RTS -H32m -RTS
+
+HC_OPTS_north_lias = -H32m
+
+HC_OPTS_zhang_ccall = -fglasgow-exts
+
+HC_OPTS_dmgob_native1 = -fhaskell-1.3 -syslib hbc
+HC_OPTS_dmgob_native1_MaybeStateT = -cpp
+
+HC_OPTS_dmgob_native2 = -fhaskell-1.3 -syslib hbc -cpp
+
+HC_OPTS_andy_cherry = -cpp
+HC_OPTS_ipoole_spec_class = -cpp
+HC_OPTS_waugh_neural = -syslib hbc
+
+#endif /* IncludeGHC_ONLYNoFibTests */
+\end{code}
+
+\begin{code}
+#if IncludePENDINGNoFibTests == YES
+
+HC_OPTS_simple_Size = -H14m
+
+#endif /* IncludePENDINGNoFibTests */
+\end{code}

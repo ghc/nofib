@@ -1,0 +1,8 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface L_matrix where
+import S_Array(S_array)
+l_mat :: S_array ((Float, Float, Float) -> [Float])
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+l_mat' :: S_array ((Float, Float, Float) -> [Float])
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,76 @@
+# Glasgow Haskell 0.403 : FINITE ELEMENT PROGRAM Version 2
+# **********************************************************************
+# *                                                                    *
+# * FILE NAME : makefile               DATE : 13-3-1991                *
+# *                                                                    *
+# * CONTENTS : Documentation and makefile file of FEM version 2.       *
+# *	       This version uses function "readChan" to input source   *
+# *	       data from "stdin", rather than put the source data      *
+# *	       inside program code in version 1. Because I/O in        *
+# *            Haskell (either using continuation style or             *
+# *	       non-continutation style programming), many functions    *
+# *	       have to attach an additional argument which represent   *
+# *	       the source data.  As the result of this                 *
+# *            change, the code runs much more slower than before.     *
+# *                                                                    *
+# **********************************************************************
+
+all : blas fem
+
+OBJS 	= basics.o database_array.o db_interface.o printsource.o \
+	  vector.o matrix.o vbmatrix.o vblldecomp.o \
+	  degrees.o pre_assemble.o elemstif.o assemble_stiffness.o \
+	  assemble_loadvec.o displacement.o elemforce.o printuvwforce.o 
+
+fem     :      $(OBJS) main.o 
+	hc -o fem $(OBJS) main.o
+
+main.o  :       main.hs
+	hc -c main.hs
+
+basics.o :      basics.hs
+	hc -c basics.hs
+
+database_array.o : database_array.hs
+	hc -c database_array.hs
+
+db_interface.o   : db_interface.hs
+	hc -c db_interface.hs
+
+printsource.o    : printsource.hs
+	hc -c printsource.hs
+
+degrees.o	 : degrees.hs
+	hc -c degrees.hs
+
+pre_assemble.o :	pre_assemble.hs
+	hc -c pre_assemble.hs
+
+elemstif.o	:	elemstif.hs
+	hc -c elemstif.hs
+
+elemforce.o	:	elemforce.hs
+	hc -c elemforce.hs
+
+assemble_stiffness.o	: assemble_stiffness.hs
+	hc -c assemble_stiffness.hs
+
+assemble_loadvec.o : assemble_loadvec.hs
+	hc -c assemble_loadvec.hs
+
+displacement.o	: displacement.hs
+	hc -c displacement.hs
+
+printuvwforce.o : printuvwforce.hs
+	hc -c printuvwforce.hs
+
+blas:
+	hc -c basics.hs
+	hc -c vector.hs
+	hc -c matrix.hs
+	hc -c vbmatrix.hs
+	hc -c vblldecomp.hs
+
+clean :
+	rm *.o fem *.hi
+

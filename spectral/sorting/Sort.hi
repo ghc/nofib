@@ -1,0 +1,21 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Sort where
+data Tree a   = Tip | Branch a (Tree a) (Tree a)
+data Tree2 a   = Tip2 | Twig2 a | Branch2 a (Tree2 a) (Tree2 a)
+heapSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+insertSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+mergeSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+quickSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ _N_ #-}
+quickSort2 :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _N_ #-}
+quickerSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _N_ #-}
+treeSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "LS" _N_ _N_ #-}
+treeSort2 :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "LS" _N_ _N_ #-}
+

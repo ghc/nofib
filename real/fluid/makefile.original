@@ -1,0 +1,103 @@
+MODS = Norm.hs S_Array.hs Defs.hs Input_proc.hs Elefac.hs S_matrix.hs Asb_routs.hs C_matrix.hs L_matrix.hs Rhs_Asb_routs.hs Min_degree.hs Chl_routs.hs Chl_decomp.hs Chl_method.hs Tol_cal.hs Jcb_method.hs TG_iter.hs Prog_driver.hs
+
+INTS=$(MODS:%.hs=%.hi)
+OBJS=$(MODS:%.hs=%.o)
+ASMS=$(MODS:%.hs=%.s)
+
+HC=hc
+HCFLAGS=
+
+%.s: %.hs
+	$(HC) $(HCFLAGS) -S $<
+
+%.o: %.s
+	/bin/as $< -o $@
+
+%.hi: %.s
+	if test ! -f $@ ; then \
+		rm $< ; \
+		$(MAKE) HC=$(HC) $< ; \
+	fi
+
+asms: $(ASMS)
+	@echo now link on a sun3
+
+main: $(OBJS)
+	$(HC) $(HCFLAGS) -o main $(OBJS); \
+	strip main
+
+Asb_routs.s  : Asb_routs.hs
+Asb_routs.s  : ./S_Array.hi
+Asb_routs.s  : ./Defs.hi
+C_matrix.s  : C_matrix.hs
+C_matrix.s  : ./S_Array.hi
+C_matrix.s  : ./Defs.hi
+C_matrix.s  : ./Asb_routs.hi
+Chl_decomp.s  : Chl_decomp.hs
+Chl_decomp.s  : ./S_Array.hi
+Chl_decomp.s  : ./Defs.hi
+Chl_decomp.s  : ./Asb_routs.hi
+Chl_method.s  : Chl_method.hs
+Chl_method.s  : ./S_Array.hi
+Chl_method.s  : ./Defs.hi
+Chl_method.s  : ./Asb_routs.hi
+Chl_routs.s  : Chl_routs.hs
+Chl_routs.s  : ./S_Array.hi
+Chl_routs.s  : ./Defs.hi
+Chl_routs.s  : ./Min_degree.hi
+Defs.s  : Defs.hs
+Defs.s  : ./S_Array.hi
+Elefac.s  : Elefac.hs
+Elefac.s  : ./S_Array.hi
+Elefac.s  : ./Defs.hi
+Input_proc.s  : Input_proc.hs
+Input_proc.s  : ./S_Array.hi
+Input_proc.s  : ./Defs.hi
+Jcb_method.s  : Jcb_method.hs
+Jcb_method.s  : ./S_Array.hi
+Jcb_method.s  : ./Defs.hi
+Jcb_method.s  : ./Asb_routs.hi
+Jcb_method.s  : ./Tol_cal.hi
+L_matrix.s  : L_matrix.hs
+L_matrix.s  : ./S_Array.hi
+L_matrix.s  : ./Defs.hi
+Min_degree.s  : Min_degree.hs
+Min_degree.s  : ./S_Array.hi
+Min_degree.s  : ./Defs.hi
+Norm.s  : Norm.hs
+Prog_driver.s  : Prog_driver.hs
+Prog_driver.s  : ./S_Array.hi
+Prog_driver.s  : ./Defs.hi
+Prog_driver.s  : ./Elefac.hi
+Prog_driver.s  : ./Asb_routs.hi
+Prog_driver.s  : ./Chl_routs.hi
+Prog_driver.s  : ./Chl_decomp.hi
+Prog_driver.s  : ./Chl_method.hi
+Prog_driver.s  : ./Jcb_method.hi
+Prog_driver.s  : ./TG_iter.hi
+Prog_driver.s  : ./Min_degree.hi
+Prog_driver.s  : ./Input_proc.hi
+Rhs_Asb_routs.s  : Rhs_Asb_routs.hs
+Rhs_Asb_routs.s  : ./S_Array.hi
+Rhs_Asb_routs.s  : ./Defs.hi
+Rhs_Asb_routs.s  : ./S_matrix.hi
+Rhs_Asb_routs.s  : ./C_matrix.hi
+Rhs_Asb_routs.s  : ./L_matrix.hi
+Rhs_Asb_routs.s  : ./Asb_routs.hi
+S_Array.s  : S_Array.hs
+S_Array.s  : ./Norm.hi
+S_matrix.s  : S_matrix.hs
+S_matrix.s  : ./S_Array.hi
+S_matrix.s  : ./Defs.hi
+TG_iter.s  : TG_iter.hs
+TG_iter.s  : ./Norm.hi
+TG_iter.s  : ./S_Array.hi
+TG_iter.s  : ./Defs.hi
+TG_iter.s  : ./Asb_routs.hi
+TG_iter.s  : ./Rhs_Asb_routs.hi
+TG_iter.s  : ./Jcb_method.hi
+TG_iter.s  : ./Chl_method.hi
+TG_iter.s  : ./Tol_cal.hi
+Tol_cal.s  : Tol_cal.hs
+Tol_cal.s  : ./Defs.hi
+Tol_cal.s  : ./Norm.hi

@@ -1,0 +1,16 @@
+SRCS_HS = StdLib.hs Parse.hs GRIP.hs PSlib.hs Graph.hs Pool.hs Spark.hs Activity.hs Main.hs 
+OBJS_O  = StdLib.o  Parse.o  GRIP.o  PSlib.o  Graph.o  Pool.o  Spark.o  Activity.o  Main.o
+
+NoFibMultiModuleCompileAndRun(gg,-i gg.stdin -o1 gg.stdout -o2 gg.stderr)
+
+NoFibHaskellCompile(gg,StdLib,hs)
+NoFibHaskellCompile(gg,Parse,hs)
+NoFibHaskellCompile(gg,GRIP,hs)
+NoFibHaskellCompile(gg,PSlib,hs)
+NoFibHaskellCompile(gg,Graph,hs)
+NoFibHaskellCompile(gg,Pool,hs)
+NoFibHaskellCompile(gg,Spark,hs)
+NoFibHaskellCompile(gg,Activity,hs)
+NoFibHaskellCompile(gg,Main,hs)
+
+NoFibDependTarget(gg, $(SRCS_HS))

@@ -1,0 +1,107 @@
+SRCS_HS = \
+	Core_datatype.hs \
+	Vtslib.hs \
+	Sub_Core1.hs \
+	Sub_Core2.hs \
+	Sub_Core3.hs \
+	Sub_Core4.hs \
+	Dcore.hs \
+	Core_database.hs \
+	Kernel.hs \
+	Lookup.hs \
+	Type_defs.lhs \
+	Token.lhs \
+	Edlib.lhs \
+	X_interface.hs \
+	Tree.hs \
+	Getops.hs \
+	Attributes.lhs \
+	Unparse.lhs \
+	Build_Tm.lhs \
+	Build_itrm.lhs \
+	Parse.lhs \
+	DerivedRules.hs \
+	Tags.hs \
+	Globals.hs \
+	Goals.hs \
+	Display.hs \
+	Tactics.hs \
+	Auto.hs \
+	Tacticals.hs \
+	Editor.hs \
+	ThmTactics.hs \
+	Main.hs 
+
+/*?Parse_sg.?
+?Simplify?*/
+
+OBJS_O = \
+	Core_datatype.o \
+	Vtslib.o \
+	Sub_Core1.o \
+	Sub_Core2.o \
+	Sub_Core3.o \
+	Sub_Core4.o \
+	Dcore.o \
+	Core_database.o \
+	Kernel.o \
+	Lookup.o \
+	Type_defs.o \
+	Token.o \
+	Edlib.o \
+	X_interface.o \
+	Tree.o \
+	Getops.o \
+	Attributes.o \
+	Unparse.o \
+	Build_Tm.o \
+	Build_itrm.o \
+	Parse.o \
+	DerivedRules.o \
+	Tags.o \
+	Globals.o \
+	Goals.o \
+	Display.o \
+	Tactics.o \
+	Auto.o \
+	Tacticals.o \
+	Editor.o \
+	ThmTactics.o \
+	Main.o 
+
+NoFibMultiModuleCompileAndRun(veritas,-i veritas.stdin -o1 veritas.stdout)
+
+NoFibHaskellCompile(veritas,Attributes,lhs)
+NoFibHaskellCompile(veritas,Auto,hs)
+NoFibHaskellCompile(veritas,Build_Tm,lhs)
+NoFibHaskellCompile(veritas,Build_itrm,lhs)
+NoFibHaskellCompile(veritas,Core_database,hs)
+NoFibHaskellCompile(veritas,Core_datatype,hs)
+NoFibHaskellCompile(veritas,Dcore,hs)
+NoFibHaskellCompile(veritas,DerivedRules,hs)
+NoFibHaskellCompile(veritas,Display,hs)
+NoFibHaskellCompile(veritas,Editor,hs)
+NoFibHaskellCompile(veritas,Edlib,lhs)
+NoFibHaskellCompile(veritas,Getops,hs)
+NoFibHaskellCompile(veritas,Globals,hs)
+NoFibHaskellCompile(veritas,Goals,hs)
+NoFibHaskellCompile(veritas,Kernel,hs)
+NoFibHaskellCompile(veritas,Lookup,hs)
+NoFibHaskellCompile(veritas,Main,hs)
+NoFibHaskellCompile(veritas,Parse,lhs)
+NoFibHaskellCompile(veritas,Sub_Core1,hs)
+NoFibHaskellCompile(veritas,Sub_Core2,hs)
+NoFibHaskellCompile(veritas,Sub_Core3,hs)
+NoFibHaskellCompile(veritas,Sub_Core4,hs)
+NoFibHaskellCompile(veritas,Tacticals,hs)
+NoFibHaskellCompile(veritas,Tactics,hs)
+NoFibHaskellCompile(veritas,Tags,hs)
+NoFibHaskellCompile(veritas,ThmTactics,hs)
+NoFibHaskellCompile(veritas,Token,lhs)
+NoFibHaskellCompile(veritas,Tree,hs)
+NoFibHaskellCompile(veritas,Type_defs,lhs)
+NoFibHaskellCompile(veritas,Unparse,lhs)
+NoFibHaskellCompile(veritas,Vtslib,hs)
+NoFibHaskellCompile(veritas,X_interface,hs)
+
+NoFibDependTarget(veritas, $(SRCS_HS))

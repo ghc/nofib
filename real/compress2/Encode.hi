@@ -1,0 +1,14 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Encode where
+data CodeEvent   = Code Int | NewWordSize | Clear
+encode :: [Int] -> [Char] -> [CodeEvent]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+maxBits :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [16#] _N_ #-}
+instance Text CodeEvent
+	{-# GHC_PRAGMA _M_ Encode {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(CodeEvent, [Char])]), (Int -> CodeEvent -> [Char] -> [Char]), ([Char] -> [([CodeEvent], [Char])]), ([CodeEvent] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (CodeEvent), _CONSTM_ Text showsPrec (CodeEvent), _CONSTM_ Text readList (CodeEvent), _CONSTM_ Text showList (CodeEvent)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LS" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

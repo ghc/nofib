@@ -1,0 +1,8 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface AbstractSyntax where
+data Production   = ProdFile [Production] | ProdProduction [Char] [[Char]] Production | ProdTerm [Production] | ProdFactor [Production] | ProdNonterminal [Char] | ProdTerminal [Char] | ProdOption Production | ProdRepeat Production | ProdRepeatWithAtom Production Production | ProdRepeat1 Production | ProdPlus | ProdSlash Production
+instance Eq Production
+	{-# GHC_PRAGMA _M_ AbstractSyntax {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Production -> Production -> Bool), (Production -> Production -> Bool)] [_CONSTM_ Eq (==) (Production), _CONSTM_ Eq (/=) (Production)] _N_
+	 (==) = _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_ #-}
+

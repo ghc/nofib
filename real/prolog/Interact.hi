@@ -1,0 +1,14 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Interact where
+type Interactive = [Char] -> [Char]
+end :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _NIL_ [Char] [] _N_} _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Char]) -> _!_ _NIL_ [Char] [] _N_ #-}
+readch :: (Char -> [Char] -> [Char]) -> [Char] -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "LLS" _N_ _N_ #-}
+readln :: [Char] -> ([Char] -> [Char] -> [Char]) -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _N_ _N_ #-}
+skip :: ([Char] -> [Char]) -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _F_ _IF_ARGS_ 0 2 XX 2 \ (u0 :: [Char] -> [Char]) (u1 :: [Char]) -> _APP_  u0 [ u1 ] _N_ #-}
+writeln :: [Char] -> ([Char] -> [Char]) -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 0 3 XXX 6 \ (u0 :: [Char]) (u1 :: [Char] -> [Char]) (u2 :: [Char]) -> let {(u3 :: [Char]) = _APP_  u1 [ u2 ]} in _APP_  _TYAPP_  _ORIG_ PreludeList (++) { Char } [ u0, u3 ] _N_ #-}
+

@@ -1,0 +1,10 @@
+SRCS_LHS = PortablePixmap.lhs Mandel.lhs Main.lhs
+OBJS_O   = PortablePixmap.o   Mandel.o   Main.o
+
+NoFibMultiModuleCompileAndRun(mandel, -i mandel.stdin -o1 mandel.stdout -o2 mandel.stderr)
+
+NoFibHaskellCompile(mandel,PortablePixmap,lhs)
+NoFibHaskellCompile(mandel,Mandel,lhs)
+NoFibHaskellCompile(mandel,Main,lhs)
+
+NoFibDependTarget(mandel, $(SRCS_LHS))

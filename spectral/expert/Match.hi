@@ -1,0 +1,17 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Match where
+import Knowledge(Phrase)
+import Result(Result)
+import Table(Table)
+type Environment = Table [Char] Phrase
+compare :: Table [Char] Phrase -> Phrase -> Phrase -> Result (Table [Char] Phrase) [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LSS" _N_ _N_ #-}
+match :: Table [Char] Phrase -> Phrase -> Phrase -> Result (Table [Char] Phrase) [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _S_ "LSS" _N_ _N_ #-}
+matchList :: Table [Char] Phrase -> [(Phrase, Phrase)] -> Result (Table [Char] Phrase) [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+occurs :: Phrase -> Phrase -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+subst :: Table [Char] Phrase -> Phrase -> Phrase
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+

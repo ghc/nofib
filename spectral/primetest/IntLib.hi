@@ -1,0 +1,17 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface IntLib where
+chop :: Integer -> Integer -> [Integer]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+cubeRoot :: Integer -> Integer
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(PPP)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+log2 :: Integer -> Integer
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+makeNumber :: Integer -> [Integer] -> Integer
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+powerMod :: Integer -> Integer -> Integer -> Integer
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "LU(PPP)L" {_A_ 5 _U_ 12222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+readInteger :: [Char] -> Integer
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _SPEC_ _ORIG_ PreludeText read [ (Integer) ] _N_ #-}
+showInteger :: Integer -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(PPP)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

@@ -1,0 +1,27 @@
+#define IHaveSubdirs
+
+SUBDIRS = anna		\
+	  bspt		\
+	  compress	\
+	  compress2	\
+	  ebnf2ps	\
+	  fluid		\
+	  fulsom	\
+	  gamteb	\
+	  gg		\
+	  grep		\
+	  hidden	\
+	  HMMS		\
+	  hpg		\
+	  infer		\
+	  lift		\
+	  maillist	\
+	  parser	\
+	  pic		\
+	  prolog	\
+	  reptile	\
+	  rsa		\
+	  symalg	\
+	  veritas
+
+/*	  mkhprog */

@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface ChargeDensity where
+import PreludeArray(Array)
+chargeDensity :: ([(Double, Double)], [(Double, Double)]) -> Array (Int, Int) Double
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LA)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

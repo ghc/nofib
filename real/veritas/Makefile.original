@@ -1,0 +1,110 @@
+
+HC = khc -k -P -DPAR -N -H10000000 -v
+
+all : vts90
+
+
+vts90 : core_datatype.o edlib.o vtslib.o subcore1.o subcore2.o subcore3.o subcore4.o dcore.o core_database.o kernel.o type_defs.o  attributes.o unparse.o build_itrm.o token.o build_tm.o parse.o tags.o parse_sg.o lookup.o xinterface.o getops.o tree.o globals.o goals.o editor.o display.o derived.o tactics.o tacticals.o thm_tactics.o auto.o simplify.o vts90.hs
+	$(HC) -o vts90 edlib.o core_datatype.o vtslib.o dcore.o subcore1.o subcore2.o subcore3.o subcore4.o core_database.o kernel.o unparse.o attributes.o type_defs.o build_itrm.o token.o build_tm.o parse.o tags.o parse_sg.o lookup.o xinterface.o getops.o tree.o globals.o goals.o editor.o display.o  derived.o tactics.o tacticals.o thm_tactics.o auto.o simplify.o
+
+auto.o : Vtslib.hi Tactics.hi Parse.hi Type_defs.hi Goals.hi Kernel.hi Core_datatype.hi auto.hs
+	$(HC) -c auto.hs
+
+simplify.o : Tactics.hi Tacticals.hi Kernel.hi Core_datatype.hi DerivedRules.hi Goals.hi Vtslib.hi Type_defs.hi Parse.hi Token.hi X_interface.hi Edlib.hi Globals.hi Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Unparse.hi Attributes.hi Tree.hi simplify.hs
+	$(HC) -c simplify.hs
+
+thm_tactics.o : Tactics.hi Kernel.hi Core_datatype.hi DerivedRules.hi Goals.hi Vtslib.hi Type_defs.hi Parse.hi Token.hi X_interface.hi Edlib.hi Globals.hi Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Unparse.hi Attributes.hi Tacticals.hi Tree.hi thm_tactics.hs
+	$(HC) -c thm_tactics.hs
+
+tacticals.o : Tactics.hi Goals.hi Tree.hi Edlib.hi Type_defs.hi Vtslib.hi Core_datatype.hi tacticals.hs
+	$(HC) -c tacticals.hs
+
+tactics.o : Edlib.hi Kernel.hi Vtslib.hi Type_defs.hi Globals.hi Lookup.hi Goals.hi Tree.hi Core_datatype.hi tactics.hs
+	$(HC) -c tactics.hs 
+
+derived.o : Kernel.hi Build_Tm.hi Edlib.hi Parse.hi Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Vtslib.hi Core_datatype.hi Type_defs.hi derived.hs
+	$(HC) -c derived.hs 
+
+display.o : Edlib.hi X_interface.hi Kernel.hi Parse.hi Unparse.hi Vtslib.hi Type_defs.hi Lookup.hi Globals.hi Tags.hi Goals.hi Tree.hi Core_datatype.hi display.hs
+	$(HC) -c display.hs 
+
+editor.o : Vtslib.hi X_interface.hi Goals.hi Edlib.hi Type_defs.hi Core_datatype.hi editor.hs
+	$(HC) -c editor.hs 
+
+goals.o : Unparse.hi X_interface.hi Edlib.hi Vtslib.hi Tree.hi Globals.hi Lookup.hi Kernel.hi Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Type_defs.hi Tags.hi Core_datatype.hi Parse_sg.hi goals.hs
+	$(HC) -c goals.hs 
+
+globals.o : Tags.hi Core_datatype.hi Type_defs.hi globals.hs
+	$(HC) -c globals.hs 
+
+tree.o : Vtslib.hi Edlib.hi Type_defs.hi X_interface.hi Core_datatype.hi tree.hs
+	$(HC) -c tree.hs 
+
+getops.o : Vtslib.hi Type_defs.hi Edlib.hi Core_datatype.hi getops.hs
+	$(HC) -c getops.hs 
+
+xinterface.o : Edlib.hi Type_defs.hi Vtslib.hi Core_datatype.hi xinterface.hs
+	$(HC) -c xinterface.hs 
+
+lookup.o : Vtslib.hi lookup.hs
+	$(HC) -c lookup.hs 
+
+
+
+build_tm.o : Unparse.hi Kernel.hi  Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Type_defs.hi Core_datatype.hi Edlib.hi build_tm.lhs
+	 $(HC) -c build_tm.lhs 
+
+tags.o : Parse.hi Token.hi Unparse.hi Type_defs.hi Build_itrm.hi Core_datatype.hi  Attributes.hi tags.hs
+	 $(HC) -c tags.hs 
+
+parse_sg.o : Kernel.hi Sub_Core1.hi  Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Parse.hi Token.hi Unparse.hi Type_defs.hi Build_itrm.hi Core_datatype.hi  Attributes.hi Edlib.hi Vtslib.hi Tags.hi parse_sg.lhs
+	 $(HC) -c parse_sg.lhs 
+
+parse.o : Token.hi Unparse.hi Vtslib.hi Build_Tm.hi Type_defs.hi Build_itrm.hi Core_datatype.hi Attributes.hi Kernel.hi  Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Edlib.hi parse.lhs
+	 $(HC) -c parse.lhs 
+
+unparse.o : Kernel.hi Type_defs.hi Core_datatype.hi Attributes.hi unparse.lhs
+	 $(HC) -c unparse.lhs
+
+token.o : Type_defs.hi Kernel.hi Core_datatype.hi token.lhs
+	$(HC) -c token.lhs
+
+build_itrm.o : Type_defs.hi Core_datatype.hi Unparse.hi Attributes.hi build_itrm.lhs Kernel.hi Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Edlib.hi
+	$(HC) -c build_itrm.lhs
+
+attributes.o : Core_datatype.hi attributes.lhs 
+	$(HC) -c attributes.lhs
+
+type_defs.o : Core_datatype.hi Kernel.hi Edlib.hi type_defs.lhs
+	$(HC) -c type_defs.lhs 
+
+kernel.o : Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Dcore.hi Vtslib.hi Core_database.hi Core_datatype.hi Edlib.hi kernel.hs
+	$(HC) -c kernel.hs
+
+dcore.o :  Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Vtslib.hi Core_datatype.hi dcore.hs
+	$(HC) -c dcore.hs
+
+core_database.o :  Edlib.hi Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Sub_Core4.hi Dcore.hi Vtslib.hi Core_datatype.hi core_database.hs
+	$(HC) -c core_database.hs
+
+subcore1.o : Vtslib.hi Core_datatype.hi Edlib.hi subcore1.hs 
+	 $(HC) -c subcore1.hs
+
+subcore2.o : Sub_Core1.hi Vtslib.hi Core_datatype.hi Edlib.hi subcore2.hs
+	 $(HC) -c subcore2.hs
+
+subcore3.o : Sub_Core1.hi Sub_Core2.hi Vtslib.hi Core_datatype.hi Edlib.hi subcore3.hs
+	 $(HC) -c subcore3.hs
+
+subcore4.o : Sub_Core1.hi Sub_Core2.hi Sub_Core3.hi Vtslib.hi Core_datatype.hi Edlib.hi subcore4.hs
+	 $(HC) -c subcore4.hs
+
+vtslib.o : Core_datatype.hi Edlib.hi vtslib.hs
+	$(HC) -c vtslib.hs
+
+edlib.o : Core_datatype.hi edlib.lhs
+	$(HC) -c edlib.lhs 
+
+core_datatype.o : core_datatype.hs
+	$(HC) -c core_datatype.hs
+

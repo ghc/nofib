@@ -1,0 +1,23 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Auxprogfuns where
+cs :: [Int] -> ([Char], [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+deline :: [([Int], [Int])] -> [Int] -> ([Char], [([Int], [Int])])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "SS" _N_ _N_ #-}
+display :: [(a, [[Int]])] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+nearx :: Int -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+neary :: Int -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+orient :: Int -> Int -> [[Int]] -> [[Int]]
+	{-# GHC_PRAGMA _A_ 2 _U_ 212 _N_ _S_ "LU(P)" {_A_ 2 _U_ 212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+showoris :: [[Int]] -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+wline :: [Int] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+wscale :: Int -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 4 \ (u0 :: Int#) -> case _#_ minusInt# [] [u0, 20#] of { _PRIM_ (u1 :: Int#) -> _APP_  _WRKR_ _CONSTM_ Integral div (Int) [ u1, 5# ] } _N_} _F_ _IF_ARGS_ 0 1 C 5 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> case _#_ minusInt# [] [u1, 20#] of { _PRIM_ (u2 :: Int#) -> _APP_  _WRKR_ _CONSTM_ Integral div (Int) [ u2, 5# ] }; _NO_DEFLT_ } _N_ #-}
+wwscale :: Int -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 4 \ (u0 :: Int#) -> case _#_ minusInt# [] [u0, 20#] of { _PRIM_ (u1 :: Int#) -> _APP_  _WRKR_ _CONSTM_ Integral div (Int) [ u1, 10# ] } _N_} _F_ _IF_ARGS_ 0 1 C 5 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> case _#_ minusInt# [] [u1, 20#] of { _PRIM_ (u2 :: Int#) -> _APP_  _WRKR_ _CONSTM_ Integral div (Int) [ u2, 10# ] }; _NO_DEFLT_ } _N_ #-}
+

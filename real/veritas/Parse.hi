@@ -1,0 +1,101 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Parse where
+import Core_datatype(Attribute_Tag, Attribute_Value, Cnv_Fn, Flagged_ITrm, IDec, ISgn, ITrm, Name', Operator, Oprtype, Tag_Arg, Tag_Arg_type, Thm, Trm)
+import Kernel(Dec, Sgn)
+import Type_defs(Maybe, Token)
+import Vtslib(Option)
+type Flag_I = Flagged_ITrm
+type Parse_State = ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn)
+abdec :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 202 _N_ _S_ "LAS" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+add_op :: Operator -> Oprtype -> [Flagged_ITrm] -> [Flagged_ITrm]
+	{-# GHC_PRAGMA _A_ 3 _U_ 011 _N_ _S_ "AES" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+aterm :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 202 _N_ _S_ "LAS" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+bdec :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+bdec' :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+bdec_name :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Name'] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 4 _U_ 2221 _N_ _S_ "LLLS" _N_ _N_ #-}
+dec_to_Dec :: Sgn -> IDec -> Dec
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Build_Tm gen_dc _N_ #-}
+deriv :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> ITrm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(LL)S" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+dmy :: [Token]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+drive_parse :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Char] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+fetch_tg :: [Char] -> [([Char], [a], [b])] -> (Bool, ([Char], [a], [b]))
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+flush :: [Flagged_ITrm] -> [Flagged_ITrm] -> Int -> (Flagged_ITrm -> Bool) -> ([Flagged_ITrm], [Flagged_ITrm])
+	{-# GHC_PRAGMA _A_ 4 _U_ 2222 _N_ _S_ "LSLL" _N_ _N_ #-}
+hyp :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+lookup :: [Char] -> Sgn -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+lookup' :: ISgn -> [Char] -> Int -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+lookup_dc :: IDec -> [IDec] -> [Char] -> Int -> Int -> (Bool, Flagged_ITrm)
+	{-# GHC_PRAGMA _A_ 5 _U_ 22222 _N_ _S_ "SLLLL" _N_ _N_ #-}
+lookup_dc' :: IDec -> [IDec] -> [Char] -> Int -> Int -> (Bool, Flagged_ITrm)
+	{-# GHC_PRAGMA _A_ 5 _U_ 12222 _N_ _S_ "SLLLL" _N_ _N_ #-}
+lookup_name :: Sgn -> [Char] -> Option ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+lookup_nm :: Name' -> [Char] -> Int -> Int -> (Bool, Flagged_ITrm)
+	{-# GHC_PRAGMA _A_ 4 _U_ 1222 _N_ _S_ "SSLL" _N_ _N_ #-}
+lookup_nml :: [Name'] -> [Char] -> Int -> Int -> Int -> (Bool, Flagged_ITrm)
+	{-# GHC_PRAGMA _A_ 5 _U_ 12222 _N_ _S_ "SLLLL" _N_ _N_ #-}
+make_dc :: [Name'] -> Flagged_ITrm -> (Attribute_Tag, Attribute_Value) -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "LSL" _N_ _N_ #-}
+make_iop :: [Char] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+make_prebdr :: [Char] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+name :: [Token] -> (Maybe Name' [Char], [Token])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+null_op :: a -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 1 0 X 1 _/\_ u0 -> _!_ False [] [] _N_} _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: u0) -> _!_ False [] [] _N_ #-}
+opprc :: [Token] -> (Int, [Token])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+optyp :: [Token] -> (Oprtype, [Token])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+parse_Thm :: Sgn -> [([Char], [Tag_Arg_type], [Cnv_Fn])] -> [Char] -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 221 _N_ _N_ _N_ _N_ #-}
+parse_Thm_M :: Sgn -> [([Char], [Tag_Arg_type], [Cnv_Fn])] -> [Char] -> Maybe Thm [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
+parse_Trm :: Sgn -> [([Char], [Tag_Arg_type], [Cnv_Fn])] -> [Char] -> Trm
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+parse_deriv :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> Flagged_ITrm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+parse_iL :: [Token] -> (Tag_Arg, [Token])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+parse_iL' :: [Int] -> [Token] -> (Tag_Arg, [Token])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+parse_iL'' :: [Int] -> [Token] -> (Tag_Arg, [Token])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+parse_itm :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Char] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _F_ _IF_ARGS_ 0 2 XX 5 \ (u0 :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn)) (u1 :: [Char]) -> case _APP_  _ORIG_ Parse drive_parse [ u0, u1 ] of { _ALG_ _TUP_2 (u2 :: Flagged_ITrm) (u3 :: [Token]) -> u2; _NO_DEFLT_ } _N_ #-}
+parse_tm :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Char] -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(LL)L" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+parse_trm :: Sgn -> [([Char], [Tag_Arg_type], [Cnv_Fn])] -> [Char] -> Maybe ITrm [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
+prioritise :: [Flagged_ITrm] -> [Flagged_ITrm]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+pst_extend :: Flagged_ITrm -> ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SU(LL)" {_A_ 3 _U_ 122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+ptse :: [Flagged_ITrm] -> [Flagged_ITrm] -> Bool -> [Flagged_ITrm] -> [Flagged_ITrm]
+	{-# GHC_PRAGMA _A_ 4 _U_ 2222 _N_ _S_ "LLLS" _N_ _N_ #-}
+recurse_cls :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Flagged_ITrm] -> [Token] -> ([Flagged_ITrm], [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+sgn_to_Sgn :: ISgn -> Sgn
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Build_Tm build_sg _N_ #-}
+swap_op :: Flagged_ITrm -> [Flagged_ITrm] -> [Flagged_ITrm]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+term :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> (Flagged_ITrm, [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+term' :: ([([Char], [Tag_Arg_type], [Cnv_Fn])], Sgn) -> [Token] -> [Token] -> ([Flagged_ITrm], [Token])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+trm_to_Trm :: Sgn -> ITrm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Build_Tm build_trm' _N_ #-}
+

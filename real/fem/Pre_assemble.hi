@@ -1,0 +1,9 @@
+{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
+interface Pre_assemble where
+import PreludeArray(Array)
+import Vector(Vec)
+diagadr :: (Array Int Int, Array Int Float) -> Vec Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ #-}
+diagadrrlt :: (Array Int Int, Array Int Float) -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ #-}
+

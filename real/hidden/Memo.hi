@@ -1,0 +1,16 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Memo where
+import EdgePlate(Plate)
+import PreludeArray(Array)
+data Triangle a 	{-# GHC_PRAGMA (:^) a a #-}
+lazyAbove :: Array (Triangle Int) Bool -> Plate -> Plate -> Bool
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _S_ "LU(LL)U(LL)" {_A_ 5 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+mkmemo :: (Plate -> Plate -> a) -> [Plate] -> Array (Triangle Int) a
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+instance Eq a => Eq (Triangle a)
+	{-# GHC_PRAGMA _M_ Memo {-dfun-} _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+instance (Enum a, Ix a) => Ix (Triangle a)
+	{-# GHC_PRAGMA _M_ Memo {-dfun-} _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+instance Ord a => Ord (Triangle a)
+	{-# GHC_PRAGMA _M_ Memo {-dfun-} _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

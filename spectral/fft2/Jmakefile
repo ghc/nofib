@@ -1,0 +1,10 @@
+SRCS_LHS= Complex_Vectors.lhs Fourier.lhs Main.lhs
+OBJS_O  = Complex_Vectors.o   Fourier.o   Main.o
+
+NoFibMultiModuleCompileAndRun(fft2,-o1 fft2.stdout)
+
+NoFibHaskellCompile(fft2,Complex_Vectors,lhs)
+NoFibHaskellCompile(fft2,Fourier,lhs)
+NoFibHaskellCompile(fft2,Main,lhs)
+
+NoFibDependTarget(fft2, $(SRCS_LHS))

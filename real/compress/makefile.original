@@ -1,0 +1,47 @@
+MODS= Defaults.hs BinConv.hs PTTrees.hs Encode.hs Compress.hs
+INTS=$(MODS:%.hs=%.hi)
+OBJS=$(MODS:%.hs=%.o)
+UOBJS=$(UMODS:%.hs=%.o)
+UMODS=Defaults.hs BinConv.hs Decode.hs Uncompress.hs
+
+# HC is the name of the Haskell compiler
+
+HC=hbchp
+
+# REVISION is the Haskell language version number, 1 for 1.1, 0 for 1.0
+
+REVISION=1
+
+# DEC_VERSION is the version of Decode we wish to compile
+
+DEC_VERSION=3
+
+# HCFLAGS are the flags to the compiler. 
+# -DPAR will compile code for the GRIP machine
+
+HCFLAGS= -M 
+
+all: hcz uhcz
+
+hcz: $(OBJS)
+	$(HC) $(HCFLAGS) -o hcz $(OBJS)
+	strip hcz
+
+uhcz: $(UOBJS)
+	$(HC) $(HCFLAGS) -o uhcz $(UOBJS)
+	strip uhcz
+
+clean:
+	rm *.o *.hi
+
+realclean: clean
+	rm hcz uhcz
+
+%.o: %.hs
+	$(HC) -DREVISION=$(REVISION) -DDEC_VERSION=$(DEC_VERSION) $(HCFLAGS) -c $<
+
+%.hi: %.o
+	@if test ! -f $@ ; then \
+	    rm $< ; \
+	    $(MAKE) HC=$(HC) $@ ; \
+	fi

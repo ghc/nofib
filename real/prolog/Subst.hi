@@ -1,0 +1,17 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Subst where
+import PrologData(Term)
+infixr 3 @@
+infix  4 ->>
+type Subst = (Int, [Char]) -> Term
+(->>) :: (Int, [Char]) -> Term -> (Int, [Char]) -> Term
+	{-# GHC_PRAGMA _A_ 3 _U_ 212 _N_ _N_ _N_ _N_ #-}
+(@@) :: ((Int, [Char]) -> Term) -> ((Int, [Char]) -> Term) -> (Int, [Char]) -> Term
+	{-# GHC_PRAGMA _A_ 2 _U_ 212 _N_ _S_ "LS" _N_ _N_ #-}
+apply :: ((Int, [Char]) -> Term) -> Term -> Term
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+nullSubst :: (Int, [Char]) -> Term
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 2 \ (u0 :: (Int, [Char])) -> _!_ _ORIG_ PrologData Var [] [u0] _N_ #-}
+unify :: Term -> Term -> [(Int, [Char]) -> Term]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_ #-}
+

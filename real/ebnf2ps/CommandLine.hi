@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface CommandLine where
+import PreludeIO(Request, Response)
+parse_cmds :: ([Char] -> Int -> [Char] -> [Char] -> Int -> [Char] -> [Char] -> [Char] -> Int -> Int -> Int -> Int -> Int -> [Char] -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> [[Char]] -> [Response] -> [Request]) -> [Response] -> [Request]
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,16 @@
+interface Input where {
+{-# IMPORTING Utils #-}
+import AbsDensematrix(Vec);
+import Matrix(Block_list);
+gmat :: Int -> [Block_list]   {-# ARITY gmat = 1 #-}{-# STRICTNESS gmat = "T,F" ST #-};
+rhside :: Int -> [Vec]   {-# ARITY rhside = 1 #-}{-# STRICTNESS rhside = "T,F" ST #-};
+soln_vect :: Int -> [Vec]   {-# ARITY soln_vect = 1 #-}{-# STRICTNESS soln_vect = "T,F" ST #-};
+wells :: Int -> Int   {-# ARITY wells = 1 #-}{-# STRICTNESS wells = "0,0" ST #-};
+split :: (Integral a) => a -> [b] -> [[b]]   {-# ARITY split = 3 #-}{-# STRICTNESS split = "2,F" ST #-};
+blm' :: Int -> [[(Int, Int, [[Float]])]]   {-# ARITY blm' = 1 #-}{-# STRICTNESS blm' = "T,F" ST #-};
+mkbigvec :: [[Float]] -> [Vec]   {-# ARITY mkbigvec = 1 #-}{-# STRICTNESS mkbigvec = "T,F" ST #-};
+mksparse :: [[(Int, Int, [[Float]])]] -> [Block_list]   {-# ARITY mksparse = 1 #-}{-# STRICTNESS mksparse = "T,F" ST #-};
+a_easy :: Int -> [Block_list]   {-# ARITY a_easy = 1 #-}{-# STRICTNESS a_easy = "0,F" ST #-};
+a_hard :: Int -> [Block_list]   {-# ARITY a_hard = 1 #-}{-# STRICTNESS a_hard = "0,F" ST #-};
+x1 :: (Enum a, Num a) => a -> [Vec]   {-# ARITY x1 = 3 #-}{-# STRICTNESS x1 = "T,F" ST #-}
+}

@@ -1,0 +1,8 @@
+/* has a special test script */
+
+SRCS_HS=Main.hs
+OBJS_O= Main.o
+
+NoFibMultiModuleCompileAndRun(io012, -script ./io012.test)
+
+NoFibHaskellCompile(io012,Main,hs)

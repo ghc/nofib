@@ -1,0 +1,16 @@
+/* has the "stack-based" version already wired in */
+
+SRCS_HS=PrologData.hs Parse.hs Interact.hs Subst.hs Engine.hs Version.hs Main.hs
+OBJS_O= PrologData.o  Parse.o  Interact.o  Subst.o  Engine.o  Version.o  Main.o
+
+NoFibMultiModuleCompileAndRun(prolog, -i prolog.stdin -o1 prolog.stdout)
+
+NoFibHaskellCompile(prolog,PrologData,hs)
+NoFibHaskellCompile(prolog,Parse,hs)
+NoFibHaskellCompile(prolog,Interact,hs)
+NoFibHaskellCompile(prolog,Subst,hs)
+NoFibHaskellCompile(prolog,Engine,hs)
+NoFibHaskellCompile(prolog,Version,hs)
+NoFibHaskellCompile(prolog,Main,hs)
+
+NoFibDependTarget(prolog, $(SRCS_HS))

@@ -1,0 +1,168 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface X_interface where
+import Type_defs(Maybe)
+import Vtslib(Option)
+data Form_input   = InSingleText [Char] [Char] | InMultiText [Char] [Char] | InToggle [Char] [([Char], Bool)] | InRadio [Char] Int [[Char]] | InComment [Char] | InSubterm [Char] SubTermData
+data Form_output   = OutText [Char] | OutToggle [[Char]] | OutRadio [Char] | OutSubterm [Char]
+data SubTermData   = STData [Int] Int Int [SubTermData]
+bst :: Bool -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+end_x :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_quit_esc_seq ] _N_ #-}
+esc_seq :: Char
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ C# [] ['\o33'#] _N_ #-}
+x_bell :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_bell_esc_seq ] _N_ #-}
+x_bell_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_cancel_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_cmd_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_comment_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_display :: [Char] -> [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+x_display_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_enable_buttons :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_enable_esc_seq ] _N_ #-}
+x_enable_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_end_arg_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_error :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_error_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_form :: Bool -> [Form_input] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [Form_output]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 222 _N_ _N_ _N_ _N_ #-}
+x_form_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_get_arg :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [Char] [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SLL)" {_A_ 3 _U_ 122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_get_argL :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [[Char]] [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SLL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_get_arg_no :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe Int [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SLL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_get_cmd :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [Char] [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+x_get_esc_seq :: ([c], a, b) -> (([c], a, b), Maybe [c] d, [e])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+x_get_form :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [Form_output]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SLL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_get_i_args :: Int -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [[Char]] [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_get_info :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe Form_output [Char], [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SLL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_hide_main_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_hide_window :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_hide_main_esc_seq ] _N_ #-}
+x_inter_arg_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_multi_arg_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_multi_get_arg :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a [Char], [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [a] [Char], [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+x_multi_get_i_args :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a b, [Char])) -> Int -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [a] b, [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 212 _N_ _S_ "LU(P)" {_A_ 2 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_multi_send :: (a -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> [a] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 222 _N_ _N_ _N_ _N_ #-}
+x_multi_send_arg :: (a -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> a -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 122 _N_ _N_ _N_ _N_ #-}
+x_multi_text_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_quit_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_radio_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_scratch :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_scratch_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_send :: b -> a -> (a, b)
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _F_ _IF_ARGS_ 2 2 XX 3 _/\_ u0 u1 -> \ (u2 :: u1) (u3 :: u0) -> _!_ _TUP_2 [u0, u1] [u3, u2] _N_ #-}
+x_send_arg :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_send_argL :: [[Char]] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_send_bool :: Bool -> a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "E" _N_ _N_ #-}
+x_send_form :: [Form_input] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+x_send_info :: Form_input -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+x_send_num :: Int -> a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_send_subtrm :: SubTermData -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LLLL)" {_A_ 4 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_send_toggle :: ([Char], Bool) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LE)" {_A_ 2 _U_ 212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+x_set_arg_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_argument :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_set_com_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_comment :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_set_dis_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_don_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_done :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_set_full :: [Int] -> [Char] -> [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 1222 _N_ _N_ _N_ _N_ #-}
+x_set_full_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_goal :: [Char] -> [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 222 _N_ _N_ _N_ _N_ #-}
+x_set_nod_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_node :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_set_par_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_parent :: [Char] -> [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 222 _N_ _N_ _N_ _N_ #-}
+x_set_rw :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_set_rw_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_sta_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_status :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_set_sub_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_subgoals :: [([Char], [Char])] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+x_set_tac_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_set_tactic :: [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+x_show_main_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_show_tactics :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_tacs_up_esc_seq ] _N_ #-}
+x_show_window :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_show_main_esc_seq ] _N_ #-}
+x_single_text_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_subtrm_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_tacs_up_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_toggle_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_unset_full :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_unset_full_esc_seq ] _N_ #-}
+x_unset_full_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_unset_par_esc_seq :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+x_unset_parent :: a -> (a, [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _APP_  _TYAPP_  _TYAPP_  _ORIG_ X_interface x_send { u0 } { [Char] } [ _ORIG_ X_interface x_unset_par_esc_seq ] _N_ #-}
+

@@ -1,0 +1,117 @@
+#define IHaveSubdirs
+
+SUBDIRS = arith001 \
+	  arith002 \
+	  arith003 \
+	  arith004 \
+	  arith005 \
+	  arith006 \
+	  arith007 \
+	  arith008 \
+	  array001 \
+	  array002 \
+	  bugs  \
+	  cg001 \
+	  cg002 \
+	  cg003 \
+	  cg004 \
+	  cg005 \
+	  cg006 \
+	  cg007 \
+	  cg008 \
+	  cg009 \
+	  cg010 \
+	  cg011 \
+	  cg012 \
+	  cg013 \
+	  cg014 \
+	  cg015 \
+	  cg016 \
+	  cg017 \
+	  cg018 \
+	  cg019 \
+	  cg020 \
+	  cg021 \
+	  cg022 \
+	  cg024 \
+	  cg025 \
+	  cg026 \
+	  cg028 \
+	  cg029 \
+	  cg030 \
+	  cg031 \
+	  cg032 \
+	  cg033 \
+	  cg034 \
+	  cg035 \
+	  cg036 \
+	  ghclib001 \
+	  io001 /* 1.3 I/O */ \
+	  io002 \
+	  io003 \
+	  io004 \
+	  io005 \
+	  io006 \
+	  io007 \
+	  io008 \
+	  io009 \
+	  io010 \
+	  io011 \
+	  io012 \
+	  io013 \
+	  io014 \
+	  io015 \
+	  io016 \
+	  io017 \
+	  io018 \
+	  io019 \
+	  io020 \
+	  io021 \
+	  obfuscated93 \
+	  po001 /* LibPosix */ \
+	  po002 \
+	  po003 \
+	  po004 \
+	  po005 \
+	  po006 \
+	  po007 \
+	  po008 \
+	  po009 \
+	  po010 \
+	  po011 \
+	  po012 \
+	  net001 /* SocketPrim, BSD, Socket */ \
+	  net002 \ 
+	  net003 \
+	  net004 \
+	  net005 \
+	  net006 \
+	  net007 \
+	  net008 
+
+/* LATER: specialise */
+
+/* takes too long: put it back:ToDo:	  cg023 */
+
+/* OLD:	  cg018 -- -feval-tran no longer supported */
+/*	  cg027 : compile-time error */
+
+runtests::
+	@echo '###############################################################'
+	@echo '# GHC tests that need to be *run*                             #'
+	@echo '###############################################################'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Defaults where
+ascii_bits :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [8#] _N_ #-}
+code_bits :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [12#] _N_ #-}
+first_code :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [256#] _N_ #-}
+max_entries :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,77 @@
+This is the root directory of the "NoFib Haskell benchmark suite";
+version 0.26 (to match our other Glasgow functional-programming
+tools).
+
+We have yet to release the NoFib stuff as we intended -- everything
+tidied up -- because it's a lot of work for very few brownie points.
+As it is, however, it is quite useful as a Haskell-compiler test
+suite, so we are not keeping it to ourselves.
+
+This version has *MANY* shortcomings, some of which I hope you will
+report, so we can get something "real" out the door.
+
+There are some restrictions on the use of this software.  First of
+all, the copyright for the individual programs remains with their
+authors (unless they have explicitly said otherwise).  Second, we (the
+AQUA project at University of Glasgow) retain the copyright to any
+changes made to the programs *and* to the collection of programs
+itself.  Third, for this "not-0.26" non-release, it would be dishonest
+to suggest that any results are related to the still-in-the-future
+"NoFib benchmark suite".  So please do not make any such claims.
+
+A position paper about the suite is in docs/paper/paper.dvi, and it
+includes more than enough indication as to how we intend this suite to
+be used.  Of course, we positively *welcome* honest and creative uses
+of this suite.
+
+The file BUILDING provides some direction about setting up the suite,
+in order to run it. [NOTE: doesn't exist yet; see sketchy notes below]
+
+The file BUGS is a list of things we *know* are not right [ALSO
+VIRTUALLY USELESS].  Help would be most welcome...
+
+You may sent comments or bug reports about this suite either to me
+(partain@dcs.glasgow.ac.uk) or (glasgow-haskell-bugs@dcs.glasgow.ac.uk).
+They will be most welcome.
+
+Will Partain
+
+== SKETCHY NOTES ==================================================
+
+Quick and dirty
+~~~~~~~~~~~~~~~
+
+Find a program you are interested in, make up a "makefile" by hand,
+and try it :-)
+
+
+Doing things properly
+~~~~~~~~~~~~~~~~~~~~~
+
+* Run: ./configure --enable-nofib --disable-ghc --with-hc={ghc*,glhc*,hbc*,nhc*}
+
+* Your "mkworld" project id is "nofib" (surprise, surprise).  You must
+  also pick a "setup" for your "nofib project".
+
+  There are three available, one per compiler tried so far: hbc, ghc,
+  and nhc.
+
+* Once you've decided on a setup, edit
+  nofib/mkworld/site-nofib-<setup>.jm.  "SetupHcOpts" should be set to
+  the compiler options that should be applied absolutely always (if
+  any).
+  
+  nofib/mkworld/site-nofib-hbc.jm is a nice simple example.
+
+* You should be ready to go.  "cd" to the very top directory and type:
+
+    sh < STARTUP
+
+  This should configure and build the mkworld, literate, and
+  glafp-utils infrastructure, and configure the nofib stuff itself.
+
+* If that works -- and you'll know if it did -- then do:
+
+    % cd nofib
+    % make -k >& make.log # to compile everything; save log for study
+    % make -k runtests >& runtests.log	# also for study

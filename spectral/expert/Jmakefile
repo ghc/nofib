@@ -1,0 +1,13 @@
+SRCS_HS=Result.hs Table.hs Knowledge.hs Match.hs Search.hs Main.hs
+OBJS_O= Result.o  Table.o  Knowledge.o  Match.o  Search.o  Main.o
+
+NoFibMultiModuleCompileAndRun(expert,-i expert.stdin -o1 expert.stdout)
+
+NoFibHaskellCompile(expert,Result,hs)
+NoFibHaskellCompile(expert,Table,hs)
+NoFibHaskellCompile(expert,Knowledge,hs)
+NoFibHaskellCompile(expert,Match,hs)
+NoFibHaskellCompile(expert,Search,hs)
+NoFibHaskellCompile(expert,Main,hs)
+
+NoFibDependTarget(expert, $(SRCS_HS))

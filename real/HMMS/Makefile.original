@@ -1,0 +1,152 @@
+#----------------------------------------------------------------------
+#  file:  Makefile
+#
+#  author:  David M. Goblirsch
+#
+#----------------------------------------------------------------------
+#
+#  Recall that the environment variable HMMS is the pathname to the
+#  root of the HMM training distribution.  
+#
+#----------------------------------------------------------------------
+#  hbc 0.999.4
+#----------------------------------------------------------------------
+#
+
+HC=		hbc
+HCFLAGS= 	-fverbose  -O  -fpbu
+HLDFLAGS=
+LIBS=		-L${HMMS}/lib/haskell
+LIBRARY=	lib.a
+
+#----------------------------------------------------------------------
+#  ghc 0.19
+#----------------------------------------------------------------------
+#
+#  NOTICE:  if you use ghc, you'll have to edit the two program files
+#
+#			BatchAlign.lhs
+#			CountAlignmentDiffs.lhs
+#	    to
+#           import the proper C-like printing library module.
+#           See BatchAlign.lhs and look for the string ``Printf''
+#	    and read the comments.  If you later switch back to
+#	    to hbc, you'll have to edit them again.
+#
+
+#HC= 		ghc
+#HCFLAGS= 	-v -syslib hbc -i${HMMS}/lib/haskell -O2 -H24M
+#HLDFLAGS=	
+#LIBS=		-L${HMMS}/lib/haskell  -L.  -lglasprog -lglas
+#LIBRARY=	libglasprog.a
+
+#----------------------------------------------------------------------
+#  When switching between the two compilers, you do not have to edit
+#  anything past this point.
+#----------------------------------------------------------------------
+
+TARGET_DIR=	../../bin
+COMPILE= 	${HC} ${HCFLAGS}
+COMPILE_AND_LINK= ${COMPILE} ${HLDFLAGS}
+
+
+.SUFFIXES :
+.SUFFIXES : .lhs .o
+
+
+PROGRAMS= \
+	${TARGET_DIR}/ConvertLinearDic 		\
+	${TARGET_DIR}/Transcribe		\
+	${TARGET_DIR}/BatchTranscribe		\
+	${TARGET_DIR}/BatchAlign		\
+	${TARGET_DIR}/CountAlignmentDiffs	\
+	${TARGET_DIR}/ComputeNewDgs 		\
+	${TARGET_DIR}/DumpPhoneList
+
+
+HMM_LIBRARY_MODULES= 	\
+	Phones.o	\
+	Pronunciations.o\
+	HmmDigraphs.o	\
+	HmmConstants.o	\
+	HmmDensities.o	\
+	Viterbi.o	\
+	Alignments.o
+
+
+#----------------------------------------------------------------------
+#			       PROGRAMS
+#----------------------------------------------------------------------
+
+
+all : ${LIBRARY}  ${PROGRAMS}
+
+
+${TARGET_DIR}/ConvertLinearDic : Phones.o ConvertLinearDic.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+${TARGET_DIR}/Transcribe : Pronunciations.o Transcribe.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+${TARGET_DIR}/BatchTranscribe : Pronunciations.o BatchTranscribe.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+${TARGET_DIR}/BatchAlign : ${HMM_LIBRARY_MODULES} BatchAlign.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+${TARGET_DIR}/CountAlignmentDiffs : Alignments.o CountAlignmentDiffs.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+${TARGET_DIR}/ComputeNewDgs : Phones.o HmmDigraphs.o Alignments.o \
+		ComputeNewDgs.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+${TARGET_DIR}/DumpPhoneList : Phones.lhs DumpPhoneList.lhs
+	${COMPILE_AND_LINK} -o $@ ${@F}.lhs ${LIBS}
+
+
+#----------------------------------------------------------------------
+#			     HMM LIBRARY
+#----------------------------------------------------------------------
+
+
+${LIBRARY} : ${HMM_LIBRARY_MODULES}
+	ar rv $@ $?
+	ranlib $@
+
+Pronunciations.o : Phones.o Pronunciations.lhs
+	${COMPILE} -c Pronunciations.lhs
+
+HmmDigraphs.o : Phones.o Pronunciations.o HmmDigraphs.lhs
+	${COMPILE} -c HmmDigraphs.lhs
+
+HmmDensities.o : Phones.o HmmConstants.o HmmDensities.lhs
+	${COMPILE} -c HmmDensities.lhs
+
+Viterbi.o : HmmDigraphs.o HmmDensities.o Viterbi.lhs
+	${COMPILE} -c Viterbi.lhs
+
+#
+#  The suffix rule will work for HmmConstants.o, Phones.o,
+#  Alignments.o, and Utilities.o
+#
+
+.lhs.o :
+	${COMPILE} -c $<
+
+
+#----------------------------------------------------------------------
+#			       CLEANUP
+#----------------------------------------------------------------------
+
+clean :
+	- /bin/rm  *.a  *.o  *.hi  ${PROGRAMS}
+
+
+#----------  End of Makefile  ----------

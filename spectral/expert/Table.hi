@@ -1,0 +1,25 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Table where
+import Result(Result)
+data Table a b   = Empty | Fork (Table a b) (a, b) (Table a b)
+delete :: Ord a => Table a b -> a -> Table a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 212 _N_ _N_ _N_ _N_ #-}
+enter :: Ord a => Table a b -> a -> b -> Table a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 2222 _N_ _N_ _N_ _N_ #-}
+enterList :: Ord a => Table a b -> [(a, b)] -> Table a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 221 _N_ _N_ _N_ _N_ #-}
+entries :: Table a b -> [(a, b)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+find :: Ord a => Table a b -> a -> Result b [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 212 _N_ _N_ _N_ _N_ #-}
+mergeKey :: Ord a => [(a, b)] -> [(a, b)] -> [(a, b)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _N_ _N_ _N_ #-}
+newTable :: Table a b
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 2 0 X 1 _/\_ u0 u1 -> _!_ _ORIG_ Table Empty [u0, u1] [] _N_ #-}
+sortKey :: Ord a => [(a, b)] -> [(a, b)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+update :: Ord a => Table a b -> a -> b -> Table a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 2222 _N_ _N_ _N_ _N_ #-}
+updateList :: Ord a => Table a b -> [(a, b)] -> Table a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 211 _N_ _N_ _N_ _N_ #-}
+

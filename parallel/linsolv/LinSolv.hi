@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface LinSolv where
+import Matrix(SqMatrix, Vector)
+linSolv :: SqMatrix Integer -> Vector Integer -> (Vector Integer, Integer, Integer)
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+

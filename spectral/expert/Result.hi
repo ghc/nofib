@@ -1,0 +1,18 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Result where
+data Result a b   = Answer a | Reason b
+answer :: Result b a -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+answers :: Result b a -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+fails :: Result a b -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 2 1 C 4 _/\_ u0 u1 -> \ (u2 :: Result u0 u1) -> case u2 of { _ALG_ _ORIG_ Result Reason (u3 :: u1) -> _!_ True [] []; _ORIG_ Result Answer (u4 :: u0) -> _!_ False [] []; _NO_DEFLT_ } _N_ #-}
+failure :: b -> Result a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 2 1 X 2 _/\_ u0 u1 -> \ (u2 :: u1) -> _!_ _ORIG_ Result Reason [u0, u1] [u2] _N_ #-}
+reason :: Result a b -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+succeeds :: Result a b -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 2 1 C 4 _/\_ u0 u1 -> \ (u2 :: Result u0 u1) -> case u2 of { _ALG_ _ORIG_ Result Reason (u3 :: u1) -> _!_ False [] []; _ORIG_ Result Answer (u4 :: u0) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+success :: a -> Result a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 2 1 X 2 _/\_ u0 u1 -> \ (u2 :: u0) -> _!_ _ORIG_ Result Answer [u0, u1] [u2] _N_ #-}
+

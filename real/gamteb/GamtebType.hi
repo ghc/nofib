@@ -1,0 +1,19 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface GamtebType where
+import PreludeArray(Assoc)
+type Angle = Double
+type Coord = Double
+type Energy = Double
+type Indx = Int
+type PartType = Int
+data Particle   = Part (Double, Double, Double) (Double, Double, Double) Double Double Int Int Double
+type Point = (Double, Double, Double)
+type Prob = Double
+type Probability = (Double, Double, Double, Double)
+type Random = Double
+type Result = Assoc (Int, Int) Double
+type Stat = Assoc Int Double
+type StatType = Int
+type Value = Double
+type Weight = Double
+

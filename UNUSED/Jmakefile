@@ -1,0 +1,3 @@
+#define IHaveSubdirs
+
+SUBDIRS = nfib /* a secret! */

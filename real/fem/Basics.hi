@@ -1,0 +1,10 @@
+{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
+interface Basics where
+import PreludeArray(Assoc)
+azip :: [a] -> [b] -> [Assoc a b]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _S_ "SS" _N_ _N_ #-}
+showlj :: Text a => Int -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _S_ "U(ASAA)LL" {_A_ 3 _U_ 212 _N_ _N_ _N_} _N_ _N_ #-}
+showrj :: Text a => Int -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _S_ "U(ASAA)U(P)L" {_A_ 3 _U_ 222 _N_ _N_ _N_} _N_ _N_ #-}
+

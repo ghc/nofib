@@ -1,0 +1,9 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Digraph where
+type Cycle a = [a]
+type Edge a = (a, a)
+dfs :: Eq a => (a -> [a]) -> ([a], [a]) -> [a] -> ([a], [a])
+	{-# GHC_PRAGMA _A_ 4 _U_ 1211 _N_ _N_ _N_ _N_ #-}
+stronglyConnComp :: Eq a => [(a, a)] -> [a] -> [[a]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 221 _N_ _N_ _N_ _N_ #-}
+

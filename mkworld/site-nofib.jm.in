@@ -1,0 +1,73 @@
+/* @configure_input@ */
+
+/* --------------- "standard" Haskell compiler --------------------------- */
+
+#define WithHc @WithHc@
+#define WithHcType @WithHcType@
+
+#define WithNoFibHc @WithNoFibHc@
+#define WithNoFibHcType @WithNoFibHcType@
+
+#if ! (defined(HaskellCompilerCmd) && defined(HaskellCompilerType))
+# if WithNoFibHcType != HC_UNSPECIFIED
+#  define HaskellCompilerCmd  WithNoFibHc
+#  define HaskellCompilerType WithNoFibHcType
+# else
+#  if WithHcType != HC_UNSPECIFIED
+#   define HaskellCompilerCmd  WithHc
+#   define HaskellCompilerType WithHcType
+#  else				  
+#   define HaskellCompilerCmd  haskell-compiler-not-specified
+#   define HaskellCompilerType HC_UNSPECIFIED
+#  endif
+# endif
+#endif
+
+#ifndef MkDependHSCmd
+#define MkDependHSCmd @MkDependHSCmd@
+#endif
+
+/* -----------------------------------------------------------------
+A particular setup of the nofib suite may choose to run some extra
+tests (NB: these may not be distributed).  By default, they are not
+run.
+----------------------------------------------------------------- */
+
+/* real, spectral, imaginary tests: the std ones */
+#ifndef IncludeRealNoFibTests
+#define IncludeRealNoFibTests @IncludeRealNoFibTests@
+#endif
+#ifndef IncludeSpectralNoFibTests
+#define IncludeSpectralNoFibTests @IncludeSpectralNoFibTests@
+#endif
+#ifndef IncludeImaginaryNoFibTests
+#define IncludeImaginaryNoFibTests @IncludeImaginaryNoFibTests@
+#endif
+
+/* PENDING: tests that haven't been decided upon */
+#ifndef IncludePENDINGNoFibTests
+#define IncludePENDINGNoFibTests @IncludePENDINGNoFibTests@
+#endif
+
+/* UNUSED: tests that are definitely unused */
+#ifndef IncludeUNUSEDNoFibTests
+#define IncludeUNUSEDNoFibTests @IncludeUNUSEDNoFibTests@
+#endif
+
+/* GHC_ONLY: tests really intended just for the Glasgow Haskell
+    system -- the source may not be std Haskell, even.
+    It is convenient to run all tests in a "nofib" framework.
+*/
+#ifndef IncludeGHC_ONLYNoFibTests
+#define IncludeGHC_ONLYNoFibTests @IncludeGHC_ONLYNoFibTests@
+#endif
+
+/* PRIVATE: tests that the authors have asked that we not give out the source */
+#ifndef IncludePRIVATENoFibTests
+#define IncludePRIVATENoFibTests @IncludePRIVATENoFibTests@
+#endif
+
+/* Parallel: tests that the authors have asked that we not give out the source */
+#ifndef IncludeParallelNoFibTests
+#define IncludeParallelNoFibTests @IncludeParallelNoFibTests@
+#endif

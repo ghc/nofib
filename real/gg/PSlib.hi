@@ -1,0 +1,85 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface PSlib where
+data Point   = Pt Int Int
+type Postscript = [Char]
+centreshow :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+cjustify :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+closepath :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+drawBox :: Point -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 122 _N_ _N_ _N_ _N_ #-}
+drawObject :: [Point] -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+fill :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+fillBox :: Point -> Int -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 4 _U_ 1221 _N_ _N_ _N_ _N_ #-}
+fillObject :: [Point] -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+grestore :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+gsave :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+gslandscape :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _NIL_ [Char] [] _N_ #-}
+initialise :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+landscape :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+lineto :: Point -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LL)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+moveto :: Point -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LL)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+newpath :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+portrait :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _NIL_ [Char] [] _N_ #-}
+psCommand :: Text a => [Char] -> [a] -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "LLS" _N_ _SPECIALISE_ [ Int ] 1 { _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ } #-}
+rightshow :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+rjustify :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+rlineto :: Text a => a -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ } #-}
+rmoveto :: Text a => a -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _N_ _N_ _N_ #-}
+rotate :: Text a => a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ } #-}
+scale :: Text a => a -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _N_ _N_ _N_ #-}
+setcms :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+setfont :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: [Char]) -> _APP_  _TYAPP_  _ORIG_ PreludeList (++) { Char } [ u0, _NOREP_S_ " setfont\n" ] _N_ #-}
+setgray :: Num a => a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(U(SA)LAAAAAAAL)" {_A_ 3 _U_ 2122 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ } #-}
+setlinewidth :: Text a => a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _N_ _N_ _N_ #-}
+showpage :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+stdProcedures :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _APP_  _TYAPP_  _ORIG_ PreludeList (++) { Char } [ _ORIG_ PSlib rightshow, _ORIG_ PSlib centreshow ] _N_ #-}
+stdheader :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+stroke :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+text :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+thinlines :: [Char]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+translate :: Text a => a -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ } #-}
+instance Eq Point
+	{-# GHC_PRAGMA _M_ PSlib {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Point -> Point -> Bool), (Point -> Point -> Bool)] [_CONSTM_ Eq (==) (Point), _CONSTM_ Eq (/=) (Point)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "U(U(P)L)U(U(P)L)" {_A_ 4 _U_ 2121 _N_ _N_ _F_ _IF_ARGS_ 0 4 XCXC 7 \ (u0 :: Int#) (u1 :: Int) (u2 :: Int#) (u3 :: Int) -> case _#_ eqInt# [] [u0, u2] of { _ALG_ True  -> case u1 of { _ALG_ I# (u4 :: Int#) -> case u3 of { _ALG_ I# (u5 :: Int#) -> _#_ eqInt# [] [u4, u5]; _NO_DEFLT_ }; _NO_DEFLT_ }; False  -> _!_ False [] []; _NO_DEFLT_ } _N_} _F_ _ALWAYS_ \ (u0 :: Point) (u1 :: Point) -> case u0 of { _ALG_ _ORIG_ PSlib Pt (u2 :: Int) (u3 :: Int) -> case u2 of { _ALG_ I# (u4 :: Int#) -> case u1 of { _ALG_ _ORIG_ PSlib Pt (u5 :: Int) (u6 :: Int) -> case u5 of { _ALG_ I# (u7 :: Int#) -> case _#_ eqInt# [] [u4, u7] of { _ALG_ True  -> case u3 of { _ALG_ I# (u8 :: Int#) -> case u6 of { _ALG_ I# (u9 :: Int#) -> _#_ eqInt# [] [u8, u9]; _NO_DEFLT_ }; _NO_DEFLT_ }; False  -> _!_ False [] []; _NO_DEFLT_ }; _NO_DEFLT_ }; _NO_DEFLT_ }; _NO_DEFLT_ }; _NO_DEFLT_ } _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "U(U(P)L)U(U(P)L)" {_A_ 4 _U_ 2121 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+instance Text Point
+	{-# GHC_PRAGMA _M_ PSlib {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Point, [Char])]), (Int -> Point -> [Char] -> [Char]), ([Char] -> [([Point], [Char])]), ([Point] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Point), _CONSTM_ Text showsPrec (Point), _CONSTM_ Text readList (Point), _CONSTM_ Text showList (Point)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LU(LL)" {_A_ 3 _U_ 1222 _N_ _N_ _N_ _N_} _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

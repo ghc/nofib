@@ -1,0 +1,47 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface PrologData where
+import Parse(Parser(..))
+infix  6 :==
+type Atom = [Char]
+data Clause   = (:==) Term [Term]
+data Database 	{-# GHC_PRAGMA Db [([Char], [Clause])] #-}
+type Id = (Int, [Char])
+type Parser a = [Char] -> [(a, [Char])]
+data Term   = Var (Int, [Char]) | Struct [Char] [Term]
+addClause :: Database -> Clause -> Database
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(L)U(SL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+clause :: [Char] -> [(Clause, [Char])]
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+emptyDb :: Database
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+renClauses :: Database -> Int -> Term -> [Clause]
+	{-# GHC_PRAGMA _A_ 3 _U_ 121 _N_ _S_ "LLS" _N_ _N_ #-}
+term :: [Char] -> [(Term, [Char])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+termlist :: [Char] -> [([Term], [Char])]
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+varsIn :: Term -> [(Int, [Char])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+instance Eq Term
+	{-# GHC_PRAGMA _M_ PrologData {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Term -> Term -> Bool), (Term -> Term -> Bool)] [_CONSTM_ Eq (==) (Term), _CONSTM_ Eq (/=) (Term)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+instance Text Clause
+	{-# GHC_PRAGMA _M_ PrologData {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Clause, [Char])]), (Int -> Clause -> [Char] -> [Char]), ([Char] -> [([Clause], [Char])]), ([Clause] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Clause), _CONSTM_ Text showsPrec (Clause), _CONSTM_ Text readList (Clause), _CONSTM_ Text showList (Clause)] _N_
+	 readsPrec = _A_ 2 _U_ 22 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 2 XX 4 \ (u0 :: Int) (u1 :: [Char]) -> _APP_  _TYAPP_  patError# { (Int -> [Char] -> [(Clause, [Char])]) } [ _NOREP_S_ "%DPreludeCore.Text.readsPrec\"", u0, u1 ] _N_,
+	 showsPrec = _A_ 2 _U_ 012 _N_ _S_ "AU(LS)" {_A_ 2 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+instance Text Database
+	{-# GHC_PRAGMA _M_ PrologData {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Database, [Char])]), (Int -> Database -> [Char] -> [Char]), ([Char] -> [([Database], [Char])]), ([Database] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Database), _CONSTM_ Text showsPrec (Database), _CONSTM_ Text readList (Database), _CONSTM_ Text showList (Database)] _N_
+	 readsPrec = _A_ 2 _U_ 22 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 2 XX 4 \ (u0 :: Int) (u1 :: [Char]) -> _APP_  _TYAPP_  patError# { (Int -> [Char] -> [(Database, [Char])]) } [ _NOREP_S_ "%DPreludeCore.Text.readsPrec\"", u0, u1 ] _N_,
+	 showsPrec = _A_ 2 _U_ 012 _N_ _S_ "AU(S)" {_A_ 1 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+instance Text Term
+	{-# GHC_PRAGMA _M_ PrologData {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Term, [Char])]), (Int -> Term -> [Char] -> [Char]), ([Char] -> [([Term], [Char])]), ([Term] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Term), _CONSTM_ Text showsPrec (Term), _CONSTM_ Text readList (Term), _CONSTM_ Text showList (Term)] _N_
+	 readsPrec = _A_ 2 _U_ 22 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 2 XX 4 \ (u0 :: Int) (u1 :: [Char]) -> _APP_  _TYAPP_  patError# { (Int -> [Char] -> [(Term, [Char])]) } [ _NOREP_S_ "%DPreludeCore.Text.readsPrec\"", u0, u1 ] _N_,
+	 showsPrec = _A_ 3 _U_ 022 _N_ _S_ "ASL" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

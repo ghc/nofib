@@ -1,0 +1,22 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface PortablePixmap where
+data PixMap   = Pixmap Integer Integer Int [(Int, Int, Int)]
+createPixmap :: Integer -> Integer -> Int -> [(Int, Int, Int)] -> PixMap
+	{-# GHC_PRAGMA _A_ 4 _U_ 2222 _N_ _N_ _F_ _IF_ARGS_ 0 4 XXXX 5 \ (u0 :: Integer) (u1 :: Integer) (u2 :: Int) (u3 :: [(Int, Int, Int)]) -> _!_ _ORIG_ PortablePixmap Pixmap [] [u0, u1, u2, u3] _N_ #-}
+showBanner :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+showHeader :: Integer -> Integer -> Int -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 4 _U_ 1112 _N_ _N_ _N_ _N_ #-}
+showRGB :: [(Int, Int, Int)] -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "S" _N_ _N_ #-}
+showReturn :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+showSpace :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+instance Text PixMap
+	{-# GHC_PRAGMA _M_ PortablePixmap {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(PixMap, [Char])]), (Int -> PixMap -> [Char] -> [Char]), ([Char] -> [([PixMap], [Char])]), ([PixMap] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (PixMap), _CONSTM_ Text showsPrec (PixMap), _CONSTM_ Text readList (PixMap), _CONSTM_ Text showList (PixMap)] _N_
+	 readsPrec = _A_ 2 _U_ 22 _N_ _S_ _!_ _F_ _IF_ARGS_ 0 2 XX 4 \ (u0 :: Int) (u1 :: [Char]) -> _APP_  _TYAPP_  patError# { (Int -> [Char] -> [(PixMap, [Char])]) } [ _NOREP_S_ "%DPreludeCore.Text.readsPrec\"", u0, u1 ] _N_,
+	 showsPrec = _A_ 2 _U_ 012 _N_ _S_ "AU(LLLL)" {_A_ 4 _U_ 11112 _N_ _N_ _N_ _N_} _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

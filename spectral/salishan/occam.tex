@@ -1,0 +1,2112 @@
+%
+%	Enlarged width and height with 1 1/2 line spacing.
+%	You always can change line spacing by changing \baselineskip
+%	parameter. (Reduction is strongly recommended within 
+%		    the table environment.)
+%	For example
+%		\begin{table}
+%		\setlength{\baslineskip}{3ex}
+%		\begin{tabular}
+%			. . .
+%		\end{table}
+%
+\documentstyle[12pt,psfig]{article}
+\setlength{\topmargin}{-0.5in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\parindent}{2em}
+\input{mytex}
+
+\title{OCCAM}
+\author{Jean-Luc Gaudiot \\ 
+	Department of Electrical Engineering-Systems, \\
+	University of Southern California, \\
+	Los Angeles, CA 90089-0782 \vspace{0.2in} \\
+	Dae-kyun Yoon \\
+	Computer Science Department, \\
+	University of Southern California, \\
+	Los Angeles, CA 90089-0781}
+\date{}
+
+\begin{document}
+\setlength{\baselineskip}{3ex}
+\setlength{\parskip}{0.7\baselineskip}
+\maketitle
+
+\section{Introduction}
+
+\etl{Brief History}
+
+\par
+The language Occam has been under development at INMOS Ltd. since
+1982.  It was based on the collaboration between David May, head of
+the Architecture Group at INMOS, and C.A.R. Hoare, well known by 
+CSP(Communicating Sequential Processes). \cite{Hoa78,InmosOcc88}
+David May spent several years developing ideas for programming
+concurrent processes.  He formulated many of his ideas in a language
+known as EPL (Experimental Programming Language).  Since then, David
+May has developed those original ideas into the Occam as it is
+today. 
+
+The first development of Occam, called proto-Occam or Occam 1,
+provided the main constructions and mechanisms which form the basis of
+the language.
+Since the initial release of Occam in January 1983, the language has
+been developed into a refined form known as Occam 2.  In Occam 2,
+strong typing and the mechanisms of abbreviation have been introduced in
+addition to the refinement in the area of communication protocol.
+Multi-dimensional arrays and side-effect free functions have been also
+implemented. \cite{InmosOcc88,JonesG88,PounM87}
+
+The Occam programming language is a high-level language designed for
+implementing concurrent programs on a network of processors.
+The language is intended to be implemented on any general purpose
+computer, but is particularly efficient on the transputer.  The design
+of the INMOS transputer has been closely related to the development of
+Occam. Thus, the transputer can be considered an `Occam machine'.
+\cite{InmosTds87}
+
+\etl{Concurrency}
+
+\par
+A {\em sequential program} specifies sequential execution of a list of
+statements, and its execution is called a process.  A {\em concurrent
+program} specifies two or more sequential programs that may be
+executed concurrently as parallel processes.  Consider the following
+example. (See fig~\ref{prodcons}.)
+\fpsfig{prodcons}{Communicating two processes}{prodcons.ps}
+\begin{lin}
+	{\em process 1:}
+	\begin{algo}
+	\step[] do forever...
+		\begin{subalgo}
+		\step[] produce data
+		\step[] send data to {\em process 2}
+		\step[] do some other stuff
+		\end{subalgo}
+	\end{algo}
+	{\em process 2:}
+	\begin{algo}
+	\step[] do forever...
+		\begin{subalgo}
+		\step[] do something
+		\step[] receive data from {\em process 1}
+		\step[] consume data and do some other stuff
+		\end{subalgo}
+	\end{algo}
+\end{lin}
+
+\par
+The above example is found in many applications composed of
+several processes interacting each other.  Each process is composed of
+statements which are executed sequentially, while both {\em process 1}
+and {\em process 2} are executed in parallel.  The notations for
+sequential and parallel processes in Occam, are `SEQ' and `PAR',
+respectively.  Thus, above example can be written as follows using
+Occam constructions.
+\begin{lin}
+\begin{verbatim}
+PAR
+  WHILE TRUE
+    SEQ
+      produce data
+      send data to process 2
+      do some other stuff
+  WHILE TRUE
+    SEQ 
+      do something
+      receive data from process 1
+      consume data and do some other stuff
+\end{verbatim}
+\end{lin}
+
+\par
+The {\em process} is the basic entity of an Occam program.
+Each statement(line) is viewed as a process, and can be combined into a
+larger process by using constructions.  In the above example, the two
+loops are independent processes which are executed concurrently. They only
+interact with one another at some point by exchanging data.
+
+\etl{Communication and Channel}
+The mechanisms of interaction between concurrent processes is an essential
+part of concurrent programming.  Interaction between processes is
+accomplished by {\em communication primitives} in many programming languages.
+Occam provides {\em channel} as a path
+between processes, and also provides basic primitive processes, {\em
+input} and {\em output}, which operate only on channels.
+{\em Input} and {\em output} processes are denoted by `?' and `!', 
+respectively.  
+
+Channel should be visible as a global object among interacting processes.
+In other words, two processes can communicate to each other by sharing
+the same channel.  Our previous example should be rewritten as follows
+using channel.
+\begin{lin}
+\begin{verbatim}
+CHAN OF type chan:
+PAR
+  WHILE TRUE
+    SEQ
+      produce data
+      chan ! data
+      do some other stuff
+  WHILE TRUE
+    SEQ 
+      do something
+      chan ? data
+      consume data and do some other stuff
+\end{verbatim}
+\end{lin}
+
+\par
+The well-known {\em rendezvous} mechanism is applied to implement 
+channel communication in Occam.  Communication over a channel can only
+occur when both input and output processes are ready. If during
+execution of a program, an input process is reached before its
+corresponding output process is reached, the input will wait until
+the output becomes ready. Should the output be reached first, it will
+wait for its input.
+This simplifies many problems caused by {\em race conditions}
+which are often found in concurrent programming.  
+
+\etl{Occam Program Structure}
+
+\par
+An Occam program is a collection of processes.  Each process can also
+be viewed as a collection of one or more processes, thus forming a
+block structure.  Contrary to many other block-structured languages,
+Occam recognizes block by indentation level.  Therefore, in Occam,
+indentation is not only for readability, but also for program structure.
+Variables can be defined locally or globally according to
+the {\em scope rule}.  Consider
+the following Occam program which evaluates the expression,
+\[
+	(a - b) \times (a \times c + a \div c)
+\]
+in parallel.
+\begin{lin}
+\begin{verbatim}
+-- Occam program which performs (a-b)*(a*c + a/c) in parallel
+CHAN OF INT in1,in2,in3,out:
+CHAN OF INT ch1,ch2,ch3,ch4:
+INT a,b,c:
+SEQ
+  -- Get input for a,b and c
+  PAR
+    in1 ? a
+    in2 ? b
+    in3 ? c
+  -- Perform every arithmetic in parallel
+  PAR
+    ch1 ! a - b
+    ch2 ! a * c
+    ch3 ! a / c
+
+    -- evaluate (a*c + a/c)
+    INT t1,t2:		-- note that t1,t2 are local var.
+    SEQ
+      PAR
+        ch2 ? t1
+        ch3 ? t2
+      ch4 ! t1 + t2
+
+    -- evaluate (a-b)*(a*c + a/c)  and output result
+    INT t1,t2:
+    SEQ
+      PAR
+        ch1 ? t1
+        ch4 ? t2
+      out ! t1 * t2	-- output result
+\end{verbatim}
+\end{lin}
+
+In this example, all the arithmetic operations are done in parallel.
+No explicit control of sequence among operators is imposed.  However,
+careful examination of the channel communication show that some
+part of the program is executed sequentially.  For example, channels\
+$ch1,ch2,ch3,ch4$\ have both producer and consumer.  The consuming
+process should wait until the producer is ready to output.  
+
+Variables are defined right before the process in which they are used.
+They remain valid objects during the execution of the process(block).
+In our example, variables\ $a,b,c$\ are global through the execution of
+the program, while variables\ $t1,t2$\ are local to only the process
+which is defined right after the declarations.
+
+As in other languages, {\em comments} are permitted in  Occam.
+`{\tt --}' is recognized as a start of comment.  But notice that the
+comment line should also be properly indented, when it starts with a
+new line.
+
+
+\section{Processes}
+
+\etl{Primitive Processes}
+
+Three types of processes, {\em assignment}, {\em input/output}, {\em
+SKIP/STOP}, form the basis for Occam operations, and they are called
+primitive processes.  
+
+An assignment process changes the value of a variable, just as it does
+in most conventional languages.  The notation for the assignment is
+\[
+	<variable> := <expression>.
+\]
+Multiple assignment is also possible, as illustrated in the following
+example.
+\begin{lin}
+\begin{verbatim}
+      a, b, c := x, y * z, x - z
+\end{verbatim}
+\end{lin}
+Operators which can be used in the expression are shown as follows.
+\begin{itemize}
+\item {\verb&+, -, *, /, \& } : Number operators, where {\verb+\+}
+is a remainder operation.
+\item {\verb&/\, \/, ><, ~, <<, >>&} : Logical and binary operators, which 
+	denotes respectively,{\em and, or, exclusive-or, not, left-shift,
+right-shift}.
+\item {\verb&=, <, >, <=, >=, <>&} : Relational operators.
+\end{itemize}
+Left and right parentheses can be used in the expression.
+
+\par
+Input and output processes ({\tt ?, ! }) can be used for communication
+purposes.  These work only on channels.  The notation for input and
+output is as follows. 
+\begin{center}
+$channel ? variable$ \\
+$channel ! expression$
+\end{center}
+The general form of input and output process will be discussed in
+later in this chapter.
+
+\par
+There are special purpose processes which are used mainly for
+controlling the execution flow.
+\begin{lin}
+\begin{itemize}
+\item[{\tt STOP}] : Once started, it never terminates. So, if
+	used in the {\tt SEQ} block, the processes following {\tt STOP} 
+	are never executed. 
+\item[{\tt SKIP}] : Equivalent to {\em no operation}.
+\end{itemize}
+\end{lin}
+
+\etl{Constructions}
+
+Larger processes are built by
+combining smaller processes using {\em constructions}.  The following
+types of constructions are possible in Occam.
+\begin{lin}
+\begin{description}
+\item[{\tt SEQ}] : sequential
+\item[{\tt PAR}] : parallel
+\item[{\tt IF}] : conditional
+\item[{\tt WHILE}] : loop
+\item[{\tt ALT}] : alternation
+\item[{\tt CASE}] : selection
+\end{description}
+\end{lin}
+
+A sequential construction combines processes which should be 
+executed in sequence. We
+have already seen how this construction is executed.  The construction
+may contain other constructions, thus can form a hierarchical
+structure.
+
+A parallel construction is one of the most essential part of the
+Occam language.  This combines a number of processes which are
+executed in parallel.  
+
+Each process in a conditional construction is guarded by a boolean
+expression.  The conditional evaluates each boolean expression in
+sequence. If the expression is found to be true, processes following the
+expression is executed, and then terminates conditional construction.
+Note that if
+none of the expressions are found to be true it behaves like {\tt
+STOP}.  Consider the following example:
+\begin{lin}
+\begin{verbatim}
+IF
+  x < y
+    x := x + 1
+\end{verbatim}
+\end{lin}
+If $x \geq y$, this conditional will {\tt STOP}.  So, we can modify as
+follows:
+\begin{lin}
+\begin{verbatim}
+IF
+  x < y
+    x := x + 1
+  x <= y
+    SKIP
+\end{verbatim}
+\end{lin}
+or:
+\begin{lin}
+\begin{verbatim}
+IF
+  x < y
+    x := x + 1
+  TRUE
+    SKIP
+\end{verbatim}
+\end{lin}
+Above program segment behaves like {\em if-then-else-endif} in
+conventional language.  A conditional can be nested, to implement more
+complex control flow.
+
+\par
+A loop repeats a process while an associated boolean expression is
+true. For example:
+\begin{lin}
+\begin{verbatim}
+SEQ
+  i := 0
+  WHILE i < number.of.inputs
+    SEQ
+      keyboard ? ch
+      screen ! ch
+      i := i + 1
+\end{verbatim}
+\end{lin}
+
+We can make a choice of process(es) according to the value of
+associated boolean expression by using {\em conditional}.  Occam
+provides another kind of choice according to the state of channels.
+This is made possible by the alternation.  Alternation checks all the
+input processes and executes the process associated with the first
+input to become ready.  If none of the input is ready, it waits until
+one of the input to become ready.  For example:
+\begin{lin}
+\begin{verbatim}
+CHAN OF INT chan1, chan2, chan3 :
+INT x:
+ALT
+  chan1 ? x
+    process 1
+  chan2 ? x
+    process 2
+  chan3 ? x
+    process 3
+\end{verbatim}
+\end{lin}
+If only {\tt chan1} produce input, {\tt process 2} is chosen.  If
+both {\tt chan1} and {\tt chan2} produce input, then either {\tt
+process 1} or {\tt process 2} whichever becomes ready first, is  
+chosen.  The input process may accompany boolean expression. In this
+case,  boolean expression should also be true so that the associated
+process could be chosen.  This is shown in the following example.
+\begin{lin}
+\begin{verbatim}
+CHAN OF INT chan1, chan2, chan3 :
+INT x:
+ALT
+  (y < 0) & chan1 ? x
+    process 1
+  (y = 0) & chan2 ? x
+    process 2
+  (y < 0) & chan3 ? x
+    process 3
+\end{verbatim}
+\end{lin}
+A selection ({\tt CASE}) combines a number of options, one of which is
+selected by matching the value of a {\em selector} with the value of a
+{\em constant} expression. (Same as {\tt switch()} in C).
+\begin{lin}
+\begin{verbatim}
+CASE ch
+  'a'
+     screen ! 'A'
+  'A'
+     screen ! 'A'
+  'b'
+     screen ! 'B'
+  'B'
+     screen ! 'B''
+\end{verbatim}
+\end{lin}
+We can also group constants if the associated process performs exactly
+the same.
+\begin{lin}
+\begin{verbatim}
+CASE ch
+  'a','A'
+     screen ! 'A'
+  'b','B'
+     screen ! 'B'
+\end{verbatim}
+\end{lin}
+
+
+\etl{Replicators}
+
+In some cases, we may have a number of processes each of which behaves
+same as or similar to each other.  Consider the following example:
+\begin{lin}
+\begin{verbatim}
+INT x:
+SEQ
+  input ? x
+  input ? x
+  input ? x
+  input ? x
+  input ? x
+\end{verbatim}
+\end{lin}
+The equivalent form written using {\em replicator} is as follows.
+\begin{lin}
+\begin{verbatim}
+INT x:
+  SEQ i = 0 FOR 5
+    input ? x
+\end{verbatim}
+\end{lin}
+Five replicas of the input processes are created, and executed in
+sequence.  Replicator always accompanies one of {\tt SEQ}, {\tt
+PAR}, {\tt ALT}, {\tt IF}.  
+
+The general form of replicator is:
+\begin{lin}
+$REP index = base$\ {\tt FOR}\ $count$ \\
+\indent process \\
+\end{lin}
+where, {\em REP} is one of {\tt SEQ}, {\tt PAR}, {\tt ALT}, {\tt IF}.
+$index$ is used in conjunction with {\em array}, and has the value
+ranging from $base$ to $base + count -1$.  Each instance of $index$
+values is associated with the corresponding replica or process.  Thus,
+$count$ replicas are created.
+
+As an example, the basic {\em client-server} model can be implemented as
+follows.
+\begin{lin}
+\begin{verbatim}
+[number.of.clients] CHAN OF INT request:
+[number.of.clients] CHAN OF BOOL acknowledge:
+PAR
+  -- server process 
+  INT service:
+  WHILE TRUE
+    SEQ
+      ALT i = 0 FOR number.of.clients
+        request[i] ? service
+          SEQ
+            perform(service,i)
+            acknowledge[i] ! TRUE
+    Other book-keeping stuff...
+  -- Create replicas of client process
+  PAR i = 0 FOR number.of.clients
+    BOOL ack:
+    INT service:
+    WHILE TRUE
+      SEQ
+        determine service
+        request[i] ! service  
+        acknowledge[i] ? ack
+        do other stuff
+\end{verbatim}
+\end{lin}
+In this example we have defined array of channels, and assign each
+channel to corresponding client process. Thus communication between
+server and each client is carried out through the exclusively assigned
+channels. 
+
+\section{Types and Variables}
+
+\etl{Variables}
+
+The declaration of a variable defines the data type and name of the
+variable.  The name of the variable consists of alphabet and digit
+starting with alphabet.  Upper and lower case are distinguished by
+Occam.  The `{\tt .}' can be used to separate each word within a
+variable.  Reserved words of Occam cannot be used as a variable name.
+For example, these are valid variable names:
+\begin{lin}
+{\tt x Y intvar chan3 new.prod old.prod}
+\end{lin}
+
+The declaration of variables has the following form:
+\[
+	<type> <variable\ list> :
+\]
+Variables should be declared prior to the block in which they are
+used, and can be effective throughout the execution of the block
+unless they are redeclared. 
+\begin{lin}
+\begin{verbatim}
+  INT a,b,c:
+  SEQ
+    p1..
+    BOOL c:
+    PAR
+      p2..
+    p3..
+\end{verbatim}
+\end{lin}
+In the above example, {\tt a,b,c} are used as integer variables in
+{\tt p1 and p3}.  However, in p2, c is interpreted as a boolean
+variable.  Thus, Occam follows general {\em scope rule} which can be
+found in most structured languages.
+
+\etl{Basic Types}
+Occam provides the following basic types.
+\begin{lin}
+{\tt BOOL, BYTE, INT, INT16, INT32, INT64, REAL32, REAL64}
+\end{lin}
+{\tt INT16, INT32, INT64, REAL32, REAL64} denote the type and the size
+of internal representation explicitly.  
+
+The literal data can be used for each type.  For example:
+\begin{itemize}
+\item {\tt 42} : an integer literal in decimal.
+\item {\tt \#2A} : an integer literal in hexadecimal.
+\item {\tt 'X'} : a byte literal.
+\item {\tt "letters"} : a string literal.
+\item {\tt TRUE,FALSE} : boolean literals.
+\end{itemize}
+Literal data can be explicitly typed. This is often used to convert the
+type of literal.
+\begin{itemize}
+\item {\tt 42(BYTE)} : a byte value.
+\item {\tt 'T'(INT)} : an integer value.
+\item {\tt 42.0(REAL64)} : a 64 bit floating point value.
+\end{itemize}
+
+\etl{Array}
+
+An array is an group of objects of the same type, joined into a single
+object with a name.  In Occam, array variables are declared in the same
+way as single variables of any type, but with the number of components
+in brackets prefixed to the type specifier.  An example of array type
+declaration is:
+\begin{lin}
+{\tt [10]INT int.array:} \\
+\end{lin}
+
+Array may be used as parameters to procedures.  In Occam, we are not
+required to specify size of an array parameter when the procedure is
+declared, which means that an array of any size, but of the correct
+data type, may be passed as an actual parameter.  For example:
+\begin{lin}
+{\tt PROC proc1(CHAN OF INT input, []INT array)}
+\end{lin}
+
+A segment of an array is expressed as:
+\begin{lin}
+{\tt [} {\em array}\ {\tt FROM}\ {\em subscript}\ {\tt FOR}\ {\em
+count} {\tt ]}
+\end{lin}
+Array segments may be input, output or assigned to if both sides has
+the same type.  For example:
+\begin{lin}
+\begin{verbatim}
+[int.array FROM 10 FOR 5] := [int.array FROM 1 FOR 5]
+[int.array FROM 10 FOR 5] := other.array
+\end{verbatim}
+\end{lin}
+In the above example, {\tt other.array} should be declared as
+{\tt [5]INT}.
+
+Generating an array value in Occam is very easy. For example:
+\begin{lin}
+{\tt [10, 21, x+4, y+z]}
+\end{lin}
+generates an array of type {\tt [4]INT} only if {\tt x} and {\tt y}
+are integer variables. 
+
+Array generation and array segment are often used in conjunction with
+{\em abbreviation}. For example:
+\begin{lin}
+\begin{verbatim}
+f IS [int.array FROM 1 FOR 5]
+VAL q IS [1, 3, 5, 7, 9]
+\end{verbatim}
+\end{lin}
+If {\tt VAL} is preceded, the associated variable cannot be modified. 
+
+Occam supports arrays with any number of dimensions and they are
+declared in a way consistent with what we have seen so far.  For
+example a two dimensional array can be defined as:
+\begin{lin}
+{\tt [20][20]REAL32 real.matrix:}
+\end{lin}
+Each element or each row can be referred as if we refer single
+variable.  For example, {\tt real.matrix[i][j]} refers to {\em j'th}
+element in {\em i'th} row, and {\tt real.matrix[i]} refers to the
+whole {\em i'th} row.
+
+In Occam, {\em string} is treated as an array of type {\tt BYTE}.
+For example, {\tt "hello"} is equivalent to \mbox{{\tt
+['h','e','l','l','o']}}.  For the input and output of string, see {\em
+Channel Communication} section.
+
+\section{Channel Communication}
+
+The underlying principles of Occam programming is communication
+between processes, and channels are the primary means by which this
+communication takes place.  Occam provides a {\em protocol} which
+defines a type or group of types of data over a channel.  The channel
+declaration has the following form:
+\begin{lin}
+{\tt CHAN OF}\ {\em protocol name}:
+\end{lin}
+
+\etl{Simple Protocol}
+
+The simplest kind of protocol consists of basic types.  For example:
+\begin{lin}
+\begin{verbatim}
+CHAN OF INT comm:
+CHAN OF [20]INT chan:
+\end{verbatim}
+\end{lin}
+In the above example, {\tt chan} always carries exactly 20 elements of
+type {\tt INT}.  However, we can specify the size to be input or
+output over a channel. For example, the following process outputs two
+integer arrays of different sizes on the same channel.
+\begin{lin}
+\begin{verbatim}
+CHAN OF INT::[]BYTE comm :
+[20]BYTE a:
+[40]BYTE b:
+SEQ
+  comm ! 20::a
+  comm ! 40::b
+\end{verbatim}
+\end{lin}
+A corresponding input process is as follows:
+\begin{lin}
+\begin{verbatim}
+INT size:
+[1000]BYTE string:
+SEQ
+  comm ? size::string
+  ...
+  comm ? size::string
+\end{verbatim}
+\end{lin}
+The above example also shows how strings can be input and output over
+the same channel.
+
+\etl{Naming Protocol}
+
+Protocol can be named and used in other channel declarations.  This is
+often useful if the protocol over a channel is complex.  For example a
+sequential protocol can be defined with `{\tt ;}':
+\begin{lin}
+\begin{verbatim}
+PROTOCOL Message IS BYTE; INT; INT:
+...
+CHAN OF Message comm:
+\end{verbatim}
+\end{lin}
+The channel, {\tt comm}, should be used for input or output of a {\tt
+BYTE} type followed by two {\tt INT} type values.  The output process
+contains list of expressions with correct types.
+\begin{lin}
+\begin{verbatim}
+comm ! 10(BYTE); 321; 833
+\end{verbatim}
+\end{lin}
+Corresponding input process is:
+\begin{lin}
+\begin{verbatim}
+comm ? x; y; z
+\end{verbatim}
+\end{lin}
+
+A single channel can carry messages of several different formats by
+using a variant protocol.  A variant protocol is a set of different
+protocols each of which is associated with {\em tag}.  The following
+definition defines a variant protocol with the name Messages:
+\begin{lin}
+\begin{verbatim}
+Protocol Messages
+  CASE
+    a;INT; INT
+    b;BYTE::[]BYTE
+:
+\end{verbatim}
+\end{lin}
+{\tt a,b,c} are tags in this example.  The example of using this
+protocol is as follows:
+\begin{lin}
+\begin{verbatim}
+CHAN OF Messages comm:
+PAR
+  INT x, y:
+  BYTE size :
+  [256]BYTE v:
+  comm ? CASE
+    a; x; y
+      ...
+    b; size::v
+      ...
+\end{verbatim}
+\end{lin}
+The other processes may send messages such as:
+\begin{lin}
+\begin{verbatim}
+comm ! a; 100; 250
+\end{verbatim}
+\end{lin}
+or:
+\begin{lin}
+\begin{verbatim}
+comm ! b;5::"Hello World !!"
+\end{verbatim}
+\end{lin}
+Tags can be used as a guard in {\tt ALT} construction, and also we can
+define a protocol which consists only with tags.  This kind of
+protocol often used to input or output different signals over the same
+channel.
+
+\section{Procedure and Function}
+
+As in many other conventional languages, we can achieve a certain
+level of program abstraction by defining procedure or function.
+
+\etl{Procedure}
+
+A procedure definition gives a name to a process, and using that name
+in other part of the program has effects of writing the whole
+program body of the procedure.
+Suppose we have the following definition of
+procedure: 
+\begin{lin}
+\begin{verbatim}
+PROC proc1()
+  SEQ
+    num := num + 1
+    count := count -1
+:
+\end{verbatim}
+\end{lin}
+We can call the procedure 
+\begin{lin}
+\begin{verbatim}
+proc1()
+\end{verbatim}
+\end{lin}
+to replace with the body :
+\begin{lin}
+\begin{verbatim}
+SEQ
+  num := num + 1
+  count := count -1
+\end{verbatim}
+\end{lin}
+
+The procedure definition may have formal parameters which are
+expanded to the {\em abbreviation}.
+For example:
+\begin{lin}
+\begin{verbatim}
+PROC write.string(CHAN OF BYTE c, VAL []BYTE s)
+  SEQ i = 0 FOR SIZE s
+    c ! s[i]
+:
+\end{verbatim}
+\end{lin}
+And the call
+\begin{lin}
+\begin{verbatim}
+write.string(output,"Hello World !!")
+\end{verbatim}
+\end{lin}
+is expanded to:
+\begin{lin}
+\begin{verbatim}
+CHAN OF BYTE c IS output :
+[]BYTE s IS "Hello World !!":
+SEQ i = 0 FOR SIZE s
+  c ! s[i]
+\end{verbatim}
+\end{lin}
+{\tt SIZE} is a predefined process which returns the number of
+elements of the array.
+
+Since the procedure call is implemented by {\em in-line}
+expansion, recursive procedure calls are not allowed.
+
+\etl{function}
+
+A function defines a name for a special kind of process, called a
+value process.  A value process produces a result of basic data type
+(not array type).  For example:
+\begin{lin}
+\begin{verbatim}
+big := (INT max:
+        VALOF
+          IF
+            a >= b
+              max := a
+            TRUE
+              max := b
+          RESULT max
+       )
+\end{verbatim}
+\end{lin}
+
+The value processes are usually named and these names are used to
+refer the value process.
+\begin{lin}
+\begin{verbatim}
+INT FUNCTION max(VAL INT a, b)
+  INT max:
+  VALOF
+    IF
+      a >= b
+        max := a
+      TRUE
+        max := b
+    RESULT max
+:
+\end{verbatim}
+\end{lin}
+Now the function call:
+\begin{lin}
+\begin{verbatim}
+big := max(a,b)
+\end{verbatim}
+\end{lin}
+assigns the maximum value of {\tt a} and {\tt b} to {\tt big}.
+
+\section{Configuration}
+
+\etl{Allocation of Multiple Processors}
+
+The component processes of {\tt PAR} construction may be executed
+on different processors.  This can be specified by a {\em placed
+parallel} which assigns a process to the specified
+processor.  Consider the following example:
+\begin{lin}
+\begin{verbatim}
+PLACED PAR
+  PROCESSOR 1
+    proc1()
+  PROCESSOR 2
+    proc2()
+\end{verbatim}
+\end{lin}
+In this example, the processes {\tt proc1, proc2}, are placed on two
+individual processors numbered 1 and 2.
+
+This also can be used in conjunction with replicator:
+\begin{lin}
+\begin{verbatim}
+PLACED PAR 
+  PLACED PAR i = 0 FOR n
+    PROCESSOR 2*i
+      evenproc()
+  PLACED PAR i = 0 FOR n
+    PROCESSOR 2*i+1
+      oddproc()
+\end{verbatim}
+\end{lin}
+
+\etl{Hard Channels}
+
+When we have a hardware tightly attached to the program, we may need
+direct access of the hardware.  This is also true when we have
+multiple transputers and need to communicate between transputers.
+This can be viewed as external communication.
+External communication is done through the links between hardwares.
+Links are often implemented by memory mapped I/O, thus can be numbered
+as the address of the memory location which directly maps to the
+external hardware.  Consider the following example:
+\begin{lin}
+\begin{verbatim}
+PLACE screen AT 1:
+PLACE keyboard AT 2:
+\end{verbatim}
+\end{lin}
+Now, each channel, {\tt screen} and {\tt keyboard} maps to output
+and input device, respectively, where link for each device is 1 and 2.
+
+In addition to hard channels, Occam can express I/O ports as used in
+conventional computer systems.  A {\em port} declaration does this
+job.  The example of port declaration is:
+\begin{lin}
+\begin{verbatim}
+PORT OF BYTE serial:
+\end{verbatim}
+\end{lin}
+
+\etl{Priority}
+
+On a single processor, each process in {\tt PAR} construction may have
+relative priority.  Consider the example:
+\begin{lin}
+\begin{verbatim}
+PRI PAR 
+  proc1()
+  proc2()
+   ...
+  procn()
+\end{verbatim}
+\end{lin}
+In this example, $proc_{i}$ has priority over $proc_{j}$ if $i < j$.
+Therefore, $proc_{i}$ can be executed only when $proc_{1} \ldots
+proc_{i-1}$ are not ready to execute.  {\tt PRI PAR} also can be used in
+conjunction with replicator.
+
+The input processes in alternation construction also may have priorities.
+Consider the following example:
+\begin{lin}
+\begin{verbatim}
+PRI ALT
+  chan1 ? data
+    proc1()
+  chan2 ? data
+    proc2()
+  ...
+  TRUE & SKIP
+    default.proc()
+\end{verbatim}
+\end{lin}
+In this example, $proc_{n}$ is selected when $chan_{1} \ldots
+chan_{n-1}$ are not ready to input and $chan_{n}$ is ready to input.
+If none of the inputs are ready, {\tt default.proc} is selected as a
+default process.  As in ordinary {\tt ALT}, {\tt PRI ALT}  also can
+have condition in conjunction with the input process.
+
+\etl{Timer}
+
+To provide a real-time programming environment, Occam supports a
+special type, called {\tt TIMER}.  A simple example would look like:
+\begin{lin}
+\begin{verbatim}
+TIMER clock:
+INT time:
+clock ? time
+\end{verbatim}
+\end{lin}
+This simple timer process reads input from a real-time clock, which is
+actually ``ticks'' of the clock.   You can declare as many timers as
+you want, and sometimes this is very useful, though they may have
+different values.
+
+As an practical, but simple example,  a delay procedure can be defined
+as follows.
+\begin{lin}
+\begin{verbatim}
+PROC delay (VAL INT interval)
+  TIMER clock:
+  INT timenow:
+  SEQ
+    clock ? timenow
+    clock ? AFTER timenow PLUS interval
+:
+\end{verbatim}
+\end{lin}
+The process, {\tt c ? AFTER b} is a delay process, which does
+nothing(as {\tt SKIP} does
+\footnote{This process may be suspended}
+), and terminates only when
+the reading of {\tt c} satisfies {\tt AFTER b} condition.
+{\tt a AFTER b} can be also used as a condition, {\tt (a MINUS b) >
+0}.  Thus, the last line of the above program is interpreted as
+``do nothing until the current time is after the starting time plus
+interval''. 
+
+``Timeout'' can be implemented as in the following example:
+\begin{lin}
+\begin{verbatim}
+TIMER clock:
+VAL timeout IS 1000:
+INT timenow:
+SEQ
+  clock ? timenow
+  INT x :
+  ALT
+    input ? x
+      ..some process..
+    clock ? AFTER timenow PLUS timeout
+      screen ! (18:: "Timeout on input !")
+\end{verbatim}
+\end{lin}
+
+When writing programs using timer, it is essential to be aware of the
+details of time representation.  The test is only meaningful if the
+difference in the two times is small enough compared to the largest value
+represented by an integer.
+
+\section{Examples}
+
+\etl{Hamming's Problem : Extended}
+
+This problem is to generate a sequence of integers of the form 
+\[
+	a^{i}*b^{j}*c^{k}\ldots \leq n
+\]
+when given a set of primes $ \{a,b,c,\ldots\}$.
+
+In Occam, all the structure size should be known at compile time
+except when used as a formal parameter of a procedure.  So we assume
+fixed number of prime numbers instead of infinite (or unknown) number
+of prime numbers.  Hamming numbers are generated by computing output
+streams recursively.  The {\em recursion} has been
+implemented using {\em feedback channel} in the corresponding Occam 
+program. Occam doesn't allow recursive invocation, thus we have to use
+some special techniques such as pipelining of processes as in our
+example
+or manipulating stacks. \cite{Redf88}
+To avoid deadlock, the feedbacked numbers are queued, and the {\em
+queue manager} process
+provides a new number only when requested.
+The program structure is shown in fig~\ref{hamming}.
+\fpsfig{hamming}{Program Structure of Hamming's Problem}
+{hamming.ps,height=3.5in}
+\begin{lin}
+\input{hamming}
+\end{lin}
+
+\etl{Paraffins Problem}
+
+This problem is to generate all the paraffin molecules of size\ $i \leq n$
+(number of carbons), and thus equivalent to generating
+trees of size $n$ without duplicates. Enumerating trees is
+discussed in \cite{Knuth73}.
+The paraffin structure is denoted by the list of
+carbons for simplicity.  In the example program, we represent each
+paraffin by a string of {\tt (, ), C}.  For example, a paraffin 
+$C_{2}H_{6}$ is denoted by {\tt (C(C))}.  Dynamic structure can be very
+useful for this problem, while we use fixed size of three-dimensional array.
+Current implementation of Occam doesn't allow variable number of
+parallel processes, and also global arrays can't be indexed in the body
+of parallel components unless the 
+value of index is know at compile time.  So, in our example program, we
+only used {\tt SEQ} construct.  If we carefully design communication 
+network of processes (assuming number of processes can be know at
+compile time), we may be able to exploit limited parallelism.
+However, we then have to pay a lot for communication cost.
+To simulate dynamic structure, we have introduced a delimiter({\tt \$} in
+our program) which denotes {\em non-existing} element.  Handling a dynamic
+structure in Occam is generally not trivial, and requires extra code lines.
+\begin{lin}
+\input{paraffins}
+\end{lin}
+
+\etl{Doctor's Office}
+
+This example shows, how Occam can be used to simulate interaction between
+asynchronous processes.
+The example program also
+demonstrates the ability of {\em real time} programming
+using {\em Timer}.  A lot portion of the program is
+devoted to handle termination of concurrent processes.  There is a
+process which is responsible for the conclusion of the simulation :
+{\em time-out}.  When {\em time-out} event occurs, termination signals
+should be propagated to all the processes involved in the simulation. 
+The interaction between processes is shown
+in fig~\ref{doctor}.
+\fpsfig{doctor}{Interaction between processes in Doctor's Office Problem}
+{doctor.ps,height=3.0in}
+\begin{lin}
+\input{doctor}
+\end{lin}
+
+\etl{Skyline Matrix Solver}
+
+In this problem, we solve a system of linear equations by computing with
+only non-zero elements of the matrix, given two profile vectors for skyline
+of the matrix.  As in paraffin problem, we encounter with dynamic structures.
+However, in Occam, it's impossible to store only non-zero elements
+in the structure, since, as stated earlier, all the structure size should be
+known at compile time.  Instead, we have introduced {\em error} value to
+represent the non-existing element.  And by ignoring those error values, we
+can rule out the {\em zero elements} in our computation of matrix.
+Although this problem has a certain level of parallelism, we didn't use
+parallel construction for simplicity. Using parallel construction
+requires too many things to be known at compile time, thus leading to the
+solution which is not general. 
+\begin{lin}
+\input{skyline}
+\end{lin}
+
+\newpage
+\abib{../tex/bib}
+\end{document}
+
+\begin{thebibliography}{Knu87}
+
+\bibitem[Hoa78]{Hoa78}
+C.S. Hoare.
+\newblock Communicating sequential processes.
+\newblock {\em Communications of the ACM}, 21(8), August 1978.
+
+\bibitem[Inm87]{InmosTds87}
+Inmos.
+\newblock {\em Transputer Development System 2.0}.
+\newblock Inmos Ltd., 1987.
+
+\bibitem[Inm88]{InmosOcc88}
+Inmos.
+\newblock {\em Occam 2 Reference Manual}.
+\newblock Prentice Hall, 1988.
+
+\bibitem[JG88]{JonesG88}
+Geraint Jones and Michael Goldsmith.
+\newblock {\em Programming in Occam 2}.
+\newblock Prentice Hall, 1988.
+
+\bibitem[Knu87]{Knuth73}
+D.~Knuth.
+\newblock {\em The Art of Computer Programming, Vol. 1 : Fundamental
+  Algorithms}.
+\newblock Addison-Wesley, 1987.
+
+\bibitem[PM87]{PounM87}
+Dick Pountain and David May.
+\newblock {\em A Tutorial Introduction to Occam Programming -- including
+  language definition}.
+\newblock Inmos Ltd., 1987.
+
+\bibitem[Red88]{Redf88}
+Sara Redfern.
+\newblock Implementing data structures and recursion in occam.
+\newblock Technical Report~38, Central Applications Group, Inmos Ltd., 1988.
+
+\end{thebibliography}
+\setlength{\baselineskip}{2ex}
+\begin{small}
+\begin{verbatim}
+VAL N IS 1000:
+VAL Nprime IS 10:
+[Nprime]INT Primes:
+[N+1]INT Hamming:
+
+PROC HammingNumbers()
+  CHAN OF INT Feedback, RequestNum, GrantNum, Output:
+  [Nprime]CHAN OF INT ToMult, FromMult:
+
+  -- 
+  -- Collector : 
+  -- Proc collector gathers new numbers and eliminates duplicates.
+  -- THis proc sends a new hamming number back to "QueueManager" in order
+  -- to generate a new number from this number.
+  -- 
+  PROC Collector()
+
+    VAL delayunit IS 100:
+    VAL nomoreinput IS 20:
+    INT num,delaycnt:
+    BOOL continue:
+
+    SEQ
+      SEQ i = 0 FOR N
+        Hamming[i] := -1
+      Feedback ! 1 (INT)		-- Send initial value
+      continue := TRUE
+      delaycnt := 0
+
+      WHILE continue
+
+        PRI ALT
+          -- An input from one of Multipliers
+          ALT j=0 FOR Nprime
+            FromMult[j] ? num
+              SEQ
+                delaycnt := 0
+                IF
+                  Hamming[num] = -1	-- No duplicate
+                    SEQ
+                      Hamming[num] := num
+                      Feedback ! num
+                  TRUE		-- duplicate
+                    SKIP
+
+          TRUE & SKIP
+            SEQ
+              Delay (delayunit)
+              delaycnt := delaycnt + 1
+              IF
+                delaycnt > nomoreinput	-- End of computation
+                  continue := FALSE
+                TRUE
+                  SKIP
+
+      -- loop has been completed : output hamming numbers.
+      INT outnum:
+      SEQ i = 1 FOR N
+        SEQ
+          outnum := Hamming[i]
+          IF
+            outnum <> -1
+              Output ! outnum
+            TRUE
+              SKIP
+      
+      Feedback ! -1		-- Send a termination signal
+
+  :	-- END of PROC Collector
+
+
+  --
+  -- Multiplier :
+  -- Multiplies given number by one of prime numbers in the 
+  -- table "Primes[]".
+  -- If the result is less than N the pass the result to the collector.
+  --
+  PROC Multiplier(CHAN OF INT in, CHAN OF INT out, VAL INT prime)
+    INT num:
+    BOOL continue:
+    SEQ
+      continue := TURE
+      WHILE continue
+        SEQ
+          in ? num
+          IF
+            num < 0
+              continue := FALSE
+          TRUE
+            SEQ
+              num := num * prime
+              IF
+                num > N
+                  SKIP
+                TRUE
+                  out ! num	-- Send to the collector
+  :
+
+
+  -- 
+  -- Splitter :
+  -- Get a new Hamming number from the feedback queue, and distribute to
+  -- the multipliers.
+  --
+  PROC Splitter ()
+    INT num:
+    BOOL continue:
+    SEQ
+      continue := TRUE
+      WHILE continue
+        SEQ
+          RequestNum ! 1 (INT)
+          GrantNum ? num
+          IF 
+            num < 0
+              continue := FALSE
+            TRUE
+              SKIP
+          PAR i = 0 FOR Nprime
+            ToMult[i] ! num
+  :
+
+
+  --
+  -- QueueManager :
+  -- THis process is introduced to remove deadlock problem in the cycle of
+  -- computation.  "QueueManager" holds newly generated Hamming numbers 
+  -- in a queue, and upon request of "Splitter", it hands over the new
+  -- number to "Splitter"
+  --
+  PROC QueueManager ()
+    INT num,ndata,front,rear,req:
+    BOOL continue:
+    [N+2]INT queue:		-- queue is actually unbound, here.
+    SEQ
+      ndata,front,rear := 0,0,0
+      continue := TRUE
+      WHILE continue
+        ALT
+          (ndata > 0) & RequestNum ? req
+            SEQ
+              num := queue[front]
+              front := front + 1
+              ndata := ndata - 1
+              GrandNum ! num
+              IF
+                num < 0
+                  continue := FALSE
+                TRUE
+                  SKIP
+
+          Feedback ? num
+            SEQ
+              queue[rear] := num
+              rear := rear + 1
+              ndata := ndata + 1
+  :
+
+
+  -- Main body of hamming numbers
+  SEQ
+    -- Init Primes[], Table of prime numbers:
+    -- 	We can directly assign array values or generate the `Nprime' prime 
+    -- 	numbers.
+    Primes := [2,3,........]
+    PAR
+      Splitter()
+      Collector()
+      QueueManager()
+      PAR i=0 FOR Nprime
+        Multiplier(ToMult[i],FromMult[i],Primes[i])
+:
+\end{verbatim}
+\end{small}
+\setlength{\baselineskip}{3ex}
+\setlength{\baselineskip}{2ex}
+\begin{small}
+\begin{verbatim}
+VAL Maxnodes IS 10:
+VAL Maxtrees IS 50:
+VAL Maxsize IS Maxnodes*3+1:
+
+PROC Paraffins(VAL INT size, [][][]BYTE ParaffinTree)
+
+  --
+  -- TwodimCat:
+  -- Catenate two dimensional arrays.
+  --
+  PROC TwodimCat(VAL [][]BYTE t1, VAL [][]BYTE t2, [][]BYTE t)
+    INT i1,i2:
+    SEQ
+      i1,i2 := 0,0
+      WHILE t1[i1][0] <> '$'
+        SEQ
+          t[i1] := t1[i1]
+          i1 := i1 + 1
+      WHILE t2[i2][0] <> '$'
+        SEQ
+          t[i1] := t2[i2]
+          i1, i2 := i1+1, i2+1
+      t[i1][0] := '$'
+  :
+
+  --
+  -- OnedimCat :
+  -- Catenate strings (array of bytes)
+  --
+  PROC OnedimCat(VAL []BYTE t1, VAL t2 []BYTE t2, []BYTE t)
+    INT i1,i2:
+    SEQ
+      i1,i2 := 0,0
+      WHILE t1[i1] <> '$'
+        SEQ
+          t[i1] := t1[i1]
+          i1 := i1 + 1
+      WHILE t2[i2] <> '$'
+        SEQ
+          t[i1] := t2[i2]
+          i1, i2 := i1+1, i2+1
+      t[i1] := '$'
+  :
+
+
+  --
+  -- TwodimArrayAdjust :
+  -- Adjust lower and upper bound of two dimensional array.
+  -- i.e. Returns array with elements within this boundary.
+  --
+  PROC TwodimArrayAdjust(VAL [][]BYTE a, VAL INT l, VAL INT u,
+                         [][]BYTE a1)
+    INT i:
+    SEQ
+      i := 0
+      WHILE i < l
+        SEQ
+          a1[i][0] := '$'
+          i := i+1
+      WHILE i <= u
+        SEQ
+          a1[i] := a[i]
+          i := i + 1
+      WHILE i < Maxtrees
+        SEQ
+          a1[i][0] := '$'
+          i := i + 1
+  :
+
+
+  --
+  -- Xtrees :
+  -- Returns the cross product of set of trees of sizes i,j,k and l
+  -- without duplicates.
+  --
+  PROC Xtrees(VAL INT i, VAL INT j, VAL INT k, VAL INT l, 
+              VAL [][][]BYTE trees, [][]BYTE ntree)
+    [Maxtrees][Maxsize]BYTE cross1, cross2:
+    [Maxtrees][Maxsize]BYTE tmp:
+    [Maxsize]BYTE tmp2:
+    INT i1,i2,m,n,o:
+
+    SEQ
+      IF
+        i = j
+          SEQ
+            n := 0
+            WHILE trees[j][n][0] = '$'
+              n := n + 1
+            i1 = 0
+            WHILE trees[j][n][0] <> '$'
+              SEQ
+                TwodimArrayAdjust(trees[j], 1, n, tmp)
+                m := 0
+                WHILE tmp[m][0] = '$'
+                  m := m + 1
+                WHILE tmp[m][0] <> '$'
+                  SEQ
+                    OnedimCat(trees[j][n],tmp[m],cross1[i1])
+                    m := m + 1
+              n := n + 1
+              i1 := i1 + 1
+            cross1[i1][0] := '$'
+        TRUE
+          SEQ
+            n := 0
+            WHILE trees[j][n][0] = '$'
+              n := n + 1
+            i1 = 0
+            WHILE trees[j][n][0] <> '$'
+              SEQ
+                m := 0
+                WHILE trees[i][m][0] = '$'
+                  m := m + 1
+                WHILE trees[i][m][0] <> '$'
+                  SEQ
+                    OnedimCat(trees[j][n],trees[i][m],cross1[i1])
+                    m := m + 1
+              n := n + 1
+              i1 := i1 + 1
+            cross1[i1][0] := '$'
+            
+      IF
+        k = l
+          SEQ
+            n := 0
+            WHILE trees[k][n][0] = '$'
+              n := n + 1
+            i1 = 0
+            WHILE trees[k][n][0] <> '$'
+              SEQ
+                TwodimArrayAdjust(trees[k], 1, n, tmp)
+                m := 0
+                WHILE tmp[m][0] = '$'
+                  m := m + 1
+                WHILE tmp[m][0] <> '$'
+                  SEQ
+                    OnedimCat(trees[k][n],tmp[m],cross2[i1])
+                    m := m + 1
+              n := n + 1
+              i1 := i1 + 1
+            cross2[i1][0] := '$'
+        TRUE
+          SEQ
+            n := 0
+            WHILE trees[k][n][0] = '$'
+              n := n + 1
+            i1 = 0
+            WHILE trees[k][n][0] <> '$'
+              SEQ
+                m := 0
+                WHILE trees[l][m][0] = '$'
+                  m := m + 1
+                WHILE trees[l][m][0] <> '$'
+                  SEQ
+                    OnedimCat(trees[k][n],trees[l][m],cross2[i1])
+                    m := m + 1
+              n := n + 1
+              i1 := i1 + 1
+            cross2[i1][0] := '$'
+
+      IF
+        k = j
+          SEQ
+            n := 0
+            WHILE cross1[n][0] = '$'
+              n := n + 1
+            i1 = 0
+            WHILE cross1[n][0] <> '$'
+              SEQ
+                TwodimArrayAdjust(cross2, 1, n, tmp)
+                m := 0
+                WHILE tmp[m][0] = '$'
+                  m := m + 1
+                WHILE tmp[m][0] <> '$'
+                  SEQ
+                    OnedimCat(cross1[n],tmp[m],tmp2)
+                    ntree[i1][0],ntree[i1][1] := '(','C'
+                    i2 := 2
+                    o := 0
+                    WHILE tmp2[o] <> '$'
+                      SEQ
+                        ntree[i1][i2] := tmp2[o]
+                        i2 , o := i2+1, o+1
+                    ntree[i1][i2] := ')'
+                    ntree[i1][i2+1] := '$'
+                    m := m + 1
+              n := n + 1
+              i1 := i1 + 1
+            ntree[i1][0] := '$'
+        TRUE
+          SEQ
+            n := 0
+            WHILE cross1[n][0] = '$'
+              n := n + 1
+            i1 = 0
+            WHILE cross1[n][0] <> '$'
+              SEQ
+                m := 0
+                WHILE cross2[m][0] = '$'
+                  m := m + 1
+                WHILE cross2[m][0] <> '$'
+                  SEQ
+                    OnedimCat(cross1[n],cross2[m],tmp2)
+                    ntree[i1][0],ntree[i1][1] := '(','C'
+                    i2 := 2
+                    o := 0
+                    WHILE tmp2[o] <> '$'
+                      SEQ
+                        ntree[i1][i2] := tmp2[o]
+                        i2 , o := i2+1, o+1
+                    ntree[i1][i2] := ')'
+                    ntree[i1][i2+1] := '$'
+                    m := m + 1
+              n := n + 1
+              i1 := i1 + 1
+            ntree[i1][0] := '$'
+  :	-- end of Xtrees()
+            
+
+  --
+  -- OrderedTrees :
+  -- Returns the ordered trees of size 1 to 'size' without duplicates.
+  -- Notice that we must keep at least one link free
+  --
+  PROC OrderedTrees(VAL INT size, [][][]BYTE tree)
+    INT i:
+    SEQ
+      i := 2
+      SEQ o=0 FOR Maxnodes
+        SEQ p=0 FOR Maxtrees
+          SEQ q=0 FOR Maxsize
+            tree[o][p][q] := '$'	-- empty tree
+      [tree[1][1] FROM 0 FOR 3] := "(C)"
+      [tree[2][1] FROM 0 FOR 6] := "(C(C))"
+      WHILE i < size
+        SEQ
+          i := i + 1
+          SEQ i=0 FOR (1-1)/3+1
+            SEQ l=k FOR (i-1-k)/2 - K + 1
+              Xtrees(0, k, l, i-1-k-l, tree, tree[i])
+  :	-- end of OrderedTrees()
+
+
+  -- 
+  -- OneCentroid :
+  -- Returns the one centroid free trees of size n+1. Note that the 
+  -- largest subtree can be at most w.
+  --
+  PROC OneCentroid(VAL INT n, VAL INT w, VAL [][][]BYTE tree, 
+                   [][]BYTE ntree)
+    INT i1,i2:
+    [Maxtrees][Maxsize]tmp:
+    SEQ
+      i1 := 0
+      SEQ i = 0 FOR n/4 + 1
+        SEQ j = i, (n-i)/3 + 1
+          SEQ
+            i2 := max(j,w-i-j)
+            SEQ k:=i2 FOR (n-i-j)/2 + 1
+              SEQ
+                Xtrees(i, j, k, n-i-j-k, tree, tmp)
+                i2 := 0
+                WHILE tmp[i2][0] <> '$'
+                  SEQ
+                    ntree[i1] := ntree[i2]
+                    i1,i2 := i1+1, i2+1
+  :	-- end of OneCentroid()
+
+
+  -- 
+  -- TwoCentroid :
+  -- Returns the two-centroid free trees
+  --
+  PROC TwoCentroid(VAL [][]BYTE tree, [][]BYTE ntree)
+    INT asize:
+    INT high:
+    INT i1:
+    SEQ
+      asize := 1
+      WHILE tree[asize+1][0] <> '$'
+        asize := asize + 1
+      i1 := 0
+      SEQ i=1 FOR asize
+        SEQ j=i FOR asize-j+1
+          SEQ
+            high := 0
+            WHILE tree[i][high] <> '$'
+              high := high + 1
+            tree[i][high-1] := '$'
+            OnedimCat(tree[i],tree[j],ntree[i1])
+            high := 0
+            WHILE ntree[i1][high] <> '$'
+              high := high + 1
+            ntree[i1][high] := ')'
+            i1 := i1 + 1
+  :	-- end of TwoCentroid()
+
+
+  -- Main body of Paraffins()
+  [Maxnodes][Maxtrees][Maxsize]BYTE HalfTrees:
+  SEQ
+    OrderedTrees (size / 2, HalfTrees)
+ 
+    [Maxtrees][Maxsize]BYTE tree1,tree2:
+    SEQ i=1 FOR size
+      IF
+        i \ 2 = 1
+          OneCentroid(i-1, i/2, HalfTrees, Paraffins[i])
+        TRUE
+          SEQ
+            TwoCentroid(HalfTrees[i/2], tree1)
+            OneCentroid(i-1, i/2, HalfTrees, tree2)
+            TwodimCat(tree1,tree2,Paraffins[i]
+:
+\end{verbatim}
+\end{small}
+\setlength{\baselineskip}{3ex}
+\setlength{\baselineskip}{2ex}
+\begin{small}
+\begin{verbatim}
+VAL NumPat IS 50:
+VAL NumDoc IS 5:
+VAL MaxList 100:
+[MaxList]INT SickOrder, CuredOrder:
+[MaxList][2] PatientDoctor:
+INT SickOrderSize, CuredOrderSize, PatientDoctorSize:
+INT Interval,SimTime:
+
+-- Doctor's Office
+PROC DoctorOffice([]INT SickList, [][]AssignedList, []INT CuredList, 
+                  INT SickSize, INT AssignedSize, INT CuredSize, 
+                  VAL INT Howlong)
+
+  [NubPat] CHAN OF INT RecToPat, PatToRec:
+  [NumDoc] CHAN OF INT RecToDoc, DocToRec:
+  CHAN OF BOOL ToTimeout, FromTimeout:
+
+
+  --
+  -- delay(n) : delay for n ticks
+  --
+
+  PROC delay (val INT duration)
+    TIMER clock :
+    INT timenow:
+    SEQ
+      clock ? timenow
+      clock ? AFTER timenow PLUS duration
+
+
+  --
+  -- Doctor process
+  --
+
+  PROC Doctor(CHAN OF INT from, CHAN OF INT to, VAL INT maxdu, VAL INT mindu)
+    BOOL continue,idle:
+    INT pat,duration,range,num:
+    SEQ
+      continue, idle := TRUE, TRUE
+      WHILE continue
+        PRI ALT
+          from ? pat
+            IF
+              pat < 0			-- Terminate signal
+                continue := FALSE
+              TRUE
+                SEQ
+                  range := maxdu - mindu
+                  random(range, num)
+                  duration := num + mindu
+                  idle := false
+          (NOT idle) & SKIP
+            SEQ
+              delay (Interval)
+              duration := duration - Interval
+              IF
+                duration <= 0
+                  SEQ
+                    to ! patient	-- assigned patient has been cured
+                    idle := true
+  :
+
+
+  --
+  -- patient prcess
+  --
+
+  PROC Patient(CHAN OF INT from, CHAN OF INT to, VAL INT sickprob) 
+    BOOL continue, sick:
+    INT pat,num:
+    SEQ
+      continue, sick := TRUE, FALSE
+      WHILE continue
+        PRI ALT
+          from ? pat
+            IF
+              pat < 0			-- termination signal
+                continue := FALSE
+              TRUE
+                sick := FALSE		-- returned from doctor's office
+          (NOT sick) & SKIP
+            SEQ
+              random (100, num)
+              IF
+                num < sickprob		-- YES !! I am sick now..
+                  SEQ
+                    sick := TRUE
+                    to ! 1		-- Go to doctor's office
+                TRUE
+                  delay (Interval)	-- delay a little bit
+  :
+
+
+  --
+  -- Receptionist process
+  --
+
+  PROC Receptionist ()
+    BOOL continue,timeout:
+    VAL pqsize IS NumPat:		-- patient queue size
+    VAL dqsize IS NumDoc:		-- doctor queue size
+    [pqsize] INT pqueue:		-- patient queue
+    [dqsize] INT dqueue:		-- doctor queue
+    INT pf,pr,df,dr:			-- pointers of the queue
+    INT npq,ndq:			-- Number of elements in queue
+    INT pat,doc:
+    INT retrydelay:			-- delay used to receive pending inputs
+
+    SEQ
+      retrydelay := 1000
+      SickSize, AssignedSize, CuredSize := 0, 0, 0
+      pf, pr := 0, 0			-- front and rear of patient queue
+      npq := 0
+      PAR i = 1 FOR NumDoc		-- Initialize doctor queue
+        dqueue [i-1] := i
+      df, dr := 0, 0
+      ndq := NumDoc
+      continue := TRUE
+
+      WHILE continue
+        PRI ALT
+          FromTimeout ? timeout		-- time out signal
+            continue := FALSE
+
+          ALT				-- input from doctors or patients
+
+            ALT i = 0 FOR NumPat-1	-- input from patients
+              PatToRec[i] ? pat
+                SEQ
+                  pat := i+1		-- patient number
+                  IF
+                    SickSize >= MaxList	-- reached maximum list size
+                      SEQ
+                        ToTimeout ! TRUE	-- terminate TimeoutProc
+                        continue := FALSE
+                    TRUE
+                      SEQ
+                        SickList[SickSize] := pat
+                        SickSize := SickSize + 1
+                        pqueue[pr] := pat	-- add to patient queue
+                        npq, pr := npq+1, (pr+1) REM pqsize
+                        IF
+                          ndq > 0	-- There is an available doctor
+                            SEQ
+                              doc := dqueue[df]	-- delete from doctor queue
+                              ndq, df := ndq-1, (df+1) REM dqsize
+                              pat := pqueue[pf] -- delete from patient queue
+                              npq, pf := npq-1, (pf+1) REM pqsize
+                              AssignedList[AssignedSize][0] := pat
+                              AssignedList[AssignedSize][1] := doc
+                              AssignedSize := AssignedSize + 1
+                              RecToDoc[doc-1] ! pat	-- assign patient
+                          TRUE
+                            SKIP
+         
+            ALT i = 0 FOR NumDoc-1	-- input from doctors
+              DocToRec[i] ? pat		-- a patient is released from doctor
+                SEQ
+                  CuredList[CuredSize] := pat
+                  CuredSize := CuredSize + 1
+                  dqueue[dr] := i+1	-- add to doctor queue
+                  ndq, dr := ndq+1, (dr+1) REM dqsize
+                  RecToPat[pat-1] ! pat	-- a patient is released from office
+                  IF
+                    npq > 0		-- there is a waiting patient
+                      SEQ
+                        pat := pqueue[pf] -- delete from patient queue
+                        npq, pf := npq-1, (pf+1) REM pqsize
+                        doc := dqueue[df]	-- delete from doctor queue
+                        ndq, df := ndq-1, (df+1) REM dqsize
+                        AssignedList[AssignedSize][0] := pat
+                        AssignedList[AssignedSize][1] := doc
+                        AssignedSize := AssignedSize + 1
+                        RecToDoc[doc-1] ! pat	-- assign patient
+                    TRUE
+                      SKIP
+      
+          TRUE & SKIP			-- no input 
+            SKIP
+
+      -- Terminate all the doctors and patients
+
+      continue := TRUE
+      WHILE continue
+        PRI ALT				-- read pending inputs
+          ALT i = 0 FOR NumDoc-1
+            DocToRec[i] ? doc
+              SKIP
+          ALT i = 0 FOR NumPat-1
+            PatToRec[i] ? pat 
+              SKIP
+          TRUE & SKIP
+            delay(Interval)
+            retrydelay := retrydelay - Interval
+            IF
+              retrydelay < 0
+                continue := false
+              TRUE
+                skip
+
+      -- Send termination signal to patients and doctors
+      PAR i = 0 FOR NumDoc-1
+        RecToDoc[i] ! -1
+      PAR i = 0 FOR NumPat-1
+        RecToPat[i] ! -1
+  :
+
+
+  --
+  -- Generate timeout signal after given interval
+  --
+
+  PROC TimeoutProc(VAL INT t)
+    BOOL continue,term:
+    INT timeout:
+    SEQ
+      continue := TRUE
+      timeout := t
+      WHILE continue
+        PRI ALT
+          ToTimeout ? term
+            continue := FALSE
+          TRUE & SKIP
+            IF
+              timeout < 0
+                SEQ
+                  continue := FALSE
+                  FromTimeout ! TRUE
+              TRUE
+                SEQ
+                  delay(Interval)
+                  timeout := timeout - Interval
+  :
+
+
+  -- Main Body of DoctorOffice
+  PAR
+    Receptionist()
+    PAR i = 0 FOR NumDoc-1
+      Doctor(RecToDoc[i],DocToRec[i],10000,1000)
+    PAR i = 0 FOR NumPat-1
+      Patient(RecToPat[i],PatToRec[i],5)	-- sick probability 5%
+    TimeoutProc(Howlong)
+:
+\end{verbatim}
+\end{small}
+\setlength{\baselineskip}{3ex}
+\setlength{\baselineskip}{2ex}
+\begin{small}
+\begin{verbatim}
+VAL error IS 999999.99
+VAL N IS 20
+
+--
+-- Skyline :
+-- Take an integer, two prifile vectors, a two-dimensional array and
+-- a column vector as inputs.  Returns a set of solutions of linear
+-- equations.
+--
+PROC Skyline(VAL INT n, VAL []INT pi, VAL []INR pj,
+             VAL [][]REAL32 ain, VAL []REAL32 bin, []REAL32 sol)
+
+
+  --
+  -- FormSkyline :
+  -- Given two profile vectors and n x n matrix, returns the nonzero 
+  -- elements of the lower and upper triangles of A in two 
+  -- two-dimensional arrays.  Note that upper triangle is reflected
+  -- about the diagonal.
+  --
+  PROC FormSkyline(VAL INT n, VAL []INT I, VAL []INT J, VAL [][]REAL32 A,
+                   [][]REAL32 L, [][]REAL32 U)
+    SEQ
+      SEQ k=1 FOR N
+        SEQ l=1 FOR N
+          L[k][l], U[k][l] := error, error	-- fill error values
+      SEQ k=1 FOR n
+        SEQ l=I[k] FOR k-I[k]+1
+          L[k][l] := A[k][l]
+      SEQ k=1 FOR n
+        SEQ l=J[k] FOR k-J[k]+1
+          U[k][l] := A[l][k]
+  :
+
+
+  --
+  -- ZeroFill :
+  -- Append zeros to the front of 'a' if the lower limit of 'b' is less
+  -- than the lower limit of b.
+  --
+  ZeroFill( VAL []REAL32 a, VAL []REAL32 b, []REAL32 c)
+    INT la,lb:
+    SEQ
+      la ,lb := 1, 1
+      WHILE a[la] <> error
+        la := la + 1
+      la := la - 1
+      WHILE b[lb] <> error
+        lb := lb + 1
+      lb := lb - 1
+      c := a
+      IF
+        lb < la
+          SEQ i:=lb FOR la-lb
+            c[i] := 0.0
+        TRUE
+          SKIP
+  :
+
+
+  --
+  -- ElimL :
+  -- Take jth row of L and the matrix of deltas, and returns
+  -- row - (jth row of delta).
+  --
+  ElimL(VAL INT j, []REAL32 row, VAL [][]REAL32 delta, []REAL32 res)
+    INT k:
+    SEQ
+      SEQ i:=0 FOR N
+        res[i] := error		-- initially assign error vaules
+      k := 1
+      WHILE row[k] = error
+        k := k + 1
+      WHILE row[k] <> error
+        SEQ
+          IF delta[j][k] = error
+            res[k] := row[k]
+          TRUE
+            res[k] := row[k] - delta[j][k]
+        k := k + 1
+  :
+
+
+  --
+  -- ElimU :
+  -- Take jth row of U and the matrix of deltas, and returns
+  -- row - (jth column of delta).
+  --
+  ElimU(VAL INT j, []REAL32 row, VAL [][]REAL32 delta, []REAL32 res)
+    INT k:
+    SEQ
+      SEQ i:=0 FOR N
+        res[i] := error		-- initially assign error vaules
+      k := 1
+      WHILE row[k] = error
+        k := k + 1
+      WHILE row[k] <> error
+        SEQ
+          IF delta[k][j] = error
+            res[k] := row[k]
+          TRUE
+            res[k] := row[k] - delta[k][j]
+        k := k + 1
+  :
+
+
+  --
+  -- Eliminate :
+  -- Take as input an integer, a lower and upper triangular array, and
+  -- a column vector. Eliminate the upper triangular array, and return
+  -- the adjusted lower triangular array and column vector.  Note again
+  -- that the row's of U are the columns of A above the diagonals.
+  --
+  PROC Eliminate(VAL INT n, VAL [][]REAL32 Lin, VAL [][]REAL32 Uin,
+                 VAL []REAL32 bin, [][]REAL32 Lout, []REAL32 bout)
+    INT i,i1,i2:
+    [N][N]REAL32 L,U,delta:
+    [N]REAL32 b, Lrow, Urow:
+    SEQ
+      i := n
+      L, U, b := Lin, Uin, bin
+      SEQ o=0 FOR N
+        SEQ p=0 FOR N
+          delta[o][p] := error
+      WHILE i > 1
+        SEQ
+
+          i1 := 1
+          WHILE U[i][i1] = error
+            i1 := i1 + 1
+          WHILE U[i][i1+1] <> error
+            SEQ
+              i2 := 1
+              WHILE L[i][i2] = error
+                i2 := i2 + 1
+              WHILE L[i][i2+1] <> error
+                delta[i1][i2] := x * y / L[i][i]
+
+          SEQ j=1 FOR i
+            SEQ
+              FOR p=0 FOR N
+                Lrow, Urow := error, error
+              ZeroFill(L[j], L[i], Lrow)
+              ZeroFIll(U[j], U[i], Urow)
+              ElimL (j, Lrow, delta, L[j])
+              ElimU (j, Urow, delta, U[j])
+
+          SEQ j=1 FOR i
+            IF
+              U[i][j] <> error
+                b[j] = b[j] - b[i] * U[i][j] / L[i][i]
+              TRUE
+                SKIP
+
+          Lout[i] := L[i]
+          bout[i] := b[i]
+          i := i - 1
+  :	-- end of Eliminate
+
+
+  -- Main Body of skyline()
+  [N][N]REAL32 Lin, Uin, L:
+  [N]REAL32 b:
+  INT row, col:
+  REAL32 x:
+  SEQ
+    FormSkyline(n, pi, pj, ain, Lin, Uin)
+    Eliminate(n, Lin, Uin, bin, L, b)
+    row, col := n, 0
+    x := b[n] / L[n][1]
+    WHILE row > 1
+      SEQ
+        row = row - 1
+        col := col + 1
+        SEQ i=1 FOR row
+          IF
+            L[i][col] <> error
+              b[i] := b[i] - x * L[i][col]
+            TRUE
+              SKIP
+        x := b[row] / L[row][col+1]
+        sol[col] := x
+:
+\end{verbatim}
+\end{small}
+\setlength{\baselineskip}{3ex}

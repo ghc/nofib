@@ -1,0 +1,35 @@
+.TH CHECKMD4 1 LOCAL
+.SH NAME
+checkmd4 \- Check the MD4 hash code on a Usenet article
+.SH SYNOPSIS
+.B checkmd4
+[
+.B \-n
+] [
+.I input
+]
+.SH DESCRIPTION
+.I Checkmd4
+reads a Usenet article from the named file, or standard input if no file
+is given.
+It filters out the headers and calls
+.IR md4 
+(see RFC1186) to generate a one-way hash signature or "message digest" for 
+the article.  It compares this with the value specified in the X-Md4-Signature:
+header, and prints a message indicating whether they match or not.
+To suppress the message, use the ``\-s'' flag.
+.PP
+The program will exit with status zero if the article is okay. An exit value
+of one is returned if the signatures don't match, or a two if no 
+X-Md4-Signature header can be found.
+.SH WARNING
+.I Checkmd4
+will only prove if an article has been tampered with; it does not
+provide any authentication.
+.SH AUTHOR
+.nf
+Originally written by Rich Salz <rsalz@bbn.com>
+Hacked by Kent Landfield <kent@sparky.imd.sterling.com>
+.fi
+.SH "SEE ALSO"
+hashmd4(1L), RFC1186.

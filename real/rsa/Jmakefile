@@ -1,0 +1,9 @@
+SRCS   = Rsa.hs Main.hs
+OBJS_O = Rsa.o  Main.o
+
+NoFibMultiModuleCompileAndRun(rsa,-i rsa.stdin -o1 rsa.stdout)
+
+NoFibHaskellCompile(rsa,Rsa,hs)
+NoFibHaskellCompile(rsa,Main,hs)
+
+NoFibDependTarget(rsa, $(SRCS))

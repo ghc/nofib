@@ -1,0 +1,180 @@
+T 1 1 0    %na=Boolean
+T 2 1 1    %na=Character
+T 3 1 2    %na=Double
+T 4 1 3    %na=Integer
+T 5 1 4    %na=Null
+T 6 1 5    %na=Real
+T 7 1 6    %na=WildBasic
+T 8 10
+T 9 0	4    %na=onedim
+T 10 6	4    %na=istream
+T 11 8	10	0
+T 12 8	4	11
+T 13 8	4	12
+T 14 3	13	11
+T 15 8	9	0
+T 16 8	4	15
+T 17 3	16	11
+T 18 4	4
+T 19 4	1
+T 20 4	10
+C$  C Faked IF1CHECK
+C$  D Nodes are DFOrdered
+C$  F Livermore Frontend   Version1.8
+G	14	"powers"	%sl=15
+E	1 1	0 1	10	%mk=V
+{ Compound   1   4
+G	0	%sl=18
+E	4 1	0 4	10	 %na=b_stream	%mk=V	%sl=21
+E	2 1	0 5	10	 %na=s_stream	%mk=V	%sl=20
+E	1 1	0 6	4	 %na=token	%mk=V	%sl=21
+E	5 1	0 7	1	%mk=V
+N 1	105	%sl=19
+E	0 1	1 1	10	 %na=in_stream	%mk=V	%sl=19
+L		1 2	4 "1"	%mk=V
+N 2	112	%sl=20
+E	0 1	2 1	10	 %na=in_stream	%mk=V	%sl=20
+N 3	152	%sl=21
+E	1 1	3 1	4	 %na=token	%mk=V	%sl=21
+E	0 2	3 2	4	 %na=prime	%mk=V	%sl=21
+N 4	103	%sl=21
+L		4 1	4 "1"	%mk=V
+E	3 1	4 2	4	%mk=V
+N 5	132
+E	1 1	5 1	4	 %na=token	%mk=V
+E	0 3	5 2	4	 %na=n	%mk=V
+G	0	%sl=22
+E	1 1	0 1	1	%mk=V
+N 1	131	%sl=22
+E	0 6	1 1	4	 %na=token	%mk=V	%sl=22
+E	0 3	1 2	4	 %na=n	%mk=V	%sl=22
+G	0	%sl=23
+E	5 3	0 4	10	 %na=b_stream	%mk=V	%sl=39
+E	5 2	0 5	10	 %na=s_stream	%mk=V	%sl=38
+E	5 1	0 6	4	 %na=token	%mk=V	%sl=22
+E	6 1	0 7	1	%mk=V
+N 1	105	%sl=25
+E	0 5	1 1	10	 %na=old-s_stream	%mk=V	%sl=25
+L		1 2	4 "1"	%mk=V
+N 2	105	%sl=26
+E	0 4	2 1	10	 %na=old-b_stream	%mk=V	%sl=26
+L		2 2	4 "1"	%mk=V
+N 3	108	%sl=28
+E	0 5	3 1	10	 %na=old-s_stream	%mk=V	%sl=28
+N 4	129
+E	3 1	4 1	1	%mk=V
+{ Compound   5   1
+G	0
+E	0 1	0 1	4	%mk=V
+G	0	%sl=32
+E	3 1	0 1	4	%mk=V
+E	3 2	0 2	10	%mk=V
+E	3 3	0 3	10	%mk=V
+N 1	131	%sl=32
+E	0 2	1 1	4	 %na=b_token	%mk=V	%sl=32
+E	0 6	1 2	4	 %na=s_token	%mk=V	%sl=32
+N 2	129
+E	1 1	2 1	1	%mk=V
+{ Compound   3   1
+G	0
+E	0 1	0 1	4	%mk=V
+G	0	%sl=36
+E	0 6	0 1	4	 %na=s_token	%mk=V	%sl=39
+E	1 1	0 2	10	%mk=V
+E	3 1	0 3	10	%mk=V
+N 1	112	%sl=38
+E	0 3	1 1	10	 %na=old-s_stream	%mk=V	%sl=38
+N 2	152	%sl=39
+E	0 6	2 1	4	 %na=s_token	%mk=V	%sl=39
+E	0 5	2 2	4	 %na=prime	%mk=V	%sl=39
+N 3	100	%sl=39
+E	0 4	3 1	10	 %na=old-b_stream	%mk=V	%sl=39
+E	2 1	3 2	4	%mk=V
+G	0	%sl=33
+E	0 2	0 1	4	 %na=b_token	%mk=V	%sl=35
+E	0 3	0 2	10	 %na=old-s_stream	%mk=V	%sl=34
+E	3 1	0 3	10	%mk=V
+N 1	112	%sl=35
+E	0 4	1 1	10	 %na=old-b_stream	%mk=V	%sl=35
+N 2	152	%sl=35
+E	0 2	2 1	4	 %na=b_token	%mk=V	%sl=35
+E	0 5	2 2	4	 %na=prime	%mk=V	%sl=35
+N 3	100	%sl=35
+E	1 1	3 1	10	%mk=V
+E	2 1	3 2	4	%mk=V
+} 3 1 3 0 1 2	%sl=33
+E	2 1	3 1	4	%mk=V
+E	0 2	3 2	4	 %na=b_token	%mk=V	%sl=33
+E	0 3	3 3	10	 %na=old-s_stream	%mk=V	%sl=34
+E	0 4	3 4	10	 %na=old-b_stream	%mk=V	%sl=35
+E	0 5	3 5	4	 %na=prime	%mk=V	%sl=35
+E	0 6	3 6	4	 %na=s_token	%mk=V	%sl=37
+G	0	%sl=29
+E	0 2	0 1	4	 %na=b_token	%mk=V	%sl=31
+E	0 3	0 2	10	 %na=old-s_stream	%mk=V	%sl=30
+E	3 1	0 3	10	%mk=V
+N 1	112	%sl=31
+E	0 4	1 1	10	 %na=old-b_stream	%mk=V	%sl=31
+N 2	152	%sl=31
+E	0 2	2 1	4	 %na=b_token	%mk=V	%sl=31
+E	0 5	2 2	4	 %na=prime	%mk=V	%sl=31
+N 3	100	%sl=31
+E	1 1	3 1	10	%mk=V
+E	2 1	3 2	4	%mk=V
+} 5 1 3 0 1 2	%sl=29
+E	4 1	5 1	4	%mk=V
+E	2 1	5 2	4	 %na=b_token	%mk=V	%sl=29
+E	0 5	5 3	10	 %na=old-s_stream	%mk=V	%sl=30
+E	0 4	5 4	10	 %na=old-b_stream	%mk=V	%sl=31
+E	0 2	5 5	4	 %na=prime	%mk=V	%sl=31
+E	1 1	5 6	4	 %na=s_token	%mk=V	%sl=32
+N 6	132
+E	5 1	6 1	4	 %na=token	%mk=V
+E	0 3	6 2	4	 %na=n	%mk=V
+G	0	%sl=42
+E	2 1	0 1	10	%mk=V
+N 2	107	%sl=43
+L		2 1	4 "1"	%mk=V
+E	0 6	2 2	18	 %na=token	%mk=V	%sl=42
+E	0 7	2 3	19	%mk=V
+} 1 4 4 0 1 2 3	%sl=18
+E	0 3	1 1	10	 %na=in_stream	%mk=V	%sl=19
+E	0 2	1 2	4	 %na=prime	%mk=V	%sl=21
+E	0 1	1 3	4	 %na=n	%mk=V	%sl=22
+X	17	"hamming"	%sl=47
+E	1 1	0 1	10	%mk=V
+{ Compound   1   4
+G	0	%sl=50
+L		0 3	4 "0"	 %na=i	%mk=V	%sl=51
+E	1 1	0 4	10	 %na=s_stream	%mk=V	%sl=52
+N 1	103	%sl=52
+L		1 1	4 "1"	%mk=V
+L		1 2	4 "1"	%mk=V
+G	0	%sl=53
+E	2 1	0 1	1	%mk=V
+N 1	116	%sl=53
+E	0 1	1 1	9	 %na=primes	%mk=V	%sl=53
+N 2	131	%sl=53
+E	0 3	2 1	4	 %na=i	%mk=V	%sl=53
+E	1 1	2 2	4	%mk=V
+G	0	%sl=54
+E	1 1	0 3	4	 %na=i	%mk=V	%sl=55
+E	3 1	0 4	10	 %na=s_stream	%mk=V	%sl=55
+N 1	141	%sl=54
+E	0 3	1 1	4	 %na=old-i	%mk=V	%sl=54
+L		1 2	4 "1"	%mk=V
+N 2	105	%sl=55
+E	0 1	2 1	9	 %na=primes	%mk=V	%sl=55
+E	1 1	2 2	4	 %na=i	%mk=V	%sl=55
+N 3	120	%sl=55
+L		3 1	14 "powers"	%mk=V
+E	0 2	3 2	4	 %na=n	%mk=V	%sl=55
+E	2 1	3 3	4	%mk=V
+E	0 4	3 4	10	 %na=old-s_stream	%mk=V	%sl=55
+G	0	%sl=56
+E	1 1	0 1	10	%mk=V
+N 1	127	%sl=57
+E	0 4	1 1	20	 %na=s_stream	%mk=V	%sl=56
+} 1 4 4 0 1 2 3	%sl=50
+E	0 2	1 1	9	 %na=primes	%mk=V	%sl=53
+E	0 1	1 2	4	 %na=n	%mk=V	%sl=55

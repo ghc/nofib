@@ -1,0 +1,12 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Apply where
+import BaseDefs(Frontier, Rep, Route)
+apApply :: Route -> [Route] -> Route
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+apPap :: Rep -> [Route] -> Rep
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+apPapConst :: Rep -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+apPap_2 :: Int -> Frontier -> [Route] -> Frontier
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "U(P)U(U(P)LL)L" {_A_ 5 _U_ 22112 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

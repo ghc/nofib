@@ -1,0 +1,12 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Tree where
+data Tree a   = Branch a [Tree a]
+mapTree :: (a -> b) -> Tree a -> Tree b
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(LL)" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+prune :: Int -> Tree a -> Tree a
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(P)U(LL)" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+repTree :: (a -> [a]) -> (a -> [a]) -> a -> Tree a
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+instance Text a => Text (Tree a)
+	{-# GHC_PRAGMA _M_ Tree {-dfun-} _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+

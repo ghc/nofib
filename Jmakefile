@@ -1,0 +1,51 @@
+#define IHaveSubdirs
+
+#if IncludeRealNoFibTests == YES
+#define _RealTests real
+#else
+#define _RealTests /*none*/
+#endif
+
+#if IncludeSpectralNoFibTests == YES
+#define _SpectralTests spectral
+#else
+#define _SpectralTests /*none*/
+#endif
+
+#if IncludeImaginaryNoFibTests == YES
+#define _ImaginaryTests imaginary
+#else
+#define _ImaginaryTests /*none*/
+#endif
+
+#if IncludePENDINGNoFibTests == YES
+#define _PENDINGTests PENDING
+#else
+#define _PENDINGTests /*none*/
+#endif
+
+#if IncludeUNUSEDNoFibTests == YES
+#define _UNUSEDTests UNUSED
+#else
+#define _UNUSEDTests /*none*/
+#endif
+
+#if IncludeGHC_ONLYNoFibTests == YES
+#define _GHC_ONLYTests  GHC_ONLY
+#else
+#define _GHC_ONLYTests /*none*/
+#endif
+
+#if IncludePRIVATENoFibTests == YES
+#define _PRIVATETests  PRIVATE
+#else
+#define _PRIVATETests /*none*/
+#endif
+
+#if IncludeParallelNoFibTests == YES
+#define _ParallelTests  parallel
+#else
+#define _ParallelTests /*none*/
+#endif
+
+SUBDIRS = _GHC_ONLYTests _PRIVATETests _ParallelTests _PENDINGTests _UNUSEDTests _ImaginaryTests _SpectralTests _RealTests

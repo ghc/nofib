@@ -1,0 +1,18 @@
+SRCS_HS = Main.hs DCBM.hs DbParallel.hs Delay.hs Fwif.hs Types.hs
+
+OBJS_O =  Main.o DCBM.o DbParallel.o Delay.o Fwif.o Types.o \
+	  Primitives.o 
+
+NoFibMultiModuleCompileAndRun(dcbm,)
+
+NoFibHaskellCompile(dcbm,Main,hs)
+NoFibHaskellCompile(dcbm,DCBM,hs)
+NoFibHaskellCompile(dcbm,DbParallel,hs)
+NoFibHaskellCompile(dcbm,Delay,hs)
+NoFibHaskellCompile(dcbm,Fwif,hs)
+NoFibHaskellCompile(dcbm,Types,hs)
+
+Primitives.o : Primitives.hc
+	$(HC) -c $(HCFLAGS) Primitives.hc
+
+HaskellDependTarget( $(SRCS_HS) )

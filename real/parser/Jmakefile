@@ -1,0 +1,6 @@
+SRCS_HS = Main.hs
+OBJS_O  = Main.o
+
+NoFibMultiModuleCompileAndRun(parser,-i big_big_test.hs -o1 parser.stdout)
+
+NoFibHaskellCompile(parser,Main,hs)

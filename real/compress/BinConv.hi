@@ -1,0 +1,9 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface BinConv where
+ascii_to_codes :: Integral a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ _N_ #-}
+codes_to_ascii :: [Int] -> [Int]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+dec_to_binx :: Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(P)U(P)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

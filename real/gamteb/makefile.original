@@ -1,0 +1,36 @@
+OBJS = 	GamtebType.o Consts.o InitTable.o Utils.o Distance.o RoulSplit.o \
+	PhotoElec.o Compton.o Pair.o TransPort.o Output.o GamtebMain.o
+
+.SUFFIXES: .hs .o .t
+
+.hs.o :
+	hbc -c $<
+
+all:	${OBJS}
+	hbc -o gamteb Main.hs ${OBJS} -lm
+
+print:
+	hsp -p GamtebType.hs Consts.hs InitTable.hs Utils.hs Distance.hs \
+	RoulSplit.hs PhotoElec.hs Compton.hs Pair.hs TransPort.hs \
+	Output.hs GamtebMain.hs Main.hs
+
+wc:
+	wc GamtebType.hs Consts.hs InitTable.hs Utils.hs Distance.hs \
+	RoulSplit.hs PhotoElec.hs Compton.hs Pair.hs TransPort.hs \
+	Output.hs GamtebMain.hs Main.hs
+
+GamtebType.o :	GamtebType.hs
+Consts.o: GamtebType.hs
+InitTable.o : GamtebType.hs Consts.hs
+Utils.o: GamtebType.hs Consts.hs InitTable.hs
+Compton.o: GamtebType.hs Consts.hs Utils.hs
+Distance.o: GamtebType.hs Consts.hs
+Output.o: GamtebType.hs Consts.hs
+GamtebMain.o: GamtebType.hs Utils.hs TransPort.hs Output.hs
+InitTable.o: GamtebType.hs Consts.hs
+Pair.o: GamtebType.hs Consts.hs Utils.hs
+PhotoElec.o: GamtebType.hs Consts.hs Utils.hs
+RoulSplit.o : GamtebType.hs Utils.hs
+TransPort.o: GamtebType.hs Consts.hs Utils.hs Distance.hs RoulSplit.hs \
+	 PhotoElec.hs Compton.hs Pair.hs
+Main.o: GamtebMain.hs

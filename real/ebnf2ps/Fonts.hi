@@ -1,0 +1,22 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Fonts where
+data FONT 	{-# GHC_PRAGMA FONT [Char] Int Int ([Char] -> Int) #-}
+fontDescender :: FONT -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAU(P)A)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 2 \ (u0 :: Int#) -> _!_ I# [] [u0] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: FONT) -> case u0 of { _ALG_ _ORIG_ Fonts FONT (u1 :: [Char]) (u2 :: Int) (u3 :: Int) (u4 :: [Char] -> Int) -> u3; _NO_DEFLT_ } _N_ #-}
+fontName :: FONT -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SAAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Char]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: FONT) -> case u0 of { _ALG_ _ORIG_ Fonts FONT (u1 :: [Char]) (u2 :: Int) (u3 :: Int) (u4 :: [Char] -> Int) -> u1; _NO_DEFLT_ } _N_ #-}
+fontScale :: FONT -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AU(P)AA)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 2 \ (u0 :: Int#) -> _!_ I# [] [u0] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: FONT) -> case u0 of { _ALG_ _ORIG_ Fonts FONT (u1 :: [Char]) (u2 :: Int) (u3 :: Int) (u4 :: [Char] -> Int) -> u2; _NO_DEFLT_ } _N_ #-}
+makeFont :: [Char] -> Int -> [Char] -> FONT
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+noFont :: FONT
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+stringHeight :: FONT -> [Char] -> Int
+	{-# GHC_PRAGMA _A_ 2 _U_ 10 _N_ _S_ "U(AU(P)AA)A" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> case _#_ timesInt# [] [u0, 100#] of { _PRIM_ (u1 :: Int#) -> _!_ I# [] [u1] } _N_} _F_ _IF_ARGS_ 0 2 CX 5 \ (u0 :: FONT) (u1 :: [Char]) -> case u0 of { _ALG_ _ORIG_ Fonts FONT (u2 :: [Char]) (u3 :: Int) (u4 :: Int) (u5 :: [Char] -> Int) -> case u3 of { _ALG_ I# (u6 :: Int#) -> case _#_ timesInt# [] [u6, 100#] of { _PRIM_ (u7 :: Int#) -> _!_ I# [] [u7] }; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+stringWidth :: FONT -> [Char] -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(AAAS)" {_A_ 1 _U_ 12 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Char] -> Int) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: FONT) -> case u0 of { _ALG_ _ORIG_ Fonts FONT (u1 :: [Char]) (u2 :: Int) (u3 :: Int) (u4 :: [Char] -> Int) -> u4; _NO_DEFLT_ } _N_ #-}
+instance Eq FONT
+	{-# GHC_PRAGMA _M_ Fonts {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(FONT -> FONT -> Bool), (FONT -> FONT -> Bool)] [_CONSTM_ Eq (==) (FONT), _CONSTM_ Eq (/=) (FONT)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "U(SLLA)U(SLLA)" {_A_ 4 _U_ 2111 _N_ _N_ _N_ _N_} _N_ _N_,
+	 (/=) = _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,5 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Prog where
+prog :: [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

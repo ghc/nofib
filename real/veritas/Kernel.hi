@@ -1,0 +1,186 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Kernel where
+import Core_datatype(Attribute_Tag, Attribute_Value, IDec, ISgn, ITrm, Thm, Trm)
+data Dec   = DC IDec ISgn | DC_Err [Char]
+data Sgn   = SG ISgn | SG_Err [Char]
+appl :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+axiom :: Sgn -> Int -> Int -> Thm
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "SU(P)L" {_A_ 3 _U_ 121 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+axiom_dec :: Trm -> Dec
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+beta_rw :: Thm -> [Int] -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SS" _N_ _N_ #-}
+bool_sm :: Sgn -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+choose :: Thm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+combine :: Sgn -> Sgn -> Sgn
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+cond_false_rw :: Thm -> Thm -> [Int] -> Thm
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SSS" _N_ _N_ #-}
+cond_true_rw :: Thm -> Thm -> [Int] -> Thm
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SSS" _N_ _N_ #-}
+conditional :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+conjunction :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+constructor :: Sgn -> Int -> Int -> Int -> Trm
+	{-# GHC_PRAGMA _A_ 4 _U_ 1122 _N_ _S_ "SU(P)LL" {_A_ 4 _U_ 1222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+decpair :: Dec -> Dec
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+def :: Trm -> Dec
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+def_elim_thm :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+discharge :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+disjunction :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+empty :: Sgn
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+eq_Dec :: Dec -> Dec -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+eq_Sgn :: Sgn -> Sgn -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+eq_Thm :: Thm -> Thm -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+eq_Trm :: Trm -> Trm -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+eq_of_ty :: Thm -> Thm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+equal :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+eta_rw :: Thm -> [Int] -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+existential :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+exists_elim :: Thm -> Thm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+exists_intro :: Thm -> Trm -> Trm -> Thm
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "SLL" _N_ _N_ #-}
+extend :: Dec -> Sgn -> Sgn
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+false_sm :: Sgn -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+from :: Trm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+generalise :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+get_Dec_att :: Dec -> [(Attribute_Tag, Attribute_Value)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+get_Sgn_att :: Sgn -> [(Attribute_Tag, Attribute_Value)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+get_Thm_att :: Thm -> [Int] -> [(Attribute_Tag, Attribute_Value)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+get_Trm_att :: Trm -> [Int] -> [(Attribute_Tag, Attribute_Value)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+implication :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+induction :: Trm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+injection :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+internal_Dec :: Dec -> (IDec, ISgn)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+internal_Sgn :: Sgn -> ISgn
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+internal_Thm :: Thm -> (ITrm, ISgn)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+internal_Trm :: Trm -> (ITrm, ITrm, ISgn)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+into :: Trm -> Trm -> Thm -> Trm
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "SLL" _N_ _N_ #-}
+is_valid_Sgn :: Sgn -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Sgn) -> case u0 of { _ALG_ _ORIG_ Kernel SG_Err (u1 :: [Char]) -> _!_ False [] []; _ORIG_ Kernel SG (u2 :: ISgn) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+is_valid_Thm :: Thm -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Thm) -> case u0 of { _ALG_ _ORIG_ Core_datatype TH_Err (u1 :: [Char]) -> _!_ False [] []; _ORIG_ Core_datatype TH (u2 :: ITrm) (u3 :: ISgn) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+is_valid_Trm :: Trm -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Trm) -> case u0 of { _ALG_ _ORIG_ Core_datatype TM_Err (u1 :: [Char]) -> _!_ False [] []; _ORIG_ Core_datatype TM (u2 :: ITrm) (u3 :: ITrm) (u4 :: ISgn) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+issubstype_elim :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+issubstype_intro :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+issubtype :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+lambda :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+make_data :: [[Trm]] -> Thm -> Dec
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "SS" _N_ _N_ #-}
+modus_ponens :: Thm -> Thm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+negation :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+outof :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+pair :: Trm -> Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "SLL" _N_ _N_ #-}
+pi' :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+polydata :: Dec -> Dec
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+recurse :: [Trm] -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+reflex :: Trm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+restore_Dec :: a -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ _!_ _F_ _IF_ARGS_ 2 1 X 2 _/\_ u0 u1 -> \ (u2 :: u0) -> _APP_  _TYAPP_  error { u1 } [ _NOREP_S_ "BadDeclaration" ] _N_ #-}
+restore_Sgn :: a -> Sgn
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _!_ _ORIG_ Kernel SG_Err [] [_NOREP_S_ "restore_Sgn unimplemented"] _N_} _F_ _IF_ARGS_ 1 1 X 2 _/\_ u0 -> \ (u1 :: u0) -> _!_ _ORIG_ Kernel SG_Err [] [_NOREP_S_ "restore_Sgn unimplemented"] _N_ #-}
+restore_Thm :: a -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ _!_ _F_ _IF_ARGS_ 2 1 X 2 _/\_ u0 u1 -> \ (u2 :: u0) -> _APP_  _TYAPP_  error { u1 } [ _NOREP_S_ "BadTheorem" ] _N_ #-}
+restore_Trm :: a -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 1 0 X 2 _/\_ u0 -> _!_ _ORIG_ Core_datatype TM_Err [] [_NOREP_S_ "restore_Trm unimplemented"] _N_} _F_ _IF_ARGS_ 1 1 X 2 _/\_ u0 -> \ (u1 :: u0) -> _!_ _ORIG_ Core_datatype TM_Err [] [_NOREP_S_ "restore_Trm unimplemented"] _N_ #-}
+set_Dec_att :: Dec -> [(Attribute_Tag, Attribute_Value)] -> Dec
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+set_Sgn_att :: Sgn -> [(Attribute_Tag, Attribute_Value)] -> Sgn
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+set_Thm_att :: Thm -> [Int] -> [(Attribute_Tag, Attribute_Value)] -> Thm
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+set_Trm_att :: Trm -> [Int] -> [(Attribute_Tag, Attribute_Value)] -> Trm
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+sgn_of_Dec :: Dec -> Sgn
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 6 \ (u0 :: Dec) -> case u0 of { _ALG_ _ORIG_ Kernel DC (u1 :: IDec) (u2 :: ISgn) -> _!_ _ORIG_ Kernel SG [] [u2]; _ORIG_ Kernel DC_Err (u3 :: [Char]) -> _!_ _ORIG_ Kernel SG_Err [] [u3]; _NO_DEFLT_ } _N_ #-}
+sgn_of_Thm :: Thm -> Sgn
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 6 \ (u0 :: Thm) -> case u0 of { _ALG_ _ORIG_ Core_datatype TH (u1 :: ITrm) (u2 :: ISgn) -> _!_ _ORIG_ Kernel SG [] [u2]; _ORIG_ Core_datatype TH_Err (u3 :: [Char]) -> _!_ _ORIG_ Kernel SG_Err [] [u3]; _NO_DEFLT_ } _N_ #-}
+sgn_of_Trm :: Trm -> Sgn
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 6 \ (u0 :: Trm) -> case u0 of { _ALG_ _ORIG_ Core_datatype TM (u1 :: ITrm) (u2 :: ITrm) (u3 :: ISgn) -> _!_ _ORIG_ Kernel SG [] [u3]; _ORIG_ Core_datatype TM_Err (u4 :: [Char]) -> _!_ _ORIG_ Kernel SG_Err [] [u4]; _NO_DEFLT_ } _N_ #-}
+share :: Sgn -> Int -> Int -> Sgn
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "SU(P)U(P)" {_A_ 3 _U_ 122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+shift_Trm :: Int -> Sgn -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "U(P)SS" {_A_ 3 _U_ 211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+sigma :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+specialise :: Thm -> Trm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+subst_Trm :: Trm -> Trm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+subterm_rw :: Thm -> Thm -> [Int] -> Thm
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _N_ _N_ #-}
+subtype :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+symbol :: Sgn -> Int -> Int -> Trm
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SU(P)L" {_A_ 3 _U_ 122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+symbol_dec :: Trm -> Dec
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+symmetry :: Thm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+taut :: Trm -> Thm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+true_sm :: Sgn -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+typ_of_Dec :: Dec -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+typ_of_Thm :: Thm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+typ_of_Trm :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+universal :: Trm -> Trm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+universe :: Sgn -> Int -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SU(P)" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+weaken :: Sgn -> Thm -> Thm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+widen :: Trm -> Thm -> Trm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+

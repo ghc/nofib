@@ -1,0 +1,26 @@
+
+     MODS= BaseDefs.hs MyUtils.hs Utils.hs AbstractVals2.hs \
+           SuccsAndPreds2.hs AbstractMisc.hs Dependancy.hs \
+           MakeDomains.hs  Parser2.hs  PrettyPrint.hs  LambdaLift5.hs  \
+           TypeCheck5.hs EtaAbstract.hs  DomainExpr.hs AbsConc3.hs Apply.hs \
+           Inverse.hs BarakiMeet.hs BarakiConc3.hs \
+           Constructors.hs TExpr2DExpr.hs AbstractEval2.hs \
+           PrintResults.hs Simplify.hs SmallerLattice.hs \
+           FrontierMisc2.hs FrontierDATAFN2.hs FrontierGENERIC2.hs \
+           StrictAn6.hs ReadTable.hs Main.hs
+     INTS=$(MODS:%.hs=%.hi)
+     OBJS=$(MODS:%.hs=%.o)
+     ASMS=$(MODS:%.hs=%.o)
+     HC4=hbc
+     HC3=/home/carnap/appl/Haskell/NewStuff/Hbc9975-sun3/hbc
+     HBCFLAGS= -fzap-redex -c -H8000000
+     KLUDGE= -fno-gen-cmp
+     PROFILE= -pg
+     ECONOMY= -fno-gen-read
+
+     %.o: %.hs
+	$(HC4) $(HBCFLAGS) $<
+     
+     main: $(OBJS)
+	$(HC4) -o Anna400 $(OBJS)
+     

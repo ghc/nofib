@@ -1,0 +1,7 @@
+interface Utils where {
+map2 :: (a -> b -> c) -> [a] -> [b] -> [c]   {-# ARITY map2 = 3 #-}{-# STRICTNESS map2 = "1,F" ST #-};
+rep :: Int -> a -> [a]   {-# ARITY rep = 2 #-}{-# STRICTNESS rep = "T,F" ST #-};
+rjustify :: Int -> [Char] -> [Char]   {-# ARITY rjustify = 2 #-}{-# STRICTNESS rjustify = "T,F" ST #-};
+spaces :: Int -> [Char]   {-# ARITY spaces = 1 #-}{-# STRICTNESS spaces = "T,F" ST #-};
+zip2 :: [a] -> [b] -> [(a, b)]   {-# ARITY zip2 = 2 #-}{-# STRICTNESS zip2 = "1,F" ST #-}
+}

@@ -1,0 +1,16 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Defs where
+import S_Array(S_array)
+type Frac_type = Float
+type My_Array a b = S_array b
+large :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [1.0000000000000000e20#] _N_ #-}
+large_scalor :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [1.0000000000000000e20#] _N_ #-}
+p_nodel :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [3#] _N_ #-}
+small :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [9.9999999999999993e-41#] _N_ #-}
+v_nodel :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [6#] _N_ #-}
+

@@ -1,0 +1,8 @@
+"md4tools" is taken from comp.sources.???, volume 19.  It is used for
+checking that some test programs produce the right output.
+
+Rather than keep a v large "expected output" file for some program, we
+keep just its md4 checksum; we check vs the checksum to see if the
+program did the right thing.
+
+Will Partain

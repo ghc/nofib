@@ -1,0 +1,66 @@
+# 		Makefile to process LaTeX/Haskell files
+#
+#	The source files have suffix .lhs
+#
+#	To get a latex file (.tex), we expand out tabs, 
+#	and run through add-index-entries and verbatim
+#
+#$Log: Makefile.original,v $
+#Revision 1.1  1996/01/08 20:04:22  partain
+#Initial revision
+#
+#Revision 1.2  92/06/30  15:56:53  dlester
+#Trivial bits and pieces.
+#
+#Revision 1.1  92/06/30  13:57:54  dlester
+#Initial
+#
+
+.SUFFIXES:	.fig .lhs .tex .dvi .ind .idx
+
+HC	= hbc
+LATEX	= latex
+SRCS	= Main.lhs IntLib.lhs Random.lhs Prime.lhs
+DIST	= $(SRCS) Makefile mersenne607 Readme
+MAIL	= dlester@cs.man.ac.uk
+
+prime:	$(SRCS:.lhs=.o)
+	$(HC) -o prime $(SRCS:.lhs=.o)
+
+Main.dvi: $(SRCS:.lhs=.tex)
+	$(LATEX) Main.tex
+
+Main.o:		IntLib.o Prime.o
+Prime.o:	IntLib.o Random.o
+
+%.o:	%.lhs
+	$(HC) -c $<
+
+%.tex:	%.lhs
+	@echo "Making $@ from $<"
+	@expand < $< | add-index-entries | verbatim > $@
+
+%.tex:	%.fig
+	fig2dev -L latex $< $@
+
+%.ps:	%.fig
+	fig2dev -L ps $< $@
+
+%.dvi:	%.tex
+	$(LATEX) $<
+
+%.ind:	%.idx
+	sort $< | subsume-index-entries | makeindex -i -t $*.ilg > $*.nid
+	cmp -s $*.nid $@ || mv $*.nid $@
+	rm -f $*.nid
+
+mail:
+	makeshar $(DIST) | mail -s "Primality Test" $(MAIL)
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Ast where
+import BasicNumber(BasicNumber)
+data Ast   = Set [Char] BasicExp | EvalSet [Char] BasicExp | Eval BasicExp | NullCmd | SyntaxError
+data BasicExp   = Func [Char] [BasicExp] | Numb BasicNumber | Var [Char] | EVar [Char] | BSError
+type FunName = [Char]
+type VarName = [Char]
+

@@ -1,0 +1,126 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface ThmTactics where
+import Core_datatype(Attribute_Tag, Attribute_Value, Cnv_Fn, IDec, ISgn, ITrm, Tag_Arg_type, Thm, Trm)
+import Goals(Done, GOAL, Obj)
+import Kernel(Sgn)
+import Tactics(Ordered_tactic, TACTIC)
+import Tree(Tree_state)
+import Type_defs(Maybe)
+import Vtslib(Option)
+axiom_arg_fn :: a -> b -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 0012 _N_ _S_ "AAS" {_A_ 1 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+axiom_subgoal :: a -> Sgn -> b -> Option [[Char]] -> c -> Maybe ([d], [e] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02010 _N_ _N_ _N_ _N_ #-}
+axiom_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+axiom_valid :: Thm -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+complete_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+complete_thm :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> Option [[Char]] -> Obj -> Maybe ([d], [e] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 12011 _N_ _N_ _N_ _N_ #-}
+complete_thm_input :: a -> b -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 0012 _N_ _S_ "AAS" {_A_ 1 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+complete_thm_valid :: Thm -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+conj_subgoal :: a -> b -> c -> d -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 00001 _N_ _S_ "AAAAS" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+conj_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+conj_valid :: [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+create_name :: a -> b -> IDec -> (IDec, b)
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+disch_subgoal :: a -> Sgn -> c -> b -> Obj -> Maybe ([Obj], [c], [Bool], [Option Done] -> [Bool] -> ([Bool], [Sgn], Option Done)) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02201 _N_ _S_ "ALLAS" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+disch_tac :: Ordered_tactic
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+disch_valid :: Sgn -> [Option Done] -> [Bool] -> ([Bool], [Sgn], Option Done)
+	{-# GHC_PRAGMA _A_ 3 _U_ 212 _N_ _S_ "LSL" _N_ _N_ #-}
+disj_dv_valid :: Thm -> [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+disj_input :: a -> b -> c -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 0002 _N_ _S_ "AAA" {_A_ 0 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+disj_subgoal :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> Option [[Char]] -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 22011 _N_ _S_ "LLASL" {_A_ 4 _U_ 2211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+disj_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+disj_tm_valid :: [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+eq_subgoal :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> d -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 22001 _N_ _S_ "LLAAS" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+eq_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+eq_valid :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> c -> Sgn -> Trm -> Trm -> [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 6 _U_ 102111 _N_ _S_ "LALLLS" {_A_ 5 _U_ 12111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+exists_elim_input :: a -> b -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 0012 _N_ _S_ "AAS" {_A_ 1 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+exists_elim_subgoal :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> Option [[Char]] -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 22012 _N_ _S_ "LLASL" {_A_ 4 _U_ 2212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+exists_elim_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+exists_elim_valid :: Thm -> [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+exists_elim_valid' :: [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+find_hyp :: a -> Sgn -> b -> Option c -> Obj -> Maybe ([d], [e] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02011 _N_ _N_ _N_ _N_ #-}
+find_match :: ITrm -> Thm -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+gen_subgoal :: a -> Sgn -> c -> b -> Obj -> Maybe ([Obj], [c], [Bool], [Option Done] -> [Bool] -> ([Bool], [Sgn], Option Done)) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02201 _N_ _S_ "ALLAS" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+gen_tac :: Ordered_tactic
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+gen_valid :: Sgn -> [Option Done] -> [Bool] -> ([Bool], [Sgn], Option Done)
+	{-# GHC_PRAGMA _A_ 3 _U_ 212 _N_ _S_ "LSL" _N_ _N_ #-}
+get_hyp_from_dec :: Sgn -> IDec -> Int -> Int -> (Int, [Thm])
+	{-# GHC_PRAGMA _A_ 4 _U_ 2122 _N_ _S_ "LSLL" _N_ _N_ #-}
+get_hyp_from_sgn :: Sgn -> ISgn -> Int -> [Thm]
+	{-# GHC_PRAGMA _A_ 3 _U_ 212 _N_ _S_ "LSL" _N_ _N_ #-}
+hyp_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+ind_subgoal :: a -> Sgn -> b -> c -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02001 _N_ _S_ "ALAAS" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+ind_valid :: Thm -> [[Int]] -> [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _N_ _N_ _N_ #-}
+induction_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+lemma_input :: a -> b -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 0012 _N_ _S_ "AAS" {_A_ 1 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lemma_subgoal :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> Option [[Char]] -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 12011 _N_ _S_ "LLASL" {_A_ 4 _U_ 1211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lemma_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+lemma_valid :: [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+not_subgoal :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> Option d -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 22011 _N_ _S_ "LLASL" {_A_ 4 _U_ 2211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+not_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+not_valid :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> c -> Sgn -> Trm -> [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 5 _U_ 10211 _N_ _S_ "LALLS" {_A_ 4 _U_ 1211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+or_subgoal :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> c -> Option d -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 22011 _N_ _S_ "LLASL" {_A_ 4 _U_ 2211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+or_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+or_valid :: (a, b, [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> c -> Sgn -> Trm -> Trm -> [Option Done] -> Option Done
+	{-# GHC_PRAGMA _A_ 6 _U_ 102111 _N_ _S_ "LALLLS" {_A_ 5 _U_ 12111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+reduce_ind :: ITrm -> [ITrm]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+reflex_subgoal :: a -> Sgn -> b -> c -> Obj -> Maybe ([d], [e] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02001 _N_ _N_ _N_ _N_ #-}
+reflex_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+reflex_valid :: Thm -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+strip :: a -> TACTIC -> Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])])) [Char], [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 2222 _N_ _N_ _N_ _N_ #-}
+taut_subgoal :: a -> Sgn -> b -> c -> Obj -> Maybe ([d], [e] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02001 _N_ _N_ _N_ _N_ #-}
+taut_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+taut_valid :: Thm -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+triv :: TACTIC -> Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])])) a, [Char])
+	{-# GHC_PRAGMA _A_ 0 _U_ 222 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,24 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Color where
+type Color = (Int, Int, Int)
+decodeColors :: (Num b, Num c, Num d, Eq a) => [a] -> [(b, c, d, a)] -> [(a, (b, c, d))] -> [(a, (b, c, d))]
+	{-# GHC_PRAGMA _A_ 4 _U_ 1112212 _N_ _N_ _N_ _SPECIALISE_ [ [Char], Int, Int, Int ] 4 { _A_ 3 _U_ 212 _N_ _S_ "SLL" _N_ _N_ } #-}
+fallBackRgb :: [(Int, Int, Int, [Char])]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+lookupColor :: [Char] -> [([Char], (a, b, c))] -> (a, b, c)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+minPosition :: (Ord a, Num b) => b -> (b, a) -> [a] -> b
+	{-# GHC_PRAGMA _A_ 2 _U_ 12211 _N_ _N_ _N_ _SPECIALISE_ [ Int, Int ] 2 { _A_ 3 _U_ 211 _N_ _S_ "LU(LL)S" {_A_ 4 _U_ 2221 _N_ _N_ _N_ _N_} _N_ _N_ } #-}
+noColor :: (Int, Int, Int)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+parseLine :: (Integral a, Integral b, Integral c) => [Char] -> (a, b, c, [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 2221 _N_ _N_ _N_ _SPECIALISE_ [ Int, Int, Int ] 3 { _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ } #-}
+prepareColors :: [Char] -> [[Char]] -> [([Char], (Int, Int, Int))]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+showsColor :: (Int, Int, Int) -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(LLL)L" {_A_ 4 _U_ 1112 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+showsFigColor :: (Int, Int, Int) -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(LLL)L" {_A_ 4 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+showsPsColor :: (Text a, Text b, Text c) => (a, b, c) -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 11112 _N_ _N_ _N_ _N_ #-}
+

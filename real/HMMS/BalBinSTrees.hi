@@ -1,0 +1,22 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface BalBinSTrees where
+data BalBinSTree a b 	{-# GHC_PRAGMA Nil | Node a b (BalBinSTree a b) (BalBinSTree a b) #-}
+bbstBuild :: Ord a => [(a, b)] -> BalBinSTree a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ _N_ #-}
+bbstDepth :: BalBinSTree a b -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+bbstFlatten :: BalBinSTree a b -> [(a, b)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+bbstInsert :: Ord a => BalBinSTree a b -> (a, b) -> BalBinSTree a b
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
+bbstInsertQuiet :: Ord a => BalBinSTree a b -> (a, b) -> BalBinSTree a b
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
+bbstLookUp :: (Ord a, Text a) => BalBinSTree a b -> a -> b
+	{-# GHC_PRAGMA _A_ 2 _U_ 1122 _N_ _S_ "U(LSAALAAA)L" {_A_ 4 _U_ 122112 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+bbstMember :: Ord b => BalBinSTree b a -> b -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 212 _N_ _N_ _N_ _N_ #-}
+bbstShowKeys :: Text a => Int -> BalBinSTree a b -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 111 _N_ _N_ _N_ _N_ #-}
+instance (Text a, Text b) => Text (BalBinSTree a b)
+	{-# GHC_PRAGMA _M_ BalBinSTrees {-dfun-} _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+

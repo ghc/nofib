@@ -1,0 +1,33 @@
+"cg025"
+["Main.hs"]
+"/users/fp/partain/bin:/users/fp/partain/bin/alpha-dec-osf2:/usr/local/bin:/usr/local/gnu/bin:/usr/local/gnu/bin/alpha-dec-osf2:/usr/local/gnu/bin/mh/alpha-dec-osf2:/usr/local/tex/bin:/local/fp/bin:/local/fp/bin/alpha-dec-osf2:/local/fp/spat/shade.v8/bin:/local/fp/spat/spixtools.v8/bin:/local/alpha/bin:/usr/X11/local/bin:/usr/X11R6/bin:/usr/X11/bin:/bin:/usr/bin:/usr/ccs/bin:/sbin:/usr/ucb:/usr/etc:/etc:."
+--!!! test various I/O Requests
+--
+--
+import Trace
+
+main  = getProgName			    exit ( \ prog ->
+    	appendChan stderr (shows prog "\n") exit (
+
+	getArgs				    exit ( \ args ->
+	appendChan stderr (shows args "\n") exit (
+
+	getEnv "PATH"			    exit ( \ path ->
+	appendChan stderr (shows path "\n") exit (
+
+	readChan stdin			    exit ( \ stdin_txt ->
+	appendChan stdout stdin_txt	    exit (
+
+	readFile (head args)		    exit ( \ file_cts ->
+	appendChan stderr file_cts	    exit (
+
+	trace "hello, trace"			 (
+	getEnv "__WURBLE__" (error "hello, error\n") ( \ _ ->
+
+	done
+	))))))))))))
+Trace On:
+hello, trace
+Trace Off.
+
+Fail: hello, error

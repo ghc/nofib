@@ -1,0 +1,23 @@
+#!/bin/csh -f
+
+echo " "
+echo Running ConvertLinearDic
+echo " "
+$HMMS/bin/ConvertLinearDic dictionary.0
+
+echo " "
+echo Running BatchTranscribe
+echo " "
+$HMMS/bin/BatchTranscribe  dictionary.0.dgs sentences
+
+echo " "
+echo Running BatchAlign
+echo " "
+time $HMMS/bin/BatchAlign $HMMS/hmms/h9 $HMMS/hmms/h9.ties $HMMS/hmms/h9.dgs sentences
+
+echo " "
+echo Finished running the demo script
+echo " "
+
+exit 0
+

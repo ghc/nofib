@@ -1,0 +1,14 @@
+#define IHaveSubdirs
+
+SUBDIRS = spec001 \
+	  /* spec002 */ \
+	  spec003 \
+	  /* code001 */ \
+	  clausify001 \
+	  clausify002 \
+	  clausify003
+
+runtests::
+	@echo '###############################################################'
+	@echo '# GHC tests to *run* -- specialiser                           #'
+	@echo '###############################################################'

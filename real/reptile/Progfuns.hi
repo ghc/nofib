@@ -1,0 +1,12 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Progfuns where
+type State = ([([Int], [Int])], Int, [((Int, Int), Int)])
+potatotile :: ([([Int], [Int])], Int, [((Int, Int), Int)]) -> [[Char]] -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+tileprompt :: a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 1 0 X 1 _/\_ u0 -> _!_ _NIL_ [Char] [] _N_} _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: u0) -> _!_ _NIL_ [Char] [] _N_ #-}
+tilequit :: a -> [[Char]] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 01 _N_ _S_ "AS" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+tiletrans :: ([([Int], [Int])], Int, [((Int, Int), Int)]) -> [[Char]] -> ([Char], ([([Int], [Int])], Int, [((Int, Int), Int)]), [[Char]])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,15 @@
+Hand-generated interface file for the Primitives module.
+
+eq determines whether two values are identical (the *same pointer*
+as in Lisp).  It does no evaluation, and errs on the side of safety.
+
+boolval determines whether a Boolean expression is True, False or not
+yet evaluated, returning TRUE, FALSE or UNKNOWN, respectively.  Again,
+it does not evaluate its argument.
+
+\begin{code}
+interface Primitives where
+import Types(BOOL)
+eq :: a -> a -> Bool
+boolval :: Bool -> BOOL
+\end{code}

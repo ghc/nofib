@@ -1,0 +1,29 @@
+OBJS = 	PicType.o Utils.o Consts.o ChargeDensity.o Potential.o \
+	ElecField.o PushParticle.o Pic.o
+
+.SUFFIXES: .hs .o
+
+.hs.o :
+	hbc -c $<
+
+all:	${OBJS}
+	hbc -o pic Main.hs ${OBJS} -lm
+
+print:
+	hsp -p PicType.hs Consts.hs Utils.hs ChargeDensity.hs \
+	Potential.hs ElecField.hs PushParticle.hs Pic.hs Main.hs
+
+wc:
+	wc PicType.hs Consts.hs Utils.hs ChargeDensity.hs \
+	Potential.hs ElecField.hs PushParticle.hs Pic.hs Main.hs
+
+PicType.o:	PicType.hs
+Utils.o:	PicType.hs
+Consts.o:	PicType.hs Utils.hs
+ChargeDensity.o: PicType.hs Consts.hs Utils.hs
+Potential.o:	PicType.hs Consts.hs Utils.hs
+ElecField.o:	PicType.hs Consts.hs
+PushParticle.o:	PicType.hs Consts.hs
+Pic.o:		PicType.hs Consts.hs Utils.hs ChargeDensity.hs Potential.hs \
+		ElecField.hs PushParticle.hs
+Main.o:		Pic.hs

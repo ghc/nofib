@@ -1,0 +1,40 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Norm where
+import PreludeArray(Assoc)
+infixr 3 `andAnd`
+class Normal a where
+	normal :: a -> Bool
+	 {-# GHC_PRAGMA {-meth-} _A_ 1 _U_ 12 _N_ _S_ "S" _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: u0 -> Bool) -> u1 _N_
+		{-defm-} _A_ 2 _U_ 02 _N_ _S_ _!_ _F_ _IF_ARGS_ 1 2 XX 3 _/\_ u0 -> \ (u1 :: {{Normal u0}}) (u2 :: u0) -> _APP_  _TYAPP_  patError# { (u0 -> Bool) } [ _NOREP_S_ "%DNorm.Normal.normal\"", u2 ] _N_ #-}
+data Norm_able a   = Norm_pack Bool a
+andAnd :: Bool -> Bool -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "EE" _F_ _IF_ARGS_ 0 2 CC 9 \ (u0 :: Bool) (u1 :: Bool) -> case u0 of { _ALG_ True  -> case u1 of { _ALG_ True  -> _!_ True [] []; False  -> _APP_  _TYAPP_  error { Bool } [ _NOREP_S_ "andAnd: 2nd argument not True" ]; _NO_DEFLT_ }; False  -> _APP_  _TYAPP_  error { Bool } [ _NOREP_S_ "andAnd: first argument not True\n" ]; _NO_DEFLT_ } _N_ #-}
+normalize_obj :: Norm_able a -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(EA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: Bool) -> u1 _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: Norm_able u0) -> case u1 of { _ALG_ _ORIG_ Norm Norm_pack (u2 :: Bool) (u3 :: u0) -> u2; _NO_DEFLT_ } _N_ #-}
+pack_obj :: Normal a => a -> Norm_able a
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+retrieve_obj :: Norm_able a -> a
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AS)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: u0) -> u1 _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: Norm_able u0) -> case u1 of { _ALG_ _ORIG_ Norm Norm_pack (u2 :: Bool) (u3 :: u0) -> u3; _NO_DEFLT_ } _N_ #-}
+instance (Normal a, Normal b) => Normal (a, b)
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 3 _U_ 22 _N_ _S_ "SSS" _N_ _N_ #-}
+instance (Normal a, Normal b, Normal c) => Normal (a, b, c)
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 4 _U_ 222 _N_ _S_ "SSSU(LLL)" _N_ _N_ #-}
+instance (Normal a, Normal b, Normal c, Normal d, Normal e, Normal f) => Normal (a, b, c, d, e, f)
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 7 _U_ 222222 _N_ _S_ "SSSSSSU(LLLLLL)" _N_ _N_ #-}
+instance (Normal a, Normal b) => Normal (Assoc a b)
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 3 _U_ 22 _N_ _S_ "SSS" _N_ _N_ #-}
+instance Normal Bool
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Normal normal (Bool) _N_
+	 normal = _A_ 1 _U_ 1 _N_ _S_ "E" _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Bool) -> case u0 of { _ALG_ False  -> _!_ True [] []; True  -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+instance Normal Double
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Normal normal (Double) _N_
+	 normal = _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 0 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: Double#) -> _!_ True [] [] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: Double) -> case u0 of { _ALG_ D# (u1 :: Double#) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+instance Normal Float
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Normal normal (Float) _N_
+	 normal = _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 0 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: Float#) -> _!_ True [] [] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: Float) -> case u0 of { _ALG_ F# (u1 :: Float#) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+instance Normal Int
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 1 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _CONSTM_ Normal normal (Int) _N_
+	 normal = _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 0 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: Int#) -> _!_ True [] [] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _!_ True [] []; _NO_DEFLT_ } _N_ #-}
+instance Normal a => Normal [a]
+	{-# GHC_PRAGMA _M_ Norm {-dfun-} _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,1 @@
+NoFibOneModuleCompileAndRun(cg025,-x1 -o2 cg025.stderr Main.hs)

@@ -1,0 +1,11 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Sort where
+insertSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "LS" _N_ _N_ #-}
+lazySort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+mergeSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _N_ _N_ _N_ #-}
+quickSort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ _N_ #-}
+

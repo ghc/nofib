@@ -1,0 +1,12 @@
+SRCS_HS = Parsers.hs StringMatch.hs Main.lhs
+OBJS_O  = Parsers.o  StringMatch.o  Main.o
+
+/* Cmd line needs work */
+
+NoFibMultiModuleCompileAndRun(grep, grep.stdin apat -o1 grep.stdout)
+
+NoFibHaskellCompile(grep,Parsers,hs)
+NoFibHaskellCompile(grep,StringMatch,hs)
+NoFibHaskellCompile(grep,Main,lhs)
+
+NoFibDependTarget(grep, $(SRCS_HS))

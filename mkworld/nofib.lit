@@ -1,0 +1,75 @@
+\begin{onlystandalone}
+\documentstyle[11pt,literate,a4wide]{article}
+\begin{document}
+\title{``Make world'' configuration files for the NoFib project}
+\author{Will Partain}
+\date{September 1992}
+\maketitle
+\tableofcontents
+\end{onlystandalone}
+
+\begin{onlypartofdoc}
+\section[mkworld-files]{``Make world'' files for the NoFib project}
+\downsection
+\end{onlypartofdoc}
+
+\section{Site-specific tweaks for the whole @nofib@ project}
+
+If any, they get included HERE.
+
+\input{macros-nofib.ljm}
+\input{only4-nofib.ljm}
+\input{suffixes-nofib.ljm}
+\input{utils-nofib.ljm}
+\input{install-nofib.ljm}
+
+\section[mkworld-ghc-setups]{@ghc@ project: setups (@hbc@, and @ghc@)}
+\downsection
+\section[mkworld-setup-nofib-hbc]{``Make world'' files for the @hbc@ setup}
+\downsection
+\section{Site-specific tweaks for @hbc@ setup}
+
+A \tr{site-nofib-hbc.jm} is needed, even if it doesn't do anything.
+
+\input{macros-nofib-hbc.ljm}
+\input{only4-nofib-hbc.ljm}
+\input{suffixes-nofib-hbc.ljm}
+\input{utils-nofib-hbc.ljm}
+\input{install-nofib-hbc.ljm}
+\upsection
+
+\section[mkworld-setup-nofib-ghc]{``Make world'' files for the @ghc@ setup}
+\downsection
+\section{Site-specific tweaks for @ghc@ setup}
+
+A \tr{site-nofib-ghc.jm} is needed, even if it doesn't do anything.
+
+\input{macros-nofib-ghc.ljm}
+\input{only4-nofib-ghc.ljm}
+\input{suffixes-nofib-ghc.ljm}
+\input{utils-nofib-ghc.ljm}
+\input{install-nofib-ghc.ljm}
+\upsection
+
+\section[mkworld-setup-nofib-ghc]{``Make world'' files for the @ghc@ setup}
+\downsection
+\section{Site-specific tweaks for @ghc@ setup}
+
+A \tr{site-nofib-ghc.jm} is needed, even if it doesn't do anything.
+
+\input{macros-nofib-ghc.ljm}
+\input{only4-nofib-ghc.ljm}
+\input{suffixes-nofib-ghc.ljm}
+\input{utils-nofib-ghc.ljm}
+\input{install-nofib-ghc.ljm}
+\upsection
+
+\upsection
+
+\begin{onlypartofdoc}
+\upsection
+\end{onlypartofdoc}
+\begin{onlystandalone}
+\printindex
+\end{document}
+\end{onlystandalone}

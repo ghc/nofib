@@ -1,0 +1,16 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface PicType where
+import PreludeArray(Array, Assoc)
+type Count = Int
+type Electric = (Array (Int, Int) Double, Array (Int, Int) Double)
+type Indx = Int
+type Mesh = Array (Int, Int) Double
+type MeshAssoc = Assoc (Int, Int) Double
+type ParticleHeap = ([(Double, Double)], [(Double, Double)])
+type Phi = Array (Int, Int) Double
+type Position = (Double, Double)
+type Range = [Int]
+type Rho = Array (Int, Int) Double
+type Value = Double
+type Velocity = (Double, Double)
+

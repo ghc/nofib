@@ -1,0 +1,6 @@
+/* this Jmakefile is used mainly to make the nofib.{dvi,info} document */
+
+LitStuffNeededHere(docs depend)
+InfoStuffNeededHere(docs)
+
+LitDocRootTarget(nofib,lit)

@@ -1,0 +1,8 @@
+interface Vector where {
+vec_add :: Vec -> Vec -> Vec   {-# ARITY vec_add = 2 #-}{-# STRICTNESS vec_add = "0&1,F" ST #-};
+vec_sub :: Vec -> Vec -> Vec   {-# ARITY vec_sub = 2 #-}{-# STRICTNESS vec_sub = "0&1,F" ST #-};
+scale_vec :: Vec -> Nr -> Vec   {-# ARITY scale_vec = 2 #-}{-# STRICTNESS scale_vec = "0,F" ST #-};
+scale_vec2 :: (Integral a) => (a, a) -> a -> a -> (a, a)   {-# ARITY scale_vec2 = 4 #-}{-# STRICTNESS scale_vec2 = "1,F" ST #-};
+type Nr = Int;
+type Vec = (Nr, Nr)
+}

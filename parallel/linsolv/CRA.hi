@@ -1,0 +1,13 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface CRA where
+binCRA :: Integer -> Integer -> Integer -> Integer -> Integer -> Integer
+	{-# GHC_PRAGMA _A_ 5 _U_ 12222 _N_ _S_ "LLLU(PPP)L" _N_ _N_ #-}
+isPrime :: Integer -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(PPP)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+s1IMCRA :: [Integer] -> [Integer] -> (Integer, Integer)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+s2IMCRA :: Integer -> [Integer] -> [Integer] -> [Integer] -> (Integer, Integer)
+	{-# GHC_PRAGMA _A_ 4 _U_ 2111 _N_ _S_ "U(PPP)SSS" _N_ _N_ #-}
+tree_IMCRA0 :: Integer -> [Integer] -> [Integer] -> [Integer] -> (Integer, Integer)
+	{-# GHC_PRAGMA _A_ 4 _U_ 1222 _N_ _S_ "U(PPP)SSS" _N_ _N_ #-}
+

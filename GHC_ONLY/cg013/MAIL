@@ -1,0 +1,253 @@
+From simonpj Thu Oct 24 14:09:22 1991
+X-VM-Attributes: [nil nil nil nil nil]
+Status: RO
+Received: from dcs.glasgow.ac.uk (tutuila) by vanuata.dcs.glasgow.ac.uk; Thu, 24 Oct 91 14:09:20 BST
+Message-Id: <16240.9110241308@dcs.glasgow.ac.uk>
+X-Comment1: #############################################################
+X-Comment2: #     uk.ac.glasgow.cs has changed to uk.ac.glasgow.dcs     #
+X-Comment3: #     If this address does not work please ask your mail    #
+X-Comment4: #     administrator to update your NRS & mailer tables.     #
+X-Comment5: #############################################################
+From: Simon L Peyton Jones <simonpj>
+To: kh
+Cc: partain
+Subject: What is truth
+Date: Thu, 24 Oct 91 14:08:17 +0100
+
+
+Kevin
+
+Look in ~grasp/ghc/compiler/tests/codeGen/cg013/Main.hs
+
+I claim that the superclasses in the instance decl for Bar [a] 
+are *required* by the language.  Don't you?
+
+Simon
+
+------- Forwarded Message
+
+Date:    Thu, 24 Oct 91 14:07:02 +0000
+From:    Will Partain <partain>
+To:      Simon L Peyton Jones <simonpj>
+Subject: Re: not much the wiser on cg013... 
+
+
+
+   ... As it is I fixed that error (missing superclasses on the
+   list instance of Bar, and a couple of others.  ...
+
+You are a criminal!  On at least the list-instance-of-Bar case, Kevin
+said that was part of the test.  Ask him.
+
+------- End of Forwarded Message
+
+
+From kh Thu Oct 24 15:58:48 1991
+X-VM-Attributes: [nil nil nil nil nil]
+Status: RO
+Received: from eriskay.cs.glasgow.ac.uk by vanuata.dcs.glasgow.ac.uk; Thu, 24 Oct 91 15:58:44 BST
+Message-Id: <311.9110241458@eriskay.cs.glasgow.ac.uk>
+From: Kevin Hammond <kh>
+To: simonpj
+Cc: partain
+Subject: Re:  What is truth
+Date: Thu, 24 Oct 91 15:58:30 BST
+
+> Kevin
+> 
+> Look in ~grasp/ghc/compiler/tests/codeGen/cg013/Main.hs
+> 
+> I claim that the superclasses in the instance decl for Bar [a] 
+> are *required* by the language.  Don't you?
+> 
+> Simon
+
+Is that *really* necessary?  We don't use the superclasses in the
+definition of Baz [a].  I admit that Foo needs the superclasses
+but your class structure seems unnecessarily restrictive.
+
+In particular, I should only need to define Ord for the instance
+of Baz, not the class too, surely:
+
+	instance (Ord a, Baz a) => Baz [a]
+
+is more restrictive than the class definition:
+
+	class (Eq a, Foo a) => Baz a
+
+Kevin
+
+
+From augustss@cs.chalmers.se Fri Oct 25 05:08:14 1991
+X-VM-Attributes: [nil nil nil nil nil]
+Status: RO
+Via: uk.ac.nsf; Fri, 25 Oct 91 05:08:10 BST
+Received: from vax.nsfnet-relay.ac.uk by sun2.nsfnet-relay.ac.uk 
+          with SMTP inbound id <6936-69@sun2.nsfnet-relay.ac.uk>;
+          Fri, 25 Oct 1991 05:06:12 +0100
+Received: from chalmers.se by vax.NSFnet-Relay.AC.UK via NSFnet with SMTP 
+          id aa07036; 24 Oct 91 14:29 BST
+Received: from animal.cs.chalmers.se by chalmers.se id AA04557;
+          Thu, 24 Oct 91 14:31:18 +0100
+Message-Id: <9110241330.AA19573@animal.cs.chalmers.se>
+Received: by animal.cs.chalmers.se id AA19573; Thu, 24 Oct 91 14:30:02 +0100
+In-Reply-To: Will Partain's message of 24 Oct 91 12:39 <23100.9110241141@dcs.glasgow.ac.uk>
+From: Lennart Augustsson <augustss@cs.chalmers.se>
+To: partain
+Subject: Re: we're having fun w/ this ...
+Date: Thu, 24 Oct 91 14:30:02 +0100
+
+Well, I don't know about the overloading, but the program is wrong.
+hbc (the new one) says:
+	Errors:
+	"<stdin>", line 0, Type variable not in methods for class Foo
+The type of method o2 does not contain the variable a (and it must 
+according to line 1 page 29 of the manual).
+(Yes, the error message coule be more informative.)
+
+	-- Lennart
+
+
+
+
+From augustss@cs.chalmers.se Fri Oct 25 05:19:51 1991
+X-VM-Attributes: [nil nil nil nil nil]
+Status: RO
+Via: uk.ac.nsf; Fri, 25 Oct 91 05:19:48 BST
+Received: from vax.nsfnet-relay.ac.uk by sun2.nsfnet-relay.ac.uk 
+          with SMTP inbound id <7883-11@sun2.nsfnet-relay.ac.uk>;
+          Fri, 25 Oct 1991 05:18:08 +0100
+Received: from chalmers.se by vax.NSFnet-Relay.AC.UK via NSFnet with SMTP 
+          id aa07267; 24 Oct 91 14:47 BST
+Received: from animal.cs.chalmers.se by chalmers.se id AA04800;
+          Thu, 24 Oct 91 14:48:14 +0100
+Message-Id: <9110241346.AA19870@animal.cs.chalmers.se>
+Received: by animal.cs.chalmers.se id AA19870; Thu, 24 Oct 91 14:46:59 +0100
+In-Reply-To: Will Partain's message of 24 Oct 91 12:39 <23100.9110241141@dcs.glasgow.ac.uk>
+From: Lennart Augustsson <augustss@cs.chalmers.se>
+To: partain
+Subject: Re: we're having fun w/ this ...
+Date: Thu, 24 Oct 91 14:46:59 +0100
+
+Well I changed o2 to o2::a->Int.  Now I get other complaints:
+Errors:
+"will.hs", line 0, Bad instance for superclass VV.Foo.List~a in Bar [a]
+"will.hs", line 0, Bad instance for superclass VV.Foo.List~a in (Baz a) => Baz [a]
+(Again, not the best of messages.)
+I guess the instance declaration 
+	instance Bar [w] where
+		o3 x l = []
+is wrong because to be a Bar you have to be a Foo.  For [w] to be a Foo, w has
+to be Ord and Foo.  But w is not Ord or Foo in this instance declaration
+so it must be wrong.  (Page 31, line 7: The context c' must imply ...)
+
+Am I right??  These Haskell classes confuse me utterly.
+
+	-- Lennart
+
+
+From augustss%se.chalmers.cs@chalmers.se Fri Oct 25 18:27:07 1991
+X-VM-Attributes: [nil nil nil nil nil]
+Status: RO
+Via: uk.ac.nsf; Fri, 25 Oct 91 18:27:04 BST
+Received: from vax.nsfnet-relay.ac.uk by sun.NSFnet-Relay.AC.UK 
+           Via Ethernet with SMTP  id mr17004; 25 Oct 91 13:17 GMT
+Received: from chalmers.se by vax.NSFnet-Relay.AC.UK   via NSFnet with SMTP
+           id aa20120; 25 Oct 91 5:13 BST
+Received: from animal.cs.chalmers.se by chalmers.se id AA18851; Fri, 25 Oct 91 02:16:30 +0100
+Message-Id: <9110250115.AA27679@animal.cs.chalmers.se>
+Received: by animal.cs.chalmers.se id AA27679; Fri, 25 Oct 91 02:15:15 +0100
+In-Reply-To: Will Partain's message of 24 Oct 91 12:39 <23100.9110241141@dcs.glasgow.ac.uk>
+From: Lennart Augustsson <augustss@cs.chalmers.se>
+Sender: augustss%se.chalmers.cs@chalmers.se
+To: partain
+Subject: Re: we're having fun w/ this ...
+Date: Fri, 25 Oct 91 02:15:15 +0100
+
+Continuing with your program, I added a few contexts in the instance declarations.
+I then got a type error because main had the wrong type, I fixed that.
+Now I get:
+	Errors:
+	"<stdin>", line 29, Cannot unify types:
+	    (a2486, a2487, a2488, a2489)
+	and String
+	 in
+	case A2 of {
+	  ([]) -> "Nil"
+	| (:) _ _ -> DEFAULT_1
+	| _ -> DEFAULT_1
+	}
+
+	 in o4
+There must be something wrong with the Baz [a] instance, one branch of o4 returns a
+String, but the other a 4-tuple.
+
+Now I don't know what to do?
+
+	-- Lennart
+
+PS. You'll be happy to know that the new version of the compiler failed on my first try
+on that, I had to fix a bug to get it to report the error.
+
+
+From augustss%se.chalmers.cs@chalmers.se Fri Oct 25 21:34:18 1991
+X-VM-Attributes: [nil nil nil nil t]
+Status: RO
+Via: uk.ac.nsf; Fri, 25 Oct 91 21:34:08 BST
+Received: from vax.nsfnet-relay.ac.uk by sun.NSFnet-Relay.AC.UK 
+           Via Ethernet with SMTP  id km17006; 25 Oct 91 13:16 GMT
+Received: from chalmers.se by vax.NSFnet-Relay.AC.UK   via NSFnet with SMTP
+           id aa20082; 25 Oct 91 5:10 BST
+Received: from animal.cs.chalmers.se by chalmers.se id AA18908; Fri, 25 Oct 91 02:24:48 +0100
+Message-Id: <9110250123.AA27742@animal.cs.chalmers.se>
+Received: by animal.cs.chalmers.se id AA27742; Fri, 25 Oct 91 02:23:31 +0100
+In-Reply-To: Will Partain's message of 24 Oct 91 12:39 <23100.9110241141@dcs.glasgow.ac.uk>
+From: Lennart Augustsson <augustss@cs.chalmers.se>
+Sender: augustss%se.chalmers.cs@chalmers.se
+To: partain
+Subject: Re: we're having fun w/ this ...
+Date: Fri, 25 Oct 91 02:23:31 +0100
+
+Changing "Nil" to error "Nil" I got the same type error in Baz Int.
+
+	-- Lennart
+
+
+From simonpj Thu Oct 31 13:36:20 1991
+Received: from dcs.glasgow.ac.uk (tutuila) by vanuata.dcs.glasgow.ac.uk; Thu, 31 Oct 91 13:36:17 GMT
+Message-Id: <1076.9110311335@dcs.glasgow.ac.uk>
+X-Comment1: #############################################################
+X-Comment2: #     uk.ac.glasgow.cs has changed to uk.ac.glasgow.dcs     #
+X-Comment3: #     If this address does not work please ask your mail    #
+X-Comment4: #     administrator to update your NRS & mailer tables.     #
+X-Comment5: #############################################################
+From: Simon L Peyton Jones <simonpj>
+To: partain
+Subject: Re: ~grasp/ghc/compiler/tests/codeGen/cg013 (kh's alleged nasty test) 
+Date: Thu, 31 Oct 91 13:35:25 +0000
+
+
+Lennart's comment about the method "o2" is right.  I have added code
+to TcClassDcl (in ghc/...) to do this.  To do so I have added a new
+and useful function to the Maybe module (listMaybeErrs).
+I have *not* added the error-message constructor, so TcClassDcl won't
+compile yet.  Can you fill this in, and check
+that, with o2::Int, cg013 gives an error message?
+
+Meanwhile I have fixed cg013 so that o2 is not buggy.  (So you'll have to
+change it back to elicit the error.)
+
+Simon
+
+| From: Will Partain <partain>
+| Date: Thu, 31 Oct 91 11:51:43 GMT 
+| 
+| 
+| I've put my accumulated mail in "MAIL", incl several from Lennart.
+| I've annotated the Main.hs source a little more.
+| 
+| I would like a definitive certification that this is indeed a nasty
+| LEGAL Haskell program.
+| 
+| Will
+

@@ -1,0 +1,36 @@
+OBJS =  Diff.o Mgrfuns.o Drawfuns.o Geomfuns.o Layout.o Interstate.o Tilefuns.o Help.o Rational.o Auxprogfuns.o Psfuns.o Progfuns.o
+MAINOBJ1 = Main.o
+MAINOBJ2 = Main3.o
+HSRC = Diff.hs Mgrfuns.hs Drawfuns.hs Geomfuns.hs Layout.hs Progfuns.hs Interstate.hs Psfuns.hs Main.hs Auxprogfuns.hs Rational.hs Tilefuns.hs Help.hs Main3.hs
+
+HC = khc
+.SUFFIXES :
+.SUFFIXES : .hs .o
+
+.hs.o :
+	${HC} -c ${HFLAGS} $<
+
+reptile: ${OBJS} ${MAINOBJ1}
+	 ${HC} ${HFLAGS} ${OBJS}  ${MAINOBJ1}
+	 mv a.out reptile
+
+newreptile: ${OBJS} ${MAINOBJ2}
+	 ${HC} ${HFLAGS} ${OBJS}  ${MAINOBJ2}
+	 mv a.out newreptile
+clean:
+	rm -f *.o a.out
+
+# DEPENDENCIES
+Mgrfuns.o:  Diff.hi
+Drawfuns.o:  Mgrfuns.hi Diff.hi
+Geomfuns.o:  Mgrfuns.hi Drawfuns.hi
+Layout.o:  Mgrfuns.hi Drawfuns.hi Diff.hi
+Progfuns.o:  Mgrfuns.hi Drawfuns.hi Geomfuns.hi Psfuns.hi Interstate.hi Auxprogfuns.hi Layout.hi Tilefuns.hi Help.hi
+Psfuns.o:  Geomfuns.hi Auxprogfuns.hi
+Main.o:  Mgrfuns.hi Progfuns.hi Auxprogfuns.hi Layout.hi Tilefuns.hi
+Auxprogfuns.o:  Mgrfuns.hi Diff.hi Drawfuns.hi Geomfuns.hi Layout.hi Rational.hi
+Tilefuns.o:  Layout.hi Drawfuns.hi Geomfuns.hi
+Help.o:  Layout.hi Mgrfuns.hi
+
+
+

@@ -1,0 +1,11 @@
+interface Misc where {
+takeuntil :: (a -> Bool) -> [a] -> [a]   {-# ARITY takeuntil = 2 #-}{-# STRICTNESS takeuntil = "1,F" ST #-};
+inrange :: Int -> Int -> Int -> Bool   {-# ARITY inrange = 3 #-}{-# STRICTNESS inrange = "0&2,0&1&2" ST #-};
+forceVec :: [Float] -> [Float]   {-# ARITY forceVec = 1 #-}{-# STRICTNESS forceVec = "0,F" ST #-};
+forceInt :: Int -> Bool   {-# ARITY forceInt = 1 #-}{-# STRICTNESS forceInt = "0,0" ST #-};
+forceFloat :: Float -> Bool   {-# ARITY forceFloat = 1 #-}{-# STRICTNESS forceFloat = "0,F" ST #-};
+forceMat :: [[Float]] -> [[Float]]   {-# ARITY forceMat = 1 #-}{-# STRICTNESS forceMat = "0,F" ST #-};
+mkrunitem :: [Char] -> [Char] -> Runitem   {-# ARITY mkrunitem = 2 #-}{-# STRICTNESS mkrunitem = "T,T" ST #-};
+run :: Runitem -> [Char]   {-# ARITY run = 1 #-}{-# STRICTNESS run = "0,F" ST #-};
+type Runitem = ([Char], [Char])
+}

@@ -1,0 +1,47 @@
+interface Densematrix where {
+{-# IMPORTING Utils #-}
+type Matrix = [[Float]];
+type Vector = [Float];
+mmult :: Matrix -> Matrix -> Matrix   {-# ARITY mmult = 2 #-}{-# STRICTNESS mmult = "T,F" ST #-};
+madd :: Matrix -> Matrix -> Matrix   {-# ARITY madd = 2 #-}{-# STRICTNESS madd = "0,F" ST #-};
+msub :: Matrix -> Matrix -> Matrix   {-# ARITY msub = 2 #-}{-# STRICTNESS msub = "0,F" ST #-};
+vouter :: Vector -> Vector -> Matrix   {-# ARITY vouter = 2 #-}{-# STRICTNESS vouter = "1,F" ST #-};
+vdot :: Vector -> Vector -> Float   {-# ARITY vdot = 2 #-}{-# STRICTNESS vdot = "0,F" ST #-};
+norm :: Vector -> Float   {-# ARITY norm = 1 #-}{-# STRICTNESS norm = "0,F" ST #-};
+mneg :: Matrix -> Matrix   {-# ARITY mneg = 1 #-}{-# STRICTNESS mneg = "0,F" ST #-};
+mxpose :: Matrix -> Matrix   {-# ARITY mxpose = 0 #-}{-# STRICTNESS mxpose = "T,F" ST #-};
+mident :: Int -> Matrix   {-# ARITY mident = 1 #-}{-# STRICTNESS mident = "T,F" ST #-};
+msize :: Matrix -> (Int, Int)   {-# ARITY msize = 1 #-}{-# STRICTNESS msize = "T,F" ST #-};
+mkmat :: [[Float]] -> Matrix   {-# ARITY mkmat = 0 #-}{-# STRICTNESS mkmat = "T,F" ST #-};
+mkrmat :: [[Float]] -> Matrix   {-# ARITY mkrmat = 0 #-}{-# STRICTNESS mkrmat = "T,F" ST #-};
+mkcmat :: [[Float]] -> Matrix   {-# ARITY mkcmat = 0 #-}{-# STRICTNESS mkcmat = "T,F" ST #-};
+mkvec :: [Float] -> Vector   {-# ARITY mkvec = 0 #-}{-# STRICTNESS mkvec = "T,F" ST #-};
+mkrvec :: [Float] -> Vector   {-# ARITY mkrvec = 0 #-}{-# STRICTNESS mkrvec = "T,F" ST #-};
+mkcvec :: [Float] -> Vector   {-# ARITY mkcvec = 0 #-}{-# STRICTNESS mkcvec = "T,F" ST #-};
+vadd :: Vector -> Vector -> Vector   {-# ARITY vadd = 2 #-}{-# STRICTNESS vadd = "0,F" ST #-};
+vsub :: Vector -> Vector -> Vector   {-# ARITY vsub = 2 #-}{-# STRICTNESS vsub = "0,F" ST #-};
+vsize :: Vector -> Int   {-# ARITY vsize = 0 #-}{-# STRICTNESS vsize = "T,F" ST #-};
+vneg :: Vector -> Vector   {-# ARITY vneg = 0 #-}{-# STRICTNESS vneg = "T,F" ST #-};
+swaprow :: Int -> Int -> Matrix -> Matrix   {-# ARITY swaprow = 3 #-}{-# STRICTNESS swaprow = "0&1,F" ST #-};
+swapcol :: Int -> Int -> Matrix -> Matrix   {-# ARITY swapcol = 3 #-}{-# STRICTNESS swapcol = "2,F" ST #-};
+droprow :: Matrix -> Matrix   {-# ARITY droprow = 0 #-}{-# STRICTNESS droprow = "T,F" ST #-};
+getrow :: Int -> Matrix -> Vector   {-# ARITY getrow = 2 #-}{-# STRICTNESS getrow = "T,F" ST #-};
+getcol :: Int -> Matrix -> Vector   {-# ARITY getcol = 2 #-}{-# STRICTNESS getcol = "1,F" ST #-};
+subscript :: Matrix -> (Int, Int) -> Float   {-# ARITY subscript = 2 #-}{-# STRICTNESS subscript = "1,F" ST #-};
+vsubscript :: Vector -> Int -> Float   {-# ARITY vsubscript = 2 #-}{-# STRICTNESS vsubscript = "T,F" ST #-};
+vecpart :: Int -> Int -> Vector -> Vector   {-# ARITY vecpart = 3 #-}{-# STRICTNESS vecpart = "T,F" ST #-};
+update :: Matrix -> (Int, Int) -> Float -> Matrix   {-# ARITY update = 3 #-}{-# STRICTNESS update = "1,F" ST #-};
+vupdate :: Vector -> Int -> Float -> Vector   {-# ARITY vupdate = 3 #-}{-# STRICTNESS vupdate = "T,F" ST #-};
+update2 :: Matrix -> (Int, Int, Int) -> (Float, Float) -> Matrix   {-# ARITY update2 = 3 #-}{-# STRICTNESS update2 = "1&2,F" ST #-};
+vhd :: Vector -> Float   {-# ARITY vhd = 0 #-}{-# STRICTNESS vhd = "T,F" ST #-};
+vtl :: Vector -> Vector   {-# ARITY vtl = 0 #-}{-# STRICTNESS vtl = "T,F" ST #-};
+mergevectors :: [Vector] -> Vector   {-# ARITY mergevectors = 0 #-}{-# STRICTNESS mergevectors = "T,F" ST #-};
+matvecmult :: Matrix -> Vector -> Vector   {-# ARITY matvecmult = 2 #-}{-# STRICTNESS matvecmult = "0,F" ST #-};
+vmmult :: Vector -> Matrix -> Vector   {-# ARITY vmmult = 2 #-}{-# STRICTNESS vmmult = "T,F" ST #-};
+svmult :: Float -> Vector -> Vector   {-# ARITY svmult = 2 #-}{-# STRICTNESS svmult = "1,F" ST #-};
+showmatrix :: Matrix -> [Char]   {-# ARITY showmatrix = 1 #-}{-# STRICTNESS showmatrix = "T,F" ST #-};
+displayvector :: Vector -> [Char]   {-# ARITY displayvector = 1 #-}{-# STRICTNESS displayvector = "0,F" ST #-};
+minverse :: Matrix -> Matrix   {-# ARITY minverse = 1 #-}{-# STRICTNESS minverse = "T,F" ST #-};
+veclist :: Vector -> [Float]   {-# ARITY veclist = 0 #-}{-# STRICTNESS veclist = "T,F" ST #-};
+matlist :: Matrix -> [[Float]]   {-# ARITY matlist = 0 #-}{-# STRICTNESS matlist = "T,F" ST #-}
+}

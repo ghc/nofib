@@ -1,0 +1,9 @@
+#define IHaveSubdirs
+
+SUBDIRS = cfd 	\
+	  dcbm	\
+	  linsolv \
+	  pfib	\
+	  ray	\
+	  prsa	\
+	  soda	

@@ -1,0 +1,54 @@
+SRCS_HS = BaseDefs.hs MyUtils.hs Utils.hs AbstractVals2.hs \
+	SuccsAndPreds2.hs AbstractMisc.hs Dependancy.hs \
+	MakeDomains.hs  Parser2.hs  PrettyPrint.hs  LambdaLift5.hs  \
+	TypeCheck5.hs EtaAbstract.hs  DomainExpr.hs AbsConc3.hs Apply.hs \
+	Inverse.hs BarakiMeet.hs BarakiConc3.hs \
+	Constructors.hs TExpr2DExpr.hs AbstractEval2.hs \
+	PrintResults.hs Simplify.hs SmallerLattice.hs \
+	FrontierMisc2.hs FrontierDATAFN2.hs FrontierGENERIC2.hs \
+	StrictAn6.hs ReadTable.hs Main.hs
+
+OBJS_O = BaseDefs.o MyUtils.o Utils.o AbstractVals2.o SuccsAndPreds2.o \
+	AbstractMisc.o Dependancy.o MakeDomains.o Parser2.o \
+	PrettyPrint.o LambdaLift5.o TypeCheck5.o EtaAbstract.o \
+	DomainExpr.o AbsConc3.o Apply.o Inverse.o BarakiMeet.o \
+	BarakiConc3.o Constructors.o TExpr2DExpr.o AbstractEval2.o \
+	PrintResults.o Simplify.o SmallerLattice.o FrontierMisc2.o \
+	FrontierDATAFN2.o FrontierGENERIC2.o StrictAn6.o ReadTable.o \
+	Main.o
+
+NoFibMultiModuleCompileAndRun(anna, -script ./anna.test )
+
+NoFibHaskellCompile(anna,BaseDefs,hs)
+NoFibHaskellCompile(anna,MyUtils,hs)
+NoFibHaskellCompile(anna,Utils,hs)
+NoFibHaskellCompile(anna,AbstractVals2,hs)
+NoFibHaskellCompile(anna,SuccsAndPreds2,hs)
+NoFibHaskellCompile(anna,AbstractMisc,hs)
+NoFibHaskellCompile(anna,Dependancy,hs)
+NoFibHaskellCompile(anna,MakeDomains,hs)
+NoFibHaskellCompile(anna,Parser2,hs)
+NoFibHaskellCompile(anna,PrettyPrint,hs)
+NoFibHaskellCompile(anna,LambdaLift5,hs)
+NoFibHaskellCompile(anna,TypeCheck5,hs)
+NoFibHaskellCompile(anna,EtaAbstract,hs)
+NoFibHaskellCompile(anna,DomainExpr,hs)
+NoFibHaskellCompile(anna,AbsConc3,hs)
+NoFibHaskellCompile(anna,Apply,hs)
+NoFibHaskellCompile(anna,Inverse,hs)
+NoFibHaskellCompile(anna,BarakiMeet,hs)
+NoFibHaskellCompile(anna,BarakiConc3,hs)
+NoFibHaskellCompile(anna,Constructors,hs)
+NoFibHaskellCompile(anna,TExpr2DExpr,hs)
+NoFibHaskellCompile(anna,AbstractEval2,hs)
+NoFibHaskellCompile(anna,PrintResults,hs)
+NoFibHaskellCompile(anna,Simplify,hs)
+NoFibHaskellCompile(anna,SmallerLattice,hs)
+NoFibHaskellCompile(anna,FrontierMisc2,hs)
+NoFibHaskellCompile(anna,FrontierDATAFN2,hs)
+NoFibHaskellCompile(anna,FrontierGENERIC2,hs)
+NoFibHaskellCompile(anna,StrictAn6,hs)
+NoFibHaskellCompile(anna,ReadTable,hs)
+NoFibHaskellCompile(anna,Main,hs)
+
+NoFibDependTarget(anna, $(SRCS_HS))

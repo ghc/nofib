@@ -1,0 +1,76 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface LambdaLift where
+import Utilities(Bag, NameSupply, Set)
+type AnnDefn a b = (a, (b, AnnExpr' a b))
+type AnnExpr a b = (b, AnnExpr' a b)
+data AnnExpr' a b   = AConst Constant | AVar [Char] | AAp (b, AnnExpr' a b) (b, AnnExpr' a b) | ALam [a] (b, AnnExpr' a b) | ALet Bool [(a, (b, AnnExpr' a b))] (b, AnnExpr' a b)
+data Constant   = CNum Integer | CBool Bool | CFun [Char]
+type Defn a = (a, Expr a)
+data Expr a   = EConst Constant | EVar [Char] | EAp (Expr a) (Expr a) | ELam [a] (Expr a) | ELet Bool [(a, Expr a)] (Expr a)
+type Expression = Expr [Char]
+type FloatedDefns = [(Int, Bool, [([Char], Expr [Char])])]
+type IsRec = Bool
+type Level = Int
+type Name = [Char]
+type SCDefn = ([Char], [[Char]], Expr [Char])
+abstract :: (Set [Char], AnnExpr' [Char] (Set [Char])) -> Expr [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LS)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+addLevels :: Expr [Char] -> (Int, AnnExpr' ([Char], Int) Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+assocBinders :: [([Char], a)] -> [([Char], a)] -> [([Char], [Char])]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+bindersOf :: [(b, a)] -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+collectSCs :: Expr [Char] -> [([Char], [[Char]], Expr [Char])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+collectSCs_e :: NameSupply -> Expr [Char] -> (NameSupply, Bag ([Char], [[Char]], Expr [Char]), Expr [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+float :: Expr ([Char], Int) -> Expr [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+float_defn :: [(Int, Bool, [([Char], Expr [Char])])] -> (([Char], Int), Expr ([Char], Int)) -> ([(Int, Bool, [([Char], Expr [Char])])], ([Char], Expr [Char]))
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(SL)" {_A_ 3 _U_ 212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+float_e :: Expr ([Char], Int) -> ([(Int, Bool, [([Char], Expr [Char])])], Expr [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+freeSetToLevel :: Set [Char] -> [([Char], Int)] -> Int
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+freeToLevel :: (Set [Char], AnnExpr' [Char] (Set [Char])) -> (Int, AnnExpr' ([Char], Int) Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LS)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+freeToLevel_e :: Int -> [([Char], Int)] -> (Set [Char], AnnExpr' [Char] (Set [Char])) -> (Int, AnnExpr' ([Char], Int) Int)
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLU(LS)" {_A_ 4 _U_ 2211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+freeVars :: Expr [Char] -> (Set [Char], AnnExpr' [Char] (Set [Char]))
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+freeVarsOf :: (Set [Char], AnnExpr' [Char] (Set [Char])) -> Set [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(L)A)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 2 \ (u0 :: [[Char]]) -> _!_ _ORIG_ Utilities MkSet [[Char]] [u0] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: (Set [Char], AnnExpr' [Char] (Set [Char]))) -> case u0 of { _ALG_ _TUP_2 (u1 :: Set [Char]) (u2 :: AnnExpr' [Char] (Set [Char])) -> u1; _NO_DEFLT_ } _N_ #-}
+fullyLazyLift :: Expr [Char] -> [([Char], [[Char]], Expr [Char])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+identifyMFEs :: (Int, AnnExpr' ([Char], Int) Int) -> Expr ([Char], Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(P)S)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+identifyMFEs_e :: Int -> (Int, AnnExpr' ([Char], Int) Int) -> Expr ([Char], Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(P)U(U(P)S)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+identifyMFEs_e1 :: Int -> AnnExpr' ([Char], Int) Int -> Expr ([Char], Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+install :: [(Int, Bool, [([Char], Expr [Char])])] -> Expr [Char] -> Expr [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+lambdaLift :: Expr [Char] -> [([Char], [[Char]], Expr [Char])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+levelOf :: (Int, AnnExpr' a Int) -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(P)A)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 2 _/\_ u0 -> \ (u1 :: Int#) -> _!_ I# [] [u1] _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: (Int, AnnExpr' u0 Int)) -> case u1 of { _ALG_ _TUP_2 (u2 :: Int) (u3 :: AnnExpr' u0 Int) -> u2; _NO_DEFLT_ } _N_ #-}
+newBinder :: NameSupply -> ([Char], a) -> (NameSupply, ([Char], a))
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LU(LL)" {_A_ 3 _U_ 122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+nonRecursive :: Bool
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ False [] [] _N_ #-}
+notMFECandidate :: AnnExpr' a b -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 2 1 C 8 _/\_ u0 u1 -> \ (u2 :: AnnExpr' u0 u1) -> case u2 of { _ALG_ _ORIG_ LambdaLift AConst (u3 :: Constant) -> _!_ True [] []; _ORIG_ LambdaLift AVar (u4 :: [Char]) -> _!_ True [] []; (u5 :: AnnExpr' u0 u1) -> _!_ False [] [] } _N_ #-}
+recursive :: Bool
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ True [] [] _N_ #-}
+rename :: Expr ([Char], a) -> Expr ([Char], a)
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+rename_e :: [([Char], [Char])] -> NameSupply -> Expr ([Char], a) -> (NameSupply, Expr ([Char], a))
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+rhssOf :: [(a, b)] -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+separateLams :: Expr [Char] -> Expr [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+transformMFE :: a -> Expr ([Char], a) -> Expr ([Char], a)
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Chl_method where
+import S_Array(S_array)
+chl_method :: (S_array (S_array Float, S_array (Int, [Float])), S_array Int) -> S_array Float -> Float -> S_array Float
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "U(SL)LL" {_A_ 4 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

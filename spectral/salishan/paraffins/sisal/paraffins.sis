@@ -1,0 +1,142 @@
+define Paraffins
+
+% Generate in order and without duplicates all paraffins (including
+% isomers) of size n. A paraffin is a free tree of carbon atoms with
+% four edges incident per node. An edge connects either two C atoms,
+% or a H and a C atom (we do not include the H atoms in our represen-
+% tation for simplicity). To generate all the free trees of size n,
+% we generate all the ordered trees of size n/2 and then interconnect
+% them to construct the free trees. A free tree has a single centroid
+% if it comprises an odd number of nodes, but may have at most two
+% centroids if it comprises an even number of nodes.
+
+
+type trees      = array [character];
+type TreeArray1 = array [trees];
+type TreeArray2 = array [TreeArray1];
+
+% Return the cross product of the set of trees of sizes a, c, e, and g
+% without duplicates. Duplicates will occur whenever any two sizes are
+% the same.  Note, the calling routine guaranttees that a <= c <= e <=
+% g. First we compute CxA (discarding the upper triangle if a = c) and
+% ExG (discarding the lower triangle if e = g); then  we  compute  the
+% cross product of the two 2-D arrays discarding the lower triangle if
+% c = e.
+
+function Xtrees(a, c, e, g: integer; Trees: TreeArray2
+        returns TreeArray1)
+
+  let
+      CxA := if c = a then
+                for d in 1, array_size(Trees[c]) cross
+                    b in 1, d
+                returns array of Trees[c, d] || Trees[a, b]
+                end for
+             else
+                for d in 1, array_size(Trees[c]) cross
+                    b in 1, array_size(Trees[a])
+                returns array of Trees[c, d] || Trees[a, b]
+                end for
+             end if;
+
+      ExG := if e = g then
+                for f in 1, array_size(Trees[e]) cross
+                    h in f, array_size(Trees[e])
+                returns array of Trees[e, f] || Trees[g, h]
+                end for
+             else
+                for f in 1, array_size(Trees[e]) cross
+                    h in 1, array_size(Trees[g])
+                returns array of Trees[e, f] || Trees[g, h]
+                end for
+             end if
+  in
+     if c = e then
+        for d in 1, array_size(CxA)    cross
+            b in 1, array_size(CxA[d]) cross
+            f in 1, d                  cross
+            h in 1, array_size(ExG[f])
+        returns value of catenate
+            array [1: "(C" || CxA[d, b] || ExG[f, h] || ")"]
+        end for
+     else
+        for d in 1, array_size(CxA)    cross
+            b in 1, array_size(CxA[d]) cross
+            f in 1, array_size(ExG)    cross
+            h in 1, array_size(ExG[f])
+        returns value of catenate
+            array [1: "(C" || CxA[d, b] || ExG[f, h] || ")"]
+        end for
+     end if
+  end let 
+         
+end function % Xtrees
+
+% Returns the oriented trees of size 1 to n. We avoid duplicates by re-
+% stricting the sizes of the subtrees such that c <= e <= g.  Note, we
+% will eventually interconnect the ordered trees to form paraffins, so
+% we must keep at least one link free.
+
+function OrientedTrees(n: integer returns TreeArray2)
+
+  for initial
+      i     := 2;
+      Trees := array [0: array [1: ""],
+                         array [1: "(C)"],
+                         array [1: "(C(C))"]]
+  while i < n repeat
+      i     := old i + 1;
+      set_i := for c in 0, (i - 1) / 3 cross
+                   e in c, (i - 1 - c) / 2
+                   g := i - 1 - c - e
+               returns value of catenate Xtrees(0, c, e, g, old Trees)
+               end for;
+      Trees := array_addh(old Trees, set_i)
+  returns value of Trees
+  end for
+
+end function % Oriented Trees
+
+% Returns the one centroid free trees of size i.  We avoid duplicates
+% by restricting the size of the four subtrees such that a <= c <= e
+% <= g.
+
+function OneCentroid(i: integer; Trees: TreeArray2
+             returns TreeArray1)
+
+  for a in 0, (i - 1) / 4     cross
+      c in a, (i - 1 - a) / 3 cross
+      e in max(c, i/2 - a - c), (i - 1 - a - c) / 2
+      g := i - 1 - a - c - e
+  returns value of catenate Xtrees(a, c, e, g, Trees)
+  end for
+
+end function % OneCentroid
+
+function TwoCentroid(i: integer; Trees: TreeArray2
+             returns TreeArray1)
+
+  for b in 1, array_size(Trees[i/2]) cross
+      d in b, array_size(Trees[i/2])
+  returns value of catenate
+      array [1: "(" || Trees[i/2, b] || Trees[i/2, d] || ")"]
+  end for
+
+end function % TwoCentroid
+
+function Paraffins(n: integer returns TreeArray2)
+
+  let
+      Trees := OrientedTrees(n / 2)
+  in
+       for i in 1, n
+         isomer := if mod(i, 2) = 1 then
+                      OneCentroid(i, Trees)
+                   else
+                      OneCentroid(i, Trees) || TwoCentroid(i, Trees)
+                   end if
+       returns array of isomer
+       end for
+   end let
+
+end function % Paraffins

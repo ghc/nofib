@@ -1,0 +1,16 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface FrontierGENERIC2 where
+import BaseDefs(ACMode, AppInfo, Domain, Frontier, FrontierElem, HExpr, Rep, Route)
+fsApp :: [AppInfo] -> [HExpr [Char]] -> HExpr [Char] -> Route
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+fsEvalConst :: HExpr [Char] -> [HExpr [Char]] -> Route
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "SL" _N_ _N_ #-}
+fsFind :: ACMode -> HExpr [Char] -> Domain -> [Domain] -> [Domain] -> Rep -> Int -> [AppInfo] -> Bool -> Rep
+	{-# GHC_PRAGMA _A_ 9 _U_ 221221022 _N_ _S_ "LLSLLSALL" {_A_ 8 _U_ 22122122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+fsFs2 :: ACMode -> HExpr [Char] -> [Domain] -> [Domain] -> Frontier -> [AppInfo] -> Bool -> Frontier
+	{-# GHC_PRAGMA _A_ 0 _U_ 2222122 _N_ _N_ _N_ _N_ #-}
+fsFs_aux :: ACMode -> HExpr [Char] -> [Domain] -> [Domain] -> [FrontierElem] -> [FrontierElem] -> [AppInfo] -> Bool -> [Int] -> ([FrontierElem], [FrontierElem])
+	{-# GHC_PRAGMA _A_ 9 _U_ 222222212 _N_ _N_ _N_ _N_ #-}
+fsMakeFrontierRep :: ACMode -> Bool -> HExpr [Char] -> Domain -> [Domain] -> Route -> Route -> (Route, Int)
+	{-# GHC_PRAGMA _A_ 7 _U_ 2222211 _N_ _S_ "LLLSLLL" _N_ _N_ #-}
+

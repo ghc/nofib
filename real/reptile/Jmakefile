@@ -1,0 +1,20 @@
+SRCS_HS= Diff.hs Mgrfuns.hs Drawfuns.hs Geomfuns.hs Layout.hs Interstate.hs Tilefuns.hs Help.hs Rational.hs Auxprogfuns.hs Psfuns.hs Progfuns.hs Main.hs 
+OBJS_O=  Diff.o  Mgrfuns.o  Drawfuns.o  Geomfuns.o  Layout.o  Interstate.o  Tilefuns.o  Help.o  Rational.o  Auxprogfuns.o  Psfuns.o  Progfuns.o Main.o  
+
+NoFibMultiModuleCompileAndRun(reptile,-i reptile.stdin -o1 reptile.stdout)
+
+NoFibHaskellCompile(reptile,Main,hs)
+NoFibHaskellCompile(reptile,Diff,hs)
+NoFibHaskellCompile(reptile,Mgrfuns,hs)
+NoFibHaskellCompile(reptile,Drawfuns,hs)
+NoFibHaskellCompile(reptile,Geomfuns,hs)
+NoFibHaskellCompile(reptile,Layout,hs)
+NoFibHaskellCompile(reptile,Interstate,hs)
+NoFibHaskellCompile(reptile,Tilefuns,hs)
+NoFibHaskellCompile(reptile,Help,hs)
+NoFibHaskellCompile(reptile,Rational,hs)
+NoFibHaskellCompile(reptile,Auxprogfuns,hs)
+NoFibHaskellCompile(reptile,Psfuns,hs)
+NoFibHaskellCompile(reptile,Progfuns,hs)
+
+NoFibDependTarget(reptile, $(SRCS_HS))

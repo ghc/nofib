@@ -1,0 +1,5 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface List where
+minus :: Eq a => [a] -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "LLS" _N_ _N_ #-}
+

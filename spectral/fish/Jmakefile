@@ -1,0 +1,11 @@
+SRCS_HS = Fish_lines.hs Fun_geom.hs Main.hs Vector.hs
+OBJS_O  = Fish_lines.o  Fun_geom.o  Main.o  Vector.o
+
+NoFibMultiModuleCompileAndRun(fish,-o1 fish.stdout)
+
+NoFibHaskellCompile(fish,Fish_lines,hs)
+NoFibHaskellCompile(fish,Fun_geom,hs)
+NoFibHaskellCompile(fish,Main,hs)
+NoFibHaskellCompile(fish,Vector,hs)
+
+NoFibDependTarget(fish, $(SRCS_HS))

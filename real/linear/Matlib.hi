@@ -1,0 +1,7 @@
+interface Matlib where {
+{-# IMPORTING AbsDensematrix #-}
+import Matrix(Matrix, Vector);
+scale :: Matrix -> Vector -> (Matrix, Vector)   {-# ARITY scale = 0 #-}{-# STRICTNESS scale = "T,F" ST #-};
+precond :: Int -> Matrix -> Vector -> Vector   {-# ARITY precond = 3 #-}{-# STRICTNESS precond = "T,F" ST #-};
+uncondition :: Matrix -> Vector -> Vector   {-# ARITY uncondition = 2 #-}{-# STRICTNESS uncondition = "1,F" ST #-}
+}

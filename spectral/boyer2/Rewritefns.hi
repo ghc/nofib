@@ -1,0 +1,8 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Rewritefns where
+import Lisplikefns(LUT, Lisplist)
+applysubst :: Lisplist -> Lisplist -> Lisplist
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+rewrite :: Lisplist -> LUT -> Lisplist
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+

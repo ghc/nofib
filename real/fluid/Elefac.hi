@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Elefac where
+import S_Array(S_array)
+get_el_det_fac :: Int -> S_array (Float, Float) -> S_array [Int] -> S_array (Float, ((Float, Float, Float), (Float, Float, Float)))
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
+

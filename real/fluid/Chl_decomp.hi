@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Chl_decomp where
+import S_Array(S_array)
+chl_factor :: S_array (S_array Float, S_array (Int, [Float])) -> S_array (S_array Float, S_array (Int, [Float]))
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+

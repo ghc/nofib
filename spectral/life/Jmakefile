@@ -1,0 +1,2 @@
+/* has a special test script */
+NoFibOneModuleCompileAndRun(life, -script ./life.test)

@@ -1,0 +1,316 @@
+T 1 1 0    %na=Boolean
+T 2 1 1    %na=Character
+T 3 1 2    %na=Double
+T 4 1 3    %na=Integer
+T 5 1 4    %na=Null
+T 6 1 5    %na=Real
+T 7 1 6    %na=WildBasic
+T 8 10
+T 9 0	4    %na=queue
+T 10 0	9    %na=queue2
+T 11 8	4	0
+T 12 8	6	0
+T 13 3	11	12
+T 14 3	11	11
+T 15 8	9	0
+T 16 8	4	15
+T 17 8	9	15
+T 18 3	16	17
+T 19 8	10	15
+T 20 8	9	19
+T 21 3	17	20
+T 22 8	10	0
+T 23 8	4	22
+T 24 8	10	17
+T 25 3	23	24
+T 26 6	9
+T 27 8	26	0
+T 28 8	26	27
+T 29 3	17	28
+T 30 4	9
+C$  C Faked IF1CHECK
+C$  D Nodes are DFOrdered
+C$  F Livermore Frontend   Version1.8
+I	13	"random"	%sl=22
+I	14	"next_seed"	%sl=23
+G	18	"well_persons"	%sl=30
+E	12 1	0 1	9	%mk=V
+E	12 2	0 2	9	%mk=V
+N 1	120	%sl=34
+L		1 1	13 "random"	%mk=V
+E	0 1	1 2	4	 %na=seed	%mk=V	%sl=34
+N 2	116	%sl=35
+E	0 2	2 1	9	 %na=patients	%mk=V	%sl=35
+N 3	124	%sl=38
+E	1 1	3 1	6	 %na=x	%mk=V	%sl=38
+L		3 2	6 "0.7"	%mk=V
+N 4	151	%sl=36
+E	2 1	4 1	4	 %na=size	%mk=V	%sl=36
+N 5	124	%sl=38
+E	2 1	5 1	4	 %na=size	%mk=V	%sl=38
+L		5 2	4 "0"	%mk=V
+N 6	152	%sl=36
+E	4 1	6 1	6	%mk=V
+E	1 1	6 2	6	 %na=x	%mk=V	%sl=36
+N 7	141	%sl=38
+E	5 1	7 1	1	%mk=V
+E	3 1	7 2	1	%mk=V
+N 8	122	%sl=36
+E	6 1	8 1	6	%mk=V
+L		8 2	6 "0.7"	%mk=V
+N 9	128	%sl=36
+E	8 1	9 1	6	%mk=V
+N 10	141	%sl=36
+E	9 1	10 1	4	%mk=V
+L		10 2	4 "1"	%mk=V
+N 11	129
+E	7 1	11 1	1	%mk=V
+{ Compound  12   1
+G	0
+E	0 1	0 1	4	%mk=V
+G	0	%sl=40
+E	5 1	0 1	9	%mk=V
+E	4 1	0 2	9	%mk=V
+N 1	105	%sl=41
+E	0 2	1 1	9	 %na=patients	%mk=V	%sl=41
+E	0 4	1 2	4	 %na=size	%mk=V	%sl=41
+N 2	105	%sl=42
+E	0 2	2 1	9	 %na=patients	%mk=V	%sl=42
+E	0 3	2 2	4	 %na=sick	%mk=V	%sl=42
+N 3	113	%sl=41
+E	0 2	3 1	9	 %na=patients	%mk=V	%sl=41
+E	0 3	3 2	4	 %na=sick	%mk=V	%sl=41
+E	1 1	3 3	4	%mk=V
+N 4	103	%sl=42
+L		4 1	4 "1"	%mk=V
+E	2 1	4 2	4	%mk=V
+N 5	111	%sl=41
+E	3 1	5 1	9	%mk=V
+G	0	%sl=39
+E	0 2	0 1	9	 %na=patients	%mk=V	%sl=39
+E	1 1	0 2	9	%mk=V
+N 1	103	%sl=39
+L		1 1	4 "1"	%mk=V
+} 12 1 3 0 1 2	%sl=39
+E	11 1	12 1	4	%mk=V
+E	0 2	12 2	9	 %na=patients	%mk=V	%sl=39
+E	10 1	12 3	4	 %na=sick	%mk=V	%sl=41
+E	2 1	12 4	4	 %na=size	%mk=V	%sl=41
+G	21	"nurse"	%sl=56
+E	7 1	0 1	9	%mk=V
+E	7 2	0 2	10	%mk=V
+E	7 3	0 3	9	%mk=V
+N 1	116	%sl=60
+E	0 1	1 1	9	 %na=patients	%mk=V	%sl=60
+N 2	116	%sl=61
+E	0 2	2 1	9	 %na=doctors	%mk=V	%sl=61
+N 3	124	%sl=63
+E	1 1	3 1	4	 %na=n_patients	%mk=V	%sl=63
+L		3 2	4 "0"	%mk=V
+N 4	124	%sl=63
+E	2 1	4 1	4	 %na=n_doctors	%mk=V	%sl=63
+L		4 2	4 "0"	%mk=V
+N 5	141	%sl=63
+E	3 1	5 1	1	%mk=V
+E	4 1	5 2	1	%mk=V
+N 6	129
+E	5 1	6 1	1	%mk=V
+{ Compound   7   1
+G	0
+E	0 1	0 1	4	%mk=V
+G	0	%sl=65
+E	5 1	0 1	9	%mk=V
+E	8 1	0 2	10	%mk=V
+E	7 1	0 3	9	%mk=V
+N 1	112	%sl=66
+E	0 2	1 1	9	 %na=patients	%mk=V	%sl=66
+N 2	105	%sl=67
+E	0 2	2 1	9	 %na=patients	%mk=V	%sl=67
+L		2 2	4 "1"	%mk=V
+N 3	105	%sl=67
+E	0 3	3 1	9	 %na=doctors	%mk=V	%sl=67
+L		3 2	4 "1"	%mk=V
+N 4	112	%sl=68
+E	0 3	4 1	9	 %na=doctors	%mk=V	%sl=68
+N 5	115	%sl=66
+E	1 1	5 1	9	%mk=V
+L		5 2	4 "1"	%mk=V
+N 6	103	%sl=67
+L		6 1	4 "1"	%mk=V
+E	2 1	6 2	4	%mk=V
+E	3 1	6 3	4	%mk=V
+N 7	115	%sl=68
+E	4 1	7 1	9	%mk=V
+L		7 2	4 "1"	%mk=V
+N 8	103	%sl=67
+L		8 1	4 "1"	%mk=V
+E	6 1	8 2	9	%mk=V
+G	0	%sl=64
+E	0 2	0 1	9	 %na=patients	%mk=V	%sl=64
+E	1 1	0 2	10	%mk=V
+E	0 3	0 3	9	 %na=doctors	%mk=V	%sl=64
+N 1	103	%sl=64
+L		1 1	4 "1"	%mk=V
+} 7 1 3 0 1 2	%sl=64
+E	6 1	7 1	4	%mk=V
+E	0 1	7 2	9	 %na=patients	%mk=V	%sl=64
+E	0 2	7 3	9	 %na=doctors	%mk=V	%sl=64
+G	25	"examinations"	%sl=80
+E	13 1	0 1	10	%mk=V
+E	13 2	0 2	9	%mk=V
+E	13 3	0 3	9	%mk=V
+N 1	120	%sl=84
+L		1 1	13 "random"	%mk=V
+E	0 1	1 2	4	 %na=seed	%mk=V	%sl=84
+N 2	109	%sl=85
+E	0 2	2 1	10	 %na=in_exam	%mk=V	%sl=85
+N 3	131	%sl=88
+E	1 1	3 1	6	 %na=x	%mk=V	%sl=88
+L		3 2	6 "0.3"	%mk=V
+N 4	151	%sl=86
+E	2 1	4 1	4	 %na=size	%mk=V	%sl=86
+N 5	124	%sl=88
+E	2 1	5 1	4	 %na=size	%mk=V	%sl=88
+L		5 2	4 "0"	%mk=V
+N 6	139	%sl=88
+E	3 1	6 1	1	%mk=V
+N 7	152	%sl=86
+E	4 1	7 1	6	%mk=V
+E	1 1	7 2	6	 %na=x	%mk=V	%sl=86
+N 8	141	%sl=88
+E	5 1	8 1	1	%mk=V
+E	6 1	8 2	1	%mk=V
+N 9	122	%sl=86
+E	7 1	9 1	6	%mk=V
+L		9 2	6 "0.3"	%mk=V
+N 10	128	%sl=86
+E	9 1	10 1	6	%mk=V
+N 11	141	%sl=86
+E	10 1	11 1	4	%mk=V
+L		11 2	4 "1"	%mk=V
+N 12	129
+E	8 1	12 1	1	%mk=V
+{ Compound  13   1
+G	0
+E	0 1	0 1	4	%mk=V
+G	0	%sl=90
+E	9 1	0 1	10	%mk=V
+E	7 1	0 2	9	%mk=V
+E	8 1	0 3	9	%mk=V
+N 1	105	%sl=91
+E	0 2	1 1	10	 %na=in_exam	%mk=V	%sl=91
+E	0 4	1 2	4	 %na=size	%mk=V	%sl=91
+N 2	105
+E	0 2	2 1	10	 %na=in_exam	%mk=V	%sl=92
+E	0 3	2 2	4	 %na=cured	%mk=V	%sl=92
+N 3	105	%sl=92
+E	2 1	3 1	9	%mk=V
+L		3 2	4 "1"	%mk=V
+N 4	105
+E	0 2	4 1	10	 %na=in_exam	%mk=V	%sl=93
+E	0 3	4 2	4	 %na=cured	%mk=V	%sl=93
+N 5	105	%sl=93
+E	4 1	5 1	9	%mk=V
+L		5 2	4 "2"	%mk=V
+N 6	113	%sl=91
+E	0 2	6 1	10	 %na=in_exam	%mk=V	%sl=91
+E	0 3	6 2	4	 %na=cured	%mk=V	%sl=91
+E	1 1	6 3	9	%mk=V
+N 7	103	%sl=92
+L		7 1	4 "1"	%mk=V
+E	3 1	7 2	4	%mk=V
+N 8	103	%sl=93
+L		8 1	4 "1"	%mk=V
+E	5 1	8 2	4	%mk=V
+N 9	111	%sl=91
+E	6 1	9 1	10	%mk=V
+G	0	%sl=89
+E	0 2	0 1	10	 %na=in_exam	%mk=V	%sl=89
+E	1 1	0 2	9	%mk=V
+E	2 1	0 3	9	%mk=V
+N 1	103	%sl=89
+L		1 1	4 "1"	%mk=V
+N 2	103	%sl=89
+L		2 1	4 "1"	%mk=V
+} 13 1 3 0 1 2	%sl=89
+E	12 1	13 1	4	%mk=V
+E	0 2	13 2	10	 %na=in_exam	%mk=V	%sl=89
+E	11 1	13 3	4	 %na=cured	%mk=V	%sl=91
+E	2 1	13 4	4	 %na=size	%mk=V	%sl=91
+X	29	"doctors_office"	%sl=99
+E	1 1	0 1	26	%mk=V
+E	1 2	0 2	26	%mk=V
+{ Compound   1   4
+G	0	%sl=102
+L		0 3	4 "0"	 %na=seed	%mk=V	%sl=103
+E	4 1	0 4	9	 %na=doctor_out	%mk=V	%sl=109
+E	0 2	0 5	9	 %na=still_available	%mk=V	%sl=108
+E	5 1	0 6	10	 %na=still_examining	%mk=V	%sl=110
+E	3 1	0 7	9	 %na=patient_in	%mk=V	%sl=107
+E	2 1	0 8	9	 %na=still_sick	%mk=V	%sl=106
+E	0 1	0 9	9	 %na=still_well	%mk=V	%sl=104
+E	6 1	0 10	10	 %na=patient_doctor	%mk=V	%sl=111
+E	1 1	0 11	9	 %na=patient_out	%mk=V	%sl=105
+N 1	103	%sl=105
+L		1 1	4 "1"	%mk=V
+N 2	103	%sl=106
+L		2 1	4 "1"	%mk=V
+N 3	103	%sl=107
+L		3 1	4 "1"	%mk=V
+N 4	103	%sl=109
+L		4 1	4 "1"	%mk=V
+N 5	103	%sl=110
+L		5 1	4 "1"	%mk=V
+N 6	103	%sl=111
+L		6 1	4 "1"	%mk=V
+G	0	%sl=112
+L		0 1	1 "true"	%mk=V
+G	0	%sl=113
+E	1 1	0 3	4	 %na=seed	%mk=V	%sl=120
+E	8 3	0 4	9	 %na=doctor_out	%mk=V	%sl=118
+E	7 3	0 5	9	 %na=still_available	%mk=V	%sl=118
+E	8 1	0 6	10	 %na=still_examining	%mk=V	%sl=120
+E	6 2	0 7	9	 %na=patient_in	%mk=V	%sl=117
+E	7 1	0 8	9	 %na=still_sick	%mk=V	%sl=117
+E	6 1	0 9	9	 %na=still_well	%mk=V	%sl=115
+E	7 2	0 10	10	 %na=patient_doctor	%mk=V	%sl=120
+E	8 2	0 11	9	 %na=patient_out	%mk=V	%sl=115
+N 1	120	%sl=113
+L		1 1	14 "next_seed"	%mk=V
+E	0 3	1 2	4	 %na=old-seed	%mk=V	%sl=113
+N 2	104	%sl=115
+E	0 9	2 1	9	 %na=old-still_well	%mk=V	%sl=115
+E	0 11	2 2	9	 %na=old-patient_out	%mk=V	%sl=115
+N 3	104	%sl=117
+E	0 8	3 1	9	 %na=old-still_sick	%mk=V	%sl=117
+E	0 7	3 2	9	 %na=old-patient_in	%mk=V	%sl=117
+N 4	104	%sl=118
+E	0 5	4 1	9	 %na=old-still_available	%mk=V	%sl=118
+E	0 4	4 2	9	 %na=old-doctor_out	%mk=V	%sl=118
+N 5	104	%sl=120
+E	0 6	5 1	10	 %na=old-still_examining	%mk=V	%sl=120
+E	0 10	5 2	10	 %na=old-patient_doctor	%mk=V	%sl=120
+N 6	120	%sl=115
+L		6 1	18 "well_persons"	%mk=V
+E	1 1	6 2	4	 %na=seed	%mk=V	%sl=115
+E	2 1	6 3	9	%mk=V
+N 7	120	%sl=117
+L		7 1	21 "nurse"	%mk=V
+E	3 1	7 2	9	%mk=V
+E	4 1	7 3	9	%mk=V
+N 8	120	%sl=120
+L		8 1	25 "examinations"	%mk=V
+E	1 1	8 2	4	 %na=seed	%mk=V	%sl=120
+E	5 1	8 3	10	%mk=V
+G	0	%sl=121
+E	1 1	0 1	26	%mk=V
+E	2 1	0 2	26	%mk=V
+N 1	107	%sl=122
+L		1 1	4 "1"	%mk=V
+E	0 7	1 2	30	 %na=patient_in	%mk=V	%sl=121
+N 2	107	%sl=123
+L		2 1	4 "1"	%mk=V
+E	0 4	2 2	30	 %na=doctor_out	%mk=V	%sl=122
+} 1 4 4 0 1 2 3	%sl=102
+E	0 1	1 1	9	 %na=list_of_patients	%mk=V	%sl=104
+E	0 2	1 2	9	 %na=list_of_doctors	%mk=V	%sl=108

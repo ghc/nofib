@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface ElecField where
+import PreludeArray(Array)
+elecField :: Array (Int, Int) Double -> (Array (Int, Int) Double, Array (Int, Int) Double)
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,26 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface SmallerLattice where
+import BaseDefs(Domain, ExceptionInt)
+slCard :: [(Domain, Int)] -> Domain -> ExceptionInt Domain
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+slDijkstra :: Eq a => [(a, a, Int)] -> a -> a -> [(a, Int)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "U(SL)" {_A_ 2 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ (Domain, Int) ] 1 { _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ } #-}
+slDijkstra_aux :: Eq a => [(a, a, Int)] -> a -> [(a, Int, a)] -> [(a, Int, a)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "U(SL)" {_A_ 2 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ (Domain, Int) ] 1 { _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ } #-}
+slDijkstra_unlink :: Eq a => a -> a -> [(a, Int, a)] -> [(a, Int)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "U(SA)" {_A_ 1 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ (Domain, Int) ] 1 { _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ } #-}
+slMakeOneSequence :: [(Domain, Int)] -> Int -> [Domain] -> [((Domain, Int), Int)]
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+slMakeSequence :: [(Domain, Int)] -> Int -> [[Domain]] -> Int -> Int -> ([[(Int, [Domain])]], [[(Int, [Domain])]])
+	{-# GHC_PRAGMA _A_ 0 _U_ 22122 _N_ _N_ _N_ _N_ #-}
+slNorm :: Domain -> Domain
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+slRecover :: Eq a => [a] -> (a -> a -> Bool) -> [(a, [a])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "LSL" _N_ _SPECIALISE_ [ (Domain, Int) ] 1 { _A_ 2 _U_ 22 _N_ _S_ "SL" _N_ _N_ } #-}
+slReduce :: Domain -> [Domain]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+sl_1 :: ExceptionInt a
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+sl_2 :: ExceptionInt a
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+

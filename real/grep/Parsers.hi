@@ -1,0 +1,36 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Parsers where
+infixl 6 `using`
+infixl 6 `using2`
+infixr 7 `alt`
+infixr 8 `thn`
+infixr 8 `thnx`
+infixr 8 `xthn`
+type Parser a b = [a] -> [(b, [a])]
+alt :: ([a] -> [(b, [a])]) -> ([a] -> [(b, [a])]) -> [a] -> [(b, [a])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _N_ _N_ #-}
+followedBy :: ([b] -> [(c, [b])]) -> ([b] -> [(a, [b])]) -> [b] -> [(c, [b])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+literal :: Eq a => a -> [a] -> [(a, [a])]
+	{-# GHC_PRAGMA _A_ 2 _U_ 121 _N_ _N_ _N_ _N_ #-}
+opt :: ([a] -> [(b, [a])]) -> [a] -> [([b], [a])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "S" _N_ _N_ #-}
+plus :: ([a] -> [(b, [a])]) -> [a] -> [([b], [a])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _S_ "S" _N_ _N_ #-}
+rpt :: ([a] -> [(b, [a])]) -> [a] -> [([b], [a])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _S_ "S" _N_ _N_ #-}
+satisfy :: (a -> Bool) -> [a] -> [(a, [a])]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+succeed :: b -> [a] -> [(b, [a])]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+thn :: ([a] -> [(b, [a])]) -> ([a] -> [(c, [a])]) -> [a] -> [((b, c), [a])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+thnx :: ([b] -> [(c, [b])]) -> ([b] -> [(a, [b])]) -> [b] -> [(c, [b])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+using :: ([b] -> [(a, [b])]) -> (a -> c) -> [b] -> [(c, [b])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+using2 :: ([c] -> [((a, b), [c])]) -> (a -> b -> d) -> [c] -> [(d, [c])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+xthn :: ([b] -> [(a, [b])]) -> ([b] -> [(c, [b])]) -> [b] -> [(c, [b])]
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+

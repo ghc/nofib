@@ -1,0 +1,32 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface LambdaLift5 where
+import BaseDefs(AnnExpr', CExprP, Eqn, Set)
+llAddParams :: [([Char], Set [Char])] -> (Set [Char], AnnExpr' [Char] (Set [Char])) -> CExprP [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(AS)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+llCheckUnique :: [[Char]] -> [[Char]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+llEqns :: (Set [Char], AnnExpr' [Char] (Set [Char])) -> [Eqn]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AS)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+llFlatten :: CExprP [Char] -> ([([Char], CExprP [Char])], CExprP [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+llFreeVars :: CExprP [Char] -> (Set [Char], AnnExpr' [Char] (Set [Char]))
+	{-# GHC_PRAGMA _A_ 0 _U_ 1 _N_ _N_ _N_ _N_ #-}
+llMain :: [[Char]] -> CExprP [Char] -> Bool -> (CExprP [Char], [([Char], [[Char]])])
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _N_ _N_ _N_ #-}
+llMapCoreTree :: ([Char] -> [Char]) -> CExprP [Char] -> CExprP [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+llMergeLams :: CExprP [Char] -> CExprP [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+llName :: CExprP [Char] -> CExprP [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+llPretty :: ([([Char], CExprP [Char])], [([Char], [[Char]])]) -> ([([Char], CExprP [Char])], [([Char], [[Char]])])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LL)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+llSolveIteratively :: [Eqn] -> [([Char], Set [Char])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+llSplitSet :: Set [Char] -> (Set [Char], Set [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(S)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+llUnique :: Int -> [([Char], [Char])] -> CExprP [Char] -> (Int, CExprP [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LLS" _N_ _N_ #-}
+llZapBuiltins :: [[Char]] -> Eqn -> Eqn
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(LLL)" {_A_ 4 _U_ 2221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

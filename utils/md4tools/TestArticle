@@ -1,0 +1,66 @@
+Path: sparky!kent
+From: kent@sparky.imd.sterling.com (Kent Landfield)
+Newsgroups: sterling.test
+Subject: This is a test of the MD4 fingerprint function
+Organization: Sterling Intelligence and Military Division
+X-Md4-Signature: ea6ec5dcd12eb080587e12a6b4ceae23
+
+As stated in RFC1186:
+ 
+   This  note describes the MD4 message digest algorithm.  The algorithm
+   takes as input an input message of arbitrary length and produces as
+   output a 128-bit "fingerprint" or "message digest" of the input.  It
+   is conjectured that it is computationally infeasible to produce two
+   messages having the same message digest, or to produce any message
+   having a given prespecified target message digest.  The MD4 algorithm
+   is thus ideal for digital signature applications, where a large file
+   must be "compressed" in a secure manner before being signed with the
+   RSA public-key cryptosystem.
+
+MD4 can be used to apply a fingerprint on an article posted to USENET that,
+when run through a verification tool, will tell you whether an article has 
+been corrupted. It does not detect or prevent complete replacement of the
+article. Think of MD4 as a super-strong checksum.
+
+This package is an "assembled" set of tools that uses the MD4 Message 
+Digest Algorithm specified in RFC1186.  There are three parts to the package. 
+
+md4 - This is the heart of the tools. The code was taken from RFC1186, 
+      "The MD4 Message Digest Algorithm" authored by Ronald L. Rivest.
+
+I *completely* and shamefully stole the MD4 code from the RFC and as such it 
+must be distributed under the terms specified in md4.c, md4.h and md4driver.c.
+Thanks to Ron for the code and to RSA Data Security, Inc. for giving me the
+permission to post it.
+
+hashmd4 -  This program is used to apply an MD4 digest on a specified
+           USENET article.  A new header is added to the article. The
+           header X-Md4-Signature: contains the value that will be checked
+           against to determine if the article is intact.
+
+checkmd4 - This is the program used to check whether the MD4 digest
+           of a USENET article indicates whether or not the article
+           has been tampered with.
+
+I would like to thank Rich Salz for posting snefru and giving me something
+to "hack".. :-) checkmd4 and hashmd4 look almost exactly like Rich's code
+for good reason. They are... I did the bare minimum to get this working.
+That's all I had to do... :-)  For those of you currently using hashnews
+and checknews, this (other than the names) should be a plug amd play...
+
+There are manual pages for checkmd4 and for hashmd4 supplied.  The actual 
+RFC1186 is supplied as a reference for MD4.
+
+Code that does not contain an explicit RSA copyright was derived from
+Rich Salz's code that was already in the public domain. Feel free to do 
+what you want with those pieces.
+
+This code needs a 32bit machine; good luck if you've only got 16 bits!
+
+Starting with this posting, I am going to be using hashmd4 on all my
+c.s.m articles.  While I don't think that this is worth doing for most
+general Usenix articles, I think it will be an interesting experiment for
+archives. 
+
+Enjoy!
+		-Kent+

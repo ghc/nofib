@@ -1,0 +1,8 @@
+SRCS_LHS=Main.lhs
+OBJS_O= Main.o
+
+/* not multi-module, but a .lhs file... */
+NoFibMultiModuleCompileAndRun(ray,-o1 ray.stdout)
+
+NoFibHaskellCompile(ray,Main,lhs)
+

@@ -1,0 +1,28 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface FrontierDATAFN2 where
+import BaseDefs(ACMode, Domain, Frontier, FrontierElem, HExpr, Rep, Route)
+fdFind :: ACMode -> HExpr [Char] -> Domain -> [Domain] -> [Domain] -> Rep -> (Route -> Route) -> Bool -> [FrontierElem] -> [([Route], Route)] -> (Rep, [([Route], Route)])
+	{-# GHC_PRAGMA _A_ 10 _U_ 2212212202 _N_ _S_ "LLSLLSLLAL" {_A_ 9 _U_ 221221222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+fdFind_aux :: ACMode -> [Domain] -> [Domain] -> [Domain] -> HExpr [Char] -> [Rep] -> (Route -> Route) -> [([Route], Route)] -> Bool -> [FrontierElem] -> Bool -> ([Rep], [([Route], Route)])
+	{-# GHC_PRAGMA _A_ 11 _U_ 22222122102 _N_ _S_ "LLLLLLLLLAL" {_A_ 10 _U_ 2222212212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+fdFs2 :: ACMode -> HExpr [Char] -> [Domain] -> [Domain] -> [FrontierElem] -> [FrontierElem] -> (Route -> Route) -> (Frontier, [([Route], Route)])
+	{-# GHC_PRAGMA _A_ 0 _U_ 2222222 _N_ _N_ _N_ _N_ #-}
+fdFs_aux :: ACMode -> HExpr [Char] -> [Domain] -> [Domain] -> (Route -> Route) -> [FrontierElem] -> [FrontierElem] -> Bool -> [([Route], Route)] -> [Int] -> ([FrontierElem], [FrontierElem], [([Route], Route)])
+	{-# GHC_PRAGMA _A_ 10 _U_ 2222222122 _N_ _N_ _N_ _N_ #-}
+fdHi1 :: Route -> Int -> Route -> Route
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "LLS" _N_ _N_ #-}
+fdHi2 :: Route -> Int -> Route -> Route
+	{-# GHC_PRAGMA _A_ 3 _U_ 111 _N_ _S_ "LLS" _N_ _N_ #-}
+fdIdent :: Route -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: Route) -> u0 _N_ #-}
+fdImprove :: (Route -> Route) -> [([Route], Route)] -> [Domain] -> Bool -> [FrontierElem] -> [FrontierElem] -> ([FrontierElem], [FrontierElem])
+	{-# GHC_PRAGMA _A_ 6 _U_ 222211 _N_ _N_ _N_ _N_ #-}
+fdIsZero :: Route -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+fdLo1 :: Route -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+fdLo2 :: Route -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+fdMid2 :: Route -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+

@@ -1,0 +1,10 @@
+interface Fun_geom where {
+{-# IMPORTING Fish_lines #-}
+import Vector(Nr);
+grid :: Int -> Int -> [(Nr, Nr, Nr, Nr)] -> (Nr, Nr) -> (Nr, Nr) -> (Nr, Nr) -> [(Nr, Nr, Nr, Nr)]   {-# ARITY grid = 6 #-}{-# STRICTNESS grid = "2,F" ST #-};
+nil :: a -> b -> c -> [d]   {-# ARITY nil = 3 #-}{-# STRICTNESS nil = "T,T" ST #-};
+rot :: ((Nr, Nr) -> a -> (Nr, Nr) -> b) -> (Nr, Nr) -> (Nr, Nr) -> a -> b   {-# ARITY rot = 4 #-}{-# STRICTNESS rot = "T,F" ST #-};
+beside :: Int -> Int -> ((Nr, Nr) -> (Int, Int) -> a -> [b]) -> ((Nr, Nr) -> (Int, Int) -> a -> [b]) -> (Nr, Nr) -> (Int, Int) -> a -> [b]   {-# ARITY beside = 7 #-}{-# STRICTNESS beside = "T,F" ST #-};
+above :: Int -> Int -> ((Nr, Nr) -> a -> (Int, Int) -> [b]) -> ((Nr, Nr) -> a -> (Int, Int) -> [b]) -> (Nr, Nr) -> a -> (Int, Int) -> [b]   {-# ARITY above = 7 #-}{-# STRICTNESS above = "T,F" ST #-};
+squarelimit :: (Nr, Nr) -> (Int, Int) -> (Int, Int) -> [(Nr, Nr, Nr, Nr)]   {-# ARITY squarelimit = 0 #-}{-# STRICTNESS squarelimit = "T,F" ST #-}
+}

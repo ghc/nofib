@@ -1,0 +1,124 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Core_database where
+import Core_datatype(Attribute_Tag, Attribute_Value, Binary_conn, Binder_conn, Constant_conn, IDec, ISgn, ITrm, Unary_conn)
+data Constant_tag   = BOOL_TAG | TRUE_TAG | FALSE_TAG | UNIV_TAG
+data Declaration_tag   = SYMBOL_DEC_TAG | AXIOM_DEC_TAG | DEF_TAG | DATA_TAG | DECPAIR_TAG
+data Signature_tag   = EMPTY_TAG | EXTEND_TAG | COMBINE_TAG | SHARE_TAG
+data Term_tag   = SYM_TAG | APP_TAG | PAIR_TAG | BINDER_TAG | CONSTANT_TAG | UNARY_TAG | BINARY_TAG | COND_TAG | CONST_TAG | RECURSE_TAG
+attL_to_str :: [a] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+att_to_str :: a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 0 _N_ _S_ "A" {_A_ 0 _N_ _N_ _N_ _N_ _N_} _F_ _IF_ARGS_ 1 1 X 4 _/\_ u0 -> \ (u1 :: u0) -> _NOREP_S_ "*** att_to_str NOT IMPLEMENTED -- core_database ***" _N_ #-}
+binary_tag_list :: [Binary_conn]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+binder_tag_list :: [Binder_conn]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+con_tag_list :: [Constant_tag]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+constant_to_str :: Constant_conn -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+decL_to_str :: [IDec] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+dec_tag_list :: [Declaration_tag]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+dec_to_str :: IDec -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+dec_to_str' :: IDec -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+decode_binary_tag :: Integral a => a -> Binary_conn
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Binary_conn } [ _ORIG_ Core_database binary_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Binary_conn } [ _ORIG_ Core_database binary_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+decode_binder_tag :: Integral a => a -> Binder_conn
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Binder_conn } [ _ORIG_ Core_database binder_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Binder_conn } [ _ORIG_ Core_database binder_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+decode_constant_tag :: Integral a => a -> Constant_tag
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Constant_tag } [ _ORIG_ Core_database con_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Constant_tag } [ _ORIG_ Core_database con_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+decode_dec_tag :: Integral a => a -> Declaration_tag
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Declaration_tag } [ _ORIG_ Core_database dec_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Declaration_tag } [ _ORIG_ Core_database dec_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+decode_sgn_tag :: Integral a => a -> Signature_tag
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Signature_tag } [ _ORIG_ Core_database sgn_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Signature_tag } [ _ORIG_ Core_database sgn_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+decode_trm_tag :: Integral a => a -> Term_tag
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Term_tag } [ _ORIG_ Core_database trm_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Term_tag } [ _ORIG_ Core_database trm_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+decode_unary_tag :: Integral a => a -> Unary_conn
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "U(LU(U(ASAAAAAA)AAA)AAAAAAAAAS)" {_A_ 3 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Unary_conn } [ _ORIG_ Core_database unary_tag_list, u0 ] _N_} _F_ _IF_ARGS_ 0 1 C 4 \ (u0 :: Int) -> case u0 of { _ALG_ I# (u1 :: Int#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ PreludeList (!!) [ (Int), _N_ ] { Unary_conn } [ _ORIG_ Core_database unary_tag_list, u1 ]; _NO_DEFLT_ } _N_ } #-}
+encode_binary_tag :: Binary_conn -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+encode_binder_tag :: Binder_conn -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+encode_con_tag :: Constant_tag -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+encode_dec_tag :: Declaration_tag -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+encode_sgn_tag :: Signature_tag -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+encode_trm_tag :: Term_tag -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+encode_unary_tag :: Unary_conn -> Char
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+s_to_dec' :: [Int] -> (IDec, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+s_to_decL :: [Int] -> ([IDec], [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+s_to_sgn' :: [Int] -> (ISgn, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+s_to_trm' :: [Int] -> (ITrm, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+s_to_trmL :: [Int] -> ([ITrm], [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+s_to_trmLL :: [Int] -> ([[ITrm]], [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+s_to_trmLLL :: [Int] -> ([[[ITrm]]], [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: [Int]) -> _APP_  _TYAPP_  _ORIG_ Dcore str_to_list { [[ITrm]] } [ _ORIG_ Core_database s_to_trmLL, u0 ] _N_ #-}
+sgn_tag_list :: [Signature_tag]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+sgn_to_str :: ISgn -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+sgn_to_str' :: ISgn -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+str_to_att :: [Int] -> ((Attribute_Tag, Attribute_Value), [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+str_to_attL :: [Int] -> ([(Attribute_Tag, Attribute_Value)], [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: [Int]) -> _APP_  _TYAPP_  _ORIG_ Dcore str_to_list { (Attribute_Tag, Attribute_Value) } [ _ORIG_ Core_database str_to_att, u0 ] _N_ #-}
+str_to_binary :: [Int] -> (Binary_conn, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+str_to_binder :: Integral a => [a] -> (Binder_conn, [a])
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ } #-}
+str_to_constant :: [Int] -> (Constant_conn, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+str_to_dec :: [Int] -> (IDec, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+str_to_sgn :: [Int] -> (ISgn, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+str_to_trm :: [Int] -> (ITrm, [Int])
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+str_to_unary :: Integral a => [a] -> (Unary_conn, [a])
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ } #-}
+trmLLL_to_str :: [[[ITrm]]] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+trmLL_to_str :: [[ITrm]] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+trmL_to_str :: [ITrm] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+trm_tag_list :: [Term_tag]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+trm_to_str :: ITrm -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+trm_to_str' :: ITrm -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unary_tag_list :: [Unary_conn]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+instance Eq Constant_tag
+	{-# GHC_PRAGMA _M_ Core_database {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Constant_tag -> Constant_tag -> Bool), (Constant_tag -> Constant_tag -> Bool)] [_CONSTM_ Eq (==) (Constant_tag), _CONSTM_ Eq (/=) (Constant_tag)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+instance Eq Declaration_tag
+	{-# GHC_PRAGMA _M_ Core_database {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Declaration_tag -> Declaration_tag -> Bool), (Declaration_tag -> Declaration_tag -> Bool)] [_CONSTM_ Eq (==) (Declaration_tag), _CONSTM_ Eq (/=) (Declaration_tag)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+instance Eq Signature_tag
+	{-# GHC_PRAGMA _M_ Core_database {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Signature_tag -> Signature_tag -> Bool), (Signature_tag -> Signature_tag -> Bool)] [_CONSTM_ Eq (==) (Signature_tag), _CONSTM_ Eq (/=) (Signature_tag)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+instance Eq Term_tag
+	{-# GHC_PRAGMA _M_ Core_database {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Term_tag -> Term_tag -> Bool), (Term_tag -> Term_tag -> Bool)] [_CONSTM_ Eq (==) (Term_tag), _CONSTM_ Eq (/=) (Term_tag)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "EE" _N_ _N_ #-}
+

@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface PushParticle where
+import PreludeArray(Array)
+pushParticle :: ([(Double, Double)], [(Double, Double)]) -> (Array (Int, Int) Double, Array (Int, Int) Double) -> Double -> Double -> Double -> (Double, Double, ([(Double, Double)], [(Double, Double)]))
+	{-# GHC_PRAGMA _A_ 5 _U_ 12222 _N_ _S_ "U(SS)LLLL" _N_ _N_ #-}
+

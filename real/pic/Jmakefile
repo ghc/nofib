@@ -1,0 +1,16 @@
+SRCS_HS = ChargeDensity.hs Consts.hs ElecField.hs Main.hs Pic.hs PicType.hs Potential.hs PushParticle.hs Utils.hs
+OBJS_O  = ChargeDensity.o  Consts.o  ElecField.o  Main.o  Pic.o  PicType.o  Potential.o  PushParticle.o  Utils.o 
+
+NoFibMultiModuleCompileAndRun(pic,-i pic.stdin -o1 pic.stdout -o2 pic.stderr)
+
+NoFibHaskellCompile(pic,ChargeDensity,hs)
+NoFibHaskellCompile(pic,Consts,hs)
+NoFibHaskellCompile(pic,ElecField,hs)
+NoFibHaskellCompile(pic,Main,hs)
+NoFibHaskellCompile(pic,Pic,hs)
+NoFibHaskellCompile(pic,PicType,hs)
+NoFibHaskellCompile(pic,Potential,hs)
+NoFibHaskellCompile(pic,PushParticle,hs)
+NoFibHaskellCompile(pic,Utils,hs)
+
+NoFibDependTarget(pic, $(SRCS_HS))

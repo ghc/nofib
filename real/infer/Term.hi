@@ -1,0 +1,13 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Term where
+data Term   = Var [Char] | Abs [Char] Term | App Term Term | Let [Char] Term Term
+type VarId = [Char]
+readsId :: [Char] -> [([Char], [Char])]
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+instance Text Term
+	{-# GHC_PRAGMA _M_ Term {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Term, [Char])]), (Int -> Term -> [Char] -> [Char]), ([Char] -> [([Term], [Char])]), ([Term] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Term), _CONSTM_ Text showsPrec (Term), _CONSTM_ Text readList (Term), _CONSTM_ Text showList (Term)] _N_
+	 readsPrec = _A_ 2 _U_ 02 _N_ _S_ "A" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LS" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

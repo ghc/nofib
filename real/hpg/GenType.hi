@@ -1,0 +1,7 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface GenType where
+import Env(Env)
+import PreludeIO(Request, Response)
+gen_types :: Int -> Int -> Int -> Int -> (Env -> [Response] -> [Request]) -> Env -> [Response] -> [Request]
+	{-# GHC_PRAGMA _A_ 6 _U_ 1222212 _N_ _S_ "LLU(P)LLU(LLLLLLLL)" _N_ _N_ #-}
+

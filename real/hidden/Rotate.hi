@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Rotate where
+import Vectors(Vector)
+rotate :: Vector -> Vector -> Vector
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(L)L" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

@@ -1,0 +1,37 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Data8 where
+import Quad_def(TriMat)
+import S_Array(S_array)
+bry_nodes :: () -> ([Bool], ([Bool], [Bool]))
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+coord :: () -> S_array (Float, Float)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+dlt_t :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [9.9999997799999994e-3#] _N_ #-}
+init_vec :: () -> (S_array Float, S_array (Float, Float))
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+jcb_toler :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [9.9999997799999994e-3#] _N_ #-}
+m_iter :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [10#] _N_ #-}
+m_toler :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [1.0000000000000000e-6#] _N_ #-}
+max_jcb_iter :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [3#] _N_ #-}
+mon :: Bool
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ False [] [] _N_ #-}
+n_total :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [25#] _N_ #-}
+p_fixed :: [Int]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+p_total :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [9#] _N_ #-}
+relax :: Float
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ F# [] [1.0000000000000000#] _N_ #-}
+simpl :: Bool
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ True [] [] _N_ #-}
+tri_fac :: () -> TriMat Float
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+v_steer :: () -> [[Int]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+

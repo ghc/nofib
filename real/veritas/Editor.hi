@@ -1,0 +1,13 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Editor where
+import Type_defs(Maybe)
+import Vtslib(Option)
+do_cmd :: [([Char], a -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a [Char], [Char]))] -> a -> [Char] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a [Char], [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 1222 _N_ _S_ "SLL" _N_ _N_ #-}
+editor :: [([Char], h -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe h [Char], [Char]))] -> (Option a -> Option b -> Option c -> Option d -> Option e -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe h [Char], [Char])) -> (h -> h -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> f -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe g [Char], [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe h [Char], [Char])
+	{-# GHC_PRAGMA _A_ 6 _U_ 212222 _N_ _S_ "LSLLLL" _N_ _N_ #-}
+my_assocs :: [Char] -> [([Char], a)] -> Option a
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+process_cmds :: [([Char], b -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b [Char], [Char]))] -> (b -> b -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> a -> b -> b -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b [Char], [Char])
+	{-# GHC_PRAGMA _A_ 5 _U_ 222222 _N_ _N_ _N_ _N_ #-}
+

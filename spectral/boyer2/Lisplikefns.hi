@@ -1,0 +1,48 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Lisplikefns where
+data LUT 	{-# GHC_PRAGMA Empty | Node (LUT, ([Char], [Lisplist]), LUT) #-}
+data Lisplist   = Nil | Atom [Char] | Cons (Lisplist, Lisplist)
+type Token = [Char]
+addtoLUT :: ([Char], Lisplist, LUT) -> LUT
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LLS)" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+assoc :: (Lisplist, Lisplist) -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LS)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+atom :: Lisplist -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 5 \ (u0 :: Lisplist) -> case u0 of { _ALG_ _ORIG_ Lisplikefns Atom (u1 :: [Char]) -> _!_ True [] []; (u2 :: Lisplist) -> _!_ False [] [] } _N_ #-}
+cadddr :: Lisplist -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+caddr :: Lisplist -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+cadr :: Lisplist -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+car :: Lisplist -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 6 \ (u0 :: Lisplist) -> case u0 of { _ALG_ _ORIG_ Lisplikefns Cons (u1 :: (Lisplist, Lisplist)) -> case u1 of { _ALG_ _TUP_2 (u2 :: Lisplist) (u3 :: Lisplist) -> u2; _NO_DEFLT_ }; (u4 :: Lisplist) -> _!_ _ORIG_ Lisplikefns Nil [] [] } _N_ #-}
+cdr :: Lisplist -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 6 \ (u0 :: Lisplist) -> case u0 of { _ALG_ _ORIG_ Lisplikefns Cons (u1 :: (Lisplist, Lisplist)) -> case u1 of { _ALG_ _TUP_2 (u2 :: Lisplist) (u3 :: Lisplist) -> u3; _NO_DEFLT_ }; (u4 :: Lisplist) -> _!_ _ORIG_ Lisplikefns Nil [] [] } _N_ #-}
+getLUT :: ([Char], LUT) -> [Lisplist]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LS)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+mkLisplist :: [[Char]] -> Lisplist
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+newLUT :: LUT
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _ORIG_ Lisplikefns Empty [] [] _N_ #-}
+strToToken :: [Char] -> [[Char]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+tv :: Lisplist -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 6 \ (u0 :: Lisplist) -> case u0 of { _ALG_ _ORIG_ Lisplikefns Atom (u1 :: [Char]) -> u1; (u2 :: Lisplist) -> _APP_  _TYAPP_  error { [Char] } [ _NOREP_S_ "Not an atom" ] } _N_ #-}
+instance Eq Lisplist
+	{-# GHC_PRAGMA _M_ Lisplikefns {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Lisplist -> Lisplist -> Bool), (Lisplist -> Lisplist -> Bool)] [_CONSTM_ Eq (==) (Lisplist), _CONSTM_ Eq (/=) (Lisplist)] _N_
+	 (==) = _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_ #-}
+instance Text LUT
+	{-# GHC_PRAGMA _M_ Lisplikefns {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(LUT, [Char])]), (Int -> LUT -> [Char] -> [Char]), ([Char] -> [([LUT], [Char])]), ([LUT] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (LUT), _CONSTM_ Text showsPrec (LUT), _CONSTM_ Text readList (LUT), _CONSTM_ Text showList (LUT)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LS" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+instance Text Lisplist
+	{-# GHC_PRAGMA _M_ Lisplikefns {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Lisplist, [Char])]), (Int -> Lisplist -> [Char] -> [Char]), ([Char] -> [([Lisplist], [Char])]), ([Lisplist] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Lisplist), _CONSTM_ Text showsPrec (Lisplist), _CONSTM_ Text readList (Lisplist), _CONSTM_ Text showList (Lisplist)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LS" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,9 @@
+interface Absmatlib where {
+{-# IMPORTING Matlib #-}
+import AbsDensematrix(Vec);
+import Matlib(uncondition);
+import Matrix(Block_list);
+doscale :: [Block_list] -> [Vec] -> ([Block_list], [Vec])   {-# ARITY doscale = 0 #-}{-# STRICTNESS doscale = "T,F" ST #-};
+doprecond :: Int -> [Block_list] -> [Vec] -> [Vec]   {-# ARITY doprecond = 0 #-}{-# STRICTNESS doprecond = "T,F" ST #-};
+uncondition :: [Block_list] -> [Vec] -> [Vec]   {-# ARITY uncondition = 2 #-}{-# STRICTNESS uncondition = "1,F" ST #-}
+}

@@ -1,0 +1,74 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Edlib where
+import Type_defs(Maybe)
+infixl 8 ...
+infixl 8 ./.
+infixl 8 /./
+infixl 8 /.:>/
+infixl 8 /.>/
+infixl 8 ///
+infixl 8 /:>/
+infixl 8 />/
+infixl 8 \\\
+infixl 1 `handle`
+infixl 1 `ihandle`
+infixl 8 |.|
+infixl 8 |>|
+infixl 8 |@|
+infixl 8 |||
+infixr 9 <:
+type Xin = ([Char], [Int], [Int])
+type Xio = (([Char], [Int], [Int]), [Char])
+type Xio_fn = ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+type Xout = [Char]
+type Xst a = (([Char], [Int], [Int]), a, [Char])
+type Xst_fn a = (([Char], [Int], [Int]), a) -> (([Char], [Int], [Int]), a, [Char])
+(...) :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 0 3 XXX 6 \ (u0 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) (u1 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) (u2 :: ([Char], [Int], [Int])) -> let {(u3 :: (([Char], [Int], [Int]), [Char])) = _APP_  u0 [ u2 ]} in _APP_  _ORIG_ Edlib (\\\) [ u3, u1 ] _N_ #-}
+(./.) :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a b, [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a b, [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _N_ _N_ _N_ #-}
+(/./) :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a c, [Char])) -> (a -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b c, [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b c, [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 3 3 XXX 6 _/\_ u0 u1 u2 -> \ (u3 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe u0 u2, [Char])) (u4 :: u0 -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe u1 u2, [Char])) (u5 :: ([Char], [Int], [Int])) -> let {(u6 :: (([Char], [Int], [Int]), Maybe u0 u2, [Char])) = _APP_  u3 [ u5 ]} in _APP_  _TYAPP_  _TYAPP_  _TYAPP_  _ORIG_ Edlib (///) { u0 } { u1 } { u2 } [ u6, u4 ] _N_ #-}
+(/.:>/) :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a b, [Char])) -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [a] b, [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [a] b, [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 2 3 XXX 6 _/\_ u0 u1 -> \ (u2 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe u0 u1, [Char])) (u3 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [u0] u1, [Char])) (u4 :: ([Char], [Int], [Int])) -> let {(u5 :: (([Char], [Int], [Int]), Maybe u0 u1, [Char])) = _APP_  u2 [ u4 ]} in _APP_  _TYAPP_  _TYAPP_  _TYAPP_  _TYAPP_  _ORIG_ Edlib (/:>/) { ([Char], [Int], [Int]) } { u0 } { u1 } { Char } [ u5, u3 ] _N_ #-}
+(/.>/) :: (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe a c, [Char])) -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b c, [Char])) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (a, b) c, [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 3 3 XXX 6 _/\_ u0 u1 u2 -> \ (u3 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe u0 u2, [Char])) (u4 :: ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe u1 u2, [Char])) (u5 :: ([Char], [Int], [Int])) -> let {(u6 :: (([Char], [Int], [Int]), Maybe u0 u2, [Char])) = _APP_  u3 [ u5 ]} in _APP_  _TYAPP_  _TYAPP_  _TYAPP_  _ORIG_ Edlib (/>/) { u0 } { u1 } { u2 } [ u6, u4 ] _N_ #-}
+(///) :: (([Char], [Int], [Int]), Maybe a c, [Char]) -> (a -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b c, [Char])) -> (([Char], [Int], [Int]), Maybe b c, [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLL)L" {_A_ 4 _U_ 2111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+(/:>/) :: (a, Maybe b c, [d]) -> (a -> (a, Maybe [b] c, [d])) -> (a, Maybe [b] c, [d])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLL)L" {_A_ 4 _U_ 2111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+(/>/) :: (([Char], [Int], [Int]), Maybe a c, [Char]) -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe b c, [Char])) -> (([Char], [Int], [Int]), Maybe (a, b) c, [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLL)L" {_A_ 4 _U_ 2111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+(<:) :: [a] -> a -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+(\\\) :: (([Char], [Int], [Int]), [Char]) -> (([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LL)L" {_A_ 3 _U_ 211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+app :: [([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), [Char])
+	{-# GHC_PRAGMA _A_ 1 _U_ 12 _N_ _S_ "S" _N_ _N_ #-}
+genuid :: Text c => (a, b, [c]) -> ((a, b, [c]), Maybe [Char] d, [e])
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _N_ #-}
+handle :: (b -> (c, Maybe d a, [f])) -> (a -> c -> (c, Maybe d e, [f])) -> b -> (c, Maybe d e, [f])
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 6 3 XXX 6 _/\_ u0 u1 u2 u3 u4 u5 -> \ (u6 :: u1 -> (u2, Maybe u3 u0, [u5])) (u7 :: u0 -> u2 -> (u2, Maybe u3 u4, [u5])) (u8 :: u1) -> let {(u9 :: (u2, Maybe u3 u0, [u5])) = _APP_  u6 [ u8 ]} in _APP_  _TYAPP_  _TYAPP_  _TYAPP_  _TYAPP_  _TYAPP_  _ORIG_ Edlib ihandle { u0 } { u2 } { u3 } { u4 } { u5 } [ u9, u7 ] _N_ #-}
+ihandle :: (b, Maybe c a, [e]) -> (a -> b -> (b, Maybe c d, [e])) -> (b, Maybe c d, [e])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLL)L" {_A_ 4 _U_ 2111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+mk_ok :: (a -> b) -> a -> Maybe b c
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _F_ _IF_ARGS_ 3 2 XX 5 _/\_ u0 u1 u2 -> \ (u3 :: u0 -> u1) (u4 :: u0) -> let {(u5 :: u1) = _APP_  u3 [ u4 ]} in _!_ _ORIG_ Type_defs Ok [u1, u2] [u5] _N_ #-}
+return :: b -> a -> (a, Maybe b c, [d])
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+return_err :: c -> a -> (a, Maybe b c, [d])
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+return_val :: b -> a -> (a, b, [c])
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+sendout :: (a, b, [e]) -> (c, d, [e]) -> (c, d, [e])
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(AAL)L" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+split :: Eq a => a -> [a] -> [[a]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 221 _N_ _N_ _N_ _N_ #-}
+(|.|) :: Maybe a d -> (a -> b -> (b, Maybe c d, [e])) -> b -> (b, Maybe c d, [e])
+	{-# GHC_PRAGMA _A_ 2 _U_ 112 _N_ _S_ "SL" _F_ _IF_ARGS_ 5 2 CX 6 _/\_ u0 u1 u2 u3 u4 -> \ (u5 :: Maybe u0 u3) (u6 :: u0 -> u1 -> (u1, Maybe u2 u3, [u4])) -> case u5 of { _ALG_ _ORIG_ Type_defs Ok (u7 :: u0) -> _APP_  u6 [ u7 ]; _ORIG_ Type_defs Bad (u8 :: u3) -> _APP_  _TYAPP_  _TYAPP_  _TYAPP_  _TYAPP_  _ORIG_ Edlib return_err { u1 } { u2 } { u3 } { u4 } [ u8 ]; _NO_DEFLT_ } _N_ #-}
+(|>|) :: Maybe (b, d) a -> (d -> Maybe c e) -> Maybe ((b, c), d) e
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+(|@|) :: Maybe (a, b) d -> (a -> b -> Maybe c d) -> Maybe c d
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+(|||) :: Maybe a c -> (a -> Maybe b c) -> Maybe b c
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _F_ _IF_ARGS_ 3 2 CX 6 _/\_ u0 u1 u2 -> \ (u3 :: Maybe u0 u2) (u4 :: u0 -> Maybe u1 u2) -> case u3 of { _ALG_ _ORIG_ Type_defs Ok (u5 :: u0) -> _APP_  u4 [ u5 ]; _ORIG_ Type_defs Bad (u6 :: u2) -> _!_ _ORIG_ Type_defs Bad [u1, u2] [u6]; _NO_DEFLT_ } _N_ #-}
+

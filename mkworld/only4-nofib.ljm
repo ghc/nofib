@@ -1,0 +1,19 @@
+%************************************************************************
+%*									*
+\section[mkworld-only4-nofib]{Extra things ``only for'' the @nofib@ project}
+%*									*
+%************************************************************************
+
+\begin{code}
+#ifndef ProjectName
+#define ProjectName     NoFib Haskell Benchmark Suite
+#endif
+
+#ifndef ProjectVersion
+#define ProjectVersion  0.26
+#endif
+
+#ifndef ProjectPatchLevel
+#define ProjectPatchLevel patchlevel 0
+#endif
+\end{code}

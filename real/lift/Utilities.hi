@@ -1,0 +1,43 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Utilities where
+type Assn a b = [(a, b)]
+data Bag a 	{-# GHC_PRAGMA MkBag [a] #-}
+data NameSupply 	{-# GHC_PRAGMA MkNS Int #-}
+data Set a 	{-# GHC_PRAGMA MkSet [a] #-}
+assLookup :: Eq a => [(a, b)] -> a -> b
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "U(SA)SL" {_A_ 3 _U_ 212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+bagEmpty :: Bag a
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+bagFromList :: [a] -> Bag a
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 2 _/\_ u0 -> \ (u1 :: [u0]) -> _!_ _ORIG_ Utilities MkBag [u0] [u1] _N_ #-}
+bagInsert :: a -> Bag a -> Bag a
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(L)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+bagSingleton :: a -> Bag a
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+bagToList :: Bag a -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(S)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: [u0]) -> u1 _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: Bag u0) -> case u1 of { _ALG_ _ORIG_ Utilities MkBag (u2 :: [u0]) -> u2; _NO_DEFLT_ } _N_ #-}
+bagUnion :: Bag a -> Bag a -> Bag a
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(L)U(L)" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+initialNameSupply :: NameSupply
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+mapAccuml :: (b -> a -> (b, c)) -> b -> [a] -> (b, [c])
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+newName :: NameSupply -> [Char] -> (NameSupply, [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(L)L" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+setDifference :: Ord a => Set a -> Set a -> Set a
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _S_ "LU(L)U(L)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+setEmpty :: Set a
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+setFromList :: Ord a => [a] -> Set a
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+setIntersect :: Ord a => Set a -> Set a -> Set a
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _S_ "LU(L)U(L)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+setSingleton :: a -> Set a
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+setToList :: Set a -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(S)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: [u0]) -> u1 _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: Set u0) -> case u1 of { _ALG_ _ORIG_ Utilities MkSet (u2 :: [u0]) -> u2; _NO_DEFLT_ } _N_ #-}
+setUnion :: Ord a => Set a -> Set a -> Set a
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _S_ "LU(L)U(L)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+setUnionList :: Ord a => [Set a] -> Set a
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+

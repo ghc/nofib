@@ -1,0 +1,43 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Build_itrm where
+import Core_datatype(Attribute_Tag, Attribute_Value, Binder_conn, Cnv_Fn, Flagged_ITrm, ITrm, Name', Tag_Arg, Tag_Arg_type)
+import Type_defs(Maybe)
+add_sg_att :: Flagged_ITrm -> (Attribute_Tag, Attribute_Value) -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+app' :: Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 0 _U_ 22 _N_ _N_ _N_ _N_ #-}
+binder' :: Binder_conn -> Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 212 _N_ _S_ "LSL" _N_ _N_ #-}
+check_arg :: [ITrm] -> [Flagged_ITrm] -> Maybe [ITrm] [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+cond' :: Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "SLL" _N_ _N_ #-}
+const' :: [Char] -> [Char] -> [Char] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _N_ _N_ _N_ #-}
+ctr' :: [a] -> [[ITrm]] -> [(a, [Flagged_ITrm])] -> Maybe ([a], [[ITrm]]) [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+data' :: (Name', [Flagged_ITrm]) -> [(Name', [Flagged_ITrm])] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LS)L" {_A_ 3 _U_ 221 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+decpair' :: [(Attribute_Tag, Attribute_Value)] -> Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "LSL" _N_ _N_ #-}
+def' :: (Name', [Flagged_ITrm]) -> Flagged_ITrm -> (Attribute_Tag, Attribute_Value) -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "U(LS)LL" {_A_ 4 _U_ 2212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+extend' :: Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "SS" _N_ _N_ #-}
+fetch_arg :: Flagged_ITrm -> ITrm
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+let' :: Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 222 _N_ _S_ "SLL" _N_ _N_ #-}
+make_tm :: [Flagged_ITrm] -> ITrm -> ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+opnd :: ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+recurse' :: [Flagged_ITrm] -> Flagged_ITrm -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "LS" _N_ _N_ #-}
+sym' :: [Char] -> [Char] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "SL" _N_ _N_ #-}
+symbol_dec' :: Flagged_ITrm -> Name' -> [(Attribute_Tag, Attribute_Value)] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _N_ _N_ #-}
+tag' :: ([Char], [Tag_Arg_type], [Cnv_Fn]) -> [Tag_Arg] -> Flagged_ITrm
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+

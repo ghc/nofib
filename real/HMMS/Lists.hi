@@ -1,0 +1,19 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Lists where
+blocks :: Integral a => a -> [b] -> [[b]]
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _N_ _N_ _N_ #-}
+foldr1_2op :: (a -> a -> b) -> (b -> b -> b) -> [a] -> b
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+hamming :: Eq a => [a] -> [a] -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 111 _N_ _N_ _N_ _N_ #-}
+interleave :: a -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+interleaveRight :: a -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+mapAccumlfst :: (b -> a -> (b, c)) -> b -> [(a, d)] -> (b, [(c, d)])
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+mapfst :: (a -> b) -> [(a, c)] -> [(b, c)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+mapsnd :: (a -> c) -> [(b, a)] -> [(b, c)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+

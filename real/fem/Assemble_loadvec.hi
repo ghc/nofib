@@ -1,0 +1,7 @@
+{-# GHC_PRAGMA INTERFACE VERSION 3 #-}
+interface Assemble_loadvec where
+import PreludeArray(Array)
+import Vector(Vec)
+loadvec :: (Array Int Int, Array Int Float) -> Vec Float
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ #-}
+

@@ -1,0 +1,5 @@
+interface Main where {
+{-# IMPORTING Shapes, Quad, Csg, Matrix, Raster, Vector, Oct, Interval, Kolor, Types #-}
+main :: Dialogue   {-# ARITY main = 1 #-}{-# STRICTNESS main = "T,T" ST #-};
+blah :: [Char]   {-# ARITY blah = 0 #-}{-# STRICTNESS blah = "T,F" ST #-}
+}

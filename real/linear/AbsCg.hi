@@ -1,0 +1,9 @@
+interface AbsCg where {
+{-# IMPORTING Cg #-}
+import AbsDensematrix(Block, Vec);
+import Cg(Cg_state(..));
+import Matrix(Block_list, Col_pos, Row_pos);
+solve_iters :: ([Block_list] -> [Vec] -> ([Block_list], [Vec])) -> ([Block_list] -> [Vec] -> [Vec]) -> [[(Row_pos, Col_pos, Block)]] -> [[Float]] -> [Cg_state]   {-# ARITY solve_iters = 0 #-}{-# STRICTNESS solve_iters = "T,F" ST #-};
+data Cg_state = Cg_stateC ([[Float]]) ([[Float]]) ([[Float]]) ([[Float]]) Int deriving ();
+show_state :: [[Float]] -> Cg_state -> [Char]   {-# ARITY show_state = 0 #-}{-# STRICTNESS show_state = "T,F" ST #-}
+}

@@ -1,0 +1,36 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Unparse where
+import Core_datatype(Flagged_ITrm, IDec, ISgn, ITrm, Name', Thm, Trm)
+import Kernel(Dec, Sgn)
+import Type_defs(Token)
+disp_tk :: Token -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unparse :: ISgn -> Flagged_ITrm -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+unparse' :: ISgn -> ITrm -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+unparse_Dec :: a -> b -> Dec -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 001 _N_ _S_ "AAS" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+unparse_Sgn :: a -> b -> Sgn -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 001 _N_ _S_ "AAS" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+unparse_Thm :: a -> b -> Thm -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 001 _N_ _S_ "AAS" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+unparse_Trm :: a -> b -> Trm -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 001 _N_ _S_ "AAS" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+unparse_dec :: Sgn -> a -> IDec -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 101 _N_ _S_ "SAS" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+unparse_nm :: Name' -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unparse_sg :: Flagged_ITrm -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unparse_sg' :: ISgn -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unparse_sgn :: a -> b -> ISgn -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 001 _N_ _S_ "AAS" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 0 X 1 _/\_ u0 u1 -> _ORIG_ Unparse unparse_sg' _N_} _F_ _IF_ARGS_ 2 3 XXX 2 _/\_ u0 u1 -> \ (u2 :: u0) (u3 :: u1) (u4 :: ISgn) -> _APP_  _ORIG_ Unparse unparse_sg' [ u4 ] _N_ #-}
+unparse_th :: Thm -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unparse_tm :: Trm -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+unparse_trm :: Sgn -> a -> ITrm -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 102 _N_ _S_ "SA" {_A_ 1 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

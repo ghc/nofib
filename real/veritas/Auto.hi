@@ -1,0 +1,25 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Auto where
+import Core_datatype(IDec, ISgn, ITrm, Trm)
+import Goals(Done, Obj)
+import Kernel(Dec, Sgn)
+import Tactics(TACTIC)
+import Type_defs(Maybe)
+import Vtslib(Option)
+auto :: a -> Sgn -> b -> c -> Obj -> Maybe ([d], [e] -> Option Done) [Char]
+	{-# GHC_PRAGMA _A_ 5 _U_ 02001 _N_ _S_ "ALAAS" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+auto_dc :: Sgn -> a -> IDec -> Maybe ([b], [c] -> Option Done) d
+	{-# GHC_PRAGMA _A_ 3 _U_ 201 _N_ _N_ _N_ _N_ #-}
+auto_sg :: a -> b -> ISgn -> Maybe ([c], [d] -> Option Done) e
+	{-# GHC_PRAGMA _A_ 3 _U_ 001 _N_ _N_ _N_ _N_ #-}
+auto_tac :: TACTIC
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+auto_tm :: Sgn -> a -> ITrm -> Maybe ([b], [c] -> Option Done) d
+	{-# GHC_PRAGMA _A_ 3 _U_ 202 _N_ _N_ _N_ _N_ #-}
+dc_valid :: Dec -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+sg_valid :: Sgn -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+tm_valid :: Trm -> [a] -> Option Done
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+

@@ -1,0 +1,51 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Aux where
+type HashFun = [(Char, Int)]
+data HashSet   = H (Maybe Int) (Maybe Int) [Int]
+data Key   = K [Char] Char Char Int
+data Maybe a   = Nothing | Just a
+assoc :: Eq a => a -> [(a, b)] -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 122 _N_ _S_ "U(SA)" {_A_ 1 _U_ 221 _N_ _N_ _N_ _N_} _N_ _SPECIALISE_ [ Char, _N_ ] 1 { _A_ 2 _U_ 11 _N_ _S_ "U(P)S" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ } #-}
+assocm :: Eq a => a -> [(a, b)] -> Maybe b
+	{-# GHC_PRAGMA _A_ 1 _U_ 121 _N_ _N_ _N_ _N_ #-}
+attribkeys :: [Key]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+blocked :: [Key] -> [Key]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+blocked' :: [Char] -> [Key] -> [Key]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+ends :: Key -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(ALLA)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+freq :: Char -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Char#) -> _APP_  _TYAPP_  _WRKR_ _SPEC_ _ORIG_ Aux assoc [ (Char), _N_ ] { Int } [ u0, _ORIG_ Aux freqtab ] _N_} _F_ _IF_ARGS_ 0 1 X 3 \ (u0 :: Char) -> _APP_  _TYAPP_  _SPEC_ _ORIG_ Aux assoc [ (Char), _N_ ] { Int } [ u0, _ORIG_ Aux freqtab ] _N_ #-}
+freqsorted :: [Key] -> [Key]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Key]) -> u0 _N_ #-}
+freqtab :: [(Char, Int)]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+hash :: [(Char, Int)] -> Key -> Int
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "SU(AU(P)U(P)U(P))" {_A_ 4 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+hinsert :: Int -> HashSet -> Maybe HashSet
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LU(LLS)" {_A_ 4 _U_ 2112 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+histo :: Eq a => [a] -> [(a, Int)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "LS" _N_ _SPECIALISE_ [ Char ] 1 { _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ } #-}
+maxm :: Maybe Int -> Int -> Int
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SU(P)" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _F_ _IF_ARGS_ 0 2 CC 8 \ (u0 :: Maybe Int) (u1 :: Int) -> case u0 of { _ALG_ _ORIG_ Aux Nothing  -> u1; _ORIG_ Aux Just (u2 :: Int) -> case u2 of { _ALG_ I# (u3 :: Int#) -> case u1 of { _ALG_ I# (u4 :: Int#) -> _APP_  _WRKR_ _CONSTM_ Ord max (Int) [ u3, u4 ]; _NO_DEFLT_ }; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+maxval :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _APP_  _TYAPP_  _ORIG_ PreludeList length { (Char, Int) } [ _ORIG_ Aux freqtab ] _N_ #-}
+member :: Eq a => a -> [a] -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 121 _N_ _N_ _N_ _SPECIALISE_ [ Char ] 1 { _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ }, [ Int ] 1 { _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ } #-}
+minm :: Maybe Int -> Int -> Int
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SU(P)" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _F_ _IF_ARGS_ 0 2 CC 8 \ (u0 :: Maybe Int) (u1 :: Int) -> case u0 of { _ALG_ _ORIG_ Aux Nothing  -> u1; _ORIG_ Aux Just (u2 :: Int) -> case u2 of { _ALG_ I# (u3 :: Int#) -> case u1 of { _ALG_ I# (u4 :: Int#) -> _APP_  _WRKR_ _CONSTM_ Ord min (Int) [ u3, u4 ]; _NO_DEFLT_ }; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+morefreq :: Key -> Key -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(AU(P)U(P)A)U(AU(P)U(P)A)" {_A_ 4 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+numberofkeys :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _APP_  _TYAPP_  _ORIG_ PreludeList length { [Char] } [ _ORIG_ Key keys ] _N_ #-}
+partition' :: (a -> Bool) -> [a] -> ([a], [a])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+subset :: Eq a => [a] -> [a] -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 112 _N_ _N_ _N_ _SPECIALISE_ [ Char ] 1 { _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ } #-}
+union :: Eq a => [a] -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 121 _N_ _N_ _N_ _SPECIALISE_ [ Char ] 1 { _A_ 2 _U_ 21 _N_ _S_ "SL" _N_ _N_ } #-}
+instance Text a => Text (Maybe a)
+	{-# GHC_PRAGMA _M_ Aux {-dfun-} _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+

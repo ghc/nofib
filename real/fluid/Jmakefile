@@ -1,0 +1,26 @@
+SRCS_HS= Norm.hs S_Array.hs Defs.hs Input_proc.hs Elefac.hs S_matrix.hs Asb_routs.hs C_matrix.hs L_matrix.hs Rhs_Asb_routs.hs Min_degree.hs Chl_routs.hs Chl_decomp.hs Chl_method.hs Tol_cal.hs Jcb_method.hs TG_iter.hs Main.hs
+
+OBJS_O= Norm.o S_Array.o Defs.o Input_proc.o Elefac.o S_matrix.o Asb_routs.o C_matrix.o L_matrix.o Rhs_Asb_routs.o Min_degree.o Chl_routs.o Chl_decomp.o Chl_method.o Tol_cal.o Jcb_method.o TG_iter.o Main.o
+
+NoFibMultiModuleCompileAndRun(fluid,-i fluid.stdin -o1 fluid.stdout -o1 fluid.stdout2)
+
+NoFibHaskellCompile(fluid,Norm,hs)
+NoFibHaskellCompile(fluid,S_Array,hs)
+NoFibHaskellCompile(fluid,Defs,hs)
+NoFibHaskellCompile(fluid,Input_proc,hs)
+NoFibHaskellCompile(fluid,Elefac,hs)
+NoFibHaskellCompile(fluid,S_matrix,hs)
+NoFibHaskellCompile(fluid,Asb_routs,hs)
+NoFibHaskellCompile(fluid,C_matrix,hs)
+NoFibHaskellCompile(fluid,L_matrix,hs)
+NoFibHaskellCompile(fluid,Rhs_Asb_routs,hs)
+NoFibHaskellCompile(fluid,Min_degree,hs)
+NoFibHaskellCompile(fluid,Chl_routs,hs)
+NoFibHaskellCompile(fluid,Chl_decomp,hs)
+NoFibHaskellCompile(fluid,Chl_method,hs)
+NoFibHaskellCompile(fluid,Tol_cal,hs)
+NoFibHaskellCompile(fluid,Jcb_method,hs)
+NoFibHaskellCompile(fluid,TG_iter,hs)
+NoFibHaskellCompile(fluid,Main,hs)
+
+NoFibDependTarget(fluid, $(SRCS_HS))

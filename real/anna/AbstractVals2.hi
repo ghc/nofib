@@ -1,0 +1,99 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface AbstractVals2 where
+import BaseDefs(Domain, Frontier, FrontierElem, Rep, Route)
+infix  9 /\
+infix  9 <<
+infix  9 \/
+(/\) :: Route -> Route -> Route
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+(<<) :: Route -> Route -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ #-}
+(\/) :: Route -> Route -> Route
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+avAboveMin1R :: Route -> [Route] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+avAboveMin1frel :: FrontierElem -> [FrontierElem] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+avAboveMin1rep :: Rep -> [Rep] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+avBelowEQfrel :: FrontierElem -> FrontierElem -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(S)U(S)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+avBelowEQfrontier :: Frontier -> Frontier -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(ASA)U(ALA)" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+avBelowEQrep :: Rep -> Rep -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+avBelowMax0R :: Route -> [Route] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+avBelowMax0frel :: FrontierElem -> [FrontierElem] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+avBelowMax0rep :: Rep -> [Rep] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+avBottomR :: Domain -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avBottomR_aux :: Domain -> Rep
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+avBottomR_aux_2 :: [Domain] -> Frontier
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+avGLBfrel :: FrontierElem -> FrontierElem -> FrontierElem
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(L)U(L)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+avGLBfrontier :: Frontier -> Frontier -> Frontier
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLL)U(ALL)" {_A_ 5 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+avGLBmax0frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+avGLBmin1frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+avGLBrep :: Rep -> Rep -> Rep
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+avIsBottomR :: Route -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+avIsBottomRep :: Rep -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+avIsTopR :: Route -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+avIsTopRep :: Rep -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+avLEQR_list :: [Route] -> [Route] -> Bool
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+avLUBfrel :: FrontierElem -> FrontierElem -> FrontierElem
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(L)U(L)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+avLUBfrontier :: Frontier -> Frontier -> Frontier
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLL)U(ALL)" {_A_ 5 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+avLUBmax0frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+avLUBmin1frontier :: [FrontierElem] -> [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+avLUBrep :: Rep -> Rep -> Rep
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+avMaxAddPtR :: Route -> [Route] -> [Route]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+avMaxAddPtfrel :: FrontierElem -> [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+avMaxAddPtrep :: Rep -> [Rep] -> [Rep]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+avMaxR :: [Route] -> [Route]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avMaxfrel :: [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avMaxrep :: [Rep] -> [Rep]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avMinAddPtR :: Route -> [Route] -> [Route]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+avMinAddPtfrel :: FrontierElem -> [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+avMinAddPtrep :: Rep -> [Rep] -> [Rep]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+avMinR :: [Route] -> [Route]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avMinfrel :: [FrontierElem] -> [FrontierElem]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avMinrep :: [Rep] -> [Rep]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avTopR :: Domain -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+avTopR_aux :: Domain -> Rep
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+avTopR_aux_2 :: [Domain] -> Frontier
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+avUncurry :: [Domain] -> Domain -> Domain
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+

@@ -1,0 +1,22 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface ReadTable where
+import BaseDefs(Domain, PResult)
+rtDomain :: [(Int, [Char])] -> PResult Domain
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+rtLex :: Int -> [Char] -> [(Int, [Char])]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+rtList :: ([(Int, [Char])] -> PResult a) -> [(Int, [Char])] -> PResult [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+rtListDomain :: [(Int, [Char])] -> PResult [Domain]
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+rtListMain :: ([(Int, [Char])] -> PResult a) -> [(Int, [Char])] -> PResult [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+rtPWithComma :: ([(Int, [Char])] -> PResult a) -> [(Int, [Char])] -> PResult a
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "SL" _N_ _N_ #-}
+rtPair :: ([(Int, [Char])] -> PResult a) -> ([(Int, [Char])] -> PResult b) -> [(Int, [Char])] -> PResult (a, b)
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _N_ _N_ _N_ #-}
+rtReadTable :: [Char] -> [(Domain, Int)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _N_ _N_ #-}
+rtTable :: [(Int, [Char])] -> PResult [(Domain, Int)]
+	{-# GHC_PRAGMA _A_ 0 _U_ 2 _N_ _N_ _N_ _N_ #-}
+

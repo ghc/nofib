@@ -1,0 +1,9 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Cross where
+import EdgePlate(Edge, Plate)
+import Vectors(Vector)
+cross :: Edge -> Edge -> [(Vector, Vector)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+overlap :: Plate -> Plate -> [Vector]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(AS)U(AL)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

@@ -1,0 +1,20 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface DomainExpr where
+import BaseDefs(DExpr, Domain)
+dxApplyDSubst :: [([Char], Domain)] -> DExpr -> Domain
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+dxApplyDSubst_2 :: DExpr -> Domain
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+dxContainsFnSpace :: DExpr -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+dxContainsSubsidiaryFnSpace :: DExpr -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+dxDiff :: Domain -> Domain -> (DExpr, [([Char], Domain)])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "SS" _N_ _N_ #-}
+dxDiff_aux :: Domain -> Domain -> (Int, [([Char], Domain)]) -> (DExpr, (Int, [([Char], Domain)]))
+	{-# GHC_PRAGMA _A_ 2 _U_ 122 _N_ _S_ "SS" _N_ _N_ #-}
+dxDiff_list :: [Domain] -> [Domain] -> (Int, [([Char], Domain)]) -> ([DExpr], (Int, [([Char], Domain)]))
+	{-# GHC_PRAGMA _A_ 2 _U_ 112 _N_ _S_ "SS" _N_ _N_ #-}
+dxNormaliseDExpr :: DExpr -> DExpr
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+

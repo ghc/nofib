@@ -1,0 +1,11 @@
+SRCS_LHS= Main.lhs
+OBJS_O  = Main.o
+
+/* not really multi-module, but we need to give weird flags... */
+/* also: not the Main.hs file that *OneModule* expects. */
+
+NoFibMultiModuleCompileAndRun(mkhprog,-o1 mkhprog.stdout HaskellEndRTSFlags() -a Int -b Float -c Foo -d Bar -e Double -f String -g String -h Int -j Double -k Bool -n Basil -p Knob -q Wizzle -r Wissle -s Wibble -t Widdle -A Int -B Float -C Foo -D Bar -E Double -F String -G String -H Int -I Float -J Double -K Bool -L Bool -M Buzzle -N Basil -P Knob -Q Wizzle -R Wissle -S Wibble -T Widdle)
+
+NoFibHaskellCompile(mkhprog,Main,lhs)
+
+NoFibDependTarget(mkhprog, $(SRCS_LHS))

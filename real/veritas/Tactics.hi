@@ -1,0 +1,37 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Tactics where
+import Core_datatype(Attribute_Tag, Attribute_Value, Cnv_Fn, Tag_Arg_type)
+import Goals(Done, GOAL, Obj)
+import Kernel(Sgn)
+import Tree(TREE, Tree_state)
+import Type_defs(Maybe)
+import Vtslib(Option, Sum)
+data Ordered_tactic   = OrdTactic [Char] ((Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])) ((Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> Option [[Char]] -> Obj -> Maybe ([Obj], [[[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]]], [Bool], [Option Done] -> [Bool] -> ([Bool], [Sgn], Option Done)) [Char])
+data TACTIC   = Tactic [Char] ((Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Option [[Char]]) [Char], [Char])) ((Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> Sgn -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> Option [[Char]] -> Obj -> Maybe ([Obj], [Option Done] -> Option Done) [Char])
+get_done :: TREE a c b -> Option c
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AASAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 3 1 X 1 _/\_ u0 u1 u2 -> \ (u3 :: Option u2) -> u3 _N_} _F_ _IF_ARGS_ 3 1 C 2 _/\_ u0 u1 u2 -> \ (u3 :: TREE u0 u2 u1) -> case u3 of { _ALG_ _ORIG_ Tree Tree (u4 :: u0) (u5 :: [TREE u0 u2 u1]) (u6 :: Option u2) (u7 :: u1 -> TREE u0 u2 u1 -> TREE u0 u2 u1) (u8 :: Option (TREE u0 u2 u1)) -> u6; _NO_DEFLT_ } _N_ #-}
+get_rw :: TREE GOAL a b -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(AAAAAEAA)AAAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 1 X 1 _/\_ u0 u1 -> \ (u2 :: Bool) -> u2 _N_} _F_ _IF_ARGS_ 2 1 C 3 _/\_ u0 u1 -> \ (u2 :: TREE GOAL u0 u1) -> case u2 of { _ALG_ _ORIG_ Tree Tree (u3 :: GOAL) (u4 :: [TREE GOAL u0 u1]) (u5 :: Option u0) (u6 :: u1 -> TREE GOAL u0 u1 -> TREE GOAL u0 u1) (u7 :: Option (TREE GOAL u0 u1)) -> case u3 of { _ALG_ _ORIG_ Goals Goal (u8 :: Option [Char]) (u9 :: Option [[Char]]) (ua :: Option [Char]) (ub :: [Char]) (uc :: Obj) (ud :: Bool) (ue :: Sgn) (uf :: [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]]) -> ud; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+id' :: a -> b -> b
+	{-# GHC_PRAGMA _A_ 2 _U_ 01 _N_ _S_ "AS" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 1 X 1 _/\_ u0 u1 -> \ (u2 :: u1) -> u2 _N_} _F_ _IF_ARGS_ 2 2 XX 1 _/\_ u0 u1 -> \ (u2 :: u0) (u3 :: u1) -> u3 _N_ #-}
+lift_ordtactic :: Ordered_tactic -> ([Char], Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])])) [Char], [Char]))
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LLL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lift_ordtactic_valid :: ([Option b] -> [Bool] -> ([Bool], [Sgn], Option b)) -> a -> TREE GOAL b c -> TREE GOAL b c
+	{-# GHC_PRAGMA _A_ 3 _U_ 101 _N_ _S_ "LAU(LLSLL)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lift_tactic :: TACTIC -> ([Char], Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])]) -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (Tree_state GOAL Done (Int, [(Attribute_Tag, Attribute_Value)], [([Char], [Tag_Arg_type], [Cnv_Fn])])) [Char], [Char]))
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(LLL)" {_A_ 3 _U_ 222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+lift_tactic_valid :: ([Option c] -> Option c) -> a -> TREE b c d -> TREE b c d
+	{-# GHC_PRAGMA _A_ 3 _U_ 101 _N_ _S_ "LAU(LLSLL)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+make_goal1 :: Sgn -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> [Obj] -> [TREE GOAL a b] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [TREE GOAL a b] c, [Char])
+	{-# GHC_PRAGMA _A_ 4 _U_ 22122 _N_ _S_ "LLSL" _N_ _N_ #-}
+make_goal1' :: Sgn -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (TREE GOAL a b) c, [Char])
+	{-# GHC_PRAGMA _A_ 4 _U_ 2221 _N_ _N_ _N_ _N_ #-}
+make_goal2 :: Sgn -> [([[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]], (Bool, Obj))] -> [TREE GOAL a b] -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe [TREE GOAL a b] c, [Char])
+	{-# GHC_PRAGMA _A_ 3 _U_ 2122 _N_ _S_ "LSL" _N_ _N_ #-}
+make_goal2' :: Sgn -> [[([Char], Option (Sum (Int, Bool) (Int, Int, [(Int, Int)]), (Int, [Char])))]] -> Bool -> Obj -> ([Char], [Int], [Int]) -> (([Char], [Int], [Int]), Maybe (TREE GOAL a b) c, [Char])
+	{-# GHC_PRAGMA _A_ 5 _U_ 22221 _N_ _N_ _N_ _N_ #-}
+null_arg_fn :: a -> b -> c -> d -> (d, Maybe (Option e) f, [g])
+	{-# GHC_PRAGMA _A_ 4 _U_ 0002 _N_ _N_ _F_ _IF_ARGS_ 7 4 XXXX 5 _/\_ u0 u1 u2 u3 u4 u5 u6 -> \ (u7 :: u0) (u8 :: u1) (u9 :: u2) (ua :: u3) -> let {(ub :: Option u4) = _!_ _ORIG_ Vtslib NONE [u4] []} in _APP_  _TYAPP_  _TYAPP_  _TYAPP_  _TYAPP_  _ORIG_ Edlib return { u3 } { (Option u4) } { u5 } { u6 } [ ub, ua ] _N_ #-}
+set_info :: (TREE GOAL a b, (Bool, Sgn)) -> TREE GOAL a b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(U(LLLLLAAL)LLLL)S)" {_A_ 2 _U_ 11 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

@@ -1,0 +1,146 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Utils where
+import BaseDefs(ConstrElem, DExpr, Domain, Flag, Maybe, Set)
+assignS :: a -> a -> ((), a)
+	{-# GHC_PRAGMA _A_ 2 _U_ 20 _N_ _S_ "LA" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _F_ _IF_ARGS_ 1 2 XX 5 _/\_ u0 -> \ (u1 :: u0) (u2 :: u0) -> let {(u3 :: ()) = _!_ _TUP_0 [] []} in _!_ _TUP_2 [(), u0] [u3, u1] _N_ #-}
+copy :: Int -> a -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(P)L" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+doStatefulOp1 :: (a -> b -> (b, b)) -> b -> a -> (b, b)
+	{-# GHC_PRAGMA _A_ 3 _U_ 122 _N_ _S_ "SLL" _F_ _IF_ARGS_ 2 3 XXX 3 _/\_ u0 u1 -> \ (u2 :: u0 -> u1 -> (u1, u1)) (u3 :: u1) (u4 :: u0) -> _APP_  u2 [ u4, u3 ] _N_ #-}
+doStatefulOp2 :: (a -> b -> d -> (c, d)) -> d -> a -> b -> (c, d)
+	{-# GHC_PRAGMA _A_ 4 _U_ 1222 _N_ _S_ "SLLL" _F_ _IF_ARGS_ 4 4 XXXX 4 _/\_ u0 u1 u2 u3 -> \ (u4 :: u0 -> u1 -> u3 -> (u2, u3)) (u5 :: u3) (u6 :: u0) (u7 :: u1) -> _APP_  u4 [ u6, u7, u5 ] _N_ #-}
+fetchS :: a -> (a, a)
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 3 _/\_ u0 -> \ (u1 :: u0) -> _!_ _TUP_2 [u0, u0] [u1, u1] _N_ #-}
+first :: (b, a) -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 1 X 1 _/\_ u0 u1 -> \ (u2 :: u1) -> u2 _N_} _F_ _IF_ARGS_ 2 1 C 2 _/\_ u0 u1 -> \ (u2 :: (u1, u0)) -> case u2 of { _ALG_ _TUP_2 (u3 :: u1) (u4 :: u0) -> u3; _NO_DEFLT_ } _N_ #-}
+interleave :: [a] -> [[a]] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+layn :: [[Char]] -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+ljustify :: Int -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "LS" _N_ _N_ #-}
+map1st :: (a -> b) -> [(a, c)] -> [(b, c)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+map2nd :: (a -> c) -> [(b, a)] -> [(b, c)]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+mapAccuml :: (b -> a -> (b, c)) -> b -> [a] -> (b, [c])
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+returnS :: a -> b -> (a, b)
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _F_ _IF_ARGS_ 2 2 XX 3 _/\_ u0 u1 -> \ (u2 :: u0) (u3 :: u1) -> _!_ _TUP_2 [u0, u1] [u2, u3] _N_ #-}
+rjustify :: Int -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(P)S" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+second :: (a, b) -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AS)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 1 X 1 _/\_ u0 u1 -> \ (u2 :: u1) -> u2 _N_} _F_ _IF_ARGS_ 2 1 C 2 _/\_ u0 u1 -> \ (u2 :: (u0, u1)) -> case u2 of { _ALG_ _TUP_2 (u3 :: u0) (u4 :: u1) -> u4; _NO_DEFLT_ } _N_ #-}
+sort :: Ord a => [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 11 _N_ _N_ _N_ _N_ #-}
+splitList :: (a -> Bool) -> [a] -> ([a], [a])
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "LS" _N_ _N_ #-}
+thenS :: (c -> (a, c)) -> (a -> c -> (b, c)) -> c -> (b, c)
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SSL" _F_ _IF_ARGS_ 3 3 XXX 6 _/\_ u0 u1 u2 -> \ (u3 :: u2 -> (u0, u2)) (u4 :: u0 -> u2 -> (u1, u2)) (u5 :: u2) -> case _APP_  u3 [ u5 ] of { _ALG_ _TUP_2 (u6 :: u0) (u7 :: u2) -> _APP_  u4 [ u6, u7 ]; _NO_DEFLT_ } _N_ #-}
+unMkSet :: Set a -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(S)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: [u0]) -> u1 _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: Set u0) -> case u1 of { _ALG_ _ORIG_ BaseDefs MkSet (u2 :: [u0]) -> u2; _NO_DEFLT_ } _N_ #-}
+unzip2 :: [(a, b)] -> ([a], [b])
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+utBagEmpty :: [a]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 1 0 X 1 _/\_ u0 -> _!_ _NIL_ [u0] [] _N_ #-}
+utBagFromList :: [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: [u0]) -> u1 _N_ #-}
+utBagInsert :: a -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _F_ _IF_ARGS_ 1 2 XX 3 _/\_ u0 -> \ (u1 :: u0) (u2 :: [u0]) -> _!_ (:) [u0] [u1, u2] _N_ #-}
+utBagSingleton :: a -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+utBagToList :: [a] -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: [u0]) -> u1 _N_ #-}
+utBagUnion :: [a] -> [a] -> [a]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ PreludeList (++) _N_ #-}
+utDomain :: [(b, a)] -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+utEmpty :: [a]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 1 0 X 1 _/\_ u0 -> _!_ _NIL_ [u0] [] _N_ #-}
+utGetName :: Int -> [Char] -> (Int, [Char])
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _N_ _N_ _N_ #-}
+utGetNames :: Int -> [[Char]] -> (Int, [[Char]])
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+utInitialNameSupply :: Int
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 2 _!_ I# [] [0#] _N_ #-}
+utLookup :: Eq a => [(a, b)] -> a -> Maybe b
+	{-# GHC_PRAGMA _A_ 1 _U_ 112 _N_ _N_ _N_ _N_ #-}
+utLookupAll :: Eq a => [(a, b)] -> a -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 112 _N_ _N_ _N_ _N_ #-}
+utLookupDef :: Eq a => [(a, b)] -> a -> b -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1122 _N_ _N_ _N_ _N_ #-}
+utMakeName :: Text a => [Char] -> a -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 112 _N_ _N_ _N_ _SPECIALISE_ [ Int ] 1 { _A_ 2 _U_ 11 _N_ _S_ "SL" _N_ _N_ } #-}
+utRandomInts :: Int -> Int -> [Int]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(P)U(P)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+utRange :: [(a, b)] -> [b]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+utSCconstrelems :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [([Char], [ConstrElem])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AASAAAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [([Char], [ConstrElem])]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u3; _NO_DEFLT_ } _N_ #-}
+utSCdexprs :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [([Char], DExpr)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SAAAAAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [([Char], DExpr)]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u1; _NO_DEFLT_ } _N_ #-}
+utSCdomains :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [([Char], Domain)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(ASAAAAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [([Char], Domain)]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u2; _NO_DEFLT_ } _N_ #-}
+utSCflags :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [Flag]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAAASAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Flag]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u5; _NO_DEFLT_ } _N_ #-}
+utSCfreevars :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [([Char], [[Char]])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAASAAA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [([Char], [[Char]])]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u4; _NO_DEFLT_ } _N_ #-}
+utSClims :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> (Int, Int, Int, Int, Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAAAAU(LLLLL)A)" {_A_ 5 _U_ 22222 _N_ _N_ _F_ _IF_ARGS_ 0 5 XXXXX 6 \ (u0 :: Int) (u1 :: Int) (u2 :: Int) (u3 :: Int) (u4 :: Int) -> _!_ _TUP_5 [Int, Int, Int, Int, Int] [u0, u1, u2, u3, u4] _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u6; _NO_DEFLT_ } _N_ #-}
+utSCsizes :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [(Domain, Int)]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AAAAAAS)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [(Domain, Int)]) -> u0 _N_} _F_ _IF_ARGS_ 0 1 C 2 \ (u0 :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)])) -> case u0 of { _ALG_ _TUP_7 (u1 :: [([Char], DExpr)]) (u2 :: [([Char], Domain)]) (u3 :: [([Char], [ConstrElem])]) (u4 :: [([Char], [[Char]])]) (u5 :: [Flag]) (u6 :: (Int, Int, Int, Int, Int)) (u7 :: [(Domain, Int)]) -> u7; _NO_DEFLT_ } _N_ #-}
+utSetElementOf :: Ord a => a -> Set a -> Bool
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _N_ _N_ _N_ #-}
+utSetEmpty :: Set a
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+utSetFromList :: Ord a => [a] -> Set a
+	{-# GHC_PRAGMA _A_ 1 _U_ 21 _N_ _N_ _N_ _N_ #-}
+utSetIntersection :: Ord a => Set a -> Set a -> Set a
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _N_ _N_ _N_ #-}
+utSetIsEmpty :: Eq a => Set a -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+utSetSingleton :: a -> Set a
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+utSetSubsetOf :: Ord a => Set a -> Set a -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 211 _N_ _N_ _N_ _N_ #-}
+utSetSubtraction :: Ord a => Set a -> Set a -> Set a
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _N_ _N_ _N_ #-}
+utSetToList :: Set a -> [a]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(S)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 1 1 X 1 _/\_ u0 -> \ (u1 :: [u0]) -> u1 _N_} _F_ _IF_ARGS_ 1 1 C 2 _/\_ u0 -> \ (u1 :: Set u0) -> case u1 of { _ALG_ _ORIG_ BaseDefs MkSet (u2 :: [u0]) -> u2; _NO_DEFLT_ } _N_ #-}
+utSetUnion :: Ord a => Set a -> Set a -> Set a
+	{-# GHC_PRAGMA _A_ 3 _U_ 211 _N_ _N_ _N_ _N_ #-}
+utSetUnionList :: Ord a => [Set a] -> Set a
+	{-# GHC_PRAGMA _A_ 1 _U_ 22 _N_ _N_ _N_ _N_ #-}
+utSureLookup :: Eq a => [(a, b)] -> [Char] -> a -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "U(SA)" {_A_ 1 _U_ 2122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+utiAppend :: (a -> c) -> (b -> a) -> b -> c
+	{-# GHC_PRAGMA _A_ 3 _U_ 112 _N_ _S_ "SLL" _F_ _IF_ARGS_ 3 3 XXX 5 _/\_ u0 u1 u2 -> \ (u3 :: u0 -> u2) (u4 :: u1 -> u0) (u5 :: u1) -> let {(u6 :: u0) = _APP_  u4 [ u5 ]} in _APP_  u3 [ u6 ] _N_ #-}
+utiChar :: Char -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 4 _U_ 1121 _N_ _S_ "U(P)LLL" {_A_ 4 _U_ 2121 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+utiConcat :: [(Int -> Int -> [Char]) -> Int -> Int -> [Char]] -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "S" _N_ _N_ #-}
+utiFWNum :: Int -> Int -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11222 _N_ _S_ "U(P)U(P)" {_A_ 2 _U_ 22222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+utiIndent :: Ord d => ((a -> b -> c) -> d -> d -> e) -> (d -> b -> c) -> d -> d -> e
+	{-# GHC_PRAGMA _A_ 5 _U_ 11222 _N_ _S_ "LSLLL" _N_ _SPECIALISE_ [ _N_, _N_, _N_, Int, _N_ ] 1 { _A_ 4 _U_ 1222 _N_ _S_ "SLLL" _N_ _N_ } #-}
+utiInterleave :: ((Int -> Int -> [Char]) -> Int -> Int -> [Char]) -> [(Int -> Int -> [Char]) -> Int -> Int -> [Char]] -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21222 _N_ _S_ "LS" _N_ _N_ #-}
+utiLayn :: [(Int -> Int -> [Char]) -> Int -> Int -> [Char]] -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "S" _N_ _N_ #-}
+utiLjustify :: Int -> ((Int -> Int -> [Char]) -> Int -> Int -> [Char]) -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12222 _N_ _S_ "LS" _N_ _N_ #-}
+utiMkStr :: ((Int -> Int -> [Char]) -> Int -> Int -> [Char]) -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+utiNil :: a -> a
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _ORIG_ Prelude id _N_ #-}
+utiNum :: Int -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "U(P)" {_A_ 1 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+utiStr :: [Char] -> (Int -> Int -> [Char]) -> Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1222 _N_ _S_ "S" _N_ _N_ #-}
+utoEmpty :: Int -> Int -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 00 _N_ _S_ "AA" {_A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 1 _!_ _NIL_ [Char] [] _N_} _F_ _IF_ARGS_ 0 2 XX 1 \ (u0 :: Int) (u1 :: Int) -> _!_ _NIL_ [Char] [] _N_ #-}
+utoMkstr :: (Int -> Int -> [Char]) -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+utpspaces :: Int -> [Char] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _S_ "U(P)L" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

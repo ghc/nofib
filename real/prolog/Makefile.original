@@ -1,0 +1,47 @@
+# To build stack based version:    make SetStack ; make
+#          pure version       :    make SetPure  ; make
+# see `Examples' for more information ...
+#
+OBJ  = PrologData.o Parse.o Interact.o Subst.o Engine.o Version.o Main.o
+HBC  = hbc
+HBCFLAGS = 
+.SUFFIXES:      .o .hs .hi
+
+Prolog: $(OBJ)
+	$(HBC) $(HBCFLAGS) -o Prolog $(OBJ)
+	strip Prolog
+
+SetStack:
+	cp StackEngine.hs Engine.hs
+	echo "module Version where version=\"stack based\"" > Version.hs
+	touch Engine.hs Version.hs
+
+SetPure:
+	cp PureEngine.hs Engine.hs
+	echo "module Version where version=\"tree based\"" > Version.hs
+	touch Engine.hs Version.hs
+
+Prolog.shar:
+	shar -cv Makefile \
+		 Parse.hs \
+		 Interact.hs \
+		 PrologData.hs \
+		 Subst.hs \
+		 PureEngine.hs StackEngine.hs \
+		 Main.hs \
+		 Examples \
+		 stdlib >Prolog.shar
+clean:
+	-rm $(OBJ) Engine.o *.hi Prolog
+.hs.o:
+	$(HBC) $(HBCFLAGS) -c $*.hs
+.hs.hi:
+	$(HBC) $(HBCFLAGS) -c $*.hs
+
+Parse.o:	Parse.hs
+Interact.o:	Interact.hs
+PrologData.o:	PrologData.hs Parse.hi
+Subst.o:	Subst.hs PrologData.hi
+Engine.o:	Engine.hs PrologData.hi Subst.hi
+Main.o:		Main.hs Parse.hi PrologData.hi Interact.hi \
+		Engine.hi Version.hi

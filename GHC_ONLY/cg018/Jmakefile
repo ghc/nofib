@@ -1,0 +1,4 @@
+NoFibOneModuleCompileAndRun(cg018,-o1 cg018.stdout2)
+/* I am not sure what the range of acceptable output values really is
+   WDP 95/06
+*/

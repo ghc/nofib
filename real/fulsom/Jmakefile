@@ -1,0 +1,22 @@
+SRCS_HS = Types.hs Interval.hs Csg.hs Kolor.hs Matrix.hs Vector.hs \
+	  Oct.hs Quad.hs Raster.hs Shapes.hs Fulsom.hs Patchlevel.hs
+
+OBJS_O  = Types.o  Interval.o  Csg.o  Kolor.o  Matrix.o  Vector.o  \
+	  Oct.o  Quad.o  Raster.o  Shapes.o  Fulsom.o  Patchlevel.o
+
+NoFibMultiModuleCompileAndRun(fulsom, 7 -o1 fulsom.stdout)
+
+NoFibHaskellCompile(fulsom,Types,hs)
+NoFibHaskellCompile(fulsom,Interval,hs)
+NoFibHaskellCompile(fulsom,Csg,hs)
+NoFibHaskellCompile(fulsom,Kolor,hs)
+NoFibHaskellCompile(fulsom,Matrix,hs)
+NoFibHaskellCompile(fulsom,Vector,hs)
+NoFibHaskellCompile(fulsom,Oct,hs)
+NoFibHaskellCompile(fulsom,Quad,hs)
+NoFibHaskellCompile(fulsom,Raster,hs)
+NoFibHaskellCompile(fulsom,Shapes,hs)
+NoFibHaskellCompile(fulsom,Fulsom,hs)
+NoFibHaskellCompile(fulsom,Patchlevel,hs)
+
+NoFibDependTarget(fulsom, $(SRCS_HS))

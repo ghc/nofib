@@ -1,0 +1,4323 @@
+------------------------------------------------------------
+Now building the individual Gaussian mixture parameter files
+------------------------------------------------------------
+ 
+
+Training set number 1
+AA.1.vecs -> AA.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AA.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7227 vectors.
+
+VQ design information will be written to "AA.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.4551
+     1         5.5581          1.889
+     2         5.6120          0.970
+     3         5.6443          0.574
+     4         5.6647          0.362
+     5         5.6791          0.253
+     6         5.6906          0.203
+     7         5.7008          0.179
+     8         5.7097          0.157
+     9         5.7171          0.129
+    10         5.7228          0.100
+    11         5.7271          0.075
+    12         5.7302          0.055
+    13         5.7326          0.041
+The mixture parameters have been written to "AA.1.gmp".
+68.6u 3.4s 1:18 92% 0+24272k 64+2io 64pf+0w
+
+Training set number 2
+AA.2.vecs -> AA.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AA.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9446 vectors.
+
+VQ design information will be written to "AA.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.6460
+     1        13.7545          0.795
+     2        13.8289          0.541
+     3        13.8926          0.461
+     4        13.9343          0.300
+     5        13.9596          0.182
+     6        13.9759          0.117
+     7        13.9866          0.076
+     8        13.9934          0.048
+The mixture parameters have been written to "AA.2.gmp".
+59.3u 3.1s 1:03 98% 0+24184k 84+2io 84pf+0w
+
+Training set number 3
+AA.3.vecs -> AA.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AA.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6239 vectors.
+
+VQ design information will be written to "AA.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.4478
+     1         9.5965          1.574
+     2         9.6627          0.690
+     3         9.7009          0.395
+     4         9.7261          0.260
+     5         9.7433          0.177
+     6         9.7554          0.124
+     7         9.7643          0.091
+     8         9.7713          0.072
+     9         9.7771          0.059
+    10         9.7821          0.051
+    11         9.7863          0.044
+The mixture parameters have been written to "AA.3.gmp".
+51.1u 3.3s 0:58 92% 0+24040k 55+2io 55pf+0w
+
+Training set number 4
+AE.1.vecs -> AE.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AE.1.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 15605 vectors.
+
+VQ design information will be written to "AE.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.9821
+     1         7.1239          2.031
+     2         7.1867          0.881
+     3         7.2231          0.506
+     4         7.2473          0.336
+     5         7.2649          0.242
+     6         7.2785          0.188
+     7         7.2898          0.155
+     8         7.2994          0.132
+     9         7.3079          0.116
+    10         7.3154          0.102
+    11         7.3220          0.090
+    12         7.3277          0.078
+    13         7.3326          0.066
+    14         7.3366          0.054
+    15         7.3397          0.043
+The mixture parameters have been written to "AE.1.gmp".
+169.1u 3.4s 3:02 94% 0+24792k 138+2io 138pf+0w
+
+Training set number 5
+AE.2.vecs -> AE.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AE.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 23473 vectors.
+
+VQ design information will be written to "AE.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.2119
+     1        14.3102          0.692
+     2        14.3704          0.420
+     3        14.4113          0.284
+     4        14.4414          0.209
+     5        14.4665          0.173
+     6        14.4880          0.149
+     7        14.5057          0.122
+     8        14.5184          0.088
+     9        14.5265          0.055
+    10        14.5311          0.031
+The mixture parameters have been written to "AE.2.gmp".
+175.0u 3.5s 3:01 98% 0+24820k 207+2io 207pf+0w
+
+Training set number 6
+AE.3.vecs -> AE.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AE.3.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 13282 vectors.
+
+VQ design information will be written to "AE.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.8767
+     1         8.9889          1.264
+     2         9.0242          0.393
+     3         9.0415          0.192
+     4         9.0511          0.107
+     5         9.0570          0.065
+     6         9.0608          0.042
+The mixture parameters have been written to "AE.3.gmp".
+67.5u 3.2s 1:13 96% 0+24292k 117+2io 117pf+0w
+
+Training set number 7
+AH.1.vecs -> AH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AH.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7307 vectors.
+
+VQ design information will be written to "AH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.7870
+     1         9.9623          1.791
+     2        10.0170          0.549
+     3        10.0378          0.208
+     4        10.0471          0.093
+     5        10.0525          0.054
+     6        10.0562          0.036
+The mixture parameters have been written to "AH.1.gmp".
+36.5u 3.2s 0:41 96% 0+23600k 65+2io 65pf+0w
+
+Training set number 8
+AH.2.vecs -> AH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AH.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9016 vectors.
+
+VQ design information will be written to "AH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.9433
+     1        11.2411          2.722
+     2        11.4039          1.448
+     3        11.4733          0.608
+     4        11.5087          0.309
+     5        11.5302          0.187
+     6        11.5450          0.128
+     7        11.5547          0.084
+     8        11.5606          0.051
+     9        11.5641          0.030
+The mixture parameters have been written to "AH.2.gmp".
+63.0u 3.3s 1:08 97% 0+24216k 80+2io 80pf+0w
+
+Training set number 9
+AH.3.vecs -> AH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AH.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5606 vectors.
+
+VQ design information will be written to "AH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.9528
+     1         8.0523          1.252
+     2         8.0907          0.477
+     3         8.1094          0.231
+     4         8.1195          0.125
+     5         8.1256          0.075
+     6         8.1296          0.049
+The mixture parameters have been written to "AH.3.gmp".
+28.9u 3.0s 0:33 96% 0+23304k 50+3io 50pf+0w
+
+Training set number 10
+AO.1.vecs -> AO.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AO.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7044 vectors.
+
+VQ design information will be written to "AO.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.1468
+     1         7.2780          1.836
+     2         7.3322          0.744
+     3         7.3592          0.369
+     4         7.3724          0.180
+     5         7.3797          0.100
+     6         7.3846          0.066
+     7         7.3882          0.049
+The mixture parameters have been written to "AO.1.gmp".
+39.9u 3.4s 0:44 96% 0+23732k 62+2io 62pf+0w
+
+Training set number 11
+AO.2.vecs -> AO.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AO.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 13993 vectors.
+
+VQ design information will be written to "AO.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.8167
+     1        14.8988          0.554
+     2        14.9312          0.217
+     3        14.9504          0.129
+     4        14.9636          0.088
+     5        14.9738          0.068
+     6        14.9826          0.059
+     7        14.9913          0.058
+     8        15.0010          0.065
+     9        15.0120          0.074
+    10        15.0236          0.077
+    11        15.0346          0.073
+    12        15.0449          0.068
+    13        15.0541          0.061
+    14        15.0622          0.054
+    15        15.0692          0.047
+The mixture parameters have been written to "AO.2.gmp".
+151.0u 3.5s 2:38 97% 0+24724k 125+2io 129pf+0w
+
+Training set number 12
+AO.3.vecs -> AO.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AO.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9883 vectors.
+
+VQ design information will be written to "AO.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.9661
+     1        10.1169          1.513
+     2        10.1820          0.643
+     3        10.2182          0.355
+     4        10.2440          0.253
+     5        10.2677          0.231
+     6        10.2929          0.245
+     7        10.3169          0.233
+     8        10.3329          0.156
+     9        10.3422          0.090
+    10        10.3478          0.054
+    11        10.3515          0.036
+The mixture parameters have been written to "AO.3.gmp".
+82.1u 3.2s 1:56 73% 0+24412k 87+2io 87pf+0w
+
+Training set number 13
+AW.1.vecs -> AW.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AW.1.vecs.
+Done loading the training vectors.
+The training set contains 1770 vectors.
+
+VQ design information will be written to "AW.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.6133
+     1         9.7196          1.106
+     2         9.7590          0.405
+     3         9.7903          0.321
+     4         9.8106          0.207
+     5         9.8217          0.113
+     6         9.8283          0.068
+     7         9.8325          0.042
+The mixture parameters have been written to "AW.1.gmp".
+5.6u 3.2s 0:09 95% 0+18660k 16+2io 16pf+0w
+
+Training set number 14
+AW.2.vecs -> AW.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AW.2.vecs.
+Done loading the training vectors.
+The training set contains 2850 vectors.
+
+VQ design information will be written to "AW.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 5 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.5393
+     1        14.6410          0.699
+     2        14.7092          0.465
+     3        14.7487          0.269
+     4        14.7688          0.136
+     5        14.7770          0.056
+     6        14.7802          0.021
+The mixture parameters have been written to "AW.2.gmp".
+10.6u 3.2s 0:14 94% 0+20940k 26+2io 26pf+0w
+
+Training set number 15
+AW.3.vecs -> AW.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AW.3.vecs.
+Done loading the training vectors.
+The training set contains 1666 vectors.
+
+VQ design information will be written to "AW.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.6388
+     1         8.7186          0.924
+     2         8.7455          0.308
+     3         8.7636          0.207
+     4         8.7789          0.174
+     5         8.7916          0.145
+     6         8.8010          0.106
+     7         8.8077          0.076
+     8         8.8127          0.057
+     9         8.8168          0.046
+The mixture parameters have been written to "AW.3.gmp".
+6.5u 3.2s 0:11 82% 0+19204k 15+2io 15pf+0w
+
+Training set number 16
+AX.1.vecs -> AX.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AX.1.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 11107 vectors.
+
+VQ design information will be written to "AX.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.9948
+     1         8.1947          2.501
+     2         8.2776          1.012
+     3         8.3189          0.498
+     4         8.3405          0.260
+     5         8.3540          0.162
+     6         8.3640          0.120
+     7         8.3723          0.098
+     8         8.3793          0.084
+     9         8.3854          0.073
+    10         8.3908          0.064
+    11         8.3956          0.057
+    12         8.3999          0.051
+    13         8.4038          0.046
+The mixture parameters have been written to "AX.1.gmp".
+105.8u 3.2s 2:07 85% 0+24556k 98+2io 98pf+0w
+
+Training set number 17
+AX.2.vecs -> AX.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AX.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5405 vectors.
+
+VQ design information will be written to "AX.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.5386
+     1         7.6639          1.662
+     2         7.7576          1.222
+     3         7.8189          0.790
+     4         7.8575          0.494
+     5         7.8922          0.441
+     6         7.9294          0.472
+     7         7.9613          0.402
+     8         7.9811          0.248
+     9         7.9911          0.125
+    10         7.9957          0.058
+    11         7.9981          0.030
+The mixture parameters have been written to "AX.2.gmp".
+45.1u 3.3s 0:50 96% 0+23892k 48+2io 48pf+0w
+
+Training set number 18
+AX.3.vecs -> AX.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AX.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 8190 vectors.
+
+VQ design information will be written to "AX.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.3492
+     1         6.4591          1.732
+     2         6.5174          0.903
+     3         6.5502          0.503
+     4         6.5695          0.294
+     5         6.5818          0.187
+     6         6.5899          0.123
+     7         6.5955          0.084
+     8         6.5995          0.060
+     9         6.6025          0.045
+The mixture parameters have been written to "AX.3.gmp".
+57.8u 3.3s 1:03 95% 0+24124k 72+3io 72pf+0w
+
+Training set number 19
+AXR.1.vecs -> AXR.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AXR.1.vecs.
+Done loading the training vectors.
+The training set contains 4979 vectors.
+
+VQ design information will be written to "AXR.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.9395
+     1        10.1386          2.003
+     2        10.2179          0.782
+     3        10.2633          0.444
+     4        10.2927          0.287
+     5        10.3121          0.188
+     6        10.3258          0.133
+     7        10.3361          0.100
+     8        10.3442          0.079
+     9        10.3512          0.067
+    10        10.3577          0.063
+    11        10.3645          0.065
+    12        10.3718          0.071
+    13        10.3797          0.075
+    14        10.3876          0.076
+    15        10.3950          0.071
+    16        10.4011          0.058
+    17        10.4054          0.041
+The mixture parameters have been written to "AXR.1.gmp".
+62.1u 3.2s 1:07 96% 0+24196k 44+2io 44pf+0w
+
+Training set number 20
+AXR.2.vecs -> AXR.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AXR.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6931 vectors.
+
+VQ design information will be written to "AXR.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        12.9409
+     1        13.1790          1.840
+     2        13.3150          1.032
+     3        13.4020          0.653
+     4        13.4489          0.350
+     5        13.4734          0.182
+     6        13.4893          0.118
+     7        13.5023          0.097
+     8        13.5144          0.089
+     9        13.5263          0.088
+    10        13.5386          0.091
+    11        13.5517          0.097
+    12        13.5638          0.089
+    13        13.5730          0.068
+    14        13.5799          0.051
+    15        13.5854          0.040
+The mixture parameters have been written to "AXR.2.gmp".
+76.5u 3.2s 1:22 97% 0+24380k 61+2io 61pf+0w
+
+Training set number 21
+AXR.3.vecs -> AXR.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AXR.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6463 vectors.
+
+VQ design information will be written to "AXR.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.4658
+     1         6.5850          1.844
+     2         6.6600          1.139
+     3         6.7118          0.777
+     4         6.7502          0.573
+     5         6.7812          0.459
+     6         6.8048          0.348
+     7         6.8216          0.248
+     8         6.8348          0.193
+     9         6.8459          0.161
+    10         6.8548          0.131
+    11         6.8616          0.100
+    12         6.8664          0.070
+    13         6.8697          0.048
+The mixture parameters have been written to "AXR.3.gmp".
+61.9u 3.1s 1:07 96% 0+24212k 59+2io 63pf+0w
+
+Training set number 22
+AY.1.vecs -> AY.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AY.1.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 16506 vectors.
+
+VQ design information will be written to "AY.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        11.1965
+     1        11.4185          1.983
+     2        11.5333          1.006
+     3        11.6207          0.758
+     4        11.6958          0.646
+     5        11.7425          0.399
+     6        11.7625          0.171
+     7        11.7710          0.072
+     8        11.7754          0.037
+The mixture parameters have been written to "AY.1.gmp".
+102.7u 3.2s 2:18 76% 0+24584k 146+2io 146pf+0w
+
+Training set number 23
+AY.2.vecs -> AY.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AY.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 23279 vectors.
+
+VQ design information will be written to "AY.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.5888
+     1        13.7145          0.925
+     2        13.7639          0.360
+     3        13.7916          0.202
+     4        13.8081          0.120
+     5        13.8181          0.072
+     6        13.8246          0.047
+The mixture parameters have been written to "AY.2.gmp".
+112.9u 3.6s 2:38 73% 0+24640k 205+2io 205pf+0w
+
+Training set number 24
+AY.3.vecs -> AY.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from AY.3.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 16791 vectors.
+
+VQ design information will be written to "AY.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.6935
+     1         8.7885          1.092
+     2         8.8349          0.528
+     3         8.8665          0.358
+     4         8.8925          0.293
+     5         8.9180          0.286
+     6         8.9438          0.289
+     7         8.9679          0.270
+     8         8.9883          0.227
+     9         9.0037          0.172
+    10         9.0146          0.121
+    11         9.0221          0.083
+    12         9.0272          0.056
+    13         9.0305          0.038
+The mixture parameters have been written to "AY.3.gmp".
+156.2u 3.6s 2:46 95% 0+24768k 148+2io 148pf+0w
+
+Training set number 25
+B.1.vecs -> B.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from B.1.vecs.
+Done loading the training vectors.
+The training set contains 4103 vectors.
+
+VQ design information will be written to "B.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 7 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.0932
+     1        10.1647          0.708
+     2        10.1988          0.336
+     3        10.2253          0.260
+     4        10.2576          0.316
+     5        10.2973          0.388
+     6        10.3336          0.352
+     7        10.3605          0.260
+     8        10.3808          0.196
+     9        10.4078          0.261
+    10        10.4380          0.290
+    11        10.4540          0.153
+    12        10.4593          0.051
+    13        10.4618          0.024
+The mixture parameters have been written to "B.1.gmp".
+35.4u 3.1s 0:39 97% 0+23604k 37+2io 37pf+0w
+
+Training set number 26
+B.2.vecs -> B.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from B.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5135 vectors.
+
+VQ design information will be written to "B.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.5413
+     1        10.6583          1.110
+     2        10.7251          0.627
+     3        10.7694          0.413
+     4        10.8015          0.298
+     5        10.8327          0.289
+     6        10.8659          0.306
+     7        10.9031          0.342
+     8        10.9452          0.386
+     9        10.9843          0.358
+    10        11.0119          0.251
+    11        11.0287          0.153
+    12        11.0404          0.105
+    13        11.0515          0.101
+    14        11.0625          0.099
+    15        11.0687          0.056
+    16        11.0717          0.027
+The mixture parameters have been written to "B.2.gmp".
+58.9u 3.2s 1:03 98% 0+24168k 46+3io 46pf+0w
+
+Training set number 27
+B.3.vecs -> B.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from B.3.vecs.
+Done loading the training vectors.
+The training set contains 2933 vectors.
+
+VQ design information will be written to "B.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 5 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.0506
+     1         6.1081          0.951
+     2         6.1267          0.304
+     3         6.1348          0.132
+     4         6.1385          0.060
+     5         6.1401          0.027
+The mixture parameters have been written to "B.3.gmp".
+9.9u 3.2s 0:13 95% 0+20768k 26+2io 26pf+0w
+
+Training set number 28
+CH.1.vecs -> CH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from CH.1.vecs.
+Done loading the training vectors.
+The training set contains 2046 vectors.
+
+VQ design information will be written to "CH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.0594
+     1         5.1269          1.334
+     2         5.1545          0.540
+     3         5.1698          0.297
+     4         5.1815          0.225
+     5         5.1919          0.202
+     6         5.2018          0.190
+     7         5.2110          0.176
+     8         5.2190          0.155
+     9         5.2253          0.121
+    10         5.2293          0.077
+    11         5.2317          0.045
+The mixture parameters have been written to "CH.1.gmp".
+8.8u 3.2s 0:12 95% 0+20352k 18+2io 18pf+0w
+
+Training set number 29
+CH.2.vecs -> CH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from CH.2.vecs.
+Done loading the training vectors.
+The training set contains 2892 vectors.
+
+VQ design information will be written to "CH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 5 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.8475
+     1         9.8904          0.435
+     2         9.9111          0.210
+     3         9.9260          0.150
+     4         9.9370          0.111
+     5         9.9449          0.080
+     6         9.9504          0.055
+     7         9.9540          0.036
+The mixture parameters have been written to "CH.2.gmp".
+11.9u 3.3s 0:15 96% 0+21340k 26+2io 26pf+0w
+
+Training set number 30
+CH.3.vecs -> CH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from CH.3.vecs.
+Done loading the training vectors.
+The training set contains 2075 vectors.
+
+VQ design information will be written to "CH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.8004
+     1         5.8790          1.355
+     2         5.9131          0.581
+     3         5.9323          0.324
+     4         5.9429          0.178
+     5         5.9484          0.094
+     6         5.9514          0.050
+The mixture parameters have been written to "CH.3.gmp".
+5.8u 3.2s 0:09 94% 0+18848k 19+2io 19pf+0w
+
+Training set number 31
+D.1.vecs -> D.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from D.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7583 vectors.
+
+VQ design information will be written to "D.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.0103
+     1         7.1634          2.184
+     2         7.2136          0.702
+     3         7.2516          0.527
+     4         7.2867          0.484
+     5         7.3215          0.477
+     6         7.3549          0.456
+     7         7.3847          0.405
+     8         7.4089          0.328
+     9         7.4279          0.256
+    10         7.4431          0.205
+    11         7.4556          0.167
+    12         7.4651          0.128
+    13         7.4718          0.089
+    14         7.4765          0.063
+    15         7.4801          0.049
+The mixture parameters have been written to "D.1.gmp".
+80.9u 3.2s 1:25 98% 0+24420k 67+2io 67pf+0w
+
+Training set number 32
+D.2.vecs -> D.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from D.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7105 vectors.
+
+VQ design information will be written to "D.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.3939
+     1         6.5435          2.339
+     2         6.6223          1.204
+     3         6.6593          0.560
+     4         6.6764          0.256
+     5         6.6846          0.122
+     6         6.6887          0.062
+     7         6.6910          0.034
+The mixture parameters have been written to "D.2.gmp".
+39.9u 3.2s 0:44 97% 0+23756k 63+2io 63pf+0w
+
+Training set number 33
+D.3.vecs -> D.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from D.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6924 vectors.
+
+VQ design information will be written to "D.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         4.7819
+     1         4.8728          1.901
+     2         4.9018          0.595
+     3         4.9134          0.238
+     4         4.9195          0.123
+     5         4.9232          0.076
+     6         4.9258          0.053
+     7         4.9278          0.041
+The mixture parameters have been written to "D.3.gmp".
+39.4u 3.1s 0:44 96% 0+23756k 61+2io 61pf+0w
+
+Training set number 34
+DH.1.vecs -> DH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from DH.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5181 vectors.
+
+VQ design information will be written to "DH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.2512
+     1         8.4157          1.994
+     2         8.5009          1.012
+     3         8.5526          0.609
+     4         8.5826          0.351
+     5         8.5993          0.195
+     6         8.6088          0.110
+     7         8.6147          0.069
+     8         8.6188          0.047
+The mixture parameters have been written to "DH.1.gmp".
+33.6u 3.4s 0:39 95% 0+23524k 46+2io 46pf+0w
+
+Training set number 35
+DH.2.vecs -> DH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from DH.2.vecs.
+Done loading the training vectors.
+The training set contains 2015 vectors.
+
+VQ design information will be written to "DH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.0319
+     1         7.0716          0.564
+     2         7.0793          0.110
+     3         7.0821          0.040
+The mixture parameters have been written to "DH.2.gmp".
+4.2u 3.0s 0:08 90% 0+17196k 18+3io 18pf+0w
+
+Training set number 36
+DH.3.vecs -> DH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from DH.3.vecs.
+Done loading the training vectors.
+The training set contains 2596 vectors.
+
+VQ design information will be written to "DH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 4 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.9774
+     1         7.0898          1.611
+     2         7.1366          0.660
+     3         7.1550          0.258
+     4         7.1605          0.077
+     5         7.1623          0.024
+The mixture parameters have been written to "DH.3.gmp".
+7.7u 3.2s 0:12 91% 0+19712k 23+2io 23pf+0w
+
+Training set number 37
+DX.1.vecs -> DX.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from DX.1.vecs.
+Done loading the training vectors.
+The training set contains 1081 vectors.
+
+VQ design information will be written to "DX.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         4.4399
+     1         4.5792          3.138
+     2         4.6486          1.514
+     3         4.7019          1.148
+     4         4.7403          0.816
+     5         4.7652          0.527
+     6         4.7803          0.317
+     7         4.7886          0.172
+     8         4.7928          0.088
+     9         4.7951          0.049
+The mixture parameters have been written to "DX.1.gmp".
+4.7u 3.2s 0:08 93% 0+17864k 10+2io 10pf+0w
+
+Training set number 38
+DX.2.vecs -> DX.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from DX.2.vecs.
+Done loading the training vectors.
+The training set contains 845 vectors.
+
+VQ design information will be written to "DX.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.2748
+     1         6.3932          1.887
+     2         6.4402          0.735
+     3         6.4616          0.333
+     4         6.4830          0.330
+     5         6.5143          0.484
+     6         6.5475          0.508
+     7         6.5521          0.071
+     8         6.5523          0.003
+The mixture parameters have been written to "DX.2.gmp".
+3.9u 3.0s 0:07 89% 0+16768k 8+2io 8pf+0w
+
+Training set number 39
+DX.3.vecs -> DX.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from DX.3.vecs.
+Done loading the training vectors.
+The training set contains 1236 vectors.
+
+VQ design information will be written to "DX.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.3956
+     1         5.4146          0.352
+     2         5.4160          0.026
+The mixture parameters have been written to "DX.3.gmp".
+2.6u 3.1s 0:06 92% 0+15136k 11+2io 11pf+0w
+
+Training set number 40
+EH.1.vecs -> EH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EH.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7754 vectors.
+
+VQ design information will be written to "EH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.8429
+     1         8.0042          2.056
+     2         8.0927          1.106
+     3         8.1403          0.587
+     4         8.1698          0.363
+     5         8.1924          0.276
+     6         8.2109          0.225
+     7         8.2251          0.173
+     8         8.2364          0.138
+     9         8.2463          0.119
+    10         8.2545          0.100
+    11         8.2609          0.077
+    12         8.2654          0.055
+    13         8.2687          0.039
+The mixture parameters have been written to "EH.1.gmp".
+76.5u 3.1s 1:21 97% 0+24368k 69+2io 69pf+0w
+
+Training set number 41
+EH.2.vecs -> EH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EH.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 11040 vectors.
+
+VQ design information will be written to "EH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        12.8458
+     1        12.9565          0.861
+     2        13.0280          0.552
+     3        13.0849          0.436
+     4        13.1306          0.349
+     5        13.1692          0.294
+     6        13.2033          0.259
+     7        13.2344          0.235
+     8        13.2626          0.213
+     9        13.2872          0.185
+    10        13.3109          0.178
+    11        13.3318          0.157
+    12        13.3466          0.111
+    13        13.3582          0.087
+    14        13.3689          0.080
+    15        13.3792          0.077
+    16        13.3885          0.069
+    17        13.3958          0.055
+    18        13.4010          0.039
+The mixture parameters have been written to "EH.2.gmp".
+141.7u 3.1s 2:28 97% 0+24708k 98+2io 98pf+0w
+
+Training set number 42
+EH.3.vecs -> EH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EH.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7438 vectors.
+
+VQ design information will be written to "EH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.8520
+     1         9.9512          1.007
+     2         9.9973          0.463
+     3        10.0270          0.297
+     4        10.0484          0.213
+     5        10.0641          0.157
+     6        10.0759          0.117
+     7        10.0851          0.091
+     8        10.0930          0.079
+     9        10.1005          0.074
+    10        10.1076          0.070
+    11        10.1146          0.069
+    12        10.1217          0.070
+    13        10.1288          0.070
+    14        10.1355          0.066
+    15        10.1416          0.060
+    16        10.1469          0.052
+    17        10.1509          0.040
+The mixture parameters have been written to "EH.3.gmp".
+90.4u 3.1s 1:35 98% 0+24488k 66+2io 66pf+0w
+
+Training set number 43
+EL.1.vecs -> EL.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EL.1.vecs.
+Done loading the training vectors.
+The training set contains 1202 vectors.
+
+VQ design information will be written to "EL.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.3374
+     1         8.5735          2.833
+     2         8.6630          1.044
+     3         8.6972          0.395
+     4         8.7129          0.180
+     5         8.7201          0.083
+     6         8.7235          0.038
+The mixture parameters have been written to "EL.1.gmp".
+4.0u 3.1s 0:07 93% 0+17136k 11+2io 11pf+0w
+
+Training set number 44
+EL.2.vecs -> EL.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EL.2.vecs.
+Done loading the training vectors.
+The training set contains 1973 vectors.
+
+VQ design information will be written to "EL.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        11.9422
+     1        12.2762          2.797
+     2        12.4961          1.791
+     3        12.5701          0.592
+     4        12.5901          0.159
+     5        12.5987          0.069
+     6        12.6038          0.041
+The mixture parameters have been written to "EL.2.gmp".
+5.6u 3.1s 0:09 94% 0+18640k 18+3io 18pf+0w
+
+Training set number 45
+EL.3.vecs -> EL.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EL.3.vecs.
+Done loading the training vectors.
+The training set contains 1530 vectors.
+
+VQ design information will be written to "EL.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         4.3504
+     1         4.4108          1.390
+     2         4.4389          0.636
+     3         4.4573          0.416
+     4         4.4710          0.306
+     5         4.4818          0.241
+     6         4.4910          0.207
+     7         4.4995          0.188
+     8         4.5072          0.172
+     9         4.5140          0.150
+    10         4.5195          0.122
+    11         4.5237          0.093
+    12         4.5268          0.068
+    13         4.5290          0.048
+The mixture parameters have been written to "EL.3.gmp".
+7.8u 3.2s 0:12 90% 0+19876k 14+2io 14pf+0w
+
+Training set number 46
+EN.1.vecs -> EN.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EN.1.vecs.
+Done loading the training vectors.
+The training set contains 290 vectors.
+
+VQ design information will be written to "EN.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.5177
+     1         7.5584          0.540
+     2         7.5636          0.069
+     3         7.5651          0.020
+The mixture parameters have been written to "EN.1.gmp".
+1.6u 3.3s 0:05 91% 0+13460k 3+2io 3pf+0w
+
+Training set number 47
+EN.2.vecs -> EN.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EN.2.vecs.
+Done loading the training vectors.
+The training set contains 389 vectors.
+
+VQ design information will be written to "EN.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.4549
+     1        10.5537          0.945
+     2        10.5786          0.237
+     3        10.6034          0.234
+     4        10.6285          0.237
+     5        10.6537          0.237
+     6        10.6772          0.220
+     7        10.6958          0.175
+     8        10.7124          0.155
+     9        10.7295          0.160
+    10        10.7444          0.139
+    11        10.7546          0.095
+    12        10.7617          0.066
+    13        10.7672          0.051
+    14        10.7721          0.045
+The mixture parameters have been written to "EN.2.gmp".
+3.2u 3.1s 0:07 87% 0+16044k 4+2io 4pf+0w
+
+Training set number 48
+EN.3.vecs -> EN.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EN.3.vecs.
+Done loading the training vectors.
+The training set contains 266 vectors.
+
+VQ design information will be written to "EN.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.6888
+     1         8.7573          0.788
+     2         8.8037          0.530
+     3         8.8310          0.310
+     4         8.8445          0.152
+     5         8.8467          0.025
+The mixture parameters have been written to "EN.3.gmp".
+2.0u 3.2s 0:07 73% 0+13820k 3+2io 3pf+0w
+
+Training set number 49
+ER.1.vecs -> ER.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from ER.1.vecs.
+Done loading the training vectors.
+The training set contains 3833 vectors.
+
+VQ design information will be written to "ER.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 7 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.0290
+     1         8.1411          1.396
+     2         8.1998          0.721
+     3         8.2483          0.591
+     4         8.2993          0.618
+     5         8.3560          0.684
+     6         8.4100          0.646
+     7         8.4505          0.482
+     8         8.4760          0.301
+     9         8.4923          0.193
+    10         8.5039          0.136
+    11         8.5125          0.102
+    12         8.5192          0.079
+    13         8.5246          0.063
+    14         8.5289          0.051
+    15         8.5325          0.042
+The mixture parameters have been written to "ER.1.gmp".
+37.9u 3.5s 0:51 80% 0+23536k 34+2io 34pf+0w
+
+Training set number 50
+ER.2.vecs -> ER.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from ER.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6884 vectors.
+
+VQ design information will be written to "ER.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        15.6863
+     1        15.7528          0.424
+     2        15.7715          0.119
+     3        15.7838          0.078
+     4        15.7940          0.065
+     5        15.8027          0.055
+     6        15.8099          0.046
+The mixture parameters have been written to "ER.2.gmp".
+35.5u 3.3s 1:22 47% 0+23588k 61+2io 61pf+0w
+
+Training set number 51
+ER.3.vecs -> ER.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from ER.3.vecs.
+Done loading the training vectors.
+The training set contains 3862 vectors.
+
+VQ design information will be written to "ER.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 7 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.7513
+     1         7.9013          1.934
+     2         8.0046          1.308
+     3         8.0661          0.768
+     4         8.1014          0.438
+     5         8.1239          0.278
+     6         8.1391          0.186
+     7         8.1486          0.117
+     8         8.1541          0.068
+     9         8.1574          0.040
+The mixture parameters have been written to "ER.3.gmp".
+24.9u 3.3s 1:01 45% 0+23060k 34+2io 34pf+0w
+
+Training set number 52
+EY.1.vecs -> EY.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EY.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6499 vectors.
+
+VQ design information will be written to "EY.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.9658
+     1         8.1647          2.497
+     2         8.2722          1.317
+     3         8.3470          0.904
+     4         8.3950          0.574
+     5         8.4200          0.299
+     6         8.4337          0.162
+     7         8.4415          0.093
+     8         8.4462          0.056
+     9         8.4492          0.035
+The mixture parameters have been written to "EY.1.gmp".
+46.9u 3.1s 1:38 51% 0+23932k 58+2io 58pf+0w
+
+Training set number 53
+EY.2.vecs -> EY.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EY.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 12159 vectors.
+
+VQ design information will be written to "EY.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.8491
+     1        14.9129          0.430
+     2        14.9361          0.155
+     3        14.9495          0.090
+     4        14.9592          0.065
+     5        14.9670          0.052
+     6        14.9735          0.043
+The mixture parameters have been written to "EY.2.gmp".
+62.2u 3.4s 2:03 53% 0+24228k 107+3io 107pf+0w
+
+Training set number 54
+EY.3.vecs -> EY.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from EY.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7560 vectors.
+
+VQ design information will be written to "EY.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.3194
+     1         7.4381          1.621
+     2         7.4756          0.504
+     3         7.4896          0.187
+     4         7.4961          0.087
+     5         7.4997          0.048
+The mixture parameters have been written to "EY.3.gmp".
+32.9u 3.3s 1:01 59% 0+23468k 67+2io 67pf+0w
+
+Training set number 55
+F.1.vecs -> F.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from F.1.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 17676 vectors.
+
+VQ design information will be written to "F.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.6575
+     1         9.7438          0.894
+     2         9.7875          0.448
+     3         9.8145          0.275
+     4         9.8333          0.191
+     5         9.8471          0.141
+     6         9.8577          0.107
+     7         9.8667          0.091
+     8         9.8758          0.092
+     9         9.8864          0.107
+    10         9.8994          0.131
+    11         9.9139          0.147
+    12         9.9273          0.135
+    13         9.9380          0.108
+    14         9.9462          0.082
+    15         9.9519          0.057
+    16         9.9557          0.038
+The mixture parameters have been written to "F.1.gmp".
+201.6u 3.4s 3:44 91% 0+24856k 156+2io 156pf+0w
+
+Training set number 56
+F.2.vecs -> F.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from F.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+ 30000
+ 35000
+Done loading the training vectors.
+The training set contains 37531 vectors.
+
+VQ design information will be written to "F.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.8973
+     1        13.9560          0.422
+     2        13.9806          0.176
+     3        14.0006          0.143
+     4        14.0222          0.154
+     5        14.0457          0.167
+     6        14.0687          0.164
+     7        14.0885          0.141
+     8        14.1044          0.113
+     9        14.1172          0.091
+    10        14.1278          0.075
+    11        14.1366          0.062
+    12        14.1438          0.051
+    13        14.1495          0.040
+The mixture parameters have been written to "F.2.gmp".
+346.2u 3.4s 5:58 97% 0+25044k 330+2io 330pf+0w
+
+Training set number 57
+F.3.vecs -> F.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from F.3.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 17723 vectors.
+
+VQ design information will be written to "F.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.4061
+     1         8.4599          0.640
+     2         8.4924          0.384
+     3         8.5291          0.431
+     4         8.5727          0.511
+     5         8.6189          0.540
+     6         8.6620          0.499
+     7         8.6990          0.428
+     8         8.7264          0.316
+     9         8.7447          0.209
+    10         8.7579          0.151
+    11         8.7687          0.124
+    12         8.7782          0.108
+    13         8.7867          0.097
+    14         8.7944          0.088
+    15         8.8018          0.084
+    16         8.8092          0.084
+    17         8.8167          0.085
+    18         8.8243          0.086
+    19         8.8320          0.087
+    20         8.8396          0.087
+The mixture parameters have been written to "F.3.gmp".
+250.6u 3.4s 4:36 91% 0+24908k 156+2io 156pf+0w
+
+Training set number 58
+G.1.vecs -> G.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from G.1.vecs.
+Done loading the training vectors.
+The training set contains 1675 vectors.
+
+VQ design information will be written to "G.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.2671
+     1         6.3152          0.768
+     2         6.3239          0.137
+     3         6.3263          0.038
+The mixture parameters have been written to "G.1.gmp".
+3.5u 3.3s 0:08 85% 0+16636k 15+2io 15pf+0w
+
+Training set number 59
+G.2.vecs -> G.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from G.2.vecs.
+Done loading the training vectors.
+The training set contains 2403 vectors.
+
+VQ design information will be written to "G.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 4 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.0867
+     1         5.1423          1.092
+     2         5.1567          0.281
+     3         5.1627          0.116
+     4         5.1658          0.059
+     5         5.1675          0.034
+The mixture parameters have been written to "G.2.gmp".
+7.1u 3.4s 0:11 94% 0+19640k 22+2io 22pf+0w
+
+Training set number 60
+G.3.vecs -> G.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from G.3.vecs.
+Done loading the training vectors.
+The training set contains 2296 vectors.
+
+VQ design information will be written to "G.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 4 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.4256
+     1         5.4837          1.070
+     2         5.5053          0.394
+     3         5.5163          0.201
+     4         5.5218          0.099
+     5         5.5248          0.054
+     6         5.5266          0.033
+The mixture parameters have been written to "G.3.gmp".
+7.7u 3.2s 0:11 92% 0+19828k 21+2io 21pf+0w
+
+Training set number 61
+HH.1.vecs -> HH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from HH.1.vecs.
+Done loading the training vectors.
+The training set contains 2625 vectors.
+
+VQ design information will be written to "HH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 4 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.6670
+     1         6.7603          1.400
+     2         6.7860          0.380
+     3         6.8011          0.222
+     4         6.8114          0.152
+     5         6.8163          0.072
+     6         6.8186          0.034
+The mixture parameters have been written to "HH.1.gmp".
+8.5u 3.3s 0:12 92% 0+20268k 24+2io 24pf+0w
+
+Training set number 62
+HH.2.vecs -> HH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from HH.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6578 vectors.
+
+VQ design information will be written to "HH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.1598
+     1        13.3638          1.550
+     2        13.4084          0.334
+     3        13.4279          0.145
+     4        13.4386          0.079
+     5        13.4453          0.050
+     6        13.4500          0.035
+The mixture parameters have been written to "HH.2.gmp".
+33.1u 3.4s 0:41 88% 0+23508k 58+3io 58pf+0w
+
+Training set number 63
+HH.3.vecs -> HH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from HH.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6678 vectors.
+
+VQ design information will be written to "HH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.5237
+     1        14.7790          1.758
+     2        14.8820          0.697
+     3        14.9332          0.344
+     4        14.9720          0.260
+     5        15.0019          0.200
+     6        15.0194          0.116
+     7        15.0280          0.057
+     8        15.0322          0.028
+The mixture parameters have been written to "HH.3.gmp".
+42.7u 3.2s 0:49 93% 0+23832k 59+2io 59pf+0w
+
+Training set number 64
+IH.1.vecs -> IH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IH.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 8937 vectors.
+
+VQ design information will be written to "IH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.0688
+     1         6.1686          1.645
+     2         6.2111          0.689
+     3         6.2372          0.420
+     4         6.2529          0.251
+     5         6.2619          0.144
+     6         6.2666          0.075
+     7         6.2692          0.042
+The mixture parameters have been written to "IH.1.gmp".
+51.3u 3.3s 0:58 93% 0+24044k 79+2io 79pf+0w
+
+Training set number 65
+IH.2.vecs -> IH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IH.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 10423 vectors.
+
+VQ design information will be written to "IH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.1967
+     1        10.3338          1.344
+     2        10.4043          0.682
+     3        10.4519          0.458
+     4        10.4909          0.373
+     5        10.5238          0.313
+     6        10.5497          0.246
+     7        10.5692          0.185
+     8        10.5844          0.144
+     9        10.5970          0.119
+    10        10.6079          0.103
+    11        10.6174          0.090
+    12        10.6254          0.075
+    13        10.6318          0.061
+    14        10.6369          0.047
+The mixture parameters have been written to "IH.2.gmp".
+108.2u 3.3s 1:56 96% 0+24588k 92+2io 92pf+0w
+
+Training set number 66
+IH.3.vecs -> IH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IH.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6722 vectors.
+
+VQ design information will be written to "IH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.1515
+     1         7.2381          1.211
+     2         7.2766          0.532
+     3         7.2989          0.307
+     4         7.3140          0.207
+     5         7.3243          0.141
+     6         7.3312          0.094
+     7         7.3368          0.076
+     8         7.3421          0.072
+     9         7.3471          0.068
+    10         7.3515          0.060
+    11         7.3552          0.050
+    12         7.3581          0.040
+The mixture parameters have been written to "IH.3.gmp".
+60.7u 3.3s 1:10 91% 0+24200k 60+2io 60pf+0w
+
+Training set number 67
+IX.1.vecs -> IX.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IX.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7973 vectors.
+
+VQ design information will be written to "IX.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.6270
+     1         6.7281          1.525
+     2         6.7809          0.785
+     3         6.8067          0.381
+     4         6.8210          0.209
+     5         6.8297          0.128
+     6         6.8353          0.082
+     7         6.8392          0.056
+     8         6.8420          0.042
+The mixture parameters have been written to "IX.1.gmp".
+50.3u 3.4s 0:59 90% 0+24016k 71+2io 71pf+0w
+
+Training set number 68
+IX.2.vecs -> IX.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IX.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7884 vectors.
+
+VQ design information will be written to "IX.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.4599
+     1         8.6339          2.057
+     2         8.7100          0.881
+     3         8.7493          0.451
+     4         8.7741          0.283
+     5         8.7913          0.196
+     6         8.8039          0.144
+     7         8.8132          0.106
+     8         8.8200          0.076
+     9         8.8247          0.054
+    10         8.8281          0.038
+The mixture parameters have been written to "IX.2.gmp".
+61.9u 3.3s 1:09 93% 0+24212k 70+2io 70pf+0w
+
+Training set number 69
+IX.3.vecs -> IX.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IX.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6621 vectors.
+
+VQ design information will be written to "IX.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.5366
+     1         6.6149          1.198
+     2         6.6593          0.672
+     3         6.6977          0.576
+     4         6.7300          0.482
+     5         6.7577          0.412
+     6         6.7845          0.397
+     7         6.8102          0.379
+     8         6.8318          0.316
+     9         6.8475          0.230
+    10         6.8585          0.161
+    11         6.8673          0.129
+    12         6.8752          0.115
+    13         6.8820          0.099
+    14         6.8877          0.083
+    15         6.8923          0.066
+    16         6.8958          0.051
+    17         6.8985          0.039
+The mixture parameters have been written to "IX.3.gmp".
+83.5u 3.2s 1:33 92% 0+24420k 59+2io 59pf+0w
+
+Training set number 70
+IY.1.vecs -> IY.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IY.1.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 13654 vectors.
+
+VQ design information will be written to "IY.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.6012
+     1         7.7139          1.482
+     2         7.7772          0.821
+     3         7.8267          0.636
+     4         7.8699          0.552
+     5         7.9078          0.481
+     6         7.9390          0.395
+     7         7.9633          0.306
+     8         7.9826          0.243
+     9         7.9986          0.201
+    10         8.0120          0.167
+    11         8.0230          0.138
+    12         8.0325          0.117
+    13         8.0407          0.102
+    14         8.0479          0.090
+    15         8.0543          0.079
+    16         8.0597          0.066
+    17         8.0640          0.053
+    18         8.0675          0.044
+The mixture parameters have been written to "IY.1.gmp".
+176.1u 3.3s 3:13 92% 0+24796k 121+3io 121pf+0w
+
+Training set number 71
+IY.2.vecs -> IY.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IY.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 23333 vectors.
+
+VQ design information will be written to "IY.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.4185
+     1        14.5135          0.658
+     2        14.5565          0.296
+     3        14.5898          0.229
+     4        14.6208          0.212
+     5        14.6463          0.175
+     6        14.6637          0.119
+     7        14.6745          0.074
+     8        14.6816          0.049
+The mixture parameters have been written to "IY.2.gmp".
+147.4u 3.5s 2:41 93% 0+24764k 206+2io 206pf+0w
+
+Training set number 72
+IY.3.vecs -> IY.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from IY.3.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 17298 vectors.
+
+VQ design information will be written to "IY.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.9477
+     1         7.1112          2.353
+     2         7.1916          1.130
+     3         7.2306          0.543
+     4         7.2504          0.274
+     5         7.2625          0.166
+     6         7.2709          0.115
+     7         7.2771          0.086
+     8         7.2819          0.066
+     9         7.2856          0.051
+    10         7.2884          0.039
+The mixture parameters have been written to "IY.3.gmp".
+135.6u 3.2s 2:30 92% 0+24712k 153+2io 153pf+0w
+
+Training set number 73
+JH.1.vecs -> JH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from JH.1.vecs.
+Done loading the training vectors.
+The training set contains 421 vectors.
+
+VQ design information will be written to "JH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.1801
+     1         5.3573          3.422
+     2         5.3854          0.525
+     3         5.3877          0.043
+The mixture parameters have been written to "JH.1.gmp".
+1.8u 3.3s 0:06 82% 0+14012k 4+2io 4pf+0w
+
+Training set number 74
+JH.2.vecs -> JH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from JH.2.vecs.
+Done loading the training vectors.
+The training set contains 569 vectors.
+
+VQ design information will be written to "JH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.9288
+     1         7.0388          1.588
+     2         7.0567          0.255
+     3         7.0624          0.081
+     4         7.0645          0.029
+The mixture parameters have been written to "JH.2.gmp".
+2.2u 3.3s 0:06 81% 0+14756k 6+2io 6pf+0w
+
+Training set number 75
+JH.3.vecs -> JH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from JH.3.vecs.
+Done loading the training vectors.
+The training set contains 622 vectors.
+
+VQ design information will be written to "JH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.0351
+     1         6.1521          1.938
+     2         6.2268          1.214
+     3         6.2611          0.551
+     4         6.2790          0.286
+     5         6.2905          0.184
+     6         6.2977          0.114
+     7         6.3016          0.062
+     8         6.3035          0.029
+The mixture parameters have been written to "JH.3.gmp".
+3.0u 3.3s 0:06 93% 0+16084k 6+2io 6pf+0w
+
+Training set number 76
+K.1.vecs -> K.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from K.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7124 vectors.
+
+VQ design information will be written to "K.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         4.7847
+     1         4.9098          2.614
+     2         4.9612          1.047
+     3         4.9911          0.604
+     4         5.0149          0.476
+     5         5.0390          0.481
+     6         5.0664          0.544
+     7         5.0937          0.539
+     8         5.1202          0.520
+     9         5.1512          0.605
+    10         5.1904          0.762
+    11         5.2064          0.308
+    12         5.2104          0.077
+    13         5.2125          0.039
+The mixture parameters have been written to "K.1.gmp".
+69.9u 3.3s 1:19 92% 0+24300k 63+2io 63pf+0w
+
+Training set number 77
+K.2.vecs -> K.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from K.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 10714 vectors.
+
+VQ design information will be written to "K.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.3134
+     1         7.4138          1.373
+     2         7.4562          0.571
+     3         7.4790          0.306
+     4         7.4924          0.180
+     5         7.5015          0.121
+     6         7.5079          0.086
+     7         7.5130          0.068
+     8         7.5176          0.060
+     9         7.5219          0.058
+    10         7.5263          0.058
+    11         7.5307          0.059
+    12         7.5351          0.058
+    13         7.5393          0.056
+    14         7.5432          0.052
+    15         7.5469          0.049
+The mixture parameters have been written to "K.2.gmp".
+120.5u 3.4s 2:12 93% 0+24636k 95+2io 95pf+0w
+
+Training set number 78
+K.3.vecs -> K.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from K.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 8495 vectors.
+
+VQ design information will be written to "K.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.3562
+     1         5.4570          1.883
+     2         5.4995          0.779
+     3         5.5258          0.478
+     4         5.5517          0.469
+     5         5.5823          0.550
+     6         5.6134          0.558
+     7         5.6354          0.392
+     8         5.6471          0.207
+     9         5.6534          0.112
+    10         5.6574          0.071
+    11         5.6603          0.052
+    12         5.6627          0.042
+The mixture parameters have been written to "K.3.gmp".
+77.9u 3.3s 1:30 90% 0+24376k 75+2io 75pf+0w
+
+Training set number 79
+L.1.vecs -> L.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from L.1.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 17645 vectors.
+
+VQ design information will be written to "L.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.9668
+     1         8.0460          0.994
+     2         8.0754          0.366
+     3         8.0922          0.207
+     4         8.1042          0.149
+     5         8.1139          0.120
+     6         8.1226          0.107
+     7         8.1307          0.100
+     8         8.1383          0.093
+     9         8.1449          0.081
+    10         8.1505          0.069
+    11         8.1553          0.059
+    12         8.1596          0.052
+    13         8.1635          0.048
+The mixture parameters have been written to "L.1.gmp".
+169.3u 3.3s 3:09 90% 0+24796k 156+3io 156pf+0w
+
+Training set number 80
+L.2.vecs -> L.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from L.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 20046 vectors.
+
+VQ design information will be written to "L.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.6209
+     1         9.7793          1.646
+     2         9.8783          1.013
+     3         9.9467          0.692
+     4         9.9907          0.443
+     5        10.0220          0.313
+     6        10.0470          0.249
+     7        10.0664          0.193
+     8        10.0800          0.135
+     9        10.0891          0.090
+    10        10.0955          0.063
+    11        10.1002          0.047
+The mixture parameters have been written to "L.2.gmp".
+167.2u 3.3s 3:08 90% 0+24800k 177+2io 177pf+0w
+
+Training set number 81
+L.3.vecs -> L.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from L.3.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 16576 vectors.
+
+VQ design information will be written to "L.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.4354
+     1         8.5563          1.433
+     2         8.6141          0.676
+     3         8.6537          0.460
+     4         8.6854          0.365
+     5         8.7092          0.274
+     6         8.7248          0.180
+     7         8.7344          0.109
+     8         8.7403          0.068
+     9         8.7443          0.045
+The mixture parameters have been written to "L.3.gmp".
+115.9u 3.1s 2:06 93% 0+24628k 146+2io 146pf+0w
+
+Training set number 82
+M.1.vecs -> M.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from M.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7608 vectors.
+
+VQ design information will be written to "M.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.5134
+     1         9.5952          0.861
+     2         9.6298          0.360
+     3         9.6493          0.202
+     4         9.6616          0.128
+     5         9.6699          0.086
+     6         9.6755          0.058
+     7         9.6793          0.039
+The mixture parameters have been written to "M.1.gmp".
+44.3u 3.3s 0:53 89% 0+23868k 67+2io 67pf+0w
+
+Training set number 83
+M.2.vecs -> M.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from M.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 13314 vectors.
+
+VQ design information will be written to "M.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.4083
+     1        13.4988          0.675
+     2        13.5507          0.385
+     3        13.5984          0.352
+     4        13.6567          0.429
+     5        13.7255          0.503
+     6        13.7749          0.360
+     7        13.8045          0.215
+     8        13.8216          0.124
+     9        13.8323          0.077
+    10        13.8398          0.055
+    11        13.8457          0.042
+The mixture parameters have been written to "M.2.gmp".
+111.0u 3.2s 2:04 91% 0+24608k 118+2io 118pf+0w
+
+Training set number 84
+M.3.vecs -> M.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from M.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9476 vectors.
+
+VQ design information will be written to "M.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.5479
+     1         7.6366          1.175
+     2         7.6832          0.609
+     3         7.7062          0.299
+     4         7.7185          0.161
+     5         7.7263          0.101
+     6         7.7314          0.066
+     7         7.7348          0.044
+The mixture parameters have been written to "M.3.gmp".
+54.0u 3.3s 1:07 85% 0+24096k 84+2io 84pf+0w
+
+Training set number 85
+N.1.vecs -> N.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from N.1.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 20943 vectors.
+
+VQ design information will be written to "N.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.7712
+     1         8.9180          1.674
+     2         8.9943          0.856
+     3         9.0385          0.491
+     4         9.0681          0.328
+     5         9.0917          0.260
+     6         9.1124          0.228
+     7         9.1313          0.207
+     8         9.1480          0.184
+     9         9.1623          0.156
+    10         9.1735          0.123
+    11         9.1820          0.092
+    12         9.1883          0.069
+    13         9.1931          0.053
+    14         9.1972          0.044
+The mixture parameters have been written to "N.1.gmp".
+213.2u 3.5s 3:55 92% 0+24872k 185+2io 185pf+0w
+
+Training set number 86
+N.2.vecs -> N.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from N.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+Done loading the training vectors.
+The training set contains 28020 vectors.
+
+VQ design information will be written to "N.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        12.0263
+     1        12.2042          1.479
+     2        12.2863          0.673
+     3        12.3321          0.373
+     4        12.3601          0.227
+     5        12.3786          0.150
+     6        12.3921          0.109
+     7        12.4028          0.086
+     8        12.4120          0.075
+     9        12.4206          0.069
+    10        12.4284          0.062
+    11        12.4354          0.057
+    12        12.4422          0.054
+    13        12.4486          0.052
+    14        12.4545          0.048
+The mixture parameters have been written to "N.2.gmp".
+289.6u 3.5s 5:21 91% 0+24972k 247+2io 247pf+0w
+
+Training set number 87
+N.3.vecs -> N.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from N.3.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 20819 vectors.
+
+VQ design information will be written to "N.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.7284
+     1         6.8306          1.520
+     2         6.8752          0.652
+     3         6.9002          0.364
+     4         6.9164          0.236
+     5         6.9280          0.168
+     6         6.9365          0.122
+     7         6.9425          0.087
+     8         6.9468          0.061
+     9         6.9498          0.043
+The mixture parameters have been written to "N.3.gmp".
+143.2u 3.2s 2:43 89% 0+24748k 183+3io 183pf+0w
+
+Training set number 88
+NG.1.vecs -> NG.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from NG.1.vecs.
+Done loading the training vectors.
+The training set contains 3189 vectors.
+
+VQ design information will be written to "NG.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 5 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.5114
+     1        10.6645          1.457
+     2        10.8027          1.295
+     3        10.9272          1.152
+     4        11.0025          0.689
+     5        11.0391          0.333
+     6        11.0591          0.181
+     7        11.0706          0.104
+     8        11.0781          0.067
+     9        11.0836          0.050
+The mixture parameters have been written to "NG.1.gmp".
+16.2u 3.2s 0:20 94% 0+22128k 29+2io 29pf+0w
+
+Training set number 89
+NG.2.vecs -> NG.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from NG.2.vecs.
+Done loading the training vectors.
+The training set contains 2848 vectors.
+
+VQ design information will be written to "NG.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 5 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.0145
+     1        13.1407          0.969
+     2        13.1975          0.432
+     3        13.2316          0.259
+     4        13.2524          0.157
+     5        13.2659          0.102
+     6        13.2760          0.076
+     7        13.2840          0.060
+     8        13.2906          0.049
+The mixture parameters have been written to "NG.2.gmp".
+13.9u 3.2s 0:17 95% 0+21688k 26+2io 26pf+0w
+
+Training set number 90
+NG.3.vecs -> NG.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from NG.3.vecs.
+Done loading the training vectors.
+The training set contains 2282 vectors.
+
+VQ design information will be written to "NG.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 4 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.6875
+     1         6.7136          0.391
+     2         6.7251          0.171
+     3         6.7346          0.141
+     4         6.7437          0.135
+     5         6.7534          0.144
+     6         6.7661          0.187
+     7         6.7867          0.306
+     8         6.8293          0.628
+     9         6.9294          1.465
+    10         7.0251          1.382
+    11         7.0581          0.470
+    12         7.0663          0.115
+    13         7.0685          0.032
+The mixture parameters have been written to "NG.3.gmp".
+13.8u 3.2s 0:17 96% 0+21672k 21+2io 21pf+0w
+
+Training set number 91
+OW.1.vecs -> OW.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from OW.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7058 vectors.
+
+VQ design information will be written to "OW.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.2575
+     1         9.4767          2.368
+     2         9.5718          1.004
+     3         9.6120          0.419
+     4         9.6299          0.187
+     5         9.6396          0.100
+     6         9.6455          0.061
+     7         9.6494          0.040
+The mixture parameters have been written to "OW.1.gmp".
+40.9u 3.4s 0:46 95% 0+23780k 63+2io 63pf+0w
+
+Training set number 92
+OW.2.vecs -> OW.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from OW.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 11211 vectors.
+
+VQ design information will be written to "OW.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.0056
+     1        14.0939          0.630
+     2        14.1491          0.392
+     3        14.1934          0.313
+     4        14.2280          0.244
+     5        14.2543          0.185
+     6        14.2725          0.128
+     7        14.2845          0.084
+     8        14.2927          0.057
+     9        14.2985          0.041
+The mixture parameters have been written to "OW.2.gmp".
+78.2u 3.0s 1:29 90% 0+24392k 99+2io 99pf+0w
+
+Training set number 93
+OW.3.vecs -> OW.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from OW.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 8987 vectors.
+
+VQ design information will be written to "OW.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.0981
+     1         7.1855          1.232
+     2         7.2343          0.680
+     3         7.2741          0.549
+     4         7.3103          0.498
+     5         7.3417          0.429
+     6         7.3666          0.340
+     7         7.3849          0.248
+     8         7.3977          0.174
+     9         7.4065          0.118
+    10         7.4124          0.080
+    11         7.4167          0.058
+    12         7.4201          0.046
+The mixture parameters have been written to "OW.3.gmp".
+79.1u 3.2s 1:28 93% 0+24392k 79+2io 79pf+0w
+
+Training set number 94
+OY.1.vecs -> OY.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from OY.1.vecs.
+Done loading the training vectors.
+The training set contains 692 vectors.
+
+VQ design information will be written to "OY.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        15.8206
+     1        15.8606          0.253
+     2        15.8693          0.055
+     3        15.8728          0.022
+The mixture parameters have been written to "OY.1.gmp".
+2.3u 3.2s 0:09 57% 0+14728k 7+2io 7pf+0w
+
+Training set number 95
+OY.2.vecs -> OY.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from OY.2.vecs.
+Done loading the training vectors.
+The training set contains 631 vectors.
+
+VQ design information will be written to "OY.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.6037
+     1        13.6622          0.430
+     2        13.6902          0.205
+     3        13.7138          0.173
+     4        13.7399          0.190
+     5        13.7680          0.205
+     6        13.7847          0.121
+     7        13.7992          0.105
+     8        13.8129          0.100
+     9        13.8223          0.067
+    10        13.8270          0.035
+The mixture parameters have been written to "OY.2.gmp".
+3.5u 3.2s 0:08 83% 0+16536k 6+2io 6pf+0w
+
+Training set number 96
+OY.3.vecs -> OY.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from OY.3.vecs.
+Done loading the training vectors.
+The training set contains 647 vectors.
+
+VQ design information will be written to "OY.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.4643
+     1         9.5505          0.911
+     2         9.5792          0.300
+     3         9.5881          0.093
+     4         9.5919          0.039
+The mixture parameters have been written to "OY.3.gmp".
+2.4u 3.2s 0:11 49% 0+14860k 6+3io 6pf+0w
+
+Training set number 97
+P.1.vecs -> P.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from P.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5756 vectors.
+
+VQ design information will be written to "P.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.5991
+     1         8.6770          0.906
+     2         8.7231          0.531
+     3         8.7736          0.579
+     4         8.8096          0.410
+     5         8.8291          0.221
+     6         8.8413          0.138
+     7         8.8499          0.097
+     8         8.8562          0.071
+     9         8.8608          0.052
+    10         8.8643          0.039
+The mixture parameters have been written to "P.1.gmp".
+44.1u 3.2s 0:48 97% 0+23888k 51+2io 51pf+0w
+
+Training set number 98
+P.2.vecs -> P.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from P.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9294 vectors.
+
+VQ design information will be written to "P.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.7946
+     1        10.9271          1.227
+     2        10.9927          0.600
+     3        11.0344          0.379
+     4        11.0594          0.226
+     5        11.0741          0.133
+     6        11.0839          0.089
+     7        11.0907          0.062
+     8        11.0953          0.042
+The mixture parameters have been written to "P.2.gmp".
+59.0u 3.2s 1:03 97% 0+24176k 82+2io 82pf+0w
+
+Training set number 99
+P.3.vecs -> P.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from P.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5492 vectors.
+
+VQ design information will be written to "P.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.3106
+     1         6.4276          1.854
+     2         6.4759          0.751
+     3         6.4951          0.297
+     4         6.5037          0.133
+     5         6.5086          0.074
+     6         6.5117          0.049
+The mixture parameters have been written to "P.3.gmp".
+28.2u 3.3s 0:32 96% 0+23272k 49+2io 49pf+0w
+
+Training set number 100
+R.1.vecs -> R.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from R.1.vecs.
+  5000
+ 10000
+ 15000
+Done loading the training vectors.
+The training set contains 15884 vectors.
+
+VQ design information will be written to "R.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.3148
+     1        10.4794          1.596
+     2        10.5463          0.638
+     3        10.5880          0.396
+     4        10.6150          0.254
+     5        10.6307          0.148
+     6        10.6399          0.087
+     7        10.6462          0.059
+     8        10.6512          0.047
+The mixture parameters have been written to "R.1.gmp".
+96.6u 3.2s 1:42 97% 0+24552k 140+2io 140pf+0w
+
+Training set number 101
+R.2.vecs -> R.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from R.2.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 10090 vectors.
+
+VQ design information will be written to "R.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.8075
+     1         7.8906          1.065
+     2         7.9335          0.544
+     3         7.9617          0.356
+     4         7.9881          0.332
+     5         8.0172          0.364
+     6         8.0453          0.350
+     7         8.0701          0.308
+     8         8.0907          0.256
+     9         8.1068          0.198
+    10         8.1183          0.142
+    11         8.1260          0.094
+    12         8.1309          0.061
+    13         8.1342          0.041
+The mixture parameters have been written to "R.2.gmp".
+95.1u 3.2s 1:49 90% 0+24524k 89+2io 89pf+0w
+
+Training set number 102
+R.3.vecs -> R.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from R.3.vecs.
+  5000
+ 10000
+Done loading the training vectors.
+The training set contains 13284 vectors.
+
+VQ design information will be written to "R.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.0663
+     1         6.1512          1.399
+     2         6.1857          0.561
+     3         6.2069          0.342
+     4         6.2245          0.285
+     5         6.2423          0.284
+     6         6.2595          0.276
+     7         6.2747          0.242
+     8         6.2881          0.214
+     9         6.3013          0.210
+    10         6.3137          0.196
+    11         6.3223          0.136
+    12         6.3276          0.084
+    13         6.3310          0.053
+    14         6.3332          0.036
+The mixture parameters have been written to "R.3.gmp".
+133.9u 3.4s 2:23 95% 0+24684k 117+2io 117pf+0w
+
+Training set number 103
+S.1.vecs -> S.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from S.1.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 24623 vectors.
+
+VQ design information will be written to "S.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.9483
+     1         7.0076          0.853
+     2         7.0275          0.285
+     3         7.0363          0.125
+     4         7.0406          0.061
+     5         7.0429          0.033
+The mixture parameters have been written to "S.1.gmp".
+104.0u 3.3s 2:08 83% 0+24620k 217+2io 217pf+0w
+
+Training set number 104
+S.2.vecs -> S.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from S.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+ 30000
+ 35000
+Done loading the training vectors.
+The training set contains 39340 vectors.
+
+VQ design information will be written to "S.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        11.9826
+     1        12.0604          0.649
+     2        12.0934          0.274
+     3        12.1121          0.155
+     4        12.1240          0.098
+     5        12.1324          0.069
+     6        12.1393          0.057
+     7        12.1457          0.052
+     8        12.1520          0.052
+     9        12.1587          0.055
+    10        12.1657          0.058
+    11        12.1726          0.056
+    12        12.1786          0.049
+The mixture parameters have been written to "S.2.gmp".
+338.7u 3.5s 6:07 93% 0+25048k 346+2io 346pf+0w
+
+Training set number 105
+S.3.vecs -> S.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from S.3.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+Done loading the training vectors.
+The training set contains 27724 vectors.
+
+VQ design information will be written to "S.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.1098
+     1         6.2054          1.564
+     2         6.2570          0.831
+     3         6.2908          0.540
+     4         6.3132          0.356
+     5         6.3291          0.253
+     6         6.3419          0.201
+     7         6.3525          0.167
+     8         6.3610          0.134
+     9         6.3675          0.103
+    10         6.3725          0.078
+    11         6.3765          0.062
+    12         6.3797          0.051
+    13         6.3825          0.044
+The mixture parameters have been written to "S.3.gmp".
+258.2u 3.5s 4:24 98% 0+24948k 244+3io 244pf+0w
+
+Training set number 106
+SH.1.vecs -> SH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from SH.1.vecs.
+Done loading the training vectors.
+The training set contains 4220 vectors.
+
+VQ design information will be written to "SH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 7 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.6240
+     1         7.6993          0.987
+     2         7.7496          0.653
+     3         7.7929          0.560
+     4         7.8306          0.484
+     5         7.8587          0.358
+     6         7.8766          0.228
+     7         7.8886          0.152
+     8         7.8972          0.109
+     9         7.9036          0.081
+    10         7.9085          0.061
+    11         7.9122          0.047
+The mixture parameters have been written to "SH.1.gmp".
+31.3u 3.1s 0:35 97% 0+23412k 38+2io 38pf+0w
+
+Training set number 107
+SH.2.vecs -> SH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from SH.2.vecs.
+Done loading the training vectors.
+The training set contains 4740 vectors.
+
+VQ design information will be written to "SH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.4308
+     1        13.4834          0.391
+     2        13.5046          0.157
+     3        13.5171          0.092
+     4        13.5262          0.068
+     5        13.5337          0.056
+     6        13.5405          0.050
+The mixture parameters have been written to "SH.2.gmp".
+24.4u 3.1s 0:28 96% 0+23032k 42+2io 42pf+0w
+
+Training set number 108
+SH.3.vecs -> SH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from SH.3.vecs.
+Done loading the training vectors.
+The training set contains 3725 vectors.
+
+VQ design information will be written to "SH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 6 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.0645
+     1         8.1290          0.801
+     2         8.1516          0.277
+     3         8.1630          0.140
+     4         8.1709          0.096
+     5         8.1765          0.069
+     6         8.1803          0.047
+The mixture parameters have been written to "SH.3.gmp".
+15.6u 3.2s 0:19 96% 0+22056k 33+2io 33pf+0w
+
+Training set number 109
+SIL.1.vecs -> SIL.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from SIL.1.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+ 30000
+ 35000
+ 40000
+ 45000
+ 50000
+ 55000
+ 60000
+ 65000
+ 70000
+ 75000
+ 80000
+ 85000
+ 90000
+ 95000
+100000
+105000
+110000
+115000
+120000
+125000
+130000
+135000
+140000
+145000
+150000
+155000
+160000
+165000
+Done loading the training vectors.
+The training set contains 169702 vectors.
+
+VQ design information will be written to "SIL.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        14.9032
+     1        15.1713          1.799
+     2        15.3053          0.883
+     3        15.3756          0.459
+     4        15.4107          0.228
+     5        15.4273          0.108
+     6        15.4365          0.059
+     7        15.4429          0.041
+The mixture parameters have been written to "SIL.1.gmp".
+898.2u 4.9s 15:18 98% 0+25656k 1492+2io 1492pf+0w
+
+Training set number 110
+SIL.2.vecs -> SIL.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from SIL.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+ 30000
+ 35000
+ 40000
+ 45000
+ 50000
+ 55000
+ 60000
+ 65000
+ 70000
+ 75000
+ 80000
+ 85000
+ 90000
+ 95000
+100000
+105000
+110000
+115000
+120000
+125000
+130000
+135000
+140000
+145000
+150000
+155000
+160000
+165000
+170000
+175000
+180000
+185000
+190000
+195000
+200000
+205000
+210000
+215000
+220000
+225000
+230000
+235000
+240000
+245000
+250000
+255000
+260000
+265000
+270000
+275000
+280000
+285000
+290000
+295000
+300000
+Done loading the training vectors.
+The training set contains 300000 vectors.
+
+VQ design information will be written to "SIL.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        19.1027
+     1        19.1999          0.508
+     2        19.2857          0.447
+     3        19.3557          0.363
+     4        19.4029          0.244
+     5        19.4312          0.146
+     6        19.4459          0.076
+     7        19.4528          0.035
+The mixture parameters have been written to "SIL.2.gmp".
+1606.9u 6.5s 28:17 95% 0+26184k 2638+2io 2638pf+0w
+
+Training set number 111
+SIL.3.vecs -> SIL.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from SIL.3.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+ 30000
+ 35000
+ 40000
+ 45000
+ 50000
+ 55000
+ 60000
+ 65000
+ 70000
+ 75000
+ 80000
+ 85000
+ 90000
+Done loading the training vectors.
+The training set contains 90443 vectors.
+
+VQ design information will be written to "SIL.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.9396
+     1        11.1759          2.160
+     2        11.2951          1.066
+     3        11.3590          0.566
+     4        11.3969          0.333
+     5        11.4220          0.221
+     6        11.4406          0.162
+     7        11.4552          0.128
+     8        11.4672          0.105
+     9        11.4774          0.089
+    10        11.4863          0.077
+    11        11.4941          0.068
+    12        11.5010          0.059
+    13        11.5067          0.050
+The mixture parameters have been written to "SIL.3.gmp".
+847.9u 4.2s 14:32 97% 0+25348k 795+2io 795pf+0w
+
+Training set number 112
+T.1.vecs -> T.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from T.1.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 22643 vectors.
+
+VQ design information will be written to "T.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.7784
+     1         5.9202          2.454
+     2         5.9716          0.868
+     3         5.9968          0.423
+     4         6.0134          0.277
+     5         6.0260          0.209
+     6         6.0357          0.161
+     7         6.0432          0.125
+     8         6.0493          0.101
+     9         6.0546          0.087
+    10         6.0595          0.081
+    11         6.0645          0.083
+    12         6.0702          0.093
+    13         6.0773          0.118
+    14         6.0889          0.191
+    15         6.1117          0.374
+    16         6.1344          0.371
+    17         6.1401          0.093
+    18         6.1423          0.035
+The mixture parameters have been written to "T.1.gmp".
+283.9u 3.6s 4:51 98% 0+24948k 202+2io 206pf+0w
+
+Training set number 113
+T.2.vecs -> T.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from T.2.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+ 25000
+ 30000
+Done loading the training vectors.
+The training set contains 30777 vectors.
+
+VQ design information will be written to "T.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.2328
+     1         7.4055          2.388
+     2         7.4559          0.680
+     3         7.4735          0.237
+     4         7.4816          0.108
+     5         7.4863          0.063
+     6         7.4895          0.042
+The mixture parameters have been written to "T.2.gmp".
+148.0u 3.5s 2:34 97% 0+24800k 271+3io 271pf+0w
+
+Training set number 114
+T.3.vecs -> T.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from T.3.vecs.
+  5000
+ 10000
+ 15000
+ 20000
+Done loading the training vectors.
+The training set contains 23857 vectors.
+
+VQ design information will be written to "T.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.1851
+     1         5.2899          2.021
+     2         5.3416          0.978
+     3         5.3699          0.530
+     4         5.3847          0.275
+     5         5.3925          0.144
+     6         5.3968          0.081
+     7         5.3996          0.050
+     8         5.4014          0.035
+The mixture parameters have been written to "T.3.gmp".
+146.7u 3.3s 2:32 98% 0+24776k 210+2io 210pf+0w
+
+Training set number 115
+TH.1.vecs -> TH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from TH.1.vecs.
+Done loading the training vectors.
+The training set contains 4049 vectors.
+
+VQ design information will be written to "TH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 7 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        10.4252
+     1        10.5857          1.539
+     2        10.6698          0.794
+     3        10.7083          0.361
+     4        10.7288          0.192
+     5        10.7430          0.132
+     6        10.7543          0.105
+     7        10.7621          0.073
+     8        10.7667          0.042
+The mixture parameters have been written to "TH.1.gmp".
+23.4u 3.1s 0:27 96% 0+22944k 36+2io 36pf+0w
+
+Training set number 116
+TH.2.vecs -> TH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from TH.2.vecs.
+Done loading the training vectors.
+The training set contains 4778 vectors.
+
+VQ design information will be written to "TH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.3442
+     1        13.4789          1.010
+     2        13.5339          0.408
+     3        13.5582          0.180
+     4        13.5699          0.086
+     5        13.5763          0.047
+The mixture parameters have been written to "TH.2.gmp".
+21.4u 3.0s 0:27 90% 0+22772k 42+2io 42pf+0w
+
+Training set number 117
+TH.3.vecs -> TH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from TH.3.vecs.
+Done loading the training vectors.
+The training set contains 1891 vectors.
+
+VQ design information will be written to "TH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.7405
+     1         6.8094          1.023
+     2         6.8336          0.356
+     3         6.8421          0.125
+     4         6.8454          0.048
+The mixture parameters have been written to "TH.3.gmp".
+4.4u 3.2s 0:08 90% 0+17648k 17+2io 17pf+0w
+
+Training set number 118
+UH.1.vecs -> UH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from UH.1.vecs.
+Done loading the training vectors.
+The training set contains 590 vectors.
+
+VQ design information will be written to "UH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.2292
+     1         7.4189          2.624
+     2         7.6269          2.804
+     3         7.7471          1.576
+     4         7.8044          0.740
+     5         7.8194          0.192
+     6         7.8225          0.040
+The mixture parameters have been written to "UH.1.gmp".
+2.7u 3.0s 0:06 91% 0+15304k 6+2io 6pf+0w
+
+Training set number 119
+UH.2.vecs -> UH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from UH.2.vecs.
+Done loading the training vectors.
+The training set contains 728 vectors.
+
+VQ design information will be written to "UH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.5900
+     1         8.9476          4.163
+     2         9.1092          1.807
+     3         9.1482          0.428
+     4         9.1554          0.079
+     5         9.1571          0.019
+The mixture parameters have been written to "UH.2.gmp".
+2.8u 3.0s 0:06 93% 0+15372k 7+2io 7pf+0w
+
+Training set number 120
+UH.3.vecs -> UH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from UH.3.vecs.
+Done loading the training vectors.
+The training set contains 423 vectors.
+
+VQ design information will be written to "UH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.1478
+     1         6.1746          0.436
+     2         6.1832          0.139
+     3         6.1858          0.042
+The mixture parameters have been written to "UH.3.gmp".
+1.9u 3.1s 0:05 93% 0+13880k 4+2io 4pf+0w
+
+Training set number 121
+UW.1.vecs -> UW.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from UW.1.vecs.
+Done loading the training vectors.
+The training set contains 3509 vectors.
+
+VQ design information will be written to "UW.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 6 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.6282
+     1         8.7668          1.605
+     2         8.9219          1.770
+     3         9.0524          1.462
+     4         9.1516          1.096
+     5         9.2248          0.799
+     6         9.2568          0.348
+     7         9.2724          0.168
+     8         9.2865          0.152
+     9         9.3039          0.188
+    10         9.3235          0.210
+    11         9.3381          0.157
+    12         9.3451          0.075
+    13         9.3477          0.028
+The mixture parameters have been written to "UW.1.gmp".
+27.1u 3.1s 0:31 97% 0+23200k 31+2io 31pf+0w
+
+Training set number 122
+UW.2.vecs -> UW.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from UW.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 8745 vectors.
+
+VQ design information will be written to "UW.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        13.6723
+     1        13.7854          0.828
+     2        13.8238          0.278
+     3        13.8461          0.161
+     4        13.8626          0.119
+     5        13.8753          0.091
+     6        13.8848          0.069
+     7        13.8919          0.051
+     8        13.8970          0.037
+The mixture parameters have been written to "UW.2.gmp".
+55.0u 3.2s 0:59 97% 0+24120k 77+2io 77pf+0w
+
+Training set number 123
+UW.3.vecs -> UW.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from UW.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5215 vectors.
+
+VQ design information will be written to "UW.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.5857
+     1         6.7037          1.791
+     2         6.7674          0.951
+     3         6.8116          0.654
+     4         6.8402          0.419
+     5         6.8570          0.246
+     6         6.8669          0.145
+     7         6.8735          0.095
+     8         6.8792          0.083
+     9         6.8859          0.098
+    10         6.8951          0.133
+    11         6.9061          0.160
+    12         6.9172          0.161
+    13         6.9273          0.146
+    14         6.9354          0.117
+    15         6.9413          0.084
+    16         6.9452          0.056
+    17         6.9479          0.040
+The mixture parameters have been written to "UW.3.gmp".
+63.1u 3.1s 1:07 98% 0+24228k 46+3io 46pf+0w
+
+Training set number 124
+V.1.vecs -> V.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from V.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6897 vectors.
+
+VQ design information will be written to "V.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.6975
+     1         9.7919          0.973
+     2         9.8386          0.477
+     3         9.8644          0.262
+     4         9.8816          0.174
+     5         9.8960          0.146
+     6         9.9083          0.124
+     7         9.9186          0.104
+     8         9.9271          0.086
+     9         9.9335          0.064
+    10         9.9380          0.046
+The mixture parameters have been written to "V.1.gmp".
+51.7u 3.4s 0:56 98% 0+24044k 61+2io 61pf+0w
+
+Training set number 125
+V.2.vecs -> V.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from V.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 5076 vectors.
+
+VQ design information will be written to "V.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        11.0011
+     1        11.1537          1.387
+     2        11.2333          0.714
+     3        11.2756          0.377
+     4        11.2996          0.213
+     5        11.3138          0.125
+     6        11.3221          0.073
+     7        11.3272          0.045
+The mixture parameters have been written to "V.2.gmp".
+28.6u 3.0s 0:32 97% 0+23292k 45+2io 45pf+0w
+
+Training set number 126
+V.3.vecs -> V.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from V.3.vecs.
+Done loading the training vectors.
+The training set contains 4667 vectors.
+
+VQ design information will be written to "V.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.4036
+     1         7.5962          2.602
+     2         7.6872          1.197
+     3         7.7414          0.705
+     4         7.7830          0.537
+     5         7.8125          0.380
+     6         7.8309          0.235
+     7         7.8432          0.157
+     8         7.8515          0.106
+     9         7.8561          0.059
+    10         7.8586          0.032
+The mixture parameters have been written to "V.3.gmp".
+35.9u 3.0s 0:40 97% 0+23620k 42+2io 42pf+0w
+
+Training set number 127
+W.1.vecs -> W.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from W.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9815 vectors.
+
+VQ design information will be written to "W.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.4580
+     1         7.5544          1.293
+     2         7.5865          0.424
+     3         7.6031          0.219
+     4         7.6145          0.151
+     5         7.6240          0.124
+     6         7.6313          0.097
+     7         7.6369          0.073
+     8         7.6411          0.056
+     9         7.6445          0.045
+The mixture parameters have been written to "W.1.gmp".
+66.8u 3.3s 1:11 98% 0+24288k 87+2io 87pf+0w
+
+Training set number 128
+W.2.vecs -> W.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from W.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6679 vectors.
+
+VQ design information will be written to "W.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         8.9708
+     1         9.1378          1.862
+     2         9.2606          1.344
+     3         9.3405          0.863
+     4         9.3984          0.620
+     5         9.4352          0.391
+     6         9.4576          0.238
+     7         9.4727          0.160
+     8         9.4831          0.109
+     9         9.4901          0.074
+    10         9.4948          0.050
+    11         9.4982          0.035
+The mixture parameters have been written to "W.2.gmp".
+54.4u 3.3s 0:58 98% 0+24104k 59+2io 59pf+0w
+
+Training set number 129
+W.3.vecs -> W.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from W.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 6352 vectors.
+
+VQ design information will be written to "W.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.2769
+     1         9.4141          1.479
+     2         9.4757          0.654
+     3         9.5073          0.334
+     4         9.5238          0.173
+     5         9.5330          0.097
+     6         9.5387          0.060
+     7         9.5425          0.040
+The mixture parameters have been written to "W.3.gmp".
+36.6u 3.1s 0:42 93% 0+23664k 56+2io 56pf+0w
+
+Training set number 130
+Y.1.vecs -> Y.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from Y.1.vecs.
+Done loading the training vectors.
+The training set contains 1888 vectors.
+
+VQ design information will be written to "Y.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.5122
+     1         5.6476          2.458
+     2         5.7026          0.974
+     3         5.7310          0.498
+     4         5.7513          0.354
+     5         5.7664          0.262
+     6         5.7775          0.191
+     7         5.7851          0.133
+     8         5.7898          0.080
+     9         5.7922          0.041
+The mixture parameters have been written to "Y.1.gmp".
+7.2u 3.3s 0:11 94% 0+19460k 17+2io 17pf+0w
+
+Training set number 131
+Y.2.vecs -> Y.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from Y.2.vecs.
+Done loading the training vectors.
+The training set contains 2185 vectors.
+
+VQ design information will be written to "Y.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 4 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        12.2260
+     1        12.4029          1.447
+     2        12.5010          0.791
+     3        12.5731          0.576
+     4        12.6284          0.440
+     5        12.6677          0.311
+     6        12.6850          0.136
+     7        12.6913          0.050
+     8        12.6940          0.021
+The mixture parameters have been written to "Y.2.gmp".
+9.0u 3.2s 0:12 95% 0+20324k 20+2io 20pf+0w
+
+Training set number 132
+Y.3.vecs -> Y.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from Y.3.vecs.
+Done loading the training vectors.
+The training set contains 1542 vectors.
+
+VQ design information will be written to "Y.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0        11.4071
+     1        11.5554          1.300
+     2        11.6049          0.428
+     3        11.6214          0.142
+     4        11.6280          0.057
+     5        11.6313          0.028
+The mixture parameters have been written to "Y.3.gmp".
+4.1u 3.3s 0:08 91% 0+17376k 14+2io 14pf+0w
+
+Training set number 133
+Z.1.vecs -> Z.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from Z.1.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9659 vectors.
+
+VQ design information will be written to "Z.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         6.8191
+     1         6.8937          1.094
+     2         6.9277          0.493
+     3         6.9516          0.346
+     4         6.9703          0.269
+     5         6.9847          0.208
+     6         6.9965          0.168
+     7         7.0066          0.144
+     8         7.0152          0.124
+     9         7.0224          0.102
+    10         7.0277          0.076
+    11         7.0313          0.051
+    12         7.0335          0.032
+The mixture parameters have been written to "Z.1.gmp".
+87.7u 3.1s 1:32 98% 0+24476k 85+2io 85pf+0w
+
+Training set number 134
+Z.2.vecs -> Z.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from Z.2.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 9296 vectors.
+
+VQ design information will be written to "Z.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.9502
+     1        10.0405          0.908
+     2        10.0802          0.395
+     3        10.1032          0.229
+     4        10.1184          0.150
+     5        10.1293          0.107
+     6        10.1375          0.081
+     7        10.1441          0.065
+     8        10.1493          0.052
+     9        10.1530          0.037
+The mixture parameters have been written to "Z.2.gmp".
+65.1u 3.5s 1:10 97% 0+24252k 82+2io 82pf+0w
+
+Training set number 135
+Z.3.vecs -> Z.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from Z.3.vecs.
+  5000
+Done loading the training vectors.
+The training set contains 7684 vectors.
+
+VQ design information will be written to "Z.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 8 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         5.6407
+     1         5.7780          2.435
+     2         5.8602          1.423
+     3         5.9155          0.942
+     4         5.9518          0.614
+     5         5.9752          0.394
+     6         5.9899          0.246
+     7         5.9992          0.154
+     8         6.0050          0.097
+     9         6.0088          0.063
+    10         6.0113          0.042
+The mixture parameters have been written to "Z.3.gmp".
+58.5u 3.2s 1:03 97% 0+24156k 68+2io 68pf+0w
+
+Training set number 136
+ZH.1.vecs -> ZH.1.gmp
+The dimension of the vectors is 18.
+Now loading the training set from ZH.1.vecs.
+Done loading the training vectors.
+The training set contains 613 vectors.
+
+VQ design information will be written to "ZH.1.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.9269
+     1         7.9483          0.269
+     2         7.9501          0.024
+The mixture parameters have been written to "ZH.1.gmp".
+2.0u 3.1s 0:05 92% 0+13992k 6+2io 6pf+0w
+
+Training set number 137
+ZH.2.vecs -> ZH.2.gmp
+The dimension of the vectors is 18.
+Now loading the training set from ZH.2.vecs.
+Done loading the training vectors.
+The training set contains 434 vectors.
+
+VQ design information will be written to "ZH.2.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         9.7303
+     1         9.7769          0.479
+     2         9.7890          0.124
+     3         9.7965          0.076
+     4         9.8034          0.071
+     5         9.8106          0.073
+     6         9.8175          0.070
+     7         9.8232          0.059
+     8         9.8274          0.043
+The mixture parameters have been written to "ZH.2.gmp".
+2.6u 3.2s 0:06 93% 0+15220k 4+2io 4pf+0w
+
+Training set number 138
+ZH.3.vecs -> ZH.3.gmp
+The dimension of the vectors is 18.
+Now loading the training set from ZH.3.vecs.
+Done loading the training vectors.
+The training set contains 513 vectors.
+
+VQ design information will be written to "ZH.3.vqhis".
+Requested minimum number of vectors per codeword: 540
+
+This VQ will have 3 codewords.
+
+VQ design completed.
+
+Iteration   Ave Log Prob   Percent Change
+---------   ------------   --------------
+     0         7.2443
+     1         7.2708          0.366
+     2         7.2754          0.063
+     3         7.2772          0.025
+The mixture parameters have been written to "ZH.3.gmp".
+2.1u 3.1s 0:05 91% 0+14228k 5+2io 5pf+0w

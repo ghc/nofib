@@ -1,0 +1,6 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface PhotoElec where
+import GamtebType(Particle)
+photoElec :: Particle -> (Double, Double, Double, Double) -> (Particle, Double, Bool)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LLU(P)LLLL)U(AAU(P)U(P))" {_A_ 3 _U_ 122 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+

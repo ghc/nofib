@@ -1,0 +1,42 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Attributes where
+import Core_datatype(Attribute_Tag, Attribute_Value, Name', Oprtype)
+attval :: Eq a => a -> [(a, Attribute_Value)] -> Attribute_Value
+	{-# GHC_PRAGMA _A_ 1 _U_ 121 _N_ _N_ _N_ _N_ #-}
+dat_nm :: [Name'] -> (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+dec_tpe :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+dec_untpe :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+def_par :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+def_unpar :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+grp :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+hyp_ndpnd :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+ifx_bdr :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+let_stl :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+op_stl :: Oprtype -> (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "E" _N_ _N_ #-}
+pr_typed :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+pr_untyped :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+pre_bdr :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+rcrs_stl :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+sym_ind :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+sym_nm :: Name' -> (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+sym_nmd :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+un_grp :: (Attribute_Tag, Attribute_Value)
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+

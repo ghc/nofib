@@ -1,0 +1,37 @@
+interface Matrix where {
+{-# IMPORTING AbsDensematrix, Utils #-}
+import AbsDensematrix(Block(..), Vec(..));
+type Matrix = [Block_list];
+type Vector = [Vec];
+type Block = [[Float]];
+type Vec = [Float];
+type Block_list = [(Row_pos, Col_pos, Block)];
+type Row_pos = Int;
+type Col_pos = Int;
+mmult :: Matrix -> Matrix -> Matrix   {-# ARITY mmult = 2 #-}{-# STRICTNESS mmult = "T,F" ST #-};
+mvmult :: Matrix -> Vector -> Vector   {-# ARITY mvmult = 2 #-}{-# STRICTNESS mvmult = "0&1,F" ST #-};
+svmult :: Float -> Vector -> Vector   {-# ARITY svmult = 2 #-}{-# STRICTNESS svmult = "1,F" ST #-};
+madd :: Matrix -> Matrix -> Matrix   {-# ARITY madd = 2 #-}{-# STRICTNESS madd = "T,F" ST #-};
+msub :: Matrix -> Matrix -> Matrix   {-# ARITY msub = 2 #-}{-# STRICTNESS msub = "T,F" ST #-};
+vadd :: Vector -> Vector -> Vector   {-# ARITY vadd = 2 #-}{-# STRICTNESS vadd = "0,F" ST #-};
+vsub :: Vector -> Vector -> Vector   {-# ARITY vsub = 2 #-}{-# STRICTNESS vsub = "0,F" ST #-};
+vdot :: Vector -> Vector -> Float   {-# ARITY vdot = 2 #-}{-# STRICTNESS vdot = "0,F" ST #-};
+vouter :: Vector -> Vector -> Matrix   {-# ARITY vouter = 2 #-}{-# STRICTNESS vouter = "T,F" ST #-};
+mneg :: Matrix -> Matrix   {-# ARITY mneg = 1 #-}{-# STRICTNESS mneg = "0,F" ST #-};
+vneg :: Vector -> Vector   {-# ARITY vneg = 1 #-}{-# STRICTNESS vneg = "0,F" ST #-};
+norm :: Vector -> Float   {-# ARITY norm = 1 #-}{-# STRICTNESS norm = "0,F" ST #-};
+mkmatrix :: [[(Int, Int, Block)]] -> Matrix   {-# ARITY mkmatrix = 0 #-}{-# STRICTNESS mkmatrix = "T,F" ST #-};
+mkvector :: [Vec] -> Vector   {-# ARITY mkvector = 0 #-}{-# STRICTNESS mkvector = "T,F" ST #-};
+mergevectors :: Vector -> Vector -> Vector   {-# ARITY mergevectors = 0 #-}{-# STRICTNESS mergevectors = "T,F" ST #-};
+mupdate :: Matrix -> (Int, Int) -> Block -> Matrix   {-# ARITY mupdate = 3 #-}{-# STRICTNESS mupdate = "1,F" ST #-};
+vupdate :: Vector -> Int -> Vec -> Vector   {-# ARITY vupdate = 3 #-}{-# STRICTNESS vupdate = "T,F" ST #-};
+msubscript :: Int -> Int -> Matrix -> Block   {-# ARITY msubscript = 3 #-}{-# STRICTNESS msubscript = "0,F" ST #-};
+vsubscript :: Int -> Vector -> Vec   {-# ARITY vsubscript = 2 #-}{-# STRICTNESS vsubscript = "0,F" ST #-};
+getrow :: Int -> Matrix -> [(Row_pos, Col_pos, Block)]   {-# ARITY getrow = 2 #-}{-# STRICTNESS getrow = "0,F" ST #-};
+getcol :: Int -> Matrix -> [(Row_pos, Col_pos, Block)]   {-# ARITY getcol = 2 #-}{-# STRICTNESS getcol = "1,F" ST #-};
+numrows :: Matrix -> Int   {-# ARITY numrows = 1 #-}{-# STRICTNESS numrows = "0,F" ST #-};
+msize :: Matrix -> (Int, Int)   {-# ARITY msize = 1 #-}{-# STRICTNESS msize = "T,F" ST #-};
+vsize :: Vector -> Int   {-# ARITY vsize = 1 #-}{-# STRICTNESS vsize = "0,F" ST #-};
+showmatrix :: Matrix -> [Char]   {-# ARITY showmatrix = 1 #-}{-# STRICTNESS showmatrix = "T,F" ST #-};
+showvector :: Vector -> [Char]   {-# ARITY showvector = 1 #-}{-# STRICTNESS showvector = "0,F" ST #-}
+}

@@ -1,0 +1,47 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Types where
+data BOOL   = TRUE | FALSE | UNKNOWN
+data Dbt   = Root Tree Tree Tree [Histrt]
+data Entity   = Branch Int Int Fill | Teller Int Int Int Fill
+data Fill   = Fill_Bra Int Int Int | Fill_Tel Int Int
+data Histrt   = His Int Int Int Int Int
+data Msgt   = Ok Int | Error Int
+type Transaction = Dbt -> (Msgt, Dbt)
+data Tree   = Tip Entity | Tip_Acc Int Int | Node1 Tree Int Tree | Node2 Tree Int Tree Int Tree
+instance Eq Dbt
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Dbt -> Dbt -> Bool), (Dbt -> Dbt -> Bool)] [_CONSTM_ Eq (==) (Dbt), _CONSTM_ Eq (/=) (Dbt)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "U(SLLL)U(SLLL)" {_A_ 5 _U_ 11121 _N_ _N_ _N_ _N_} _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "U(SLLL)U(SLLL)" {_A_ 5 _U_ 11121 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+instance Eq Entity
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Entity -> Entity -> Bool), (Entity -> Entity -> Bool)] [_CONSTM_ Eq (==) (Entity), _CONSTM_ Eq (/=) (Entity)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+instance Eq Fill
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Fill -> Fill -> Bool), (Fill -> Fill -> Bool)] [_CONSTM_ Eq (==) (Fill), _CONSTM_ Eq (/=) (Fill)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+instance Eq Histrt
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Histrt -> Histrt -> Bool), (Histrt -> Histrt -> Bool)] [_CONSTM_ Eq (==) (Histrt), _CONSTM_ Eq (/=) (Histrt)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "U(U(P)LLLL)U(U(P)LLLL)" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "U(U(P)LLLL)U(U(P)LLLL)" _N_ _N_ #-}
+instance Eq Msgt
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Msgt -> Msgt -> Bool), (Msgt -> Msgt -> Bool)] [_CONSTM_ Eq (==) (Msgt), _CONSTM_ Eq (/=) (Msgt)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+instance Eq Tree
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 3 _!_ _TUP_2 [(Tree -> Tree -> Bool), (Tree -> Tree -> Bool)] [_CONSTM_ Eq (==) (Tree), _CONSTM_ Eq (/=) (Tree)] _N_
+	 (==) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_,
+	 (/=) = _A_ 2 _U_ 11 _N_ _S_ "SS" _N_ _N_ #-}
+instance Text BOOL
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(BOOL, [Char])]), (Int -> BOOL -> [Char] -> [Char]), ([Char] -> [([BOOL], [Char])]), ([BOOL] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (BOOL), _CONSTM_ Text showsPrec (BOOL), _CONSTM_ Text readList (BOOL), _CONSTM_ Text showList (BOOL)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LE" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+instance Text Msgt
+	{-# GHC_PRAGMA _M_ Types {-dfun-} _A_ 0 _N_ _N_ _N_ _F_ _IF_ARGS_ 0 0 X 5 _!_ _TUP_4 [(Int -> [Char] -> [(Msgt, [Char])]), (Int -> Msgt -> [Char] -> [Char]), ([Char] -> [([Msgt], [Char])]), ([Msgt] -> [Char] -> [Char])] [_CONSTM_ Text readsPrec (Msgt), _CONSTM_ Text showsPrec (Msgt), _CONSTM_ Text readList (Msgt), _CONSTM_ Text showList (Msgt)] _N_
+	 readsPrec = _A_ 1 _U_ 12 _N_ _S_ "U(P)" {_A_ 1 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_,
+	 showsPrec = _A_ 2 _U_ 112 _N_ _S_ "LS" _N_ _N_,
+	 readList = _A_ 0 _U_ 2 _N_ _N_ _N_ _N_,
+	 showList = _A_ 0 _U_ 12 _N_ _N_ _N_ _N_ #-}
+

@@ -1,0 +1,8 @@
+interface Cg where {
+{-# IMPORTING Utils #-}
+import AbsDensematrix(Vec);
+import Matrix(Block_list, Matrix, Vector);
+cgiters :: (Matrix -> Vector -> (Matrix, Vector)) -> (Matrix -> Vector -> Vector) -> [Block_list] -> [Vec] -> [Cg_state]   {-# ARITY cgiters = 4 #-}{-# STRICTNESS cgiters = "T,F" ST #-};
+data Cg_state = Cg_stateC ([Vec]) ([Vec]) ([Vec]) ([Vec]) Int deriving ();
+showcg_state :: [Vec] -> Cg_state -> [Char]   {-# ARITY showcg_state = 2 #-}{-# STRICTNESS showcg_state = "1,F" ST #-}
+}

@@ -1,0 +1,64 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface StrictAn6 where
+import BaseDefs(AnnExpr', ConstrElem, DExpr, Domain, Flag, HExpr, Route, SAInfo, TDefExpr, TExpr)
+sa :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [([Char], HExpr [Char])] -> (DExpr, AnnExpr' [Char] DExpr) -> HExpr [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLU(LS)" {_A_ 4 _U_ 2211 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+saCAFkludge :: Domain -> Domain
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+saCAFkludgeInverse :: Domain -> Domain
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _S_ "S" _N_ _N_ #-}
+saFinalExpansion :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [Domain] -> [Domain] -> [Route] -> [Route]
+	{-# GHC_PRAGMA _A_ 4 _U_ 1111 _N_ _S_ "LSSS" _N_ _N_ #-}
+saFixAtSizeLive :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [Route] -> [[Char]] -> [Domain] -> [[Domain]] -> [Domain] -> [HExpr [Char]] -> [Route] -> [Route] -> [Int] -> Int -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 11 _U_ 22222222222 _N_ _S_ "LSSSSLSSLSL" _N_ _N_ #-}
+saFixAtSizeSafe :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [Route] -> [Route] -> [[Char]] -> [Domain] -> [[Domain]] -> [Domain] -> [HExpr [Char]] -> [Route] -> [Route] -> [Int] -> Int -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 12 _U_ 222222222222 _N_ _S_ "LSLSSSLSSLSL" _N_ _N_ #-}
+saFixMain :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [[Char]] -> ([[(Int, [Domain])]], [[(Int, [Domain])]]) -> [[Domain]] -> [Domain] -> [[Domain]] -> [Route] -> [Route] -> [HExpr [Char]] -> Int -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 10 _U_ 2211222122 _N_ _S_ "LLU(SL)LLLLLLL" _N_ _N_ #-}
+saFixStartup :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [[Char]] -> [Domain] -> [HExpr [Char]] -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 4 _U_ 2222 _N_ _S_ "LSLL" _N_ _N_ #-}
+saGetArgs :: Domain -> [Domain]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+saGetNextNonRec :: ([[b]], a) -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SA)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+saGetNextRec :: ([b], a) -> b
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SA)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+saGetRes :: Domain -> Domain
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+saGetResult :: SAInfo -> Route
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+saGetSeqTail :: ([a], b) -> ([a], b)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SL)" {_A_ 2 _U_ 12 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+saGivenUpEarly :: (a, [b]) -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AS)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 1 C 4 _/\_ u0 u1 -> \ (u2 :: [u1]) -> case u2 of { _ALG_ _NIL_  -> _!_ False [] []; (:) (u3 :: u1) (u4 :: [u1]) -> _!_ True [] []; _NO_DEFLT_ } _N_} _F_ _ALWAYS_ _/\_ u0 u1 -> \ (u2 :: (u0, [u1])) -> case u2 of { _ALG_ _TUP_2 (u3 :: u0) (u4 :: [u1]) -> case u4 of { _ALG_ _NIL_  -> _!_ False [] []; (:) (u5 :: u1) (u6 :: [u1]) -> _!_ True [] []; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+saGroups :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [([Char], HExpr [Char])] -> [(Bool, [([Char], (DExpr, AnnExpr' [Char] DExpr))])] -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 3 _U_ 221 _N_ _S_ "LLS" _N_ _N_ #-}
+saHSubst :: [([Char], Route)] -> HExpr [Char] -> HExpr [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 21 _N_ _S_ "LS" _N_ _N_ #-}
+saIsResult :: SAInfo -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 C 8 \ (u0 :: SAInfo) -> case u0 of { _ALG_ _ORIG_ BaseDefs SAResult (u1 :: [Char]) (u2 :: Domain) (u3 :: Route) -> _!_ True [] []; (u4 :: SAInfo) -> _!_ False [] [] } _N_ #-}
+saMain :: (TExpr, AnnExpr' [Char] TExpr) -> [(Bool, [[Char]])] -> [([Char], TExpr)] -> [([Char], [[Char]])] -> [([Char], HExpr [Char])] -> [([Char], [[Char]], [([Char], [TDefExpr])])] -> [Flag] -> [(Domain, Int)] -> [Char]
+	{-# GHC_PRAGMA _A_ 8 _U_ 22222222 _N_ _S_ "LLLLLLSL" _N_ _N_ #-}
+saMakeSizeInfo :: ([[(Int, [Domain])]], [[(Int, [Domain])]]) -> [[Char]] -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(SS)S" {_A_ 3 _U_ 121 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+saMkCargs :: [([Char], [[Char]], [([Char], [TDefExpr])])] -> [([Char], [ConstrElem])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+saMkFunc :: [Domain] -> Domain -> Domain
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _S_ "SL" _F_ _IF_ARGS_ 0 2 CX 6 \ (u0 :: [Domain]) (u1 :: Domain) -> case u0 of { _ALG_ (:) (u2 :: Domain) (u3 :: [Domain]) -> _!_ _ORIG_ BaseDefs Func [] [u0, u1]; _NIL_  -> u1; _NO_DEFLT_ } _N_ #-}
+saMkGroups :: (DExpr, AnnExpr' [Char] DExpr) -> [(Bool, [([Char], (DExpr, AnnExpr' [Char] DExpr))])]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(AS)" {_A_ 1 _U_ 1 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+saNonRecSearch :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [Char] -> ([[(Int, [Domain])]], [[(Int, [Domain])]]) -> [Domain] -> Domain -> [Domain] -> Route -> Route -> HExpr [Char] -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 9 _U_ 221222222 _N_ _S_ "LLU(SL)LLLLLL" _N_ _N_ #-}
+saNonRecStartup :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> [Char] -> Domain -> HExpr [Char] -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 4 _U_ 2222 _N_ _N_ _N_ _N_ #-}
+saPrinter :: ([([Char], DExpr)], [([Char], Domain)], [([Char], [ConstrElem])], [([Char], [[Char]])], [Flag], (Int, Int, Int, Int, Int), [(Domain, Int)]) -> Bool -> SAInfo -> [Char]
+	{-# GHC_PRAGMA _A_ 3 _U_ 121 _N_ _S_ "LLS" _N_ _N_ #-}
+saPrinter_aux :: (Text a, Text b) => Bool -> [(a, b)] -> [Char]
+	{-# GHC_PRAGMA _A_ 2 _U_ 1121 _N_ _N_ _N_ _SPECIALISE_ [ Int, [Domain] ] 2 { _A_ 0 _U_ 21 _N_ _N_ _N_ _N_ } #-}
+saSequenceIsEmpty :: ([a], b) -> Bool
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(SA)" {_A_ 1 _U_ 1 _N_ _N_ _F_ _IF_ARGS_ 2 1 C 4 _/\_ u0 u1 -> \ (u2 :: [u0]) -> case u2 of { _ALG_ _NIL_  -> _!_ True [] []; (:) (u3 :: u0) (u4 :: [u0]) -> _!_ False [] []; _NO_DEFLT_ } _N_} _F_ _ALWAYS_ _/\_ u0 u1 -> \ (u2 :: ([u0], u1)) -> case u2 of { _ALG_ _TUP_2 (u3 :: [u0]) (u4 :: u1) -> case u3 of { _ALG_ _NIL_  -> _!_ True [] []; (:) (u5 :: u0) (u6 :: [u0]) -> _!_ False [] []; _NO_DEFLT_ }; _NO_DEFLT_ } _N_ #-}
+saSettingInfo :: Int -> Int -> Int -> Int -> Int -> Bool -> Bool -> [Char]
+	{-# GHC_PRAGMA _A_ 0 _U_ 1011111 _N_ _N_ _N_ _N_ #-}
+saUndoCAFkludge :: [SAInfo] -> [SAInfo]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _N_ _N_ #-}
+

@@ -1,0 +1,28 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface InferMonad where
+import Maybe(Maybe)
+import StateX(StateX)
+import Substitution(Sub)
+import Type(MonoType)
+data Infer a 	{-# GHC_PRAGMA MkI (StateX Sub (StateX Int (Maybe ((a, Sub), Int)))) #-}
+eachI :: Infer a -> (a -> b) -> Infer b
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+freshI :: Infer MonoType
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+freshesI :: Int -> Infer [MonoType]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(P)" {_A_ 1 _U_ 2 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+getSubI :: Infer Sub
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+guardI :: Bool -> Infer a -> Infer a
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "EL" _N_ _N_ #-}
+returnI :: a -> Infer a
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+substituteI :: MonoType -> Infer MonoType
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+thenI :: Infer a -> (a -> Infer b) -> Infer b
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+unifyI :: MonoType -> MonoType -> Infer ()
+	{-# GHC_PRAGMA _A_ 2 _U_ 22 _N_ _N_ _N_ _N_ #-}
+useI :: a -> Infer a -> a
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _N_ _N_ _N_ #-}
+

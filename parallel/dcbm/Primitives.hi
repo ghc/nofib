@@ -1,0 +1,4 @@
+interface Primitives where
+import Types(BOOL)
+eq :: a -> a -> Bool
+boolval :: Bool -> BOOL

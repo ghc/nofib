@@ -1,0 +1,25 @@
+fem:	fem.c read_data.c bar_2d.c pre_assemble.c assemble_stiffness.c \
+        assemble_loadvec.c vblldecomp.c displacement.c internalforce.c \
+        database
+	cc -g -c *.c
+	cc fem.o read_data.o bar_2d.o assemble_loadvec.o assemble_stiffness.o \
+	   displacement.o internalforce.o pre_assemble.o vblldecomp.o \
+	   -g -lm -o fem
+
+save:
+	cp fem.c ./backup/
+	cp read_data.c ./backup/
+	cp bar_2d.c ./backup/
+	cp pre_assemble.c ./backup/
+	cp assemble_stiffness.c ./backup/
+	cp assemble_loadvec.c ./backup/
+	cp vblldecomp.c ./backup/
+	cp displacement.c ./backup/
+	cp internalforce.c ./backup/
+	cp database ./backup/
+	cp README ./backup/
+	cp makefile ./backup/
+	cp data.? ./backup/
+
+clean:
+	rm *.o fem

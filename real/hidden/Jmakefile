@@ -1,0 +1,28 @@
+/* NB: one .lhs file */
+
+SRCS_HS = Numbers.hs Vectors.hs EdgePlate.hs Matrices.hs Rotate.lhs \
+	Geometric.hs IO.hs Solve.hs Postscript.hs Preds.hs Cross.hs \
+	Comparing.hs Memo.hs Hide.hs Main.hs
+
+OBJS_O = Numbers.o Vectors.o EdgePlate.o Matrices.o Rotate.o Geometric.o \
+	 IO.o Solve.o Postscript.o Preds.o Cross.o Comparing.o Memo.o Hide.o Main.o
+
+NoFibMultiModuleCompileAndRun(hidden,-i hidden.stdin -o1 hidden.stdout -o1 hidden.stdout2 -o2 hidden.stderr objects/four.plate)
+
+NoFibHaskellCompile(hidden,Numbers,hs)
+NoFibHaskellCompile(hidden,Vectors,hs)
+NoFibHaskellCompile(hidden,EdgePlate,hs)
+NoFibHaskellCompile(hidden,Matrices,hs)
+NoFibHaskellCompile(hidden,Rotate,lhs)
+NoFibHaskellCompile(hidden,Geometric,hs)
+NoFibHaskellCompile(hidden,IO,hs)
+NoFibHaskellCompile(hidden,Solve,hs)
+NoFibHaskellCompile(hidden,Postscript,hs)
+NoFibHaskellCompile(hidden,Preds,hs)
+NoFibHaskellCompile(hidden,Cross,hs)
+NoFibHaskellCompile(hidden,Comparing,hs)
+NoFibHaskellCompile(hidden,Memo,hs)
+NoFibHaskellCompile(hidden,Hide,hs)
+NoFibHaskellCompile(hidden,Main,hs)
+
+NoFibDependTarget(hidden, $(SRCS_HS))

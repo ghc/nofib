@@ -1,0 +1,1 @@
+NoFibOneModuleCompileAndRun(io002,-x 1 -o1 io002.stdout -o2 io002.stderr)

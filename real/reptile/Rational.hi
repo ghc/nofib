@@ -1,0 +1,21 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Rational where
+intval :: (Int, Int) -> Int
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(P)U(P))" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+rabs :: (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(P)L)" {_A_ 2 _U_ 22 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+radd :: (Int, Int) -> (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LL)U(LL)" {_A_ 4 _U_ 1212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+rdiv :: (Int, Int) -> (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LL)U(LL)" {_A_ 4 _U_ 1111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+rmin :: (Int, Int) -> (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LL)U(LL)" {_A_ 4 _U_ 2222 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+rmul :: (Int, Int) -> (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LL)U(LL)" {_A_ 4 _U_ 1111 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+rsub :: (Int, Int) -> (Int, Int) -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 2 _U_ 11 _N_ _S_ "U(LL)U(LL)" {_A_ 4 _U_ 1212 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+show_rat :: (Int, Int) -> [Char]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "U(U(P)L)" {_A_ 2 _U_ 21 _N_ _N_ _N_ _N_} _N_ _N_ #-}
+torat :: Int -> (Int, Int)
+	{-# GHC_PRAGMA _A_ 1 _U_ 2 _N_ _N_ _N_ _N_ #-}
+

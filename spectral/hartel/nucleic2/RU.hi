@@ -1,0 +1,10 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface RU where
+import Types(Nuc)
+rU :: Nuc
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+rU' :: Nuc
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+rUs :: [Nuc]
+	{-# GHC_PRAGMA _A_ 0 _N_ _N_ _N_ _N_ _N_ #-}
+

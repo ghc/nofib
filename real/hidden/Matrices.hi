@@ -1,0 +1,11 @@
+{-# GHC_PRAGMA INTERFACE VERSION 5 #-}
+interface Matrices where
+import Vectors(Vector)
+type Matrix = [Vector]
+mat :: [Vector] -> [Vector]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Vector]) -> u0 _N_ #-}
+mulm :: [Vector] -> Vector -> Vector
+	{-# GHC_PRAGMA _A_ 2 _U_ 12 _N_ _N_ _N_ _N_ #-}
+rows :: [Vector] -> [Vector]
+	{-# GHC_PRAGMA _A_ 1 _U_ 1 _N_ _S_ "S" _F_ _IF_ARGS_ 0 1 X 1 \ (u0 :: [Vector]) -> u0 _N_ #-}
+
