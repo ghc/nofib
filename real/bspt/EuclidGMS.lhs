@@ -1,3 +1,4 @@
+> {-# OPTIONS -syslib exts #-}
 > module EuclidGMS
 
 	Module that provides addition Euclidean operations.
@@ -20,6 +21,7 @@
 >		 triangleArea,mkPolygon,convert)
 > import Params (renderTop,renderHeight,renderLeft,windowWidth)
 > import Stdlib (all_YORK,mkset)
+> import Int( Num(fromInt) )
 
 
 

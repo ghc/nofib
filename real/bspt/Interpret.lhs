@@ -1,3 +1,4 @@
+> {-# OPTIONS -syslib exts #-}
 > module Interpret 
 
 	Module that produces the interpretation of the users input
@@ -14,6 +15,7 @@
 > import EuclidGMS (inScreen,Point(..),mkPoint)
 > import GeomNum
 > import Stdlib (between,splitAt_YORK)
+> import Int( Num(fromInt) )
 
 	An operation is a Command and a list of points to be assiciated with that
 	command

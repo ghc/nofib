@@ -1,3 +1,4 @@
+> {-# OPTIONS -syslib exts #-}
 > module Render 
 
 	Render controls the displaying of BSP images and
@@ -16,6 +17,7 @@
 > import Params (renderTop,renderHeight,renderLeft,windowWidth)
 > import GeomNum
 > import MGRlib (line,func,movePrintTo,writeVert)
+> import Int( Num(fromInt) )
 
  	render - fills in the image with a hashed pattern
  		Algorithm creates scan_line segments from

@@ -1,6 +1,11 @@
+{-# OPTIONS -syslib exts #-}
+
 --------------------------------------------------------------------------------
 -- Copyright 1994 by Peter Thiemann
 -- $Log: Fonts.hs,v $
+-- Revision 1.5  1999/11/26 10:29:54  simonpj
+-- fromInt wibble
+--
 -- Revision 1.4  1999/09/14 10:18:24  simonmar
 -- Replace all instances of fromInt in nofib with fromIntegral.
 --
@@ -27,7 +32,8 @@
 module Fonts (FONT, makeFont, fontDescender, stringWidth, stringHeight, fontName, fontScale, noFont)
 where
 
-import Char--1.3
+import Char
+import GlaExts ( Num(fromInt) )
 
 -- not in 1.3
 readDec :: (Integral a) => ReadS a
