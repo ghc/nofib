@@ -8,16 +8,18 @@ main =
     awaitSignal Nothing
 
 ls =
-    runProcess "ls" ["-l","po012.out"] Nothing Nothing Nothing Nothing Nothing
+    runProcess "ls" ["-l"] Nothing Nothing Nothing Nothing Nothing
 
 reap1 fd =
-    getAnyProcessStatus True False >>
+    hPutStrLn stderr "Reaper1"         >>
+    getAnyProcessStatus True False     >>
     installHandler processStatusChanged (Catch (reap2 fd)) Nothing >>
-    writeChannel fd (take 666 (repeat 'x')) >>
-    ls >>
+    fdWrite fd (take 666 (repeat 'x')) >>
+    ls                                 >>
     awaitSignal Nothing
     
 reap2 fd =
+    hPutStrLn stderr "Reaper2"     >>
     getAnyProcessStatus True False >>
     installHandler processStatusChanged (Catch (reap3 fd)) Nothing >>
     setFileMode "po012.out" 
@@ -26,6 +28,7 @@ reap2 fd =
     awaitSignal Nothing
     
 reap3 fd =
+    hPutStrLn stderr "Reaper3"     >>
     getAnyProcessStatus True False >>
     installHandler processStatusChanged (Catch (reap4 fd)) Nothing >>
     setFileTimes "po012.out" 0 0 >>
@@ -33,18 +36,21 @@ reap3 fd =
     awaitSignal Nothing
     
 reap4 fd =
+    hPutStrLn stderr "Reaper4"     >>
     getAnyProcessStatus True False >>
     installHandler processStatusChanged (Catch (reap5 fd)) Nothing >>
-    removeLink "po012.out" >>
+    --removeLink "po012.out" >>
     ls >>
     awaitSignal Nothing
 
 reap5 fd =
+    hPutStrLn stderr "Reaper5"     >>
     getAnyProcessStatus True False >>
-    seekChannel fd SeekFromEnd 0 >>= \ bytes ->
+    fdSeek fd SeekFromEnd 0        >>= \ bytes ->
     if bytes == 666 then
-	seekChannel fd AbsoluteSeek 0 >>
-	readChannel fd 1024 >>= \ (str, _) ->
+	fdSeek fd AbsoluteSeek 0   >>
+	hPutStrLn stderr "Reaper5"     >>
+	fdRead fd 666             >>= \ (str, _) ->
 	if str == (take 666 (repeat 'x')) then
 	    putStr "Okay\n"
 	else
