@@ -3,7 +3,7 @@ include $(TOP)/mk/boilerplate.mk
 
 SSUBDIRS = anna bspt cacheprof compress compress2 fem fluid fulsom gamteb gg \
   grep hidden hpg infer lift maillist mkhprog parser pic prolog \
-  reptile rsa symalg veritas
+  reptile rsa scs symalg veritas
 
 # Omitted: 
 #	HMMS	binary file endian-ness problems
