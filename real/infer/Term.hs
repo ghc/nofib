@@ -51,5 +51,5 @@ showsTerm d (Let x u v)       =  showsParenIf (d>0)
                                   showsString "  in  "  . showsTerm 0 v)
 showsAbs                      :: Shows Term
 showsAbs (Abs x t)            =  showsString " " . showsString x . showsAbs t
-{-#ELSE-}
+{- ELSE -}
 showsAbs t                    =  showsString ". " . showsTerm 0 t
