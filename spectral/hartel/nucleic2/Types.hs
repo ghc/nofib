@@ -16,6 +16,11 @@ data Pt = Pt FloatS FloatS FloatS
 
 data Tfo = Tfo FloatS FloatS FloatS FloatS FloatS FloatS FloatS FloatS FloatS FloatS FloatS FloatS
 
+-- These would be much better --SDM
+-- data Pt = Pt !Float !Float !Float
+-- data Tfo = Tfo !Float !Float !Float !Float !Float !Float !Float !Float !Float !Float !Float !Float
+
+
 data Nuc = Nuc
           Tfo Tfo Tfo Tfo
           Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt Pt
