@@ -725,9 +725,9 @@ anticodon_domains
      stacked3XXX rG  INT_LIT(37) INT_LIT(38),
      stacked3XXX rA  INT_LIT(36) INT_LIT(37),
      stacked3XXX rA  INT_LIT(35) INT_LIT(36),
-     stacked3XXX rG  INT_LIT(34) INT_LIT(35), --<-. Distance
+     stacked3XXX rG  INT_LIT(34) INT_LIT(35), -- <-. Distance
      p_o3XXX     rCs INT_LIT(32) INT_LIT(31), --  | Constraint
-     p_o3XXX     rUs INT_LIT(33) INT_LIT(32)  --<-XXX 3.0 Angstroms
+     p_o3XXX     rUs INT_LIT(33) INT_LIT(32)  -- <-XXX 3.0 Angstroms
     ]
 
 -- Anticodon constraint
@@ -752,7 +752,7 @@ pseudoknot_domains
      wc_dumas  rC  INT_LIT(10) INT_LIT(21),
      helix3XXX   rC  INT_LIT(20) INT_LIT(21),
      wc_dumas  rG  INT_LIT(11) INT_LIT(20),
-     helix3XXX   rU'{-'-} INT_LIT(19) INT_LIT(20), --<-.
+     helix3XXX   rU'{-'-} INT_LIT(19) INT_LIT(20), -- <-.
      wc_dumas  rA  INT_LIT(12) INT_LIT(19), --  | Distance
 --                        --  | Constraint
 -- Helix 1                --  | 4.0 Angstroms
@@ -766,13 +766,13 @@ pseudoknot_domains
 -- L2 LOOP                --  |
      p_o3XXX     rUs INT_LIT(16) INT_LIT(15), --  |
      p_o3XXX     rCs INT_LIT(17) INT_LIT(16), --  |
-     p_o3XXX     rAs INT_LIT(18) INT_LIT(17), --<-XXX
+     p_o3XXX     rAs INT_LIT(18) INT_LIT(17), -- <-XXX
 --
 -- L1 LOOP
-     helix3XXX   rU   INT_LIT(7)  INT_LIT(8), --<-.
+     helix3XXX   rU   INT_LIT(7)  INT_LIT(8), -- <-.
      p_o3XXX     rCs  INT_LIT(4)  INT_LIT(3), --  | Constraint
      stacked5XXX rU   INT_LIT(5)  INT_LIT(4), --  | 4.5 Angstroms
-     stacked5XXX rC   INT_LIT(6)  INT_LIT(5)  --<-XXX
+     stacked5XXX rC   INT_LIT(6)  INT_LIT(5)  -- <-XXX
     ]
   
 -- Pseudoknot constraint
