@@ -43,8 +43,8 @@ runtests :: $(NOFIB_PROG) size
 	@echo ==nofib== $<: time to run $< follows...
 	@$(TIME) $(RUNTEST) ./$< \
 	  $(addprefix -i ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stdin)) \
-	  $(addprefix -o1 ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stdout)) \
-	  $(addprefix -o2 ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stderr)) \
+	  $(addprefix -o1 ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stdout*)) \
+	  $(addprefix -o2 ,$(wildcard $(subst $(_way),,$(NOFIB_PROG)).stderr*)) \
 	  $(RUNTEST_OPTS)
 else
 size ::
