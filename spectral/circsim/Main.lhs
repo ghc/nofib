@@ -194,8 +194,7 @@ Outputing circuits
 >			 inports=ins, outports=outs})
 >		= shows (x,c,d,ins,outs) . showChar '\n'
 
-
-
+> {-
 > instance (Show a, Show b, Show c, Show d, Show e, Show f)
 >		=> Show (a, b, c, d, e, f) where
 >     showsPrec p (a,b,c,d,e,f) = showChar '(' . shows a . showChar ',' .
@@ -216,6 +215,7 @@ Outputing circuits
 >						 shows f . showChar ',' .
 >						 shows g . showChar ',' .
 >						 shows h . showChar ')'
+> -}
 
 --------------------------------------------------------------------------------
 Find the nearest power of two >= x
