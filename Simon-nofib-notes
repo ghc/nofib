@@ -118,6 +118,15 @@ It turns out to be right on the edge of GHC's normal threshold size, so
 small changes to the compiler can knock it to and fro.
 
 
+Integer
+~~~~~~~
+A good benchmark for beating on big-integer arithmetic
+
+Lambda
+~~~~~~
+This program shows the cost of the non-eta-expanded lambdas that arise from
+a state monad.  
+
 Puzzle
 ~~~~~~
 The main function is 'transfer'.  It has some complicated join points, and
