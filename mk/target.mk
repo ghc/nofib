@@ -45,13 +45,13 @@ runtests ::
 	@$(RM) $(STDIN)
 	@echo ":set args $(PROG_ARGS)" > $(STDIN)
 	@echo "Main.main" >>$(STDIN) 
-	@echo | cat - $(wildcard $(NOFIB_PROG).stdin) >> $(STDIN)
+	@cat /dev/null $(wildcard $(NOFIB_PROG).stdin) >> $(STDIN)
 	@$(TIME) $(RUNTEST) $(GHC_INPLACE) --interactive -v0 -Wnot \
 			-i $(STDIN) \
 	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
 	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
 			$(RUNTEST_OPTS) $(GHCI_HC_OPTS) Main
-	@$(RM) $(NOFIB_PROG).stdin.tmp
+	@$(RM) $(STDIN)
 else 
 
 ifneq "$(NOFIB_PROG_WAY)" ""
