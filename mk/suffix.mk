@@ -21,8 +21,6 @@ endef
 
 %.$(way_)o : %.hs
 	$(COMPILE)
-			 
+
 %.$(way_)o : %.lhs
 	$(COMPILE)
-			 
-
