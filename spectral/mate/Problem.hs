@@ -1,6 +1,6 @@
-module Problem where
+module Problem(readProblem) where
 
-import Char
+import Char(isUpper,toLower)
 import Board
 
 readProblem :: String -> (Board, (Colour, Int))
@@ -38,7 +38,7 @@ parseSquare r f  c  =
 
 parseGoal :: [String] -> (Colour, Int)
 parseGoal [gltxt] = (c, n)
-	where
-	ws = words gltxt
-	c  = read (head ws)
-	n  = read (last ws)
+        where
+        ws = words gltxt
+        c  = read (head ws)
+        n  = read (last ws)

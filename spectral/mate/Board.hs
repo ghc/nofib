@@ -1,14 +1,16 @@
-module Board(Kind(..), Colour(..), Piece, Square, Board, 
-		showBoard, showPiece, showSquare,
-		emptyBoard, pieceAt, rmPieceAt, putPieceAt,
-		emptyAtAll, kingSquare, forcesColoured,
-		colourOf, kindOf, opponent, onboard)  where
+module Board(
+  Kind(King,Queen,Rook,Bishop,Knight,Pawn),
+  Colour(Black,White), Piece, Square, Board, 
+  showBoard, showPiece, showSquare,
+  emptyBoard, pieceAt, rmPieceAt, putPieceAt,
+  emptyAtAll, kingSquare, forcesColoured,
+  colourOf, kindOf, opponent, onboard)  where
 
-import Char
+import Char(toLower)
 
 data Kind = King | Queen | Rook | Bishop | Knight | Pawn deriving (Eq,Ord)
 
-data Colour = Black | White deriving (Eq,Ord,Show,Read)
+data Colour = Black | White deriving (Eq,Ord,Read,Show)
 
 type Piece = (Colour,Kind)
 type Square = (Int,Int)

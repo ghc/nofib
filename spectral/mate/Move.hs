@@ -1,4 +1,6 @@
-module Move (Move(..), MoveInFull(..), showMoveInFull, showMoves, moveDetailsFor, kingincheck) where
+module Move (
+  Move(Move), MoveInFull(MoveInFull),
+  showMoveInFull, showMoves, moveDetailsFor, kingincheck) where
 
 import Board
 
