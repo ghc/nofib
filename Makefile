@@ -4,7 +4,7 @@
 #
 #		Toplevel Makefile for the nofib project
 #
-# 		$Id: Makefile,v 1.4 1997/03/14 08:02:40 simonpj Exp $
+# 		$Id: Makefile,v 1.5 1997/09/03 23:15:24 sof Exp $
 #
 #################################################################################
 
@@ -23,5 +23,17 @@ SUBDIRS = $(NoFibSubDirs)
 
 # Include the standard targets, one of which
 # causes make to descend into the SUBDIRS.
+
+#
+# Creating a nofib distribution
+#
+SRC_DIST_DIR=$(shell pwd)/nofib
+SRC_DIST_NAME=nofib
+SRC_DIST_DIRS=docs imaginary spectral real GHC_ONLY parallel mk
+
+
+dist :: nofib-dist-pre
 include $(TOP)/mk/target.mk
+dist :: dist-post
+dist :: dist-package
 
