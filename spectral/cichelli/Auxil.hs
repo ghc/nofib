@@ -1,4 +1,4 @@
-module Aux where
+module Auxil where
 
 import Key
 

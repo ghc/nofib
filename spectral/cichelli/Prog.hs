@@ -6,7 +6,7 @@ module Prog(prog) where
 -- sequential 
 
 --partain:import Libfuns
-import Aux
+import Auxil
 import Key
 
 prog :: String -> String
