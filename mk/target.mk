@@ -6,6 +6,11 @@
 #
 #################################################################################
 
+# Urk!  We have to do this here because $(OBJS) is meaningless until
+# we set this (see fptools/mk/paths.mk and the top of
+# fptools/mk/target.mk).  We'd like to include fptools/mk/target.mk
+# earlier, but we don't for cosmetic reasons (see end of file).
+PRE_SRCS := $(ALL_SRCS)
 
 # Only do this in leaf directories (important, this)
 
