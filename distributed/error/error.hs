@@ -10,7 +10,7 @@ main =	do
 	m <- newEmptyMVar
 
 	let 
-	  work p = catchAllIO (revalIO remote p) fails	  
+	  work p = catch (revalIO remote p) fails	  
 	  remote = do
 		i  <- myPEId
 		mo <- owningPE m
@@ -25,7 +25,7 @@ main =	do
 		return False
 
 	rs <- mapM work pes	
-	catchAllIO (putMVar m "Main") (\e-> return ())
+	catch (putMVar m "Main") (\e-> return ())
 	name <- takeMVar m
 	putStrLn ("Writer= "++name)
 

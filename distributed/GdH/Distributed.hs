@@ -108,7 +108,7 @@ doRevalIO job p = do
 		return (Okay r)
 
 	  -- if something goes wrong we return a 'Fail' result.
-	  safeJob = Exception.catchAllIO okayJob (\e -> return (Fail e))
+	  safeJob = Exception.catch okayJob (\e -> return (Fail e))
 
 	  -- we return the result via a single variable so we can
 	  --  use GpH's synchronisation mechanisms ie FETCHME, BQ, etc. (hackity, hack.)
@@ -188,7 +188,7 @@ isEmptyMVar		:: MVar a -> IO Bool
 isEmptyMVar mv		= revalIO (Concurrent.isEmptyMVar mv) mv
 
 tryPutMVar		:: MVar a -> a -> IO Bool 
-tryPutMVar mv r		= Exception.catchAllIO (do;putMVar mv r;return True) (\e->return False) 
+tryPutMVar mv r		= Exception.catch (do;putMVar mv r;return True) (\e->return False) 
 
 takeMaybeMVar		:: MVar a -> IO (Maybe a)
 takeMaybeMVar mv	= revalIO (PrelConc.takeMaybeMVar mv) mv
