@@ -1,4 +1,3 @@
-> {-# OPTIONS -syslib lang #-}
 > module Euclid
 
 	Module contains definitions of Points and Lines and related
@@ -17,7 +16,6 @@
 > import MGRlib (line)
 > import Params (mouseDispx,mouseDispy,gap)
 > import Char(isDigit)--1.3
-> import Int( Num(fromInt) )
 
 
 	The data type Line is used to describe a line.

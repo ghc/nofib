@@ -1,4 +1,3 @@
-> {-# OPTIONS -syslib lang #-}
 > module GeomNum 
 
 	Defines the Geometric Number class and gives instances
@@ -11,7 +10,6 @@
 
 > import Params (renderLeft,renderTop,renderHeight,windowWidth)
 > import Rationals (Rationals(..),rndNR)
-> import Int ( Num(fromInt) )
 
 
         Numb is a type synonym used throughout the rest of
