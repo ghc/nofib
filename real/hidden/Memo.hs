@@ -8,7 +8,7 @@ import Array
 
 data Triangle a = a :^ a deriving (Eq,Ord, {-1.3-}Show)
 
-instance (Enum a,Ix a) => Ix (Triangle a) where
+instance (Enum a,Ord a,Ix a) => Ix (Triangle a) where
 	range (t0 :^ b0 , t1 :^ b1) =
 		[t :^ b | t <- [t0 .. t1]
 			, b <- take (1+index(t0,t1) t) [b0 .. ]
