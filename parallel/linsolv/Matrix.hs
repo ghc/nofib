@@ -1,13 +1,16 @@
 {- 
-$Id: Matrix-list.hs,v 1.2 1996/07/25 21:20:27 partain Exp $
+$Id: Matrix.hs,v 1.1 1997/07/31 22:14:00 sof Exp $
 
-This is revision: $Revision: 1.2 $
+This is revision: $Revision: 1.1 $
 
 Data Encapsulation of the ADT Matrix.
 Internal representation is a list of lists.
 
 Changelog:
-$Log: Matrix-list.hs,v $
+$Log: Matrix.hs,v $
+Revision 1.1  1997/07/31 22:14:00  sof
+Renamed Matrix-list to Matrix
+
 Revision 1.2  1996/07/25 21:20:27  partain
 Bulk of final changes for 2.01
 
