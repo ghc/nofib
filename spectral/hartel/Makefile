@@ -7,5 +7,7 @@ event
 
 SRC_MKDEPENDHS_OPTS=-fglasgow-exts
 
+EXCLUDED_SRCS += Fast2haskell.hs Fast2haskell2.hs 
+
 include $(TOP)/mk/target.mk
 
