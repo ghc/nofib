@@ -112,3 +112,6 @@ NOFIB_TOP := $(TOP)
 TOP := $(TOP)/..
 include $(TOP)/mk/target.mk
 TOP:=$(NOFIB_TOP)
+
+# Override suffix rules
+include $(NOFIB_TOP)/mk/suffix.mk
