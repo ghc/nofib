@@ -9,6 +9,9 @@
 -- Status          : Unknown, Use with caution!
 -- 
 -- $Log: Main.hs,v $
+-- Revision 1.5  1997/03/19 01:03:38  simonpj
+-- Fix nofib/real/ebnf2
+--
 -- Revision 1.4  1997/03/17 20:35:26  simonpj
 -- More small changes towards 2.02
 --
@@ -88,10 +91,11 @@ program
 	      afmPath <- getPath "AFMPATH" afmPathDefault
 	      ntAFM <- readPathFile afmPath (ntFontName++".afm")
 	      tAFM <- readPathFile afmPath (tFontName++".afm")
-	      rbgPath <- getPath "RGBPATH" rgbPathDefault
+	      rgbPath <- getPath "RGBPATH" rgbPathDefault
 	      rgbFileContents <- readPathFile rgbPath rgbFileName
 				 `catch`
-				 (do
+				 (\ _ -> 
+				  do
 				    message "Color database not found, using fall back data\n"
 				    return "")
 
@@ -126,7 +130,7 @@ program
 		in do
 			message "using happyInput"
 		        writeAll outExtension (layoutAll outWrapper info prods nonterminals)
-	      else
+	        else
 	        case map (if doSimplify then simplify else id) (parseAll bnfContent) of
 		    prods:_ -> do 
 				  message "using ebnfInput"
@@ -199,4 +203,4 @@ writeAll ext ((ntName, content): more)
 str2int :: String -> Int
 str2int s = case reads s of
 	    []    -> 0
-	    (x:_) -> x
+	    ((x,_):_) -> x
