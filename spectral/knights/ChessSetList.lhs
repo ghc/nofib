@@ -9,7 +9,7 @@ data parallel search (for instance wedge first??). This module
 abstracts data type specific operations used in the Heuristic part of the tour.
 
 \begin{code}
-module ChessSetList(Tile(..),
+module ChessSetList(Tile,
 		    ChessSet,
 		    createBoard,
 		    sizeBoard,

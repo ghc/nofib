@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{code}
 module Queue(
-		Queue(..), createQueue, addFront, addBack,
+		Queue, createQueue, addFront, addBack,
 		addAllFront, addAllBack, inquireFront,
 		inquireBack, removeFront, removeBack, 
 		emptyQueue

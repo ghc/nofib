@@ -9,7 +9,7 @@ module Main(main) where
 \end{code}
 %%%%%%%%%%%%%%%%%% I M P O R T S  /  T Y P E   D E F S %%%%%%%%%%%%%%
 \begin{code}
-import ChessSetList (Tile(..)) -- partain:for hbc
+import ChessSetList (Tile) -- partain:for hbc
 import KnightHeuristic
 import Queue
 import System--1.3

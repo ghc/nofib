@@ -1,9 +1,0 @@
-SRCS_HS=StateMonad.hs Main.hs
-OBJS_O= StateMonad.o  Main.o
-
-NoFibMultiModuleCompileAndRun(cse,-o1 cse.stdout)
-
-NoFibHaskellCompile(cse,StateMonad,hs)
-NoFibHaskellCompile(cse,Main,hs)
-
-NoFibDependTarget(cse, $(SRCS_HS))

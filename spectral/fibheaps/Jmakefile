@@ -1,7 +1,0 @@
-SRCS_HS=Main.lhs
-OBJS_O= Main.o
-
-/* not multi-module, but a .lhs file... */
-NoFibMultiModuleCompileAndRun(fibheaps, 5000 -o1 fibheaps.stdout)
-
-NoFibHaskellCompile(fibheaps,Main,lhs)

@@ -1,7 +1,0 @@
-SRCS_HS=Main.lhs
-OBJS_O= Main.o
-
-/* not multi-module, but a .lhs file... */
-NoFibMultiModuleCompileAndRun(boyer,-o1 boyer.stdout)
-
-NoFibHaskellCompile(boyer,Main,lhs)

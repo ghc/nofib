@@ -1,5 +1,5 @@
 module Pretty (
-      Pretty(..),
+      Pretty,
       PprStyle(..),
       ppNil, ppStr, ppChar, ppInt, ppInteger, ppDouble,
       ppSP, pp'SP, ppLbrack, ppRbrack, ppLparen, ppRparen,

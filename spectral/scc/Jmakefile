@@ -1,9 +1,0 @@
-SRCS_HS=Main.hs Digraph.hs
-OBJS_O= Main.o  Digraph.o
-
-NoFibMultiModuleCompileAndRun(scc,-o1 scc.stdout)
-
-NoFibHaskellCompile(scc,Main,hs)
-NoFibHaskellCompile(scc,Digraph,hs)
-
-NoFibDependTarget(scc, $(SRCS_HS))

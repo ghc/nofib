@@ -72,13 +72,20 @@ visited n     = fetch                               `bind` \us ->
 
 findCommon :: Eq a => LabGraph a -> LabGraph a
 findCommon  = snd . foldr sim (id,[])
- where sim (n,s,cs) (r,lg)
-           | null ms   = (r, [(n,s,rcs)]++lg)
-           | otherwise = ((n +=> head ms) r, lg)
-                         where ms  = [m | (m,s',cs')<-lg, s==s', cs'==rcs]
-                               rcs = map r cs
+ where
+   sim ::
+     Eq a => (Label,a,[Label]) -> (Label -> Label, LabGraph a) ->
+     (Label -> Label, LabGraph a)
+   sim (n,s,cs) (r,lg) =
+     if null ms then
+       (r, [(n,s,rcs)] ++ lg)
+     else
+       ((n +=> head ms) r, lg)
+         where
+	   ms  = [m | (m,s',cs')<-lg, s==s', cs'==rcs]
+           rcs = map r cs
 
-(+=>)          :: Eq a => a -> b -> (a -> b) -> (a -> b)
+(+=>) :: Eq a => a -> b -> (a -> b) -> (a -> b)
 (+=>) x fx f y  = if x==y then fx else f y
 
 -- Common subexpression elimination: -----------------------------------------

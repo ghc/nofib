@@ -14,7 +14,7 @@ Haskell version::
 -}
 
 module Lisplikefns (
-    Token(..), Lisplist(..), LUT, 
+    Token, Lisplist(..), LUT, 
     mkLisplist, strToToken, tv,
     atom, car, cdr, cadr, caddr, cadddr, assoc,
     newLUT, addtoLUT, getLUT

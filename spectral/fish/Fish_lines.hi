@@ -1,7 +1,0 @@
-interface Fish_lines where {
-{-# IMPORTING Vector #-}
-p_tile :: [(Int, Int, Int, Int)]   {-# ARITY p_tile = 0 #-}{-# STRICTNESS p_tile = "T,T" ST #-};
-q_tile :: [(Int, Int, Int, Int)]   {-# ARITY q_tile = 0 #-}{-# STRICTNESS q_tile = "T,T" ST #-};
-r_tile :: [(Int, Int, Int, Int)]   {-# ARITY r_tile = 0 #-}{-# STRICTNESS r_tile = "T,T" ST #-};
-s_tile :: [(Int, Int, Int, Int)]   {-# ARITY s_tile = 0 #-}{-# STRICTNESS s_tile = "T,T" ST #-}
-}

@@ -32,8 +32,6 @@ application of that function may be rewritten.
 \begin{code}
 
 module Main (main) where
---partain: import Prelude
-import Prelude hiding (lookup) -- 1.3
 
 data Term               = Var Id |
                           Fun Id [Term] [Lemma]
@@ -103,9 +101,9 @@ one_way_unify1 term1 term2@(Var vid2) subst
         = if found
           then (term1 == v2, subst)
           else (True, (vid2,term1):subst)
-          where (found, v2) = lookup vid2 subst
+          where (found, v2) = find vid2 subst
 {-
-        = case lookup vid2 subst of { (found, v2) -> 
+        = case find vid2 subst of { (found, v2) -> 
           if found
           then (term1 == v2, subst)
           else (True, (vid2,term1):subst)
@@ -124,11 +122,11 @@ one_way_unify1_lst (t1:ts1) (t2:ts2) subst
 one_way_unify1_lst _ _ _ = (False, error "unify_lst")
 
 
-lookup :: Id -> Substitution -> (Bool, Term)
-lookup vid []                   = (False, error "lookup")
-lookup vid1 ((vid2,val2):bs)    = if vid1 == vid2
+find :: Id -> Substitution -> (Bool, Term)
+find vid []                   = (False, error "find")
+find vid1 ((vid2,val2):bs)    = if vid1 == vid2
                                   then (True, val2)
-                                  else lookup vid1 bs
+                                  else find vid1 bs
 \end{code}
 \section{Variable substitution}
 Once a substitution has been found which makes the LHS of a lemma
@@ -142,7 +140,7 @@ arguments.
 apply_subst :: Substitution -> Term -> Term
 apply_subst subst term@(Var vid)
         = if found then value else term
-          where (found, value) = lookup vid subst
+          where (found, value) = find vid subst
 apply_subst subst (Fun f args ls)
         = Fun f (map (apply_subst subst) args) ls
 

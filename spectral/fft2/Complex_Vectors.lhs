@@ -1,5 +1,5 @@
 > module Complex_Vectors
->         (ComplexF(..), rootsOfUnity,thetas, norm,distance)
+>         (ComplexF, rootsOfUnity,thetas, norm,distance)
 > where
 > import Complex --
 

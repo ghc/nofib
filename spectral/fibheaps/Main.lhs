@@ -53,12 +53,6 @@ first understand binomial queues.  See, for example, David King's
 >import PreludeGlaST
 >import Array
 >import System
->#define thenST_ seqST
->#define sequenceST listST
->#define newArr newArray
->#define readArr readArray
->#define writeArr writeArray
->type Assoc a b = (a,b)
 
                          --------------------
 
@@ -85,9 +79,8 @@ It will also be useful to extract the minimum element from a tree.
 >root (Node x _) = x
 
 We will frequently need to tag trees with their degrees.
-We use Assoc instead of simple pairs for compatibility with accumArray.
 
->type TaggedTree a = Assoc Int (Tree a)
+>type TaggedTree a = (Int,Tree a)
 >
 >degree (k, t) = k
 >tree (k, t) = t
@@ -117,8 +110,8 @@ is irrelevant.
 >
 >applyToAll :: (a -> ST s ()) -> Bag a -> ST s ()
 >applyToAll f EmptyBag = returnST ()
->applyToAll f (ConsBag x b) = f x `thenST_` applyToAll f b
->applyToAll f (UnionBags b1 b2) = applyToAll f b1 `thenST_` applyToAll f b2
+>applyToAll f (ConsBag x b) = f x `seqST` applyToAll f b
+>applyToAll f (UnionBags b1 b2) = applyToAll f b1 `seqST` applyToAll f b2
 
                          --------------------
 
@@ -197,10 +190,10 @@ In the first implementation, there are three steps.
 >    d = log2 (n-1) -- maximum possible degree
 >
 >    ins a (i, t) =
->        readArr a i `thenST` \e ->
+>        readArray a i `thenST` \e ->
 >        case e of
->          Zero -> writeArr a i (One t)
->          One t2 -> writeArr a i Zero `thenST_`
+>          Zero -> writeArray a i (One t)
+>          One t2 -> writeArray a i Zero `seqST`
 >                    ins a (i+1, link t t2)
 
 Note that after inserting all the trees, the array contains trees
@@ -209,7 +202,7 @@ highest order bit of n-1 is one, we know that there is a tree in
 the highest slot of the array.
 
 >    getMin a =
->        readArr a d `thenST` \e ->
+>        readArray a d `thenST` \e ->
 >        case e of
 >          Zero -> error "must be One" -- since array is filled as bits of n-1
 >          One t -> getMin' a d t EmptyBag 0
@@ -217,7 +210,7 @@ the highest slot of the array.
 >        if i >= d then
 >          returnST ((mini, mint),b)
 >        else
->          readArr a i `thenST` \e ->
+>          readArray a i `thenST` \e ->
 >          case e of
 >            Zero -> getMin' a mini mint b (i+1)
 >            One t -> if root mint <= root t then
@@ -226,9 +219,9 @@ the highest slot of the array.
 >                       getMin' a i t (ConsBag (mini, mint) b) (i+1)
 >            
 >  in 
->    runST (newArr (0,d) Zero `thenST` \a ->
->           applyToAll (ins a) f `thenST_`
->           sequenceST (map (ins a) (getChildren tt)) `thenST_`
+>    runST (newArray (0,d) Zero `thenST` \a ->
+>           applyToAll (ins a) f `seqST`
+>           listST (map (ins a) (getChildren tt)) `seqST`
 >           getMin a `thenST` \ (tt,f) ->
 >           returnST (FH (n-1) tt f))
 

@@ -44,11 +44,9 @@
 -- % make grid-max as the second argument for it.
 
 
--- driver
 module Main where
---partain:import Seq
-import Array--1.3
-import Ix--1.3
+import Array
+import Ix
 infixr 1 =:
 type Assoc a b = (a,b)
 (=:) = (,)
@@ -71,7 +69,7 @@ readInt prompt inputLines =
 
 reportSimple :: Int -> IO ()
 reportSimple iterations =
-  putStr
+  putStrLn
     (mix "\n" (let {(u,v,r,z,alpha,s,rho,p,q,epsilon,theta,deltat,err) = simple_total iterations}
 			in [show "RESULT u,v,r,z,alpha,s,rho,p,q,epsilon,theta,deltat err",
 			    show "<" ++ show u ++ "," ++ show v ++ "," ++ show r ++ "," ++ show z ++ ","
@@ -83,7 +81,7 @@ reportSimple iterations =
 
 reportSimple2 :: Int -> IO ()
 reportSimple2 iterations =
-  putStr
+  putStrLn
     (mix "\n" (let {((mat0,mat1),(mat2,mat3),mat4,mat5,mat6,mat7,mat8,mat9,mat10,a,b) = simple iterations}
 			in [show "RESULT ",show "U",show mat0,show "V",show mat1,show "R",
 			    show mat2,show "Z", show mat3,show "Alpha", show mat4,show "S",

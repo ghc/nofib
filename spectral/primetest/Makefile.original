@@ -6,6 +6,14 @@
 #	and run through add-index-entries and verbatim
 #
 #$Log: Makefile.original,v $
+#Revision 1.2  1996/11/26 14:41:12  dnt
+#Merged in changes from new-build-system branch
+#
+#Revision 1.1.4.1  1996/10/03 18:19:27  dnt
+#Converted to new build system
+#Generally tidied up a bit (removed original makefiles and the like)
+#Make a few tiny changes to avoid warnings/errors compiling under 1.3
+#
 #Revision 1.1  1996/01/08 20:04:22  partain
 #Initial revision
 #
