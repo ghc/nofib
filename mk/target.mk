@@ -25,14 +25,16 @@ all ::
 all :: runtests
 endif
 
+# Bogosity needed here to cope with .exe suffix for strip & size files.
+# (shouldn't have to be our problem.)
 ifneq "$(HC_FAIL)" "YES"
 $(NOFIB_PROG) : $(OBJS)
 	@echo ==nofib== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
 	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
 	@if (test -f $@ ); then \
-		$(STRIP) $@; \
+		$(STRIP) $@$(exeext); \
 		echo ==nofib== $(NOFIB_PROG): size of $(NOFIB_PROG) follows...; \
-		$(SIZE) $@; \
+		$(SIZE) $@$(exeext); \
 	fi;
 endif
 
