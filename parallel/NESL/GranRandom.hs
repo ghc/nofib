@@ -10,8 +10,8 @@
 module GranRandom where
 
 import Random (randomInts, randomDoubles, normalRandomDoubles)      -- this requires -syslib hbc
-import LibTime         -- this requires -fhaskell-1.3
-import PreludeGlaST    -- this requires -fglasgow-exts
+import Time       -- this requires -fhaskell-1.3
+import GlaExts    -- this requires -fglasgow-exts
 
 
 getRandIntList :: Int -> Int -> IO [Int]
@@ -45,36 +45,27 @@ getNormalRandomDoubles bound = getRandInt 2147483561 >>= \ s1 ->
 
 getRandInt :: Int -> IO Int
 getRandInt bound = 
-    getClockTime `thenPrimIO` \ t ->
-    return (
-    case t of 
-    	Left _ -> error "error in getClockTime"
-    	Right b -> let 
-    		     CalendarTime _ _ _ _ _ _ x _ _ _ _ _  = toCalendarTime b
-    		   in 
-    		     ((fromInteger x) `mod` bound) :: Int )  
-
--- unwrapIO :: Either String b -> b
-unwrapIO x = case x of
-               Left err -> error ("Error in unwrapIO: " ++ (show err))
-               Right x'  -> x' 
+    getClockTime >>= \ t ->
+    let
+     CalendarTime _ _ _ _ _ _ x _ _ _ _ _  = toCalendarTime b
+    in
+    return (((fromInteger x) `mod` bound) :: Int )
 
 unsafeGetRandInt :: Int -> Int
-unsafeGetRandInt = unwrapIO . unsafePerformPrimIO . getRandInt
+unsafeGetRandInt = unsafePerformIO . getRandInt
 
 unsafeGetRandIntList :: Int -> Int -> [Int]
 unsafeGetRandIntList len bound =
-    let  l = unsafePerformPrimIO ( getRandIntList len bound )
-    in   unwrapIO l
+ unsafePerformIO ( getRandIntList len bound )
 
 unsafeGetRandomInts :: Int -> [Int]
-unsafeGetRandomInts = unwrapIO . unsafePerformPrimIO . getRandomInts  
+unsafeGetRandomInts = unsafePerformIO . getRandomInts  
 
 unsafeGetRandomDoubles :: Double -> [Double]
-unsafeGetRandomDoubles = unwrapIO . unsafePerformPrimIO . getRandomDoubles
+unsafeGetRandomDoubles = unsafePerformIO . getRandomDoubles
 
 unsafeGetNormalRandomDoubles :: Double -> [Double]
-unsafeGetNormalRandomDoubles = unwrapIO . unsafePerformPrimIO . getNormalRandomDoubles
+unsafeGetNormalRandomDoubles = unsafePerformIO . getNormalRandomDoubles
 
 -----------------------------------------------------------------------------
 -- Converting the current system time into a stardate.
@@ -84,11 +75,11 @@ unsafeGetNormalRandomDoubles = unwrapIO . unsafePerformPrimIO . getNormalRandomD
 type Stardate = (Int, Int, Int)
 
 unsafeGetStardate :: Int -> Stardate
-unsafeGetStardate = unwrapIO . unsafePerformPrimIO . getStardate
+unsafeGetStardate = unsafePerformIO . getStardate
 
 getStardate :: Int -> IO Stardate
 getStardate prec = 
-    _casm_ ``%r = time((time_t *)0);'' `thenPrimIO` \ tm ->
+    _casm_ ``%r = time((time_t *)0);'' `thenIO_Prim` \ tm ->
     let 
       (iss, int, frac) = stardate tm
     in

@@ -26,11 +26,10 @@ import Strategies
 
 #if defined(IO13)
 import GranRandom
-import LibSystem (getArgs)
+import System (getArgs)
 #else
-import PreludeGlaMisc
-import PreludeGlaST
-import PreludeGlaMonadicIO
+import GlaExts
+import ST
 #endif
 
 {-

@@ -16,7 +16,7 @@ This example code does adaptive integration of single variable functions.
 import Strategies
 #endif
 
-import LibSystem  -- for getArgs
+import System  -- for getArgs
 \end{code}
 
 % ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; %

@@ -29,11 +29,10 @@ import Strategies
 
 #if defined(IO13)
 import GranRandom
-import LibSystem (getArgs)
+import System (getArgs)
 #else
-import PreludeGlaMisc
-import PreludeGlaST
-import PreludeGlaMonadicIO
+import GlaExts
+import ST
 #endif
 
 {------------------------------------------------------------------------------
@@ -173,19 +172,19 @@ doQuery lo hi bomSize = strategy (map length explodeList)
 			   result
 
 # if defined(ARGS)
-main = 	getArgs exit ( \[a1, a2, a3] ->
-	                  let lo      = fst (head (readDec a1))
-			      hi      = fst (head (readDec a2))
-			      bomSize = fst (head (readDec a3))
-			  in
-			    appendChan stdout (show (doQuery lo hi bomSize)) abort done
+main = do
+  [a1,a2,a3] <-	getArgs
+  let lo      = fst (head (readDec a1))
+      hi      = fst (head (readDec a2))
+      bomSize = fst (head (readDec a3))
+  print (doQuery lo hi bomSize)
 		     )
 # else
 main = 	let lo      = 70
 	    hi      = 90
 	    bomSize = 100
 	in
-	  appendChan stdout (show (doQuery lo hi bomSize)) abort done
+	print (doQuery lo hi bomSize)
 # endif
 
 #endif /* IO13 */
