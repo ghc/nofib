@@ -8,6 +8,13 @@
 
 
 # Only do this in leaf directories (important, this)
+
+nofib-dist-pre::
+	-rm -rf $(SRC_DIST_DIR)
+	-rm -f $(SRC_DIST_NAME).tar.gz
+	(cd $(FPTOOLS_TOP_ABS)/nofib; find $(SRC_DIST_DIRS) -type d \( -name CVS -prune -o -name SRC -prune -o -name tests -prune -o -exec $(MKDIRHIER) $(SRC_DIST_DIR)/{} \; \) ; )
+	(cd $(FPTOOLS_TOP_ABS)/nofib; find $(SRC_DIST_DIRS) -name CVS -prune -o -name SRC -prune -o -name tests -prune -o -name "*~" -prune -o -name ".cvsignore" -prune -o -type l -exec $(LN_S) $(FPTOOLS_TOP_ABS)/nofib/{} $(SRC_DIST_DIR)/{} \; )
+
 ifeq "$(SUBDIRS)" ""
 all ::
 	@echo HC = $(HC)
