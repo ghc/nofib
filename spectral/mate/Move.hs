@@ -174,3 +174,4 @@ kingincheck c bd =
 			Black -> yk == y+1
 			White -> yk == y-1
 	(xk,yk) = kingSquare c bd
+
