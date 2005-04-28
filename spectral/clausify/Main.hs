@@ -37,10 +37,13 @@ David
 module Main(main) where
 
 import Ix -- 1.3
+import System.Environment
 
-main = putStr res
+main = do
+  (n:_) <- getArgs
+  putStr (res (read n))
 
-res = concat (map clauses (take 7 (repeat "(a = a = a) = (a = a = a) = (a = a = a)")))
+res n = concat (map clauses (take n (repeat "(a = a = a) = (a = a = a) = (a = a = a)")))
 
 data StackFrame = Ast Formula | Lex Char 
 
