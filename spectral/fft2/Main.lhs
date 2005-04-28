@@ -3,28 +3,24 @@
 > import Fourier    --     Amoco Production Research, Sep 1992
 > import Complex_Vectors
 > import Complex--1.3
+> import System.Environment
 
-> main = putStr
->          ("result1 = " ++ show result1 ++ "\n" ++
->	    "result2 = " ++ show result2 ++ "\n" ++
->	    "result3 = " ++ show result3 ++ "\n")
+> main = do 
+>   (n:_) <- getArgs
+>   let m = read n :: Double
+>   putStr
+>          ("result1 = " ++ show (result1 m) ++ "\n" ++
+>	    "result2 = " ++ show (result2 m) ++ "\n" ++
+>	    "result3 = " ++ show (result3 m) ++ "\n")
 
-> result1 =
+> result1 m =
+>         tstfft(rmwC  m)
 
->   --      tstfft(rmwC  256)
->         tstfft(rmwC  512)
->   --      tstfft(rmwC 1024)
+> result2 m =
+>         tstdft(rmwC  m)
 
-> result2 =
->   --      tstdft(rmwC  256)
->         tstdft(rmwC  512)
->   --      tstdft(rmwC 1024)
-
-> result3 =
->   --      tstsct(rampWave  256)
->         tstsct(rampWave  512)
->   --      tstsct(rampWave 1024)
-
+> result3 m =
+>         tstsct(rampWave  m)
 
   Test Apparatus
 
