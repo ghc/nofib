@@ -7,6 +7,9 @@ import System -- 1.3
 import List -- 1.3
 import Char -- 1.3
 
+import System.Environment
+import Control.Monad
+
 -- To keep it backward compatible with pre-Haskell 98 compilers..
 #if __HASKELL1__ >= 5
 #define fail ioError
@@ -107,13 +110,13 @@ cal year = unlines (banner year `above` body year)
 -- For a standalone calendar program:
 
 main = do
-    strs <- getArgs
-    case strs of [year] -> calFor year
-                 _      -> fail (userError "Usage: cal year\n")
-
+    (year:n:_) <- getArgs
+    replicateM_ (read n) (calFor year)
 
 calFor year | illFormed = fail (userError "Bad argument")
-            | otherwise = putStr (cal yr)
+            | otherwise = print (length (cal yr))
+			-- SDM: changed to print the length, otherwise
+			-- stdout file is too huge.
               where illFormed = null ds || not (null rs)
                     (ds,rs)   = span isDigit year
                     yr        = atoi ds
