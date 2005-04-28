@@ -69,6 +69,15 @@ runtests ::
 	@$(RM) $(STDIN)
 else 
 
+time_runtest = \
+	$(TIME) $(RUNTEST) ./$< \
+	  $(addprefix -i  ,$(STDIN_FILE)) \
+	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).$(mode)stdout*) $(wildcard $(NOFIB_PROG).stdout*)) \
+	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).$(mode)stderr*) $(wildcard $(NOFIB_PROG).stderr*)) \
+	  $(RUNTEST_OPTS) $(PROG_ARGS)
+
+enum = $(strip $(shell perl -e 'for ($$i = 1; $$i <= $(1); $$i++) { print "$$i "; }'))
+
 ifneq "$(NOFIB_PROG_WAY)" ""
 ifeq "$(way)" "mp"
 # The parallel prg is actually a Perl skript => can't strip it -- HWL
@@ -90,11 +99,7 @@ size :: $(NOFIB_PROG_WAY)
 
 runtests :: $(NOFIB_PROG_WAY) size
 	@echo ==nofib$(_way)== $(NOFIB_PROG): time to run $(NOFIB_PROG) follows...
-	$(TIME) $(RUNTEST) ./$< \
-	  $(addprefix -i  ,$(STDIN_FILE)) \
-	  $(addprefix -o1 ,$(wildcard $(NOFIB_PROG).$(mode)stdout*) $(wildcard $(NOFIB_PROG).stdout*)) \
-	  $(addprefix -o2 ,$(wildcard $(NOFIB_PROG).$(mode)stderr*) $(wildcard $(NOFIB_PROG).stderr*)) \
-	  $(RUNTEST_OPTS) $(PROG_ARGS)
+	$(foreach $i, $(call enum, $(NoFibRuns)), $(time_runtest);)
 endif
 
 else

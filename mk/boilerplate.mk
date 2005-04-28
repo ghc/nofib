@@ -17,7 +17,6 @@ TOP := $(TOP)/..
 include $(TOP)/mk/boilerplate.mk
 TOP:=$(NOFIB_TOP)
 
-
 # -----------------------------------------------------------------
 # Everything after this point
 # augments or overrides previously set variables.
