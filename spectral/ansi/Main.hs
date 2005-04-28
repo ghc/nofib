@@ -4,6 +4,7 @@
 -- People are often quite surprised the first time they see a program like
 -- this written in a functional language.
 
+import System.Environment
 
 -- Basic screen control codes:
 
@@ -117,7 +118,9 @@ program = writes [ cls,
 
 -- added by partain
 
-main = interact program
+main = do
+  (n:_) <- getArgs
+  interact (foldr (.) id (take (read n) (repeat program)))
 
 copy    :: Int -> a -> [a]
 copy n x = take n (repeat x)
