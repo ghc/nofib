@@ -49,6 +49,7 @@ implementation of rewriting.
 
 - ----8<--------8<--------8<--------8<--------8<--------8<--------8<----
 
+> import System.Environment (getArgs)
 
 > infixr 1             ??
 > infixr 1             |||
@@ -626,6 +627,8 @@ BENCHMARK
 > result (s1, s2) = (simplify (super_reduce group_completion) (parse s1)
 >            == parse s2)
 
-> test = all result (take 2000 (repeat ("I(a * b)", "I(b) * I(a)")))
+> test n = all result (take n (repeat ("I(a * b)", "I(b) * I(a)")))
 
-> main = print test
+> main = do
+>   (n:_) <- getArgs
+>   print (test (read n :: Int))

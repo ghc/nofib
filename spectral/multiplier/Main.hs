@@ -90,14 +90,17 @@ inputs.
 
 module Main where
 
-main = putStr go
+import System.Environment
+
+main = do
+  (n:_) <- getArgs
+  putStr (go (read n :: Int))
 
 -------------------------------------------------------------------
 -- Definition of the output and the simulation parameters
 
-go =
+go wordsize =
   let
-    wordsize = 16	-- input size; product is twice this size
     limit = 2000	-- how many clock cycles to run
     verbose = True	-- want lots of output?
     width = 10		-- output Int field size (verbose only)

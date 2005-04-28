@@ -7,16 +7,19 @@ module Main where
 
 import IO
 import Ratio
+import System.Environment (getArgs)
 
 infixl 7 .*
 infixr 5 :+: 
 
 default (Integer, Rational, Double)
 
-main = do { putStrLn (show (extract 50 (sinx - sqrt (1-cosx^2)))) ;
-	    putStrLn (show (extract 50 (sinx/cosx - revert (integral (1/(1+x^2)))))) ;
-	    putStrLn (show (extract 50 ts)) ;
-	    putStrLn (show (extract 50 tree)) 
+main = do { (n:_) <- getArgs ;
+	    let { p = read n :: Int } ;
+	    putStrLn (show (extract p (sinx - sqrt (1-cosx^2)))) ;
+	    putStrLn (show (extract p (sinx/cosx - revert (integral (1/(1+x^2)))))) ;
+	    putStrLn (show (extract p ts)) ;
+	    putStrLn (show (extract p tree)) 
 	  }
 	
 

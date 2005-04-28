@@ -3,8 +3,9 @@ include $(TOP)/mk/boilerplate.mk
 
 SRC_HC_OPTS += -cpp
 
-# Arguments for the test program
-PROG_ARGS = 8 3
+FAST_OPTS = 8 3
+NORM_OPTS = 8 3
+SLOW_OPTS = 32 6
 
 include $(TOP)/mk/target.mk
 
