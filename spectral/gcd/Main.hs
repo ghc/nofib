@@ -14,14 +14,18 @@ Sergey Mechveliani
 mechvel@botik.ru
 -}
 
+import System.Environment
+
 --------------------------------------------------------------------
              -- choose d from [100..9000] and switch Z = Int,Integer
 type Z = Integer
 
-main =  -- compute  extendedGCD x y = (g,u,v) 
+main =  do
+        (arg:_) <- getArgs
+	-- compute  extendedGCD x y = (g,u,v) 
         -- for many  x,y  and find  maximum [abs (g+u+v)]
         let  
-          d      = 200 :: Z
+          d      = fromIntegral (read arg :: Int) :: Z
           (n,m)  = (5000,10000) :: (Z,Z)
           ns     = [n..(n+d)]
           ms     = [m..(m+d)]
@@ -34,7 +38,7 @@ main =  -- compute  extendedGCD x y = (g,u,v)
           max' (x:y:xs) = if x<y then max' (y:xs)  else  max' (x:xs)
 
           -- boo = all test tripls    -- this tests gcdE
-        in
+	--
         putStr (shows (max' rs) "\n")
 
 
