@@ -33,6 +33,8 @@ application of that function may be rewritten.
 
 module Main (main) where
 
+import System.Environment
+
 data Term               = Var Id |
                           Fun Id [Term] [Lemma]
 
@@ -227,10 +229,12 @@ actually relevant to the truth of the theorem.  In fact none of them
 can be rewritten in any interesting way.
 \begin{code}
 
-main = print test
+main = do 
+  (n:_) <- getArgs
+  print (test (read n))
 
-test :: Bool
-test = all test0 (take 20 (repeat (Var X)))
+test :: Int -> Bool
+test n = all test0 (take n (repeat (Var X)))
 
 test0 xxxx = tautp (apply_subst subst0 theorem)
  where
