@@ -20,6 +20,7 @@ import Lisplikefns
 import Rewritefns
 import Rulebasetext
 import Checker
+import System.Environment
 
 -- set-up functions for creating rulebase from text strings
 
@@ -79,11 +80,10 @@ subterm = mkLisplist (strToToken
 teststatement :: Lisplist
 teststatement = applysubst subterm statement
 
-testresult :: Bool
-testresult = tautp teststatement
-
 report :: Bool -> String
 report True  = "The term is a tautology\n"
 report False = "The term is not a tautology\n"
 
-main = putStr (report testresult)
+main = do
+  (n:_) <- getArgs
+  putStr (report (and (take (read n) (map tautp (repeat teststatement)))))
