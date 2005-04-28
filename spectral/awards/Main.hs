@@ -29,6 +29,8 @@ Kevin
 
 import QSort
 import List((\\))
+import System.Environment
+import Control.Monad
 
 -- Generate all possible permutations of length m from a list of scores
 perms m [] = []
@@ -61,4 +63,6 @@ competitors = [
 		("Kevin",[9,23,17,54,18,41,9,18,14])
 	      ]
 
-main = print (findallawards competitors)
+main = do
+ (n:_) <- getArgs
+ replicateM_ (read n) $ print (findallawards competitors)
