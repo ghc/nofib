@@ -1,5 +1,6 @@
 module Main (main) -- ida
 where {
+    import System.Environment (getArgs);
 --partain: import Fast2haskell;
 #include "../Fast2haskell.hs"
     strict_show_i::Int -> [Char];
@@ -65,7 +66,7 @@ data
          } in  (++) (f_show_pos r_inipos) ((++) (f_concat (f_map f_show_square r_inisqr)) ((++) "\n" 
             ((++) (strict_show_i r_bound) ((++) " " ((++) (strict_show_i r_opt_part) "\n")))));
     f_benchmark_main::Int -> [Char];
-    f_benchmark_main a_seed=f_main' a_seed (4 :: Int) (4 :: Int) (7 :: Int);
+    f_benchmark_main a_size=f_main' (6 :: Int) (a_size :: Int) (4 :: Int) (7 :: Int);
     f_func_split::(t1 -> Bool) -> [t1] -> T_split [t1];
     f_func_split a_func []=F_SPLIT [] [];
     f_func_split a_func (a_elem_1:a_elem_list)=
@@ -485,6 +486,5 @@ data
     f_zip::([t1],[t2]) -> [(t1,t2)];
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
-    c_input=(6 :: Int);
-    main = putStr (f_main c_input)
+    main = do (n:_) <- getArgs; putStr (f_main (read n :: Int))
 }

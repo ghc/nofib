@@ -3,5 +3,8 @@ include $(TOP)/mk/boilerplate.mk
 
 SRC_HC_OPTS += -cpp -fglasgow-exts
 
-include $(TOP)/mk/target.mk
+FAST_OPTS = 7
+NORM_OPTS = 7
+SLOW_OPTS = 11
 
+include $(TOP)/mk/target.mk
