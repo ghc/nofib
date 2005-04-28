@@ -3,7 +3,8 @@ include $(TOP)/mk/boilerplate.mk
 
 SRC_HC_OPTS += -fglasgow-exts
 
-# Here's the argument value for the test run
-PROG_ARGS = 5000
+FAST_OPTS = 5000
+NORM_OPTS = 5000
+SLOW_OPTS = 60000
 
 include $(TOP)/mk/target.mk
