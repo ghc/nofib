@@ -1,5 +1,4 @@
 # Boring file regexps:
-\.hi$
 \.o$
 \.o\.cmd$
 # *.ko files aren't boring by default because they might
