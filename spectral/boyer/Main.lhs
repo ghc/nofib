@@ -234,7 +234,9 @@ main = do
   print (test (read n))
 
 test :: Int -> Bool
-test n = all test0 (take n (repeat (Var X)))
+test n = all test0 xs
+ where xs = take n (repeat (Var X))
+       {-# NOINLINE xs #-}
 
 test0 xxxx = tautp (apply_subst subst0 theorem)
  where

@@ -627,7 +627,9 @@ BENCHMARK
 > result (s1, s2) = (simplify (super_reduce group_completion) (parse s1)
 >            == parse s2)
 
-> test n = all result (take n (repeat ("I(a * b)", "I(b) * I(a)")))
+> test n = all result xs
+>  where xs = take n (repeat ("I(a * b)", "I(b) * I(a)"))
+>	 {-# NOINLINE xs #-}
 
 > main = do
 >   (n:_) <- getArgs

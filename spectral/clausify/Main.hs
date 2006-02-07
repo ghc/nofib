@@ -43,7 +43,9 @@ main = do
   (n:_) <- getArgs
   putStr (res (read n))
 
-res n = concat (map clauses (take n (repeat "(a = a = a) = (a = a = a) = (a = a = a)")))
+res n = concat (map clauses xs)
+ where xs = take n (repeat "(a = a = a) = (a = a = a) = (a = a = a)")
+       {-# NOINLINE xs #-}
 
 data StackFrame = Ast Formula | Lex Char 
 
