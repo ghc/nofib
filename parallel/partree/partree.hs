@@ -1,5 +1,5 @@
 -- -*- haskell -*-
--- Time-stamp: <Mon Apr 02 2001 14:32:45 Stardate: [-30]6422.82 hwloidl>
+-- Time-stamp: <2005-11-09 16:02:47 simonmar>
 --
 -- partree
 -- parallel map over a tree 
@@ -7,8 +7,8 @@
 
 module Main where
 
-import System(getArgs)
-import Parallel
+import System.Environment(getArgs)
+import Control.Parallel
 import Tree
 
 main = do args <- getArgs

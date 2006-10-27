@@ -1,5 +1,5 @@
 -- -*- haskell -*-
--- Time-stamp: <Fri Mar 30 2001 16:14:33 Stardate: [-30]6408.17 hwloidl>
+-- Time-stamp: <2005-11-09 16:03:42 simonmar>
 --
 -- ADT of a binary tree (values only in leaves).
 -- Parallel functions use par and seq directly.
@@ -11,13 +11,13 @@ module Tree(Tree,
 	    depth, create_forest, 
             force_tree, par_tree_map) where
 
-import Parallel
+import Control.Parallel
 
 infixl 2 ^:
 
-data (Integral a) => Tree a = Leaf a
-			    | Node (Tree a) (Tree a)
-			    deriving (Eq, Read, Show)
+data Tree a = Leaf a
+	    | Node (Tree a) (Tree a)
+	    deriving (Eq, Read, Show)
 
 tree_map :: (Integral a, Integral b) => (a -> b) -> Tree a -> Tree b
 tree_map f (Leaf x) 		= Leaf (f x)

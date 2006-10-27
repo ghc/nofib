@@ -1,5 +1,5 @@
 -- -*- haskell -*-
--- Time-stamp: <Wed Mar 21 2001 17:35:09 Stardate: [-30]6363.66 hwloidl>
+-- Time-stamp: <2005-11-09 15:46:13 simonmar>
 --
 -- Doing a factorial-like computation, actually just sum, using a std
 -- parallel divide-and-conquer stucture.
@@ -8,8 +8,8 @@
 
 module Main(main) where
 
-import System(getArgs)
-import Parallel
+import System.Environment (getArgs)
+import Control.Parallel
 
 main = do args <- getArgs
           let 

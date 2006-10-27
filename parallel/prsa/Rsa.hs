@@ -1,8 +1,7 @@
 module Rsa (encrypt, decrypt, makeKeys)
 where
 
-import  {-fool mkdependHS; ToDo: rm-}
-	Parallel
+import Control.Parallel
 
 encrypt, decrypt :: Integer -> Integer -> String -> String
 encrypt n e = unlines . parmap (show . power e n . code) . collect (size n)

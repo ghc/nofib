@@ -1,5 +1,5 @@
 -- -*- haskell -*-
--- Time-stamp: <Fri Mar 30 2001 14:32:21 Stardate: [-30]6407.82 hwloidl>
+-- Time-stamp: <2005-11-09 15:57:20 simonmar>
 --
 -- Ever popular nfib, now in parallel.
 -- Haskell98 version.
@@ -7,9 +7,8 @@
 
 module Main(main) where
 
-import System(getArgs)
-import	{-fool mkdependHS; ToDo: rm-}
-	Parallel
+import System.Environment (getArgs)
+import Control.Parallel
 
 main = do args <- getArgs
           let 
