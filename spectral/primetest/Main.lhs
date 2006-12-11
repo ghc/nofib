@@ -51,7 +51,8 @@ Manchester M13 9PL, UK.}
 Let's begin by giving Lester's line based command intepreter for
 programs with @state@.
 
-> main = getContents >>= \ cts -> sequence (map putStr (process (lines cts)))
+> main :: IO ()
+> main = getContents >>= \ cts -> mapM_ putStr (process (lines cts))
 
 The @process@ function takes a list of input lines and produces a list
 of output lines.
