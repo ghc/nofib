@@ -3,7 +3,7 @@ include $(TOP)/mk/boilerplate.mk
 -include opts.mk
 
 # Seems to be a real memory hog, this one
-SRC_RUNTEST_OPTS += +RTS -M200m -RTS
+SRC_RUNTEST_OPTS += +RTS -M300m -RTS
 
 include $(TOP)/mk/target.mk
 
