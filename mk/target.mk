@@ -62,8 +62,8 @@ runtests ::
 	echo $(GHCI_HC_OPTS)
 	@$(TIME) $(RUNTEST) $(HC) $(RUNTEST_OPTS) \
 			-i $(STDIN) \
-	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).stdout*)) \
-	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).stderr*)) \
+	  		$(addprefix -o1 ,$(wildcard $(NOFIB_PROG).$(mode)stdout*)) \
+	  		$(addprefix -o2 ,$(wildcard $(NOFIB_PROG).$(mode)stderr*)) \
 			-- --interactive -v0 -Wnot \
 			$(GHCI_HC_OPTS) Main
 	@$(RM) $(STDIN)
