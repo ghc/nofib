@@ -61,6 +61,31 @@ specialisation is broken.
 	Spectral suite
 ---------------------------------------
 
+cse
+~~~
+The functions 'go' and 'go1', called from draw, get arity 1, but they
+should get arity 2. We need a better arity analysis, a la Gill. 'go' looks
+like this:
+    go_r1og =
+      \ (ds_aGI :: [GHC.Base.Char]) ->
+        case ds_aGI of wild_aGJ {
+          [] -> z_r1oe;
+          : y_aGN ys_aGO ->
+    	let {
+    	  xs7_s1i8 :: GHC.Prim.Int# -> [GHC.Base.Char]
+    	  [Str: DmdType]
+    	  xs7_s1i8 = go_r1og ys_aGO
+    	} in 
+    	  \ (m_XWf :: GHC.Prim.Int#) ->
+    	    case GHC.Prim.<=# m_XWf 1 of wild1_aSI {
+    	      GHC.Base.False ->
+    		GHC.Base.: @ GHC.Base.Char y_aGN (xs7_s1i8 (GHC.Prim.-# m_XWf 1));
+    	      GHC.Base.True -> GHC.Base.: @ GHC.Base.Char y_aGN lvl13_r1n0
+    	    }
+        }
+Notice the 'let' which stops the lambda moving out.
+
+
 Eliza
 ~~~~~
 In June 2002, GHC 5.04 emitted four successive
