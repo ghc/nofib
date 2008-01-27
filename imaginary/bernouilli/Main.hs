@@ -9,9 +9,13 @@ import Ratio
 import System.Environment
 
 -- powers = [[r^n | r<-[2..]] | n<-1..]
+-- type signature required for compilers lacking the monomorphism restriction
+powers :: [[Integer]]
 powers = [2..] : map (zipWith (*) (head powers)) powers
 
 -- powers = [[(-1)^r * r^n | r<-[2..]] | n<-1..]
+-- type signature required for compilers lacking the monomorphism restriction
+neg_powers :: [[Integer]]
 neg_powers = 
   map (zipWith (\n x -> if n then x else -x) (iterate not True)) powers
 
