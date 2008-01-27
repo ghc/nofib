@@ -22,7 +22,8 @@ integrate2D l1 u1 l2 u2 f = integrate1D l2 u2
 
 zark u v = integrate2D 0.0 u 0.0 v (\x->(\y->x*y))
 
-ints = [1.0..]
+-- type signature required for compilers lacking the monomorphism restriction
+ints = [1.0..] :: [Double]
 zarks = zipWith zark ints (map (2.0*) ints)
 rtotals = head zarks : zipWith (+) (tail zarks) rtotals
 rtotal n = rtotals!!n
