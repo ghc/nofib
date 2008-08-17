@@ -12,11 +12,11 @@ TOP = .
 include $(TOP)/mk/boilerplate.mk
 
 # Set up which parts of the nofib suite that is to be
-# run. See $(FPTOOLS_TOP)/mk/config.mk, which tells you how
+# run. See $(TOP)/../mk/config.mk, which tells you how
 # to set NoFibSubDirs
 #
 # As usual,if you want to override these, create
-# $(FPTOOLS)/mk/build.mk containing the flags and options
+# $(TOP)/../mk/build.mk containing the flags and options
 # you want to use in a build tree.
 SUBDIRS = $(NoFibSubDirs)
 

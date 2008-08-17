@@ -9,8 +9,6 @@
 # Begin by slurping in the boilerplate from one level up, 
 # with standard TOP-mangling
 # Remember, TOP is the top level of the innermost level
-# ( FPTOOLS_TOP, which will be set while processing
-#   toplevel boilerplate, is the fptools top )
 
 NOFIB_TOP := $(TOP)
 TOP := $(TOP)/..
