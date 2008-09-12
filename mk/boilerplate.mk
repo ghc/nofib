@@ -15,6 +15,10 @@ TOP := $(TOP)/..
 include $(TOP)/mk/boilerplate.mk
 TOP:=$(NOFIB_TOP)
 
+# Turn off -Werror for nofib. This allows you to use nofib in a tree
+# built with validate.
+WERROR=
+
 # -----------------------------------------------------------------
 # Everything after this point
 # augments or overrides previously set variables.
