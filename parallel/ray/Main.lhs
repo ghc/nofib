@@ -1,11 +1,12 @@
 The Ray tracer algorithm taken from Paul Kelly's book, adapted by Greg
 Michaelson for SML, converted to (parallel) Haskell by Kevin Hammond!
 
-> import {-fool mkdependHS; ToDo: rm-}
->	Parallel
+> import Control.Parallel
+> import System.Environment
 
-> main = putStr (top 15 10.0 7.0 6.0 sc)
-> -- main = appendChan stdout (top 50 10.0 7.0 10.0 sc) abort done
+> main = do
+>   [detail] <- fmap (map read) getArgs
+>   putStr (top detail 10.0 7.0 6.0 sc)
 
 > type Coord = (Double,Double,Double)
 
@@ -126,30 +127,21 @@ in_poly_test (p,q,r) (A,B,C) Vs
 > earlier NoImpact         i2 = 	      i2
 > earlier i1@(Impact d1 _) i2@(Impact d2 _) = if d1 <= d2 then i1 else i2
 
-> parmap1 :: (Object -> Impact) -> [Object] -> [Impact]
-> parmap1 f l = parmap l
->      where parmap [] = []
->            parmap (x:xs) = fx `par` pmxs `par` (fx:pmxs)
->			     where fx = f x
->				   pmxs = parmap xs
-
-> parmap2 :: (Ray -> Impact) -> [Ray] -> [Impact]
-> parmap2 f l = parmap l
->      where parmap [] = []
->            parmap (x:xs) = fx `par` pmxs `par` (fx:pmxs)
->			     where fx = f x
->				   pmxs = parmap xs
+> parList :: [a] -> ()
+> parList [] = ()
+> parList (x:xs) = x `par` parList xs
 
 > insert :: (Impact -> Impact -> Impact) -> Impact -> [Impact] -> Impact
 > insert f d [] = d
 > insert f d (x:xs) = f x (insert f d xs)
 
 > firstImpact :: [Object] -> Ray -> Impact
-> firstImpact os r =  earliest (parmap1 (testForImpact r) os)
+> firstImpact os r =  earliest (map (testForImpact r) os)
 > 	where earliest = insert earlier NoImpact
 
 > findImpacts :: [Ray] -> [Object] -> [Impact]
-> findImpacts rays objects = parmap2 (firstImpact objects) rays
+> findImpacts rays objects = parList r `pseq` r
+>     where r = map (firstImpact objects) rays
 
 
 (*** Functions to generate a list of rays ******

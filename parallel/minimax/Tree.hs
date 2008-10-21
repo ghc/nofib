@@ -1,7 +1,5 @@
 module Tree where
 
-import ParForce
-
 data Tree a = Branch a [Tree a] deriving Text
 
 repTree :: (a->[a]) -> (a->[a])-> a -> (Tree a)

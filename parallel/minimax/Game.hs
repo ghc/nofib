@@ -1,4 +1,4 @@
--- Time-stamp: <Fri Oct 20 1995 15:18:17 Stardate: [-31]6467.98 hwloidl>
+-- Time-stamp: <2008-10-21 13:23:29 simonmar>
 -----------------------------------------------------------------------------
 
 module Game where
@@ -7,7 +7,8 @@ import Board
 import Wins
 import Tree
 
-import ParForce
+import Control.Parallel
+import Control.Parallel.Strategies
 
 type Player = Evaluation -> Evaluation -> Evaluation
 type Move = (Board,Evaluation)

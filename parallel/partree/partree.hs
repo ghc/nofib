@@ -1,6 +1,4 @@
 -- -*- haskell -*-
--- Time-stamp: <2005-11-09 16:02:47 simonmar>
---
 -- partree
 -- parallel map over a tree 
 -----------------------------------------------------------------------------
@@ -11,12 +9,12 @@ import System.Environment(getArgs)
 import Control.Parallel
 import Tree
 
-main = do args <- getArgs
+main = do [arg1,arg2] <- getArgs
           let 
-            n = read (args!!0) :: Int  -- size of tree in nodes
-            c = read (args!!1) :: Int  -- work per node
+            n = read arg1 :: Int  -- size of tree in nodes
+            c = read arg2 :: Int  -- work per node
             res = partree c n
-          putStrLn ("partree " ++ (unwords args) ++ " = " ++ (show res))
+          putStrLn ("partree " ++ unwords [arg1,arg2] ++ " = " ++ show res)
 
 -- worker function to be mapped over the tree; heavily allocating!
 bar :: Int -> Int -> Int

@@ -1,4 +1,4 @@
--- Time-stamp: <Fri Oct 20 1995 15:17:06 Stardate: [-31]6467.97 hwloidl>
+-- Time-stamp: <2008-10-21 13:20:50 simonmar>
 -----------------------------------------------------------------------------
 
 module Prog(prog) where
@@ -9,8 +9,8 @@ import Game
 import Tree
 
 -- First arg decaffinates game
-prog :: Int -> String -> String
-prog decaf _ = showMove (head game)
+prog :: Int -> String
+prog decaf = showMove (head game)
 	       --"OXO\n" ++
 	       --concat (map showMove game)
 	       where

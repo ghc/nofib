@@ -1,10 +1,11 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
--include opts.mk
 
-FAST_OPTS = 34 15 8
-NORM_OPTS = 36 17 8
-SLOW_OPTS = 34 18 8
+PROG_ARGS = 38 8000 100
 SRC_HC_OPTS += -package parallel
+
+# FAST_OPTS = 
+# NORM_OPTS = 
+# SLOW_OPTS = 
 
 include $(TOP)/mk/target.mk

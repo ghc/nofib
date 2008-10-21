@@ -1,11 +1,12 @@
--- Time-stamp: <Sun Mar 10 1996 22:24:04 Stardate: [-31]7179.66 hwloidl>
+-- Time-stamp: <2008-10-21 13:26:36 simonmar>
 -----------------------------------------------------------------------------
 
 module Board where
 
 import Wins
 
-import ParForce
+import Control.Parallel
+import Control.Parallel.Strategies
 
 type Board = [Row] 
 type Row = [Piece]
@@ -46,12 +47,12 @@ empty' 2 [_,Empty,_] = True
 empty' 3 [_,_,Empty] = True
 empty' _ _ = False
 
-fullBoard b = and (par_map 3 notEmpty (concat b))
+fullBoard b = and (parMap rnf notEmpty (concat b))
 	where 
 	notEmpty x = not (x==Empty)
 
 --newPositions :: Piece -> Board -> [Board]
-newPositions piece board = concat (par_map 6 (placePiece piece board) 
+newPositions piece board = concat (parMap rwhnf (placePiece piece board) 
 					     [(x,y) | x<-[1..3],y <-[1..3]])
 
 initialBoard :: Board
@@ -59,7 +60,7 @@ initialBoard = [[Empty,Empty,Empty],
 		[Empty,Empty,Empty],
 		[Empty,Empty,Empty]]
 
-data Evaluation = XWin | OWin | Score Int deriving (Text,Eq)
+data Evaluation = XWin | OWin | Score Int deriving (Show,Eq)
 {- OLD: partain
 instance Eq Evaluation where
     XWin       == XWin	     = True
@@ -89,7 +90,7 @@ eval (-3) = OWin
 eval x = Score x
 
 static :: Board -> Evaluation
-static board = interpret 0 (par_map 8 (score board) wins)
+static board = interpret 0 (parMap rwhnf (score board) wins)
 
 interpret :: Int -> [Evaluation] -> Evaluation
 interpret x [] = (Score x)
@@ -98,7 +99,7 @@ interpret x (XWin:l) = XWin
 interpret x (OWin:l) = OWin
 
 score :: Board -> Win -> Evaluation
-score board win  = eval (sum (par_map 7 sum (zipWith (zipWith scorePiece) board win)))
+score board win  = eval (sum (parMap rnf sum (zipWith (zipWith scorePiece) board win)))
 
 scorePiece :: Piece -> Int -> Int
 scorePiece X score = score

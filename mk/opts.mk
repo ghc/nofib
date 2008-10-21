@@ -19,7 +19,7 @@ ifneq "$(way)" "mp"
 # if testing GUM don't generate a -S style log file; it may well differ 
 SRC_RUNTEST_OPTS += -ghc-timing 
 endif
-SRC_RUNTEST_OPTS += +RTS -H10m -K10m -RTS
+# SRC_RUNTEST_OPTS += +RTS -H10m -K10m -RTS
 
 #-----------------------------------------------------------------------------
 # Setting for Haskell compiler
