@@ -11,7 +11,7 @@ decrypt n d = concat . parmap (decode . power d n . read) . lines
 
 parmap :: (String -> String) -> [String] -> [String]
 parmap f [] = []
-parmap f (x:xs) = fx `par` pmxs `par` (fx:pmxs)
+parmap f (x:xs) = fx `par` (pmxs `par` (fx:pmxs))
    where fx = f x
          pmxs = parmap f xs
 
