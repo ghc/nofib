@@ -37,3 +37,7 @@ else
   PROG_ARGS = $(NORM_OPTS)
  endif
 endif
+
+# Hmm, we shouldn't have to do this.
+BOOTSTRAPPING_PACKAGE_CONF_MKDEPENDHS_OPTS=
+BOOTSTRAPPING_PACKAGE_CONF_HC_OPTS=
