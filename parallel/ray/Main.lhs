@@ -167,16 +167,16 @@ in_poly_test (p,q,r) (A,B,C) Vs
 >     start 0 ys = ys
 >     start !n (y:ys) = y `par` start (n-1) ys
 
- parBuffer :: Int -> Strategy a -> [a] -> [a]
- parBuffer n s xs = return xs (start n xs)
-   where
-     return (x:xs) (y:ys) = (x : return xs ys) 
-                            `sparking` s y
-     return xs [] = xs
- 
-     start !n [] = []
-     start 0 ys = ys
-     start !n (y:ys) = start (n-1) ys `sparking` s y
+> parBuffer' :: Int -> Strategy a -> [a] -> [a]
+> parBuffer' n s xs = return xs (start n xs)
+>   where
+>     return (x:xs) (y:ys) = (x : return xs ys) 
+>                            `sparking` s y
+>     return xs [] = xs
+> 
+>     start !n [] = []
+>     start 0 ys = ys
+>     start !n (y:ys) = start (n-1) ys `sparking` s y
 
 > parListN :: Int -> [a] -> [a]
 > parListN 0  xs     = xs 
