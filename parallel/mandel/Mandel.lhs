@@ -141,13 +141,23 @@ parallelMandel mat limit radius
 --                              | xs <- mat ]
 
 --   lazyParList1 version:
-                 lazyParList1 50
+                 parBuffer 70
                              [ let l = map (whenDiverge limit radius) xs
                                in seqList l `pseq` l
                              | xs <- mat ]
 
 --   = lazyParListChunk 100 100 $ map (whenDiverge limit radius) mat
 --   = lazyParMap 512 (whenDiverge limit radius) mat
+
+parBuffer :: Int -> [a] -> [a]
+parBuffer n xs = return xs (start n xs)
+  where
+    return (x:xs) (y:ys) = y `par` (x : return xs ys) 
+    return xs [] = xs
+
+    start !n [] = []
+    start 0 ys = ys
+    start !n (y:ys) = y `par` start (n-1) ys
 
 -- parListN :: Int -> [a] -> [a]
 -- parListN 0  xs     = xs 
