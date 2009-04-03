@@ -16,6 +16,9 @@ vec_sub :: Vec -> Vec -> Vec
 -- represent the nummerator and denominator of a rational number which
 -- is used to scale the given vector.
 scale_vec2 :: Vec -> Int -> Int -> Vec
+-- Inlining scale_vec2 makes a big difference (at least until we
+-- have nested CPR!  To see, try the effect of this inline pragma
+      {- # INLINE scale_vec2 # -}
 scale_vec2 (x,y) a b = ((x*a) `div` b, (y*a) `div` b)
 
 p_tile :: [(Int,Int,Int,Int)]
