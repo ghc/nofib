@@ -61,6 +61,10 @@ specialisation is broken.
 	Spectral suite
 ---------------------------------------
 
+rewrite
+~~~~~~~
+It's important to inline p_ident
+
 cse
 ~~~
 The functions 'go' and 'go1', called from draw, get arity 1, but they
