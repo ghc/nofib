@@ -18,7 +18,7 @@ include $(TOP)/mk/boilerplate.mk
 # As usual,if you want to override these, create
 # $(TOP)/../mk/build.mk containing the flags and options
 # you want to use in a build tree.
-SUBDIRS = $(NoFibSubDirs)
+SUBDIRS = runstdtest $(NoFibSubDirs)
 
 
 # Include the standard targets, one of which
