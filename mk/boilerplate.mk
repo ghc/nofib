@@ -12,6 +12,9 @@
 
 default : all
 
+show:
+	@echo '$(VALUE)="$($(VALUE))"'
+
 NOFIB_TOP := $(TOP)
 include $(NOFIB_TOP)/../mk/config.mk
 GHC_TOP := $(TOP)
@@ -21,6 +24,28 @@ TOP := $(NOFIB_TOP)
 # built with validate.
 WERROR=
 
+# NoFibSubDirs controls which set of tests should be run
+# You can run one or more of
+#	imaginary 
+#	spectral
+#	real
+#	parallel
+#	PRIVATE
+#	PENDING
+#	UNUSED
+NoFibSubDirs = imaginary spectral real
+
+# The different ways to build nofib. Default is just to mirror
+# what is done for the ghc prelude libraries.
+#
+NoFibWays = $(filter-out v,$(GhcLibWays))
+
+# Haskell compiler options for nofib
+NoFibHcOpts = -O
+
+# Number of times to run each program
+NoFibRuns = 5
+
 # -----------------------------------------------------------------
 # Everything after this point
 # augments or overrides previously set variables.
@@ -29,6 +54,10 @@ WERROR=
 # -----------------------------------------------------------------
 
 WAYS=$(NoFibWays)
+
+TOP := $(GHC_TOP)
+include $(GHC_TOP)/mk/build.mk
+TOP := $(NOFIB_TOP)
 
 SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 
