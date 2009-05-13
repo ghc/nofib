@@ -13,3 +13,5 @@ all::
 	$(EXECUTABLE_FILE) $(PROG)
 
 boot :: all
+
+include $(TOP)/mk/ghc-target.mk
