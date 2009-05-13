@@ -56,13 +56,19 @@ NoFibRuns = 5
 WAYS=$(NoFibWays)
 
 TOP := $(GHC_TOP)
-include $(GHC_TOP)/mk/build.mk
+-include $(GHC_TOP)/mk/build.mk
 TOP := $(NOFIB_TOP)
 
 SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 
+ifeq "$(WithNofibHc)" ""
 HC	   = $(GHC_TOP)/$(GHC_STAGE2)
 MKDEPENDHS := $(GHC_TOP)/$(GHC_STAGE2)  # ToDo: wrong, if $(WithNofibHc) isn't GHC.
+else
+HC	   = $(WithNofibHc)
+MKDEPENDHS := $(WithNofibHc)
+endif
+
 MKDEPENDC := $(GHC_TOP)/$(MKDEPENDC)
 RUNTEST   = $(NOFIB_TOP)/runstdtest/runstdtest
 
