@@ -16,6 +16,7 @@ show:
 	@echo '$(VALUE)="$($(VALUE))"'
 
 NOFIB_TOP := $(TOP)
+include $(NOFIB_TOP)/../mk/tree.mk
 include $(NOFIB_TOP)/../mk/config.mk
 GHC_TOP := $(TOP)
 TOP := $(NOFIB_TOP)
