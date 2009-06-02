@@ -21,6 +21,8 @@ include $(NOFIB_TOP)/../mk/config.mk
 GHC_TOP := $(TOP)
 TOP := $(NOFIB_TOP)
 
+RM = rm -f
+
 # Turn off -Werror for nofib. This allows you to use nofib in a tree
 # built with validate.
 WERROR=
