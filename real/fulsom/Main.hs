@@ -32,6 +32,7 @@ import Matrix
 import Patchlevel
 
 import System
+import System.IO
 
 main = do
     argv <- getArgs
@@ -39,6 +40,7 @@ main = do
 	n = case argv of
 	      [a] -> read a
 	      _   -> 7
+    hSetBinaryMode stdout True
     putStr (picture n)
 
 picture n = go n pic

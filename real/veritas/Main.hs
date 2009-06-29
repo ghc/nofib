@@ -36,11 +36,14 @@ import Tags
 
 import Parse
  
+import System.IO
 
 
 --proof_edit : string list * string list -> unit 
 
 main = do
+    hSetBinaryMode stdin  True
+    hSetBinaryMode stdout True
     ins <- getContents
     putStr (main' ins)
 

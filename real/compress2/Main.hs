@@ -7,9 +7,13 @@ where
 
 import Encode
 import WriteRoutines
+import System.IO
 
-main = getContents >>= \ i ->
-	putStr (compress i)
+main = do
+  hSetBinaryMode stdin  True
+  hSetBinaryMode stdout True
+  i <- getContents
+  putStr (compress i)
            
 -- The output is given by a magic header consisting of two fixed numbers,
 -- and a third representing the maximum number of bits used per code and
