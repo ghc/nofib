@@ -13,6 +13,7 @@ main = 	do
       [screenX,screenY]     = map read [screenX_,screenY_]
       limit                 = read limit_
 
+  hSetBinaryMode stdout True
   putStr (show (mandelset minx miny maxx maxy screenX screenY limit))
 
 readNum::(Num a, Read a) => String -> [String] -> (a->[String]->IO ()) -> IO ()
