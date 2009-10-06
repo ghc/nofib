@@ -1,96 +1,88 @@
--- Time-stamp: <2008-10-21 13:26:36 simonmar>
------------------------------------------------------------------------------
-
+{-# LANGUAGE BangPatterns #-}
 module Board where
 
 import Wins
 
+import Data.List
 import Control.Parallel
 import Control.Parallel.Strategies
 
+boardDim = 4
+
 type Board = [Row] 
 type Row = [Piece]
-data Piece = X | O | Empty deriving Eq
+data Piece = X | O | Empty deriving (Eq,Show)
+
+isEmpty Empty = True
+isEmpty _     = False
 
 showBoard :: Board -> String
-showBoard [r1,r2,r3] =  showRow r1 ++ "\n------\n" ++
-			showRow r2 ++ "\n------\n" ++
-			showRow r3 ++ "\n\n" 
-
-showRow [p1,p2,p3] = showPiece p1 ++ "|" ++ showPiece p2 ++ "|" ++ showPiece p3
-
+showBoard board = intercalate "\n--------\n" (map showRow board) ++ "\n"
+ where showRow r = intercalate "|" (map showPiece r)
 
 showPiece :: Piece -> String
 showPiece X = "X"
 showPiece O = "O"
 showPiece Empty = " "
 
-placePiece :: Piece -> Board -> (Int,Int) -> [Board]
-placePiece p board pos | not (empty pos board) = []
-placePiece p [r1,r2,r3] (1,x) = [[insert p r1 x,r2,r3]]
-placePiece p [r1,r2,r3] (2,x) = [[r1,insert p r2 x,r3]]
-placePiece p [r1,r2,r3] (3,x) = [[r1,r2,insert p r3 x]]
-
-insert :: Piece -> Row -> Int -> Row
-insert p [p1,p2,p3] 1 = [p,p2,p3]
-insert p [p1,p2,p3] 2 = [p1,p,p3]
-insert p [p1,p2,p3] 3 = [p1,p2,p]
+placePiece :: Piece -> Board -> (Int,Int) -> Board
+placePiece new board pos
+  = [[ if (x,y) == pos then new else old
+     | (x,old) <- zip [1..] row ]
+     | (y,row) <- zip [1..] board ]
 
 empty :: (Int,Int) -> Board -> Bool
-empty (1,x) [r1,r2,r3] = empty' x r1
-empty (2,x) [r1,r2,r3] = empty' x r2
-empty (3,x) [r1,r2,r3] = empty' x r3
+empty (x,y) board = isEmpty ((board !! (y-1)) !! (x-1))
 
-empty' :: Int -> Row -> Bool
-empty' 1 [Empty,_,_] = True
-empty' 2 [_,Empty,_] = True
-empty' 3 [_,_,Empty] = True
-empty' _ _ = False
+fullBoard b = all (not.isEmpty) (concat b)
 
-fullBoard b = and (parMap rnf notEmpty (concat b))
-	where 
-	notEmpty x = not (x==Empty)
+newPositions :: Piece -> Board -> [Board]
+newPositions piece board = 
+--  [ placePiece piece board (x,y) | (x,y) <- empties board ]
+    goRows piece id board
 
---newPositions :: Piece -> Board -> [Board]
-newPositions piece board = concat (parMap rwhnf (placePiece piece board) 
-					     [(x,y) | x<-[1..3],y <-[1..3]])
+goRows p rowsL [] = []
+goRows p rowsL (row:rowsR) 
+  = goRow p rowsL id row rowsR ++ goRows p (rowsL . (row:)) rowsR
+
+goRow p rowsL psL [] rowsR = []
+goRow p rowsL psL (Empty:psR) rowsR
+    = (rowsL $ (psL $ (p:psR)) : rowsR) : goRow p rowsL (psL . (Empty:)) psR rowsR
+goRow p rowsL psL (p':psR) rowsR = goRow p rowsL (psL . (p':)) psR rowsR
+
+empties board = [ (x,y) | (y,row)   <- zip [1..] board,
+                          (x,Empty) <- zip [1..] row ]
+
 
 initialBoard :: Board
-initialBoard = [[Empty,Empty,Empty], 
-		[Empty,Empty,Empty],
-		[Empty,Empty,Empty]]
+initialBoard = replicate boardDim (replicate boardDim Empty)
 
-data Evaluation = XWin | OWin | Score Int deriving (Show,Eq)
-{- OLD: partain
-instance Eq Evaluation where
-    XWin       == XWin	     = True
-    OWin       == OWin	     = True
-    (Score i1) == (Score i2) = i1 == i2
-    _	       == _          = False
-    a	  /= b	   = not (a == b)
+data Evaluation = OWin | Score {-# UNPACK #-}!Int | XWin
+  -- higher scores denote a board in X's favour
+  deriving (Show,Eq)
 
-instance Text Evaluation where
-    showsPrec d XWin = showString "XWin"
-    showsPrec d OWin = showString "OWin"
-    showsPrec d (Score i) = showParen (d >= 10) showStr
-	where
-	  showStr = showString "Score" . showChar ' ' . showsPrec 10 i
+maxE :: Evaluation -> Evaluation -> Evaluation
+maxE XWin _ = XWin
+maxE _ XWin = XWin
+maxE b OWin = b
+maxE OWin b = b
+maxE a@(Score x) b@(Score y) 	| x>y = a
+			 	| otherwise = b
 
-    readsPrec p = error "no readsPrec for Evaluations"
-    readList = error "no readList for Evaluations"
-    showList []	= showString "[]"
-    showList (x:xs)
-		= showChar '[' . shows x . showl xs
-		  where showl []     = showChar ']'
-			showl (x:xs) = showChar ',' . shows x . showl xs
--}
+minE :: Evaluation -> Evaluation -> Evaluation
+minE OWin _ = OWin
+minE _ OWin = OWin
+minE b XWin = b
+minE XWin b = b
+minE a@(Score x) b@(Score y) 	| x<y = a
+				| otherwise = b
 
-eval 3 = XWin
-eval (-3) = OWin
-eval x = Score x
+eval n | n  == boardDim = XWin
+       | -n == boardDim = OWin
+       | otherwise      = Score n
 
 static :: Board -> Evaluation
-static board = interpret 0 (parMap rwhnf (score board) wins)
+static board = interpret 0 (score board)
 
 interpret :: Int -> [Evaluation] -> Evaluation
 interpret x [] = (Score x)
@@ -98,13 +90,21 @@ interpret x (Score y:l) = interpret (x+y) l
 interpret x (XWin:l) = XWin
 interpret x (OWin:l) = OWin
 
-score :: Board -> Win -> Evaluation
-score board win  = eval (sum (parMap rnf sum (zipWith (zipWith scorePiece) board win)))
+scorePiece X     = 1
+scorePiece O     = -1
+scorePiece Empty = 0
 
-scorePiece :: Piece -> Int -> Int
-scorePiece X score = score
-scorePiece Empty _ = 0
-scorePiece O score = -score
+scoreString !n [] = n
+scoreString !n (X:ps)     = scoreString (n+1) ps
+scoreString !n (O:ps)     = scoreString (n-1) ps
+scoreString !n (Empty:ps) = scoreString n ps
+
+score :: Board -> [Evaluation]
+score board = 
+   [ eval (scoreString 0 row) | row <- board ] ++
+   [ eval (scoreString 0 col) | col <- transpose board ] ++
+   [ eval (scoreString 0 (zipWith (!!) board [0..])),
+     eval (scoreString 0 (zipWith (!!) board [boardDim-1,boardDim-2 ..])) ]
 
 {-
 #if 0

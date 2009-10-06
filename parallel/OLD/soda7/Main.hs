@@ -1,5 +1,5 @@
 ------------------------------------------------------------------
--- Time-stamp: <Tue Apr 03 2001 20:46:15 Stardate: [-30]6429.11 hwloidl>
+-- Time-stamp: <2009-05-07 13:48:09 simonmar>
 --
 -- Searching in a grid of words for hidden words oriented in any of
 -- the 8 possible directions.
@@ -25,11 +25,13 @@ module Main(main) where
 -- @node Imports, Datatypes
 -- @section Imports
 
-import Strategies
-import List(transpose)
-import System(getArgs)
-import Char
-import Random
+import Control.Parallel
+import Control.Parallel.Strategies
+import Data.List          ( transpose )
+import System.Environment ( getArgs )
+import Data.Char
+import System.Random
+import Control.Exception
 
 -- @node Datatypes, Main fct, Imports
 -- @section Datatypes
@@ -44,13 +46,10 @@ instance NFData DIRS
 -- @section Main fct
 
 main = do 
-        args <- getArgs
-        --g <- getStdGen
-        --input <- readFile "random-list"
-        let 
-         n = read (args!!0) :: Int  -- grid size
+        [n] <- fmap (fmap read) getArgs
         grid <- mk_grid n           -- build a grid of the given size
-        let
+        evaluate (rnf grid)
+        let 
     	 r    = grid
     	 d    = transpose grid
     	 dl   = diagonals grid
@@ -70,7 +69,7 @@ main = do
 
          -- res = map find hidden -- all matches as (word, [dirs])
          res = map (length . snd . find ) hidden -- only count no. of matches
-               `using` parList rnf
+               `using` myParList
                {-
                `using` \ r ->(rnf d   >||
                        	      rnf dl  >||
@@ -89,6 +88,8 @@ main = do
 
        	putStrLn res_str -- "done"
 
+myParList [] = ()
+myParList (x:xs) = x `par` myParList xs
         
 -- @node Aux fcts,  , Main fct
 -- @section Aux fcts

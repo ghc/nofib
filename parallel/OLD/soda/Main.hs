@@ -16,8 +16,7 @@ Message-ID: <swordfish.740931041@minster.york.ac.uk>
 -- Version 5 -- search parallel lines in parallel
 ------------------------------------------------------------------
 
-import	{-fool mkdependHS; ToDo: rm-}
-	Parallel
+import Control.Parallel
 import List(transpose)--1.3
 
 main = par (unigrid d) (par (unigrid dr) (par (unigrid ur) (
