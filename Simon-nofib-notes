@@ -63,7 +63,26 @@ specialisation is broken.
 
 rewrite
 ~~~~~~~
-It's important to inline p_ident
+It's important to inline p_ident.
+
+There's a very delicate CSE in p_expr
+   p_expr = seQ q_op [p_term1, p_op, p_term2] ## p_term3
+
+(where all the pterm1,2,3 are really just p_term).  
+
+This expands into
+   p_expr s = case p_term1 s of
+   	        Nothing -> p_term3 s
+		Just (v,s') -> case p_op s' of ...
+		     	         Nothing -> p_term3 s
+
+Notice that if the bit before (##) fails, we call p_term3 s, and if
+CSE notices we can re-use the result of the first call.  But that
+depends on how much inlining takes place.  In particular, the follow-up
+calls p_term3 can get hidden inside join points, which don't "see" the first
+call.
+
+
 
 cse
 ~~~
