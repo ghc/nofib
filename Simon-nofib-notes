@@ -128,6 +128,75 @@ The performance of fish depends crucially on inlining scale_vec2.
 It turns out to be right on the edge of GHC's normal threshold size, so
 small changes to the compiler can knock it to and fro.
 
+[Sept 08]  The new instance-declaration story makes show slightly worse.
+Look at Main.showl in the simplified core.  You'll see this:
+
+  a79_aRZ :: GHC.Types.Int
+             -> (GHC.Types.Int, GHC.Types.Int, GHC.Types.Int, GHC.Types.Int)
+             -> GHC.Show.ShowS
+  [Str: DmdType]
+  a79_aRZ =
+    GHC.Show.showsPrec9 @ Int @ Int @ Int @ Int
+    	  GHC.Show.$f16 GHC.Show.$f16 GHC.Show.$f16 GHC.Show.$f16
+
+  Rec {
+  showl_sWK :: [Main.Line_segment] -> String -> String
+  [Arity 2
+   Str: DmdType SL]
+  showl_sWK =
+    \ (ds_dQJ :: [Main.Line_segment]) (s_alB :: GHC.Base.String) ->
+      case ds_dQJ of wild_X1d [ALWAYS Just A] {
+        [] -> GHC.Types.: @ GHC.Types.Char lvl_sYT s_alB;
+        : x_alD [ALWAYS Just L] xs_alF [ALWAYS Just L] ->
+          GHC.Base.++
+            @ GHC.Types.Char
+            a_s12R
+            (a79_aRZ a_s1uS x_alD (showl_sWK xs_alF s_alB))
+      }
+  end Rec }
+
+Note the non-inlined call to GHC.Show.showsPrec9, which looks like this:
+  showsPrec9 :: forall a b c d. (Show a, Show b, Show c, Show d) =>
+                GHC.Types.Int -> (a, b, c, d) -> GHC.Show.ShowS
+    {- Arity: 4 Strictness: LLLL
+       Unfolding: (\ @ a b c d
+                     $dShow :: GHC.Show.Show a
+                     $dShow1 :: GHC.Show.Show b
+                     $dShow2 :: GHC.Show.Show c
+                     $dShow3 :: GHC.Show.Show d ->
+                   let {
+                     shows1 :: d -> GHC.Show.ShowS = GHC.Show.shows @ d $dShow3
+                   } in
+                   let {
+                     shows2 :: c -> GHC.Show.ShowS = GHC.Show.shows @ c $dShow2
+                   } in
+                   let {
+                     shows3 :: b -> GHC.Show.ShowS = GHC.Show.shows @ b $dShow1
+                   } in
+                   let {
+                     shows4 :: a -> GHC.Show.ShowS = GHC.Show.shows @ a $dShow
+                   } in
+                   \ ds :: GHC.Types.Int ds1 :: (a, b, c, d) s :: GHC.Base.String ->
+                   case @ GHC.Base.String ds1 of wild { (a79, b, c, d) ->
+                   GHC.Show.show_tuple
+                     (GHC.Types.:
+                        @ GHC.Show.ShowS
+                        (shows4 a79)
+                        (GHC.Types.:
+                           @ GHC.Show.ShowS
+                           (shows3 b)
+                           (GHC.Types.:
+                              @ GHC.Show.ShowS
+                              (shows2 c)
+                              (GHC.Types.:
+                                 @ GHC.Show.ShowS
+                                 (shows1 d)
+                                 (GHC.Types.[] @ GHC.Show.ShowS)))))
+                     s }) -}
+
+We would do better to inpline showsPrec9 but it looks too big.  Before
+it was inlined regardless by the instance-decl stuff.  So perf drops slightly.
+
 
 Integer
 ~~~~~~~
@@ -188,6 +257,10 @@ in runtime after 4.08
 Puzzle
 ~~~~~~
 The main function is 'transfer'.  It has some complicated join points, and
+a big issue is the full laziness can float out many small MFEs that then 
+make much bigger closures.  It's quite delicate: small changes can make
+big differences, and I spent far too long gazing at it.
+
 I found that in my experimental proto 4.09 compiler I had 
 
 	let ds = go xs in
