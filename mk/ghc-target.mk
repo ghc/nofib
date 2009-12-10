@@ -88,9 +88,6 @@ depend :: $(MKDEPENDHS_SRCS) $(MKDEPENDC_SRCS) $(PKGCONF_DEP)
 ifneq "$(DOC_SRCS)" ""
 	$(MKDEPENDLIT) -o .depend $(MKDEPENDLIT_OPTS) $(filter %.lit,$(DOC_SRCS))
 endif
-ifneq "$(MKDEPENDC_SRCS)" ""
-	$(MKDEPENDC) -f .depend $(MKDEPENDC_OPTS) $(foreach way,$(WAYS),-s $(way)) -- $(CC_OPTS) -- $(MKDEPENDC_SRCS) 
-endif
 ifneq "$(MKDEPENDHS_SRCS)" ""
 	$(MKDEPENDHS) -M $(MKDEPENDHS_FLAGS) $(foreach obj,$(MKDEPENDHS_OBJ_SUFFICES),-osuf $(obj)) $(MKDEPENDHS_OPTS) $(filter-out -split-objs, $(HC_OPTS)) $(MKDEPENDHS_SRCS)
 endif
