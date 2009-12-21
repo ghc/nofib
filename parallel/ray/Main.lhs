@@ -3,7 +3,7 @@ Michaelson for SML, converted to (parallel) Haskell by Kevin Hammond!
 
 > {-# LANGUAGE BangPatterns #-}
 > import Control.Parallel
-> import Control.Parallel.Strategies (Strategy, sparking, rwhnf)
+> import Control.Parallel.Strategies (Strategy, sparking, rwhnf, parBuffer)
 > import System.Environment
 
 > main = do
@@ -138,7 +138,7 @@ in_poly_test (p,q,r) (A,B,C) Vs
 > 	where earliest = insert earlier NoImpact
 
 > findImpacts :: [Ray] -> [Object] -> [Impact]
-> findImpacts rays objects  = parBuffer 200 $ map (firstImpact objects) rays
+> findImpacts rays objects  = parBuffer 200 rwhnf $ map (firstImpact objects) rays
 
 > using :: a -> (a->()) -> a
 > using a s = s a `seq` a
@@ -157,26 +157,26 @@ in_poly_test (p,q,r) (A,B,C) Vs
 >    where fx = f x
 >          pmxs = parmap f xs
 
-> parBuffer :: Int -> [a] -> [a]
-> parBuffer n xs = return xs (start n xs)
->   where
->     return (x:xs) (y:ys) = y `par` (x : return xs ys) 
->     return xs [] = xs
-> 
->     start !n [] = []
->     start 0 ys = ys
->     start !n (y:ys) = y `par` start (n-1) ys
+myParBuffer :: Int -> [a] -> [a]
+myParBuffer n xs = return xs (start n xs)
+  where
+    return (x:xs) (y:ys) = y `par` (x : return xs ys) 
+    return xs [] = xs
 
-> parBuffer' :: Int -> Strategy a -> [a] -> [a]
-> parBuffer' n s xs = return xs (start n xs)
->   where
->     return (x:xs) (y:ys) = (x : return xs ys) 
->                            `sparking` s y
->     return xs [] = xs
-> 
->     start !n [] = []
->     start 0 ys = ys
->     start !n (y:ys) = start (n-1) ys `sparking` s y
+    start !n [] = []
+    start 0 ys = ys
+    start !n (y:ys) = y `par` start (n-1) ys
+
+parBuffer' :: Int -> Strategy a -> [a] -> [a]
+parBuffer' n s xs = return xs (start n xs)
+  where
+    return (x:xs) (y:ys) = (x : return xs ys) 
+                           `sparking` s y
+    return xs [] = xs
+
+    start !n [] = []
+    start 0 ys = ys
+    start !n (y:ys) = start (n-1) ys `sparking` s y
 
 > parListN :: Int -> [a] -> [a]
 > parListN 0  xs     = xs 

@@ -26,6 +26,7 @@ import System
 import List
 
 import ListAux
+import Control.DeepSeq
 
 -- replaced by StratWorkaround, excluding what does not work with
 -- ghc-6.9
@@ -50,14 +51,14 @@ strats = [ undefined, -- do not use it!
 names    = ["sequential",
             "linewise", "blockwise", "columnwise"] 
 
-lineStrat c = parListChunk c rnf -- OK?
-columnStrat c matrix = parListChunk c rnf (transpose matrix) -- bad ?
-blockStrat c matrix -- best?
+lineStrat c          = parListChunk c rdeepseq -- OK?
+columnStrat c matrix = parListChunk c rdeepseq (transpose matrix) -- bad ?
+blockStrat c  matrix -- best?
     = let blocks = concat (splitIntoClusters numB matrix) -- result splitted
                                                     -- in numB * numB blocks
           numB  = round (sqrt (fromIntegral (length matrix) / fromIntegral c))
                   -- approx. same num/granularity of sparks as in others...
-      in parList rnf blocks
+      in fmap concat $ parList rdeepseq blocks
 
 undef _ _ = error "undefined strategy"
 
