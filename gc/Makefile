@@ -46,7 +46,7 @@ baseline ::
 	$(MAKE) -k HEAP=$(HEAP) 2>&1 | tee log-$(logid)-baseline
 
 threaded ::
-	$(MAKE) -k HEAP=$(HEAP) EXTRA_HC_OPTS=-threaded EXTRA_RUNTEST_OPTS="+RTS -g$(THREADS) -RTS" 2>&1 | tee log-$(logid)-threaded-$(THREADS)
+	$(MAKE) -k HEAP=$(HEAP) EXTRA_HC_OPTS=-threaded EXTRA_RUNTEST_OPTS="+RTS -qg1 -N$(THREADS) -RTS" 2>&1 | tee log-$(logid)-threaded-$(THREADS)
 
 analyse ::
 	../../utils/nofib-analyse/nofib-analyse log-$(logid)-baseline log-$(logid)-threaded-* >nofib-analyse-$(logid)
