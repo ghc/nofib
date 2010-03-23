@@ -1,7 +1,7 @@
 TOP = ..
 include $(TOP)/mk/boilerplate.mk
 
-SUBDIRS = parfib partree sumeuler matmult ray gray prsa mandel
+SUBDIRS = parfib partree sumeuler matmult ray gray prsa mandel queens
 
 # partak: program needs work to make it parallel
 
