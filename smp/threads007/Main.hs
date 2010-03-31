@@ -12,5 +12,5 @@ main :: IO ()
 main = do 
   let numChoices = 2
   cs <- replicateM numChoices channel
-  mapM_ forkIO [replicateM_ (50000 `div` numChoices) $ sync $ transmit c () | c <- cs]
-  replicateM_ 50000 $ sync $ choose [receive c (const True) | c <- cs] 
+  mapM_ forkIO [replicateM_ (100000 `div` numChoices) $ sync $ transmit c () | c <- cs]
+  replicateM_ 100000 $ sync $ choose [receive c (const True) | c <- cs] 
