@@ -14,8 +14,10 @@ main = do
   [s] <- getArgs
   let n = read s :: Int
   sem <- newQSemN 0
-  replicateM n (putStr "." >> hFlush stdout >> forkOS (thread sem) >> thread sem)
+  let fork = if rtsSupportsBoundThreads then forkOS else forkIO
+  replicateM n (putStr "." >> hFlush stdout >> fork (thread sem) >> thread sem)
   waitQSemN sem (n*2)
+
 
 thread sem = do
   var <- newIORef 0
