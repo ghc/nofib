@@ -21,7 +21,7 @@ primes1 n done
 sieve (p:xs) = p : sieve [x | x <- xs, not (x `mod` p == 0)]
  
 main
-  = do 
+  = runInUnboundThread $ do 
        [str] <- getArgs
        let instances = read str :: Int
        dones <- sequence (replicate instances newEmptyMVar)
