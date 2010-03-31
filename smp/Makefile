@@ -4,9 +4,11 @@ include $(TOP)/mk/boilerplate.mk
 SUBDIRS = \
 	sieve \
 	callback001 \
+	callback002 \
 	threads001 \
 	threads003 \
-	threads006
+	threads006 \
+	threads007
 
 # later:
 #  stm001
