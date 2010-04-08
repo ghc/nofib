@@ -61,6 +61,10 @@ endif
 
 
 HC_OPTS            = $(BOOTSTRAPPING_PACKAGE_CONF_HC_OPTS) $(SRC_HC_OPTS) $(WAY$(_way)_HC_OPTS) $($*_HC_OPTS) $(EXTRA_HC_OPTS)
+ifeq "$(HC_VERSION_GE_6_13)" "YES"
+HC_OPTS           += -rtsopts
+endif
+
 HC_POST_OPTS       = $(SRC_HC_POST_OPTS) $(WAY$(_way)_HC_POST_OPTS) $($*_HC_POST_OPTS) $(EXTRA_HC_POST_OPTS)
 HC_PRE_OPTS        = $(SRC_HC_PRE_OPTS) $(WAY$(_way)_HC_PRE_OPTS) $($*_HC_PRE_OPTS) $(EXTRA_HC_PRE_OPTS)
 
