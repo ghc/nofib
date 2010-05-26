@@ -1,5 +1,5 @@
 -- -*- haskell -*-
--- Time-stamp: <2008-10-22 10:13:48 simonmar>
+-- Time-stamp: <2010-05-25 16:25:18 simonmar>
 --
 -- ADT of a binary tree (values only in leaves).
 -- Parallel functions use par and seq directly.
@@ -12,6 +12,7 @@ module Tree(Tree,
             force_tree, par_tree_map) where
 
 import Control.Parallel
+import Control.Parallel.Strategies
 
 infixl 2 ^:
 
@@ -25,14 +26,15 @@ tree_map f (Node left right) 	= Node (tree_map f left) (tree_map f right)
 
 par_tree_map :: (Integral a, Integral b) => (a -> b) -> Tree a -> Tree b
 par_tree_map f (Leaf x) 		= Leaf (f x)
-par_tree_map f (Node left right) 	= force_tree left' `par` 
-                                          (force_tree right' `pseq`
-					   (Node left' right'))
-                                           -- parentheses added because
-                                           -- some versions of GHC have the
-                                           -- wrong fixity for par & pseq
-					  where left' = par_tree_map f left
-						right' = par_tree_map f right
+par_tree_map f (Node left right) 	= 
+  Node (par_tree_map f left) (par_tree_map f right) `using` partree
+  where
+         partree (Node l r) = do
+            l' <- (rpar `dot` rtree) l
+            r' <- rtree r
+            return (Node l' r')
+
+rtree t = force_tree t `pseq` Done t
 
 -- force evaluation of tree (could use Strategies module instead!)
 force_tree :: (Integral a) => Tree a -> ()
