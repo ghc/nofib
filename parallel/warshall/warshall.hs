@@ -42,7 +42,7 @@ import Control.Parallel.Strategies
 -- gph ring, simply by sparking all ring process outputs
 -- (granularity control by ring size)
 gphRing np splitIn combOut ringF input 
-    =  combOut (outs `using` parList rnf )
+    =  combOut (outs `using` parList rdeepseq)
     where ringIns      = splitIn np input
 	  (outs,rComm) = foldl' fld ([],rComm) ringIns
 --	  fld :: ([o],[r]) -> i -> ([o],[r])
