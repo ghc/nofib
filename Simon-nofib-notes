@@ -28,7 +28,7 @@ I found that there were some very bad loss-of-arity cases in PrelShow.
 			  ...
 			  (x:xs) -> let f = showLitChar x
 					g = showl xs
-				    in \s -> f (g x)
+				    in \s -> f (g s)
   which is TERRIBLE.  We can't spot that showLitChar has arity 2 because
   it looks like this:
 
