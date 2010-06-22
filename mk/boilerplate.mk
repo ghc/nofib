@@ -22,6 +22,8 @@ GHC_TOP := $(TOP)
 TOP := $(NOFIB_TOP)
 
 RM = rm -f
+SIZE = size
+STRIP = strip
 
 # Turn off -Werror for nofib. This allows you to use nofib in a tree
 # built with validate.
