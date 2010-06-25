@@ -5,6 +5,8 @@ SRC_HC_OPTS += -fglasgow-exts
 
 NORM_OPTS = 300000
 
+SRC_RUNTEST_OPTS += +RTS -K16m -RTS
+
 ifeq "$(HEAP)" "LARGE"
 SRC_RUNTEST_OPTS += +RTS -H128m -RTS
 endif
