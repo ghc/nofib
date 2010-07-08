@@ -8,7 +8,8 @@ SUBDIRS = \
 	threads001 \
 	threads003 \
 	threads006 \
-	threads007
+	threads007 \
+	chan
 
 # later:
 #  stm001
