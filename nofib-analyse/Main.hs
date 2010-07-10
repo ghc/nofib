@@ -117,7 +117,7 @@ data PerModuleTableSpec =
 size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec,
     gctime_spec, gcelap_spec,
     gcwork_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec,
-    gc0time_spec, gc0elap_spec, gc1time_spec, gc1elap_spec, balance_spec
+    gc0time_spec, gc0elap_spec, gc1time_spec, gc1elap_spec, balance_spec, totmem_spec
         :: PerProgTableSpec
 size_spec    = SpecP "Binary Sizes" "Size" "binary-sizes" binary_size compile_status always_ok
 alloc_spec   = SpecP "Allocations" "Allocs" "allocations" allocs run_status always_ok
@@ -137,6 +137,7 @@ instrs_spec  = SpecP "Instructions" "Instrs" "instrs" instrs run_status always_o
 mreads_spec  = SpecP "Memory Reads" "Reads" "mem-reads" mem_reads run_status always_ok
 mwrite_spec  = SpecP "Memory Writes" "Writes" "mem-writes" mem_writes run_status always_ok
 cmiss_spec   = SpecP "Cache Misses" "Misses" "cache-misses" cache_misses run_status always_ok
+totmem_spec   = SpecP "Total Memory in use" "TotalMem" "total-mem" total_memory run_status always_ok
 
 all_specs :: [PerProgTableSpec]
 all_specs = [
@@ -157,7 +158,8 @@ all_specs = [
   instrs_spec,
   mreads_spec,
   mwrite_spec,
-  cmiss_spec
+  cmiss_spec,
+  totmem_spec
   ]
 
 namedColumns :: [String] -> IO [PerProgTableSpec]
@@ -197,13 +199,13 @@ per_prog_result_tab :: [PerProgTableSpec]
 per_prog_result_tab =
         [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec, gctime_spec,
           gcelap_spec, gc0time_spec, gc0elap_spec, gc1time_spec, gc1elap_spec,
-          gcwork_spec, balance_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec]
+          gcwork_spec, balance_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec, totmem_spec]
 
 -- A single summary table, giving comparison figures for a number of
 -- aspects, each in its own column.  Only works when comparing two runs.
 normal_summary_specs :: [PerProgTableSpec]
 normal_summary_specs =
-        [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec ]
+        [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, totmem_spec ]
 
 cachegrind_summary_specs :: [PerProgTableSpec]
 cachegrind_summary_specs =

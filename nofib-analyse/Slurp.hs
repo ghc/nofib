@@ -50,7 +50,8 @@ data Results = Results {
         balance         :: [Float],
         allocs          :: Maybe Integer,
         run_status      :: Status,
-        compile_status  :: Status
+        compile_status  :: Status,
+        total_memory    :: Maybe Integer
         }
 
 emptyResults :: Results
@@ -77,7 +78,8 @@ emptyResults = Results {
         gc_work         = Nothing,
         allocs          = Nothing,
         compile_status  = NotDone,
-        run_status      = NotDone
+        run_status      = NotDone,
+        total_memory    = Nothing
         }
 
 -----------------------------------------------------------------------------
@@ -152,7 +154,7 @@ ghc1_re s = case matchRegex re s of
 ghc2_re :: String -> Maybe (Integer, Integer, Integer, Integer, Integer, Integer, Float, Float, Float, Float, Float, Float)
 ghc2_re s = case matchRegex re s of
                 Just [allocations, gcs, avg_residency, max_residency, samples, in_use, initialisation, initialisation_elapsed, mut, mut_elapsed, gc, gc_elapsed] ->
-                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed)
+                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, 1048576 * read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed)
                 Just _ -> error "ghc2_re: Can't happen"
                 Nothing -> Nothing
     where re = mkRegex "^<<ghc:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs,[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\) :ghc>>"
@@ -160,7 +162,7 @@ ghc2_re s = case matchRegex re s of
 ghc3_re :: String -> Maybe (Integer, Integer, Integer, Integer, Integer, Integer, Integer, Float, Float, Float, Float, Float, Float)
 ghc3_re s = case matchRegex re s of
                 Just [allocations, gcs, avg_residency, max_residency, samples, gc_work', in_use, initialisation, initialisation_elapsed, mut, mut_elapsed, gc, gc_elapsed] ->
-                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed)
+                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', 1048576 * read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed)
                 Just _ -> error "ghc3_re: Can't happen"
                 Nothing -> Nothing
     where re = mkRegex "^<<ghc:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs,[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\) :ghc>>"
@@ -168,7 +170,7 @@ ghc3_re s = case matchRegex re s of
 ghc4_re :: String -> Maybe (Integer, Integer, Integer, Integer, Integer, Integer, Integer, Float, Float, Float, Float, Float, Float, Integer, Integer, Integer, Integer)
 ghc4_re s = case matchRegex re s of
                 Just [allocations, gcs, avg_residency, max_residency, samples, gc_work', in_use, initialisation, initialisation_elapsed, mut, mut_elapsed, gc, gc_elapsed, instructions, memory_reads, memory_writes, l2_cache_misses] ->
-                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed, read instructions, read memory_reads, read memory_writes, read l2_cache_misses)
+                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', 1048576 * read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed, read instructions, read memory_reads, read memory_writes, read l2_cache_misses)
                 Just _ -> error "ghc4_re: Can't happen"
                 Nothing -> Nothing
     where re = mkRegex "^<<ghc-instrs:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs,[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\), ([0-9]+) instructions, ([0-9]+) memory reads, ([0-9]+) memory writes, ([0-9]+) L2 cache misses :ghc-instrs>>"
@@ -176,7 +178,7 @@ ghc4_re s = case matchRegex re s of
 ghc5_re :: String -> Maybe (Integer, Integer, Integer, Integer, Integer, Integer, Integer, Float, Float, Float, Float, Float, Float,Float,Float,Float,Float,Float)
 ghc5_re s = case matchRegex re s of
                 Just [allocations, gcs, avg_residency, max_residency, samples, gc_work', in_use, initialisation, initialisation_elapsed, mut, mut_elapsed, gc, gc_elapsed, gc0, gc0_elapsed, gc1, gc1_elapsed, bal] ->
-                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed, read gc0, read gc0_elapsed, read gc1, read gc1_elapsed, read bal)
+                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', 1048576 * read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed, read gc0, read gc0_elapsed, read gc1, read gc1_elapsed, read bal)
                 Just _ -> error "ghc3_re: Can't happen"
                 Nothing -> Nothing
     where re = mkRegex "^<<ghc:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs,[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(0\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(1\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) balance :ghc>>"
@@ -214,7 +216,8 @@ combine2Results
                       gc1_time = g1t1, gc1_elapsed_time = g1e1, 
                       balance = b1,
                       binary_size = bs1, allocs = al1,
-                      run_status = rs1, compile_status = cs1 }
+                      run_status = rs1, compile_status = cs1,
+                      total_memory = tm1 }
              Results{ compile_time = ct2, link_time = lt2,
                       module_size = ms2,
                       run_time = rt2, elapsed_time = et2, mut_time = mt2,
@@ -226,7 +229,8 @@ combine2Results
                       gc1_time = g1t2, gc1_elapsed_time = g1e2, 
                       balance = b2,
                       binary_size = bs2, allocs = al2,
-                      run_status = rs2, compile_status = cs2 }
+                      run_status = rs2, compile_status = cs2,
+                      total_memory = tm2 }
           =  Results{ compile_time   = Map.unionWith (flip const) ct1 ct2,
                       module_size    = Map.unionWith (flip const) ms1 ms2,
                       link_time      = lt1 `mplus` lt2,
@@ -249,7 +253,8 @@ combine2Results
                       binary_size    = bs1 `mplus` bs2,
                       allocs         = al1 `mplus` al2,
                       run_status     = combStatus rs1 rs2,
-                      compile_status = combStatus cs1 cs2 }
+                      compile_status = combStatus cs1 cs2,
+                      total_memory   = tm1 `mplus` tm2 }
 
 combStatus :: Status -> Status -> Status
 combStatus NotDone y       = y
@@ -353,36 +358,36 @@ parse_run_time prog (l:ls) res ex =
         case ghc1_re l of {
            Just (allocations, _, _, _, _, _, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
-                        Nothing Nothing Nothing Nothing Nothing;
+                        Nothing Nothing Nothing Nothing Nothing Nothing;
            Nothing ->
 
         case ghc2_re l of {
-           Just (allocations, _, _, _, _, _, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
+           Just (allocations, _, _, _, _, in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
-                        Nothing Nothing Nothing Nothing Nothing;
+                        Nothing Nothing Nothing Nothing Nothing (Just in_use);
 
             Nothing ->
 
         case ghc3_re l of {
-           Just (allocations, _, _, _, _, gc_work', _, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
+           Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
-                        (Just gc_work') Nothing Nothing Nothing Nothing;
+                        (Just gc_work') Nothing Nothing Nothing Nothing (Just in_use);
 
             Nothing ->
 
         case ghc4_re l of {
-           Just (allocations, _, _, _, _, gc_work', _, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, is, mem_rs, mem_ws, cache_misses') ->
+           Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, is, mem_rs, mem_ws, cache_misses') ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
                         (Just gc_work') (Just is) (Just mem_rs)
-                        (Just mem_ws) (Just cache_misses');
+                        (Just mem_ws) (Just cache_misses') (Just in_use);
 
             Nothing ->
 
         case ghc5_re l of {
-           Just (allocations, _, _, _, _, gc_work', _, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, gc0, gc0_elapsed, gc1, gc1_elapsed, bal) ->
+           Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, gc0, gc0_elapsed, gc1, gc1_elapsed, bal) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed
                         [gc0] [gc0_elapsed] [gc1] [gc1_elapsed] [bal]
-                        (Just gc_work') Nothing Nothing Nothing Nothing;
+                        (Just gc_work') Nothing Nothing Nothing Nothing (Just in_use);
 
             Nothing ->
 
@@ -413,7 +418,7 @@ parse_run_time prog (l:ls) res ex =
 
         }}}}}}}}}
   where
-  got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed gc0 gc0_elapsed gc1 gc1_elapsed bal gc_work' instrs' mem_rs mem_ws cache_misses'
+  got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed gc0 gc0_elapsed gc1 gc1_elapsed bal gc_work' instrs' mem_rs mem_ws cache_misses' in_use
       = -- trace ("got_run_result: " ++ initialisation ++ ", " ++ mut ++ ", " ++ gc) $
         let
           time = initialisation + mut + gc
@@ -436,7 +441,8 @@ parse_run_time prog (l:ls) res ex =
                                         mem_reads  = mem_rs,
                                         mem_writes = mem_ws,
                                         cache_misses = cache_misses',
-                                        run_status = Success
+                                        run_status = Success,
+                                        total_memory = in_use
                                 }
         in
         parse_run_time prog ls res' Success
