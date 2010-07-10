@@ -19,7 +19,6 @@ import System.Exit      ( exitWith, ExitCode(..) )
 
 import Control.Monad
 import Data.Maybe       ( isNothing )
-import Data.Char
 import System.IO
 import Data.List
 
