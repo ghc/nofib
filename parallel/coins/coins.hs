@@ -3,6 +3,8 @@
 import Data.List
 import System.Environment
 import Control.Parallel
+import Control.Parallel.Strategies
+import Control.Applicative
 
 -- Rough results, GHC 6.13: (val=777)
 --   V1 (SDM):             2.2s
@@ -76,7 +78,7 @@ payA_par depth val ((c,q):coins) acc
   | otherwise  = res
                 
   where
-    res = right `par` left `pseq` append left right
+    res = unEval $ pure append <*> rpar left <*> rwhnf right
 
     left  = payA_par (if q == 1 then (depth-1) else depth) (val - c) coins' (c:acc)
     right = payA_par (depth-1) val coins acc

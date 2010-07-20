@@ -1,5 +1,5 @@
 -- -*- haskell -*-
--- Time-stamp: <2010-05-25 16:25:18 simonmar>
+-- Time-stamp: <2010-07-16 12:10:03 simonmar>
 --
 -- ADT of a binary tree (values only in leaves).
 -- Parallel functions use par and seq directly.
@@ -30,11 +30,11 @@ par_tree_map f (Node left right) 	=
   Node (par_tree_map f left) (par_tree_map f right) `using` partree
   where
          partree (Node l r) = do
-            l' <- (rpar `dot` rtree) l
+            l' <- rpar (l `using` rtree)
             r' <- rtree r
             return (Node l' r')
 
-rtree t = force_tree t `pseq` Done t
+rtree t = force_tree t `pseq` return t
 
 -- force evaluation of tree (could use Strategies module instead!)
 force_tree :: (Integral a) => Tree a -> ()

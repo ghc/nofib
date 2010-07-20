@@ -5,7 +5,7 @@
 
 -- Modified to use stdout (for testing)
 
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns,CPP #-}
 module Illumination
     ( Object
     , Light (..)
@@ -14,6 +14,7 @@ module Illumination
     ) where
 
 import Control.Parallel
+import Control.Parallel.Strategies (withStrategy, parBuffer,  rwhnf)
 
 import Array
 import Char(chr)
@@ -33,9 +34,15 @@ render :: (Matrix,Matrix) -> Color -> [Light] -> Object -> Int ->
           Radian -> Int -> Int -> String -> IO ()
 render (m,m') amb ls obj dep fov wid ht file
   = do { debugging
-       ; putStrLn (showBitmap' wid ht (lazyParList 100 (map (\x -> seqList x `pseq` x) pixels)))
+       ; putStrLn (showBitmap' wid ht (parallel pixels))
        }
   where
+#ifdef STRATEGIES_2
+    parallel = parBuffer 100 rwhnf . map (\x -> seqList x `pseq` x)
+#else
+    parallel = withStrategy (parBuffer 100 rwhnf) . map (\x -> seqList x `pseq` x)
+#endif
+
     debugging = return ()
 {-
                 do { putStrLn (show cxt)
@@ -70,31 +77,9 @@ render (m,m') amb ls obj dep fov wid ht file
       | (xd, yd) <- [(-0.333, 0.0), (0.333, 0.0), (0.0, -0.333), (0.0, 0.333)]
       ] 
 
-parListN :: Int -> [a] -> [a]
-parListN 0  xs     = xs 
-parListN !n []     = []
-parListN !n (x:xs) = x `par` parListN (n-1) xs
-
--- like parListN, but starts the sparks in reverse order
-parListN1 :: Int -> [a] -> [a] -> [a]
-parListN1 0  xs     ys = parList ys `pseq` xs
-parListN1 !n []     ys = parList ys `pseq` []
-parListN1 !n (x:xs) ys = parListN1 (n-1) xs (x:ys)
-
 seqList :: [a] -> ()
 seqList [] = ()
 seqList (x:xs) = x `pseq` seqList xs
-
-parList :: [a] -> ()
-parList [] = ()
-parList (x:xs) = x `par` parList xs
-
-lazyParList :: Int -> [a] -> [a]
-lazyParList !n xs = go xs (parListN1 n xs [])
-   where 
-         go []     _ys    = []
-         go (x:xs) []     = x : xs
-         go (x:xs) (y:ys) = y `par` (x : go xs ys)
 
 avg cs = divN (fromIntegral (length cs)) (uncolor (sumCC cs))
   where divN n (r,g,b) = color (r / n) (g / n) (b / n)

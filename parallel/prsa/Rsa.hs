@@ -1,25 +1,22 @@
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns,CPP #-}
 module Rsa (encrypt, decrypt, makeKeys)
 where
 
 import Control.Parallel
+import Control.Parallel.Strategies
 
 encrypt, decrypt :: Integer -> Integer -> String -> String
-encrypt n e = unlines . parBuffer 100 . map (show . power e n . code) . collect (size n)
-decrypt n d = concat . parBuffer 100 . map (decode . power d n . read) . lines
+encrypt n e = unlines . parallel . map (show . power e n . code) . collect (size n)
+decrypt n d = concat . parallel . map (decode . power d n . read) . lines
 
 -------- Parallelism -----------
 
+#ifdef STRATEGIES_2
+parallel = parBuffer 100 rwhnf
+#else
+parallel = withStrategy (parBuffer 100 rseq)
+#endif
 
-parBuffer :: Int -> [a] -> [a]
-parBuffer n xs = return xs (start n xs)
-  where
-    return (x:xs) (y:ys) = y `par` (x : return xs ys) 
-    return xs [] = xs
-
-    start !n [] = []
-    start 0 ys = ys
-    start !n (y:ys) = y `par` start (n-1) ys
 
 parmap :: (String -> String) -> [String] -> [String]
 parmap f [] = []

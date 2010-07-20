@@ -7,12 +7,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{onlystandalone}
 \begin{code}
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns,CPP #-}
 module Mandel where
 import Complex -- 1.3
 import PortablePixmap
 import Control.Parallel
-import Control.Parallel.Strategies (using)
+import Control.Parallel.Strategies
 -- import qualified NewStrategies as NS
 default ()
 \end{code}
@@ -125,121 +125,20 @@ the @whenDiverge@ function over a complex plain of values.
 \begin{code}
 parallelMandel:: [[Complex Double]] -> Int -> Double -> [Int]
 parallelMandel mat limit radius
-   = concat $ 
--- NewStrategies version:
---       NS.parListBuffer 50 (NS.seqList id) $
---       map (map (whenDiverge limit radius)) mat
+   = concat $ parallel [ let l = map (whenDiverge limit radius) xs
+                         in Mandel.seqList l `pseq` l
+                       | xs <- mat ]
 
--- NewStrategies version:
---       NS.parListBufferRev 50 (NS.seqList id) $
---       map (map (whenDiverge limit radius)) mat
-
--- lazyParList version:
---                  lazyParList 50
---                              [ let l = map (whenDiverge limit radius) xs
---                                in seqList l `pseq` l
---                              | xs <- mat ]
-
---   lazyParList1 version:
-                 parBuffer 70
-                             [ let l = map (whenDiverge limit radius) xs
-                               in seqList l `pseq` l
-                             | xs <- mat ]
-
---   = lazyParListChunk 100 100 $ map (whenDiverge limit radius) mat
---   = lazyParMap 512 (whenDiverge limit radius) mat
-
-parBuffer :: Int -> [a] -> [a]
-parBuffer n xs = return xs (start n xs)
   where
-    return (x:xs) (y:ys) = y `par` (x : return xs ys) 
-    return xs [] = xs
-
-    start !n [] = []
-    start 0 ys = ys
-    start !n (y:ys) = y `par` start (n-1) ys
-
--- parListN :: Int -> [a] -> [a]
--- parListN 0  xs     = xs 
--- parListN !n []     = []
--- parListN !n (x:xs) = x `par` parListN (n-1) xs
-
-lazyParList :: Int -> [a] -> [a]
-lazyParList !n xs = go xs (parListN n xs)
-   where 
-         go []     _ys    = []
-         go (x:xs) []     = x : xs
-         go (x:xs) (y:ys) = y `par` (x : go xs ys)
-
-lazyParList1 :: Int -> [a] -> [a]
-lazyParList1 !n xs = go xs (parListN1 n xs [])
-   where 
-         go []     _ys    = []
-         go (x:xs) []     = x : xs
-         go (x:xs) (y:ys) = y `par` (x : go xs ys)
-
--- parMap :: (a -> b) -> [a] -> [b]
--- parMap f [] = []
--- parMap f (x:xs) = let fx = f x; fxs = parMap f xs in fx `par` fxs `pseq` fx:fxs
-
-parList :: [a] -> ()
-parList [] = ()
-parList (x:xs) = x `par` parList xs
-
--- parListN version 1: leads to fights as all capabilities try to
--- steal the early sparks, and the main thread gets blocked.
-parListN :: Int -> [a] -> [a]
-parListN 0  xs     = xs 
-parListN !n []     = []
-parListN !n (x:xs) = x `par` parListN (n-1) xs
-
--- like parListN, but starts the sparks in reverse order
-parListN1 :: Int -> [a] -> [a] -> [a]
-parListN1 0  xs     ys = parList ys `pseq` xs
-parListN1 !n []     ys = parList ys `pseq` []
-parListN1 !n (x:xs) ys = parListN1 (n-1) xs (x:ys)
+#ifdef STRATEGIES_2
+    parallel = parBuffer 70 rwhnf
+#else
+    parallel = withStrategy (parBuffer 70 rwhnf)
+#endif
 
 seqList :: [a] -> ()
 seqList [] = ()
-seqList (x:xs) = x `pseq` seqList xs
--- 
--- parListChunk :: Int -> [a] -> ()
--- parListChunk n [] = ()
--- parListChunk n xs = let (ys,zs) = splitAt n xs in 
---                     seqList ys `par` parListChunk n zs
-
--- parListChunkWHNF :: Int -> [a] -> [a]
--- parListChunkWHNF n
---   = concat
---   . (`using` parList)
---   . map (`using` seqList)
---   . chunk n
-
--- chunk n [] = []
--- chunk n xs = as : chunk n bs where (as,bs) = splitAt n xs
--- 
--- lazyParList :: Int -> [a] -> [a]
--- lazyParList !n xs = go xs (parListN' n xs [])
---   where 
---         go []     _ys    = []
---         go (x:xs) []     = x : xs
---         go (x:xs) (y:ys) = y `par` (x : go xs ys)
-
--- lazyParListChunk :: Int -> Int -> [a] -> [a]
--- lazyParListChunk !n !size xs = go chunks seqchunks (parListN n seqchunks)
---   where 
---         chunks = chunkList size xs
---         seqchunks = map seqList chunks
--- 
---         go :: [[a]] -> [()] -> [()] -> [a]
---         go []     _ _ys         = []
---         go (x:xs) _ []          = concat (x:xs)
---         go (x:xs) (y:ys) (z:zs) = z `par` y `pseq` (x ++ go xs ys zs)
--- 
--- chunkList :: Int -> [a] -> [[a]]
--- chunkList !n [] = []
--- chunkList !n xs = chunk : chunkList n rest
---   where (chunk,rest) = splitAt n xs
+seqList (x:xs) = x `pseq` Mandel.seqList xs
 \end{code}
 
 \section{Initialisation of data and graphical rendering.}

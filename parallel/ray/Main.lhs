@@ -1,9 +1,9 @@
 The Ray tracer algorithm taken from Paul Kelly's book, adapted by Greg
 Michaelson for SML, converted to (parallel) Haskell by Kevin Hammond!
 
-> {-# LANGUAGE BangPatterns #-}
+> {-# LANGUAGE BangPatterns,CPP #-}
 > import Control.Parallel
-> import Control.Parallel.Strategies (Strategy, sparking, rwhnf, parBuffer)
+> import Control.Parallel.Strategies (Strategy, withStrategy, rwhnf, parBuffer)
 > import System.Environment
 
 > main = do
@@ -138,71 +138,15 @@ in_poly_test (p,q,r) (A,B,C) Vs
 > 	where earliest = insert earlier NoImpact
 
 > findImpacts :: [Ray] -> [Object] -> [Impact]
-> findImpacts rays objects  = parBuffer 200 rwhnf $ map (firstImpact objects) rays
+> findImpacts rays objects  = parallel $      
+>                               map (firstImpact objects) rays
+>  where
+#ifdef STRATEGIES_2
+>    parallel = parBuffer 200 rwhnf
+#else
+>    parallel = withStrategy (parBuffer 200 rwhnf)
+#endif
 
-> using :: a -> (a->()) -> a
-> using a s = s a `seq` a
-
-> chunk n [] = []
-> chunk n xs = as : chunk n bs where (as,bs) = splitAt n xs
-
- mymap f xs = go xs where go [] = []; go (x:xs) = f x : go xs
-
-> mymap f [] = []
-> mymap f (x:xs) = f x : map f xs
-
-> parmap :: (a -> b) -> [a] -> [b]
-> parmap f [] = []
-> parmap f (x:xs) = fx `par` (pmxs `par` (fx:pmxs))
->    where fx = f x
->          pmxs = parmap f xs
-
-myParBuffer :: Int -> [a] -> [a]
-myParBuffer n xs = return xs (start n xs)
-  where
-    return (x:xs) (y:ys) = y `par` (x : return xs ys) 
-    return xs [] = xs
-
-    start !n [] = []
-    start 0 ys = ys
-    start !n (y:ys) = y `par` start (n-1) ys
-
-parBuffer' :: Int -> Strategy a -> [a] -> [a]
-parBuffer' n s xs = return xs (start n xs)
-  where
-    return (x:xs) (y:ys) = (x : return xs ys) 
-                           `sparking` s y
-    return xs [] = xs
-
-    start !n [] = []
-    start 0 ys = ys
-    start !n (y:ys) = start (n-1) ys `sparking` s y
-
-> parListN :: Int -> [a] -> [a]
-> parListN 0  xs     = xs 
-> parListN !n []     = []
-> parListN !n (x:xs) = x `par` parListN (n-1) xs
-> 
-> -- like parListN, but starts the sparks in reverse order
-> parListN1 :: Int -> [a] -> [a] -> [a]
-> parListN1 0  xs     ys = parList ys `pseq` xs
-> parListN1 !n []     ys = parList ys `pseq` []
-> parListN1 !n (x:xs) ys = parListN1 (n-1) xs (x:ys)
-> 
-> seqList :: [a] -> ()
-> seqList [] = ()
-> seqList (x:xs) = x `pseq` seqList xs
-> 
-> parList :: [a] -> ()
-> parList [] = ()
-> parList (x:xs) = x `par` parList xs
-> 
-> lazyParList :: Int -> [a] -> [a]
-> lazyParList !n xs = go xs (parListN n xs)
->    where 
->          go []     _ys    = []
->          go (x:xs) []     = x : xs
->          go (x:xs) (y:ys) = y `par` (x : go xs ys)
 
 (*** Functions to generate a list of rays ******
      GenerateRays Detail X Y Z
