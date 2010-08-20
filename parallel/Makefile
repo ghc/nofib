@@ -1,7 +1,7 @@
 TOP = ..
 include $(TOP)/mk/boilerplate.mk
 
-SUBDIRS = parfib partree sumeuler matmult ray gray prsa mandel queens coins
+SUBDIRS = parfib partree sumeuler matmult ray gray prsa mandel queens coins blackscholes
 
 # CPP SYMBOLS
 #
