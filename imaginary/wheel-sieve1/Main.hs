@@ -2,7 +2,7 @@
 -- Colin Runciman (colin@cs.york.ac.uk); March 1996.
 -- See article "Lazy wheel sieves and spirals of primes" (to appear, JFP).
 
-import System
+import System.Environment
 
 
 data Wheel = Wheel Int [Int]

@@ -32,8 +32,8 @@ The Circuit Simulator example
 David J. King & John O'Donnell
 January, 1998
 
-> import System
-> import List
+> import System.Environment
+> import Data.List
 
 > data BinTree a b = Cell a
 >		   | Node b (BinTree a b) (BinTree a b)

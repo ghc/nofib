@@ -1,5 +1,5 @@
 {- 
-Time-stamp: <Wed May 22 1996 20:46:49 Stardate: [-31]7544.12 hwloidl>
+Time-stamp: <2010-10-13 10:22:48 simonmar>
 
 Source file: /local/grasp/trinder/tests/strategies/
 
@@ -29,7 +29,7 @@ import Strategies
 
 #if defined(IO13)
 import GranRandom
-import System (getArgs)
+import System.Environment (getArgs)
 #else
 import GlaExts
 import ST

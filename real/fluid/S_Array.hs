@@ -34,9 +34,9 @@ module S_Array (
 
 import Norm
 
-import Array--1.3
-import Ix--1.3
-import List -- 1.3
+import Data.Array
+import Data.Ix
+import Data.List
 
 infixl 9 !^
 infixl 9 //^

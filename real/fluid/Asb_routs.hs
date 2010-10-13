@@ -17,7 +17,7 @@ module Asb_routs
 import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
-import Ix--1.3
+import Data.Ix
 
 -----------------------------------------------------------
 -- Generating a lookup table for assembling a system     --

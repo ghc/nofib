@@ -5,7 +5,7 @@ import Hide
 import MyIO
 import EdgePlate	( Input(..) )  -- partain
 import Postscript	( Output(..) ) -- partain
-import IO       -- 1.3
+import System.IO
 
 main = 
   do

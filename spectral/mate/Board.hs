@@ -6,7 +6,7 @@ module Board(
   emptyAtAll, kingSquare, forcesColoured,
   colourOf, kindOf, opponent, onboard)  where
 
-import Char(toLower)
+import Data.Char(toLower)
 
 data Kind = King | Queen | Rook | Bishop | Knight | Pawn deriving (Eq,Ord)
 

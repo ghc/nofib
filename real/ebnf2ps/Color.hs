@@ -28,8 +28,8 @@
 module Color where
 -- (Color (..), lookupColor, showsColor, prepareColors)
 
-import Char -- 1.3
-import List ((\\)) -- 1.3
+import Data.Char -- 1.3
+import Data.List ((\\)) -- 1.3
 
 type Color = (Int, Int, Int)
 

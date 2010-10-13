@@ -3,7 +3,7 @@
 > module PlainTextIO( module MaybeStateT, module PlainTextIO ) where
 
 > import MaybeStateT
-> import Char(isSpace)--1.3
+> import Data.Char(isSpace)--1.3
 
 \end{haskell}
 

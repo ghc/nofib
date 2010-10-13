@@ -18,8 +18,8 @@ import Table
 import Knowledge
 import Match
 import Search
-import IO hiding( try )	-- try is defined by Search
-import System--1.3
+import System.IO
+import System.Environment
 
 -- The `main' function reads in the data file before interacting with user.
 -- The `process' function takes the contents of the file and the input from the

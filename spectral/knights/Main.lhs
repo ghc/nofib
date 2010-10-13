@@ -12,12 +12,10 @@ module Main(main) where
 import ChessSetList (Tile) -- partain:for hbc
 import KnightHeuristic
 import Queue
-import System--1.3
-import Char--1.3
+import System.Environment
+import Data.Char
 
-#if __HASKELL1__ >= 5
 #define fail ioError
-#endif
 
 \end{code}
 

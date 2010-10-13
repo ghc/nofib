@@ -11,7 +11,7 @@
 
 import Control.Concurrent
 import Control.Monad
-import System
+import System.Environment
 import GHC.Conc (forkOnIO)
 
 thread :: MVar Int -> MVar Int -> IO ()

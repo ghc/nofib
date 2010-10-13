@@ -4,7 +4,7 @@ import Vectors
 import EdgePlate
 import Solve
 import Preds
-import List(nub)--1.3
+import Data.List(nub)--1.3
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- section 6: Crossing edges (MR was: lines)
 

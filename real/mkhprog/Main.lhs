@@ -163,7 +163,7 @@ then the following output is produced:
 \begin{verbatim}
 module Main (main) where
 
-import System (getArgs)
+import System.Environment (getArgs)
 
 defaultArgs :: Args
 defaultArgs  =  MkArgs False "" ??
@@ -259,7 +259,7 @@ The program starts with a module header which just exports \prog{main}.
 
 > module Main (main) where
 
-> import System (getArgs)
+> import System.Environment (getArgs)
 
 \end{haskell}
 

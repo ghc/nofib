@@ -10,7 +10,7 @@ module Create (createTree,extract)where
 import Header (TypeExp(..), Expression(..),ParseTree(..))
 import Local (termEnv,funEnv,constant,adfs,args) 
 import Unify (applySub, unify, Theta(..))
-import Array
+import Data.Array
 
 -- selectTerm function -----------------------------------------------------------------
 --

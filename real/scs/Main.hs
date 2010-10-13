@@ -1,7 +1,7 @@
 module Main(main) where
 
-import Array
-import System
+import Data.Array
+import System.Environment
 
 import Parse
 import Simulate

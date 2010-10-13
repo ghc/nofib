@@ -1,8 +1,8 @@
 > module Main where
 
 > import Parsers
-> import System -- 1.3 (partain)
-> import IO--1.3
+> import System.Environment
+> import System.IO
 
 > infixr 8 +.+ , +.. , ..+
 > infixl 7 <<< , <<*

@@ -15,8 +15,8 @@ Initial revision
 
 > module RealReals (RealReal) where
 > import Transcendentals
-> import Ratio
-> import List( genericLength )
+> import Data.Ratio
+> import Data.List( genericLength )
 > import Numeric( readSigned )
 
 > data RealReal = RealInt Integer           |

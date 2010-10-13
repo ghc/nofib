@@ -36,7 +36,7 @@ The interface is as follows:
 
 > import Config
 > import Types
-> import IO -- 1.3
+> import System.IO
 
 \end{haskell}
 

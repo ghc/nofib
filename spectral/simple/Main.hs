@@ -44,8 +44,8 @@
 
 
 module Main where
-import Array
-import Ix
+import Data.Array
+import Data.Ix
 infixr 1 =:
 type Assoc a b = (a,b)
 (=:) = (,)

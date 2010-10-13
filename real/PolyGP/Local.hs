@@ -7,8 +7,8 @@
 
 module Local where
 import Header (Expression(..),TypeExp(..),ExpressionList(..))
-import Array(Array, array)                
-import Char(ord)
+import Data.Array(Array, array)                
+import Data.Char(ord)
 --import Eval(atoi)
 --import Auxil(indexL)
 

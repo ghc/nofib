@@ -3,8 +3,8 @@ module BasicNumberApprox (equ, lt, gt, lte, gte, ne, rabs, rsignum,
 
 import RealM
 import BasicNumber
-import Ratio--1.3
-import List(genericDrop, genericTake)--1.3
+import Data.Ratio
+import Data.List(genericDrop, genericTake)
 
 -- This module contains a set of routines which need a precision
 -- argument to work for reals. For example, two real numbers can

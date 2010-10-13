@@ -22,8 +22,8 @@ JB for ghc-6.9: replaced Control.Parallel.Strategies by a workaround
         
 module Main(main) where
 
-import System
-import List
+import System.Environment
+import Data.List
 
 import ListAux
 import Control.DeepSeq

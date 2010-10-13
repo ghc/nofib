@@ -9,7 +9,7 @@ import Utils
 import MyUtils
 import Parser2
 
-import Char(isDigit) -- 1.3
+import Data.Char(isDigit) -- 1.3
 
 -- ==========================================================--
 --

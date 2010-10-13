@@ -12,7 +12,7 @@ import DomainExpr
 import MakeDomains
 import TypeCheck5
 
-import List(nub) -- 1.3
+import Data.List(nub) -- 1.3
 
 -- ==========================================================--
 -- This may need fixing up if we start instantiating domain

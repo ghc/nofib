@@ -72,7 +72,7 @@
 import Matrix  -- matrix implementation
 import Input   -- read gcomp data files
 import Misc    -- for timing function and takeuntil
-import System
+import System.Environment
 \end{code}
 
 AbsCg imports the actual linear system solver which uses a

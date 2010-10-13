@@ -22,7 +22,7 @@ import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
 import Asb_routs
-import Ix--1.3
+import Data.Ix
 infix 1 =:
 (=:) a b = (a,b)
    

@@ -14,7 +14,7 @@ module Matrix(Mat, makemat, boundmat, matsub, incrmat, updmat,
               mmatvec, mmatmat, row, col, intchrow, intchcol, interchmat,
               displaymat) where
 
-import Ix
+import Data.Ix
 import Basics
 
 import Vector

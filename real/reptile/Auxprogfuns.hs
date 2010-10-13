@@ -5,7 +5,7 @@ module Auxprogfuns(
 nearx,neary, deline, orient, display, cs,
   wwscale, wscale, wline, showoris) where
 
-import List ( (\\) ) -- 1.3
+import Data.List ( (\\) ) -- 1.3
 
 import Mgrfuns
 import Diff

@@ -45,12 +45,10 @@ module IOSupplement (
 	getPath, readPathFile
    ) where
 
-import System -- 1.3
-import IO
+import System.Environment
+import System.IO
 
-#if __HASKELL1__ >= 5
 #define fail ioError
-#endif
 
 --------------------------------------------------------------------------------
 

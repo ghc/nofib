@@ -43,19 +43,13 @@ They were documented in earlier chapters (Part~\ref{part:modules}).
 > import HmmDensities
 > import Viterbi
 > import HmmConstants
->#if __HASKELL1__ >= 3
-> import System	( getArgs )
-> import Array
-> import IO
+> import System.Environment
+> import Data.Array
+> import System.IO
 > type Assoc a b = (a,b)
 > (=:) a b = (a,b)
->#endif
 
-#if __HASKELL1__ < 5
-#define amap map
-#else
 #define amap fmap
-#endif
 
 
 \end{verbatim}
@@ -66,34 +60,6 @@ They were documented in earlier chapters (Part~\ref{part:modules}).
 a continuation.
         \begin{verbatim}
 
->#if __HASKELL1__ < 3
-> main = getArgs exit $ \args ->
->       case args of
->       [gms_dir,   -- Gaussian mixtures directory
->        dmap_file, -- density map file
->        dgs_file,
->        utts_file] -> readFile  dmap_file  exit $ \cs0 ->
->                      readFile  dgs_file   exit $ \cs1 ->
->                      readFile  utts_file  exit $ \cs2 ->
->                      let
->
->                        density_map = concat (
->                                        map restructure (
->                                          readElements cs0))
->
->                        hmm_dgs = get_log_probs (
->                                    build_hmm_array (
->                                      readHmms cs1))
->
->                        file_names = lines cs2
->
->                      in
->                        build_tmt  gms_dir  density_map  []  $
->                          \hmm_tms -> align_each_file hmm_tms hmm_dgs
->                                        0 0.0 file_names
->                       
->       _           -> error usage
->#else
 > main = getArgs >>=  \args ->
 >       case args of
 >       [gms_dir,   -- Gaussian mixtures directory
@@ -120,7 +86,6 @@ a continuation.
 >                                        0 0.0 file_names
 >                       
 >       _           -> error usage
->#endif
 
 
 > usage = "usage: BatchAlign  <gms dir>  <density map file> <dgs file>  <utt list file>"
@@ -239,33 +204,6 @@ an internal representation to improve efficiency
 definition stands for ``tied-mixture continuation.''
         \begin{haskell}{build_tmt}
 
->#if __HASKELL1__ < 3
-> build_tmt :: String ->
->              [(Phone, Assoc HmmState DensityMap)] ->
->              [Assoc Phone (Assoc Int TiedMixture)] ->
->              (TmTable -> Dialogue) ->
->              Dialogue
-
-> build_tmt dir ((p,k:=t):rps) as tc =
->       case t of
->       TiedM q s -> build_tmt  dir  rps  ((p:=(k:=Tie q s)):as)  tc
->       Mix       -> let
->                      file = get_gm_fname  dir  p  k
->                    in
->                      readFile  file  exit  $ \bs ->
->                      case  readMixture bs  of 
->                      Nothing      -> error (can't_read file)
->                      Just (m,bs') -> if null bs'
->                                      then let
->                                             m' = extern_to_intern m
->                                           in
->                                             build_tmt dir rps
->                                               ((p:=(k:=Gm m')):as) tc
->                                      else error (can't_read file)
-
-> build_tmt  _ [] as tc = tc (make_tm_table as)
-
->#else
 > build_tmt :: String ->
 >              [(Phone, Assoc HmmState DensityMap)] ->
 >              [Assoc Phone (Assoc Int TiedMixture)] ->
@@ -290,8 +228,6 @@ definition stands for ``tied-mixture continuation.''
 
 > build_tmt  _ [] as = return (make_tm_table as)
 
->#endif
-
 > can't_read :: String -> String
 > can't_read file = " can't read the file " ++ file
 
@@ -306,34 +242,6 @@ definition stands for ``tied-mixture continuation.''
 
         \begin{haskell}{align_each_file}
 
->#if __HASKELL1__ < 3
-> align_each_file :: TmTable ->
->                    HmmNetworkDic ->
->                    Int ->             -- number of files aligned
->                    Float ->           -- cumulative alignment score
->                    StrListCont
-
-> align_each_file  hmm_tms  hmm_dgs  nfs  ts  (fn:rfns) =
->       readFile (fn ++ ".ppm") exit           $ \cs ->
->       readFile (fn ++ ".fea") exit           $ \bs ->
->       let
->         Just (pnet,_)  = readsPrnNetwork cs
->         hmm            = buildHmm hmm_dgs pnet
->         fvs            = readVectors observation_dimen bs
->         lts            = map (eval_log_densities hmm_tms) fvs
->         (score,states) = align hmm lts
->         nfs'           = nfs + 1
->         ts'            = ts  + score
->       in
->         appendChan stderr (printf "%4d%7.2f%7.2f  %s\n" [
->           UInt nfs', UFloat score, UFloat (ts' / fromIntegral nfs'),
->           UString fn ]) exit $
->         writeFile (fn ++ ".algn") (showAlignment states) exit 
->           (align_each_file  hmm_tms  hmm_dgs  nfs' ts' rfns)
-
-> align_each_file _ _ _ _ [] = done
-
->#else
 > align_each_file :: TmTable ->
 >                    HmmNetworkDic ->
 >                    Int ->             -- number of files aligned
@@ -360,8 +268,6 @@ definition stands for ``tied-mixture continuation.''
 >         align_each_file  hmm_tms  hmm_dgs  nfs' ts' rfns
 
 > align_each_file _ _ _ _ [] = return ()
-
->#endif
 
 > showAlignment :: [(Phone, HmmState)] -> String
 > showAlignment = unlines . map showIndexedState . zip [0..]

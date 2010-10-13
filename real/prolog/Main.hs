@@ -12,7 +12,7 @@ import Interact
 import Subst
 import Engine
 import Version
-import List(nub)--1.3
+import Data.List(nub)--1.3
 
 --- Command structure and parsing:
 

@@ -24,7 +24,7 @@ Notes:
 \begin{code}
 module Matlib (scale, precond, uncondition) where 
 
-import List (genericLength)
+import Data.List (genericLength)
 import Matrix
 import AbsDensematrix 
 

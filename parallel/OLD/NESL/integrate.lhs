@@ -1,4 +1,4 @@
-Time-stamp: <Fri May 17 1996 00:24:35 Stardate: [-31]7514.87 hwloidl>
+Time-stamp: <2010-10-13 10:22:35 simonmar>
 
 An adaptive algorithm for numeric integration.
 
@@ -16,7 +16,7 @@ This example code does adaptive integration of single variable functions.
 import Strategies
 #endif
 
-import System  -- for getArgs
+import System.Environment  -- for getArgs
 \end{code}
 
 % ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; %

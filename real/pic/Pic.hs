@@ -22,7 +22,7 @@ import	ChargeDensity
 import	Potential
 import	ElecField
 import	PushParticle
-import Array--1.3
+import Data.Array
 
 -- PIC, particle in cell, a basic electrodynamics application
 -- Given an initial configuration of particles, follow how they move under the

@@ -4,8 +4,8 @@
 
 > where
 
-> import Complex--1.3
-> import List(transpose)--1.3
+> import Data.Complex--1.3
+> import Data.List(transpose)--1.3
 > import Complex_Vectors
                 
 > fft:: [ComplexF] -> [ComplexF] -- Warning: works only for n=2^km

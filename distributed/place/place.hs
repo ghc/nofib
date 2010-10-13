@@ -1,6 +1,6 @@
 import Distributed
-import System
-import IO
+import System.Environment
+import System.IO
 
 main =	do 
 	putStrLn "Place Test..."

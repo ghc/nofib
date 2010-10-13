@@ -30,25 +30,13 @@
 >       fst3,
 >       snd3,
 >       thd3
-
-#if __HASKELL1__ < 3 || ( defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ < 200 )
-
->       ,Cmp(..), compare, lookup, isJust
-
-#endif
-
 >        ) where
 
-#if __HASKELL1__ >= 3 && ( !defined(__GLASGOW_HASKELL__) || __GLASGOW_HASKELL__ >= 200 )
-
-> import Ix    ( Ix(..) )
-> import Array ( listArray, array, (!) )
+> import Data.Ix    ( Ix(..) )
+> import Data.Array ( listArray, array, (!) )
 
 #define Text Show
 #define ASSOC(a,b) (a , b)
-#else
-#define ASSOC(a,b) (a := b)
-#endif
 
 %------------------------------------------------------------------------------
 
@@ -202,26 +190,6 @@ Gofer-like stuff:
 >       combine ((a,b):(c,d):r) | a == c = combine ((a,b++d) : r)
 >       combine (a:r) = a : combine r
 >
-
-#if __HASKELL1__ < 3 || ( defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ < 200 )
-
-> lookup :: (Eq a) => a -> [(a,b)] -> Maybe b
-> lookup k env = case [ val | (key,val) <- env, k == key] of
->                [] -> Nothing
->                (val:vs) -> Just val
->
-
-> data Cmp = LT | EQ | GT
-
-> compare a b | a <  b    = LT
->             | a == b    = EQ
->             | otherwise = GT
-
-> isJust :: Maybe a -> Bool
-> isJust (Just _) = True
-> isJust _        = False
-
-#endif
 
 > assocMaybeErr :: (Eq a) => [(a,b)] -> a -> MaybeErr b String
 > assocMaybeErr env k = case [ val | (key,val) <- env, k == key] of

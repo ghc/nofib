@@ -11,7 +11,7 @@
 
 module Main where
 
-import List
+import Data.List
 import Data.FiniteMap
 
 ---------------------------------------

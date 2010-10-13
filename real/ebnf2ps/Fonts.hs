@@ -36,7 +36,7 @@
 module Fonts (FONT, makeFont, fontDescender, stringWidth, stringHeight, fontName, fontScale, noFont)
 where
 
-import Char--1.3
+import Data.Char
 
 -- not in 1.3
 readDec :: (Integral a) => ReadS a

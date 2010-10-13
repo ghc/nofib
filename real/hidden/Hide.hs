@@ -6,7 +6,7 @@ import Geometric
 import Comparing
 import Memo
 import Postscript
-import Array    -- 1.3
+import Data.Array
 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- section 5: Hiding

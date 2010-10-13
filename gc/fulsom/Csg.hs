@@ -23,10 +23,6 @@ import Matrix
 import Types
 import Interval
 
-#if __HASKELL1__ < 5
-#define realToFrac fromRealFrac
-#endif
-
 -- no is returned when there is "no" change to the csg.
 no = error ("Evaluated dead csg.")
 

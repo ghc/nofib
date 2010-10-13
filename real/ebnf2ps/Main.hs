@@ -39,7 +39,7 @@
 module Main (main)
 where
 
-import IO
+import System.IO
 import IOSupplement
 import CommandLine	(parse_cmds)
 import StringMatch	(stringMatch)

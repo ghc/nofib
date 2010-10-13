@@ -25,7 +25,7 @@ import S_matrix
 import C_matrix
 import L_matrix
 import Asb_routs
-import Ix--1.3
+import Data.Ix
 
 -----------------------------------------------------------
 -- Calculating the right-hand-side for step 1.           --

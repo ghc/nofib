@@ -5,7 +5,7 @@
 --
 import	Pic
 import  PicType	-- added by partain
-import IO(hPutStr,stderr)--1.3
+import System.IO(hPutStr,stderr)
 
 main = do
     hPutStr stderr "Enter the number of particles: "

@@ -16,9 +16,9 @@ module Illumination
 import Control.Parallel
 import Control.Parallel.Strategies (withStrategy, parBuffer,  rwhnf)
 
-import Array
-import Char(chr)
-import Maybe
+import Data.Array
+import Data.Char(chr)
+import Data.Maybe
 
 import Geometry
 import CSG

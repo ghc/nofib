@@ -7,7 +7,6 @@
 
 module Main where
 
-import System
 import System.IO
 
 import Parse

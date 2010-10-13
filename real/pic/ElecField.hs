@@ -7,7 +7,7 @@ module ElecField (elecField) where
 
 import	PicType
 import	Consts
-import Array--1.3
+import Data.Array
 
 -- Phase III: Calculate electric fields
 -- the x and y components of the electric field are approximated

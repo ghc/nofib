@@ -8,8 +8,8 @@
 module Main where
 import Header(Expression(..),TypeExp(..))
 import Auxil (getParas, create, evolve, displayPop)
-import System (getArgs)
-import Random (randomInts,randomDoubles)
+import System.Environment (getArgs)
+import System.Random (randomInts,randomDoubles)
 
 main = getArgs		>>=	\ [f1]		->
        readFile f1	>>= 	\ inputs	->

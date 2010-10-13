@@ -11,7 +11,7 @@ module Min_degree (min_degree) where
 import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
-import List(nub,partition)--1.3
+import Data.List(nub,partition)--1.3
 
 -- minimum degree ordering
 -- the entry lists in old_rows must be in assending order

@@ -1,5 +1,5 @@
 module Sort where
-import List (partition)
+import Data.List (partition)
 -- trying various sorts
 
 quickSort :: Ord a => [a] -> [a]

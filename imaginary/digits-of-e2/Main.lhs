@@ -2,7 +2,7 @@ Compute digits of e
 Due to John Hughes, Aug 2001
 
 > module Main where
-> import System
+> import System.Environment
 
 Here's a way to compute all the digits of e. We use the series
 

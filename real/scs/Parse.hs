@@ -1,9 +1,9 @@
 module Parse(parse_circuit, parse_exact, parse_approx, parse_integer) where
 
-import Char
-import List
-import Maybe
-import Ratio
+import Data.Char
+import Data.List
+import Data.Maybe
+import Data.Ratio
 
 import Types
 import ParseLib

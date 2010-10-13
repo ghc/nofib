@@ -2,18 +2,15 @@
 -- of Bird and Wadler's ``Introduction to functional programming'', with
 -- two ways of printing the calendar ... as in B+W, or like UNIX `cal':
 
-import IO -- 1.3
-import System -- 1.3
-import List -- 1.3
-import Char -- 1.3
+import System.IO
+import Data.List
+import Data.Char
 
 import System.Environment
 import Control.Monad
 
 -- To keep it backward compatible with pre-Haskell 98 compilers..
-#if __HASKELL1__ >= 5
 #define fail ioError
-#endif
 
 -- Picture handling:
 

@@ -2,7 +2,7 @@ import DCBM
 import Types
 import DbParallel
 import Fwif
-import System (getArgs)
+import System.Environment (getArgs)
 
 {-
   The following is the main body of the program. It attempts to create the database,	

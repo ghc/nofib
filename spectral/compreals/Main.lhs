@@ -18,7 +18,7 @@ calculator type language.
 
 > module Main where
 > import RealReals
-> import Char
+> import Data.Char
 
 For the moment on the other hand it just prints a given number.
 

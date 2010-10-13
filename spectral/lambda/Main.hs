@@ -36,7 +36,7 @@ module Main( main ) where
 --              and about 7 times more memory.
 --              
 
-import System
+import System.Environment
 
 main :: IO ()
 main = do { mainSimple ; mainMonad }

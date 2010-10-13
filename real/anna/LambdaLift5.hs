@@ -10,7 +10,7 @@ import Utils
 import MyUtils
 import Dependancy
 
-import List(nub) -- 1.3
+import Data.List(nub) -- 1.3
 
 -- ==========================================================--
 -- First, put "split" lambda abstractions back together.

@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -O2 #-}
-import IO
+import System.IO
 import System.Environment
 import System.CPUTime
 import Text.Printf

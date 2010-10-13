@@ -15,8 +15,8 @@ import EtaAbstract
 import StrictAn6
 import ReadTable
 
-import System -- partain: for 1.3
-import Char(isDigit)
+import System.Environment
+import Data.Char(isDigit)
 
 -- ==========================================================--
 --

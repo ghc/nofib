@@ -15,7 +15,7 @@
 > import GeomNum
 > import MGRlib (line)
 > import Params (mouseDispx,mouseDispy,gap)
-> import Char(isDigit)--1.3
+> import Data.Char(isDigit)--1.3
 
 
 	The data type Line is used to describe a line.

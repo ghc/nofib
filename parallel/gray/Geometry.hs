@@ -61,7 +61,7 @@ module Geometry
     , clampf
     ) where
 
-import List 
+import Data.List 
 
 type Coords = (Double,Double,Double)
 

@@ -11,11 +11,7 @@ module Parse
        useP)                                          --  using a parser      
       where
 
-import Char -- 1.3
-
-#if __HASKELL1__ < 5
-#define isAlphaNum isAlphanum
-#endif
+import Data.Char -- 1.3
 
 infixr 1      `elseP`
 infix  2      `thenP`

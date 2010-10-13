@@ -46,7 +46,7 @@ module Densematrix(Matrix,Vector,
         minverse,
         veclist, matlist ) where
 
-import List (transpose)
+import Data.List (transpose)
 import Utils
 
 type Matrix    =  [[Float]]

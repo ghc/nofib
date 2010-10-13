@@ -1,5 +1,5 @@
  module Parse(Parse(..),whiteSpace,seperatedBy) where
- import Char -- 1.3
+ import Data.Char -- 1.3
  import StdLib
  class Parse a where
 	parseFile :: String -> [a]

@@ -18,7 +18,7 @@
 
 module Main where
 
-import System
+import System.Environment
 
 infixl 9 .*
 infix 9 <*>

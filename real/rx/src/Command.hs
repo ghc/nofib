@@ -12,7 +12,7 @@ module Command
 
 where
 
-import Char
+import Data.Char
 
 import Options
 

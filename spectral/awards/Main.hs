@@ -28,7 +28,7 @@ Kevin
 --	Bronze	50 points
 
 import QSort
-import List((\\))
+import Data.List((\\))
 import System.Environment
 import Control.Monad
 

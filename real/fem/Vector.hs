@@ -80,7 +80,7 @@
 module Vector(Vec, makevec, boundvec, vecsub, incrvec, updvec, maxupdvec,
               vecprod, displayvec) where
 
-import Array
+import Data.Array
 import Basics
 
 data Vec a = VEC Int (Array Int a)

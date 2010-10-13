@@ -3,7 +3,7 @@
 \begin{code}
 module Mandel where
 import PortablePixmap
-import Complex
+import Data.Complex
 default ()
 
 \end{code}

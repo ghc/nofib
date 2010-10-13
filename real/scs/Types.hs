@@ -1,5 +1,5 @@
 module Types where
-import Array
+import Data.Array
 
 type Name		= String
 type Seed		= Integer

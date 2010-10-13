@@ -7,7 +7,7 @@
 module PicType (Count, Indx, Value, Mesh, MeshAssoc, Electric,
 		Phi, Rho, Position, Range, Velocity, ParticleHeap) where
 
-import Array
+import Data.Array
 
 type	Count		= Int
 type	Indx		= Int

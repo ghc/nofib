@@ -2,7 +2,7 @@ Compute the digits of "e" using continued fractions.
 Original program due to Dale Thurston, Aug 2001
 
 > module Main where
-> import System (getArgs)
+> import System.Environment (getArgs)
 
 > type ContFrac = [Integer]
 

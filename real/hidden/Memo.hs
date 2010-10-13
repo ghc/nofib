@@ -3,8 +3,8 @@ import Numbers
 import Vectors
 import EdgePlate
 import Comparing(above)
-import Ix
-import Array
+import Data.Ix
+import Data.Array
 
 data Triangle a = a :^ a deriving (Eq,Ord, {-1.3-}Show)
 

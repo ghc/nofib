@@ -11,7 +11,7 @@ where
 
 
 import Maybes
-import Char
+import Data.Char
 import Lex
 import Monad
 

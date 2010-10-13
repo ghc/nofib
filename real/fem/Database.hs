@@ -11,8 +11,8 @@
 -- **********************************************************************
 
 module Database(idatabase,rdatabase) where
-import Array
-import Char (isDigit)
+import Data.Array
+import Data.Char (isDigit)
 
 idatabase :: [Char] -> Array Int Int
 

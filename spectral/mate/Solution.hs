@@ -2,7 +2,7 @@ module Solution (solve) where
 
 import Board
 import Move
-import List (sortBy)
+import Data.List (sortBy)
 
 solve :: Board -> Colour -> Int -> String
 solve bd c n = showResult (solution bd c (2*n-1))

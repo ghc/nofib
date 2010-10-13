@@ -1,5 +1,5 @@
 {- 
-Time-stamp: <Wed May 22 1996 22:36:55 Stardate: [-31]7544.50 hwloidl>
+Time-stamp: <2010-10-13 10:22:45 simonmar>
 
  Module expressing Dates Bill of Material Program
 	Phil Trinder 18/9/95                             
@@ -22,7 +22,7 @@ import Strategies
 
 #if defined(IO13)
 import GranRandom
-import System (getArgs)
+import System.Environment (getArgs)
 #else
 import GlaExts
 import ST

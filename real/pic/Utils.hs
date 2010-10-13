@@ -6,7 +6,7 @@
 module Utils (applyOpToMesh, coarseMesh, fineMesh, genRand, log2) where
 
 import	PicType
-import  Array -- 1.3
+import Data.Array
 infix 1 =:
 (=:) a b = (a,b)
 

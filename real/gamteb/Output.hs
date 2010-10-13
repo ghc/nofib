@@ -9,7 +9,7 @@ import	GamtebType
 import	Consts
 import	Utils
 import	InitTable
-import Array--1.3
+import Data.Array
 
 outGamteb :: Int -> [Stat] -> [Result] -> [Char]
 outGamteb nPart stats results =

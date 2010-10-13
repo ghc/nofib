@@ -8,7 +8,7 @@
 \begin{onlystandalone}
 \begin{code}
 module Mandel where
-import Complex -- 1.3
+import Data.Complex -- 1.3
 import PortablePixmap
 default ()
 \end{code}

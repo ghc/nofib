@@ -28,7 +28,7 @@ need to read any of them.
 >     sep_list
 >     ) where
 
-> import Char (isAlpha) -- 1.3
+> import Data.Char (isAlpha) -- 1.3
 > import Config
 
 \end{haskell}

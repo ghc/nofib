@@ -1,6 +1,6 @@
 module Lexer (Lexeme(..), lexer) where
 
-import Char -- 1.3
+import Data.Char -- 1.3
 
 -- lexeme
 data Lexeme = Ide String

@@ -13,7 +13,7 @@ optimisation here.
 
 module Main (main) where
 
-import System
+import System.Environment
 
 algb :: (Eq a) => [a] -> [a] -> [Int]
 algb xs ys

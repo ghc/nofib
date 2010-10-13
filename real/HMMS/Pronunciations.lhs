@@ -11,7 +11,7 @@ pronunciation models of words and utterances.
 >       readDictionary, readsPrnNetwork, showPrnNetwork,
 >       pre_hmm
 >       ) where
-> import Char(isSpace,toUpper,isDigit)
+> import Data.Char(isSpace,toUpper,isDigit)
 
 \end{haskell}
 

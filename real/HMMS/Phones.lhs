@@ -2,7 +2,7 @@
         \begin{haskell}{Phones}
 
 > module Phones( Phone(..), phone_bounds, phone_list ) where
-> import Ix--1.3
+> import Data.Ix
 
 \end{haskell}
 

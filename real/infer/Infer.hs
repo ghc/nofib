@@ -1,6 +1,6 @@
 module Infer (inferTerm) where
 
-import List(nub)
+import Data.List(nub)
 
 import  MyList                  (minus)
 import  Type                  (TVarId, TConId, MonoType (..), PolyType (All),

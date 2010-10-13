@@ -2,7 +2,7 @@
 > where             --     Rex Page (rpage@trc.amoco.com)
 > import Fourier    --     Amoco Production Research, Sep 1992
 > import Complex_Vectors
-> import Complex--1.3
+> import Data.Complex
 > import System.Environment
 
 > main = do 

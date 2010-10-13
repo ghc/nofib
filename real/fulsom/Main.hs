@@ -31,7 +31,7 @@ import Kolor
 import Matrix
 import Patchlevel
 
-import System
+import System.Environment
 import System.IO
 
 main = do

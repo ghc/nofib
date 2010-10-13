@@ -173,9 +173,9 @@ style.
 
 >module Main where
 
->import Char
->import IO
->import System
+>import Data.Char
+>import System.IO
+>import System.Environment
 
 \end{mcode}
 \fi

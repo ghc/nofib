@@ -1,10 +1,10 @@
 module Main(main) where
 
 import Distributed
-import System
-import List
-import IO
-import Time 
+import System.Environment
+import Data.List
+import System.IO
+import System.Time 
 import PrelNum
 
 -- we are only interested in ms accuracy < 60 seconds

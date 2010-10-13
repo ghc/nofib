@@ -1,7 +1,7 @@
 -- !!! count the number of solutions to the "n queens" problem.
 -- (grabbed from LML dist)
 
-import System
+import System.Environment
 
 
 main = do

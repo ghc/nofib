@@ -51,8 +51,8 @@ first understand binomial queues.  See, for example, David King's
 
 > -- partain
 >module Main (main) where
->import Array
->import System
+>import Data.Array
+>import System.Environment
 
 >import Control.Monad.ST
 >import Data.Array.ST

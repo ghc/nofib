@@ -1,8 +1,8 @@
 module MyIO(getFilename,process) where
 import Numbers
 import Vectors
-import IO--1.3
-import System(getArgs)--1.3
+import System.IO--1.3
+import System.Environment(getArgs)--1.3
 
 type InputCont = [String] -> IO ()
 

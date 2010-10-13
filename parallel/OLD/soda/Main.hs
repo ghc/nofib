@@ -17,7 +17,7 @@ Message-ID: <swordfish.740931041@minster.york.ac.uk>
 ------------------------------------------------------------------
 
 import Control.Parallel
-import List(transpose)--1.3
+import Data.List(transpose)--1.3
 
 main = par (unigrid d) (par (unigrid dr) (par (unigrid ur) (
        putStr (concat (parmap find hidden))

@@ -1,5 +1,5 @@
 
-import System
+import System.Environment
 
 
 -- code of unknown provenance (partain 95/01/25)

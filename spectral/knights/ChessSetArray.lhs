@@ -48,7 +48,7 @@ information prevents unnecessary traversal of the trail.
 
 
 \begin{code}
-import Array
+import Data.Array
 import Sort(quickSort)
 
 type Tile     = (Int,Int)

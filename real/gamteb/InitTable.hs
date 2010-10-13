@@ -7,7 +7,7 @@ module InitTable (ergs, xComp, xPair, xPhot) where
 
 import GamtebType
 import Consts
-import Array--1.3
+import Data.Array
 
 -- initialize the cross section tables
 -- these tables are constant, used with the energy and energy index

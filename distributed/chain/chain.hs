@@ -1,8 +1,8 @@
 module Main(main) where
 
 import Distributed
-import System
-import IO
+import System.Environment
+import System.IO
 
 	
 data Link a = Link (MVar a) (MVar ())

@@ -12,7 +12,7 @@ module Lex
 
 where
 
-import Char
+import Data.Char
 
 
 --------------------------------------------------------

@@ -22,10 +22,6 @@ module Matrix where
 import Types
 import Interval -- not used.
 
-#if __HASKELL1__ < 5
-#define realToFrac fromRealFrac
-#endif
-
 mat4x1 :: (Fractional a) => Arr -> R3 a -> R3 a
 mat4x1 (r1,r2,r3) xyz = (x,y,z)
                           where

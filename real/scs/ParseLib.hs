@@ -1,6 +1,6 @@
 module ParseLib where
 
-import Char
+import Data.Char
 
 type Parser a = String -> [(a, String)]
 

@@ -7,7 +7,7 @@ module ChargeDensity (chargeDensity) where
 
 import	PicType
 import	Consts
-import Array--1.3
+import Data.Array
 
 -- Phase I: calculate the charge density rho
 -- Each particle represents an amount of charge distributed over an entire cell.

@@ -40,7 +40,7 @@ In fact these numbers bounce around quite a bit, they aren't accurate
 to more than 20\% or so.
 -}
 
-import IO
+import System.IO
 import System.Environment
 import System.CPUTime
 import Text.Printf

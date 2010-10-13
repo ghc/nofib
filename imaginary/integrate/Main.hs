@@ -1,6 +1,6 @@
 module Main (integrate1D, main) where
 
-import System
+import System.Environment
 
 integrate1D :: Double -> Double -> (Double->Double) -> Double
 integrate1D l u f =

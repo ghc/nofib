@@ -39,7 +39,7 @@
 > 	module MonadTrans
 > 	) where
 
-> import Monad
+> import Control.Monad
 > import MonadTrans
 
 <haskell:class>

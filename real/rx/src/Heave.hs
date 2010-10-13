@@ -13,7 +13,7 @@ import Trace
 
 import System
 import Stuff (intersperse)
-import Char (isSpace)
+import Data.Char (isSpace)
 
 import Options
 import Command

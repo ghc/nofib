@@ -9,7 +9,7 @@ import BaseDefs
 import Utils
 import MyUtils
 
-import List(nub) -- 1.3
+import Data.List(nub) -- 1.3
 
 -- ==========================================================--
 -- === Formatting of results                              ===--

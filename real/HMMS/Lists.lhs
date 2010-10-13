@@ -10,7 +10,7 @@ Standard Prelude.
 >               foldr1_2op,
 >               hamming
 >       ) where
-> import List(genericSplitAt)--1.3
+> import Data.List(genericSplitAt)
 
 \end{haskell}
 

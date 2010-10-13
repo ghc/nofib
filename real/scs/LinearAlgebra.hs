@@ -1,7 +1,7 @@
 module LinearAlgebra where
 
-import Array
-import List
+import Data.Array
+import Data.List
 
 import Types
 	

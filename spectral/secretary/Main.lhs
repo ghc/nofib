@@ -12,10 +12,10 @@ called "secretary problem". Here is my code:
 \begin{code}
 module Main where
 
-import Random
-import List
-import IO
-import Monad
+import System.Random
+import Data.List
+import System.IO
+import Control.Monad
 import IOExts
 
 type Process = [Integer] -> Bool

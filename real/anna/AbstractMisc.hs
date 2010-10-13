@@ -11,7 +11,7 @@ import MyUtils
 import AbstractVals2
 import SuccsAndPreds2
 
-import List(nub) -- 1.3
+import Data.List(nub) -- 1.3
 
 -- ==========================================================--
 --

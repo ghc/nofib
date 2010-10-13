@@ -49,7 +49,7 @@ where
 
 import Maybes
 
-import Char (isDigit)
+import Data.Char (isDigit)
 
 import FiniteMap
 import Pretty

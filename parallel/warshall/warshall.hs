@@ -16,8 +16,7 @@ to use in IFL08 paper on Parallel-Haskell-on-multicore.
 ------------------------------------------------- -}
 
 module Main(main) where
-import List
-import System
+import System.Environment
 import Data.List
 
 -- import Eden

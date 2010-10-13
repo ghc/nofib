@@ -17,8 +17,8 @@ Initial revision
 >   quadraticAlgorithm, quadraticOutput,
 >   cfRat2CFSqrt, decimals, accuracy, cf2Rat, integerFraction)
 > where
-> import Maybe
-> import List( sort )
+> import Data.Maybe
+> import Data.List( sort )
 > import QRationals
 
 \section{Representation of Continued Fractions}

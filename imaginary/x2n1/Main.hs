@@ -24,8 +24,8 @@ of all the other programs I thought I'd contribute at least one :-)
 -}
 
 module Main ( main ) where
-import Complex
-import System
+import Data.Complex
+import System.Environment
 
 main = do
 	[arg] <- getArgs

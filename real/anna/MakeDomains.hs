@@ -8,7 +8,7 @@ import BaseDefs
 import Utils
 import Dependancy
 
-import List(nub) -- 1.3
+import Data.List(nub) -- 1.3
 
 -- ==========================================================--
 --

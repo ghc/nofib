@@ -1,7 +1,7 @@
 module BasicNumber (BasicNumber (..), makeReal, makeRational, RealT{-partain-}) where
 
 import RealM
-import Ratio--1.3
+import Data.Ratio
 
 data BasicNumber = BasIntegerC Integer
                  | BasRationalC Rational

@@ -4,7 +4,7 @@
 --      1990 August
 --
 import	GamtebMain
-import IO--1.3
+import System.IO
 
 main = do
     hPutStr stderr "Enter the scale of computation: "

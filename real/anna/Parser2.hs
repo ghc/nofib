@@ -9,8 +9,8 @@ import Utils
 import MyUtils
 import MakeDomains
 
-import List(nub) -- 1.3
-import Char(isAlpha,isDigit) -- 1.3
+import Data.List(nub)
+import Data.Char(isAlpha,isDigit)
 
 -- ====================================--
 -- === Lexical analyser             ===--

@@ -8,7 +8,7 @@ module Potential (potential) where
 import	PicType
 import	Consts
 import	Utils
-import Array--1.3
+import Data.Array
 
 -- Given charge density matrix, rho
 -- Compute new electrostatic potential phi' where del2(phi') = rho

@@ -17,7 +17,7 @@ import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
 import Asb_routs
 import Tol_cal
-import Ix--1.3
+import Data.Ix
 
 -----------------------------------------------------------
 -- Jacobi iteration method:                              --

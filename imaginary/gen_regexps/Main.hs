@@ -8,7 +8,7 @@
 
 module Main (main) where
 
-import Char
+import Data.Char
 
 main = interact (("Enter a generator: " ++).show.numchars.expand.head.lines)
 

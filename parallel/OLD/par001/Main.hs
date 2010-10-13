@@ -13,8 +13,8 @@ This test program is courtesy of Andrew Partridge.
 -}
 module Main(main) where
 
-import System
-import Parallel
+import System.Environment
+import Control.Parallel
 
 result x
    = par sxs ((force xs) `seq` sxs)

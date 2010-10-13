@@ -15,8 +15,8 @@ module S_Array (
 	)
 	where
 
-import List(partition)--1.3
-import Ix--1.3
+import Data.List(partition)
+import Data.Ix
 
 import Norm 
 import Parallel

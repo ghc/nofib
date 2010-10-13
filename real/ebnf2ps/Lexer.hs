@@ -1,6 +1,6 @@
 module Lexer where
 -- Copyright 1994 by Peter Thiemann
-import Char -- 1.3
+import Data.Char
 
 ------------------------------------------------------------------------------
 --NOW the lexer

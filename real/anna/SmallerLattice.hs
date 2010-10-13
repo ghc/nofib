@@ -13,7 +13,7 @@ import MyUtils
 import Utils
 import AbsConc3
 
-import List(nub,transpose) -- 1.3
+import Data.List(nub,transpose) -- 1.3
 
 -- ==========================================================--
 --

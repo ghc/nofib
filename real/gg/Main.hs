@@ -9,7 +9,7 @@ import Activity
 import Spark
 --import Prog (prog)
 
-import System -- 1.3 (partain)
+import System.Environment
 
 main = do
     str <- getArgs

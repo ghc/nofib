@@ -1,8 +1,8 @@
 module CommandLine (parse_cmds) where
 -- Copyright 1994 by Peter Thiemann
 
-import System--1.3
-import IO--1.3
+import System.Environment
+import System.IO
 
 defaultArgs :: Args
 defaultArgs  =  MkArgs "Times-Roman" 10 "black" "Times-Roman" 10 "black" "black" "black" 500 500 30 100 200 "rgb.txt" False False True False False False

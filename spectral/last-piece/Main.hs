@@ -5,7 +5,7 @@
 module Main where
 import Prelude hiding( flip )
 import Pretty
-import Maybe
+import Data.Maybe
 import FiniteMap
 
 ----------------------------

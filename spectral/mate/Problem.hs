@@ -1,6 +1,6 @@
 module Problem(readProblem) where
 
-import Char(isUpper,toLower)
+import Data.Char(isUpper,toLower)
 import Board
 
 readProblem :: String -> (Board, (Colour, Int))

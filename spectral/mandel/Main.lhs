@@ -3,7 +3,7 @@ module Main where
 
 import Mandel
 import PortablePixmap
-import IO --1.3
+import System.IO
 
 main = 	getContents >>=  			 	\ userInput	 ->
        	readNum "Enter min x  = " (lines userInput) $	\ minx input 	 ->

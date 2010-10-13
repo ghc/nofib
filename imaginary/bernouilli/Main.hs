@@ -5,7 +5,7 @@
 -- It's not a very good test, I suspect, because it manipulates big integers,
 -- and so probably spends most of its time in GMP.  
 
-import Ratio
+import Data.Ratio
 import System.Environment
 
 -- powers = [[r^n | r<-[2..]] | n<-1..]

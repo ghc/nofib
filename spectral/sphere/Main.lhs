@@ -37,7 +37,7 @@ suite URL: http://www.csg.lcs.mit.edu/impala/
 
 > module Main where
 
-> import System
+> import System.Environment
 
 > epsilon, infinity :: Double
 > epsilon  = 1.0e-6

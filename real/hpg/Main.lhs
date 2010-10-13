@@ -21,8 +21,8 @@ This module gathers the others together to generate and print the program.
 > import GenType
 > import GenVal
 > import GenExp
-> import System -- 1.3 
-> import IO     -- 1.3
+> import System.Environment
+> import System.IO
 
 \end{haskell}
 

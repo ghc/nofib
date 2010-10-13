@@ -27,7 +27,7 @@ import AbstractSyntax
 import Color
 import Fonts (FONT, stringWidth, stringHeight, fontDescender)
 import Info
-import List--1.3
+import Data.List--1.3
 
 -- all arithmetic is done in 1/100 pt
 

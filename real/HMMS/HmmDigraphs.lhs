@@ -34,14 +34,10 @@ described in later chapters in Part~\ref{part:library}.
 > import BalBinSTrees
 > import Lists( mapfst, mapsnd, mapAccumlfst )
 > import PlainTextIO
-> import Array--1.3
-> import Ix--1.3
+> import Data.Array
+> import Data.Ix
 
-#if __HASKELL1__ < 5
-#define amap map
-#else
 #define amap fmap
-#endif
 
 \end{verbatim}
 

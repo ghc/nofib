@@ -13,7 +13,7 @@ network and turn it into a single HMM.
 
 > import HmmDigraphs
 > import HmmDensities
-> import Array--1.3
+> import Data.Array--1.3
 
 \end{haskell}
 

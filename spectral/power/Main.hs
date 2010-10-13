@@ -5,8 +5,8 @@
 
 module Main where
 
-import IO
-import Ratio
+import System.IO
+import Data.Ratio
 import System.Environment (getArgs)
 
 infixl 7 .*

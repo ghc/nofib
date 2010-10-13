@@ -1,6 +1,6 @@
 module Main (main) where
 
-import System
+import System.Environment
 
 main = do
   --runalltests 1 20 10000 1 20 10000

@@ -16,7 +16,7 @@ Haskell and here is the result using hbc.
 -}
 
 ----------------------------------------------------------
-import System
+import System.Environment
 
 infix 8 ^^^
 

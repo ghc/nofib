@@ -14,10 +14,10 @@ can not ever reach valid results.
 
 module Main where
 
-import Monad
+import Control.Monad
 import MonadState
-import List
-import Maybe
+import Data.List
+import Data.Maybe
 
 --    newtype DigitState = DigitState (Digits -> [(a,Digits))])
 -- which some might recognize as the list-of-successes parsing monad.

@@ -17,7 +17,7 @@ the alignment data.
 
 > import Phones
 > import HmmDigraphs
-> import Char(isSpace)--1.3
+> import Data.Char(isSpace)--1.3
 
 \end{haskell}
 

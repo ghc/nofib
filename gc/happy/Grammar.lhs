@@ -24,10 +24,10 @@ Here is our mid-section datatype
 > import AttrGrammar
 > import AttrGrammarParser
 
-> import Array
-> import Char
-> import List
-> import Maybe (fromMaybe)
+> import Data.Array
+> import Data.Char
+> import Data.List
+> import Data.Maybe (fromMaybe)
 
 #ifdef DEBUG
 

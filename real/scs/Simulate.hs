@@ -1,8 +1,8 @@
 module Simulate where
 
-import Array
-import List
-import Ratio
+import Data.Array
+import Data.List
+import Data.Ratio
 
 import RandomFix
 import LinearAlgebra

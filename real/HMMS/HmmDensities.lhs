@@ -20,13 +20,9 @@ vectors.
 
 > import Phones         -- application-specific modules
 > import HmmConstants
-> import Array--1.3
+> import Data.Array
 
-#if __HASKELL1__ < 5
-#define amap map
-#else
 #define amap fmap
-#endif
 
 
 \end{haskell}

@@ -9,7 +9,7 @@
 module Eval (evalExp,atoi,atof) where
 import Header(TypeExp(..), Expression(..))
 import Local(runTimeErrorHandler)
-import Char(ord)
+import Data.Char(ord)
 import Trace
 
 

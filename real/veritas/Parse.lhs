@@ -1,7 +1,7 @@
 
 > module Parse where
 
-> import Char(isDigit)--1.3
+> import Data.Char(isDigit)--1.3
 > import Token
 
 > import Unparse

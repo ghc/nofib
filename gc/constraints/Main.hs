@@ -4,8 +4,8 @@
 -}
 
 import Prelude hiding (Maybe(Just,Nothing))
-import List
-import System
+import Data.List
+import System.Environment
 
 -----------------------------
 -- The main program

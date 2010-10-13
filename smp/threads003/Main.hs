@@ -16,7 +16,7 @@
 
 import Control.Concurrent
 import Control.Monad
-import System
+import System.Environment
 
 thread :: MVar Int -> MVar Int -> IO ()
 thread inp out = do x <- takeMVar inp; putMVar out $! x+1; thread inp out

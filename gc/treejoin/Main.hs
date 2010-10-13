@@ -4,8 +4,8 @@
     ordered, but not necessarily balanced.
 -}
 
-import System
-import Char(isSpace,isDigit,isAlpha)
+import System.Environment
+import Data.Char(isSpace,isDigit,isAlpha)
 
 data Tree e = Node Key (Tree e) (Tree e) | Leaf Key e | Empty deriving Show{-was:Text-}
 type Key = Int

@@ -28,8 +28,8 @@
 --
 -- Enjoy!
 ------------------------------------------------------------------------------
-import Char -- 1.3
-import List -- 1.3
+import Data.Char
+import Data.List
 -- main: added by partain
 main = do { stuff <- getContents; putStr (say stuff) }
 

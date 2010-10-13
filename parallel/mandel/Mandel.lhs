@@ -9,7 +9,7 @@
 \begin{code}
 {-# LANGUAGE BangPatterns,CPP #-}
 module Mandel where
-import Complex -- 1.3
+import Data.Complex -- 1.3
 import PortablePixmap
 import Control.Parallel
 import Control.Parallel.Strategies

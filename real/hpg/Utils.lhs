@@ -13,7 +13,7 @@ This module contains useful utility functions needed throughout the \HPG.
 >     cmap, rep, print_str, split_str, finish
 >     ) where
 
-> import Char
+> import Data.Char
 > import Config
 > import Types
 > import Env

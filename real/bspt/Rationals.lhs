@@ -4,7 +4,7 @@
 
 > where
  
-> import Ratio--1.3
+> import Data.Ratio
 > infix 7 :%%
 
 
