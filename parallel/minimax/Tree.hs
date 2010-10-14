@@ -37,5 +37,5 @@ parTree n (Branch a xs) = a `par` mySeqList (map (parTree (n-1)) xs)
 
 prune :: Int -> (Tree a) -> (Tree a)
 prune 0 (Branch a l) = Branch a []
-prune (n+1) (Branch a l) = Branch a (map (prune n) l)
+prune n (Branch a l) = Branch a (map (prune (n-1)) l)
 
