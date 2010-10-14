@@ -23,7 +23,7 @@ JB for ghc-6.9: replaced Control.Parallel.Strategies by a workaround
 module Main(main) where
 
 import System.Environment
-import Data.List
+import Data.List hiding (foldl', foldl1')
 
 import ListAux
 import Control.DeepSeq
