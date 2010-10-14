@@ -2,6 +2,7 @@ TOP = ..
 include $(TOP)/mk/boilerplate.mk
 
 SUBDIRS= circsim constraints fibheaps fulsom gc_bench happy lcss power spellcheck
+	 mutstore1 mutstore2
 # Bitrotted: ghc
 
 # Discount treejoin: runs too quickly to see any speedup beyond a few procs
