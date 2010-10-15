@@ -117,7 +117,7 @@ data Tree a = Tip | Branch a (Tree a) (Tree a) deriving ()
 data Tree2 a = Tip2 | Twig2 a | Branch2 a (Tree2 a) (Tree2 a) deriving ()
 heapSort :: Ord a => [a] -> [a]
 heapSort xs = clear (heap (0::Int) xs)
-import List (partition)
+import Data.List (partition)
 insertSort (x:xs)   = trins [] [x] xs
 insertSort :: Ord a => [a] -> [a]
 insertSort []	    = []
