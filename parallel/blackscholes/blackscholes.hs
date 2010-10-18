@@ -122,7 +122,7 @@ data ParameterSet =  ParameterSet {
 data_init :: Array Int ParameterSet
 
 -- This defines some hard coded data as a big constant array:
-#include "blackscholes_data.hs"
+#include "blackscholes_data.hs-inc"
 size_init = let (s,e) = bounds data_init in e - s + 1
 
 inv_sqrt_2xPI = 0.39894228040143270286
