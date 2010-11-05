@@ -181,9 +181,9 @@ if ( $SysSpecificTiming =~ /^ghc/ ) {
     } else {
         $cpu_counting_ghc = "";
     }
-    $TimingMagic = "+RTS -S$StatsFile $cpu_counting_ghc -RTS"
+    $TimingMagic = "+RTS -s$StatsFile $cpu_counting_ghc -RTS"
 } elsif ( $SysSpecificTiming eq 'hbc' ) {
-    $TimingMagic = "-S$StatsFile";
+    $TimingMagic = "-s$StatsFile";
 }
 
 if ($PreScript ne '') {
