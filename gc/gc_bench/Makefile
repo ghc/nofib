@@ -1,7 +1,7 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-SRC_HC_OPTS += -cpp
+SRC_HC_OPTS += -cpp -package old-time
 
 # kLongLivedTreeDepth	  = 17 :: Int
 # kArraySize	 	     = 500000 :: Int
