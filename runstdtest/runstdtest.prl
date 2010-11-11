@@ -422,8 +422,19 @@ sub process_stats_file {
 		$InitTime = $1; $InitElapsed = $2;
 	    } elsif ( /^\s*MUT\s+time\s*(-*\d+\.\d\d)s\s*\(\s*(-*\d+\.\d\d)s elapsed\)/ ) {
 		$MutTime = $1; $MutElapsed = $2;
+	    } elsif ( /^\s*MUT\+GC0\s+time\s*(-*\d+\.\d\d)s\s*\(\s*(-*\d+\.\d\d)s elapsed\)\s+\(\s*(-*\d+\.\d\d)s\s+MUT\s+\+\s+(-*\d+\.\d\d)s\s+GC0/ ) {
+		$MutTime = $3; $MutElapsed = $2;
+                $Gc0Time = $4; $Gc0Elapsed = 0;
 	    } elsif ( /^\s*GC\s+time\s*(-*\d+\.\d\d)s\s*\(\s*(-*\d+\.\d\d)s elapsed\)/ ) {
 		$GcTime = $1; $GcElapsed = $2;
+	    } elsif ( /^\s*GC1\s+time\s*(-*\d+\.\d\d)s\s*\(\s*(-*\d+\.\d\d)s elapsed\)/ ) {
+		$Gc1Time = $1; $Gc1Elapsed = $2;
+                $GcTime = $Gc0Time + $Gc1Time;
+
+                # fake GcElapsed: we don't know GcElapsed since GCs are
+                # overlapped with mutation, so we use Gc1Elapsed instead.
+                # All we need is that MutElapsed+GcElapsed = TotElapsed
+                $GcElapsed = $Gc1Elapsed;
 	    }
 
             if (/Generation (\d+):\s*\d+ collections,\s*\d+ parallel,\s*(-*\d+\.\d\d)s\s*,\s*(-*\d+\.\d\d)s elapsed/) {
