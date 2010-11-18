@@ -1,0 +1,29 @@
+All input words are in dictionary: True
+Same number of words as input: False
+Writing theend.txt.bin... done.
+Reading data back in... done.
+Read in data matches original: True
+
+-- Enter a word to see if it is in the dictionary (^C to exit):
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- False
+> 
+-- True
+> 

@@ -1,0 +1,39 @@
+{-----------------------------------------------------
+
+  this is the input deck for a simple 3 way reaction
+  (C) 2010 Markus Dittrich
+
+------------------------------------------------------}
+
+variables
+  Na         = 6.022e23
+  myConc     = 50e-6
+  cubeVol_um = 0.05
+  cubeVol    = { cubeVol_um * 1e-15 }
+  myMol      = { myConc * cubeVol } 
+  myRelease  = { myMol * Na }
+end
+
+parameters
+  time         = 0.004
+  outputBuffer = 50
+  outputFreq   = 1
+  systemVol    = { cubeVol }
+end
+
+molecules
+  A = { myRelease }
+  B = { myRelease }
+  C = { myRelease }
+  D = 0
+end
+
+reactions
+  A + B + C -> D | 1e12|
+  D -> A + B + C | 1e3 |
+end
+
+output
+  outputFile = "reversible_trimol.1.dat"
+  [{D/cubeVol/Na}]
+end

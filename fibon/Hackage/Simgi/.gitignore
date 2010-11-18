@@ -1,0 +1,10 @@
+syntax: glob
+src/simgi
+*.o
+*.hi
+*.swp
+average
+RpnStackTest
+EventParserTest
+ReactionParserTest
+check_deviation

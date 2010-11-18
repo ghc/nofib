@@ -1,0 +1,16 @@
+This is simgi v0.3 (c) 2009-2010 Markus Dittrich
+
+-------- Simulation parameters ----------
+rng seed              : 1
+max time              : 1.0 s
+system volume         : nil
+data output frequency : 50000
+log output frequency  : 50000
+output filename       : oregonator_output.dat
+-----------------------------------------
+
+starting simulation ...
+
+iteration: 1           --> time: 0.00000 s
+iteration: 50000       --> time: 0.23476 s
+iteration: 100000      --> time: 0.68849 s

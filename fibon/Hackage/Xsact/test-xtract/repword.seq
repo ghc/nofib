@@ -1,0 +1,11 @@
+# test with common word repeated
+>repeated-word
+ACGTA
+>base
+CACACGTAGTTAACGACGTATCGAGTCAAGACGTACACCGAT
+>t1
+CACACGTAGTT
+>t2
+         TNAACGACGTATCGAGT
+>t3
+                         TCANAGACGTACACCGAT

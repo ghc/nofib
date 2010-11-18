@@ -1,0 +1,17 @@
+-fvia-C seems to break things!
+   The problem is that the prototypes of the imported functions don't get
+   propagated properly, leading to warnings like this:
+
+   /tmp/ghc7602_0/ghc7602_0.hc:718:0:
+        warning: implicit declaration of function 'mix_bits'
+
+   This is actually an error on 32 bit machines - the default return type
+   int is not large enough to hold the 64 bit result.
+
+   This is fixed in ghc 6.9; the compiler emits its own prototypes.
+Check sequences are repeatable
+Investigate slow conversion to Double (x86 at least)
+   looking at the core, the conversion goes through toInteger and encodeFloat.
+   That's a pity, because the FPU has an instruction for this purpose.
+profile/benchmark
+tests driver

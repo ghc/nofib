@@ -1,0 +1,13 @@
+See examples/. It should get you started.
+The source code is haddock-ready. Run:
+
+runhaskell Setup.hs configure
+runhaskell Setup.hs haddock
+
+Note you need haddock version 2.
+
+Please send comments, patches, etc to:
+
+ellisk@catlin.edu
+
+Thank you so much for using hgalib.

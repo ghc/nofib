@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+  <title>CPSA</title>
+  <meta name="generator" content="Amaya 9.54, see http://www.w3.org/Amaya/" />
+</head>
+
+<body>
+<p>[<a href="cpsauser.html">CPSA User Guide</a>] [<a href="cpsaprimer.pdf">CPSA
+Primer</a>] [<a href="cpsaoverview.pdf">CPSA Overview</a>]</p>
+
+<h1>CPSA</h1>
+
+<p>The Cryptographic Protocol Shapes Analyzer (CPSA) attempts to enumerate all
+essentially different executions possible for a cryptographic protocol. We call
+them the <i>shapes</i> of the protocol. Naturally occurring protocols have only
+finitely many, indeed very few shapes. Authentication and secrecy properties
+are easy to determine from them, as are attacks and anomalies.</p>
+
+<p>CPSA comes with a user guide, a primer, and an overview. To make effective
+use of CPSA, new users should read the primer.</p>
+
+<p>Start using CPSA by analyzing the protocols that come with this document.
+Copy the contents of this directory to a place that allows it to be modified.
+In a Unix shell, type:</p>
+
+<blockquote>
+  <pre>$ echo build | ghci Make.hs</pre>
+</blockquote>
+
+<p>In Windows, you can click on <tt>Make.hs</tt> and type <tt>build</tt>. The
+<a href="cpsauser.html">CPSA User Guide</a> describes a better way to analyze
+protocols when GNU Make is available.</p>
+
+<p>After running the analysis, you will note files with the extension
+<tt>.xml</tt>. These are XHTML/SVG compound documents that can be viewed by
+standards compliant browsers such as Firefox or Safari.</p>
+
+<p>New users should study CPSA's analysis of the following protocols in order,
+Needham-Schroeder (<tt>ns.xml</tt>), Woo-Lam (<tt>woolam.xml</tt>), Yahalom
+(<tt>yahalom.xml</tt>), ffgg (<tt>ffgg.xml</tt>), and finally Otway-Rees
+(<tt>or.xml</tt>). When studying the full output, simultaneously display the
+extracted shapes. The shapes file has an extension of <tt>_shapes.xml</tt>.</p>
+
+<p>Choose a small, simple protocol for your first analysis task. When analyzing
+complex protocols, analyze small parts of the protocol first, and then enrich
+the description of the problem. </p>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Simgi - A Stochastic Gillespie Simulator</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Markus Dittrich" />
+  <meta name="date" content="02/10/2010" />
+</head>
+<body>
+<h1 class="title">Simgi - A Stochastic Gillespie Simulator</h1>
+<hr
+ /><p
+>This manual covers simgi v0.3 (released 02/10/2010).</p
+><br /><div id="contents"
+><h2
+  >Contents</h2
+  ><ol style="list-style-type: decimal;"
+  ><li
+    ><a href="#introduction"
+      >Introduction</a
+      ></li
+    ><li
+    ><a href="#download"
+      >Download</a
+      ></li
+    ><li
+    ><a href="#installation-and-compilation"
+      >Installation and Compilation</a
+      ></li
+    ><li
+    ><a href="#simgi-model-generation-language-syntax"
+      >Simgi Model Description Language Syntax</a
+      ></li
+    ><li
+    ><a href="#input-samples"
+      >Input Samples</a
+      ></li
+    ><li
+    ><a href="#contact-and-bugs"
+      >Contact and Bugs</a
+      ></li
+    ><li
+    ><a href="#copyright-and-license"
+      >Copyright and License</a
+      ></li
+    ><li
+    ><a href="#references"
+      >References</a
+      ></li
+    ></ol
+  ><br /> <br /></div
+><div id="introduction"
+><h2
+  >Introduction</h2
+  ><p
+  >simgi is a small but efficient stochastic simulator based on <a href="#ref_1"
+    >Gillespie's</a
+    > direct method and uses a 64 bit implementation of the Mersenne Twister algorithm as pseudo random number source. simgi is command line driven and features a powerful and flexible model generation language.</p
+  ></div
+><div id="download"
+><h2
+  >Download</h2
+  ><p
+  >The current release of simgi (version 0.3) can be obtained <a href="http://sourceforge.net/project/platformdownload.php?group_id=260550"
+    >here</a
+    > in both source and binary formats.</p
+  ></div
+><div id="installation-and-compilation"
+><h2
+  >Installation and Compilation</h2
+  ><p
+  >The simgi binary packages for 32 bit and 64 bit Linux should run on any recent distribution with <em
+    >libgmp</em
+    > installed.</p
+  ><p
+  >simgi is written in pure Haskell and compilation requires a working ghc Haskell compiler as well as the following additional packages:</p
+  ><ul
+  ><li
+    ><a href="http://haskell.org/ghc/"
+      >&gt;=ghc-6.10</a
+      ></li
+    ><li
+    ><a href="http://gmplib.org/"
+      >&gt;=gmp-4.3</a
+      ></li
+    ><li
+    ><a href="http://hackage.haskell.org/package/mersenne-random-pure64"
+      >&gt;=mersenne-random-pure64</a
+      ></li
+    ><li
+    ><a href="http://www.gnu.org/software/bc/bc.html"
+      >bc</a
+      > (for the test suite only)</li
+    ></ul
+  ><p
+  >The optional document generation requires</p
+  ><ul
+  ><li
+    ><a href="http://johnmacfarlane.net/pandoc"
+      >&gt;=pandoc-1.4</a
+      ></li
+    ><li
+    >latex (e.g. texlive)</li
+    ></ul
+  ><p
+  >simgi can be build in one of two ways</p
+  ><ol style="list-style-type: decimal;"
+  ><li
+    >the standard <em
+      >make, make check, make install</em
+      ></li
+    ><li
+    >via cabal</li
+    ></ol
+  ><br /></div
+><div id="simgi-model-generation-language-syntax"
+><h2
+  >Simgi Model Generation Language Syntax</h2
+  ><div id="general-syntax"
+  ><h3
+    >General Syntax</h3
+    ><p
+    >simgi simulation models are described via <em
+      >Simgi Model Generation Language (SGL)</em
+      > inside a plain text ASCII file. Syntactically, each <em
+      >SGL</em
+      > file consists of a number of blocks each describing a certain aspect of the simulation such as variables, parameters, molecules, or reactions. Each block has the following structure</p
+    ><pre
+    ><code
+      >     &lt;block name&gt;
+
+       &lt;block content&gt;
+
+     end
+</code
+      ></pre
+    ><p
+    >Please note that there is no need to put block name and content description on separate lines even though it is highly recommended to do so for ease of reading.</p
+    ><p
+    >Even though syntactically <em
+      >SGL</em
+      > does not require blocks to be arranged in any specific order, semantically, each identifier used in a given block has to be defined when first used. Hence, the molecule definition block has to be placed before the reaction definition block.</p
+    ></div
+  ><div id="comment-on-syntax-notation"
+  ><h3
+    >Comment on Syntax Notation</h3
+    ><p
+    >In the syntax specification below, the following notation is used</p
+    ><ul
+    ><li
+      ><p
+	>If a syntactic expression can contain either one of a number of options A, B, C, ... this is specified as <code
+	  >( A &lt;|&gt; B &lt;|&gt; C &lt;|&gt; ..)</code
+	  >.</p
+	></li
+      ><li
+      ><p
+	>If a syntactic element A is optional, it is enclosed in brackets <code
+	  >[ A ]</code
+	  >.</p
+	></li
+      ><li
+      ><p
+	>If a syntactic element B can repeat zero or more times it is enclosed in curly braces <code
+	  >{ A }</code
+	  >.</p
+	></li
+      ><li
+      ><p
+	>Literal braces, parenthesis, etc. are always enclosed in single quotes, e.g, '(' or '}'.</p
+	></li
+      ></ul
+    ><p
+    >Please note that this notation does not apply in the examples given, which are always meant to be literal code examples.</p
+    ></div
+  ><div id="comments"
+  ><h3
+    >Comments</h3
+    ><p
+    >Comments inside SGL follow the standard Haskell convention. Multiline comments can be wrapped inside <em
+      >{-- --}</em
+      >. Single line comments start with <em
+      >--</em
+      > and ignore everything until the next newline. For example,</p
+    ><pre
+    ><code
+      >    {-- this is
+        a multiline
+        comment
+    --}
+
+    foo = bar   -- this is a single line comment
+</code
+      ></pre
+    ></div
+  ><div id="identifiers"
+  ><h3
+    >Identifiers</h3
+    ><p
+    >SGL identifiers have to start with a lower or uppercase letter followed by any number of lower or uppercase letters, digits, or underscores. Please note that identifiers can not be any of the keywords or mathematical functions available in simgi.</p
+    ></div
+  ><div id="numerical-identifiers-and-statement-blocks"
+  ><h3
+    >Numerical Identifiers and Statement Blocks</h3
+    ><p
+    >Inside SGL, some identifiers are assigned numerical values. Examples are variables, initial molecule numbers, reaction rates, or event definitions. A numerical value can either be a literal <em
+      >Double</em
+      > value or a <em
+      >statement block</em
+      >. The latter is a mathematical expression enclosed in curly braces that evaluates to a <em
+      >Double</em
+      > literal either at parse-time or at run-time. Whether a <em
+      >statement block</em
+      > is evaluated at parse or run-time depends on the definition block in which it occurs as detailed in the description for each block below.</p
+    ><p
+    ><em
+      >statement blocks</em
+      > which are evaluated at parse-time may contain only mathematical expression involving <em
+      >Double</em
+      > literals and variable values. <em
+      >statement blocks</em
+      > which are evaluated at run-time can in addition contain the instantaneous counts of molecules as well as the current simulation time accessible via the keyword <em
+      >TIME</em
+      >. These two types of <em
+      >statement blocks</em
+      > are referred to as <em
+      >parse-time statement blocks</em
+      > and <em
+      >run-time statement blocks</em
+      >, respectively.</p
+    ><p
+    >Assuming that <em
+      >foo</em
+      > and <em
+      >bar</em
+      > are variables, the following are valid statement blocks</p
+    ><p
+    ><strong
+      >Example:</strong
+      ></p
+    ><pre
+    ><code
+      >     { 3.0*foo + bar^2 }                -- parse-time statement block
+
+     { 3.0*exp(-foo/TIME) + bar*TIME }  -- run-time statement block
+</code
+      ></pre
+    ><p
+    >Inside <em
+      >statment blocks</em
+      > simgi supports the use of the following mathematical functions:</p
+    ><blockquote
+    ><p
+      >sqrt, exp, log, log2, log10, sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh, acosh, atanh, erf, erfc, abs.</p
+      ></blockquote
+    ><p
+    ><strong
+      >Note 1:</strong
+      > Depending on their numerical complexity, <em
+      >run-time statement blocks</em
+      > incur a computational overhead and should therefore be avoided if possible.</p
+    ><p
+    ><strong
+      >Note 2:</strong
+      > SGL statements which expect an <em
+      >Integer</em
+      > value instead of a <em
+      >Double</em
+      > will use <code
+      >floor()</code
+      > to for rounding.</p
+    ></div
+  ><div id="variable-definition-block"
+  ><h3
+    >Variable Definition Block</h3
+    ><p
+    ><strong
+      >&lt;block name&gt; = variables</strong
+      ></p
+    ><p
+    >This block allows the definition of variables which can then be used inside any <em
+      >statement block</em
+      > in the remainder of the SGL file. Variable assignments are of the form</p
+    ><blockquote
+    ><p
+      >&lt;variable name&gt; = (<em
+	>Double</em
+	> &lt;|&gt; <em
+	>parse-time statement block</em
+	>)</p
+      ></blockquote
+    ><p
+    >Since the variable block will be evaluated only after it has been fully parsed, variables which depend on other variables via <em
+      >parse-time statement blocks</em
+      > do not have to be defined in order.</p
+    ><p
+    ><strong
+      >Note:</strong
+      > Users have to ensure that variable definitions do not contain circular references since this may lead to infinite evaluation loops.</p
+    ></div
+  ><div id="parameter-definition-block"
+  ><h3
+    >Parameter Definition Block</h3
+    ><p
+    ><strong
+      >&lt;block name&gt; = parameters</strong
+      ></p
+    ><p
+    >The parameter block defines the main simulation control parameters. It can be left out and all parameters will then assume their default values. Available parameter options are</p
+    ><ul
+    ><li
+      ><p
+	><strong
+	  >time</strong
+	  > = (<em
+	  >Double</em
+	  > &lt;|&gt; <em
+	  >parse-time statement block</em
+	  >)</p
+	><p
+	>Maximum simulation time in seconds. Default is 0.0 s.</p
+	></li
+      ><li
+      ><p
+	><strong
+	  >outputBuffer</strong
+	  > = (<em
+	  >Integer</em
+	  > &lt;|&gt; <em
+	  >parse-time statement block</em
+	  >)</p
+	><p
+	>Output will be kept in memory and written to the output file and stdout every <em
+	  >outputBuffer</em
+	  > iterations. Larger values should result in faster simulations due to reduced I/O but will require more system memory. Default is to write output every 10000 iterations.</p
+	><p
+	>Note: The value of <em
+	  >outputBuffer</em
+	  > only affects the chunk size in which output is written to the output file, not how much output is actually generated during a simulation (see outputFreq parameter).</p
+	></li
+      ><li
+      ><p
+	><strong
+	  >outputFreq</strong
+	  > = (<em
+	  >Integer</em
+	  > &lt;|&gt; <em
+	  >parse-time statement block</em
+	  >)</p
+	><p
+	>Iteration frequency with which output is generated. Default is to generate output every 1000 iterations.</p
+	></li
+      ><li
+      ><p
+	><strong
+	  >systemVol</strong
+	  > = (<em
+	  >Double</em
+	  > &lt;|&gt; <em
+	  >parse-time statement block</em
+	  > &lt;|&gt; <em
+	  >nil</em
+	  >)</p
+	><p
+	>Volume of the simulation system in dm<sup
+	  >3</sup
+	  > nor <em
+	  >nil</em
+	  >. Unless <em
+	  >nil</em
+	  > is specified, reaction rates are interpreted in molar units. If <em
+	  >nil</em
+	  > is given instead, rates are interpreted as reaction propensities (see <a href="#ref_1"
+	  >1</a
+	  >). The default is a system volume of 1.0 dm<sup
+	  >3</sup
+	  >.</p
+	></li
+      ></ul
+    ></div
+  ><div id="molecule-definition-block"
+  ><h3
+    >Molecule Definition Block</h3
+    ><p
+    ><strong
+      >&lt;block name&gt; = molecules</strong
+      ></p
+    ><p
+    >The molecule definition block is used to declare all molecular species present in the simulation and assign initial molecule counts to each species. Molecule assignments are of the form</p
+    ><blockquote
+    ><p
+      >&lt;molecule name&gt; = (<em
+	>Integer</em
+	> &lt;|&gt; <em
+	>parse-time statement block</em
+	>)</p
+      ></blockquote
+    ><p
+    ><strong
+      >Note:</strong
+      > In contrast to many ODE simulation packages, simgi requires the specification of molecule numbers not concentrations.</p
+    ><p
+    ><strong
+      >Example:</strong
+      ></p
+    ><pre
+    ><code
+      >    molecules
+      A = 100
+      B = { 10 * someVar }
+    end
+</code
+      ></pre
+    ></div
+  ><div id="reaction-definition-block"
+  ><h3
+    >Reaction Definition Block</h3
+    ><p
+    ><strong
+      >&lt;block name&gt; = reactions</strong
+      ></p
+    ><p
+    >The reaction definition block is the heart of the simgi model and describes the dynamics of the underlying chemical system. Rate expressions are of the general form</p
+    ><blockquote
+    ><p
+      >a<sub
+	>1</sub
+	> R<sub
+	>1</sub
+	> + ... + a<sub
+	>N</sub
+	> R<sub
+	>N</sub
+	> -&gt; b<sub
+	>1</sub
+	> P<sub
+	>1</sub
+	> + ... + b<sub
+	>M</sub
+	> P<sub
+	>M</sub
+	> | &lt;rate&gt; |</p
+      ></blockquote
+    ><p
+    >where</p
+    ><blockquote
+    ><p
+      >&lt;rate&gt; = (<em
+	>Double</em
+	> &lt;|&gt; <em
+	>run-time statement block</em
+	>)</p
+      ></blockquote
+    ><p
+    >and a<sub
+      >i</sub
+      >, R<sub
+      >i</sub
+      >, b<sub
+      >j</sub
+      >, P<sub
+      >j</sub
+      > are the stoichiometric coefficients and names of reactants and products, respectively. If any of the stoichiometric coefficients is omitted it is assumed to be equal to 1.</p
+    ><p
+    ><strong
+      >Example:</strong
+      ></p
+    ><pre
+    ><code
+      >    reactions
+      2A + 3B  -&gt; C  | 1e-4 |
+      10B + 4C -&gt; D  | { 2.0 * exp(-A/TIME) } | 
+    end
+</code
+      ></pre
+    ><p
+    >Here, the rate for the second reaction is given by a <em
+      >run-time statement block</em
+      > and exponentially decays as a function of the instantaneous concentration of species A and simulation time.</p
+    ></div
+  ><div id="event-definition-block"
+  ><h3
+    >Event Definition Block</h3
+    ><p
+    ><strong
+      >&lt;block name&gt; = events</strong
+      ></p
+    ><p
+    >Events allow users to interact with a simulation at run-time. The event block consists of a list of event statements of the form</p
+    ><blockquote
+    ><p
+      >[ '(' ] <em
+	>trigger expression</em
+	> [ ')' ] =&gt; '[' <em
+	>action expression list</em
+	> ']'</p
+      ></blockquote
+    ><p
+    >Here, <em
+      >trigger expression</em
+      > defines when an event takes place and <em
+      >action expression</em
+      > specifies the action triggered by the event. During each iteration of the simulation each <em
+      >trigger expression</em
+      > will be evaluated and if <em
+      >True</em
+      > all actions in the associated <em
+      >action expression list</em
+      > will be executed.</p
+    ><p
+    >A trigger expression consists of one or more trigger primitives combined via the boolean operators <code
+      >&amp;&amp;</code
+      > (<em
+      >AND</em
+      >) and <code
+      >||</code
+      > (<em
+      >OR</em
+      >)</p
+    ><blockquote
+    ><p
+      ><em
+	>trigger expression</em
+	> = <em
+	>trigger primitive</em
+	> { (&amp;&amp; &lt;|&gt; ||) <em
+	>trigger primitive</em
+	> }</p
+      ></blockquote
+    ><p
+    >Trigger primitives each consist of two <em
+      >run-time statement blocks</em
+      > or <em
+      >Double</em
+      > literals combined via a relational operation</p
+    ><blockquote
+    ><p
+      ><em
+	>trigger primitive</em
+	> = [ '(' ] (<em
+	>run-time statement block</em
+	> &lt;|&gt; <em
+	>Double</em
+	>) ( == &lt;|&gt; &lt; &lt;|&gt; &gt; &lt;|&gt; &lt;= &lt;|&gt; =&gt; ) (<em
+	>run-time statement block</em
+	> &lt;|&gt; <em
+	>Double</em
+	>) [ ')' ]</p
+      ></blockquote
+    ><p
+    >An <em
+      >action expression</em
+      > consists of a comma separated list of <em
+      >action primitives</em
+      ></p
+    ><blockquote
+    ><p
+      ><em
+	>action expression</em
+	> = <em
+	>action primitive</em
+	> { , <em
+	>action primitive</em
+	> }</p
+      ></blockquote
+    ><p
+    >where each <em
+      >action primitive</em
+      > is an assignment statement of the form</p
+    ><blockquote
+    ><p
+      >(<em
+	>variable</em
+	> &lt;|&gt; <em
+	>molecule name</em
+	>) = (<em
+	>Double</em
+	> &lt;|&gt; <em
+	>run-time statement block</em
+	>)</p
+      ></blockquote
+    ><p
+    ><strong
+      >Example:</strong
+      ></p
+    ><pre
+    ><code
+      >    events
+      A == 100  =&gt; [ A = {A/100} ]
+      (A == 100 &amp;&amp; B == 0)  =&gt; [A = 10, B = {A/10}]
+      A == 10 || C == 50 =&gt; [C = 10, A = {A+C*TIME}]
+    end
+</code
+      ></pre
+    ></div
+  ><div id="output-definition-block"
+  ><h3
+    >Output Definition Block</h3
+    ><p
+    ><strong
+      >&lt;block name&gt; = output</strong
+      ></p
+    ><p
+    >This block defines the name of the output file and the type of simulation output that will be produced and written to it. Presently, simgi will only generate a single output file and produce a separate column for each output item requested. Available options are</p
+    ><ul
+    ><li
+      ><p
+	><strong
+	  >outputFile</strong
+	  > = <em
+	  >String</em
+	  ></p
+	><p
+	>Name of the output file. If this option is not given no output is produced.</p
+	></li
+      ><li
+      ><p
+	>'[' <em
+	  >String</em
+	  > &lt;|&gt; <em
+	  >run-time statement block</em
+	  > { , <em
+	  >String</em
+	  > &lt;|&gt; <em
+	  >run-time statment block</em
+	  > } ']'</p
+	><p
+	>List of variables to be output. Users can either provide the name of a variable or molecule, or any <em
+	  >run-time statement block</em
+	  >. In addition, the simulation time and iteration number can be output via the special keywords TIMES and ITERATIONS. The order in which items are punched to the output file is the same as the one in which they are listed.</p
+	></li
+      ></ul
+    ><p
+    ><strong
+      >Note:</strong
+      > Data is produced only every <em
+      >outputFreq</em
+      > iterations as defined in the <em
+      >Parameter Definition Block</em
+      >.</p
+    ><p
+    ><strong
+      >Example:</strong
+      ></p
+    ><pre
+    ><code
+      >    output
+      outputFile = &quot;someFile.dat&quot;
+      [ TIMES, A, B, {A*B/10}, ITERATIONS]
+    end
+</code
+      ></pre
+    ></div
+  ></div
+><div id="input-samples"
+><h2
+  >Input Samples</h2
+  ><p
+  >Both the binary and source distributions for simgi contain a <em
+    >Models/</em
+    > directory with several example SGL input files for a variety of systems.</p
+  ></div
+><div id="contact-and-bugs"
+><h2
+  >Contact and Bugs</h2
+  ><p
+  >Please report bugs to Markus Dittrich &lt;haskelladdict.at.users.sourceforge.net&gt;. The author would also like to encourage users to email comments, suggestions, and questions.</p
+  ></div
+><div id="copyright-and-license"
+><h2
+  >Copyright and License</h2
+  ><p
+  >simgi was developed and is currently maintained by Markus Dittrich &lt;haskelladdict.at.users.sourceforge.net&gt;. simgi is free software and released under the GPL version 3.</p
+  ><p
+  >Copyright 2009-2010 Markus Dittrich, National Resource for Biomedical Supercomputing &amp; Carnegie Mellon University.</p
+  ></div
+><div id="references"
+><h2
+  >References</h2
+  ><p id="ref_1">[1] Daniel T. Gillespie (1977). &quot;Exact Stochastic Simulation of Coupled Chemical Reactions&quot;. The Journal of Physical Chemistry 81 (25): 2340-2361</p>
+
+</div
+>
+</body>
+</html>
+

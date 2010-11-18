@@ -1,0 +1,1380 @@
+module Fre where
+
+import PGF
+----------------------------------------------------
+-- automatic translation from GF to Haskell
+----------------------------------------------------
+
+class Gf a where
+  gf :: a -> Tree
+  fg :: Tree -> a
+
+newtype GString = GString String  deriving Show
+
+instance Gf GString where
+  gf (GString x) = mkStr x
+  fg t =
+    case unStr t of
+      Just x  ->  GString x
+      Nothing -> error ("no GString " ++ show t)
+
+newtype GInt = GInt Int  deriving Show
+
+instance Gf GInt where
+  gf (GInt x) = mkInt x
+  fg t =
+    case unInt t of
+      Just x  ->  GInt x
+      Nothing -> error ("no GInt " ++ show t)
+
+newtype GFloat = GFloat Double  deriving Show
+
+instance Gf GFloat where
+  gf (GFloat x) = mkDouble x
+  fg t =
+    case unDouble t of
+      Just x  ->  GFloat x
+      Nothing -> error ("no GFloat " ++ show t)
+
+----------------------------------------------------
+-- below this line machine-generated
+----------------------------------------------------
+
+data GDisplay =
+   GDAll GWord 
+ | GDForm GWord GForm 
+  deriving Show
+
+data GForm =
+   GVFin GTMood GNumber GPerson 
+ | GVGer 
+ | GVImper GNumPersI 
+ | GVInfin 
+ | GVPart GGender GNumber 
+  deriving Show
+
+data GGender =
+   GFem 
+ | GMasc 
+  deriving Show
+
+data GMood =
+   GConjunct 
+ | GIndic 
+  deriving Show
+
+data GNumPersI =
+   GPlP1 
+ | GPlP2 
+ | GSgP2 
+  deriving Show
+
+data GNumber =
+   GPl 
+ | GSg 
+  deriving Show
+
+data GPerson =
+   GP1 
+ | GP2 
+ | GP3 
+  deriving Show
+
+data GTMood =
+   GVCondit 
+ | GVFut 
+ | GVImperf GMood 
+ | GVPasse 
+ | GVPres GMood 
+  deriving Show
+
+data GV =
+   Gabstenir_V 
+ | Gaccourir_V 
+ | Gadvenir_V 
+ | Galler_V 
+ | Gapparaître_V 
+ | Gbraire_V 
+ | Gchoir_V 
+ | Gcroître_V 
+ | Gdevenir_V 
+ | Gdéfaillir_V 
+ | Gdémordre_V 
+ | Gdéplaire_V 
+ | Gemboire_V 
+ | Genfuir_V 
+ | Genquérir_V 
+ | Gentr'apercevoir_V 
+ | Gentre_détruire_V 
+ | Gentre_haïr_V 
+ | Gentre_nuire_V 
+ | Gentrebattre_V 
+ | Gentremettre_V 
+ | Gfalloir_V 
+ | Gintervenir_V 
+ | Gluire_V 
+ | Gmorfondre_V 
+ | Gmourir_V 
+ | Gnaître_V 
+ | Gobvenir_V 
+ | Gparaître_V 
+ | Gpartir_V 
+ | Gparvenir_V 
+ | Gpaître_V 
+ | Gpleuvoir_V 
+ | Gpouvoir_V 
+ | Gprovenir_V 
+ | Gredevenir_V 
+ | Greparaître_V 
+ | Grepartir_V 
+ | Grepentir_V 
+ | Grepleuvoir_V 
+ | Gressortir_V 
+ | Gressouvenir_V 
+ | Grevenir_V 
+ | Gréapparaître_V 
+ | Gseoir_V 
+ | Gsortir_V 
+ | Gsouvenir_V 
+ | Gsurvenir_V 
+ | Gtransparaître_V 
+ | Gtressaillir_V 
+ | Gvenir_V 
+ | Gébattre_V 
+ | Géperdre_V 
+ | Géprendre_V 
+ | Gêtre_V 
+  deriving Show
+
+data GV2 =
+   Gabattre_V2 
+ | Gabsoudre_V2 
+ | Gabstraire_V2 
+ | Gaccroître_V2 
+ | Gaccueillir_V2 
+ | Gacquérir_V2 
+ | Gadjoindre_V2 
+ | Gadmettre_V2 
+ | Gapercevoir_V2 
+ | Gappartenir_V2 
+ | Gappendre_V2 
+ | Gapprendre_V2 
+ | Gassaillir_V2 
+ | Gasseoir_V2 
+ | Gastreindre_V2 
+ | Gatteindre_V2 
+ | Gattendre_V2 
+ | Gavoir_V2 
+ | Gbattre_V2 
+ | Gboire_V2 
+ | Gbouillir_V2 
+ | Gceindre_V2 
+ | Gcirconscrire_V2 
+ | Gcirconvenir_V2 
+ | Gclore_V2 
+ | Gcombattre_V2 
+ | Gcommettre_V2 
+ | Gcomparaître_V2 
+ | Gcomplaire_V2 
+ | Gcomprendre_V2 
+ | Gcompromettre_V2 
+ | Gconcevoir_V2 
+ | Gconclure_V2 
+ | Gconcourir_V2 
+ | Gcondescendre_V2 
+ | Gconduire_V2 
+ | Gconfire_V2 
+ | Gconfondre_V2 
+ | Gconjoindre_V2 
+ | Gconnaître_V2 
+ | Gconquérir_V2 
+ | Gconsentir_V2 
+ | Gconstruire_V2 
+ | Gcontenir_V2 
+ | Gcontraindre_V2 
+ | Gcontrebattre_V2 
+ | Gcontredire_V2 
+ | Gcontrefaire_V2 
+ | Gcontrevenir_V2 
+ | Gconvaincre_V2 
+ | Gconvenir_V2 
+ | Gcorrespondre_V2 
+ | Gcorrompre_V2 
+ | Gcoudre_V2 
+ | Gcourir_V2 
+ | Gcouvrir_V2 
+ | Gcraindre_V2 
+ | Gcroire_V2 
+ | Gcueillir_V2 
+ | Gcuire_V2 
+ | Gdescendre_V2 
+ | Gdesservir_V2 
+ | Gdevoir_V2 
+ | Gdire_V2 
+ | Gdisconvenir_V2 
+ | Gdiscourir_V2 
+ | Gdisjoindre_V2 
+ | Gdisparaître_V2 
+ | Gdissoudre_V2 
+ | Gdistendre_V2 
+ | Gdistordre_V2 
+ | Gdistraire_V2 
+ | Gdormir_V2 
+ | Gdébattre_V2 
+ | Gdébouillir_V2 
+ | Gdécevoir_V2 
+ | Gdéchoir_V2 
+ | Gdéclore_V2 
+ | Gdécommettre_V2 
+ | Gdéconfire_V2 
+ | Gdécoudre_V2 
+ | Gdécouvrir_V2 
+ | Gdécrire_V2 
+ | Gdécroître_V2 
+ | Gdécuire_V2 
+ | Gdéduire_V2 
+ | Gdéfaire_V2 
+ | Gdéfendre_V2 
+ | Gdémentir_V2 
+ | Gdémettre_V2 
+ | Gdépartir_V2 
+ | Gdépeindre_V2 
+ | Gdépendre_V2 
+ | Gdépourvoir_V2 
+ | Gdéprendre_V2 
+ | Gdésapprendre_V2 
+ | Gdéteindre_V2 
+ | Gdétendre_V2 
+ | Gdétenir_V2 
+ | Gdétordre_V2 
+ | Gdétruire_V2 
+ | Gdévêtir_V2 
+ | Gembatre_V2 
+ | Gembattre_V2 
+ | Gempreindre_V2 
+ | Genceindre_V2 
+ | Genclore_V2 
+ | Gencourir_V2 
+ | Gendormir_V2 
+ | Genduire_V2 
+ | Genfreindre_V2 
+ | Genjoindre_V2 
+ | Gentendre_V2 
+ | Gentreprendre_V2 
+ | Gentretenir_V2 
+ | Gentrevoir_V2 
+ | Gentrouvrir_V2 
+ | Genvoyer_V2 
+ | Gexclure_V2 
+ | Gextraire_V2 
+ | Gfaillir_V2 
+ | Gfaire_V2 
+ | Gfeindre_V2 
+ | Gfendre_V2 
+ | Gfondre_V2 
+ | Gforfaire_V2 
+ | Gfoutre_V2 
+ | Gfrire_V2 
+ | Gfuir_V2 
+ | Ggeindre_V2 
+ | Ggésir_V2 
+ | Ghaïr_V2 
+ | Ginclure_V2 
+ | Ginduire_V2 
+ | Ginscrire_V2 
+ | Ginstruire_V2 
+ | Ginterdire_V2 
+ | Ginterrompre_V2 
+ | Gintroduire_V2 
+ | Gjoindre_V2 
+ | Glire_V2 
+ | Gmainmettre_V2 
+ | Gmaintenir_V2 
+ | Gmentir_V2 
+ | Gmesseoir_V2 
+ | Gmettre_V2 
+ | Gmordre_V2 
+ | Gmoudre_V2 
+ | Gmouvoir_V2 
+ | Gméconnaître_V2 
+ | Gmécroire_V2 
+ | Gmédire_V2 
+ | Gméprendre_V2 
+ | Gmévendre_V2 
+ | Gnuire_V2 
+ | Gobtenir_V2 
+ | Gocclure_V2 
+ | Goffrir_V2 
+ | Goindre_V2 
+ | Gomettre_V2 
+ | Gouvrir_V2 
+ | Gouïr_V2 
+ | Gparcourir_V2 
+ | Gparfondre_V2 
+ | Gpaître_V2 
+ | Gpeindre_V2 
+ | Gpendre_V2 
+ | Gpercevoir_V2 
+ | Gperdre_V2 
+ | Gpermettre_V2 
+ | Gplaindre_V2 
+ | Gplaire_V2 
+ | Gpoindre_V2 
+ | Gpondre_V2 
+ | Gpourfendre_V2 
+ | Gpoursuivre_V2 
+ | Gpourvoir_V2 
+ | Gprendre_V2 
+ | Gprescrire_V2 
+ | Gpressentir_V2 
+ | Gproduire_V2 
+ | Gpromettre_V2 
+ | Gpromouvoir_V2 
+ | Gproscrire_V2 
+ | Gprédire_V2 
+ | Gprétendre_V2 
+ | Gprévaloir_V2 
+ | Gprévenir_V2 
+ | Gprévoir_V2 
+ | Grabattre_V2 
+ | Graire_V2 
+ | Grapprendre_V2 
+ | Grasseoir_V2 
+ | Grebattre_V2 
+ | Grecevoir_V2 
+ | Grecomparaître_V2 
+ | Greconduire_V2 
+ | Greconnaître_V2 
+ | Greconquérir_V2 
+ | Greconstruire_V2 
+ | Grecoudre_V2 
+ | Grecourir_V2 
+ | Grecouvrir_V2 
+ | Grecroître_V2 
+ | Grecueillir_V2 
+ | Grecuire_V2 
+ | Gredescendre_V2 
+ | Gredevoir_V2 
+ | Gredire_V2 
+ | Gredécouvrir_V2 
+ | Gredéfaire_V2 
+ | Grefaire_V2 
+ | Grefendre_V2 
+ | Grefondre_V2 
+ | Grejoindre_V2 
+ | Grelire_V2 
+ | Greluire_V2 
+ | Gremettre_V2 
+ | Gremordre_V2 
+ | Gremoudre_V2 
+ | Grenaître_V2 
+ | Grendormir_V2 
+ | Grendre_V2 
+ | Grentraire_V2 
+ | Grentrouvrir_V2 
+ | Grenvoyer_V2 
+ | Grepaître_V2 
+ | Grepeindre_V2 
+ | Grependre_V2 
+ | Greperdre_V2 
+ | Greprendre_V2 
+ | Greproduire_V2 
+ | Grequérir_V2 
+ | Gressentir_V2 
+ | Gresservir_V2 
+ | Grestreindre_V2 
+ | Greteindre_V2 
+ | Gretendre_V2 
+ | Gretenir_V2 
+ | Gretondre_V2 
+ | Gretordre_V2 
+ | Gretraduire_V2 
+ | Gretraire_V2 
+ | Gretranscrire_V2 
+ | Gretransmettre_V2 
+ | Grevaloir_V2 
+ | Grevendre_V2 
+ | Grevivre_V2 
+ | Grevoir_V2 
+ | Grevouloir_V2 
+ | Grevêtir_V2 
+ | Grire_V2 
+ | Grompre_V2 
+ | Grouvrir_V2 
+ | Gréadmettre_V2 
+ | Gréapprendre_V2 
+ | Grécrire_V2 
+ | Gréduire_V2 
+ | Gréentendre_V2 
+ | Gréinscrire_V2 
+ | Gréintroduire_V2 
+ | Grépandre_V2 
+ | Grépondre_V2 
+ | Grésoudre_V2 
+ | Grétreindre_V2 
+ | Gréécrire_V2 
+ | Gréélire_V2 
+ | Gsaillir_V2 
+ | Gsatisfaire_V2 
+ | Gsavoir_V2 
+ | Gsecourir_V2 
+ | Gsentir_V2 
+ | Gservir_V2 
+ | Gsoubattre_V2 
+ | Gsouffrir_V2 
+ | Gsoumettre_V2 
+ | Gsourire_V2 
+ | Gsous_entendre_V2 
+ | Gsous_tendre_V2 
+ | Gsouscrire_V2 
+ | Gsoustraire_V2 
+ | Gsoutenir_V2 
+ | Gsubvenir_V2 
+ | Gsuffire_V2 
+ | Gsuivre_V2 
+ | Gsurfaire_V2 
+ | Gsurprendre_V2 
+ | Gsurproduire_V2 
+ | Gsurseoir_V2 
+ | Gsurtondre_V2 
+ | Gsurvivre_V2 
+ | Gsuspendre_V2 
+ | Gséduire_V2 
+ | Gtaire_V2 
+ | Gteindre_V2 
+ | Gtendre_V2 
+ | Gtenir_V2 
+ | Gtondre_V2 
+ | Gtordre_V2 
+ | Gtraduire_V2 
+ | Gtraire_V2 
+ | Gtranscrire_V2 
+ | Gtransmettre_V2 
+ | Gtréfondre_V2 
+ | Gvaincre_V2 
+ | Gvaloir_V2 
+ | Gvendre_V2 
+ | Gvivre_V2 
+ | Gvoir_V2 
+ | Gvouloir_V2 
+ | Gvêtir_V2 
+ | Géchoir_V2 
+ | Géclore_V2 
+ | Géconduire_V2 
+ | Gécrire_V2 
+ | Gélire_V2 
+ | Gémettre_V2 
+ | Gémoudre_V2 
+ | Gémouvoir_V2 
+ | Gépandre_V2 
+ | Géquivaloir_V2 
+ | Géteindre_V2 
+ | Gétendre_V2 
+ | Gétreindre_V2 
+  deriving Show
+
+data GWord =
+   GWVerb GV 
+ | GWVerb2 GV2 
+  deriving Show
+
+
+instance Gf GDisplay where
+  gf (GDAll x1) = mkApp (mkCId "DAll") [gf x1]
+  gf (GDForm x1 x2) = mkApp (mkCId "DForm") [gf x1, gf x2]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "DAll" -> GDAll (fg x1)
+      Just (i,[x1,x2]) | i == mkCId "DForm" -> GDForm (fg x1) (fg x2)
+
+
+      _ -> error ("no Display " ++ show t)
+
+instance Gf GForm where
+  gf (GVFin x1 x2 x3) = mkApp (mkCId "VFin") [gf x1, gf x2, gf x3]
+  gf GVGer = mkApp (mkCId "VGer") []
+  gf (GVImper x1) = mkApp (mkCId "VImper") [gf x1]
+  gf GVInfin = mkApp (mkCId "VInfin") []
+  gf (GVPart x1 x2) = mkApp (mkCId "VPart") [gf x1, gf x2]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2,x3]) | i == mkCId "VFin" -> GVFin (fg x1) (fg x2) (fg x3)
+      Just (i,[]) | i == mkCId "VGer" -> GVGer 
+      Just (i,[x1]) | i == mkCId "VImper" -> GVImper (fg x1)
+      Just (i,[]) | i == mkCId "VInfin" -> GVInfin 
+      Just (i,[x1,x2]) | i == mkCId "VPart" -> GVPart (fg x1) (fg x2)
+
+
+      _ -> error ("no Form " ++ show t)
+
+instance Gf GGender where
+  gf GFem = mkApp (mkCId "Fem") []
+  gf GMasc = mkApp (mkCId "Masc") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "Fem" -> GFem 
+      Just (i,[]) | i == mkCId "Masc" -> GMasc 
+
+
+      _ -> error ("no Gender " ++ show t)
+
+instance Gf GMood where
+  gf GConjunct = mkApp (mkCId "Conjunct") []
+  gf GIndic = mkApp (mkCId "Indic") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "Conjunct" -> GConjunct 
+      Just (i,[]) | i == mkCId "Indic" -> GIndic 
+
+
+      _ -> error ("no Mood " ++ show t)
+
+instance Gf GNumPersI where
+  gf GPlP1 = mkApp (mkCId "PlP1") []
+  gf GPlP2 = mkApp (mkCId "PlP2") []
+  gf GSgP2 = mkApp (mkCId "SgP2") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "PlP1" -> GPlP1 
+      Just (i,[]) | i == mkCId "PlP2" -> GPlP2 
+      Just (i,[]) | i == mkCId "SgP2" -> GSgP2 
+
+
+      _ -> error ("no NumPersI " ++ show t)
+
+instance Gf GNumber where
+  gf GPl = mkApp (mkCId "Pl") []
+  gf GSg = mkApp (mkCId "Sg") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "Pl" -> GPl 
+      Just (i,[]) | i == mkCId "Sg" -> GSg 
+
+
+      _ -> error ("no Number " ++ show t)
+
+instance Gf GPerson where
+  gf GP1 = mkApp (mkCId "P1") []
+  gf GP2 = mkApp (mkCId "P2") []
+  gf GP3 = mkApp (mkCId "P3") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "P1" -> GP1 
+      Just (i,[]) | i == mkCId "P2" -> GP2 
+      Just (i,[]) | i == mkCId "P3" -> GP3 
+
+
+      _ -> error ("no Person " ++ show t)
+
+instance Gf GTMood where
+  gf GVCondit = mkApp (mkCId "VCondit") []
+  gf GVFut = mkApp (mkCId "VFut") []
+  gf (GVImperf x1) = mkApp (mkCId "VImperf") [gf x1]
+  gf GVPasse = mkApp (mkCId "VPasse") []
+  gf (GVPres x1) = mkApp (mkCId "VPres") [gf x1]
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "VCondit" -> GVCondit 
+      Just (i,[]) | i == mkCId "VFut" -> GVFut 
+      Just (i,[x1]) | i == mkCId "VImperf" -> GVImperf (fg x1)
+      Just (i,[]) | i == mkCId "VPasse" -> GVPasse 
+      Just (i,[x1]) | i == mkCId "VPres" -> GVPres (fg x1)
+
+
+      _ -> error ("no TMood " ++ show t)
+
+instance Gf GV where
+  gf Gabstenir_V = mkApp (mkCId "abstenir_V") []
+  gf Gaccourir_V = mkApp (mkCId "accourir_V") []
+  gf Gadvenir_V = mkApp (mkCId "advenir_V") []
+  gf Galler_V = mkApp (mkCId "aller_V") []
+  gf Gapparaître_V = mkApp (mkCId "apparaître_V") []
+  gf Gbraire_V = mkApp (mkCId "braire_V") []
+  gf Gchoir_V = mkApp (mkCId "choir_V") []
+  gf Gcroître_V = mkApp (mkCId "croître_V") []
+  gf Gdevenir_V = mkApp (mkCId "devenir_V") []
+  gf Gdéfaillir_V = mkApp (mkCId "défaillir_V") []
+  gf Gdémordre_V = mkApp (mkCId "démordre_V") []
+  gf Gdéplaire_V = mkApp (mkCId "déplaire_V") []
+  gf Gemboire_V = mkApp (mkCId "emboire_V") []
+  gf Genfuir_V = mkApp (mkCId "enfuir_V") []
+  gf Genquérir_V = mkApp (mkCId "enquérir_V") []
+  gf Gentr'apercevoir_V = mkApp (mkCId "entr'apercevoir_V") []
+  gf Gentre_détruire_V = mkApp (mkCId "entre_détruire_V") []
+  gf Gentre_haïr_V = mkApp (mkCId "entre_haïr_V") []
+  gf Gentre_nuire_V = mkApp (mkCId "entre_nuire_V") []
+  gf Gentrebattre_V = mkApp (mkCId "entrebattre_V") []
+  gf Gentremettre_V = mkApp (mkCId "entremettre_V") []
+  gf Gfalloir_V = mkApp (mkCId "falloir_V") []
+  gf Gintervenir_V = mkApp (mkCId "intervenir_V") []
+  gf Gluire_V = mkApp (mkCId "luire_V") []
+  gf Gmorfondre_V = mkApp (mkCId "morfondre_V") []
+  gf Gmourir_V = mkApp (mkCId "mourir_V") []
+  gf Gnaître_V = mkApp (mkCId "naître_V") []
+  gf Gobvenir_V = mkApp (mkCId "obvenir_V") []
+  gf Gparaître_V = mkApp (mkCId "paraître_V") []
+  gf Gpartir_V = mkApp (mkCId "partir_V") []
+  gf Gparvenir_V = mkApp (mkCId "parvenir_V") []
+  gf Gpaître_V = mkApp (mkCId "paître_V") []
+  gf Gpleuvoir_V = mkApp (mkCId "pleuvoir_V") []
+  gf Gpouvoir_V = mkApp (mkCId "pouvoir_V") []
+  gf Gprovenir_V = mkApp (mkCId "provenir_V") []
+  gf Gredevenir_V = mkApp (mkCId "redevenir_V") []
+  gf Greparaître_V = mkApp (mkCId "reparaître_V") []
+  gf Grepartir_V = mkApp (mkCId "repartir_V") []
+  gf Grepentir_V = mkApp (mkCId "repentir_V") []
+  gf Grepleuvoir_V = mkApp (mkCId "repleuvoir_V") []
+  gf Gressortir_V = mkApp (mkCId "ressortir_V") []
+  gf Gressouvenir_V = mkApp (mkCId "ressouvenir_V") []
+  gf Grevenir_V = mkApp (mkCId "revenir_V") []
+  gf Gréapparaître_V = mkApp (mkCId "réapparaître_V") []
+  gf Gseoir_V = mkApp (mkCId "seoir_V") []
+  gf Gsortir_V = mkApp (mkCId "sortir_V") []
+  gf Gsouvenir_V = mkApp (mkCId "souvenir_V") []
+  gf Gsurvenir_V = mkApp (mkCId "survenir_V") []
+  gf Gtransparaître_V = mkApp (mkCId "transparaître_V") []
+  gf Gtressaillir_V = mkApp (mkCId "tressaillir_V") []
+  gf Gvenir_V = mkApp (mkCId "venir_V") []
+  gf Gébattre_V = mkApp (mkCId "ébattre_V") []
+  gf Géperdre_V = mkApp (mkCId "éperdre_V") []
+  gf Géprendre_V = mkApp (mkCId "éprendre_V") []
+  gf Gêtre_V = mkApp (mkCId "être_V") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "abstenir_V" -> Gabstenir_V 
+      Just (i,[]) | i == mkCId "accourir_V" -> Gaccourir_V 
+      Just (i,[]) | i == mkCId "advenir_V" -> Gadvenir_V 
+      Just (i,[]) | i == mkCId "aller_V" -> Galler_V 
+      Just (i,[]) | i == mkCId "apparaître_V" -> Gapparaître_V 
+      Just (i,[]) | i == mkCId "braire_V" -> Gbraire_V 
+      Just (i,[]) | i == mkCId "choir_V" -> Gchoir_V 
+      Just (i,[]) | i == mkCId "croître_V" -> Gcroître_V 
+      Just (i,[]) | i == mkCId "devenir_V" -> Gdevenir_V 
+      Just (i,[]) | i == mkCId "défaillir_V" -> Gdéfaillir_V 
+      Just (i,[]) | i == mkCId "démordre_V" -> Gdémordre_V 
+      Just (i,[]) | i == mkCId "déplaire_V" -> Gdéplaire_V 
+      Just (i,[]) | i == mkCId "emboire_V" -> Gemboire_V 
+      Just (i,[]) | i == mkCId "enfuir_V" -> Genfuir_V 
+      Just (i,[]) | i == mkCId "enquérir_V" -> Genquérir_V 
+      Just (i,[]) | i == mkCId "entr'apercevoir_V" -> Gentr'apercevoir_V 
+      Just (i,[]) | i == mkCId "entre_détruire_V" -> Gentre_détruire_V 
+      Just (i,[]) | i == mkCId "entre_haïr_V" -> Gentre_haïr_V 
+      Just (i,[]) | i == mkCId "entre_nuire_V" -> Gentre_nuire_V 
+      Just (i,[]) | i == mkCId "entrebattre_V" -> Gentrebattre_V 
+      Just (i,[]) | i == mkCId "entremettre_V" -> Gentremettre_V 
+      Just (i,[]) | i == mkCId "falloir_V" -> Gfalloir_V 
+      Just (i,[]) | i == mkCId "intervenir_V" -> Gintervenir_V 
+      Just (i,[]) | i == mkCId "luire_V" -> Gluire_V 
+      Just (i,[]) | i == mkCId "morfondre_V" -> Gmorfondre_V 
+      Just (i,[]) | i == mkCId "mourir_V" -> Gmourir_V 
+      Just (i,[]) | i == mkCId "naître_V" -> Gnaître_V 
+      Just (i,[]) | i == mkCId "obvenir_V" -> Gobvenir_V 
+      Just (i,[]) | i == mkCId "paraître_V" -> Gparaître_V 
+      Just (i,[]) | i == mkCId "partir_V" -> Gpartir_V 
+      Just (i,[]) | i == mkCId "parvenir_V" -> Gparvenir_V 
+      Just (i,[]) | i == mkCId "paître_V" -> Gpaître_V 
+      Just (i,[]) | i == mkCId "pleuvoir_V" -> Gpleuvoir_V 
+      Just (i,[]) | i == mkCId "pouvoir_V" -> Gpouvoir_V 
+      Just (i,[]) | i == mkCId "provenir_V" -> Gprovenir_V 
+      Just (i,[]) | i == mkCId "redevenir_V" -> Gredevenir_V 
+      Just (i,[]) | i == mkCId "reparaître_V" -> Greparaître_V 
+      Just (i,[]) | i == mkCId "repartir_V" -> Grepartir_V 
+      Just (i,[]) | i == mkCId "repentir_V" -> Grepentir_V 
+      Just (i,[]) | i == mkCId "repleuvoir_V" -> Grepleuvoir_V 
+      Just (i,[]) | i == mkCId "ressortir_V" -> Gressortir_V 
+      Just (i,[]) | i == mkCId "ressouvenir_V" -> Gressouvenir_V 
+      Just (i,[]) | i == mkCId "revenir_V" -> Grevenir_V 
+      Just (i,[]) | i == mkCId "réapparaître_V" -> Gréapparaître_V 
+      Just (i,[]) | i == mkCId "seoir_V" -> Gseoir_V 
+      Just (i,[]) | i == mkCId "sortir_V" -> Gsortir_V 
+      Just (i,[]) | i == mkCId "souvenir_V" -> Gsouvenir_V 
+      Just (i,[]) | i == mkCId "survenir_V" -> Gsurvenir_V 
+      Just (i,[]) | i == mkCId "transparaître_V" -> Gtransparaître_V 
+      Just (i,[]) | i == mkCId "tressaillir_V" -> Gtressaillir_V 
+      Just (i,[]) | i == mkCId "venir_V" -> Gvenir_V 
+      Just (i,[]) | i == mkCId "ébattre_V" -> Gébattre_V 
+      Just (i,[]) | i == mkCId "éperdre_V" -> Géperdre_V 
+      Just (i,[]) | i == mkCId "éprendre_V" -> Géprendre_V 
+      Just (i,[]) | i == mkCId "être_V" -> Gêtre_V 
+
+
+      _ -> error ("no V " ++ show t)
+
+instance Gf GV2 where
+  gf Gabattre_V2 = mkApp (mkCId "abattre_V2") []
+  gf Gabsoudre_V2 = mkApp (mkCId "absoudre_V2") []
+  gf Gabstraire_V2 = mkApp (mkCId "abstraire_V2") []
+  gf Gaccroître_V2 = mkApp (mkCId "accroître_V2") []
+  gf Gaccueillir_V2 = mkApp (mkCId "accueillir_V2") []
+  gf Gacquérir_V2 = mkApp (mkCId "acquérir_V2") []
+  gf Gadjoindre_V2 = mkApp (mkCId "adjoindre_V2") []
+  gf Gadmettre_V2 = mkApp (mkCId "admettre_V2") []
+  gf Gapercevoir_V2 = mkApp (mkCId "apercevoir_V2") []
+  gf Gappartenir_V2 = mkApp (mkCId "appartenir_V2") []
+  gf Gappendre_V2 = mkApp (mkCId "appendre_V2") []
+  gf Gapprendre_V2 = mkApp (mkCId "apprendre_V2") []
+  gf Gassaillir_V2 = mkApp (mkCId "assaillir_V2") []
+  gf Gasseoir_V2 = mkApp (mkCId "asseoir_V2") []
+  gf Gastreindre_V2 = mkApp (mkCId "astreindre_V2") []
+  gf Gatteindre_V2 = mkApp (mkCId "atteindre_V2") []
+  gf Gattendre_V2 = mkApp (mkCId "attendre_V2") []
+  gf Gavoir_V2 = mkApp (mkCId "avoir_V2") []
+  gf Gbattre_V2 = mkApp (mkCId "battre_V2") []
+  gf Gboire_V2 = mkApp (mkCId "boire_V2") []
+  gf Gbouillir_V2 = mkApp (mkCId "bouillir_V2") []
+  gf Gceindre_V2 = mkApp (mkCId "ceindre_V2") []
+  gf Gcirconscrire_V2 = mkApp (mkCId "circonscrire_V2") []
+  gf Gcirconvenir_V2 = mkApp (mkCId "circonvenir_V2") []
+  gf Gclore_V2 = mkApp (mkCId "clore_V2") []
+  gf Gcombattre_V2 = mkApp (mkCId "combattre_V2") []
+  gf Gcommettre_V2 = mkApp (mkCId "commettre_V2") []
+  gf Gcomparaître_V2 = mkApp (mkCId "comparaître_V2") []
+  gf Gcomplaire_V2 = mkApp (mkCId "complaire_V2") []
+  gf Gcomprendre_V2 = mkApp (mkCId "comprendre_V2") []
+  gf Gcompromettre_V2 = mkApp (mkCId "compromettre_V2") []
+  gf Gconcevoir_V2 = mkApp (mkCId "concevoir_V2") []
+  gf Gconclure_V2 = mkApp (mkCId "conclure_V2") []
+  gf Gconcourir_V2 = mkApp (mkCId "concourir_V2") []
+  gf Gcondescendre_V2 = mkApp (mkCId "condescendre_V2") []
+  gf Gconduire_V2 = mkApp (mkCId "conduire_V2") []
+  gf Gconfire_V2 = mkApp (mkCId "confire_V2") []
+  gf Gconfondre_V2 = mkApp (mkCId "confondre_V2") []
+  gf Gconjoindre_V2 = mkApp (mkCId "conjoindre_V2") []
+  gf Gconnaître_V2 = mkApp (mkCId "connaître_V2") []
+  gf Gconquérir_V2 = mkApp (mkCId "conquérir_V2") []
+  gf Gconsentir_V2 = mkApp (mkCId "consentir_V2") []
+  gf Gconstruire_V2 = mkApp (mkCId "construire_V2") []
+  gf Gcontenir_V2 = mkApp (mkCId "contenir_V2") []
+  gf Gcontraindre_V2 = mkApp (mkCId "contraindre_V2") []
+  gf Gcontrebattre_V2 = mkApp (mkCId "contrebattre_V2") []
+  gf Gcontredire_V2 = mkApp (mkCId "contredire_V2") []
+  gf Gcontrefaire_V2 = mkApp (mkCId "contrefaire_V2") []
+  gf Gcontrevenir_V2 = mkApp (mkCId "contrevenir_V2") []
+  gf Gconvaincre_V2 = mkApp (mkCId "convaincre_V2") []
+  gf Gconvenir_V2 = mkApp (mkCId "convenir_V2") []
+  gf Gcorrespondre_V2 = mkApp (mkCId "correspondre_V2") []
+  gf Gcorrompre_V2 = mkApp (mkCId "corrompre_V2") []
+  gf Gcoudre_V2 = mkApp (mkCId "coudre_V2") []
+  gf Gcourir_V2 = mkApp (mkCId "courir_V2") []
+  gf Gcouvrir_V2 = mkApp (mkCId "couvrir_V2") []
+  gf Gcraindre_V2 = mkApp (mkCId "craindre_V2") []
+  gf Gcroire_V2 = mkApp (mkCId "croire_V2") []
+  gf Gcueillir_V2 = mkApp (mkCId "cueillir_V2") []
+  gf Gcuire_V2 = mkApp (mkCId "cuire_V2") []
+  gf Gdescendre_V2 = mkApp (mkCId "descendre_V2") []
+  gf Gdesservir_V2 = mkApp (mkCId "desservir_V2") []
+  gf Gdevoir_V2 = mkApp (mkCId "devoir_V2") []
+  gf Gdire_V2 = mkApp (mkCId "dire_V2") []
+  gf Gdisconvenir_V2 = mkApp (mkCId "disconvenir_V2") []
+  gf Gdiscourir_V2 = mkApp (mkCId "discourir_V2") []
+  gf Gdisjoindre_V2 = mkApp (mkCId "disjoindre_V2") []
+  gf Gdisparaître_V2 = mkApp (mkCId "disparaître_V2") []
+  gf Gdissoudre_V2 = mkApp (mkCId "dissoudre_V2") []
+  gf Gdistendre_V2 = mkApp (mkCId "distendre_V2") []
+  gf Gdistordre_V2 = mkApp (mkCId "distordre_V2") []
+  gf Gdistraire_V2 = mkApp (mkCId "distraire_V2") []
+  gf Gdormir_V2 = mkApp (mkCId "dormir_V2") []
+  gf Gdébattre_V2 = mkApp (mkCId "débattre_V2") []
+  gf Gdébouillir_V2 = mkApp (mkCId "débouillir_V2") []
+  gf Gdécevoir_V2 = mkApp (mkCId "décevoir_V2") []
+  gf Gdéchoir_V2 = mkApp (mkCId "déchoir_V2") []
+  gf Gdéclore_V2 = mkApp (mkCId "déclore_V2") []
+  gf Gdécommettre_V2 = mkApp (mkCId "décommettre_V2") []
+  gf Gdéconfire_V2 = mkApp (mkCId "déconfire_V2") []
+  gf Gdécoudre_V2 = mkApp (mkCId "découdre_V2") []
+  gf Gdécouvrir_V2 = mkApp (mkCId "découvrir_V2") []
+  gf Gdécrire_V2 = mkApp (mkCId "décrire_V2") []
+  gf Gdécroître_V2 = mkApp (mkCId "décroître_V2") []
+  gf Gdécuire_V2 = mkApp (mkCId "décuire_V2") []
+  gf Gdéduire_V2 = mkApp (mkCId "déduire_V2") []
+  gf Gdéfaire_V2 = mkApp (mkCId "défaire_V2") []
+  gf Gdéfendre_V2 = mkApp (mkCId "défendre_V2") []
+  gf Gdémentir_V2 = mkApp (mkCId "démentir_V2") []
+  gf Gdémettre_V2 = mkApp (mkCId "démettre_V2") []
+  gf Gdépartir_V2 = mkApp (mkCId "départir_V2") []
+  gf Gdépeindre_V2 = mkApp (mkCId "dépeindre_V2") []
+  gf Gdépendre_V2 = mkApp (mkCId "dépendre_V2") []
+  gf Gdépourvoir_V2 = mkApp (mkCId "dépourvoir_V2") []
+  gf Gdéprendre_V2 = mkApp (mkCId "déprendre_V2") []
+  gf Gdésapprendre_V2 = mkApp (mkCId "désapprendre_V2") []
+  gf Gdéteindre_V2 = mkApp (mkCId "déteindre_V2") []
+  gf Gdétendre_V2 = mkApp (mkCId "détendre_V2") []
+  gf Gdétenir_V2 = mkApp (mkCId "détenir_V2") []
+  gf Gdétordre_V2 = mkApp (mkCId "détordre_V2") []
+  gf Gdétruire_V2 = mkApp (mkCId "détruire_V2") []
+  gf Gdévêtir_V2 = mkApp (mkCId "dévêtir_V2") []
+  gf Gembatre_V2 = mkApp (mkCId "embatre_V2") []
+  gf Gembattre_V2 = mkApp (mkCId "embattre_V2") []
+  gf Gempreindre_V2 = mkApp (mkCId "empreindre_V2") []
+  gf Genceindre_V2 = mkApp (mkCId "enceindre_V2") []
+  gf Genclore_V2 = mkApp (mkCId "enclore_V2") []
+  gf Gencourir_V2 = mkApp (mkCId "encourir_V2") []
+  gf Gendormir_V2 = mkApp (mkCId "endormir_V2") []
+  gf Genduire_V2 = mkApp (mkCId "enduire_V2") []
+  gf Genfreindre_V2 = mkApp (mkCId "enfreindre_V2") []
+  gf Genjoindre_V2 = mkApp (mkCId "enjoindre_V2") []
+  gf Gentendre_V2 = mkApp (mkCId "entendre_V2") []
+  gf Gentreprendre_V2 = mkApp (mkCId "entreprendre_V2") []
+  gf Gentretenir_V2 = mkApp (mkCId "entretenir_V2") []
+  gf Gentrevoir_V2 = mkApp (mkCId "entrevoir_V2") []
+  gf Gentrouvrir_V2 = mkApp (mkCId "entrouvrir_V2") []
+  gf Genvoyer_V2 = mkApp (mkCId "envoyer_V2") []
+  gf Gexclure_V2 = mkApp (mkCId "exclure_V2") []
+  gf Gextraire_V2 = mkApp (mkCId "extraire_V2") []
+  gf Gfaillir_V2 = mkApp (mkCId "faillir_V2") []
+  gf Gfaire_V2 = mkApp (mkCId "faire_V2") []
+  gf Gfeindre_V2 = mkApp (mkCId "feindre_V2") []
+  gf Gfendre_V2 = mkApp (mkCId "fendre_V2") []
+  gf Gfondre_V2 = mkApp (mkCId "fondre_V2") []
+  gf Gforfaire_V2 = mkApp (mkCId "forfaire_V2") []
+  gf Gfoutre_V2 = mkApp (mkCId "foutre_V2") []
+  gf Gfrire_V2 = mkApp (mkCId "frire_V2") []
+  gf Gfuir_V2 = mkApp (mkCId "fuir_V2") []
+  gf Ggeindre_V2 = mkApp (mkCId "geindre_V2") []
+  gf Ggésir_V2 = mkApp (mkCId "gésir_V2") []
+  gf Ghaïr_V2 = mkApp (mkCId "haïr_V2") []
+  gf Ginclure_V2 = mkApp (mkCId "inclure_V2") []
+  gf Ginduire_V2 = mkApp (mkCId "induire_V2") []
+  gf Ginscrire_V2 = mkApp (mkCId "inscrire_V2") []
+  gf Ginstruire_V2 = mkApp (mkCId "instruire_V2") []
+  gf Ginterdire_V2 = mkApp (mkCId "interdire_V2") []
+  gf Ginterrompre_V2 = mkApp (mkCId "interrompre_V2") []
+  gf Gintroduire_V2 = mkApp (mkCId "introduire_V2") []
+  gf Gjoindre_V2 = mkApp (mkCId "joindre_V2") []
+  gf Glire_V2 = mkApp (mkCId "lire_V2") []
+  gf Gmainmettre_V2 = mkApp (mkCId "mainmettre_V2") []
+  gf Gmaintenir_V2 = mkApp (mkCId "maintenir_V2") []
+  gf Gmentir_V2 = mkApp (mkCId "mentir_V2") []
+  gf Gmesseoir_V2 = mkApp (mkCId "messeoir_V2") []
+  gf Gmettre_V2 = mkApp (mkCId "mettre_V2") []
+  gf Gmordre_V2 = mkApp (mkCId "mordre_V2") []
+  gf Gmoudre_V2 = mkApp (mkCId "moudre_V2") []
+  gf Gmouvoir_V2 = mkApp (mkCId "mouvoir_V2") []
+  gf Gméconnaître_V2 = mkApp (mkCId "méconnaître_V2") []
+  gf Gmécroire_V2 = mkApp (mkCId "mécroire_V2") []
+  gf Gmédire_V2 = mkApp (mkCId "médire_V2") []
+  gf Gméprendre_V2 = mkApp (mkCId "méprendre_V2") []
+  gf Gmévendre_V2 = mkApp (mkCId "mévendre_V2") []
+  gf Gnuire_V2 = mkApp (mkCId "nuire_V2") []
+  gf Gobtenir_V2 = mkApp (mkCId "obtenir_V2") []
+  gf Gocclure_V2 = mkApp (mkCId "occlure_V2") []
+  gf Goffrir_V2 = mkApp (mkCId "offrir_V2") []
+  gf Goindre_V2 = mkApp (mkCId "oindre_V2") []
+  gf Gomettre_V2 = mkApp (mkCId "omettre_V2") []
+  gf Gouvrir_V2 = mkApp (mkCId "ouvrir_V2") []
+  gf Gouïr_V2 = mkApp (mkCId "ouïr_V2") []
+  gf Gparcourir_V2 = mkApp (mkCId "parcourir_V2") []
+  gf Gparfondre_V2 = mkApp (mkCId "parfondre_V2") []
+  gf Gpaître_V2 = mkApp (mkCId "paître_V2") []
+  gf Gpeindre_V2 = mkApp (mkCId "peindre_V2") []
+  gf Gpendre_V2 = mkApp (mkCId "pendre_V2") []
+  gf Gpercevoir_V2 = mkApp (mkCId "percevoir_V2") []
+  gf Gperdre_V2 = mkApp (mkCId "perdre_V2") []
+  gf Gpermettre_V2 = mkApp (mkCId "permettre_V2") []
+  gf Gplaindre_V2 = mkApp (mkCId "plaindre_V2") []
+  gf Gplaire_V2 = mkApp (mkCId "plaire_V2") []
+  gf Gpoindre_V2 = mkApp (mkCId "poindre_V2") []
+  gf Gpondre_V2 = mkApp (mkCId "pondre_V2") []
+  gf Gpourfendre_V2 = mkApp (mkCId "pourfendre_V2") []
+  gf Gpoursuivre_V2 = mkApp (mkCId "poursuivre_V2") []
+  gf Gpourvoir_V2 = mkApp (mkCId "pourvoir_V2") []
+  gf Gprendre_V2 = mkApp (mkCId "prendre_V2") []
+  gf Gprescrire_V2 = mkApp (mkCId "prescrire_V2") []
+  gf Gpressentir_V2 = mkApp (mkCId "pressentir_V2") []
+  gf Gproduire_V2 = mkApp (mkCId "produire_V2") []
+  gf Gpromettre_V2 = mkApp (mkCId "promettre_V2") []
+  gf Gpromouvoir_V2 = mkApp (mkCId "promouvoir_V2") []
+  gf Gproscrire_V2 = mkApp (mkCId "proscrire_V2") []
+  gf Gprédire_V2 = mkApp (mkCId "prédire_V2") []
+  gf Gprétendre_V2 = mkApp (mkCId "prétendre_V2") []
+  gf Gprévaloir_V2 = mkApp (mkCId "prévaloir_V2") []
+  gf Gprévenir_V2 = mkApp (mkCId "prévenir_V2") []
+  gf Gprévoir_V2 = mkApp (mkCId "prévoir_V2") []
+  gf Grabattre_V2 = mkApp (mkCId "rabattre_V2") []
+  gf Graire_V2 = mkApp (mkCId "raire_V2") []
+  gf Grapprendre_V2 = mkApp (mkCId "rapprendre_V2") []
+  gf Grasseoir_V2 = mkApp (mkCId "rasseoir_V2") []
+  gf Grebattre_V2 = mkApp (mkCId "rebattre_V2") []
+  gf Grecevoir_V2 = mkApp (mkCId "recevoir_V2") []
+  gf Grecomparaître_V2 = mkApp (mkCId "recomparaître_V2") []
+  gf Greconduire_V2 = mkApp (mkCId "reconduire_V2") []
+  gf Greconnaître_V2 = mkApp (mkCId "reconnaître_V2") []
+  gf Greconquérir_V2 = mkApp (mkCId "reconquérir_V2") []
+  gf Greconstruire_V2 = mkApp (mkCId "reconstruire_V2") []
+  gf Grecoudre_V2 = mkApp (mkCId "recoudre_V2") []
+  gf Grecourir_V2 = mkApp (mkCId "recourir_V2") []
+  gf Grecouvrir_V2 = mkApp (mkCId "recouvrir_V2") []
+  gf Grecroître_V2 = mkApp (mkCId "recroître_V2") []
+  gf Grecueillir_V2 = mkApp (mkCId "recueillir_V2") []
+  gf Grecuire_V2 = mkApp (mkCId "recuire_V2") []
+  gf Gredescendre_V2 = mkApp (mkCId "redescendre_V2") []
+  gf Gredevoir_V2 = mkApp (mkCId "redevoir_V2") []
+  gf Gredire_V2 = mkApp (mkCId "redire_V2") []
+  gf Gredécouvrir_V2 = mkApp (mkCId "redécouvrir_V2") []
+  gf Gredéfaire_V2 = mkApp (mkCId "redéfaire_V2") []
+  gf Grefaire_V2 = mkApp (mkCId "refaire_V2") []
+  gf Grefendre_V2 = mkApp (mkCId "refendre_V2") []
+  gf Grefondre_V2 = mkApp (mkCId "refondre_V2") []
+  gf Grejoindre_V2 = mkApp (mkCId "rejoindre_V2") []
+  gf Grelire_V2 = mkApp (mkCId "relire_V2") []
+  gf Greluire_V2 = mkApp (mkCId "reluire_V2") []
+  gf Gremettre_V2 = mkApp (mkCId "remettre_V2") []
+  gf Gremordre_V2 = mkApp (mkCId "remordre_V2") []
+  gf Gremoudre_V2 = mkApp (mkCId "remoudre_V2") []
+  gf Grenaître_V2 = mkApp (mkCId "renaître_V2") []
+  gf Grendormir_V2 = mkApp (mkCId "rendormir_V2") []
+  gf Grendre_V2 = mkApp (mkCId "rendre_V2") []
+  gf Grentraire_V2 = mkApp (mkCId "rentraire_V2") []
+  gf Grentrouvrir_V2 = mkApp (mkCId "rentrouvrir_V2") []
+  gf Grenvoyer_V2 = mkApp (mkCId "renvoyer_V2") []
+  gf Grepaître_V2 = mkApp (mkCId "repaître_V2") []
+  gf Grepeindre_V2 = mkApp (mkCId "repeindre_V2") []
+  gf Grependre_V2 = mkApp (mkCId "rependre_V2") []
+  gf Greperdre_V2 = mkApp (mkCId "reperdre_V2") []
+  gf Greprendre_V2 = mkApp (mkCId "reprendre_V2") []
+  gf Greproduire_V2 = mkApp (mkCId "reproduire_V2") []
+  gf Grequérir_V2 = mkApp (mkCId "requérir_V2") []
+  gf Gressentir_V2 = mkApp (mkCId "ressentir_V2") []
+  gf Gresservir_V2 = mkApp (mkCId "resservir_V2") []
+  gf Grestreindre_V2 = mkApp (mkCId "restreindre_V2") []
+  gf Greteindre_V2 = mkApp (mkCId "reteindre_V2") []
+  gf Gretendre_V2 = mkApp (mkCId "retendre_V2") []
+  gf Gretenir_V2 = mkApp (mkCId "retenir_V2") []
+  gf Gretondre_V2 = mkApp (mkCId "retondre_V2") []
+  gf Gretordre_V2 = mkApp (mkCId "retordre_V2") []
+  gf Gretraduire_V2 = mkApp (mkCId "retraduire_V2") []
+  gf Gretraire_V2 = mkApp (mkCId "retraire_V2") []
+  gf Gretranscrire_V2 = mkApp (mkCId "retranscrire_V2") []
+  gf Gretransmettre_V2 = mkApp (mkCId "retransmettre_V2") []
+  gf Grevaloir_V2 = mkApp (mkCId "revaloir_V2") []
+  gf Grevendre_V2 = mkApp (mkCId "revendre_V2") []
+  gf Grevivre_V2 = mkApp (mkCId "revivre_V2") []
+  gf Grevoir_V2 = mkApp (mkCId "revoir_V2") []
+  gf Grevouloir_V2 = mkApp (mkCId "revouloir_V2") []
+  gf Grevêtir_V2 = mkApp (mkCId "revêtir_V2") []
+  gf Grire_V2 = mkApp (mkCId "rire_V2") []
+  gf Grompre_V2 = mkApp (mkCId "rompre_V2") []
+  gf Grouvrir_V2 = mkApp (mkCId "rouvrir_V2") []
+  gf Gréadmettre_V2 = mkApp (mkCId "réadmettre_V2") []
+  gf Gréapprendre_V2 = mkApp (mkCId "réapprendre_V2") []
+  gf Grécrire_V2 = mkApp (mkCId "récrire_V2") []
+  gf Gréduire_V2 = mkApp (mkCId "réduire_V2") []
+  gf Gréentendre_V2 = mkApp (mkCId "réentendre_V2") []
+  gf Gréinscrire_V2 = mkApp (mkCId "réinscrire_V2") []
+  gf Gréintroduire_V2 = mkApp (mkCId "réintroduire_V2") []
+  gf Grépandre_V2 = mkApp (mkCId "répandre_V2") []
+  gf Grépondre_V2 = mkApp (mkCId "répondre_V2") []
+  gf Grésoudre_V2 = mkApp (mkCId "résoudre_V2") []
+  gf Grétreindre_V2 = mkApp (mkCId "rétreindre_V2") []
+  gf Gréécrire_V2 = mkApp (mkCId "réécrire_V2") []
+  gf Gréélire_V2 = mkApp (mkCId "réélire_V2") []
+  gf Gsaillir_V2 = mkApp (mkCId "saillir_V2") []
+  gf Gsatisfaire_V2 = mkApp (mkCId "satisfaire_V2") []
+  gf Gsavoir_V2 = mkApp (mkCId "savoir_V2") []
+  gf Gsecourir_V2 = mkApp (mkCId "secourir_V2") []
+  gf Gsentir_V2 = mkApp (mkCId "sentir_V2") []
+  gf Gservir_V2 = mkApp (mkCId "servir_V2") []
+  gf Gsoubattre_V2 = mkApp (mkCId "soubattre_V2") []
+  gf Gsouffrir_V2 = mkApp (mkCId "souffrir_V2") []
+  gf Gsoumettre_V2 = mkApp (mkCId "soumettre_V2") []
+  gf Gsourire_V2 = mkApp (mkCId "sourire_V2") []
+  gf Gsous_entendre_V2 = mkApp (mkCId "sous_entendre_V2") []
+  gf Gsous_tendre_V2 = mkApp (mkCId "sous_tendre_V2") []
+  gf Gsouscrire_V2 = mkApp (mkCId "souscrire_V2") []
+  gf Gsoustraire_V2 = mkApp (mkCId "soustraire_V2") []
+  gf Gsoutenir_V2 = mkApp (mkCId "soutenir_V2") []
+  gf Gsubvenir_V2 = mkApp (mkCId "subvenir_V2") []
+  gf Gsuffire_V2 = mkApp (mkCId "suffire_V2") []
+  gf Gsuivre_V2 = mkApp (mkCId "suivre_V2") []
+  gf Gsurfaire_V2 = mkApp (mkCId "surfaire_V2") []
+  gf Gsurprendre_V2 = mkApp (mkCId "surprendre_V2") []
+  gf Gsurproduire_V2 = mkApp (mkCId "surproduire_V2") []
+  gf Gsurseoir_V2 = mkApp (mkCId "surseoir_V2") []
+  gf Gsurtondre_V2 = mkApp (mkCId "surtondre_V2") []
+  gf Gsurvivre_V2 = mkApp (mkCId "survivre_V2") []
+  gf Gsuspendre_V2 = mkApp (mkCId "suspendre_V2") []
+  gf Gséduire_V2 = mkApp (mkCId "séduire_V2") []
+  gf Gtaire_V2 = mkApp (mkCId "taire_V2") []
+  gf Gteindre_V2 = mkApp (mkCId "teindre_V2") []
+  gf Gtendre_V2 = mkApp (mkCId "tendre_V2") []
+  gf Gtenir_V2 = mkApp (mkCId "tenir_V2") []
+  gf Gtondre_V2 = mkApp (mkCId "tondre_V2") []
+  gf Gtordre_V2 = mkApp (mkCId "tordre_V2") []
+  gf Gtraduire_V2 = mkApp (mkCId "traduire_V2") []
+  gf Gtraire_V2 = mkApp (mkCId "traire_V2") []
+  gf Gtranscrire_V2 = mkApp (mkCId "transcrire_V2") []
+  gf Gtransmettre_V2 = mkApp (mkCId "transmettre_V2") []
+  gf Gtréfondre_V2 = mkApp (mkCId "tréfondre_V2") []
+  gf Gvaincre_V2 = mkApp (mkCId "vaincre_V2") []
+  gf Gvaloir_V2 = mkApp (mkCId "valoir_V2") []
+  gf Gvendre_V2 = mkApp (mkCId "vendre_V2") []
+  gf Gvivre_V2 = mkApp (mkCId "vivre_V2") []
+  gf Gvoir_V2 = mkApp (mkCId "voir_V2") []
+  gf Gvouloir_V2 = mkApp (mkCId "vouloir_V2") []
+  gf Gvêtir_V2 = mkApp (mkCId "vêtir_V2") []
+  gf Géchoir_V2 = mkApp (mkCId "échoir_V2") []
+  gf Géclore_V2 = mkApp (mkCId "éclore_V2") []
+  gf Géconduire_V2 = mkApp (mkCId "éconduire_V2") []
+  gf Gécrire_V2 = mkApp (mkCId "écrire_V2") []
+  gf Gélire_V2 = mkApp (mkCId "élire_V2") []
+  gf Gémettre_V2 = mkApp (mkCId "émettre_V2") []
+  gf Gémoudre_V2 = mkApp (mkCId "émoudre_V2") []
+  gf Gémouvoir_V2 = mkApp (mkCId "émouvoir_V2") []
+  gf Gépandre_V2 = mkApp (mkCId "épandre_V2") []
+  gf Géquivaloir_V2 = mkApp (mkCId "équivaloir_V2") []
+  gf Géteindre_V2 = mkApp (mkCId "éteindre_V2") []
+  gf Gétendre_V2 = mkApp (mkCId "étendre_V2") []
+  gf Gétreindre_V2 = mkApp (mkCId "étreindre_V2") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "abattre_V2" -> Gabattre_V2 
+      Just (i,[]) | i == mkCId "absoudre_V2" -> Gabsoudre_V2 
+      Just (i,[]) | i == mkCId "abstraire_V2" -> Gabstraire_V2 
+      Just (i,[]) | i == mkCId "accroître_V2" -> Gaccroître_V2 
+      Just (i,[]) | i == mkCId "accueillir_V2" -> Gaccueillir_V2 
+      Just (i,[]) | i == mkCId "acquérir_V2" -> Gacquérir_V2 
+      Just (i,[]) | i == mkCId "adjoindre_V2" -> Gadjoindre_V2 
+      Just (i,[]) | i == mkCId "admettre_V2" -> Gadmettre_V2 
+      Just (i,[]) | i == mkCId "apercevoir_V2" -> Gapercevoir_V2 
+      Just (i,[]) | i == mkCId "appartenir_V2" -> Gappartenir_V2 
+      Just (i,[]) | i == mkCId "appendre_V2" -> Gappendre_V2 
+      Just (i,[]) | i == mkCId "apprendre_V2" -> Gapprendre_V2 
+      Just (i,[]) | i == mkCId "assaillir_V2" -> Gassaillir_V2 
+      Just (i,[]) | i == mkCId "asseoir_V2" -> Gasseoir_V2 
+      Just (i,[]) | i == mkCId "astreindre_V2" -> Gastreindre_V2 
+      Just (i,[]) | i == mkCId "atteindre_V2" -> Gatteindre_V2 
+      Just (i,[]) | i == mkCId "attendre_V2" -> Gattendre_V2 
+      Just (i,[]) | i == mkCId "avoir_V2" -> Gavoir_V2 
+      Just (i,[]) | i == mkCId "battre_V2" -> Gbattre_V2 
+      Just (i,[]) | i == mkCId "boire_V2" -> Gboire_V2 
+      Just (i,[]) | i == mkCId "bouillir_V2" -> Gbouillir_V2 
+      Just (i,[]) | i == mkCId "ceindre_V2" -> Gceindre_V2 
+      Just (i,[]) | i == mkCId "circonscrire_V2" -> Gcirconscrire_V2 
+      Just (i,[]) | i == mkCId "circonvenir_V2" -> Gcirconvenir_V2 
+      Just (i,[]) | i == mkCId "clore_V2" -> Gclore_V2 
+      Just (i,[]) | i == mkCId "combattre_V2" -> Gcombattre_V2 
+      Just (i,[]) | i == mkCId "commettre_V2" -> Gcommettre_V2 
+      Just (i,[]) | i == mkCId "comparaître_V2" -> Gcomparaître_V2 
+      Just (i,[]) | i == mkCId "complaire_V2" -> Gcomplaire_V2 
+      Just (i,[]) | i == mkCId "comprendre_V2" -> Gcomprendre_V2 
+      Just (i,[]) | i == mkCId "compromettre_V2" -> Gcompromettre_V2 
+      Just (i,[]) | i == mkCId "concevoir_V2" -> Gconcevoir_V2 
+      Just (i,[]) | i == mkCId "conclure_V2" -> Gconclure_V2 
+      Just (i,[]) | i == mkCId "concourir_V2" -> Gconcourir_V2 
+      Just (i,[]) | i == mkCId "condescendre_V2" -> Gcondescendre_V2 
+      Just (i,[]) | i == mkCId "conduire_V2" -> Gconduire_V2 
+      Just (i,[]) | i == mkCId "confire_V2" -> Gconfire_V2 
+      Just (i,[]) | i == mkCId "confondre_V2" -> Gconfondre_V2 
+      Just (i,[]) | i == mkCId "conjoindre_V2" -> Gconjoindre_V2 
+      Just (i,[]) | i == mkCId "connaître_V2" -> Gconnaître_V2 
+      Just (i,[]) | i == mkCId "conquérir_V2" -> Gconquérir_V2 
+      Just (i,[]) | i == mkCId "consentir_V2" -> Gconsentir_V2 
+      Just (i,[]) | i == mkCId "construire_V2" -> Gconstruire_V2 
+      Just (i,[]) | i == mkCId "contenir_V2" -> Gcontenir_V2 
+      Just (i,[]) | i == mkCId "contraindre_V2" -> Gcontraindre_V2 
+      Just (i,[]) | i == mkCId "contrebattre_V2" -> Gcontrebattre_V2 
+      Just (i,[]) | i == mkCId "contredire_V2" -> Gcontredire_V2 
+      Just (i,[]) | i == mkCId "contrefaire_V2" -> Gcontrefaire_V2 
+      Just (i,[]) | i == mkCId "contrevenir_V2" -> Gcontrevenir_V2 
+      Just (i,[]) | i == mkCId "convaincre_V2" -> Gconvaincre_V2 
+      Just (i,[]) | i == mkCId "convenir_V2" -> Gconvenir_V2 
+      Just (i,[]) | i == mkCId "correspondre_V2" -> Gcorrespondre_V2 
+      Just (i,[]) | i == mkCId "corrompre_V2" -> Gcorrompre_V2 
+      Just (i,[]) | i == mkCId "coudre_V2" -> Gcoudre_V2 
+      Just (i,[]) | i == mkCId "courir_V2" -> Gcourir_V2 
+      Just (i,[]) | i == mkCId "couvrir_V2" -> Gcouvrir_V2 
+      Just (i,[]) | i == mkCId "craindre_V2" -> Gcraindre_V2 
+      Just (i,[]) | i == mkCId "croire_V2" -> Gcroire_V2 
+      Just (i,[]) | i == mkCId "cueillir_V2" -> Gcueillir_V2 
+      Just (i,[]) | i == mkCId "cuire_V2" -> Gcuire_V2 
+      Just (i,[]) | i == mkCId "descendre_V2" -> Gdescendre_V2 
+      Just (i,[]) | i == mkCId "desservir_V2" -> Gdesservir_V2 
+      Just (i,[]) | i == mkCId "devoir_V2" -> Gdevoir_V2 
+      Just (i,[]) | i == mkCId "dire_V2" -> Gdire_V2 
+      Just (i,[]) | i == mkCId "disconvenir_V2" -> Gdisconvenir_V2 
+      Just (i,[]) | i == mkCId "discourir_V2" -> Gdiscourir_V2 
+      Just (i,[]) | i == mkCId "disjoindre_V2" -> Gdisjoindre_V2 
+      Just (i,[]) | i == mkCId "disparaître_V2" -> Gdisparaître_V2 
+      Just (i,[]) | i == mkCId "dissoudre_V2" -> Gdissoudre_V2 
+      Just (i,[]) | i == mkCId "distendre_V2" -> Gdistendre_V2 
+      Just (i,[]) | i == mkCId "distordre_V2" -> Gdistordre_V2 
+      Just (i,[]) | i == mkCId "distraire_V2" -> Gdistraire_V2 
+      Just (i,[]) | i == mkCId "dormir_V2" -> Gdormir_V2 
+      Just (i,[]) | i == mkCId "débattre_V2" -> Gdébattre_V2 
+      Just (i,[]) | i == mkCId "débouillir_V2" -> Gdébouillir_V2 
+      Just (i,[]) | i == mkCId "décevoir_V2" -> Gdécevoir_V2 
+      Just (i,[]) | i == mkCId "déchoir_V2" -> Gdéchoir_V2 
+      Just (i,[]) | i == mkCId "déclore_V2" -> Gdéclore_V2 
+      Just (i,[]) | i == mkCId "décommettre_V2" -> Gdécommettre_V2 
+      Just (i,[]) | i == mkCId "déconfire_V2" -> Gdéconfire_V2 
+      Just (i,[]) | i == mkCId "découdre_V2" -> Gdécoudre_V2 
+      Just (i,[]) | i == mkCId "découvrir_V2" -> Gdécouvrir_V2 
+      Just (i,[]) | i == mkCId "décrire_V2" -> Gdécrire_V2 
+      Just (i,[]) | i == mkCId "décroître_V2" -> Gdécroître_V2 
+      Just (i,[]) | i == mkCId "décuire_V2" -> Gdécuire_V2 
+      Just (i,[]) | i == mkCId "déduire_V2" -> Gdéduire_V2 
+      Just (i,[]) | i == mkCId "défaire_V2" -> Gdéfaire_V2 
+      Just (i,[]) | i == mkCId "défendre_V2" -> Gdéfendre_V2 
+      Just (i,[]) | i == mkCId "démentir_V2" -> Gdémentir_V2 
+      Just (i,[]) | i == mkCId "démettre_V2" -> Gdémettre_V2 
+      Just (i,[]) | i == mkCId "départir_V2" -> Gdépartir_V2 
+      Just (i,[]) | i == mkCId "dépeindre_V2" -> Gdépeindre_V2 
+      Just (i,[]) | i == mkCId "dépendre_V2" -> Gdépendre_V2 
+      Just (i,[]) | i == mkCId "dépourvoir_V2" -> Gdépourvoir_V2 
+      Just (i,[]) | i == mkCId "déprendre_V2" -> Gdéprendre_V2 
+      Just (i,[]) | i == mkCId "désapprendre_V2" -> Gdésapprendre_V2 
+      Just (i,[]) | i == mkCId "déteindre_V2" -> Gdéteindre_V2 
+      Just (i,[]) | i == mkCId "détendre_V2" -> Gdétendre_V2 
+      Just (i,[]) | i == mkCId "détenir_V2" -> Gdétenir_V2 
+      Just (i,[]) | i == mkCId "détordre_V2" -> Gdétordre_V2 
+      Just (i,[]) | i == mkCId "détruire_V2" -> Gdétruire_V2 
+      Just (i,[]) | i == mkCId "dévêtir_V2" -> Gdévêtir_V2 
+      Just (i,[]) | i == mkCId "embatre_V2" -> Gembatre_V2 
+      Just (i,[]) | i == mkCId "embattre_V2" -> Gembattre_V2 
+      Just (i,[]) | i == mkCId "empreindre_V2" -> Gempreindre_V2 
+      Just (i,[]) | i == mkCId "enceindre_V2" -> Genceindre_V2 
+      Just (i,[]) | i == mkCId "enclore_V2" -> Genclore_V2 
+      Just (i,[]) | i == mkCId "encourir_V2" -> Gencourir_V2 
+      Just (i,[]) | i == mkCId "endormir_V2" -> Gendormir_V2 
+      Just (i,[]) | i == mkCId "enduire_V2" -> Genduire_V2 
+      Just (i,[]) | i == mkCId "enfreindre_V2" -> Genfreindre_V2 
+      Just (i,[]) | i == mkCId "enjoindre_V2" -> Genjoindre_V2 
+      Just (i,[]) | i == mkCId "entendre_V2" -> Gentendre_V2 
+      Just (i,[]) | i == mkCId "entreprendre_V2" -> Gentreprendre_V2 
+      Just (i,[]) | i == mkCId "entretenir_V2" -> Gentretenir_V2 
+      Just (i,[]) | i == mkCId "entrevoir_V2" -> Gentrevoir_V2 
+      Just (i,[]) | i == mkCId "entrouvrir_V2" -> Gentrouvrir_V2 
+      Just (i,[]) | i == mkCId "envoyer_V2" -> Genvoyer_V2 
+      Just (i,[]) | i == mkCId "exclure_V2" -> Gexclure_V2 
+      Just (i,[]) | i == mkCId "extraire_V2" -> Gextraire_V2 
+      Just (i,[]) | i == mkCId "faillir_V2" -> Gfaillir_V2 
+      Just (i,[]) | i == mkCId "faire_V2" -> Gfaire_V2 
+      Just (i,[]) | i == mkCId "feindre_V2" -> Gfeindre_V2 
+      Just (i,[]) | i == mkCId "fendre_V2" -> Gfendre_V2 
+      Just (i,[]) | i == mkCId "fondre_V2" -> Gfondre_V2 
+      Just (i,[]) | i == mkCId "forfaire_V2" -> Gforfaire_V2 
+      Just (i,[]) | i == mkCId "foutre_V2" -> Gfoutre_V2 
+      Just (i,[]) | i == mkCId "frire_V2" -> Gfrire_V2 
+      Just (i,[]) | i == mkCId "fuir_V2" -> Gfuir_V2 
+      Just (i,[]) | i == mkCId "geindre_V2" -> Ggeindre_V2 
+      Just (i,[]) | i == mkCId "gésir_V2" -> Ggésir_V2 
+      Just (i,[]) | i == mkCId "haïr_V2" -> Ghaïr_V2 
+      Just (i,[]) | i == mkCId "inclure_V2" -> Ginclure_V2 
+      Just (i,[]) | i == mkCId "induire_V2" -> Ginduire_V2 
+      Just (i,[]) | i == mkCId "inscrire_V2" -> Ginscrire_V2 
+      Just (i,[]) | i == mkCId "instruire_V2" -> Ginstruire_V2 
+      Just (i,[]) | i == mkCId "interdire_V2" -> Ginterdire_V2 
+      Just (i,[]) | i == mkCId "interrompre_V2" -> Ginterrompre_V2 
+      Just (i,[]) | i == mkCId "introduire_V2" -> Gintroduire_V2 
+      Just (i,[]) | i == mkCId "joindre_V2" -> Gjoindre_V2 
+      Just (i,[]) | i == mkCId "lire_V2" -> Glire_V2 
+      Just (i,[]) | i == mkCId "mainmettre_V2" -> Gmainmettre_V2 
+      Just (i,[]) | i == mkCId "maintenir_V2" -> Gmaintenir_V2 
+      Just (i,[]) | i == mkCId "mentir_V2" -> Gmentir_V2 
+      Just (i,[]) | i == mkCId "messeoir_V2" -> Gmesseoir_V2 
+      Just (i,[]) | i == mkCId "mettre_V2" -> Gmettre_V2 
+      Just (i,[]) | i == mkCId "mordre_V2" -> Gmordre_V2 
+      Just (i,[]) | i == mkCId "moudre_V2" -> Gmoudre_V2 
+      Just (i,[]) | i == mkCId "mouvoir_V2" -> Gmouvoir_V2 
+      Just (i,[]) | i == mkCId "méconnaître_V2" -> Gméconnaître_V2 
+      Just (i,[]) | i == mkCId "mécroire_V2" -> Gmécroire_V2 
+      Just (i,[]) | i == mkCId "médire_V2" -> Gmédire_V2 
+      Just (i,[]) | i == mkCId "méprendre_V2" -> Gméprendre_V2 
+      Just (i,[]) | i == mkCId "mévendre_V2" -> Gmévendre_V2 
+      Just (i,[]) | i == mkCId "nuire_V2" -> Gnuire_V2 
+      Just (i,[]) | i == mkCId "obtenir_V2" -> Gobtenir_V2 
+      Just (i,[]) | i == mkCId "occlure_V2" -> Gocclure_V2 
+      Just (i,[]) | i == mkCId "offrir_V2" -> Goffrir_V2 
+      Just (i,[]) | i == mkCId "oindre_V2" -> Goindre_V2 
+      Just (i,[]) | i == mkCId "omettre_V2" -> Gomettre_V2 
+      Just (i,[]) | i == mkCId "ouvrir_V2" -> Gouvrir_V2 
+      Just (i,[]) | i == mkCId "ouïr_V2" -> Gouïr_V2 
+      Just (i,[]) | i == mkCId "parcourir_V2" -> Gparcourir_V2 
+      Just (i,[]) | i == mkCId "parfondre_V2" -> Gparfondre_V2 
+      Just (i,[]) | i == mkCId "paître_V2" -> Gpaître_V2 
+      Just (i,[]) | i == mkCId "peindre_V2" -> Gpeindre_V2 
+      Just (i,[]) | i == mkCId "pendre_V2" -> Gpendre_V2 
+      Just (i,[]) | i == mkCId "percevoir_V2" -> Gpercevoir_V2 
+      Just (i,[]) | i == mkCId "perdre_V2" -> Gperdre_V2 
+      Just (i,[]) | i == mkCId "permettre_V2" -> Gpermettre_V2 
+      Just (i,[]) | i == mkCId "plaindre_V2" -> Gplaindre_V2 
+      Just (i,[]) | i == mkCId "plaire_V2" -> Gplaire_V2 
+      Just (i,[]) | i == mkCId "poindre_V2" -> Gpoindre_V2 
+      Just (i,[]) | i == mkCId "pondre_V2" -> Gpondre_V2 
+      Just (i,[]) | i == mkCId "pourfendre_V2" -> Gpourfendre_V2 
+      Just (i,[]) | i == mkCId "poursuivre_V2" -> Gpoursuivre_V2 
+      Just (i,[]) | i == mkCId "pourvoir_V2" -> Gpourvoir_V2 
+      Just (i,[]) | i == mkCId "prendre_V2" -> Gprendre_V2 
+      Just (i,[]) | i == mkCId "prescrire_V2" -> Gprescrire_V2 
+      Just (i,[]) | i == mkCId "pressentir_V2" -> Gpressentir_V2 
+      Just (i,[]) | i == mkCId "produire_V2" -> Gproduire_V2 
+      Just (i,[]) | i == mkCId "promettre_V2" -> Gpromettre_V2 
+      Just (i,[]) | i == mkCId "promouvoir_V2" -> Gpromouvoir_V2 
+      Just (i,[]) | i == mkCId "proscrire_V2" -> Gproscrire_V2 
+      Just (i,[]) | i == mkCId "prédire_V2" -> Gprédire_V2 
+      Just (i,[]) | i == mkCId "prétendre_V2" -> Gprétendre_V2 
+      Just (i,[]) | i == mkCId "prévaloir_V2" -> Gprévaloir_V2 
+      Just (i,[]) | i == mkCId "prévenir_V2" -> Gprévenir_V2 
+      Just (i,[]) | i == mkCId "prévoir_V2" -> Gprévoir_V2 
+      Just (i,[]) | i == mkCId "rabattre_V2" -> Grabattre_V2 
+      Just (i,[]) | i == mkCId "raire_V2" -> Graire_V2 
+      Just (i,[]) | i == mkCId "rapprendre_V2" -> Grapprendre_V2 
+      Just (i,[]) | i == mkCId "rasseoir_V2" -> Grasseoir_V2 
+      Just (i,[]) | i == mkCId "rebattre_V2" -> Grebattre_V2 
+      Just (i,[]) | i == mkCId "recevoir_V2" -> Grecevoir_V2 
+      Just (i,[]) | i == mkCId "recomparaître_V2" -> Grecomparaître_V2 
+      Just (i,[]) | i == mkCId "reconduire_V2" -> Greconduire_V2 
+      Just (i,[]) | i == mkCId "reconnaître_V2" -> Greconnaître_V2 
+      Just (i,[]) | i == mkCId "reconquérir_V2" -> Greconquérir_V2 
+      Just (i,[]) | i == mkCId "reconstruire_V2" -> Greconstruire_V2 
+      Just (i,[]) | i == mkCId "recoudre_V2" -> Grecoudre_V2 
+      Just (i,[]) | i == mkCId "recourir_V2" -> Grecourir_V2 
+      Just (i,[]) | i == mkCId "recouvrir_V2" -> Grecouvrir_V2 
+      Just (i,[]) | i == mkCId "recroître_V2" -> Grecroître_V2 
+      Just (i,[]) | i == mkCId "recueillir_V2" -> Grecueillir_V2 
+      Just (i,[]) | i == mkCId "recuire_V2" -> Grecuire_V2 
+      Just (i,[]) | i == mkCId "redescendre_V2" -> Gredescendre_V2 
+      Just (i,[]) | i == mkCId "redevoir_V2" -> Gredevoir_V2 
+      Just (i,[]) | i == mkCId "redire_V2" -> Gredire_V2 
+      Just (i,[]) | i == mkCId "redécouvrir_V2" -> Gredécouvrir_V2 
+      Just (i,[]) | i == mkCId "redéfaire_V2" -> Gredéfaire_V2 
+      Just (i,[]) | i == mkCId "refaire_V2" -> Grefaire_V2 
+      Just (i,[]) | i == mkCId "refendre_V2" -> Grefendre_V2 
+      Just (i,[]) | i == mkCId "refondre_V2" -> Grefondre_V2 
+      Just (i,[]) | i == mkCId "rejoindre_V2" -> Grejoindre_V2 
+      Just (i,[]) | i == mkCId "relire_V2" -> Grelire_V2 
+      Just (i,[]) | i == mkCId "reluire_V2" -> Greluire_V2 
+      Just (i,[]) | i == mkCId "remettre_V2" -> Gremettre_V2 
+      Just (i,[]) | i == mkCId "remordre_V2" -> Gremordre_V2 
+      Just (i,[]) | i == mkCId "remoudre_V2" -> Gremoudre_V2 
+      Just (i,[]) | i == mkCId "renaître_V2" -> Grenaître_V2 
+      Just (i,[]) | i == mkCId "rendormir_V2" -> Grendormir_V2 
+      Just (i,[]) | i == mkCId "rendre_V2" -> Grendre_V2 
+      Just (i,[]) | i == mkCId "rentraire_V2" -> Grentraire_V2 
+      Just (i,[]) | i == mkCId "rentrouvrir_V2" -> Grentrouvrir_V2 
+      Just (i,[]) | i == mkCId "renvoyer_V2" -> Grenvoyer_V2 
+      Just (i,[]) | i == mkCId "repaître_V2" -> Grepaître_V2 
+      Just (i,[]) | i == mkCId "repeindre_V2" -> Grepeindre_V2 
+      Just (i,[]) | i == mkCId "rependre_V2" -> Grependre_V2 
+      Just (i,[]) | i == mkCId "reperdre_V2" -> Greperdre_V2 
+      Just (i,[]) | i == mkCId "reprendre_V2" -> Greprendre_V2 
+      Just (i,[]) | i == mkCId "reproduire_V2" -> Greproduire_V2 
+      Just (i,[]) | i == mkCId "requérir_V2" -> Grequérir_V2 
+      Just (i,[]) | i == mkCId "ressentir_V2" -> Gressentir_V2 
+      Just (i,[]) | i == mkCId "resservir_V2" -> Gresservir_V2 
+      Just (i,[]) | i == mkCId "restreindre_V2" -> Grestreindre_V2 
+      Just (i,[]) | i == mkCId "reteindre_V2" -> Greteindre_V2 
+      Just (i,[]) | i == mkCId "retendre_V2" -> Gretendre_V2 
+      Just (i,[]) | i == mkCId "retenir_V2" -> Gretenir_V2 
+      Just (i,[]) | i == mkCId "retondre_V2" -> Gretondre_V2 
+      Just (i,[]) | i == mkCId "retordre_V2" -> Gretordre_V2 
+      Just (i,[]) | i == mkCId "retraduire_V2" -> Gretraduire_V2 
+      Just (i,[]) | i == mkCId "retraire_V2" -> Gretraire_V2 
+      Just (i,[]) | i == mkCId "retranscrire_V2" -> Gretranscrire_V2 
+      Just (i,[]) | i == mkCId "retransmettre_V2" -> Gretransmettre_V2 
+      Just (i,[]) | i == mkCId "revaloir_V2" -> Grevaloir_V2 
+      Just (i,[]) | i == mkCId "revendre_V2" -> Grevendre_V2 
+      Just (i,[]) | i == mkCId "revivre_V2" -> Grevivre_V2 
+      Just (i,[]) | i == mkCId "revoir_V2" -> Grevoir_V2 
+      Just (i,[]) | i == mkCId "revouloir_V2" -> Grevouloir_V2 
+      Just (i,[]) | i == mkCId "revêtir_V2" -> Grevêtir_V2 
+      Just (i,[]) | i == mkCId "rire_V2" -> Grire_V2 
+      Just (i,[]) | i == mkCId "rompre_V2" -> Grompre_V2 
+      Just (i,[]) | i == mkCId "rouvrir_V2" -> Grouvrir_V2 
+      Just (i,[]) | i == mkCId "réadmettre_V2" -> Gréadmettre_V2 
+      Just (i,[]) | i == mkCId "réapprendre_V2" -> Gréapprendre_V2 
+      Just (i,[]) | i == mkCId "récrire_V2" -> Grécrire_V2 
+      Just (i,[]) | i == mkCId "réduire_V2" -> Gréduire_V2 
+      Just (i,[]) | i == mkCId "réentendre_V2" -> Gréentendre_V2 
+      Just (i,[]) | i == mkCId "réinscrire_V2" -> Gréinscrire_V2 
+      Just (i,[]) | i == mkCId "réintroduire_V2" -> Gréintroduire_V2 
+      Just (i,[]) | i == mkCId "répandre_V2" -> Grépandre_V2 
+      Just (i,[]) | i == mkCId "répondre_V2" -> Grépondre_V2 
+      Just (i,[]) | i == mkCId "résoudre_V2" -> Grésoudre_V2 
+      Just (i,[]) | i == mkCId "rétreindre_V2" -> Grétreindre_V2 
+      Just (i,[]) | i == mkCId "réécrire_V2" -> Gréécrire_V2 
+      Just (i,[]) | i == mkCId "réélire_V2" -> Gréélire_V2 
+      Just (i,[]) | i == mkCId "saillir_V2" -> Gsaillir_V2 
+      Just (i,[]) | i == mkCId "satisfaire_V2" -> Gsatisfaire_V2 
+      Just (i,[]) | i == mkCId "savoir_V2" -> Gsavoir_V2 
+      Just (i,[]) | i == mkCId "secourir_V2" -> Gsecourir_V2 
+      Just (i,[]) | i == mkCId "sentir_V2" -> Gsentir_V2 
+      Just (i,[]) | i == mkCId "servir_V2" -> Gservir_V2 
+      Just (i,[]) | i == mkCId "soubattre_V2" -> Gsoubattre_V2 
+      Just (i,[]) | i == mkCId "souffrir_V2" -> Gsouffrir_V2 
+      Just (i,[]) | i == mkCId "soumettre_V2" -> Gsoumettre_V2 
+      Just (i,[]) | i == mkCId "sourire_V2" -> Gsourire_V2 
+      Just (i,[]) | i == mkCId "sous_entendre_V2" -> Gsous_entendre_V2 
+      Just (i,[]) | i == mkCId "sous_tendre_V2" -> Gsous_tendre_V2 
+      Just (i,[]) | i == mkCId "souscrire_V2" -> Gsouscrire_V2 
+      Just (i,[]) | i == mkCId "soustraire_V2" -> Gsoustraire_V2 
+      Just (i,[]) | i == mkCId "soutenir_V2" -> Gsoutenir_V2 
+      Just (i,[]) | i == mkCId "subvenir_V2" -> Gsubvenir_V2 
+      Just (i,[]) | i == mkCId "suffire_V2" -> Gsuffire_V2 
+      Just (i,[]) | i == mkCId "suivre_V2" -> Gsuivre_V2 
+      Just (i,[]) | i == mkCId "surfaire_V2" -> Gsurfaire_V2 
+      Just (i,[]) | i == mkCId "surprendre_V2" -> Gsurprendre_V2 
+      Just (i,[]) | i == mkCId "surproduire_V2" -> Gsurproduire_V2 
+      Just (i,[]) | i == mkCId "surseoir_V2" -> Gsurseoir_V2 
+      Just (i,[]) | i == mkCId "surtondre_V2" -> Gsurtondre_V2 
+      Just (i,[]) | i == mkCId "survivre_V2" -> Gsurvivre_V2 
+      Just (i,[]) | i == mkCId "suspendre_V2" -> Gsuspendre_V2 
+      Just (i,[]) | i == mkCId "séduire_V2" -> Gséduire_V2 
+      Just (i,[]) | i == mkCId "taire_V2" -> Gtaire_V2 
+      Just (i,[]) | i == mkCId "teindre_V2" -> Gteindre_V2 
+      Just (i,[]) | i == mkCId "tendre_V2" -> Gtendre_V2 
+      Just (i,[]) | i == mkCId "tenir_V2" -> Gtenir_V2 
+      Just (i,[]) | i == mkCId "tondre_V2" -> Gtondre_V2 
+      Just (i,[]) | i == mkCId "tordre_V2" -> Gtordre_V2 
+      Just (i,[]) | i == mkCId "traduire_V2" -> Gtraduire_V2 
+      Just (i,[]) | i == mkCId "traire_V2" -> Gtraire_V2 
+      Just (i,[]) | i == mkCId "transcrire_V2" -> Gtranscrire_V2 
+      Just (i,[]) | i == mkCId "transmettre_V2" -> Gtransmettre_V2 
+      Just (i,[]) | i == mkCId "tréfondre_V2" -> Gtréfondre_V2 
+      Just (i,[]) | i == mkCId "vaincre_V2" -> Gvaincre_V2 
+      Just (i,[]) | i == mkCId "valoir_V2" -> Gvaloir_V2 
+      Just (i,[]) | i == mkCId "vendre_V2" -> Gvendre_V2 
+      Just (i,[]) | i == mkCId "vivre_V2" -> Gvivre_V2 
+      Just (i,[]) | i == mkCId "voir_V2" -> Gvoir_V2 
+      Just (i,[]) | i == mkCId "vouloir_V2" -> Gvouloir_V2 
+      Just (i,[]) | i == mkCId "vêtir_V2" -> Gvêtir_V2 
+      Just (i,[]) | i == mkCId "échoir_V2" -> Géchoir_V2 
+      Just (i,[]) | i == mkCId "éclore_V2" -> Géclore_V2 
+      Just (i,[]) | i == mkCId "éconduire_V2" -> Géconduire_V2 
+      Just (i,[]) | i == mkCId "écrire_V2" -> Gécrire_V2 
+      Just (i,[]) | i == mkCId "élire_V2" -> Gélire_V2 
+      Just (i,[]) | i == mkCId "émettre_V2" -> Gémettre_V2 
+      Just (i,[]) | i == mkCId "émoudre_V2" -> Gémoudre_V2 
+      Just (i,[]) | i == mkCId "émouvoir_V2" -> Gémouvoir_V2 
+      Just (i,[]) | i == mkCId "épandre_V2" -> Gépandre_V2 
+      Just (i,[]) | i == mkCId "équivaloir_V2" -> Géquivaloir_V2 
+      Just (i,[]) | i == mkCId "éteindre_V2" -> Géteindre_V2 
+      Just (i,[]) | i == mkCId "étendre_V2" -> Gétendre_V2 
+      Just (i,[]) | i == mkCId "étreindre_V2" -> Gétreindre_V2 
+
+
+      _ -> error ("no V2 " ++ show t)
+
+instance Gf GWord where
+  gf (GWVerb x1) = mkApp (mkCId "WVerb") [gf x1]
+  gf (GWVerb2 x1) = mkApp (mkCId "WVerb2") [gf x1]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "WVerb" -> GWVerb (fg x1)
+      Just (i,[x1]) | i == mkCId "WVerb2" -> GWVerb2 (fg x1)
+
+
+      _ -> error ("no Word " ++ show t)
+
+

@@ -1,0 +1,30 @@
+{-----------------------------------------------------
+
+  this is the input deck for the brusselator model 
+  (C) 2009 Markus Dittrich
+
+------------------------------------------------------}
+
+parameters
+  time         = 50.0
+  outputBuffer = 50000
+  outputFreq   = 200
+  systemVol    = nil  -- interpret rates as propensities
+end
+
+molecules
+  x = 1000
+  y = 2000
+end
+
+reactions
+  nil    -> x         | 5000    |
+  x      -> y         | 50.0    |
+  2x + y -> 3x        | 0.00005 |
+  x      -> nil       | 5.0     |
+end
+
+output
+  outputFile   = "brusselator_output.dat"
+  [TIME,x,y]
+end

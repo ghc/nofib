@@ -1,0 +1,3615 @@
+%!PS-Adobe-2.0
+%%Creator: dot version 1.7.6 (Seg Mar 25 19:08:30 WET 2002)
+%%For: (jas) 
+%%Title: HaLeX
+%%Pages: (atend)
+%%BoundingBox: 35 35 2197 284
+%%EndComments
+%%BeginProlog
+save
+/DotDict 200 dict def
+DotDict begin
+
+%%BeginResource: procset
+/coord-font-family /Times-Roman def
+/default-font-family /Times-Roman def
+/coordfont coord-font-family findfont 8 scalefont def
+
+/InvScaleFactor 1.0 def
+/set_scale {
+	dup 1 exch div /InvScaleFactor exch def
+	dup scale
+} bind def
+
+% styles
+/solid { } bind def
+/dashed { [9 InvScaleFactor mul dup ] 0 setdash } bind def
+/dotted { [1 InvScaleFactor mul 6 InvScaleFactor mul] 0 setdash } bind def
+/invis {/fill {newpath} def /stroke {newpath} def /show {pop newpath} def} bind def
+/bold { 2 setlinewidth } bind def
+/filled { } bind def
+/unfilled { } bind def
+/rounded { } bind def
+/diagonals { } bind def
+
+% hooks for setting color 
+/nodecolor { sethsbcolor } bind def
+/edgecolor { sethsbcolor } bind def
+/graphcolor { sethsbcolor } bind def
+/nopcolor {pop pop pop} bind def
+
+/beginpage {	% i j npages
+	/npages exch def
+	/j exch def
+	/i exch def
+	/str 10 string def
+	npages 1 gt {
+		gsave
+			coordfont setfont
+			0 0 moveto
+			(\() show i str cvs show (,) show j str cvs show (\)) show
+		grestore
+	} if
+} bind def
+
+/set_font {
+	findfont exch
+	scalefont setfont
+} def
+
+% draw aligned label in bounding box aligned to current point
+% alignfactor tells what fraction to place on the left.
+% -.5 is centered.
+/alignedtext {			% text labelwidth fontsz alignfactor
+	/alignfactor exch def
+	/fontsz exch def
+	/width exch def
+	/text exch def
+	gsave
+		% even if node or edge is dashed, don't paint text with dashes
+		[] 0 setdash
+		currentpoint newpath moveto
+		text stringwidth pop
+		alignfactor mul fontsz -.3 mul rmoveto
+		text show
+	grestore
+} def
+
+/boxprim {				% xcorner ycorner xsize ysize
+		4 2 roll
+		moveto
+		2 copy
+		exch 0 rlineto
+		0 exch rlineto
+		pop neg 0 rlineto
+		closepath
+} bind def
+
+/ellipse_path {
+	/ry exch def
+	/rx exch def
+	/y exch def
+	/x exch def
+	matrix currentmatrix
+	newpath
+	x y translate
+	rx ry scale
+	0 0 1 0 360 arc
+	setmatrix
+} bind def
+
+/endpage { showpage } bind def
+
+/layercolorseq
+	[	% layer color sequence - darkest to lightest
+		[0 0 0]
+		[.2 .8 .8]
+		[.4 .8 .8]
+		[.6 .8 .8]
+		[.8 .8 .8]
+	]
+def
+
+/setlayer {/maxlayer exch def /curlayer exch def
+	layercolorseq curlayer get
+	aload pop sethsbcolor
+	/nodecolor {nopcolor} def
+	/edgecolor {nopcolor} def
+	/graphcolor {nopcolor} def
+} bind def
+
+/onlayer { curlayer ne {invis} if } def
+
+/onlayers {
+	/myupper exch def
+	/mylower exch def
+	curlayer mylower lt
+	curlayer myupper gt
+	or
+	{invis} if
+} def
+
+/curlayer 0 def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+14 default-font-family set_font
+1 setmiterlimit
+% /arrowlength 10 def
+% /arrowwidth 5 def
+
+% make sure pdfmark is harmless for PS-interpreters other than Distiller
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+% make '<<' and '>>' safe on PS Level 1 devices
+/languagelevel where {pop languagelevel}{1} ifelse
+2 lt {
+    userdict (<<) cvn ([) cvn load put
+    userdict (>>) cvn ([) cvn load put
+} if
+
+%%EndSetup
+%%Page: 1 1
+%%PageBoundingBox: 36 36 2197 284
+%%PageOrientation: Portrait
+gsave
+35 35 2162 249 boxprim clip newpath
+36 36 translate
+0 0 1 beginpage
+0.2162 set_scale
+0 0 translate 0 rotate
+[ /CropBox [36 36 2197 284] /PAGES pdfmark
+0.000 0.000 0.000 graphcolor
+14.00 /Times-Roman set_font
+
+%	1
+gsave 10 dict begin
+0.333 1.000 1.000 nodecolor
+26 579 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+0.000 0.000 0.000 nodecolor
+26 580 moveto (1) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	2
+gsave 10 dict begin
+156 606 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+156 607 moveto (2) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	1 -> 2
+newpath 44 583 moveto
+65 587 104 595 130 600 curveto
+stroke
+newpath 129 597 moveto
+138 602 lineto
+128 602 lineto
+closepath
+fill
+gsave 10 dict begin
+91 606 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	8
+gsave 10 dict begin
+221 552 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+221 553 moveto (8) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	1 -> 8
+newpath 43 572 moveto
+49 569 56 567 62 566 curveto
+108 556 161 553 193 552 curveto
+stroke
+newpath 193 550 moveto
+203 552 lineto
+193 555 lineto
+closepath
+fill
+gsave 10 dict begin
+91 575 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	132
+gsave 10 dict begin
+0.000 1.000 1.000 nodecolor
+9953 583 24 24 ellipse_path
+stroke
+9953 583 28 28 ellipse_path
+stroke
+gsave 10 dict begin
+0.000 0.000 0.000 nodecolor
+9953 584 moveto (132) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	3
+gsave 10 dict begin
+286 658 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+286 659 moveto (3) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	4
+gsave 10 dict begin
+401 658 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+401 659 moveto (4) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	3 -> 4
+newpath 304 658 moveto
+323 658 352 658 374 658 curveto
+stroke
+newpath 373 656 moveto
+383 658 lineto
+373 661 lineto
+closepath
+fill
+gsave 10 dict begin
+338 667 moveto ('+') 17 14.00 -0.50 alignedtext
+end grestore
+
+%	7
+gsave 10 dict begin
+542 604 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+542 605 moveto (7) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	4 -> 7
+newpath 419 653 moveto
+440 647 477 637 506 624 curveto
+510 622 514 620 518 618 curveto
+stroke
+newpath 516 616 moveto
+526 613 lineto
+519 620 lineto
+closepath
+fill
+gsave 10 dict begin
+477 653 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	5
+gsave 10 dict begin
+286 604 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+286 605 moveto (5) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	6
+gsave 10 dict begin
+401 604 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+401 605 moveto (6) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	5 -> 6
+newpath 304 604 moveto
+323 604 352 604 374 604 curveto
+stroke
+newpath 373 602 moveto
+383 604 lineto
+373 607 lineto
+closepath
+fill
+gsave 10 dict begin
+338 613 moveto ('-') 13 14.00 -0.50 alignedtext
+end grestore
+
+%	6 -> 7
+newpath 419 604 moveto
+443 604 487 604 515 604 curveto
+stroke
+newpath 514 602 moveto
+524 604 lineto
+514 607 lineto
+closepath
+fill
+gsave 10 dict begin
+477 613 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	12
+gsave 10 dict begin
+1072 1048 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1072 1049 moveto (12) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	13
+gsave 10 dict begin
+1273 1125 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1273 1126 moveto (13) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	12 -> 13
+newpath 1090 1057 moveto
+1096 1060 1103 1064 1110 1067 curveto
+1158 1088 1215 1106 1247 1117 curveto
+stroke
+newpath 1245 1114 moveto
+1254 1119 lineto
+1244 1119 lineto
+closepath
+fill
+gsave 10 dict begin
+1139 1096 moveto ('0') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	48
+gsave 10 dict begin
+3484 628 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3484 629 moveto (48) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	13 -> 48
+newpath 1293 1125 moveto
+1319 1125 1367 1124 1407 1125 curveto
+1407 1125 1407 1125 3350 1125 curveto
+3448 1124 3476 763 3482 657 curveto
+stroke
+newpath 3479 658 moveto
+3483 648 lineto
+3484 658 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 1134 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	15
+gsave 10 dict begin
+1273 1066 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1273 1067 moveto (15) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	16
+gsave 10 dict begin
+1407 1073 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1407 1074 moveto (16) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	15 -> 16
+newpath 1293 1067 moveto
+1315 1068 1352 1070 1378 1072 curveto
+stroke
+newpath 1377 1070 moveto
+1387 1072 lineto
+1377 1075 lineto
+closepath
+fill
+gsave 10 dict begin
+1340 1078 moveto ('1') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	47
+gsave 10 dict begin
+3350 995 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3350 996 moveto (47) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	16 -> 47
+newpath 1427 1073 moveto
+1453 1073 1501 1072 1541 1073 curveto
+1541 1073 1541 1073 3216 1073 curveto
+3261 1072 3304 1040 3328 1017 curveto
+stroke
+newpath 3327 1015 moveto
+3336 1010 lineto
+3330 1018 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 1082 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	18
+gsave 10 dict begin
+1340 1017 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1340 1018 moveto (18) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	19
+gsave 10 dict begin
+1541 1021 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1541 1022 moveto (19) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	18 -> 19
+newpath 1360 1017 moveto
+1396 1018 1471 1020 1513 1021 curveto
+stroke
+newpath 1511 1019 moveto
+1521 1021 lineto
+1511 1024 lineto
+closepath
+fill
+gsave 10 dict begin
+1407 1026 moveto ('2') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	46
+gsave 10 dict begin
+3216 995 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3216 996 moveto (46) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	19 -> 46
+newpath 1561 1021 moveto
+1587 1021 1635 1020 1675 1021 curveto
+1675 1021 1675 1021 3082 1021 curveto
+3120 1020 3162 1010 3189 1003 curveto
+stroke
+newpath 3187 1001 moveto
+3197 1001 lineto
+3188 1006 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 1030 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	21
+gsave 10 dict begin
+1541 963 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1541 964 moveto (21) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	22
+gsave 10 dict begin
+1675 969 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1675 970 moveto (22) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	21 -> 22
+newpath 1561 964 moveto
+1583 965 1620 967 1646 968 curveto
+stroke
+newpath 1645 966 moveto
+1655 968 lineto
+1645 971 lineto
+closepath
+fill
+gsave 10 dict begin
+1608 974 moveto ('3') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	45
+gsave 10 dict begin
+3082 969 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3082 970 moveto (45) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	22 -> 45
+newpath 1695 969 moveto
+1721 969 1769 968 1809 969 curveto
+1809 969 1809 969 2948 969 curveto
+2985 968 3026 969 3053 969 curveto
+stroke
+newpath 3052 967 moveto
+3062 969 lineto
+3052 972 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 978 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	24
+gsave 10 dict begin
+1608 913 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1608 914 moveto (24) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	25
+gsave 10 dict begin
+1809 917 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1809 918 moveto (25) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	24 -> 25
+newpath 1628 913 moveto
+1664 914 1739 916 1781 917 curveto
+stroke
+newpath 1779 915 moveto
+1789 917 lineto
+1779 920 lineto
+closepath
+fill
+gsave 10 dict begin
+1675 938 moveto ('4') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	44
+gsave 10 dict begin
+2948 917 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2948 918 moveto (44) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	25 -> 44
+newpath 1829 917 moveto
+1855 917 1903 916 1943 917 curveto
+1943 917 1943 917 2814 917 curveto
+2851 916 2892 917 2919 917 curveto
+stroke
+newpath 2918 915 moveto
+2928 917 lineto
+2918 920 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 926 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	27
+gsave 10 dict begin
+1809 859 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1809 860 moveto (27) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	28
+gsave 10 dict begin
+1943 865 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1943 866 moveto (28) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	27 -> 28
+newpath 1829 860 moveto
+1851 861 1888 863 1914 864 curveto
+stroke
+newpath 1913 862 moveto
+1923 864 lineto
+1913 867 lineto
+closepath
+fill
+gsave 10 dict begin
+1876 870 moveto ('5') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	43
+gsave 10 dict begin
+2814 865 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2814 866 moveto (43) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	28 -> 43
+newpath 1963 865 moveto
+1989 865 2037 864 2077 865 curveto
+2077 865 2077 865 2680 865 curveto
+2717 864 2758 865 2785 865 curveto
+stroke
+newpath 2784 863 moveto
+2794 865 lineto
+2784 868 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 874 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	30
+gsave 10 dict begin
+1876 809 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1876 810 moveto (30) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	31
+gsave 10 dict begin
+2077 817 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2077 818 moveto (31) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	30 -> 31
+newpath 1896 810 moveto
+1932 812 2007 815 2049 816 curveto
+stroke
+newpath 2047 814 moveto
+2057 816 lineto
+2047 819 lineto
+closepath
+fill
+gsave 10 dict begin
+1943 844 moveto ('6') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	42
+gsave 10 dict begin
+2680 813 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2680 814 moveto (42) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	31 -> 42
+newpath 2097 816 moveto
+2123 814 2171 812 2211 813 curveto
+2211 813 2211 813 2546 813 curveto
+2583 812 2624 813 2651 813 curveto
+stroke
+newpath 2650 811 moveto
+2660 813 lineto
+2650 816 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 822 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	33
+gsave 10 dict begin
+2077 759 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2077 760 moveto (33) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	34
+gsave 10 dict begin
+2211 765 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2211 766 moveto (34) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	33 -> 34
+newpath 2097 760 moveto
+2119 761 2156 763 2182 764 curveto
+stroke
+newpath 2181 762 moveto
+2191 764 lineto
+2181 767 lineto
+closepath
+fill
+gsave 10 dict begin
+2144 770 moveto ('7') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	41
+gsave 10 dict begin
+2546 761 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2546 762 moveto (41) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	34 -> 41
+newpath 2231 765 moveto
+2288 764 2451 762 2517 761 curveto
+stroke
+newpath 2516 759 moveto
+2526 761 lineto
+2516 764 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 812 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	36
+gsave 10 dict begin
+2144 711 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2144 712 moveto (36) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	37
+gsave 10 dict begin
+2278 712 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2278 713 moveto (37) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	36 -> 37
+newpath 2164 711 moveto
+2186 711 2223 711 2249 712 curveto
+stroke
+newpath 2248 710 moveto
+2258 712 lineto
+2248 715 lineto
+closepath
+fill
+gsave 10 dict begin
+2211 720 moveto ('8') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	40
+gsave 10 dict begin
+2412 709 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2412 710 moveto (40) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	37 -> 40
+newpath 2298 712 moveto
+2320 711 2357 710 2383 710 curveto
+stroke
+newpath 2382 708 moveto
+2392 710 lineto
+2382 713 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 719 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	38
+gsave 10 dict begin
+2144 653 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2144 654 moveto (38) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	39
+gsave 10 dict begin
+2278 654 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2278 655 moveto (39) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	38 -> 39
+newpath 2164 653 moveto
+2186 653 2223 653 2249 654 curveto
+stroke
+newpath 2248 652 moveto
+2258 654 lineto
+2248 657 lineto
+closepath
+fill
+gsave 10 dict begin
+2211 662 moveto ('9') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	39 -> 40
+newpath 2297 660 moveto
+2317 666 2348 677 2374 689 curveto
+2379 691 2384 693 2389 696 curveto
+stroke
+newpath 2387 692 moveto
+2395 699 lineto
+2385 697 lineto
+closepath
+fill
+gsave 10 dict begin
+2345 698 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	51
+gsave 10 dict begin
+3886 612 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3886 613 moveto (51) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	52
+gsave 10 dict begin
+4011 612 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4011 613 moveto (52) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	51 -> 52
+newpath 3906 612 moveto
+3926 612 3958 612 3982 612 curveto
+stroke
+newpath 3981 610 moveto
+3991 612 lineto
+3981 615 lineto
+closepath
+fill
+gsave 10 dict begin
+3944 621 moveto ('.') 12 14.00 -0.50 alignedtext
+end grestore
+
+%	54
+gsave 10 dict begin
+4154 583 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4154 584 moveto (54) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	52 -> 54
+newpath 4031 608 moveto
+4055 603 4097 595 4125 589 curveto
+stroke
+newpath 4124 587 moveto
+4134 587 lineto
+4125 592 lineto
+closepath
+fill
+gsave 10 dict begin
+4087 610 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	56
+gsave 10 dict begin
+4422 614 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4422 615 moveto (56) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	57
+gsave 10 dict begin
+4623 614 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4623 615 moveto (57) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	56 -> 57
+newpath 4442 614 moveto
+4478 614 4553 614 4595 614 curveto
+stroke
+newpath 4593 612 moveto
+4603 614 lineto
+4593 617 lineto
+closepath
+fill
+gsave 10 dict begin
+4489 638 moveto ('0') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	92
+gsave 10 dict begin
+6816 588 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6816 589 moveto (92) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	57 -> 92
+newpath 4643 613 moveto
+4669 612 4717 611 4757 612 curveto
+4757 612 4757 612 6682 612 curveto
+6719 611 6761 602 6788 596 curveto
+stroke
+newpath 6786 594 moveto
+6796 594 lineto
+6787 599 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 621 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	59
+gsave 10 dict begin
+4623 556 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4623 557 moveto (59) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	60
+gsave 10 dict begin
+4757 559 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4757 560 moveto (60) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	59 -> 60
+newpath 4643 556 moveto
+4665 557 4702 558 4728 558 curveto
+stroke
+newpath 4727 556 moveto
+4737 558 lineto
+4727 561 lineto
+closepath
+fill
+gsave 10 dict begin
+4690 567 moveto ('1') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	91
+gsave 10 dict begin
+6682 559 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6682 560 moveto (91) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	60 -> 91
+newpath 4777 559 moveto
+4803 559 4851 558 4891 559 curveto
+4891 559 4891 559 6548 559 curveto
+6585 558 6626 559 6653 559 curveto
+stroke
+newpath 6652 557 moveto
+6662 559 lineto
+6652 562 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 568 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	62
+gsave 10 dict begin
+4690 503 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4690 504 moveto (62) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	63
+gsave 10 dict begin
+4891 506 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4891 507 moveto (63) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	62 -> 63
+newpath 4710 503 moveto
+4746 504 4821 505 4863 506 curveto
+stroke
+newpath 4861 504 moveto
+4871 506 lineto
+4861 509 lineto
+closepath
+fill
+gsave 10 dict begin
+4757 536 moveto ('2') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	90
+gsave 10 dict begin
+6548 506 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6548 507 moveto (90) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	63 -> 90
+newpath 4911 506 moveto
+4937 506 4985 506 5025 506 curveto
+5025 506 5025 506 6414 506 curveto
+6451 506 6492 506 6519 506 curveto
+stroke
+newpath 6518 504 moveto
+6528 506 lineto
+6518 509 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 515 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	65
+gsave 10 dict begin
+4891 448 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4891 449 moveto (65) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	66
+gsave 10 dict begin
+5025 452 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5025 453 moveto (66) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	65 -> 66
+newpath 4911 449 moveto
+4933 450 4970 451 4996 451 curveto
+stroke
+newpath 4995 449 moveto
+5005 451 lineto
+4995 454 lineto
+closepath
+fill
+gsave 10 dict begin
+4958 461 moveto ('3') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	89
+gsave 10 dict begin
+6414 452 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6414 453 moveto (89) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	66 -> 89
+newpath 5045 452 moveto
+5071 452 5119 452 5159 452 curveto
+5159 452 5159 452 6280 452 curveto
+6317 452 6358 452 6385 452 curveto
+stroke
+newpath 6384 450 moveto
+6394 452 lineto
+6384 455 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 461 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	68
+gsave 10 dict begin
+4958 396 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4958 397 moveto (68) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	69
+gsave 10 dict begin
+5159 399 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5159 400 moveto (69) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	68 -> 69
+newpath 4978 396 moveto
+5014 397 5089 398 5131 399 curveto
+stroke
+newpath 5129 397 moveto
+5139 399 lineto
+5129 402 lineto
+closepath
+fill
+gsave 10 dict begin
+5025 407 moveto ('4') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	88
+gsave 10 dict begin
+6280 399 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6280 400 moveto (88) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	69 -> 88
+newpath 5179 399 moveto
+5205 399 5253 399 5293 399 curveto
+5293 399 5293 399 6146 399 curveto
+6183 399 6224 399 6251 399 curveto
+stroke
+newpath 6250 397 moveto
+6260 399 lineto
+6250 402 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 408 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	71
+gsave 10 dict begin
+5159 341 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5159 342 moveto (71) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	72
+gsave 10 dict begin
+5293 345 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5293 346 moveto (72) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	71 -> 72
+newpath 5179 342 moveto
+5201 343 5238 344 5264 344 curveto
+stroke
+newpath 5263 342 moveto
+5273 344 lineto
+5263 347 lineto
+closepath
+fill
+gsave 10 dict begin
+5226 354 moveto ('5') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	87
+gsave 10 dict begin
+6146 345 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6146 346 moveto (87) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	72 -> 87
+newpath 5313 345 moveto
+5339 345 5387 345 5427 345 curveto
+5427 345 5427 345 6012 345 curveto
+6049 345 6090 345 6117 345 curveto
+stroke
+newpath 6116 343 moveto
+6126 345 lineto
+6116 348 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 354 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	74
+gsave 10 dict begin
+5226 289 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5226 290 moveto (74) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	75
+gsave 10 dict begin
+5427 292 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5427 293 moveto (75) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	74 -> 75
+newpath 5246 289 moveto
+5282 290 5357 291 5399 292 curveto
+stroke
+newpath 5397 290 moveto
+5407 292 lineto
+5397 295 lineto
+closepath
+fill
+gsave 10 dict begin
+5293 300 moveto ('6') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	86
+gsave 10 dict begin
+6012 292 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6012 293 moveto (86) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	75 -> 86
+newpath 5447 292 moveto
+5472 292 5515 292 5552 292 curveto
+5552 292 5552 292 5878 292 curveto
+5915 292 5956 292 5983 292 curveto
+stroke
+newpath 5982 290 moveto
+5992 292 lineto
+5982 295 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 301 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	77
+gsave 10 dict begin
+5427 234 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5427 235 moveto (77) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	78
+gsave 10 dict begin
+5552 238 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5552 239 moveto (78) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	77 -> 78
+newpath 5447 235 moveto
+5467 236 5499 237 5523 237 curveto
+stroke
+newpath 5522 235 moveto
+5532 237 lineto
+5522 240 lineto
+closepath
+fill
+gsave 10 dict begin
+5494 247 moveto ('7') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	85
+gsave 10 dict begin
+5878 238 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5878 239 moveto (85) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	78 -> 85
+newpath 5572 238 moveto
+5628 238 5784 238 5850 238 curveto
+stroke
+newpath 5848 236 moveto
+5858 238 lineto
+5848 241 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 285 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	80
+gsave 10 dict begin
+5494 182 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5494 183 moveto (80) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	81
+gsave 10 dict begin
+5610 182 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5610 183 moveto (81) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	80 -> 81
+newpath 5514 182 moveto
+5532 182 5560 182 5581 182 curveto
+stroke
+newpath 5580 180 moveto
+5590 182 lineto
+5580 185 lineto
+closepath
+fill
+gsave 10 dict begin
+5552 191 moveto ('8') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	84
+gsave 10 dict begin
+5744 182 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5744 183 moveto (84) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	81 -> 84
+newpath 5630 182 moveto
+5652 182 5689 182 5715 182 curveto
+stroke
+newpath 5714 180 moveto
+5724 182 lineto
+5714 185 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 191 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	82
+gsave 10 dict begin
+5494 124 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5494 125 moveto (82) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	83
+gsave 10 dict begin
+5610 124 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5610 125 moveto (83) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	82 -> 83
+newpath 5514 124 moveto
+5532 124 5560 124 5581 124 curveto
+stroke
+newpath 5580 122 moveto
+5590 124 lineto
+5580 127 lineto
+closepath
+fill
+gsave 10 dict begin
+5552 133 moveto ('9') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	83 -> 84
+newpath 5629 131 moveto
+5649 138 5680 150 5706 162 curveto
+5710 164 5714 166 5717 168 curveto
+stroke
+newpath 5718 166 moveto
+5726 172 lineto
+5716 170 lineto
+closepath
+fill
+gsave 10 dict begin
+5677 171 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	95
+gsave 10 dict begin
+7218 557 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+7218 558 moveto (95) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	96
+gsave 10 dict begin
+7429 557 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+7429 558 moveto (96) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	95 -> 96
+newpath 7238 557 moveto
+7275 557 7357 557 7400 557 curveto
+stroke
+newpath 7399 555 moveto
+7409 557 lineto
+7399 560 lineto
+closepath
+fill
+gsave 10 dict begin
+7285 566 moveto ('0') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	131
+gsave 10 dict begin
+9805 523 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+9805 524 moveto (131) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	96 -> 131
+newpath 7449 557 moveto
+7477 558 7529 558 7573 558 curveto
+7573 558 7573 558 9661 558 curveto
+9701 558 9744 546 9773 535 curveto
+stroke
+newpath 9772 533 moveto
+9782 532 lineto
+9773 538 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 567 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	98
+gsave 10 dict begin
+7357 503 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+7357 504 moveto (98) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	99
+gsave 10 dict begin
+7573 506 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+7573 507 moveto (99) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	98 -> 99
+newpath 7377 503 moveto
+7415 504 7500 505 7544 506 curveto
+stroke
+newpath 7543 504 moveto
+7553 506 lineto
+7543 509 lineto
+closepath
+fill
+gsave 10 dict begin
+7429 514 moveto ('1') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	130
+gsave 10 dict begin
+9661 506 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+9661 507 moveto (130) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	99 -> 130
+newpath 7593 506 moveto
+7621 506 7673 506 7717 506 curveto
+7717 506 7717 506 9517 506 curveto
+9555 506 9598 506 9627 506 curveto
+stroke
+newpath 9626 504 moveto
+9636 506 lineto
+9626 509 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 515 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	101
+gsave 10 dict begin
+7573 444 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7573 445 moveto (101) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	102
+gsave 10 dict begin
+7717 454 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7717 455 moveto (102) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	101 -> 102
+newpath 7598 446 moveto
+7621 448 7657 450 7683 452 curveto
+stroke
+newpath 7682 450 moveto
+7692 452 lineto
+7682 455 lineto
+closepath
+fill
+gsave 10 dict begin
+7645 460 moveto ('2') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	129
+gsave 10 dict begin
+9517 454 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+9517 455 moveto (129) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	102 -> 129
+newpath 7742 454 moveto
+7770 454 7819 454 7861 454 curveto
+7861 454 7861 454 9373 454 curveto
+9411 454 9454 454 9483 454 curveto
+stroke
+newpath 9482 452 moveto
+9492 454 lineto
+9482 457 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 463 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	104
+gsave 10 dict begin
+7645 394 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7645 395 moveto (104) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	105
+gsave 10 dict begin
+7861 402 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7861 403 moveto (105) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	104 -> 105
+newpath 7670 395 moveto
+7709 396 7784 399 7827 401 curveto
+stroke
+newpath 7826 399 moveto
+7836 401 lineto
+7826 404 lineto
+closepath
+fill
+gsave 10 dict begin
+7717 407 moveto ('3') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	128
+gsave 10 dict begin
+9373 402 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+9373 403 moveto (128) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	105 -> 128
+newpath 7886 402 moveto
+7914 402 7963 402 8005 402 curveto
+8005 402 8005 402 9229 402 curveto
+9267 402 9310 402 9339 402 curveto
+stroke
+newpath 9338 400 moveto
+9348 402 lineto
+9338 405 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 411 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	107
+gsave 10 dict begin
+7861 336 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7861 337 moveto (107) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	108
+gsave 10 dict begin
+8005 350 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8005 351 moveto (108) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	107 -> 108
+newpath 7885 338 moveto
+7909 341 7945 344 7972 347 curveto
+stroke
+newpath 7971 344 moveto
+7981 348 lineto
+7971 349 lineto
+closepath
+fill
+gsave 10 dict begin
+7933 355 moveto ('4') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	127
+gsave 10 dict begin
+9229 350 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+9229 351 moveto (127) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	108 -> 127
+newpath 8030 350 moveto
+8058 350 8107 350 8149 350 curveto
+8149 350 8149 350 9085 350 curveto
+9123 350 9166 350 9195 350 curveto
+stroke
+newpath 9194 348 moveto
+9204 350 lineto
+9194 353 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 359 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	110
+gsave 10 dict begin
+7933 290 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7933 291 moveto (110) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	111
+gsave 10 dict begin
+8149 298 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8149 299 moveto (111) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	110 -> 111
+newpath 7958 291 moveto
+7997 292 8072 295 8115 297 curveto
+stroke
+newpath 8114 295 moveto
+8124 297 lineto
+8114 300 lineto
+closepath
+fill
+gsave 10 dict begin
+8005 303 moveto ('5') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	126
+gsave 10 dict begin
+9085 298 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+9085 299 moveto (126) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	111 -> 126
+newpath 8174 298 moveto
+8202 298 8251 298 8293 298 curveto
+8293 298 8293 298 8941 298 curveto
+8979 298 9022 298 9051 298 curveto
+stroke
+newpath 9050 296 moveto
+9060 298 lineto
+9050 301 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 307 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	113
+gsave 10 dict begin
+8149 232 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8149 233 moveto (113) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	114
+gsave 10 dict begin
+8293 246 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8293 247 moveto (114) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	113 -> 114
+newpath 8173 234 moveto
+8197 237 8233 240 8260 243 curveto
+stroke
+newpath 8259 240 moveto
+8269 244 lineto
+8259 245 lineto
+closepath
+fill
+gsave 10 dict begin
+8221 251 moveto ('6') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	125
+gsave 10 dict begin
+8941 246 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8941 247 moveto (125) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	114 -> 125
+newpath 8318 246 moveto
+8346 246 8395 246 8437 246 curveto
+8437 246 8437 246 8797 246 curveto
+8835 246 8878 246 8907 246 curveto
+stroke
+newpath 8906 244 moveto
+8916 246 lineto
+8906 249 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 255 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	116
+gsave 10 dict begin
+8221 186 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8221 187 moveto (116) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	117
+gsave 10 dict begin
+8437 194 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8437 195 moveto (117) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	116 -> 117
+newpath 8246 187 moveto
+8285 188 8360 191 8403 193 curveto
+stroke
+newpath 8402 191 moveto
+8412 193 lineto
+8402 196 lineto
+closepath
+fill
+gsave 10 dict begin
+8293 199 moveto ('7') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	124
+gsave 10 dict begin
+8797 194 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8797 195 moveto (124) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	117 -> 124
+newpath 8462 194 moveto
+8524 194 8690 194 8763 194 curveto
+stroke
+newpath 8762 192 moveto
+8772 194 lineto
+8762 197 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 230 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	119
+gsave 10 dict begin
+8365 136 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8365 137 moveto (119) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	120
+gsave 10 dict begin
+8509 136 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8509 137 moveto (120) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	119 -> 120
+newpath 8390 136 moveto
+8413 136 8449 136 8475 136 curveto
+stroke
+newpath 8474 134 moveto
+8484 136 lineto
+8474 139 lineto
+closepath
+fill
+gsave 10 dict begin
+8437 145 moveto ('8') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	123
+gsave 10 dict begin
+8653 136 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8653 137 moveto (123) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	120 -> 123
+newpath 8534 136 moveto
+8557 136 8593 136 8619 136 curveto
+stroke
+newpath 8618 134 moveto
+8628 136 lineto
+8618 139 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 145 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	121
+gsave 10 dict begin
+8365 70 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8365 71 moveto (121) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	122
+gsave 10 dict begin
+8509 70 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8509 71 moveto (122) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	121 -> 122
+newpath 8390 70 moveto
+8413 70 8449 70 8475 70 curveto
+stroke
+newpath 8474 68 moveto
+8484 70 lineto
+8474 73 lineto
+closepath
+fill
+gsave 10 dict begin
+8437 79 moveto ('9') 16 14.00 -0.50 alignedtext
+end grestore
+
+%	122 -> 123
+newpath 8531 80 moveto
+8552 90 8583 104 8610 116 curveto
+8614 118 8618 119 8622 121 curveto
+stroke
+newpath 8623 119 moveto
+8631 125 lineto
+8621 123 lineto
+closepath
+fill
+gsave 10 dict begin
+8581 125 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	2 -> 3
+newpath 172 614 moveto
+178 617 185 621 192 624 curveto
+215 634 242 643 262 650 curveto
+stroke
+newpath 260 647 moveto
+269 652 lineto
+259 652 lineto
+closepath
+fill
+gsave 10 dict begin
+221 653 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	2 -> 5
+newpath 174 606 moveto
+196 605 234 605 259 604 curveto
+stroke
+newpath 258 602 moveto
+268 604 lineto
+258 607 lineto
+closepath
+fill
+gsave 10 dict begin
+221 613 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	9
+gsave 10 dict begin
+672 576 18 18 ellipse_path
+stroke
+gsave 10 dict begin
+672 577 moveto (9) 7 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	8 -> 9
+newpath 239 552 moveto
+262 552 303 552 338 552 curveto
+338 552 338 552 542 552 curveto
+579 552 621 562 647 569 curveto
+stroke
+newpath 646 566 moveto
+655 571 lineto
+645 571 lineto
+closepath
+fill
+gsave 10 dict begin
+401 561 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	7 -> 9
+newpath 560 600 moveto
+582 595 620 587 646 582 curveto
+stroke
+newpath 644 580 moveto
+654 580 lineto
+645 585 lineto
+closepath
+fill
+gsave 10 dict begin
+607 604 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	10
+gsave 10 dict begin
+804 576 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+804 577 moveto (10) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	9 -> 10
+newpath 690 576 moveto
+711 576 749 576 775 576 curveto
+stroke
+newpath 774 574 moveto
+784 576 lineto
+774 579 lineto
+closepath
+fill
+gsave 10 dict begin
+737 585 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	11
+gsave 10 dict begin
+938 705 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+938 706 moveto (11) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	10 -> 11
+newpath 819 590 moveto
+842 612 891 659 918 686 curveto
+stroke
+newpath 918 682 moveto
+923 691 lineto
+914 686 lineto
+closepath
+fill
+gsave 10 dict begin
+871 675 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	49
+gsave 10 dict begin
+3618 583 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3618 584 moveto (49) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	10 -> 49
+newpath 823 571 moveto
+849 564 897 553 938 553 curveto
+938 553 938 553 3484 553 curveto
+3522 553 3564 564 3591 573 curveto
+stroke
+newpath 3591 570 moveto
+3599 576 lineto
+3589 575 lineto
+closepath
+fill
+gsave 10 dict begin
+2211 562 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	11 -> 12
+newpath 939 725 moveto
+942 762 950 844 976 908 curveto
+996 955 1032 1001 1054 1028 curveto
+stroke
+newpath 1054 1024 moveto
+1058 1033 lineto
+1050 1027 lineto
+closepath
+fill
+gsave 10 dict begin
+1005 1009 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	14
+gsave 10 dict begin
+1072 967 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1072 968 moveto (14) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	11 -> 14
+newpath 947 723 moveto
+970 769 1032 890 1059 942 curveto
+stroke
+newpath 1060 939 moveto
+1063 949 lineto
+1056 942 lineto
+closepath
+fill
+gsave 10 dict begin
+1005 897 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	50
+gsave 10 dict begin
+3752 583 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3752 584 moveto (50) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	49 -> 50
+newpath 3638 583 moveto
+3660 583 3697 583 3723 583 curveto
+stroke
+newpath 3722 581 moveto
+3732 583 lineto
+3722 586 lineto
+closepath
+fill
+gsave 10 dict begin
+3685 592 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	14 -> 15
+newpath 1090 976 moveto
+1096 980 1103 983 1110 987 curveto
+1159 1011 1217 1039 1249 1054 curveto
+stroke
+newpath 1247 1050 moveto
+1255 1057 lineto
+1245 1055 lineto
+closepath
+fill
+gsave 10 dict begin
+1139 1023 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	17
+gsave 10 dict begin
+1206 967 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1206 968 moveto (17) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	14 -> 17
+newpath 1092 967 moveto
+1114 967 1151 967 1177 967 curveto
+stroke
+newpath 1176 965 moveto
+1186 967 lineto
+1176 970 lineto
+closepath
+fill
+gsave 10 dict begin
+1139 976 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	48 -> 11
+newpath 954 682 moveto
+976 653 1021 604 1072 605 curveto
+1072 605 1072 605 3350 605 curveto
+3392 604 3439 615 3465 622 curveto
+stroke
+newpath 957 682 moveto
+949 688 lineto
+953 679 lineto
+closepath
+fill
+gsave 10 dict begin
+2211 614 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	48 -> 49
+newpath 3503 622 moveto
+3525 614 3564 601 3591 592 curveto
+stroke
+newpath 3589 590 moveto
+3599 589 lineto
+3591 595 lineto
+closepath
+fill
+gsave 10 dict begin
+3551 622 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	17 -> 18
+newpath 1225 975 moveto
+1231 977 1238 980 1244 983 curveto
+1268 992 1294 1001 1314 1008 curveto
+stroke
+newpath 1312 1005 moveto
+1321 1010 lineto
+1311 1010 lineto
+closepath
+fill
+gsave 10 dict begin
+1273 1011 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	20
+gsave 10 dict begin
+1340 959 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1340 960 moveto (20) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	17 -> 20
+newpath 1226 966 moveto
+1248 965 1285 963 1311 961 curveto
+stroke
+newpath 1310 959 moveto
+1320 960 lineto
+1310 964 lineto
+closepath
+fill
+gsave 10 dict begin
+1273 972 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	47 -> 48
+newpath 3357 976 moveto
+3379 916 3448 728 3474 656 curveto
+stroke
+newpath 3471 656 moveto
+3477 647 lineto
+3476 657 lineto
+closepath
+fill
+gsave 10 dict begin
+3417 894 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	20 -> 21
+newpath 1360 959 moveto
+1396 960 1471 962 1513 963 curveto
+stroke
+newpath 1511 961 moveto
+1521 963 lineto
+1511 966 lineto
+closepath
+fill
+gsave 10 dict begin
+1407 977 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	23
+gsave 10 dict begin
+1474 909 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1474 910 moveto (23) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	20 -> 23
+newpath 1353 943 moveto
+1360 936 1369 928 1378 924 curveto
+1399 914 1426 910 1446 909 curveto
+stroke
+newpath 1444 907 moveto
+1454 909 lineto
+1444 912 lineto
+closepath
+fill
+gsave 10 dict begin
+1407 933 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	46 -> 47
+newpath 3236 995 moveto
+3258 995 3295 995 3321 995 curveto
+stroke
+newpath 3320 993 moveto
+3330 995 lineto
+3320 998 lineto
+closepath
+fill
+gsave 10 dict begin
+3283 1004 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	23 -> 24
+newpath 1494 910 moveto
+1516 911 1553 912 1579 912 curveto
+stroke
+newpath 1578 910 moveto
+1588 912 lineto
+1578 915 lineto
+closepath
+fill
+gsave 10 dict begin
+1541 920 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	26
+gsave 10 dict begin
+1608 855 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1608 856 moveto (26) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	23 -> 26
+newpath 1491 899 moveto
+1498 896 1505 892 1512 889 curveto
+1535 878 1562 869 1581 863 curveto
+stroke
+newpath 1579 861 moveto
+1589 861 lineto
+1580 866 lineto
+closepath
+fill
+gsave 10 dict begin
+1541 898 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	45 -> 46
+newpath 3102 973 moveto
+3124 977 3162 984 3188 989 curveto
+stroke
+newpath 3187 986 moveto
+3196 991 lineto
+3186 991 lineto
+closepath
+fill
+gsave 10 dict begin
+3149 995 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	26 -> 27
+newpath 1628 855 moveto
+1664 856 1739 858 1781 859 curveto
+stroke
+newpath 1779 857 moveto
+1789 859 lineto
+1779 862 lineto
+closepath
+fill
+gsave 10 dict begin
+1675 892 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	29
+gsave 10 dict begin
+1742 805 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1742 806 moveto (29) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	26 -> 29
+newpath 1621 839 moveto
+1628 832 1637 824 1646 820 curveto
+1667 810 1694 806 1714 805 curveto
+stroke
+newpath 1712 803 moveto
+1722 805 lineto
+1712 808 lineto
+closepath
+fill
+gsave 10 dict begin
+1675 829 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	44 -> 45
+newpath 2968 919 moveto
+2988 922 3020 927 3044 939 curveto
+3050 942 3055 945 3060 949 curveto
+stroke
+newpath 3062 947 moveto
+3068 955 lineto
+3059 951 lineto
+closepath
+fill
+gsave 10 dict begin
+3015 948 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	29 -> 30
+newpath 1762 806 moveto
+1784 807 1821 808 1847 808 curveto
+stroke
+newpath 1846 806 moveto
+1856 808 lineto
+1846 811 lineto
+closepath
+fill
+gsave 10 dict begin
+1809 816 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	32
+gsave 10 dict begin
+1876 751 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+1876 752 moveto (32) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	29 -> 32
+newpath 1759 795 moveto
+1766 792 1773 788 1780 785 curveto
+1803 774 1830 765 1849 759 curveto
+stroke
+newpath 1847 757 moveto
+1857 757 lineto
+1848 762 lineto
+closepath
+fill
+gsave 10 dict begin
+1809 794 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	43 -> 44
+newpath 2834 867 moveto
+2854 870 2886 875 2910 887 curveto
+2916 890 2921 893 2926 897 curveto
+stroke
+newpath 2928 895 moveto
+2934 903 lineto
+2925 899 lineto
+closepath
+fill
+gsave 10 dict begin
+2881 896 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	32 -> 33
+newpath 1896 752 moveto
+1932 754 2007 757 2049 758 curveto
+stroke
+newpath 2047 756 moveto
+2057 758 lineto
+2047 761 lineto
+closepath
+fill
+gsave 10 dict begin
+1943 800 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	35
+gsave 10 dict begin
+2010 705 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+2010 706 moveto (35) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	32 -> 35
+newpath 1890 737 moveto
+1897 731 1906 725 1914 721 curveto
+1936 711 1962 707 1982 706 curveto
+stroke
+newpath 1980 704 moveto
+1990 705 lineto
+1980 709 lineto
+closepath
+fill
+gsave 10 dict begin
+1943 730 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	42 -> 43
+newpath 2700 815 moveto
+2720 818 2752 823 2776 835 curveto
+2782 838 2787 841 2792 845 curveto
+stroke
+newpath 2794 843 moveto
+2800 851 lineto
+2791 847 lineto
+closepath
+fill
+gsave 10 dict begin
+2747 844 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	35 -> 36
+newpath 2030 706 moveto
+2052 707 2089 709 2115 710 curveto
+stroke
+newpath 2114 708 moveto
+2124 710 lineto
+2114 713 lineto
+closepath
+fill
+gsave 10 dict begin
+2077 716 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	35 -> 38
+newpath 2028 695 moveto
+2034 692 2041 689 2048 686 curveto
+2071 676 2097 667 2117 661 curveto
+stroke
+newpath 2115 659 moveto
+2125 659 lineto
+2116 664 lineto
+closepath
+fill
+gsave 10 dict begin
+2077 695 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	41 -> 42
+newpath 2566 763 moveto
+2586 766 2618 771 2642 783 curveto
+2648 786 2653 789 2658 793 curveto
+stroke
+newpath 2660 791 moveto
+2666 799 lineto
+2657 795 lineto
+closepath
+fill
+gsave 10 dict begin
+2613 792 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	40 -> 41
+newpath 2432 711 moveto
+2452 714 2484 719 2508 731 curveto
+2514 734 2519 737 2524 741 curveto
+stroke
+newpath 2526 739 moveto
+2532 747 lineto
+2523 743 lineto
+closepath
+fill
+gsave 10 dict begin
+2479 740 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	50 -> 51
+newpath 3772 587 moveto
+3794 591 3832 600 3858 606 curveto
+stroke
+newpath 3857 603 moveto
+3866 608 lineto
+3856 608 lineto
+closepath
+fill
+gsave 10 dict begin
+3819 611 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	53
+gsave 10 dict begin
+3944 557 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+3944 558 moveto (53) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	50 -> 53
+newpath 3771 575 moveto
+3777 573 3784 571 3790 570 curveto
+3833 561 3884 558 3914 557 curveto
+stroke
+newpath 3914 555 moveto
+3924 557 lineto
+3914 560 lineto
+closepath
+fill
+gsave 10 dict begin
+3819 579 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	53 -> 54
+newpath 3964 559 moveto
+3984 560 4014 563 4040 567 curveto
+4070 571 4103 575 4126 579 curveto
+stroke
+newpath 4124 576 moveto
+4134 580 lineto
+4124 581 lineto
+closepath
+fill
+gsave 10 dict begin
+4011 576 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	55
+gsave 10 dict begin
+4288 583 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4288 584 moveto (55) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	54 -> 55
+newpath 4174 583 moveto
+4196 583 4233 583 4259 583 curveto
+stroke
+newpath 4258 581 moveto
+4268 583 lineto
+4258 586 lineto
+closepath
+fill
+gsave 10 dict begin
+4221 592 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	55 -> 56
+newpath 4307 589 moveto
+4313 590 4320 592 4326 594 curveto
+4350 599 4375 604 4394 608 curveto
+stroke
+newpath 4393 605 moveto
+4402 610 lineto
+4392 610 lineto
+closepath
+fill
+gsave 10 dict begin
+4355 614 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	58
+gsave 10 dict begin
+4422 556 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4422 557 moveto (58) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	55 -> 58
+newpath 4308 578 moveto
+4314 577 4320 575 4326 574 curveto
+4350 569 4375 564 4394 560 curveto
+stroke
+newpath 4392 558 moveto
+4402 559 lineto
+4392 563 lineto
+closepath
+fill
+gsave 10 dict begin
+4355 583 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	58 -> 59
+newpath 4442 556 moveto
+4478 556 4553 556 4595 556 curveto
+stroke
+newpath 4593 554 moveto
+4603 556 lineto
+4593 559 lineto
+closepath
+fill
+gsave 10 dict begin
+4489 580 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	61
+gsave 10 dict begin
+4556 502 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4556 503 moveto (61) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	58 -> 61
+newpath 4434 540 moveto
+4441 532 4450 523 4460 518 curveto
+4481 508 4508 504 4528 502 curveto
+stroke
+newpath 4526 500 moveto
+4536 502 lineto
+4526 505 lineto
+closepath
+fill
+gsave 10 dict begin
+4489 530 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	93
+gsave 10 dict begin
+6950 588 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+6950 589 moveto (93) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	92 -> 93
+newpath 6836 588 moveto
+6858 588 6895 588 6921 588 curveto
+stroke
+newpath 6920 586 moveto
+6930 588 lineto
+6920 591 lineto
+closepath
+fill
+gsave 10 dict begin
+6883 597 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	61 -> 62
+newpath 4576 502 moveto
+4598 502 4635 502 4661 503 curveto
+stroke
+newpath 4660 501 moveto
+4670 503 lineto
+4660 506 lineto
+closepath
+fill
+gsave 10 dict begin
+4623 512 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	64
+gsave 10 dict begin
+4690 445 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4690 446 moveto (64) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	61 -> 64
+newpath 4574 493 moveto
+4580 490 4587 486 4594 483 curveto
+4617 473 4644 463 4664 455 curveto
+stroke
+newpath 4661 454 moveto
+4671 452 lineto
+4663 458 lineto
+closepath
+fill
+gsave 10 dict begin
+4623 495 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	91 -> 92
+newpath 6702 563 moveto
+6724 567 6762 576 6788 582 curveto
+stroke
+newpath 6787 579 moveto
+6796 584 lineto
+6786 584 lineto
+closepath
+fill
+gsave 10 dict begin
+6749 587 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	64 -> 65
+newpath 4710 445 moveto
+4746 446 4821 447 4863 448 curveto
+stroke
+newpath 4861 446 moveto
+4871 448 lineto
+4861 451 lineto
+closepath
+fill
+gsave 10 dict begin
+4757 479 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	67
+gsave 10 dict begin
+4824 394 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4824 395 moveto (67) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	64 -> 67
+newpath 4703 429 moveto
+4710 422 4719 414 4728 409 curveto
+4749 399 4776 395 4796 394 curveto
+stroke
+newpath 4794 392 moveto
+4804 394 lineto
+4794 397 lineto
+closepath
+fill
+gsave 10 dict begin
+4757 421 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	90 -> 91
+newpath 6568 508 moveto
+6588 511 6620 517 6644 529 curveto
+6650 532 6655 535 6660 539 curveto
+stroke
+newpath 6661 537 moveto
+6667 545 lineto
+6658 540 lineto
+closepath
+fill
+gsave 10 dict begin
+6615 538 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	67 -> 68
+newpath 4844 394 moveto
+4866 395 4903 395 4929 396 curveto
+stroke
+newpath 4928 394 moveto
+4938 396 lineto
+4928 399 lineto
+closepath
+fill
+gsave 10 dict begin
+4891 405 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	70
+gsave 10 dict begin
+4958 338 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+4958 339 moveto (70) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	67 -> 70
+newpath 4842 385 moveto
+4848 382 4855 379 4862 376 curveto
+4886 366 4913 356 4932 348 curveto
+stroke
+newpath 4929 347 moveto
+4939 345 lineto
+4931 351 lineto
+closepath
+fill
+gsave 10 dict begin
+4891 388 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	89 -> 90
+newpath 6434 455 moveto
+6454 458 6486 464 6510 476 curveto
+6516 479 6521 482 6526 486 curveto
+stroke
+newpath 6527 484 moveto
+6533 492 lineto
+6524 487 lineto
+closepath
+fill
+gsave 10 dict begin
+6481 485 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	70 -> 71
+newpath 4978 338 moveto
+5014 339 5089 340 5131 341 curveto
+stroke
+newpath 5129 339 moveto
+5139 341 lineto
+5129 344 lineto
+closepath
+fill
+gsave 10 dict begin
+5025 377 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	73
+gsave 10 dict begin
+5092 287 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5092 288 moveto (73) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	70 -> 73
+newpath 4971 323 moveto
+4978 316 4987 308 4996 303 curveto
+5017 293 5044 289 5064 288 curveto
+stroke
+newpath 5062 286 moveto
+5072 287 lineto
+5062 291 lineto
+closepath
+fill
+gsave 10 dict begin
+5025 315 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	88 -> 89
+newpath 6300 401 moveto
+6320 404 6352 410 6376 422 curveto
+6382 425 6387 428 6392 432 curveto
+stroke
+newpath 6393 430 moveto
+6399 438 lineto
+6390 433 lineto
+closepath
+fill
+gsave 10 dict begin
+6347 431 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	73 -> 74
+newpath 5112 287 moveto
+5134 288 5171 288 5197 289 curveto
+stroke
+newpath 5196 287 moveto
+5206 289 lineto
+5196 292 lineto
+closepath
+fill
+gsave 10 dict begin
+5159 298 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	76
+gsave 10 dict begin
+5226 231 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5226 232 moveto (76) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	73 -> 76
+newpath 5110 278 moveto
+5116 275 5123 272 5130 269 curveto
+5154 259 5181 249 5200 241 curveto
+stroke
+newpath 5197 240 moveto
+5207 238 lineto
+5199 244 lineto
+closepath
+fill
+gsave 10 dict begin
+5159 281 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	87 -> 88
+newpath 6166 348 moveto
+6186 351 6218 357 6242 369 curveto
+6248 372 6253 375 6258 379 curveto
+stroke
+newpath 6259 377 moveto
+6265 385 lineto
+6256 380 lineto
+closepath
+fill
+gsave 10 dict begin
+6213 378 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	76 -> 77
+newpath 5246 231 moveto
+5282 232 5357 233 5399 234 curveto
+stroke
+newpath 5397 232 moveto
+5407 234 lineto
+5397 237 lineto
+closepath
+fill
+gsave 10 dict begin
+5293 242 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	79
+gsave 10 dict begin
+5360 180 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+5360 181 moveto (79) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	76 -> 79
+newpath 5239 216 moveto
+5246 209 5255 201 5264 196 curveto
+5285 186 5312 182 5332 181 curveto
+stroke
+newpath 5330 179 moveto
+5340 180 lineto
+5330 184 lineto
+closepath
+fill
+gsave 10 dict begin
+5293 208 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	86 -> 87
+newpath 6032 294 moveto
+6052 297 6084 303 6108 315 curveto
+6114 318 6119 321 6124 325 curveto
+stroke
+newpath 6125 323 moveto
+6131 331 lineto
+6122 326 lineto
+closepath
+fill
+gsave 10 dict begin
+6079 324 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	79 -> 80
+newpath 5380 180 moveto
+5402 181 5439 181 5465 182 curveto
+stroke
+newpath 5464 180 moveto
+5474 182 lineto
+5464 185 lineto
+closepath
+fill
+gsave 10 dict begin
+5427 191 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	79 -> 82
+newpath 5378 171 moveto
+5384 168 5391 165 5398 162 curveto
+5422 152 5449 142 5468 134 curveto
+stroke
+newpath 5465 133 moveto
+5475 131 lineto
+5467 137 lineto
+closepath
+fill
+gsave 10 dict begin
+5427 174 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	85 -> 86
+newpath 5898 241 moveto
+5918 244 5950 250 5974 262 curveto
+5980 265 5985 268 5990 272 curveto
+stroke
+newpath 5991 270 moveto
+5997 278 lineto
+5988 273 lineto
+closepath
+fill
+gsave 10 dict begin
+5945 271 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	84 -> 85
+newpath 5764 185 moveto
+5784 189 5816 196 5840 208 curveto
+5846 211 5851 214 5856 218 curveto
+stroke
+newpath 5857 216 moveto
+5863 224 lineto
+5854 219 lineto
+closepath
+fill
+gsave 10 dict begin
+5811 217 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	93 -> 132
+newpath 6970 592 moveto
+6996 597 7043 604 7084 605 curveto
+7084 605 7084 605 9805 605 curveto
+9844 604 9886 598 9916 591 curveto
+stroke
+newpath 9915 589 moveto
+9925 589 lineto
+9916 594 lineto
+closepath
+fill
+gsave 10 dict begin
+8437 614 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	94
+gsave 10 dict begin
+7084 513 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+7084 514 moveto (94) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	93 -> 94
+newpath 6968 578 moveto
+6990 565 7032 542 7059 528 curveto
+stroke
+newpath 7057 526 moveto
+7067 523 lineto
+7060 530 lineto
+closepath
+fill
+gsave 10 dict begin
+7017 574 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	94 -> 95
+newpath 7102 522 moveto
+7108 525 7115 528 7122 530 curveto
+7145 539 7171 546 7190 551 curveto
+stroke
+newpath 7189 548 moveto
+7198 553 lineto
+7188 553 lineto
+closepath
+fill
+gsave 10 dict begin
+7151 558 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	97
+gsave 10 dict begin
+7218 499 20 20 ellipse_path
+stroke
+gsave 10 dict begin
+7218 500 moveto (97) 14 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	94 -> 97
+newpath 7104 511 moveto
+7126 508 7163 505 7189 502 curveto
+stroke
+newpath 7188 500 moveto
+7198 501 lineto
+7188 505 lineto
+closepath
+fill
+gsave 10 dict begin
+7151 519 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	97 -> 98
+newpath 7238 500 moveto
+7262 501 7301 502 7328 502 curveto
+stroke
+newpath 7327 500 moveto
+7337 502 lineto
+7327 505 lineto
+closepath
+fill
+gsave 10 dict begin
+7285 512 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	100
+gsave 10 dict begin
+7357 441 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7357 442 moveto (100) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	97 -> 100
+newpath 7236 490 moveto
+7242 487 7249 484 7256 481 curveto
+7280 471 7306 461 7326 453 curveto
+stroke
+newpath 7324 451 moveto
+7334 450 lineto
+7326 456 lineto
+closepath
+fill
+gsave 10 dict begin
+7285 493 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	131 -> 132
+newpath 9828 532 moveto
+9851 542 9889 557 9918 569 curveto
+stroke
+newpath 9918 566 moveto
+9927 572 lineto
+9917 571 lineto
+closepath
+fill
+gsave 10 dict begin
+9877 572 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	131 -> 94
+newpath 7086 484 moveto
+7092 378 7122 18 7218 18 curveto
+7218 18 7218 18 9661 18 curveto
+9763 18 9796 399 9803 499 curveto
+stroke
+newpath 7089 483 moveto
+7085 493 lineto
+7084 483 lineto
+closepath
+fill
+gsave 10 dict begin
+8437 27 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	100 -> 101
+newpath 7382 441 moveto
+7421 442 7496 443 7539 444 curveto
+stroke
+newpath 7538 442 moveto
+7548 444 lineto
+7538 447 lineto
+closepath
+fill
+gsave 10 dict begin
+7429 465 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	103
+gsave 10 dict begin
+7501 386 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7501 387 moveto (103) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	100 -> 103
+newpath 7374 423 moveto
+7382 417 7391 410 7400 405 curveto
+7422 395 7447 390 7468 388 curveto
+stroke
+newpath 7466 386 moveto
+7476 387 lineto
+7466 391 lineto
+closepath
+fill
+gsave 10 dict begin
+7429 417 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	130 -> 131
+newpath 9685 509 moveto
+9709 512 9745 516 9772 519 curveto
+stroke
+newpath 9771 516 moveto
+9781 520 lineto
+9771 521 lineto
+closepath
+fill
+gsave 10 dict begin
+9733 527 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	103 -> 104
+newpath 7526 387 moveto
+7549 389 7585 391 7611 392 curveto
+stroke
+newpath 7610 389 moveto
+7620 393 lineto
+7610 394 lineto
+closepath
+fill
+gsave 10 dict begin
+7573 401 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	106
+gsave 10 dict begin
+7645 328 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7645 329 moveto (106) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	103 -> 106
+newpath 7524 377 moveto
+7548 367 7586 352 7613 340 curveto
+stroke
+newpath 7612 338 moveto
+7622 337 lineto
+7613 343 lineto
+closepath
+fill
+gsave 10 dict begin
+7573 379 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	129 -> 130
+newpath 9542 457 moveto
+9563 460 9593 465 9618 476 curveto
+9624 479 9629 482 9634 485 curveto
+stroke
+newpath 9636 483 moveto
+9642 491 lineto
+9633 487 lineto
+closepath
+fill
+gsave 10 dict begin
+9589 485 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	106 -> 107
+newpath 7670 329 moveto
+7709 330 7784 333 7827 335 curveto
+stroke
+newpath 7826 333 moveto
+7836 335 lineto
+7826 338 lineto
+closepath
+fill
+gsave 10 dict begin
+7717 360 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	109
+gsave 10 dict begin
+7789 278 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7789 279 moveto (109) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	106 -> 109
+newpath 7664 312 moveto
+7671 307 7680 301 7688 297 curveto
+7710 287 7735 283 7756 281 curveto
+stroke
+newpath 7754 279 moveto
+7764 280 lineto
+7754 284 lineto
+closepath
+fill
+gsave 10 dict begin
+7717 309 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	128 -> 129
+newpath 9398 405 moveto
+9419 408 9449 413 9474 424 curveto
+9480 427 9485 430 9490 433 curveto
+stroke
+newpath 9492 431 moveto
+9498 439 lineto
+9489 435 lineto
+closepath
+fill
+gsave 10 dict begin
+9445 433 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	109 -> 110
+newpath 7813 280 moveto
+7837 282 7873 285 7900 287 curveto
+stroke
+newpath 7899 284 moveto
+7909 288 lineto
+7899 289 lineto
+closepath
+fill
+gsave 10 dict begin
+7861 296 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	112
+gsave 10 dict begin
+7933 224 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+7933 225 moveto (112) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	109 -> 112
+newpath 7812 269 moveto
+7836 260 7874 246 7901 236 curveto
+stroke
+newpath 7900 234 moveto
+7910 233 lineto
+7901 239 lineto
+closepath
+fill
+gsave 10 dict begin
+7861 272 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	127 -> 128
+newpath 9254 353 moveto
+9275 356 9305 361 9330 372 curveto
+9336 375 9341 378 9346 381 curveto
+stroke
+newpath 9348 379 moveto
+9354 387 lineto
+9345 383 lineto
+closepath
+fill
+gsave 10 dict begin
+9301 381 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	112 -> 113
+newpath 7958 225 moveto
+7997 226 8072 229 8115 231 curveto
+stroke
+newpath 8114 229 moveto
+8124 231 lineto
+8114 234 lineto
+closepath
+fill
+gsave 10 dict begin
+8005 256 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	115
+gsave 10 dict begin
+8077 174 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8077 175 moveto (115) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	112 -> 115
+newpath 7951 207 moveto
+7958 201 7967 195 7976 191 curveto
+7998 181 8023 177 8044 176 curveto
+stroke
+newpath 8042 174 moveto
+8052 175 lineto
+8042 179 lineto
+closepath
+fill
+gsave 10 dict begin
+8005 203 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	126 -> 127
+newpath 9110 301 moveto
+9131 304 9161 309 9186 320 curveto
+9192 323 9197 326 9202 329 curveto
+stroke
+newpath 9204 327 moveto
+9210 335 lineto
+9201 331 lineto
+closepath
+fill
+gsave 10 dict begin
+9157 329 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	115 -> 116
+newpath 8101 176 moveto
+8125 178 8161 181 8188 183 curveto
+stroke
+newpath 8187 180 moveto
+8197 184 lineto
+8187 185 lineto
+closepath
+fill
+gsave 10 dict begin
+8149 192 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	118
+gsave 10 dict begin
+8221 120 24 24 ellipse_path
+stroke
+gsave 10 dict begin
+8221 121 moveto (118) 21 14.00 -0.50 alignedtext
+end grestore
+end grestore
+
+%	115 -> 118
+newpath 8100 165 moveto
+8124 156 8162 142 8189 132 curveto
+stroke
+newpath 8188 130 moveto
+8198 129 lineto
+8189 135 lineto
+closepath
+fill
+gsave 10 dict begin
+8149 168 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	125 -> 126
+newpath 8966 249 moveto
+8987 252 9017 257 9042 268 curveto
+9048 271 9053 274 9058 277 curveto
+stroke
+newpath 9060 275 moveto
+9066 283 lineto
+9057 279 lineto
+closepath
+fill
+gsave 10 dict begin
+9013 277 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	118 -> 119
+newpath 8245 123 moveto
+8269 126 8305 129 8332 132 curveto
+stroke
+newpath 8331 129 moveto
+8341 133 lineto
+8331 134 lineto
+closepath
+fill
+gsave 10 dict begin
+8293 141 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	118 -> 121
+newpath 8244 112 moveto
+8268 104 8306 91 8333 81 curveto
+stroke
+newpath 8331 79 moveto
+8341 78 lineto
+8333 84 lineto
+closepath
+fill
+gsave 10 dict begin
+8293 115 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	124 -> 125
+newpath 8822 197 moveto
+8843 200 8873 205 8898 216 curveto
+8904 219 8909 222 8914 225 curveto
+stroke
+newpath 8916 223 moveto
+8922 231 lineto
+8913 227 lineto
+closepath
+fill
+gsave 10 dict begin
+8869 225 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+
+%	123 -> 124
+newpath 8677 141 moveto
+8698 145 8729 153 8754 164 curveto
+8760 167 8765 170 8770 173 curveto
+stroke
+newpath 8772 171 moveto
+8778 179 lineto
+8769 175 lineto
+closepath
+fill
+gsave 10 dict begin
+8725 173 moveto (Epsilon) 42 14.00 -0.50 alignedtext
+end grestore
+endpage
+grestore
+%%PageTrailer
+%%EndPage: 1
+%%Trailer
+%%Pages: 1
+end
+restore
+%%EOF

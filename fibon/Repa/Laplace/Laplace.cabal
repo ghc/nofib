@@ -1,0 +1,46 @@
+Name:                Laplace
+Version:             1.1.1.0
+License:             BSD3
+Author:              The DPH Team
+Maintainer:          Ben Lippmeier <benl@ouroborus.net>
+Build-Type:          Simple
+Cabal-Version:       >=1.6
+Stability:           experimental
+Category:            Data Structures
+Homepage:            http://trac.haskell.org/repa
+Bug-reports:         http://trac.haskell.org/repa/newticket
+Description:
+        Examples using the Repa array library.
+
+Synopsis:
+        Examples using the Repa array library.
+
+Executable repa-laplace
+  Build-depends: 
+        base                 == 4.*,
+        dph-prim-par,
+        dph-base,
+        -- for reap-io
+        bytestring,
+        binary,
+        old-time,
+        -- for QuickCheck
+        random,
+        ghc,
+        mtl,
+        extensible-exceptions,
+        -- for repa
+        dph-prim-seq
+
+
+  Main-is: src/Laplace/src/Main.hs
+  hs-source-dirs: . 
+                  ../_RepaLib/repa 
+                  ../_RepaLib/repa-algorithms 
+                  ../_RepaLib/repa-io 
+                  ../_RepaLib/bmp 
+                  ../_RepaLib/repa-bytestring 
+                  ../_RepaLib/quickcheck 
+                  src/Laplace/src
+
+

@@ -1,0 +1,62 @@
+Graph instances are in DIMACS format and taken from:
+  http://mat.gsia.cmu.edu/COLOR/instances.html
+
+Instance Notes:
+DSJ: (From David Johnson (dsj@research.att.com)) Random graphs used
+in his paper with Aragon, McGeoch, and Schevon, ``Optimization by
+Simulated Annelaing: An Experimental Evaluation; Part II, Graph
+Coloring and Number Partitioning'', Operations Research, 31,
+378--406 (1991). DSJC are standard (n,p) random graphs. DSJR are
+geometric graphs, with DSJR..c being complements of geometric
+graphs.
+CUL: (From Joe Culberson (joe@cs.ualberta.ca)) Quasi-random coloring
+problem.
+REG: (From Gary Lewandowski (gary@cs.wisc.edu)) Problem based on
+register allocation for variables in real codes.
+LEI: (From Craig Morgenstern (morgenst@riogrande.cs.tcu.edu))
+Leighton graphs with guaranteed coloring size. A reference is F.T.
+Leighton, Journal of Research of the National Bureau of Standards,
+84: 489--505 (1979).
+SCH: (From Gary Lewandowski (lewandow@cs.wisc.edu))Class scheduling
+graphs, with and without study halls.
+LAT: (From Gary Lewandowski (lewandow@cs.wisc.edu)) Latin square
+problem.
+SGB: (From Michael Trick (trick@cmu.edu)) Graphs from Donald Knuth's
+Stanford GraphBase. These can be divided into:
+  Book Graphs. 
+  Given a work of literature, a graph is created where
+  each node represents a character. Two nodes are connected by an edge
+  if the corresponding characters encounter each other in the book.
+    Knuth creates the graphs for five classic works: Tolstoy's Anna
+    Karenina (anna), Dicken's David Copperfield (david), Homer's Iliad
+    (homer), Twain's Huckleberry Finn (huck), and Hugo's Les
+    Mis\'erables (jean).
+  Game Graphs. 
+  A graph representing the games played in a college
+  football season can be represented by a graph where the nodes
+  represent each college team. Two teams are connected by an edge if
+  they played each other during the season. Knuth gives the graph for
+  the 1990 college football season.
+  Miles Graphs. 
+  These graphs are similar to geometric graphs in that
+  nodes are placed in space with two nodes connected if they are close
+  enough. These graphs, however, are not random. The nodes represent a
+  set of United States cities and the distance between them is given
+  by by road mileage from 1947. These graphs are also due to Kuth.
+  Queen Graphs. 
+  Given an n by n chessboard, a queen graph is a graph
+  on n^2 nodes, each corresponding to a square of the board. Two nodes
+  are connected by an edge if the corresponding squares are in the
+  same row, column, or diagonal. Unlike some of the other graphs, the
+  coloring problem on this graph has a natural interpretation: Given
+  such a chessboard, is it possible to place n sets of n queens on the
+  board so that no two queens of the same set are in the same row,
+  column, or diagonal? The answer is yes if and only if the graph has
+  coloring number n. Martin Gardner states without proof that this is
+  the case if and only if $n$ is not divisible by either 2 or 3. In
+  all cases, the maximum clique in the graph is no more than n, and
+  the coloring value is no less than n.
+MYC: (From Michael Trick (trick@cmu.edu)) Graphs based on the
+Mycielski transformation. These graphs are difficult to solve
+because they are triangle free (clique number 2) but the coloring
+number increases in problem size.

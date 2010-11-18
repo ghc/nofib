@@ -1,0 +1,284 @@
+module RDF where
+
+import PGF
+----------------------------------------------------
+-- automatic translation from GF to Haskell
+----------------------------------------------------
+
+class Gf a where
+  gf :: a -> Tree
+  fg :: Tree -> a
+
+newtype GString = GString String  deriving Show
+
+instance Gf GString where
+  gf (GString x) = mkStr x
+  fg t =
+    case unStr t of
+      Just x  ->  GString x
+      Nothing -> error ("no GString " ++ show t)
+
+newtype GInt = GInt Int  deriving Show
+
+instance Gf GInt where
+  gf (GInt x) = mkInt x
+  fg t =
+    case unInt t of
+      Just x  ->  GInt x
+      Nothing -> error ("no GInt " ++ show t)
+
+newtype GFloat = GFloat Double  deriving Show
+
+instance Gf GFloat where
+  gf (GFloat x) = mkDouble x
+  fg t =
+    case unDouble t of
+      Just x  ->  GFloat x
+      Nothing -> error ("no GFloat " ++ show t)
+
+----------------------------------------------------
+-- below this line machine-generated
+----------------------------------------------------
+
+data GAttribute =
+   Gassign GClass GClass GResource GProperty GValue 
+ | Gr_assign GClass GClass GResource GResource GProperty GValue 
+  deriving Show
+
+data GBNode = GnodeId GString 
+  deriving Show
+
+data GClass =
+   Galt_C 
+ | Gbag_C 
+ | Gclass_C 
+ | GconstraintProperty_C 
+ | GconstraintResource_C 
+ | Gliteral_C 
+ | Gproperty_C 
+ | Gresource_C 
+ | Gseq_C 
+ | Gstatement_C 
+  deriving Show
+
+data GContainer =
+   Galt GResource GListResource 
+ | Gbag GResource GListResource 
+ | Gseq GResource GListResource 
+  deriving Show
+
+data GDescription =
+   Gdescribe GClass GResource GListAttribute 
+ | Gr_describe GResource GClass GResource GListAttribute 
+  deriving Show
+
+newtype GListAttribute = GListAttribute [GAttribute] deriving Show
+
+newtype GListResource = GListResource [GResource] deriving Show
+
+data GLiteral =
+   Gfloat GFloat 
+ | Gint GInt 
+ | Gstring GString GDataType 
+  deriving Show
+
+data GResource =
+   Gbnode GClass GBNode 
+ | Gclass GClass 
+ | Gcontainer GClass GContainer 
+ | Gdescription GDescription 
+ | Gstatement GStatement 
+ | Gupcast GClass GClass GInheritance GResource 
+ | Guri GClass GURI 
+  deriving Show
+
+data GStatement =
+   Gassert GClass GClass GResource GProperty GValue 
+ | Ginheritance GClass GClass GInheritance 
+ | Gr_assert GClass GClass GResource GResource GProperty GValue 
+  deriving Show
+
+data GURI =
+   Gdatatype GDataType 
+ | Gproperty GClass GClass GProperty 
+  deriving Show
+
+data GValue =
+   Glit GLiteral 
+ | Gres GClass GResource 
+  deriving Show
+
+
+instance Gf GAttribute where
+  gf (Gassign x1 x2 x3 x4 x5) = mkApp (mkCId "assign") [gf x1, gf x2, gf x3, gf x4, gf x5]
+  gf (Gr_assign x1 x2 x3 x4 x5 x6) = mkApp (mkCId "r_assign") [gf x1, gf x2, gf x3, gf x4, gf x5, gf x6]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2,x3,x4,x5]) | i == mkCId "assign" -> Gassign (fg x1) (fg x2) (fg x3) (fg x4) (fg x5)
+      Just (i,[x1,x2,x3,x4,x5,x6]) | i == mkCId "r_assign" -> Gr_assign (fg x1) (fg x2) (fg x3) (fg x4) (fg x5) (fg x6)
+
+
+      _ -> error ("no Attribute " ++ show t)
+
+instance Gf GBNode where
+  gf (GnodeId x1) = mkApp (mkCId "nodeId") [gf x1]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "nodeId" -> GnodeId (fg x1)
+
+
+      _ -> error ("no BNode " ++ show t)
+
+instance Gf GClass where
+  gf Galt_C = mkApp (mkCId "alt_C") []
+  gf Gbag_C = mkApp (mkCId "bag_C") []
+  gf Gclass_C = mkApp (mkCId "class_C") []
+  gf GconstraintProperty_C = mkApp (mkCId "constraintProperty_C") []
+  gf GconstraintResource_C = mkApp (mkCId "constraintResource_C") []
+  gf Gliteral_C = mkApp (mkCId "literal_C") []
+  gf Gproperty_C = mkApp (mkCId "property_C") []
+  gf Gresource_C = mkApp (mkCId "resource_C") []
+  gf Gseq_C = mkApp (mkCId "seq_C") []
+  gf Gstatement_C = mkApp (mkCId "statement_C") []
+
+  fg t =
+    case unApp t of
+      Just (i,[]) | i == mkCId "alt_C" -> Galt_C 
+      Just (i,[]) | i == mkCId "bag_C" -> Gbag_C 
+      Just (i,[]) | i == mkCId "class_C" -> Gclass_C 
+      Just (i,[]) | i == mkCId "constraintProperty_C" -> GconstraintProperty_C 
+      Just (i,[]) | i == mkCId "constraintResource_C" -> GconstraintResource_C 
+      Just (i,[]) | i == mkCId "literal_C" -> Gliteral_C 
+      Just (i,[]) | i == mkCId "property_C" -> Gproperty_C 
+      Just (i,[]) | i == mkCId "resource_C" -> Gresource_C 
+      Just (i,[]) | i == mkCId "seq_C" -> Gseq_C 
+      Just (i,[]) | i == mkCId "statement_C" -> Gstatement_C 
+
+
+      _ -> error ("no Class " ++ show t)
+
+instance Gf GContainer where
+  gf (Galt x1 x2) = mkApp (mkCId "alt") [gf x1, gf x2]
+  gf (Gbag x1 x2) = mkApp (mkCId "bag") [gf x1, gf x2]
+  gf (Gseq x1 x2) = mkApp (mkCId "seq") [gf x1, gf x2]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2]) | i == mkCId "alt" -> Galt (fg x1) (fg x2)
+      Just (i,[x1,x2]) | i == mkCId "bag" -> Gbag (fg x1) (fg x2)
+      Just (i,[x1,x2]) | i == mkCId "seq" -> Gseq (fg x1) (fg x2)
+
+
+      _ -> error ("no Container " ++ show t)
+
+instance Gf GDescription where
+  gf (Gdescribe x1 x2 x3) = mkApp (mkCId "describe") [gf x1, gf x2, gf x3]
+  gf (Gr_describe x1 x2 x3 x4) = mkApp (mkCId "r_describe") [gf x1, gf x2, gf x3, gf x4]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2,x3]) | i == mkCId "describe" -> Gdescribe (fg x1) (fg x2) (fg x3)
+      Just (i,[x1,x2,x3,x4]) | i == mkCId "r_describe" -> Gr_describe (fg x1) (fg x2) (fg x3) (fg x4)
+
+
+      _ -> error ("no Description " ++ show t)
+
+instance Gf GListAttribute where
+  gf (GListAttribute [x1,x2]) = mkApp (mkCId "BaseAttribute") [gf x1, gf x2]
+  gf (GListAttribute (x:xs)) = mkApp (mkCId "ConsAttribute") [gf x, gf (GListAttribute xs)]
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2]) | i == mkCId "BaseAttribute" -> GListAttribute [fg x1, fg x2]
+      Just (i,[x1,x2,x3,x4]) | i == mkCId "ConsAttribute" -> let GListAttribute xs = fg x4 in GListAttribute (fg x1:fg x2:fg x3:xs)
+
+
+      _ -> error ("no ListAttribute " ++ show t)
+
+instance Gf GListResource where
+  gf (GListResource [x1]) = mkApp (mkCId "BaseResource") [gf x1]
+  gf (GListResource (x:xs)) = mkApp (mkCId "ConsResource") [gf x, gf (GListResource xs)]
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "BaseResource" -> GListResource [fg x1]
+      Just (i,[x1,x2,x3]) | i == mkCId "ConsResource" -> let GListResource xs = fg x3 in GListResource (fg x1:fg x2:xs)
+
+
+      _ -> error ("no ListResource " ++ show t)
+
+instance Gf GLiteral where
+  gf (Gfloat x1) = mkApp (mkCId "float") [gf x1]
+  gf (Gint x1) = mkApp (mkCId "int") [gf x1]
+  gf (Gstring x1 x2) = mkApp (mkCId "string") [gf x1, gf x2]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "float" -> Gfloat (fg x1)
+      Just (i,[x1]) | i == mkCId "int" -> Gint (fg x1)
+      Just (i,[x1,x2]) | i == mkCId "string" -> Gstring (fg x1) (fg x2)
+
+
+      _ -> error ("no Literal " ++ show t)
+
+instance Gf GResource where
+  gf (Gbnode x1 x2) = mkApp (mkCId "bnode") [gf x1, gf x2]
+  gf (Gclass x1) = mkApp (mkCId "class") [gf x1]
+  gf (Gcontainer x1 x2) = mkApp (mkCId "container") [gf x1, gf x2]
+  gf (Gdescription x1) = mkApp (mkCId "description") [gf x1]
+  gf (Gstatement x1) = mkApp (mkCId "statement") [gf x1]
+  gf (Gupcast x1 x2 x3 x4) = mkApp (mkCId "upcast") [gf x1, gf x2, gf x3, gf x4]
+  gf (Guri x1 x2) = mkApp (mkCId "uri") [gf x1, gf x2]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2]) | i == mkCId "bnode" -> Gbnode (fg x1) (fg x2)
+      Just (i,[x1]) | i == mkCId "class" -> Gclass (fg x1)
+      Just (i,[x1,x2]) | i == mkCId "container" -> Gcontainer (fg x1) (fg x2)
+      Just (i,[x1]) | i == mkCId "description" -> Gdescription (fg x1)
+      Just (i,[x1]) | i == mkCId "statement" -> Gstatement (fg x1)
+      Just (i,[x1,x2,x3,x4]) | i == mkCId "upcast" -> Gupcast (fg x1) (fg x2) (fg x3) (fg x4)
+      Just (i,[x1,x2]) | i == mkCId "uri" -> Guri (fg x1) (fg x2)
+
+
+      _ -> error ("no Resource " ++ show t)
+
+instance Gf GStatement where
+  gf (Gassert x1 x2 x3 x4 x5) = mkApp (mkCId "assert") [gf x1, gf x2, gf x3, gf x4, gf x5]
+  gf (Ginheritance x1 x2 x3) = mkApp (mkCId "inheritance") [gf x1, gf x2, gf x3]
+  gf (Gr_assert x1 x2 x3 x4 x5 x6) = mkApp (mkCId "r_assert") [gf x1, gf x2, gf x3, gf x4, gf x5, gf x6]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1,x2,x3,x4,x5]) | i == mkCId "assert" -> Gassert (fg x1) (fg x2) (fg x3) (fg x4) (fg x5)
+      Just (i,[x1,x2,x3]) | i == mkCId "inheritance" -> Ginheritance (fg x1) (fg x2) (fg x3)
+      Just (i,[x1,x2,x3,x4,x5,x6]) | i == mkCId "r_assert" -> Gr_assert (fg x1) (fg x2) (fg x3) (fg x4) (fg x5) (fg x6)
+
+
+      _ -> error ("no Statement " ++ show t)
+
+instance Gf GURI where
+  gf (Gdatatype x1) = mkApp (mkCId "datatype") [gf x1]
+  gf (Gproperty x1 x2 x3) = mkApp (mkCId "property") [gf x1, gf x2, gf x3]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "datatype" -> Gdatatype (fg x1)
+      Just (i,[x1,x2,x3]) | i == mkCId "property" -> Gproperty (fg x1) (fg x2) (fg x3)
+
+
+      _ -> error ("no URI " ++ show t)
+
+instance Gf GValue where
+  gf (Glit x1) = mkApp (mkCId "lit") [gf x1]
+  gf (Gres x1 x2) = mkApp (mkCId "res") [gf x1, gf x2]
+
+  fg t =
+    case unApp t of
+      Just (i,[x1]) | i == mkCId "lit" -> Glit (fg x1)
+      Just (i,[x1,x2]) | i == mkCId "res" -> Gres (fg x1) (fg x2)
+
+
+      _ -> error ("no Value " ++ show t)
+
+

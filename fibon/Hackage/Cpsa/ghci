@@ -1,0 +1,2 @@
+:set -fglasgow-exts -fbreak-on-error -isrc:dist/build/autogen
+:set args -a diffie-hellman tst/dh.lisp

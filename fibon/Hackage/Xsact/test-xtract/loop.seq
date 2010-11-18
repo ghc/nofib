@@ -1,0 +1,5 @@
+# w1..w2, w2...w1, fails: xegen -k 5
+>t0
+TAACGTAAGCACCGAT
+>t1
+        GCACCGATTAACGGTAA

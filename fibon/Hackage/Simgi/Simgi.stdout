@@ -1,0 +1,49 @@
+This is simgi v0.3 (c) 2009-2010 Markus Dittrich
+
+-------- Simulation parameters ----------
+rng seed              : 1
+max time              : 15.0 s
+system volume         : nil
+data output frequency : 50000
+log output frequency  : 50000
+output filename       : oregonator_output.dat
+-----------------------------------------
+
+starting simulation ...
+
+iteration: 1           --> time: 0.00000 s
+iteration: 50000       --> time: 0.23476 s
+iteration: 100000      --> time: 0.68849 s
+iteration: 150000      --> time: 1.32624 s
+iteration: 200000      --> time: 1.41014 s
+iteration: 250000      --> time: 2.07497 s
+iteration: 300000      --> time: 2.36863 s
+iteration: 350000      --> time: 2.79856 s
+iteration: 400000      --> time: 3.45897 s
+iteration: 450000      --> time: 3.53978 s
+iteration: 500000      --> time: 4.21014 s
+iteration: 550000      --> time: 4.73332 s
+iteration: 600000      --> time: 4.90471 s
+iteration: 650000      --> time: 5.56812 s
+iteration: 700000      --> time: 5.66185 s
+iteration: 750000      --> time: 6.33115 s
+iteration: 800000      --> time: 6.91990 s
+iteration: 850000      --> time: 7.03911 s
+iteration: 900000      --> time: 7.66548 s
+iteration: 950000      --> time: 7.80602 s
+iteration: 1000000     --> time: 8.37098 s
+iteration: 1050000     --> time: 8.99979 s
+iteration: 1100000     --> time: 9.09234 s
+iteration: 1150000     --> time: 9.75003 s
+iteration: 1200000     --> time: 9.96604 s
+iteration: 1250000     --> time: 10.46699 s
+iteration: 1300000     --> time: 11.13416 s
+iteration: 1350000     --> time: 11.22317 s
+iteration: 1400000     --> time: 11.88750 s
+iteration: 1450000     --> time: 12.42168 s
+iteration: 1500000     --> time: 12.60482 s
+iteration: 1550000     --> time: 13.30166 s
+iteration: 1600000     --> time: 13.41285 s
+iteration: 1650000     --> time: 14.00190 s
+iteration: 1700000     --> time: 14.64748 s
+iteration: 1750000     --> time: 14.74625 s

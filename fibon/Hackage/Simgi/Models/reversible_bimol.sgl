@@ -1,0 +1,29 @@
+{-----------------------------------------------------
+
+  this is the input deck for the oregonator model 
+  (C) 2009 Markus Dittrich
+
+------------------------------------------------------}
+
+parameters
+  time       = 1.0e-4
+  systemVol  = 1.25e-19
+  outputBuffer = 50000
+  outputFreq = 10
+end
+
+molecules
+  a = 1000
+  b = 1000
+  c = 0
+end
+
+reactions
+  a + b -> c  | {1e6*10} |
+  c -> a + b  | 1e5 |
+end
+
+output
+  [ITERATION, TIME, a, b, c]
+  outputFile = "reversible_bimol.dat"
+end

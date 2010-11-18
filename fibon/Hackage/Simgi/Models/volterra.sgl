@@ -1,0 +1,29 @@
+{-----------------------------------------------------
+
+  this is the input deck for the lotka-volterra model 
+  (C) 2009 Markus Dittrich
+
+------------------------------------------------------}
+
+parameters
+  time         = 50.0
+  outputBuffer = 50000
+  outputFreq   = 200
+  systemVol    = nil  -- interpret rates as propensities
+end
+
+molecules
+  x = 1000
+  y = 2000
+end
+
+reactions
+  x      -> 2x       | 10.0 |
+  x + y  -> 2y       | 0.01 |
+  y      -> nil      | 10.0 |
+end 
+
+output
+  outputFile   = "volterra_output.dat"
+  [TIME,x,y]
+end
