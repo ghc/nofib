@@ -1,4 +1,4 @@
-{-# LANGUAGE PArr #-}
+{-# LANGUAGE ParallelArrays #-}
 {-# OPTIONS -fvectorise #-}
 {-# OPTIONS -fno-spec-constr-count #-}
 module QSortVect (qsortVect) where
