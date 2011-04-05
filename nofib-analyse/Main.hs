@@ -1,4 +1,4 @@
-{-# LANGUAGE RankNTypes, ExistentialQuantification #-}
+{-# LANGUAGE RankNTypes, ExistentialQuantification, FlexibleInstances #-}
 -----------------------------------------------------------------------------
 -- (c) Simon Marlow 1997-2005
 -----------------------------------------------------------------------------
@@ -49,6 +49,8 @@ main = do
        latex = [ t | OptLaTeXOutput t <- flags ];
        ascii = OptASCIIOutput `elem` flags;
        csv   = [ t | OptCSV t <- flags ];
+       stddev = OptStdDev  `elem` flags;
+       inc_baseline = OptShowBaseline  `elem` flags
      }
 
  when (ascii && html)  $ die "Can't produce both ASCII and HTML"
@@ -72,11 +74,11 @@ main = do
 
  case () of
    _ | not (null csv) ->
-        putStr (csvTable results (head csv) norm)
+        putStr (csvTable results (head csv) norm stddev)
    _ | html      ->
         putStr (renderHtml (htmlPage results column_headings))
    _ | not (null latex) ->
-        putStr (latexOutput results (head latex) column_headings summary_spec summary_rows norm)
+        putStr (latexOutput results (head latex) column_headings summary_spec summary_rows norm inc_baseline)
    _ | otherwise ->
         putStr (asciiPage results column_headings summary_spec summary_rows norm)
 
@@ -119,19 +121,19 @@ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_sp
         :: PerProgTableSpec
 size_spec    = SpecP "Binary Sizes" "Size" "binary-sizes" binary_size compile_status always_ok
 alloc_spec   = SpecP "Allocations" "Allocs" "allocations" (meanInt allocs) run_status always_ok
-runtime_spec = SpecP "Run Time" "Runtime" "run-times" (mean run_time) run_status time_ok
-elapsedtime_spec = SpecP "Elapsed Time" "Elapsed" "elapsed-times" (mean elapsed_time) run_status time_ok
-muttime_spec = SpecP "Mutator Time" "MutTime" "mutator-time" (mean mut_time) run_status time_ok
-mutetime_spec = SpecP "Mutator Elapsed Time" "MutETime" "mutator-elapsed-time" (mean mut_elapsed_time) run_status time_ok
-gctime_spec  = SpecP "GC Time" "GCTime" "gc-time" (mean gc_time) run_status time_ok
-gcelap_spec  = SpecP "GC Elapsed Time" "GCETime" "gc-elapsed-time" (mean gc_elapsed_time) run_status time_ok
+runtime_spec = SpecP "Run Time" "Runtime" "run-times" (mean run_time) run_status mean_time_ok
+elapsedtime_spec = SpecP "Elapsed Time" "Elapsed" "elapsed-times" (mean elapsed_time) run_status mean_time_ok
+muttime_spec = SpecP "Mutator Time" "MutTime" "mutator-time" (mean mut_time) run_status mean_time_ok
+mutetime_spec = SpecP "Mutator Elapsed Time" "MutETime" "mutator-elapsed-time" (mean mut_elapsed_time) run_status mean_time_ok
+gctime_spec  = SpecP "GC Time" "GCTime" "gc-time" (mean gc_time) run_status mean_time_ok
+gcelap_spec  = SpecP "GC Elapsed Time" "GCETime" "gc-elapsed-time" (mean gc_elapsed_time) run_status mean_time_ok
 gc0count_spec  = SpecP "GC(0) Count" "GC0Count" "gc0-count" (meanInt gc0_count) run_status always_ok
-gc0time_spec  = SpecP "GC(0) Time" "GC0Time" "gc0-time" (mean gc0_time) run_status time_ok
-gc0elap_spec  = SpecP "GC(0) Elapsed Time" "GC0ETime" "gc0-elapsed-time" (mean gc0_elapsed_time) run_status time_ok
+gc0time_spec  = SpecP "GC(0) Time" "GC0Time" "gc0-time" (mean gc0_time) run_status mean_time_ok
+gc0elap_spec  = SpecP "GC(0) Elapsed Time" "GC0ETime" "gc0-elapsed-time" (mean gc0_elapsed_time) run_status mean_time_ok
 gc1count_spec  = SpecP "GC(1) Count" "GC1Count" "gc1-count" (meanInt gc1_count) run_status always_ok
-gc1time_spec  = SpecP "GC(1) Time" "GC1Time" "gc1-time" (mean gc1_time) run_status time_ok
-gc1elap_spec  = SpecP "GC(1) Elapsed Time" "GC1ETime" "gc1-elapsed-time" (mean gc1_elapsed_time) run_status time_ok
-balance_spec  = SpecP "GC work balance" "Balance" "balance" (mean balance) run_status time_ok
+gc1time_spec  = SpecP "GC(1) Time" "GC1Time" "gc1-time" (mean gc1_time) run_status mean_time_ok
+gc1elap_spec  = SpecP "GC(1) Elapsed Time" "GC1ETime" "gc1-elapsed-time" (mean gc1_elapsed_time) run_status mean_time_ok
+balance_spec  = SpecP "GC work balance" "Balance" "balance" (mean balance) run_status mean_time_ok
 gcwork_spec  = SpecP "GC Work" "GCWork" "gc-work" (meanInt gc_work) run_status always_ok
 instrs_spec  = SpecP "Instructions" "Instrs" "instrs" instrs run_status always_ok
 mreads_spec  = SpecP "Memory Reads" "Reads" "mem-reads" mem_reads run_status always_ok
@@ -172,15 +174,20 @@ namedColumns ss = mapM findSpec ss
                 [] -> die ("unknown column: " ++ s)
                 (spec:_) -> return spec
 
-mean :: (Results -> [Float]) -> Results -> Maybe Float
+mean :: (Results -> [Float]) -> Results -> Maybe (MeanStdDev Float)
 mean f results = go (f results)
   where go [] = Nothing
-        go fs = Just (foldl' (+) 0 fs / fromIntegral (length fs))
+        go fs = Just (MeanStdDev mn stddev)
+         where mn = sn / n
+               stddev = (n * sum (map (^2) fs) - sn^2) / n
+               sn = foldl' (+) 0 fs
+               n = fromIntegral (length fs)
 
-meanInt :: Integral a => (Results -> [a]) -> Results -> Maybe a
+meanInt :: Integral a => (Results -> [a]) -> Results -> Maybe (MeanStdDev a)
 meanInt f results = go (f results)
   where go [] = Nothing
-        go fs = Just (foldl' (+) 0 fs `quot` fromIntegral (length fs))
+        go fs = Just (MeanStdDev mn 0)
+          where mn = foldl' (+) 0 fs `quot` fromIntegral (length fs)
 
 -- Look for bogus-looking times: On Linux we occasionally get timing results
 -- that are bizarrely low, and skew the average.
@@ -234,6 +241,9 @@ per_module_result_tab =
 
 always_ok :: a -> Bool
 always_ok = const True
+
+mean_time_ok :: (MeanStdDev Float) -> Bool
+mean_time_ok  = time_ok . float
 
 time_ok :: Float -> Bool
 time_ok t = t > tooquick_threshold
@@ -415,27 +425,27 @@ calcColor percentage | percentage >= 0 = printf "#%02x0000" val
 -- LaTeX table generation (just the summary for now)
 
 latexOutput :: [ResultTable] -> Maybe String -> [String] -> [PerProgTableSpec]
-            -> Maybe [String] -> Normalise ->  String
+            -> Maybe [String] -> Normalise -> Bool -> String
 
-latexOutput results (Just table_name) _ _ _ norm
+latexOutput results (Just table_name) _ _ _ norm inc_baseline
   = let
         table_spec = [ spec | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, 
                        n == table_name ]
     in
     case table_spec of
         [] -> error ("can't find table named: " ++ table_name)
-        (spec:_) -> latexProgTable results spec norm "\n"
+        (spec:_) -> latexProgTable results spec norm inc_baseline "\n"
 
-latexOutput results Nothing _ summary_spec summary_rows _ =
+latexOutput results Nothing _ summary_spec summary_rows _ _ =
    (if (length results == 2)
         then ascii_summary_table True results summary_spec summary_rows
             . str "\n\n"
         else id) ""
 
 
-latexProgTable :: [ResultTable] -> PerProgTableSpec -> Normalise -> ShowS
-latexProgTable results (SpecP _long_name _ _ get_result get_status result_ok) norm
-  = latex_show_results results get_result get_status result_ok norm
+latexProgTable :: [ResultTable] -> PerProgTableSpec -> Normalise -> Bool -> ShowS
+latexProgTable results (SpecP _long_name _ _ get_result get_status result_ok) norm inc_baseline
+  = latex_show_results results get_result get_status result_ok norm inc_baseline
 
 latex_show_results
    :: Result a
@@ -444,11 +454,12 @@ latex_show_results
         -> (Results -> Status)
         -> (a -> Bool)
         -> Normalise
+        -> Bool
         -> ShowS
 
-latex_show_results []      _ _    _ _
+latex_show_results []      _ _    _ _ _
  = error "latex_show_results: Can't happen?"
-latex_show_results (r:rs) f stat _result_ok norm
+latex_show_results (r:rs) f stat _result_ok norm inc_baseline
         = makeLatexTable $
              [ TableRow (BoxString prog : boxes) | 
                (prog,boxes) <- results_per_prog ] ++
@@ -459,7 +470,8 @@ latex_show_results (r:rs) f stat _result_ok norm
                TableRow (BoxString "Geometric Mean" : gms) ]
  where
         -- results_per_prog :: [ (String,[BoxValue a]) ]
-        results_per_prog = [ (prog,xs) | (prog,xs) <- map calc (Map.toList r) ]
+        results_per_prog = [ (prog, if inc_baseline then xs else tail xs)
+                           | (prog,xs) <- map calc (Map.toList r) ]
         calc = calc_result rs f stat (const True) (normalise norm)
 
         results_per_run    = transpose (map snd results_per_prog)
@@ -673,19 +685,20 @@ show_per_prog_results_width w (prog,results)
 -- -----------------------------------------------------------------------------
 -- CSV output
 
-csvTable :: [ResultTable] -> String -> Normalise -> String
-csvTable results table_name norm
+csvTable :: [ResultTable] -> String -> Normalise -> Bool -> String
+csvTable results table_name norm stddev
   = let
         table_spec = [ spec | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, 
                        n == table_name ]
     in
     case table_spec of
         [] -> error ("can't find table named: " ++ table_name)
-        (spec:_) -> csvProgTable results spec norm "\n"
+        (spec:_) -> csvProgTable results spec norm stddev "\n"
 
-csvProgTable :: [ResultTable] -> PerProgTableSpec -> Normalise -> ShowS
-csvProgTable results (SpecP _long_name _ _ get_result get_status result_ok) norm
-  = csv_show_results results get_result get_status result_ok norm
+csvProgTable :: [ResultTable] -> PerProgTableSpec -> Normalise -> Bool -> ShowS
+csvProgTable results (SpecP _long_name _ _ get_result get_status result_ok)
+             norm stddev
+  = csv_show_results results get_result get_status result_ok norm stddev
 
 csv_show_results
    :: Result a
@@ -694,18 +707,24 @@ csv_show_results
         -> (Results -> Status)
         -> (a -> Bool)
         -> Normalise
+        -> Bool
         -> ShowS
 
-csv_show_results []      _ _    _ _
+csv_show_results []      _ _    _ _ _
  = error "csv_show_results: Can't happen?"
-csv_show_results (r:rs) f stat _result_ok norm
+csv_show_results (r:rs) f stat _result_ok norm stddev
         = interleave "\n" results_per_prog
  where
         -- results_per_prog :: [ (String,[BoxValue a]) ]
         results_per_prog = map (result_line . calc) (Map.toList r)
         calc = calc_result rs f stat (const True) (normalise norm)
 
-        result_line (prog,boxes) = interleave "," (str prog : map (str.showBox) boxes)
+        result_line (prog,boxes)
+          | stddev    = interleave "," (str prog : concat (map stddevbox boxes))
+          | otherwise = interleave "," (str prog : map (str.showBox) boxes)
+
+        stddevbox (BoxStdDev b s) = [str (showBox b), str (printf "%.2f" s)]
+        stddevbox b = [str (showBox b), str "0"]
 
 -- ---------------------------------------------------------------------------
 -- Generic stuff for results generation
@@ -812,26 +831,45 @@ calc_minmax xs
 -- Show the Results
 
 convert_to_percentage :: Result a => a -> a -> BoxValue
-convert_to_percentage 0 _val = Percentage 100
-convert_to_percentage baseline val = Percentage  ((realToFrac val / realToFrac baseline) * 100)
+convert_to_percentage n _val | float n < 0.0001 = Percentage 100
+convert_to_percentage baseline val = Percentage  ((float val / float baseline) * 100)
 
 normalise_to_base :: Result a => a -> a -> BoxValue
-normalise_to_base 0 _val       = BoxFloat 1
-normalise_to_base baseline val = BoxFloat (realToFrac baseline / realToFrac val)
+normalise_to_base n _val | float n < 0.0001  = BoxFloat 1
+normalise_to_base baseline val =
+  BoxStdDev (BoxFloat point)
+            (point - (float baseline / (float val + variance val)))
+   where
+     point = (float baseline / float val)
 
-class Real a => Result a where
-        toBox :: a -> BoxValue
+class Result a where
+   toBox    :: a -> BoxValue
+   float    :: a -> Float
+   variance :: a -> Float
 
 -- We assume an Int is a size, and print it in kilobytes.
 
 instance Result Int where
-    toBox = BoxInt
+    toBox  = BoxInt
+    float a = fromIntegral a
+    variance a = 0
+
+data MeanStdDev a = MeanStdDev a Float
+
+instance Result a => Result (MeanStdDev a) where
+    toBox    (MeanStdDev a b) = BoxStdDev (toBox a) b
+    float    (MeanStdDev a _) = float a
+    variance (MeanStdDev _ b) = b
 
 instance Result Integer where
     toBox = BoxInteger
+    float a = fromIntegral a
+    variance a = 0
 
 instance Result Float where
     toBox = BoxFloat
+    float a = realToFrac a
+    variance a = 0
 
 -- -----------------------------------------------------------------------------
 -- BoxValues
@@ -844,6 +882,7 @@ data BoxValue
   | BoxInt Int
   | BoxInteger Integer
   | BoxString String
+  | BoxStdDev BoxValue Float
 
 showBox :: BoxValue -> String
 showBox (RunFailed stat) = show_stat stat
@@ -858,6 +897,7 @@ showBox (BoxInteger n)   = show n
 --showBox (BoxInt n)       = show (n `div` 1024) ++ "k"
 --showBox (BoxInteger n)   = show (n `div` 1024) ++ "k"
 showBox (BoxString s)    = s
+showBox (BoxStdDev b f)  = showBox b
 
 instance Show BoxValue where
     show = showBox

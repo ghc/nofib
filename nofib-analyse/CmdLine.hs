@@ -56,6 +56,8 @@ data CLIFlags
   | OptRows String
   | OptCSV String
   | OptNormalise String
+  | OptStdDev
+  | OptShowBaseline
   | OptHelp
   deriving Eq
 
@@ -87,9 +89,13 @@ argInfo =
 	"Output a single table in CSV format"
   , Option [] ["normalise"] (ReqArg OptNormalise "percent|ratio|none")
 	"normalise to the baseline"
+  , Option [] ["stddev"] (NoArg OptStdDev)
+        "include standard deviations in CSV output"
   , Option ['n'] ["nodeviations"] (NoArg OptNoDeviations)
 	"Hide deviations"
   , Option ['t'] ["title"] (ReqArg OptTitle "title")
 	"Specify report title"
+  , Option ['b'] ["include-baseline"] (NoArg OptShowBaseline)
+        "Include the baseline column (LaTeX)"
   ]
 
