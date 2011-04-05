@@ -14,6 +14,8 @@ import PortablePixmap
 import Control.Parallel
 import Control.Parallel.Strategies
 -- import qualified NewStrategies as NS
+import Debug.Trace
+import Text.Printf
 default ()
 \end{code}
 \end{onlystandalone}
@@ -192,12 +194,49 @@ and points on a complex plain.
 
 The complex plain is initialised, and the mandelbrot set is calculated.
 \begin{code}
-      result = parallelMandel
-		  [[windowToViewport s t | s<-[1..screenX]]
-                   | t <- [1..screenY]]
- 		  lIMIT
-		  ((max (x'-x) (y'-y)) / 2.0)
+--      result = parallelMandel
+--		  [[windowToViewport s t | s<-[1..screenX]]
+--                   | t <- [1..screenY]]
+-- 		  lIMIT
+--		  ((max (x'-x) (y'-y)) / 2.0)
+
+      result = concat $ toList $ parListTreeLike 1 screenY
+                 (\t -> let l = [ whenDiverge lIMIT radius (windowToViewport s t)
+                                | s<-[1..screenX] ]
+                        in Mandel.seqList l `pseq` l)
+
+      radius = (max (x'-x) (y'-y)) / 2.0
+
 
       prettyRGB::Int -> (Int,Int,Int)
       prettyRGB s = let t = (lIMIT - s) in (s,t,t)
+
+
+data AList a = ANil | ASing a | Append (AList a) (AList a) | AList [a]
+
+append ANil r = r
+append l ANil = l -- **
+append l r    = Append l r
+
+toList :: AList a -> [a]
+toList a = go a []
+ where go ANil         rest = rest
+       go (ASing a)    rest = a : rest
+       go (Append l r) rest = go l $! go r rest
+       go (AList xs)   rest = xs ++ rest
+
+parListTreeLike :: Integer -> Integer -> (Integer -> a) -> AList a
+parListTreeLike min max fn
+ | max - min <= threshold = runEval $ do
+      l <- rseq (let l = map fn [min..max] in Mandel.seqList l `pseq` l)
+      return (AList l)
+ | otherwise  =
+      rght `par` (left `pseq` (left `append` rght))
+    where
+      mid  = min + ((max - min) `quot` 2)
+      left = parListTreeLike min mid fn
+      rght = parListTreeLike (mid+1) max fn
+
+threshold = 1
+
 \end{code}
