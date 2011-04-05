@@ -1,6 +1,5 @@
+{-# LANGUAGE RankNTypes, ExistentialQuantification #-}
 -----------------------------------------------------------------------------
--- $Id: Main.hs,v 1.10 2005/06/07 10:58:31 simonmar Exp $
-
 -- (c) Simon Marlow 1997-2005
 -----------------------------------------------------------------------------
 
@@ -119,7 +118,7 @@ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_sp
     gc0time_spec, gc0elap_spec, gc1time_spec, gc1elap_spec, balance_spec, totmem_spec
         :: PerProgTableSpec
 size_spec    = SpecP "Binary Sizes" "Size" "binary-sizes" binary_size compile_status always_ok
-alloc_spec   = SpecP "Allocations" "Allocs" "allocations" allocs run_status always_ok
+alloc_spec   = SpecP "Allocations" "Allocs" "allocations" (meanInt allocs) run_status always_ok
 runtime_spec = SpecP "Run Time" "Runtime" "run-times" (mean run_time) run_status time_ok
 elapsedtime_spec = SpecP "Elapsed Time" "Elapsed" "elapsed-times" (mean elapsed_time) run_status time_ok
 muttime_spec = SpecP "Mutator Time" "MutTime" "mutator-time" (mean mut_time) run_status time_ok
@@ -136,7 +135,7 @@ instrs_spec  = SpecP "Instructions" "Instrs" "instrs" instrs run_status always_o
 mreads_spec  = SpecP "Memory Reads" "Reads" "mem-reads" mem_reads run_status always_ok
 mwrite_spec  = SpecP "Memory Writes" "Writes" "mem-writes" mem_writes run_status always_ok
 cmiss_spec   = SpecP "Cache Misses" "Misses" "cache-misses" cache_misses run_status always_ok
-totmem_spec   = SpecP "Total Memory in use" "TotalMem" "total-mem" total_memory run_status always_ok
+totmem_spec   = SpecP "Total Memory in use" "TotalMem" "total-mem" (meanInt total_memory) run_status always_ok
 
 all_specs :: [PerProgTableSpec]
 all_specs = [
@@ -173,6 +172,11 @@ mean :: (Results -> [Float]) -> Results -> Maybe Float
 mean f results = go (f results)
   where go [] = Nothing
         go fs = Just (foldl' (+) 0 fs / fromIntegral (length fs))
+
+meanInt :: Integral a => (Results -> [a]) -> Results -> Maybe a
+meanInt f results = go (f results)
+  where go [] = Nothing
+        go fs = Just (foldl' (+) 0 fs `quot` fromIntegral (length fs))
 
 -- Look for bogus-looking times: On Linux we occasionally get timing results
 -- that are bizarrely low, and skew the average.
@@ -843,8 +847,10 @@ showBox (Percentage f)   = case printf "%.1f%%" (f-100) of
                                xs@('-':_) -> xs
                                xs -> '+':xs
 showBox (BoxFloat f)     = printf "%.2f" f
-showBox (BoxInt n)       = show (n `div` 1024) ++ "k"
-showBox (BoxInteger n)   = show (n `div` 1024) ++ "k"
+showBox (BoxInt n)       = show (n `div` (1024*1024))
+showBox (BoxInteger n)   = show (n `div` (1024*1024))
+--showBox (BoxInt n)       = show (n `div` 1024) ++ "k"
+--showBox (BoxInteger n)   = show (n `div` 1024) ++ "k"
 showBox (BoxString s)    = s
 
 instance Show BoxValue where

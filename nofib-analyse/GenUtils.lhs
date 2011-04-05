@@ -6,6 +6,7 @@
 -- All the code below is understood to be in the public domain.
 -----------------------------------------------------------------------------
 
+> {-# LANGUAGE CPP #-}
 > module GenUtils (
 
 >       partition', tack,

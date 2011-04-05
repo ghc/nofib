@@ -47,10 +47,10 @@ data Results = Results {
         gc1_time         :: [Float],
         gc1_elapsed_time :: [Float],
         balance         :: [Float],
-        allocs          :: Maybe Integer,
+        allocs          :: [Integer],
         run_status      :: Status,
         compile_status  :: Status,
-        total_memory    :: Maybe Integer
+        total_memory    :: [Integer]
         }
 
 emptyResults :: Results
@@ -75,10 +75,10 @@ emptyResults = Results {
         gc1_elapsed_time = [],
         balance         = [],
         gc_work         = Nothing,
-        allocs          = Nothing,
+        allocs          = [],
         compile_status  = NotDone,
         run_status      = NotDone,
-        total_memory    = Nothing
+        total_memory    = []
         }
 
 -----------------------------------------------------------------------------
@@ -250,10 +250,10 @@ combine2Results
                       balance        = b1 ++ b2,
                       gc_work        = gw1 `mplus` gw2,
                       binary_size    = bs1 `mplus` bs2,
-                      allocs         = al1 `mplus` al2,
+                      allocs         = al1 ++ al2,
                       run_status     = combStatus rs1 rs2,
                       compile_status = combStatus cs1 cs2,
-                      total_memory   = tm1 `mplus` tm2 }
+                      total_memory   = tm1 ++ tm2 }
 
 combStatus :: Status -> Status -> Status
 combStatus NotDone y       = y
@@ -357,20 +357,20 @@ parse_run_time prog (l:ls) res ex =
         case ghc1_re l of {
            Just (allocations, _, _, _, _, _, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
-                        Nothing Nothing Nothing Nothing Nothing Nothing;
+                        Nothing Nothing Nothing Nothing Nothing [];
            Nothing ->
 
         case ghc2_re l of {
            Just (allocations, _, _, _, _, in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
-                        Nothing Nothing Nothing Nothing Nothing (Just in_use);
+                        Nothing Nothing Nothing Nothing Nothing [in_use];
 
             Nothing ->
 
         case ghc3_re l of {
            Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
-                        (Just gc_work') Nothing Nothing Nothing Nothing (Just in_use);
+                        (Just gc_work') Nothing Nothing Nothing Nothing [in_use];
 
             Nothing ->
 
@@ -378,7 +378,7 @@ parse_run_time prog (l:ls) res ex =
            Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, is, mem_rs, mem_ws, cache_misses') ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed [] [] [] [] []
                         (Just gc_work') (Just is) (Just mem_rs)
-                        (Just mem_ws) (Just cache_misses') (Just in_use);
+                        (Just mem_ws) (Just cache_misses') [in_use];
 
             Nothing ->
 
@@ -386,7 +386,7 @@ parse_run_time prog (l:ls) res ex =
            Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, gc0, gc0_elapsed, gc1, gc1_elapsed, bal) ->
                 got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed
                         [gc0] [gc0_elapsed] [gc1] [gc1_elapsed] [bal]
-                        (Just gc_work') Nothing Nothing Nothing Nothing (Just in_use);
+                        (Just gc_work') Nothing Nothing Nothing Nothing [in_use];
 
             Nothing ->
 
@@ -435,7 +435,7 @@ parse_run_time prog (l:ls) res ex =
                                         gc1_elapsed_time = gc1_elapsed,
                                         balance    = bal,
                                         gc_work    = gc_work',
-                                        allocs     = Just allocations,
+                                        allocs     = [allocations],
                                         instrs     = instrs',
                                         mem_reads  = mem_rs,
                                         mem_writes = mem_ws,
