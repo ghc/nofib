@@ -132,7 +132,7 @@ gc1count_spec  = SpecP "GC(1) Count" "GC1Count" "gc1-count" (meanInt gc1_count) 
 gc1time_spec  = SpecP "GC(1) Time" "GC1Time" "gc1-time" (mean gc1_time) run_status time_ok
 gc1elap_spec  = SpecP "GC(1) Elapsed Time" "GC1ETime" "gc1-elapsed-time" (mean gc1_elapsed_time) run_status time_ok
 balance_spec  = SpecP "GC work balance" "Balance" "balance" (mean balance) run_status time_ok
-gcwork_spec  = SpecP "GC Work" "GCWork" "gc-work" gc_work run_status always_ok
+gcwork_spec  = SpecP "GC Work" "GCWork" "gc-work" (meanInt gc_work) run_status always_ok
 instrs_spec  = SpecP "Instructions" "Instrs" "instrs" instrs run_status always_ok
 mreads_spec  = SpecP "Memory Reads" "Reads" "mem-reads" mem_reads run_status always_ok
 mwrite_spec  = SpecP "Memory Writes" "Writes" "mem-writes" mem_writes run_status always_ok
@@ -205,7 +205,7 @@ checkTimes prog results = do
 per_prog_result_tab :: [PerProgTableSpec]
 per_prog_result_tab =
         [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec, gctime_spec,
-          gcelap_spec, gc0time_spec, gc0elap_spec, gc1time_spec, gc1elap_spec,
+          gcelap_spec, gc0count_spec, gc0time_spec, gc0elap_spec, gc1count_spec, gc1time_spec, gc1elap_spec,
           gcwork_spec, balance_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec, totmem_spec]
 
 -- A single summary table, giving comparison figures for a number of
@@ -459,7 +459,7 @@ latex_show_results (r:rs) f stat _result_ok norm
                TableRow (BoxString "Geometric Mean" : gms) ]
  where
         -- results_per_prog :: [ (String,[BoxValue a]) ]
-        results_per_prog = [ (prog,tail xs) | (prog,xs) <- map calc (Map.toList r) ]
+        results_per_prog = [ (prog,xs) | (prog,xs) <- map calc (Map.toList r) ]
         calc = calc_result rs f stat (const True) (normalise norm)
 
         results_per_run    = transpose (map snd results_per_prog)
@@ -851,8 +851,10 @@ showBox (Percentage f)   = case printf "%.1f%%" (f-100) of
                                xs@('-':_) -> xs
                                xs -> '+':xs
 showBox (BoxFloat f)     = printf "%.2f" f
-showBox (BoxInt n)       = show (n `div` (1024*1024))
-showBox (BoxInteger n)   = show (n `div` (1024*1024))
+showBox (BoxInt n)       = show n
+showBox (BoxInteger n)   = show n
+--showBox (BoxInt n)       = show (n `div` (1024*1024))
+--showBox (BoxInteger n)   = show (n `div` (1024*1024))
 --showBox (BoxInt n)       = show (n `div` 1024) ++ "k"
 --showBox (BoxInteger n)   = show (n `div` 1024) ++ "k"
 showBox (BoxString s)    = s
