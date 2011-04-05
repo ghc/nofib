@@ -12,7 +12,7 @@
 define COMPILE
 	@echo ==nofib$(_way)==  $(NOFIB_PROG): time to compile $* follows...
 	@echo $(HC) $(HC_OPTS) -c $< -o $@
-	@time $(HC) $(HC_OPTS) -c $< -o $@
+	@$(TIME) $(HC) $(HC_OPTS) -c $< -o $@
 	@if (test -f $@); then \
 		echo ==nofib$(_way)== $(NOFIB_PROG): size of $@ follows... ; \
 		$(SIZE) $@ ; \
