@@ -125,8 +125,10 @@ muttime_spec = SpecP "Mutator Time" "MutTime" "mutator-time" (mean mut_time) run
 mutetime_spec = SpecP "Mutator Elapsed Time" "MutETime" "mutator-elapsed-time" (mean mut_elapsed_time) run_status time_ok
 gctime_spec  = SpecP "GC Time" "GCTime" "gc-time" (mean gc_time) run_status time_ok
 gcelap_spec  = SpecP "GC Elapsed Time" "GCETime" "gc-elapsed-time" (mean gc_elapsed_time) run_status time_ok
+gc0count_spec  = SpecP "GC(0) Count" "GC0Count" "gc0-count" (meanInt gc0_count) run_status always_ok
 gc0time_spec  = SpecP "GC(0) Time" "GC0Time" "gc0-time" (mean gc0_time) run_status time_ok
 gc0elap_spec  = SpecP "GC(0) Elapsed Time" "GC0ETime" "gc0-elapsed-time" (mean gc0_elapsed_time) run_status time_ok
+gc1count_spec  = SpecP "GC(1) Count" "GC1Count" "gc1-count" (meanInt gc1_count) run_status always_ok
 gc1time_spec  = SpecP "GC(1) Time" "GC1Time" "gc1-time" (mean gc1_time) run_status time_ok
 gc1elap_spec  = SpecP "GC(1) Elapsed Time" "GC1ETime" "gc1-elapsed-time" (mean gc1_elapsed_time) run_status time_ok
 balance_spec  = SpecP "GC work balance" "Balance" "balance" (mean balance) run_status time_ok
@@ -147,8 +149,10 @@ all_specs = [
   mutetime_spec,
   gctime_spec,
   gcelap_spec,
+  gc0count_spec,
   gc0time_spec,
   gc0elap_spec,
+  gc1count_spec,
   gc1time_spec,
   gc1elap_spec,
   balance_spec,
