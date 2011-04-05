@@ -83,6 +83,8 @@ $ToRun = $ARGV[0]; shift(@ARGV);
 # avoid picking up same-named thing from somewhere else on $PATH...
 $ToRun = "./$ToRun" if -e "./$ToRun";
 
+$procs = 1; # unless we pick up a -N flag in the arguments
+
 arg: while ($_ = $ARGV[0]) {
     shift(@ARGV);
     
@@ -131,6 +133,8 @@ arg: while ($_ = $ARGV[0]) {
 			    $Cachegrind = 'yes'; 
 			    next arg };
     /^-t(.*)/	&& do { $TimeCmd = &grab_arg_arg('-t', $1); next arg; };
+
+    /^-N(\d+)/  && do { $procs = $1; };
 
     # anything else is taken to be a pgm arg
     push(@PgmArgs, $_);
@@ -326,9 +330,9 @@ if ( $SysSpecificTiming eq '' ) {
 # print out what we found
 print STDERR "<<$SysSpecificTiming: ";
 if ( $Cachegrind ne 'yes') {
-	print STDERR "$BytesAlloc bytes, $GCs GCs, $AvgResidency/$MaxResidency avg/max bytes residency ($ResidencySamples samples), $GCWork bytes GC work, ${TotMem}M in use, $InitTime INIT ($InitElapsed elapsed), $MutTime MUT ($MutElapsed elapsed), $GcTime GC ($GcElapsed elapsed), $Gc0Time GC(0) ($Gc0Elapsed elapsed), $Gc1Time GC(1) ($Gc1Elapsed elapsed), $Balance balance$Counters";
+        print STDERR "$BytesAlloc bytes, $GCs GCs ($Gc0Count + $Gc1Count), $AvgResidency/$MaxResidency avg/max bytes residency ($ResidencySamples samples), $GCWork bytes GC work, ${TotMem}M in use, $InitTime INIT ($InitElapsed elapsed), $MutTime MUT ($MutElapsed elapsed), $GcTime GC ($GcElapsed elapsed), $Gc0Time GC(0) ($Gc0Elapsed elapsed), $Gc1Time GC(1) ($Gc1Elapsed elapsed), $Balance balance$Counters";
 } else {
-	print STDERR "$BytesAlloc bytes, $GCs GCs, $AvgResidency/$MaxResidency avg/max bytes residency ($ResidencySamples samples), $GCWork bytes GC work, ${TotMem}M in use, $InitTime INIT ($InitElapsed elapsed), $MutTime MUT ($MutElapsed elapsed), $GcTime GC ($GcElapsed elapsed), $Gc0Time GC(0) ($Gc0Elapsed elapsed), $Gc1Time GC(1) ($Gc1Elapsed elapsed), $Balance balance, $TotInstrs instructions, $TotReads memory reads, $TotWrites memory writes, $TotMisses L2 cache misses";
+        print STDERR "$BytesAlloc bytes, $GCs GCs ($Gc0Count + $Gc1Count), $AvgResidency/$MaxResidency avg/max bytes residency ($ResidencySamples samples), $GCWork bytes GC work, ${TotMem}M in use, $InitTime INIT ($InitElapsed elapsed), $MutTime MUT ($MutElapsed elapsed), $GcTime GC ($GcElapsed elapsed), $Gc0Time GC(0) ($Gc0Elapsed elapsed), $Gc1Time GC(1) ($Gc1Elapsed elapsed), $Balance balance, $TotInstrs instructions, $TotReads memory reads, $TotWrites memory writes, $TotMisses L2 cache misses";
 };
 print STDERR " :$SysSpecificTiming>>\n";
 
@@ -402,19 +406,17 @@ sub process_stats_file {
 
 	    $BytesAlloc = $1 if /^\s*([0-9,]+) bytes allocated in the heap/;
 	    
-	    if (/^\s*([0-9,]+) bytes copied during GC/) {
+            if (/^\s*([0-9,]+) bytes (copied during GC|globalised)/) {
 	       $tmp = $1;
 	       $tmp =~ s/,//g;
 	       $GCWork += $tmp;
             }
 
-#	    if ( /^\s*([0-9,]+) bytes maximum residency .* (\d+) sample/ ) {
+#           if ( /^\s*([0-9,]+) bytes maximum residency .* (\d+) sample/ ) {
 #		$MaxResidency = $1; $ResidencySamples = $2;
 #	    }
 
-	    $GCs += $1 if /^\s*Generation\s*\d+:\s*([0-9,]+) collections/;
-
-	    if ( /^\s+([0-9]+)\s+M[Bb] total memory/ ) {
+            if ( /^\s+([0-9]+)\s+M[Bb] total memory/ ) {
 		$TotMem = $1;
 	    }
 
@@ -437,18 +439,30 @@ sub process_stats_file {
                 $GcElapsed = $Gc1Elapsed;
 	    }
 
-            if (/Generation (\d+):\s*\d+ collections,\s*\d+ parallel,\s*(-*\d+\.\d\d)s\s*,\s*(-*\d+\.\d\d)s elapsed/) {
+            if (/Generation (\d+):\s*(\d+) collections,\s*\d+ parallel,\s*(-*\d+\.\d\d)s\s*,\s*(-*\d+\.\d\d)s elapsed/) {
                 if ($1 == 0) {
-                    $Gc0Time = $2; $Gc0Elapsed = $3;
+                    $GCs += $2 * $procs;
+                    $Gc0Count += $2 * $procs;
+                    $Gc0Time = $3; $Gc0Elapsed = $4;
                 } elsif ($1 == 1) {
-                    $Gc1Time = $2; $Gc1Elapsed = $3;
+                    $GCs += $2;
+                    $Gc1Count += $2;
+                    $Gc1Time = $3; $Gc1Elapsed = $4;
+                }
+            }
+
+            if (/^\s*Gen\s+(\d+)(.\d+)?\s*(\d+) colls,\s*(local|\d+\s*par)\s+(\d+\.\d+)s\s+(\d+\.\d+)s/) {
+                $GCs += $3;
+                if ($1 == 0) {
+                    $Gc0Count += $3;
+                } elsif ($1 == 1) {
+                    $Gc1Count += $3;
                 }
             }
 
             if (/work balance: ([0-9.]+)/) {
                 $Balance = $1;
             }
-
 
 	    if ( /CPU GC counters/ ) {
 		# Counters that follow correspond to GC
@@ -544,6 +558,8 @@ sub process_stats_file {
     $Gc0Elapsed       = 0.0 unless defined($Gc0Elapsed);
     $Gc1Time          = 0.0 unless defined($Gc1Time);
     $Gc1Elapsed       = 0.0 unless defined($Gc1Elapsed);
+    $Gc0Count         = 0 unless defined($Gc0Count);
+    $Gc1Count         = 0 unless defined($Gc1Count);
 
     # a bit of tidying
     $BytesAlloc =~ s/,//g;
