@@ -195,7 +195,7 @@ main = do
            -- sequential, append-list of results
            2 -> print $ lenA   $ payA arg coins1 []
            -- parallel, append-list of results
-           3 -> print $ lenA   $ payA_par 4 arg coins1 []
+           3 -> print $ lenA   $ payA_par 3 arg coins1 []
 
            4 -> print $ length (pay 0 arg coins [])
            5 -> print $ length (pay1 0 arg coins1 (map (\(c,q) -> (c,0)) coins1))
