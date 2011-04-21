@@ -179,7 +179,7 @@ mean f results = go (f results)
   where go [] = Nothing
         go fs = Just (MeanStdDev mn stddev)
          where mn = sn / n
-               stddev = (n * sum (map (^2) fs) - sn^2) / n
+               stddev = (sqrt (n * sum (map (^2) fs) - sn^2)) / n
                sn = foldl' (+) 0 fs
                n = fromIntegral (length fs)
 
