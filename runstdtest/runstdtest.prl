@@ -455,8 +455,10 @@ sub process_stats_file {
                 $GCs += $3;
                 if ($1 == 0) {
                     $Gc0Count += $3;
+                    $Gc0Time = $5; $Gc0Elapsed = $6;
                 } elsif ($1 == 1) {
                     $Gc1Count += $3;
+                    $Gc1Time = $5; $Gc1Elapsed = $6;
                 }
             }
 
