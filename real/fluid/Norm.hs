@@ -24,7 +24,7 @@ andAnd a b = if a then
 		error "andAnd: first argument not True\n"
 -- end partain
 
-data (Normal a) => Norm_able a = Norm_pack Bool a deriving ()
+data Norm_able a = Norm_pack Bool a deriving ()
 
 class Normal a where
 	normal :: a -> Bool
