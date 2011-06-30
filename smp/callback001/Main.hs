@@ -1,6 +1,14 @@
 {-# OPTIONS_GHC -fffi #-}
 -- This benchmark is also ffi014 in the test suite.
 
+-- This program behaves unpredictably with the non-threaded RTS,
+-- because depending on when the context switches happen it might end
+-- up building a deep stack of callbacks.  When this happens, the run
+-- queue gets full of threads that have finished but cannot exit
+-- because they do not belong to the topmost call to schedule(), and
+-- the scheduler repeatedly traverses the run queue full of these
+-- zombie threads.
+
 module Main where
 
 import Control.Concurrent
