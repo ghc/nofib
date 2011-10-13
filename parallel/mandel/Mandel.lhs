@@ -135,7 +135,7 @@ parallelMandel mat limit radius
 #ifdef STRATEGIES_2
     parallel = parBuffer 70 rwhnf
 #else
-    parallel = withStrategy (parBuffer 70 rwhnf)
+    parallel = withStrategy (parBuffer 70 rseq)
 #endif
 
 seqList :: [a] -> ()

@@ -14,7 +14,7 @@ module Illumination
     ) where
 
 import Control.Parallel
-import Control.Parallel.Strategies (withStrategy, parBuffer,  rwhnf)
+import Control.Parallel.Strategies (withStrategy, parBuffer,  rseq)
 
 import Data.Array
 import Data.Char(chr)
@@ -38,9 +38,9 @@ render (m,m') amb ls obj dep fov wid ht file
        }
   where
 #ifdef STRATEGIES_2
-    parallel = parBuffer 100 rwhnf . map (\x -> seqList x `pseq` x)
+    parallel = parBuffer 100 rseq . map (\x -> seqList x `pseq` x)
 #else
-    parallel = withStrategy (parBuffer 100 rwhnf) . map (\x -> seqList x `pseq` x)
+    parallel = withStrategy (parBuffer 100 rseq) . map (\x -> seqList x `pseq` x)
 #endif
 
     debugging = return ()
