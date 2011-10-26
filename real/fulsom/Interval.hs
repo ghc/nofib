@@ -45,7 +45,7 @@ instance (Ord a) => Ord (Interval a) where
   max  = ivMax
 
 
-instance (Num a,Ord a,Eq a,Show{-was:Text-} a) => Num (Interval a) where
+instance (Num a, Ord a, Eq a, Show a) => Num (Interval a) where
   (+)		= ivPlus
   (*)		= ivMult
   negate	= ivNegate
@@ -54,13 +54,11 @@ instance (Num a,Ord a,Eq a,Show{-was:Text-} a) => Num (Interval a) where
   fromInteger	= ivFromInteger
 
 
-instance (Num a,Ord a,Fractional a) => Fractional (Interval a) where
+instance (Show a, Num a, Ord a, Fractional a) => Fractional (Interval a) where
   (/)		= ivDiv
   fromRational	= ivFromRational
 
--- instance (Fractional a,Ord a,Floating a) =>  - not this ?
-instance (RealFloat a) => 
-			Floating (Interval a) where
+instance (Show a, RealFloat a) => Floating (Interval a) where
   pi		= Pt pi
   exp		= ivExp
   log		= ivLog
@@ -82,10 +80,10 @@ instance (RealFloat a) =>
 
 -- Error functions - un-used.
 
-error0 = error "Not implemented."
-error1 a = error "Not implemented."
-error2 a b = error "Not implemented."
-error3 a b c = error "Not implemented."
+error0         = error "Not implemented."
+error1 a       = error "Not implemented."
+error2 a b     = error "Not implemented."
+error3 a b c   = error "Not implemented."
 error4 a b c d = error "Not implemented."
 
 
@@ -251,5 +249,3 @@ unpt (Pt a) = a
 mid1 (a :#: b) = Pt (a + (b-a)/3)
 mid2 (a :#: b) = Pt (b - (b-a)/3)
 
-
--- END --
