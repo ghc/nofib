@@ -119,7 +119,7 @@ above.
 
 Finally @i_num@ converts an integer  to an @Iseq@.
 
-> i_num :: Num a => a -> Iseq
+> i_num :: (Show a, Num a) => a -> Iseq
 > i_num = i_str . show
 
 > i_newline 	= i_str "\n"
