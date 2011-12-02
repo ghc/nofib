@@ -41,8 +41,8 @@ extract n (x :+: ps) = x : extract (n-1) ps
 
 deriv:: Num a => Ps a -> Ps a
 integral:: Fractional a => Ps a -> Ps a
-compose:: Num a => Ps a -> Ps a -> Ps a
-revert:: Fractional a => Ps a -> Ps a
+compose:: (Eq a, Num a) => Ps a -> Ps a -> Ps a
+revert:: (Eq a, Fractional a) => Ps a -> Ps a
 toList:: Num a => Ps a -> [a]
 takePs:: Num a => Int -> Ps a -> [a]
 (.*):: Num a => a -> Ps a -> Ps a
@@ -59,13 +59,13 @@ toList (f :+: fs) = f : (toList fs)
 
 takePs n fs = take n (toList fs)
 
-instance Num a => Eq (Ps a) where			--(1)
+instance (Eq a, Num a) => Eq (Ps a) where                       --(1)
 	Pz == Pz = True
 	Pz == (f :+: fs) = f==0 && Pz==fs
 	fs == Pz = Pz==fs
 	(f :+: fs) == (g :+: gs) = f==g && fs==gs
 
-instance Num a => Show (Ps a) where			--(2)
+instance (Show a, Num a) => Show (Ps a) where                   --(2)
 	showsPrec p Pz = showsPrec p [0]
 	showsPrec p fs = showsPrec p (toList fs)
 
@@ -85,7 +85,7 @@ instance Num a => Num (Ps a) where
 	fromInteger 0 = Pz
 	fromInteger c = fromInteger c :+: Pz
 
-instance Fractional a => Fractional (Ps a) where
+instance (Eq a, Fractional a) => Fractional (Ps a) where
 	recip fs = 1/fs
 
 	Pz/Pz = error "power series 0/0"
@@ -113,7 +113,7 @@ integral fs = 0 :+: (int1 fs 1) where			--(6)
 	int1 Pz _ = Pz
 	int1 (f :+: fs) n = f/n :+: (int1 fs (n+1))
 
-instance Fractional a => Floating (Ps a) where
+instance (Eq a, Fractional a) => Floating (Ps a) where
 	sqrt Pz = Pz
 	sqrt (0 :+: 0 :+: fs) = 0 :+: (sqrt fs)
 	sqrt (1 :+: fs) = qs where

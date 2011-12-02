@@ -78,7 +78,7 @@ payA_par depth val ((c,q):coins) acc
   | otherwise  = res
                 
   where
-    res = unEval $ pure append <*> rpar left <*> rwhnf right
+    res = runEval $ pure append <*> rpar left <*> rseq right
 
     left  = payA_par (if q == 1 then (depth-1) else depth) (val - c) coins' (c:acc)
     right = payA_par (depth-1) val coins acc

@@ -3,7 +3,7 @@ Michaelson for SML, converted to (parallel) Haskell by Kevin Hammond!
 
 > {-# LANGUAGE BangPatterns,CPP #-}
 > import Control.Parallel
-> import Control.Parallel.Strategies (Strategy, withStrategy, rwhnf, parBuffer)
+> import Control.Parallel.Strategies (Strategy, withStrategy, rseq, parBuffer)
 > import System.Environment
 
 > main = do
@@ -144,7 +144,7 @@ in_poly_test (p,q,r) (A,B,C) Vs
 #ifdef STRATEGIES_2
 >    parallel = parBuffer 200 rwhnf
 #else
->    parallel = withStrategy (parBuffer 200 rwhnf)
+>    parallel = withStrategy (parBuffer 200 rseq)
 #endif
 
 

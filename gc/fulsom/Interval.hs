@@ -54,12 +54,12 @@ instance (Num a,Ord a,Eq a,Show{-was:Text-} a) => Num (Interval a) where
   fromInteger	= ivFromInteger
 
 
-instance (Num a,Ord a,Fractional a) => Fractional (Interval a) where
+instance (Show a,Num a,Ord a,Fractional a) => Fractional (Interval a) where
   (/)		= ivDiv
   fromRational	= ivFromRational
 
 -- instance (Fractional a,Ord a,Floating a) =>  - not this ?
-instance (RealFloat a) => 
+instance (Show a,RealFloat a) =>
 			Floating (Interval a) where
   pi		= Pt pi
   exp		= ivExp

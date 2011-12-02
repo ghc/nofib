@@ -1,4 +1,4 @@
--- Time-stamp: <2010-02-12 14:57:09 simonmar>
+-- Time-stamp: <2011-10-07 11:36:17 simonmar>
 -----------------------------------------------------------------------------
 
 module Game where
@@ -20,7 +20,7 @@ alternate _ _ _ _ b | static b == OWin = []
 alternate depth player f g board = move : alternate depth opponent g f board'
 	where
 	move@(board',eval) = best f possibles scores
-	scores = map (bestMove depth opponent g f) possibles `using` parList rwhnf
+        scores = map (bestMove depth opponent g f) possibles `using` parList rseq
 	possibles = newPositions player board
         opponent = opposite player
 
@@ -62,4 +62,4 @@ mise f g (Branch _ l) = foldr f (g OWin XWin) (map (mise g f) l)
 parMise :: Int -> Player -> Player -> (Tree Evaluation) -> Evaluation
 parMise 0 f g t = mise f g t
 parMise n f g (Branch a []) = a
-parMise n f g (Branch _ l) = foldr f (g OWin XWin) (map (parMise (n-1) g f) l `using` parList rwhnf)
+parMise n f g (Branch _ l) = foldr f (g OWin XWin) (map (parMise (n-1) g f) l `using` parList rseq)
