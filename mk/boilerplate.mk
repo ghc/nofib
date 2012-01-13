@@ -35,9 +35,6 @@ WERROR=
 #	spectral
 #	real
 #	parallel
-#	PRIVATE
-#	PENDING
-#	UNUSED
 NoFibSubDirs = imaginary spectral real
 
 # The different ways to build nofib. Default is just to mirror
