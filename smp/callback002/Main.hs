@@ -1,4 +1,4 @@
-{-# OPTIONS_GHC -fffi #-}
+{-# LANGUAGE ForeignFunctionInterface #-}
 -- Measure raw callback performance.
 
 module Main where
@@ -23,6 +23,6 @@ foreign import ccall "&count" pcount :: Ptr CInt
 foreign import ccall unsafe "wrapper"
    mkFunc :: FUNC -> IO (FunPtr FUNC)
 
-foreign import ccall threadsafe "cbits.h callC"
+foreign import ccall safe "cbits.h callC"
    callC:: FunPtr FUNC -> IO ()
 

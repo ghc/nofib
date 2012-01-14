@@ -19,3 +19,4 @@ main = do
   a <- forkIO $ forM_ [1..n] $ \i -> writeChan c i
   b <- forkIO $ do forM_ [1..n] $ \i -> readChan c; putMVar m ()
   takeMVar m
+

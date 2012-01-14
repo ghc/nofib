@@ -1,4 +1,4 @@
-{-# OPTIONS_GHC -fffi #-}
+{-# LANGUAGE ForeignFunctionInterface #-}
 -- This benchmark is also ffi014 in the test suite.
 
 -- This program behaves unpredictably with the non-threaded RTS,
@@ -38,6 +38,6 @@ type FUNC  =  IO ()
 foreign import ccall unsafe "wrapper"
    mkFunc :: FUNC -> IO (FunPtr FUNC)
 
-foreign import ccall threadsafe "cbits.h callC"
+foreign import ccall safe "cbits.h callC"
    callC:: FunPtr FUNC -> IO ()
 
