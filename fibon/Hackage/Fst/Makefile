@@ -32,5 +32,5 @@ SRCS = src/FST/GetOpt.hs \
        src/FST/Main.hs
 PROG_ARGS += -u soda.fst
 STDIN_FILE = PLONK
-HC_OPTS += -isrc -package array -package base -package haskell98
+HC_OPTS += -isrc -package array -package base
 include $(TOP)/mk/target.mk
