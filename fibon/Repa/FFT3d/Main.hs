@@ -19,7 +19,10 @@ main
 	 [size, prefix]	-> mainWithArgs (read size) prefix
 
          _ -> putStr $ unlines
-		[ "Usage: repa-fft3d-highpass <size> <prefix>"
+		[ "Usage: repa-fft3d-highpass <size::Int> <prefix>"
+		, ""
+		, "   Size must be a power of two."
+		, "   You get a stack of prefix###.bmp files resulting from high-pass filtering a cube."
 		, "" ]
 			
 			
@@ -38,16 +41,15 @@ mainWithArgs size prefixOut
 
 	arrInit `deepSeqArray` return ()
 
-	(arrFinal, t)
+	(arrFinal, _)
 	 	<- time 
 	 	$  let arrFinal'	= transform arrInit center cutoff
 	  	   in  arrFinal' `deepSeqArray` return arrFinal'
 
 	-- putStr (prettyTime t)
-	putStrLn "Done"
+        putStrLn "Done"
 
- 	--mapM_ (dumpSlice prefixOut arrFinal) [0..size - 1]
- 	dumpSlice prefixOut arrFinal 0
+ 	mapM_ (dumpSlice prefixOut arrFinal) [0..size - 1]
 
 
 -- | To the high pass transform.
@@ -79,13 +81,13 @@ dumpSlice
 dumpSlice prefix arr sliceNum
  = do	let arrSlice	= slice arr (Any :. sliceNum :. All)
 	let arrGrey	= A.map (truncate . (* 255) . mag) arrSlice
-	let fileName	= prefix ++ (pad0 3 (show sliceNum)) ++ ".bmp"
+	let fileName	= prefix P.++ (pad0 3 (show sliceNum)) P.++ ".bmp"
 
 	writeComponentsToBMP fileName
 		arrGrey arrGrey arrGrey
 
 pad0 n str
- = P.replicate  (n - length str) '0' ++ str
+ = P.replicate  (n - length str) '0' P.++ str
 
 
 {-# INLINE isInCenteredCube #-}
