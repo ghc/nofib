@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 module Test.QuickCheck
   ( 
     -- * Running tests
@@ -7,6 +8,12 @@ module Test.QuickCheck
   , quickCheckWith
   , quickCheckWithResult
   , quickCheckResult
+    -- ** Running tests verbosely
+  , verboseCheck
+  , verboseCheckWith
+  , verboseCheckWithResult
+  , verboseCheckResult
+  , verbose
     
     -- * Random generation
   , Gen
@@ -31,7 +38,7 @@ module Test.QuickCheck
   , sample
   , sample'
 
-    -- * Arbitrary and CoArbitrary classes.
+    -- * Arbitrary and CoArbitrary classes
   , Arbitrary(..)
   , CoArbitrary(..)
   
@@ -62,7 +69,9 @@ module Test.QuickCheck
   , NonNegative(..)
   , Smart(..)
   , Shrink2(..)
+#ifndef NO_MULTI_PARAM_TYPE_CLASSES
   , Shrinking(..)
+#endif
   , ShrinkState(..)
 
     -- * Properties
@@ -73,9 +82,15 @@ module Test.QuickCheck
   , (==>)
   , forAll
   , forAllShrink
+    -- *** Experimental combinators for conjunction and disjunction
   , (.&.)
+  , (.&&.)
+  , conjoin
+  , (.||.)
+  , disjoin
     -- *** Handling failure
   , whenFail
+  , printTestCase
   , whenFail'
   , expectFailure
   , within

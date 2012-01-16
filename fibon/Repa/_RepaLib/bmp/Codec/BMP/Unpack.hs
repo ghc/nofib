@@ -26,7 +26,7 @@ unpackBMPToRGBA32 bmp
    in	case bitCount of
 	 24	-> packRGB24ToRGBA32 width height (bmpRawImageData bmp)
 	 32	-> packRGB32ToRGBA32 width height (bmpRawImageData bmp)
-	 _	-> error "Codec.BMP.unpackBMPToRGBA32: unhandled bitcount"
+	 _	-> error "Codec.BMP.unpackBMPToRGBA32: unhandled bitcount."
 
 
 -- | Unpack raw, uncompressed 24 bit BMP image data to a string of RGBA component values.
@@ -41,13 +41,16 @@ packRGB24ToRGBA32 width height str
  = let	bytesPerLine	= BS.length str `div` height
 	padPerLine	= bytesPerLine - width * 3
 	sizeDest	= width * height * 4
-   in	if height * (width * 3 + padPerLine) /= BS.length str
-	 then error "Codec.BMP.unpackRGB24ToRGBA32: given image dimensions don't match input data."
+
+        -- We allow padding bytes on the end of the image data.
+   in	if BS.length str < height * (width * 3 + padPerLine)
+	 then error "Codec.BMP.unpackRGB24ToRGBA32: image data is truncated."
  	 else unsafePerformIO
        	 	$ allocaBytes sizeDest      $ \bufDest -> 
    	   	  BS.unsafeUseAsCString str $ \bufSrc  ->
             	   do	packRGB24ToRGBA32' width height padPerLine (castPtr bufSrc) (castPtr bufDest)
 			packCStringLen (bufDest, sizeDest)
+
 		
 -- We're doing this via Ptrs because we don't want to take the
 -- overhead of doing the bounds checks in ByteString.index.
@@ -89,8 +92,8 @@ packRGB32ToRGBA32
 		
 packRGB32ToRGBA32 width height str
   = let sizeDest = height * width * 4
-    in  if sizeDest /= BS.length str
-	 then error "Codec.BMP.unpackRGB24ToRGBA32: given image dimensions don't match input data."
+    in  if  BS.length str < sizeDest
+	 then error "Codec.BMP.packRGB24ToRGBA32: image data is truncated."
  	 else unsafePerformIO
        	 	$ allocaBytes sizeDest      $ \bufDest -> 
    	   	  BS.unsafeUseAsCString str $ \bufSrc  ->

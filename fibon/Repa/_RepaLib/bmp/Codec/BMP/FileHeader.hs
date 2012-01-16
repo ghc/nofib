@@ -70,10 +70,11 @@ checkFileHeader header
 	| fileHeaderType header /= bmpMagic
 	= Just	$ ErrorBadMagic (fileHeaderType header)
 
-	| fileHeaderFileSize header 
-		< fromIntegral (sizeOfFileHeader + sizeOfBitmapInfoV3)
-	= Just	$ ErrorDodgyFileHeaderFieldFileSize 
-		$ fromIntegral $ fileHeaderFileSize header
+        | fileHeaderFileSize header < fromIntegral sizeOfFileHeader
+        = Just  $ ErrorFileHeaderTruncated
+
+        | fileHeaderFileSize header < fromIntegral (sizeOfFileHeader + sizeOfBitmapInfoV3)
+        = Just  $ ErrorImageHeaderTruncated
 
 	| fileHeaderReserved1 header /= 0
 	= Just 	$ ErrorReservedFieldNotZero

@@ -1,5 +1,11 @@
 {-# LANGUAGE BangPatterns, PackageImports #-}
 {-# OPTIONS -Wall -fno-warn-missing-signatures -fno-warn-incomplete-patterns #-}
+
+-- | Old support for stencil based convolutions. 
+--
+--   NOTE: This is slated to be merged with the new Stencil support in the next version
+--         of Repa. We'll still expose the `convolve` function though.
+--
 module Data.Array.Repa.Algorithms.Convolve
 	( convolve
 
@@ -9,10 +15,9 @@ module Data.Array.Repa.Algorithms.Convolve
 	, convolveOut )
 where
 import Data.Array.Repa 					as A
-import qualified Data.Array.Repa.Shape			as S
 import qualified Data.Vector.Unboxed			as V
+import qualified Data.Array.Repa.Shape			as S
 import Prelude						as P
-import "dph-prim-par" Data.Array.Parallel.Unlifted	(Elt)
 
 
 -- Plain Convolve ---------------------------------------------------------------------------------
@@ -27,11 +32,11 @@ convolve
 
 {-# INLINE convolve #-}
 convolve makeOut
- 	kernel@(Manifest       (_ :. krnHeight :. krnWidth) krnVec)
-  	 image@(Manifest imgSh@(_ :. imgHeight :. imgWidth) imgVec)
+ 	kernel@(Array       (_ :. krnHeight :. krnWidth) [Region RangeAll (GenManifest krnVec)])
+  	 image@(Array imgSh@(_ :. imgHeight :. imgWidth) [Region RangeAll (GenManifest imgVec)])
 
  = kernel `deepSeqArray` image `deepSeqArray` 
-   force $ traverse image id update
+   force $ unsafeTraverse image id update
  where	
 	!krnHeight2	= krnHeight `div` 2
 	!krnWidth2	= krnWidth  `div` 2
@@ -117,11 +122,11 @@ convolveOut
 
 {-# INLINE convolveOut #-}
 convolveOut getOut
- 	kernel@(Manifest krnSh@(_ :. krnHeight :. krnWidth) _)
-  	 image@(Manifest imgSh@(_ :. imgHeight :. imgWidth) _)
+ 	kernel@(Array krnSh@(_ :. krnHeight :. krnWidth) _)
+  	 image@(Array imgSh@(_ :. imgHeight :. imgWidth) _)
 
  = kernel `deepSeqArray` image `deepSeqArray` 
-   force $ traverse image id stencil
+   force $ unsafeTraverse image id stencil
  where	
 	!krnHeight2	= krnHeight `div` 2
 	!krnWidth2	= krnWidth  `div` 2
@@ -155,7 +160,7 @@ convolveOut getOut
 		 | otherwise
 		 = let	!ix@(sh :. y :. x)	= S.fromIndex krnSh count
 			!ix'			= sh :. y + jkrnHeight' :. x + ikrnWidth'
-			!here			= kernel !: ix * (get' ix')
+			!here			= kernel `unsafeIndex` ix * (get' ix')
 		   in	integrate (count + 1) (acc + here)
 
 	   in	integrate 0 0

@@ -1,25 +1,42 @@
 {-# LANGUAGE TypeOperators, GADTs #-}
+-- | Generation of random shrinkable, showable functions.
+-- Not really documented at the moment!
+--
+-- Example of use:
+-- 
+-- >>> :{
+-- >>> let prop :: Fun String Integer -> Bool
+-- >>>     prop (Fun _ f) = f "monkey" == f "banana" || f "banana" == f "elephant"
+-- >>> :}
+-- >>> quickCheck prop
+-- *** Failed! Falsifiable (after 3 tests and 134 shrinks):     
+-- {"elephant"->1, "monkey"->1, _->0}
+--
+-- To generate random values of type @'Fun' a b@,
+-- you must have an instance @'Function' a@.
+-- If your type has a 'Show' instance, you can use 'functionShow' to write the instance; otherwise,
+-- use 'functionMap' to give a bijection between your type and a type that is already an instance of 'Function'.
+-- See the @'Function' [a]@ instance for an example of the latter.
 module Test.QuickCheck.Function
   ( Fun(..)
   , apply
   , (:->)
-  , FunArbitrary(..)
-  , funArbitraryMap
-  , funArbitraryShow
+  , Function(..)
+  , functionMap
+  , functionShow
   )
  where
 
 --------------------------------------------------------------------------
 -- imports
 
-import Test.QuickCheck.Gen
 import Test.QuickCheck.Arbitrary
-import Test.QuickCheck.Property
 import Test.QuickCheck.Poly
-import Test.QuickCheck.Modifiers
 
 import Data.Char
 import Data.Word
+import Data.List( intersperse )
+import Data.Maybe( fromJust )
 
 --------------------------------------------------------------------------
 -- concrete functions
@@ -42,17 +59,17 @@ instance Functor ((:->) a) where
   fmap f (Map g h p) = Map g h (fmap f p)
 
 instance (Show a, Show b) => Show (a:->b) where
-  -- only use this on finite functions
-  show p =
-    "{" ++ (case table p of
-             []        -> ""
-             (_,c):xcs -> concat [ show x ++ "->" ++ show c ++ ","
-                                 | (x,c) <- xcs
-                                 ]
-                       ++ "_->" ++ show c)
-        ++ "}"
-   where
-    xcs = table p
+  show p = showFunction p Nothing
+
+-- only use this on finite functions
+showFunction :: (Show a, Show b) => (a :-> b) -> Maybe b -> String
+showFunction p md =
+  "{" ++ concat (intersperse ", " ( [ show x ++ "->" ++ show c
+                                    | (x,c) <- table p
+                                    ]
+                                 ++ [ "_->" ++ show d
+                                    | Just d <- [md]
+                                    ] )) ++ "}"
 
 -- turning a concrete function into an abstract function (with a default result)
 abstract :: (a :-> c) -> c -> (a -> c)
@@ -73,54 +90,71 @@ table Nil         = []
 table (Table xys) = xys
 table (Map _ h p) = [ (h x, c) | (x,c) <- table p ]
 
+-- finding a default result
+
+-- breadth-first search (can't use depth-first search!)
+data Steps a = Step (Steps a) | Fail | Result a
+
+(#) :: Steps a -> Steps a -> Steps a
+Result x # t        = Result x
+s        # Result y = Result y
+Fail     # t        = t
+s        # Fail     = s
+Step s   # Step t   = Step (s # t)
+
+instance Monad Steps where
+  Step s   >>= k = Step (s >>= k)
+  Result x >>= k = k x
+  Fail     >>= k = Fail
+
+  return x = Result x
+
+run :: Steps a -> Maybe a
+run (Step s)   = run s
+run (Result x) = Just x
+run Fail       = Nothing
+
+defaultSteps :: (a :-> c) -> Steps c
+defaultSteps (Pair p)          = defaultSteps p >>= defaultSteps
+defaultSteps (p :+: q)         = Step (defaultSteps p # defaultSteps q)
+defaultSteps (Unit c)          = Result c
+defaultSteps (Table ((_,y):_)) = Result y
+defaultSteps (Map _ _ p)       = defaultSteps p
+defaultSteps _                 = Fail
+
+defaultResult :: (a :-> c) -> Maybe c
+defaultResult = run . defaultSteps
+
 --------------------------------------------------------------------------
--- FunArbitrary
+-- Function
 
-class FunArbitrary a where
-  funArbitrary :: Arbitrary c => Gen (a :-> c)
+class Function a where
+  function :: (a->b) -> (a:->b)
 
-instance (FunArbitrary a, Arbitrary c) => Arbitrary (a :-> c) where
-  arbitrary = funArbitrary
-  shrink    = shrinkFun shrink
+-- basic instances
+  
+instance Function () where
+  function f = Unit (f ())
 
--- basic instances: pairs, sums, units
+instance Function Word8 where
+  function f = Table [(x,f x) | x <- [0..255]]
 
-instance (FunArbitrary a, FunArbitrary b) => FunArbitrary (a,b) where
-  funArbitrary =
-    do p <- funArbitrary
-       return (Pair p)
+instance (Function a, Function b) => Function (a,b) where
+  function f = Pair (function `fmap` function (curry f))
 
-instance (FunArbitrary a, FunArbitrary b) => FunArbitrary (Either a b) where
-  funArbitrary =
-    do p <- funArbitrary
-       q <- funArbitrary
-       return (p :+: q)
+instance (Function a, Function b) => Function (Either a b) where
+  function f = function (f . Left) :+: function (f . Right)
 
-instance FunArbitrary () where
-  funArbitrary =
-    do c <- arbitrary
-       return (Unit c)
+-- other instances
 
-instance FunArbitrary Word8 where
-  funArbitrary =
-    do xys <- sequence [ do y <- arbitrary
-                            return (x,y)
-                       | x <- [0..255]
-                       ]
-       return (Table xys)
+functionMap :: Function b => (a->b) -> (b->a) -> (a->c) -> (a:->c)
+functionMap g h f = Map g h (function (\b -> f (h b)))
 
--- other instances (using Map)
+functionShow :: (Show a, Read a) => (a->c) -> (a:->c)
+functionShow f = functionMap show read f
 
-funArbitraryMap :: (FunArbitrary a, Arbitrary c) => (b -> a) -> (a -> b) -> Gen (b :-> c)
-funArbitraryMap g h =
-  do p <- funArbitrary
-     return (Map g h p)
-
-funArbitraryShow :: (Show a, Read a, Arbitrary c) => Gen (a :-> c)
-funArbitraryShow = funArbitraryMap show read
-
-instance FunArbitrary a => FunArbitrary [a] where
-  funArbitrary = funArbitraryMap g h
+instance Function a => Function [a] where
+  function = functionMap g h
    where
     g []     = Left ()
     g (x:xs) = Right (x,xs)
@@ -128,8 +162,8 @@ instance FunArbitrary a => FunArbitrary [a] where
     h (Left _)       = []
     h (Right (x,xs)) = x:xs
 
-instance FunArbitrary a => FunArbitrary (Maybe a) where
-  funArbitrary = funArbitraryMap g h
+instance Function a => Function (Maybe a) where
+  function = functionMap g h
    where
     g Nothing  = Left ()
     g (Just x) = Right x
@@ -137,8 +171,8 @@ instance FunArbitrary a => FunArbitrary (Maybe a) where
     h (Left _)  = Nothing
     h (Right x) = Just x
 
-instance FunArbitrary Bool where
-  funArbitrary = funArbitraryMap g h
+instance Function Bool where
+  function = functionMap g h
    where
     g False = Left ()
     g True  = Right ()
@@ -146,8 +180,8 @@ instance FunArbitrary Bool where
     h (Left _)  = False
     h (Right _) = True
 
-instance FunArbitrary Integer where
-  funArbitrary = funArbitraryMap gInteger hInteger
+instance Function Integer where
+  function = functionMap gInteger hInteger
    where
     gInteger n | n < 0     = Left (gNatural (abs n - 1))
                | otherwise = Right (gNatural n)
@@ -161,34 +195,40 @@ instance FunArbitrary Integer where
     hNatural []     = 0
     hNatural (w:ws) = fromIntegral w + 256 * hNatural ws
 
-instance FunArbitrary Int where
-  funArbitrary = funArbitraryMap fromIntegral fromInteger
+instance Function Int where
+  function = functionMap fromIntegral fromInteger
 
-instance FunArbitrary Char where
-  funArbitrary = funArbitraryMap ord' chr'
+instance Function Char where
+  function = functionMap ord' chr'
    where
     ord' c = fromIntegral (ord c) :: Word8
     chr' n = chr (fromIntegral n)
 
 -- poly instances
 
-instance FunArbitrary A where
-  funArbitrary = funArbitraryMap unA A
+instance Function A where
+  function = functionMap unA A
 
-instance FunArbitrary B where
-  funArbitrary = funArbitraryMap unB B
+instance Function B where
+  function = functionMap unB B
 
-instance FunArbitrary C where
-  funArbitrary = funArbitraryMap unC C
+instance Function C where
+  function = functionMap unC C
 
-instance FunArbitrary OrdA where
-  funArbitrary = funArbitraryMap unOrdA OrdA
+instance Function OrdA where
+  function = functionMap unOrdA OrdA
 
-instance FunArbitrary OrdB where
-  funArbitrary = funArbitraryMap unOrdB OrdB
+instance Function OrdB where
+  function = functionMap unOrdB OrdB
 
-instance FunArbitrary OrdC where
-  funArbitrary = funArbitraryMap unOrdC OrdC
+instance Function OrdC where
+  function = functionMap unOrdC OrdC
+
+-- instance Arbitrary
+
+instance (Function a, CoArbitrary a, Arbitrary b) => Arbitrary (a:->b) where
+  arbitrary = function `fmap` arbitrary
+  shrink    = shrinkFun shrink
 
 --------------------------------------------------------------------------
 -- shrinking
@@ -203,8 +243,8 @@ shrinkFun shr (Pair p) =
 shrinkFun shr (p :+: q) =
   [ p .+. Nil | not (isNil q) ] ++
   [ Nil .+. q | not (isNil p) ] ++
-  [ p' .+. q  | p' <- shrinkFun shr p ] ++
-  [ p  .+. q' | q' <- shrinkFun shr q ]
+  [ p  .+. q' | q' <- shrinkFun shr q ] ++
+  [ p' .+. q  | p' <- shrinkFun shr p ]
  where
   isNil :: (a :-> b) -> Bool
   isNil Nil = True
@@ -237,22 +277,26 @@ shrinkFun shr (Map g h p) =
 --------------------------------------------------------------------------
 -- the Fun modifier
 
-data Fun a b = Fun (a :-> b) (a -> b)
+data Fun a b = Fun (a :-> b, b) (a -> b)
 
-fun :: (a :-> b) -> Fun a b
-fun p = Fun p (abstract p (snd (head (table p))))
+mkFun :: (a :-> b) -> b -> Fun a b
+mkFun p d = Fun (p,d) (abstract p d)
 
 apply :: Fun a b -> (a -> b)
 apply (Fun _ f) = f
 
 instance (Show a, Show b) => Show (Fun a b) where
-  show (Fun p _) = show p
+  show (Fun (p,d) _) = showFunction p (Just d)
 
-instance (FunArbitrary a, Arbitrary b) => Arbitrary (Fun a b) where
-  arbitrary = fun `fmap` arbitrary
+instance (Function a, CoArbitrary a, Arbitrary b) => Arbitrary (Fun a b) where
+  arbitrary =
+    do p <- arbitrary
+       return (mkFun p (fromJust (defaultResult p)))
 
-  shrink (Fun p _) =
-    [ fun p' | p' <- shrink p, _:_ <- [table p'] ]
+  shrink (Fun (p,d) _) =
+       [ mkFun p' d' | p' <- shrink p, Just d' <- [defaultResult p'] ]
+    ++ [ mkFun p' d  | p' <- shrink p ]
+    ++ [ mkFun p d'  | d' <- shrink d ]
 
 --------------------------------------------------------------------------
 -- the end.

@@ -1,3 +1,6 @@
+-- Hide away the nasty implementation-specific ways of catching
+-- exceptions behind a nice API. The main trouble is catching ctrl-C.
+
 {-# LANGUAGE CPP #-}
 module Test.QuickCheck.Exception where
 
@@ -13,7 +16,7 @@ module Test.QuickCheck.Exception where
 #endif
 #endif
 
-#if defined OLD_EXCEPTIONS
+#if defined(OLD_EXCEPTIONS)
 import Control.Exception(evaluate, try, Exception(..))
 #else
 import Control.Exception.Extensible(evaluate, try, SomeException(SomeException)

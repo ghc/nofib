@@ -4,12 +4,15 @@ module Codec.BMP.BitmapInfoV3
 	( BitmapInfoV3	(..)
 	, Compression (..)
 	, sizeOfBitmapInfoV3
-	, checkBitmapInfoV3)
+	, checkBitmapInfoV3
+        , imageSizeFromBitmapInfoV3)
 where
 import Codec.BMP.Error
+import Codec.BMP.Compression
 import Data.Binary
 import Data.Binary.Get	
 import Data.Binary.Put
+
 
 -- | Device Independent Bitmap (DIB) header for Windows V3.
 data BitmapInfoV3
@@ -33,6 +36,10 @@ data BitmapInfoV3
 	, dib3Compression	:: Compression
 
 	  -- | (+20) Size of raw image data.
+	  --   Some encoders set this to zero, so we need to calculate it based on the
+	  --   overall file size.
+	  -- 
+	  --   If it is non-zero then we check it matches the file size - header size.
 	, dib3ImageSize		:: Word32
 
 	  -- | (+24) Prefered resolution in pixels per meter, along the X axis.
@@ -48,16 +55,6 @@ data BitmapInfoV3
 	, dib3ColorsImportant	:: Word32
 	}
 	deriving (Show)
-
-data Compression
-	= CompressionRGB
-	| CompressionRLE8
-	| CompressionRLE4
-	| CompressionBitFields
-	| CompressionJPEG
-	| CompressionPNG
-	| CompressionUnknown Word32
-	deriving (Show, Eq)
 
 
 -- | Size of `BitmapInfoV3` header (in bytes)
@@ -105,53 +102,70 @@ instance Binary BitmapInfoV3 where
 	putWord32le	$ dib3ColorsUsed header
 	putWord32le	$ dib3ColorsImportant header
 	
-	
-instance Binary Compression where
- get
-  = do	c	<- getWord32le
-	case c of
-	 0	-> return $ CompressionRGB
-	 1	-> return $ CompressionRLE8
-	 2	-> return $ CompressionRLE4
-	 3	-> return $ CompressionBitFields
-	 4	-> return $ CompressionJPEG
-	 5	-> return $ CompressionPNG
-	 _	-> return $ CompressionUnknown c
-	
- put c
-  = case c of
-	CompressionRGB		-> putWord32le 0
-	CompressionRLE8		-> putWord32le 1
-	CompressionRLE4		-> putWord32le 2
-	CompressionBitFields	-> putWord32le 3
-	CompressionJPEG		-> putWord32le 4
-	CompressionPNG		-> putWord32le 5
-	CompressionUnknown x	-> putWord32le x
-	
-	
--- | Check headers for problems and unsupported features.	 
---	With a V3 header we only support the uncompressed 24bit RGB format.
-checkBitmapInfoV3 :: BitmapInfoV3 ->  Maybe Error
-checkBitmapInfoV3 header
 		
+-- | Check headers for problems and unsupported features.	 
+checkBitmapInfoV3 :: BitmapInfoV3 -> Word32 -> Maybe Error
+checkBitmapInfoV3 header physicalBufferSize
+
+        -- We only handle a single color plane.
 	| dib3Planes header /= 1
-	= Just	$ ErrorUnhandledPlanesCount 
-		$ fromIntegral $ dib3Planes header
+	= Just	$ ErrorUnhandledPlanesCount $ dib3Planes header
 	
-	| dib3ImageSize header == 0
-	= Just	$ ErrorZeroImageSize
-	
-	| dib3ImageSize header `mod` dib3Height header /= 0
-	= Just	$ ErrorLacksWholeNumberOfLines
-
+        -- We only handle 24 and 32 bit images.
 	| dib3BitCount header /= 24
-	= Just 	$ ErrorUnhandledColorDepth
-		$ fromIntegral $ dib3BitCount header
+        , dib3BitCount header /= 32
+	= Just 	$ ErrorUnhandledColorDepth $ dib3BitCount header
 
-	| dib3Compression header /= CompressionRGB
-	= Just	$ ErrorUnhandledCompressionMode
-	
+        -- If the image size field in the header is non-zero, 
+        -- then it must be the same as the physical size of the image buffer.
+        | headerImageSize               <- dib3ImageSize header
+        , headerImageSize /= 0
+        , fromIntegral headerImageSize /= physicalBufferSize
+        = Just  $ ErrorImagePhysicalSizeMismatch
+                        headerImageSize physicalBufferSize
+
+        -- Check that the physical buffer contains enough image data.
+        -- It may contain more, as some encoders put padding bytes
+        -- on the end.
+        | Just calculatedImageSize      <- imageSizeFromBitmapInfoV3 header
+        , fromIntegral physicalBufferSize < calculatedImageSize
+        = Just  $ ErrorImageDataTruncated 
+                        calculatedImageSize
+                        (fromIntegral physicalBufferSize)
+
+        -- We only handle uncompresssed images.
+        | dib3Compression header /= CompressionRGB
+        = Just  $ ErrorUnhandledCompressionMode (dib3Compression header)
+
 	| otherwise
 	= Nothing
 	
+
+-- | Compute the size of the image data from the header.
+--
+--   * We can't just use the 'dib3ImageSize' field because some encoders
+--     set this to zero.
+--
+--   * We also can't use the physical size of the data in the file because
+--     some encoders add zero padding bytes on the end.   
+--
+imageSizeFromBitmapInfoV3 :: BitmapInfoV3 -> Maybe Int
+imageSizeFromBitmapInfoV3 header
+        | dib3BitCount    header == 32
+        , dib3Planes      header == 1
+        , dib3Compression header == CompressionRGB
+        = Just $ fromIntegral (dib3Width header * dib3Height header * 4)
+
+        | dib3BitCount    header == 24
+        , dib3Planes      header == 1
+        , dib3Compression header == CompressionRGB
+        = let   imageBytesPerLine = dib3Width header * 3
+                tailBytesPerLine  = imageBytesPerLine `mod` 4
+                padBytesPerLine   = if tailBytesPerLine > 0
+                                        then 4 - tailBytesPerLine
+                                        else 0
+          in    Just $ fromIntegral (dib3Height header * imageBytesPerLine + padBytesPerLine)
+
+        | otherwise
+        = Nothing
 

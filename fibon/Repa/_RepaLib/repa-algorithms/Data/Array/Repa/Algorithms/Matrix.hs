@@ -13,35 +13,29 @@ module Data.Array.Repa.Algorithms.Matrix
 	(multiplyMM)
 where
 import Data.Array.Repa	as A
-import "dph-prim-par" Data.Array.Parallel.Unlifted			(Elt)
 
 -- | Matrix-matrix multiply.
 multiplyMM
-	:: (Num a, Elt a)
-	=> Array DIM2 a
-	-> Array DIM2 a
-	-> Array DIM2 a
+	:: Array DIM2 Double
+	-> Array DIM2 Double
+	-> Array DIM2 Double
 
--- NOTE: We need this INLINE so multiplyMM gets specialised for the appropriate types.
-{-# INLINE multiplyMM #-}
-multiplyMM arr1 arr2
- = multiplyMM' (force arr1) (force arr2)
-
- where multiplyMM' arr@Manifest{} brr@Manifest{}
-	= A.force $ A.sum (A.zipWith (*) arrRepl brrRepl)
-	where
-	 trr		= force $ transpose2D brr
-	 arrRepl	= A.replicate (Z :. All   :. colsB :. All) arr
-	 brrRepl	= A.replicate (Z :. rowsA :. All   :. All) trr
-	 (Z :. _     :. rowsA) = extent arr
-	 (Z :. colsB :. _    ) = extent brr
+{-# NOINLINE multiplyMM #-}
+multiplyMM arr@(Array _ [Region RangeAll (GenManifest _)])
+	   brr@(Array _ [Region RangeAll (GenManifest _)])
+ = [arr, brr] `deepSeqArrays`
+   A.force $ A.sum (A.zipWith (*) arrRepl brrRepl)
+ where	trr@(Array _ [Region RangeAll (GenManifest _)])
+			= force $ transpose2D brr
+	arrRepl		= trr `deepSeqArray` A.extend (Z :. All   :. colsB :. All) arr
+	brrRepl		= trr `deepSeqArray` A.extend (Z :. rowsA :. All   :. All) trr
+	(Z :. _     :. rowsA) = extent arr
+	(Z :. colsB :. _    ) = extent brr
 	
 
 transpose2D :: Elt e => Array DIM2 e -> Array DIM2 e
 {-# INLINE transpose2D #-}
 transpose2D arr
  = backpermute new_extent swap arr
- where
-	swap (Z :. i :. j)	= Z :. j :. i
+ where	swap (Z :. i :. j)	= Z :. j :. i
 	new_extent		= swap (extent arr)
-

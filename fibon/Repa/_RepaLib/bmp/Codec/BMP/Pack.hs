@@ -65,7 +65,7 @@ packRGBA32ToBMP width height str
 		
 	errs	= catMaybes		
 			[ checkFileHeader   fileHeader
-			, checkBitmapInfoV3 bitmapInfoV3 ]
+			, checkBitmapInfoV3 bitmapInfoV3 (fromIntegral $ BS.length imageData)]
 		
    in	case errs of
 	 [] -> BMP 

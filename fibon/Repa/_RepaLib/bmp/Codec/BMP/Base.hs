@@ -1,10 +1,11 @@
 {-# OPTIONS_HADDOCK hide #-}
 module Codec.BMP.Base
-	(BMP	(..))
+	( BMP	(..))
 where
 import Codec.BMP.FileHeader
 import Codec.BMP.BitmapInfo
 import Data.ByteString
+
 
 -- | A BMP image.
 --	For an uncompressed image, the image data contains triples of BGR component values.
@@ -16,8 +17,5 @@ data BMP
 	, bmpBitmapInfo		:: BitmapInfo
 	, bmpRawImageData	:: ByteString }
 	deriving Show
-
-
-
 
 

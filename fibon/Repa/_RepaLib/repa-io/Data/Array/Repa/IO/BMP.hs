@@ -1,15 +1,18 @@
-{-# LANGUAGE PackageImports #-} 
+{-# LANGUAGE PackageImports, PatternGuards, ExplicitForAll  #-} 
 
 -- | Reading and writing arrays as uncompressed 24 and 32 bit Windows BMP files.
 module Data.Array.Repa.IO.BMP
 	( readImageFromBMP
 	, readComponentsFromBMP
+	, readComponentsListFromBMP
 	, readMatrixFromGreyscaleBMP
+
+	-- Writing.
 	, writeImageToBMP
 	, writeComponentsToBMP
+	, writeComponentsListToBMP
 	, writeMatrixToGreyscaleBMP)
 where
-import qualified "dph-prim-par" Data.Array.Parallel.Unlifted 	as U
 import Data.Array.Repa				as A
 import Data.Array.Repa.ByteString               as A
 import Prelude					as P
@@ -35,13 +38,28 @@ readMatrixFromGreyscaleBMP filePath
 	case eComps of 
 	 Left err	-> return $ Left err
   	 Right (arrRed, arrGreen, arrBlue)
- 	  -> let arr	= force 
+ 	  -> let arr	= force2 
 			$ A.fromFunction (extent arrRed)
-			   (\ix -> sqrt ( (fromIntegral (arrRed   !: ix) / 255) ^ (2 :: Int)
-					+ (fromIntegral (arrGreen !: ix) / 255) ^ (2 :: Int)
-					+ (fromIntegral (arrBlue  !: ix) / 255) ^ (2 :: Int)))
+			   (\ix -> sqrt ( (fromIntegral (arrRed   ! ix) / 255) ^ (2 :: Int)
+					+ (fromIntegral (arrGreen ! ix) / 255) ^ (2 :: Int)
+					+ (fromIntegral (arrBlue  ! ix) / 255) ^ (2 :: Int)))
 	     in	arr `deepSeqArray` return (Right arr)
-		
+
+
+-- | Like `readComponentsFromBMP`, but return the components as a list.
+readComponentsListFromBMP
+	:: FilePath
+	-> IO (Either Error [Array DIM2 Word8])
+
+readComponentsListFromBMP filePath
+ = do	eComps	<- readComponentsFromBMP filePath
+	case eComps of
+	 Left err
+	  -> return $ Left err
+
+	 Right (arrRed, arrGreen, arrBlue)	
+	  -> return $ Right [arrRed, arrGreen, arrBlue]
+
 
 -- | Read RGB components from a BMP file.
 --	Returns arrays of red, green and blue components, all with the same extent.
@@ -66,18 +84,18 @@ readComponentsFromBMP' bmp
 	shapeFn _ 	= Z :. height :. width
 
 	arrRed	
-	 = traverse arr shapeFn
+	 = force2 $ traverse arr shapeFn
 		(\get (sh :. x) -> get (sh :. (x * 4)))
 
 	arrGreen
-	 = traverse arr shapeFn
+	 = force2 $ traverse arr shapeFn
 		(\get (sh :. x) -> get (sh :. (x * 4 + 1)))
 
 	arrBlue
-	 = traverse arr shapeFn
+	 = force2 $ traverse arr shapeFn
 		(\get (sh :. x) -> get (sh :. (x * 4 + 2)))
 	
-   in	(arrRed, arrGreen, arrBlue)
+   in	[arrRed, arrGreen, arrBlue] `deepSeqArrays` (arrRed, arrGreen, arrBlue)
 
 
 -- | Read a RGBA image from a BMP file.
@@ -109,20 +127,36 @@ readImageFromBMP' bmp
 --	Negative values are discarded. Positive values are normalised to the maximum 
 --	value in the matrix and used as greyscale pixels.
 writeMatrixToGreyscaleBMP 
-	:: FilePath
-	-> Array DIM2 Double
+	:: forall a. (Num a, Elt a, Fractional a, RealFrac a)
+	=> FilePath
+	-> Array DIM2 a
 	-> IO ()
 
-{-# NOINLINE writeMatrixToGreyscaleBMP #-}
+{-# NOINLINE   writeMatrixToGreyscaleBMP #-}
+{-# SPECIALISE writeMatrixToGreyscaleBMP :: FilePath -> Array DIM2 Float  -> IO () #-}
+{-# SPECIALISE writeMatrixToGreyscaleBMP :: FilePath -> Array DIM2 Double -> IO () #-}
 writeMatrixToGreyscaleBMP fileName arr
  = let	arrNorm		= normalisePositive01 arr
-
-	scale :: Double -> Word8
 	scale x		= fromIntegral (truncate (x * 255) :: Int)
-
 	arrWord8	= A.map scale arrNorm
    in	writeComponentsToBMP fileName arrWord8 arrWord8 arrWord8
 		
+		
+-- | Like `writeComponentsToBMP` but take the components as a list.
+--   The list must have 3 arrays, for the red, green blue components
+--   respectively, else `error`.
+writeComponentsListToBMP
+	:: FilePath 
+	-> [Array DIM2 Word8]
+	-> IO ()
+
+writeComponentsListToBMP filePath comps
+	| [red, green, blue]	<- comps
+	= writeComponentsToBMP filePath red green blue
+	
+	| otherwise
+	= error "Data.Array.Repa.IO.BMP.writeComponentsListToBMP: wrong number of components"
+	
 
 -- | Write RGB components to a BMP file.
 --	All arrays must have the same extent, else `error`.
@@ -167,7 +201,7 @@ writeImageToBMP fileName arrImage
 	= error "Data.Array.Repa.IO.BMP: lowest order dimension must be 4"
 
 	| otherwise
-	= let 	bmp	= packRGBA32ToBMP height width 
+	= let 	bmp	= packRGBA32ToBMP width height
 			$ A.toByteString arrImage
 	  in	writeBMP fileName bmp
 	
@@ -179,7 +213,7 @@ writeImageToBMP fileName arrImage
 -- | Normalise a matrix to to [0 .. 1], discarding negative values.
 --	If the maximum value is 0 then return the array unchanged.
 normalisePositive01
-	:: (Shape sh, U.Elt a, Fractional a, Ord a)
+	:: (Shape sh, Elt a, Fractional a, Ord a)
 	=> Array sh a
 	-> Array sh a
 

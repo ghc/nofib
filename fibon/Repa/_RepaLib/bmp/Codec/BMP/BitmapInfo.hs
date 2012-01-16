@@ -18,6 +18,7 @@ data BitmapInfo
 	| InfoV5 BitmapInfoV5
 	deriving (Show)
 
+
 instance Binary BitmapInfo where
  get
   = do	size	<- lookAhead getWord32le 

@@ -19,15 +19,18 @@ import System.IO
 import Data.List				as L
 import Data.Array.Repa				as A
 import Prelude					as P
-import qualified "dph-prim-par" Data.Array.Parallel.Unlifted	as U
 
 
+-------------------------------------------------------------------------------
 -- | Read a matrix from a text file.
+--   WARNING: This is implemented fairly naively, just using `Strings` 
+--   under the covers. It will be slow for large data files.
+-- 
+--   It also doesn't do graceful error handling.
+--   If the file has the wrong format you'll get a confusing `error`.
 --
---   WARNING: This doesn't do graceful error handling. If the file has the wrong format
---   you'll get a confusing `error`.
 readMatrixFromTextFile
-	:: (U.Elt a, Num a, Read a)
+	:: (Elt a, Num a, Read a)
 	=> FilePath
 	-> IO (Array DIM2 a)	
 
@@ -47,7 +50,7 @@ readMatrixFromTextFile fileName
 
 -- | Write a matrix as a text file.
 writeMatrixToTextFile 
-	:: (U.Elt a, Show a)
+	:: (Elt a, Show a)
 	=> FilePath
 	-> Array DIM2 a
 	-> IO ()
@@ -60,7 +63,7 @@ writeMatrixToTextFile fileName arr
 	let Z :. width :. height	
 		= extent arr
 
-	hPutStrLn file $ show width ++ " " ++ show height
+	hPutStrLn file $ show width P.++ " " P.++ show height
 		
 	hWriteValues file $ toList arr
 	hClose file

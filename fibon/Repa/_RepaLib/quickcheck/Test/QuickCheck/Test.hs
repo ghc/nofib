@@ -9,13 +9,11 @@ import qualified Test.QuickCheck.Property as P
 import Test.QuickCheck.Text
 import Test.QuickCheck.State
 import Test.QuickCheck.Exception
-import Data.IORef
 
 import System.Random
-  ( RandomGen(..)
+  ( split
   , newStdGen
   , StdGen
-  , split
   )
 
 import Data.Char
@@ -112,7 +110,7 @@ quickCheckWithResult a p =
                  , maxDiscardedTests = maxDiscard a
                  , computeSize       = case replay a of
                                          Nothing    -> computeSize'
-                                         Just (_,s) -> \_ _ -> s
+                                         Just (_,s) -> computeSize' `at0` s
                  , numSuccessTests   = 0
                  , numDiscardedTests = 0
                  , collected         = []
@@ -130,6 +128,28 @@ quickCheckWithResult a p =
           | otherwise =
             (n `mod` maxSize a) * maxSize a `div` (maxSuccess a `mod` maxSize a) + d `div` 10
         n `roundTo` m = (n `div` m) * m
+        at0 f s 0 0 = s
+        at0 f s n d = f n d
+
+-- | Tests a property and prints the results and all test cases generated to 'stdout'.
+-- This is just a convenience function that means the same as 'quickCheck' '.' 'verbose'.
+verboseCheck :: Testable prop => prop -> IO ()
+verboseCheck p = quickCheck (verbose p)
+
+-- | Tests a property, using test arguments, and prints the results and all test cases generated to 'stdout'.
+-- This is just a convenience function that combines 'quickCheckWith' and 'verbose'.
+verboseCheckWith :: Testable prop => Args -> prop -> IO ()
+verboseCheckWith args p = quickCheckWith args (verbose p)
+
+-- | Tests a property, produces a test result, and prints the results and all test cases generated to 'stdout'.
+-- This is just a convenience function that combines 'quickCheckResult' and 'verbose'.
+verboseCheckResult :: Testable prop => prop -> IO Result
+verboseCheckResult p = quickCheckResult (verbose p)
+
+-- | Tests a property, using test arguments, produces a test result, and prints the results and all test cases generated to 'stdout'.
+-- This is just a convenience function that combines 'quickCheckWithResult' and 'verbose'.
+verboseCheckWithResult :: Testable prop => Args -> prop -> IO Result
+verboseCheckWithResult a p = quickCheckWithResult a (verbose p)
 
 --------------------------------------------------------------------------
 -- main test loop
@@ -195,34 +215,27 @@ runATest st f =
        ++ ")"
         )
      let size = computeSize st (numSuccessTests st) (numDiscardedTests st)
-     (mres, ts) <- unpackRose (unProp (f rnd1 size))
-     res <- mres
+     MkRose res ts <- protectRose (reduceRose (unProp (f rnd1 size)))
      callbackPostTest st res
      
-     case ok res of
-       Just True -> -- successful test
+     case res of
+       MkResult{ok = Just True, stamp = stamp, expect = expect} -> -- successful test
          do test st{ numSuccessTests = numSuccessTests st + 1
                    , randomSeed      = rnd2
-                   , collected       = stamp res : collected st
-                   , expectedFailure = expect res
+                   , collected       = stamp : collected st
+                   , expectedFailure = expect
                    } f
        
-       Nothing -> -- discarded test
+       MkResult{ok = Nothing, expect = expect} -> -- discarded test
          do test st{ numDiscardedTests = numDiscardedTests st + 1
                    , randomSeed        = rnd2
-                   , expectedFailure   = expect res
+                   , expectedFailure   = expect
                    } f
          
-       Just False -> -- failed test
+       MkResult{ok = Just False} -> -- failed test
          do if expect res
               then putPart (terminal st) (bold "*** Failed! ")
               else putPart (terminal st) "+++ OK, failed as expected. "
-            putTemp (terminal st)
-              ( short 30 (P.reason res)
-             ++ " (after "
-             ++ number (numSuccessTests st+1) "test"
-             ++ ")..."
-              )
             numShrinks <- foundFailure st res ts
             theOutput <- terminalOutput (terminal st)
             if not (expect res) then
@@ -300,40 +313,39 @@ success st =
 --------------------------------------------------------------------------
 -- main shrinking loop
 
-foundFailure :: State -> P.Result -> [Rose (IO P.Result)] -> IO Int
+foundFailure :: State -> P.Result -> [Rose P.Result] -> IO Int
 foundFailure st res ts =
   do localMin st{ numTryShrinks = 0 } res ts
 
-localMin :: State -> P.Result -> [Rose (IO P.Result)] -> IO Int
+localMin :: State -> P.Result -> [Rose P.Result] -> IO Int
 localMin st res _ | P.interrupted res = localMinFound st res
 localMin st res ts = do
+  putTemp (terminal st)
+    ( short 26 (P.reason res)
+   ++ " (after " ++ number (numSuccessTests st+1) "test"
+   ++ concat [ " and "
+            ++ show (numSuccessShrinks st)
+            ++ concat [ "." ++ show (numTryShrinks st) | numTryShrinks st > 0 ]
+            ++ " shrink"
+            ++ (if numSuccessShrinks st == 1
+                && numTryShrinks st == 0
+                then "" else "s")
+             | numSuccessShrinks st > 0 || numTryShrinks st > 0
+             ]
+   ++ ")..."
+    )
   r <- tryEvaluate ts
   case r of
     Left err ->
       localMinFound st
-         (exception "Exception while generating shrink-list" err)
+         (exception "Exception while generating shrink-list" err) { callbacks = callbacks res }
     Right ts' -> localMin' st res ts'
 
-localMin' :: State -> P.Result -> [Rose (IO P.Result)] -> IO Int
+localMin' :: State -> P.Result -> [Rose P.Result] -> IO Int
 localMin' st res [] = localMinFound st res
 localMin' st res (t:ts) =
   do -- CALLBACK before_test
-    (mres', ts') <- unpackRose t
-    res' <- mres'
-    putTemp (terminal st)
-      ( short 35 (P.reason res)
-     ++ " (after " ++ number (numSuccessTests st+1) "test"
-     ++ concat [ " and "
-              ++ show (numSuccessShrinks st)
-              ++ concat [ "." ++ show (numTryShrinks st) | numTryShrinks st > 0 ]
-              ++ " shrink"
-              ++ (if numSuccessShrinks st == 1
-                  && numTryShrinks st == 0
-                  then "" else "s")
-               | numSuccessShrinks st > 0 || numTryShrinks st > 0
-               ]
-     ++ ")..."
-      )
+    MkRose res' ts' <- protectRose (reduceRose t)
     callbackPostTest st res'
     if ok res' == Just False
       then foundFailure st{ numSuccessShrinks = numSuccessShrinks st + 1 } res' ts'
@@ -357,11 +369,21 @@ localMinFound st res =
 
 callbackPostTest :: State -> P.Result -> IO ()
 callbackPostTest st res =
-  sequence_ [ f st res | PostTest f <- callbacks res ]
+  sequence_ [ safely st (f st res) | PostTest _ f <- callbacks res ]
 
 callbackPostFinalFailure :: State -> P.Result -> IO ()
 callbackPostFinalFailure st res =
-  sequence_ [ f st res | PostFinalFailure f <- callbacks res ]
+  sequence_ [ safely st (f st res) | PostFinalFailure _ f <- callbacks res ]
+
+safely :: State -> IO () -> IO ()
+safely st x = do
+  r <- tryEvaluateIO x
+  case r of
+    Left e ->
+      putLine (terminal st)
+        ("*** Exception in callback: " ++ show e)
+    Right x ->
+      return x
 
 --------------------------------------------------------------------------
 -- the end.

@@ -1,3 +1,15 @@
+{-# LANGUAGE CPP #-}
+#ifndef NO_NEWTYPE_DERIVING
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+#endif
+-- | Types to help with testing polymorphic properties.
+--
+-- Types 'A', 'B' and 'C' are @newtype@ wrappers around 'Integer' that
+-- implement 'Eq', 'Show', 'Arbitrary' and 'CoArbitrary'. Types
+-- 'OrdA', 'OrdB' and 'OrdC' also implement 'Ord' and 'Num'.
+--
+-- See also "Test.QuickCheck.All" for an experimental way of testing
+-- polymorphic properties.
 module Test.QuickCheck.Poly
   ( A(..), B(..), C(..)
   , OrdA(..), OrdB(..), OrdC(..)
@@ -63,7 +75,11 @@ instance CoArbitrary C where
 -- OrdA
 
 newtype OrdA = OrdA{ unOrdA :: Integer }
-  deriving ( Eq, Ord )
+  deriving ( Eq, Ord
+#ifndef NO_NEWTYPE_DERIVING
+           , Num
+#endif
+           )
 
 instance Show OrdA where
   showsPrec n (OrdA x) = showsPrec n x
@@ -78,7 +94,11 @@ instance CoArbitrary OrdA where
 -- OrdB
 
 newtype OrdB = OrdB{ unOrdB :: Integer }
-  deriving ( Eq, Ord )
+  deriving ( Eq, Ord
+#ifndef NO_NEWTYPE_DERIVING
+           , Num
+#endif
+           )
 
 instance Show OrdB where
   showsPrec n (OrdB x) = showsPrec n x
@@ -93,7 +113,11 @@ instance CoArbitrary OrdB where
 -- OrdC
 
 newtype OrdC = OrdC{ unOrdC :: Integer }
-  deriving ( Eq, Ord )
+  deriving ( Eq, Ord
+#ifndef NO_NEWTYPE_DERIVING
+           , Num
+#endif
+           )
 
 instance Show OrdC where
   showsPrec n (OrdC x) = showsPrec n x

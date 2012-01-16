@@ -2,7 +2,8 @@
 module Codec.BMP.BitmapInfoV5
 	( BitmapInfoV5	(..)
 	, sizeOfBitmapInfoV5
-	, checkBitmapInfoV5)
+	, checkBitmapInfoV5
+        , imageSizeFromBitmapInfoV5)
 where
 import Codec.BMP.Error
 import Codec.BMP.BitmapInfoV4
@@ -61,8 +62,14 @@ instance Binary BitmapInfoV5 where
 	
 -- | Check headers for problems and unsupported features.	 
 --	The V5 header doesn't give us any more useful info than the V4 one.
-checkBitmapInfoV5 :: BitmapInfoV5 ->  Maybe Error
-checkBitmapInfoV5 header
-	= checkBitmapInfoV4 $ dib5InfoV4 header
+checkBitmapInfoV5 :: BitmapInfoV5 -> Word32 -> Maybe Error
+checkBitmapInfoV5 header expectedImageSize
+	= checkBitmapInfoV4 (dib5InfoV4 header) expectedImageSize
+
+
+-- | Compute the size of the image data from the header.
+imageSizeFromBitmapInfoV5 :: BitmapInfoV5 -> Maybe Int
+imageSizeFromBitmapInfoV5 
+        = imageSizeFromBitmapInfoV4 . dib5InfoV4
 
 

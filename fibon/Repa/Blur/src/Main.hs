@@ -1,13 +1,15 @@
-{-# LANGUAGE PackageImports, BangPatterns #-}
+{-# LANGUAGE PackageImports, BangPatterns, TemplateHaskell, QuasiQuotes #-}
 {-# OPTIONS -Wall -fno-warn-missing-signatures -fno-warn-incomplete-patterns #-}
 
 import Data.List
 import Control.Monad
 import System.Environment
+import Data.Word
 import Data.Array.Repa.IO.BMP
 import Data.Array.Repa.IO.Timing
-import Data.Array.Repa.Algorithms.Convolve
+import Data.Array.Repa.Algorithms.Iterate
 import Data.Array.Repa 			as A
+import Data.Array.Repa.Stencil		as A
 import Prelude				as P
 
 main 
@@ -17,53 +19,71 @@ main
 	 _				-> usage
 
 usage 	= putStr $ unlines
-	[ "repa-blur <iterations> <fileIn.bmp> <fileOut.bmp>" ]
+	[ "repa-blur <iterations::Int> <fileIn.bmp> <fileOut.bmp>" ]
 	
--- TODO: component-wise is filthy.
---       do this with a DIM3 array.
 run iterations fileIn fileOut
- = do	(arrRed, arrGreen, arrBlue)
-		<- liftM (either (error . show) id) 
-		$  readComponentsFromBMP fileIn
+ = do	comps	<- liftM (either (error . show) id) 
+		$  readComponentsListFromBMP fileIn
 
-	arrRed `deepSeqArray` arrGreen `deepSeqArray` arrBlue `deepSeqArray` return ()
-
-	((arrRed', arrGreen', arrBlue'), tElapsed)
-		<- time $ let result	= blurComponents iterations arrRed arrGreen arrBlue
-			  in  result `seq` return result
+	comps `deepSeqArrays` return ()
+	
+	(comps', _)
+	 <- time $ let	comps' 	= P.map (process iterations) comps
+		   in	comps' `deepSeqArrays` return comps'
 	
 	-- putStr $ prettyTime tElapsed
-	putStrLn "Done"
+        putStrLn "Done"
 			
-	writeComponentsToBMP fileOut arrRed' arrGreen' arrBlue'
+	writeComponentsListToBMP fileOut comps'
+
+{-# NOINLINE process #-}
+process	:: Int -> Array DIM2 Word8 -> Array DIM2 Word8
+process iterations = demote . blur iterations . promote
+
+	
+{-# NOINLINE promote #-}
+promote	:: Array DIM2 Word8 -> Array DIM2 Double
+promote arr@(Array _ [Region RangeAll (GenManifest _)])
+ = arr `deepSeqArray` force
+ $ A.map ffs arr
+
+ where	{-# INLINE ffs #-}
+	ffs	:: Word8 -> Double
+	ffs x	=  fromIntegral (fromIntegral x :: Int)
 
 
+{-# NOINLINE demote #-}
+demote	:: Array DIM2 Double -> Array DIM2 Word8
+demote arr@(Array _ [Region RangeAll (GenManifest _)])
+ = arr `deepSeqArray` force
+ $ A.map ffs arr
 
--- | Blur all the components of an image.
-blurComponents iterations arrRed arrGreen arrBlue
- = let	process arr	
-		= force 
-		$ A.map truncate 
-		$ blurs iterations
-		$ force
-		$ A.map fromIntegral 
-		$ arr
-
-	[arrRed', arrGreen', arrBlue']
-		= P.map process [arrRed, arrGreen, arrBlue]
- 
-   in	arrRed' `deepSeqArray` arrGreen' `deepSeqArray` arrBlue' `deepSeqArray`
-         (arrRed', arrGreen', arrBlue')
+ where	{-# INLINE ffs #-}
+	ffs 	:: Double -> Word8
+	ffs x	=  fromIntegral (truncate x :: Int)
 
 
+{-# NOINLINE blur #-}
+blur 	:: Int -> Array DIM2 Double -> Array DIM2 Double
+blur !iterations arr@(Array _ [Region RangeAll (GenManifest _)])
+ 	= arr `deepSeqArray` force2
+	$ iterateBlockwise' iterations arr
+	$ A.map (/ 159)
+	. mapStencil2 BoundClamp
+	  [stencil2|	2  4  5  4  2
+			4  9 12  9  4
+			5 12 15 12  5
+			4  9 12  9  4
+			2  4  5  4  2 |]
+			
+
+{- version using convolveOut
 -- | Run several iterations of blurring.
-blurs 	:: Int -> Array DIM2 Double -> Array DIM2 Double
-blurs 0 arr	= arr
-blurs n arr	= blurs (n - 1) (force $ blur arr)
-
+blur 	:: Int -> Array DIM2 Double -> Array DIM2 Double
+blur 0 arr	= arr
+blur n arr	= blurs (n - 1) (force $ blur arr)
 
 -- | Run a single iteration of blurring.
-{-# NOINLINE blur #-}
 blur :: Array DIM2 Double -> Array DIM2 Double
 blur input@Manifest{}
  = convolveOut outClamp kernel input
@@ -75,5 +95,5 @@ blur input@Manifest{}
                           5.0, 12.0, 15.0, 12.0, 5.0,
                           4.0,  9.0, 12.0,  9.0, 4.0,
                           2.0,  4.0,  5.0,  4.0, 2.0]
-	
+-}	
 	

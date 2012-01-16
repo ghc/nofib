@@ -2,7 +2,8 @@
 
 -- | Reading and writing uncompressed BMP files.
 --
---   Reading works for both uncompressed 24bit RGB WindowsV3 and 32bit RGBA WindowsV4 formats.
+--   Reading works for both uncompressed 24bit RGB and 32bit RGBA
+--   WindowsV3, WindowsV4 and WindowsV5 formats.
 -- 
 --   Writing is limited to the uncompressed 24bit RGB WindowsV3 format.
 --
@@ -22,7 +23,14 @@
 --  >    let (width, height) = bmpDimensions bmp
 --  >    ... 
 --      
+-- Release Notes:
 --
+--  >  * bmp 1.2.0
+--  >    Accept files with zero padding on the end of the file.
+--  >    Accept RGBA files with V3 headers.
+--
+--  >  * bmp 1.1.2   
+--  >    Accept files with the image size field set to zero.
 --
 module Codec.BMP
 	( BMP		  (..)
@@ -77,14 +85,12 @@ hGetBMP h
 		= BSL.splitAt (fromIntegral sizeOfFileHeader) buf
 	
 	if (fromIntegral $ BSL.length bufFileHeader) /= sizeOfFileHeader
-	 then	return $ Left ErrorReadOfFileHeaderFailed
+	 then	return $ Left ErrorFileHeaderTruncated
 	 else	hGetBMP2 bufRest (decode bufFileHeader)
 	
 		
 hGetBMP2 buf fileHeader
  -- Check the magic before doing anything else.
- --	If the specified file is not a BMP file then we'd prefer to get 
- --	this error than a `ReadOfImageHeaderFailed`.
  | fileHeaderType fileHeader /= bmpMagic
  = return $ Left $ ErrorBadMagic (fileHeaderType fileHeader)
 	
@@ -96,48 +102,59 @@ hGetBMP2 buf fileHeader
 	-- split off the image header
 	let (bufImageHeader, bufRest)
 		= BSL.splitAt (fromIntegral sizeHeader) buf
+        
+        -- How much non-header data is present in the file.
+        -- For uncompressed data without a colour table, the remaining data should
+        -- be the image, but there may also be padding bytes on the end.
+        let physicalBufferSize
+                = (fromIntegral $ BSL.length bufRest) :: Word32
 
 	if (fromIntegral $ BSL.length bufImageHeader) /= sizeHeader
-	 then 	return $ Left ErrorReadOfImageHeaderFailed
-	 else 	hGetBMP3 fileHeader bufImageHeader bufRest
+	 then 	return $ Left ErrorImageHeaderTruncated
+	 else 	hGetBMP3 fileHeader bufImageHeader bufRest physicalBufferSize
 
 			
-hGetBMP3 fileHeader bufImageHeader bufRest
+hGetBMP3 fileHeader bufImageHeader bufRest physicalBufferSize
 	| BSL.length bufImageHeader == 40 
 	= do	let info	= decode bufImageHeader
-		case checkBitmapInfoV3 info of
+		case checkBitmapInfoV3 info physicalBufferSize of
 		 Just err	-> return $ Left err
-		 Nothing	-> hGetBMP4 fileHeader (InfoV3 info) bufRest
-					(fromIntegral $ dib3ImageSize info)
+		 Nothing
+                  | Just imageSize      <- imageSizeFromBitmapInfoV3 info
+                  -> hGetBMP4 fileHeader (InfoV3 info) bufRest imageSize
+                  | otherwise
+                  -> return $ Left $ ErrorInternalErrorPleaseReport
 
 	| BSL.length bufImageHeader == 108
 	= do	let info	= decode bufImageHeader
-		case checkBitmapInfoV4 info of
+		case checkBitmapInfoV4 info physicalBufferSize of
 		 Just err	-> return $ Left err
-		 Nothing	-> hGetBMP4 fileHeader (InfoV4 info) bufRest
-					(fromIntegral 
-						$ dib3ImageSize 
-						$ dib4InfoV3 info)
+		 Nothing	
+                  | Just imageSize      <- imageSizeFromBitmapInfoV4 info
+                  -> hGetBMP4 fileHeader (InfoV4 info) bufRest imageSize
+                  | otherwise
+                  -> return $ Left $ ErrorInternalErrorPleaseReport
 		
 	| BSL.length bufImageHeader == 124
 	= do	let info	= decode bufImageHeader
-		case checkBitmapInfoV5 info of
+		case checkBitmapInfoV5 info physicalBufferSize of
 		 Just err	-> return $ Left err
-		 Nothing	-> hGetBMP4 fileHeader (InfoV5 info) bufRest
-					(fromIntegral
-					 	$ dib3ImageSize 
-						$ dib4InfoV3
-						$ dib5InfoV4 info)
+		 Nothing	
+                  | Just imageSize      <- imageSizeFromBitmapInfoV5 info
+                  -> hGetBMP4 fileHeader (InfoV5 info) bufRest imageSize
+                  | otherwise
+                  -> return $ Left $ ErrorInternalErrorPleaseReport
 		
 	| otherwise
- 	= return 
-		$ Left 
-		$ ErrorUnhandledBitmapHeaderSize (fromIntegral $ BSL.length bufImageHeader)
+ 	= return $ Left 
+		 $ ErrorUnhandledBitmapHeaderSize 
+                 $ fromIntegral $ BSL.length bufImageHeader
 
 
 hGetBMP4 fileHeader imageHeader bufImage (sizeImage :: Int)
- = if (fromIntegral $ BSL.length bufImage) /= sizeImage
-	 then return $ Left ErrorReadOfImageDataFailed
+ = let  bufLen  = fromIntegral $ BSL.length bufImage
+   in   if bufLen < sizeImage
+	 then return $ Left $ ErrorImageDataTruncated sizeImage bufLen
 	 else return 
 		$ Right $ BMP 
 		{ bmpFileHeader 	= fileHeader
@@ -152,6 +169,7 @@ writeBMP fileName bmp
  = do	h	<- openBinaryFile fileName WriteMode
 	hPutBMP h bmp
 	hFlush h
+	hClose h
 
 
 -- | Put a BMP image to a file handle.

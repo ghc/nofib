@@ -3,7 +3,9 @@
 -- | Conversions between Repa Arrays and ByteStrings.
 module Data.Array.Repa.ByteString
 	( toByteString
-	, fromByteString)
+	, fromByteString
+	, copyFromPtrWord8
+	, copyToPtrWord8)
 where
 import Data.Word
 import Data.Array.Repa
@@ -11,29 +13,31 @@ import Foreign.Marshal.Alloc
 import Foreign.Ptr
 import Foreign.Storable
 import System.IO.Unsafe
+import qualified Data.Vector.Unboxed	as V
 import qualified Data.ByteString	as BS
 import Data.ByteString			(ByteString)
-import qualified "dph-prim-par" Data.Array.Parallel.Unlifted as U
 
 
--- | Convert an `Array` to a (strict) `ByteString`.
+-- | Copy an `Array` to a (strict) `ByteString`.
 toByteString 
 	:: Shape sh
 	=> Array sh Word8
 	-> ByteString
 
+{-# NOINLINE toByteString #-}
 toByteString arr
- = unsafePerformIO
- $ allocaBytes (size $ extent arr)	$ \(bufDest :: Ptr Word8) ->
-   let 	uarr	= toUArray arr
-	len	= size $ extent arr
+ =  withManifest' (force arr) $ \arr' 
+ -> unsafePerformIO
+ $ allocaBytes (size $ extent arr')	$ \(bufDest :: Ptr Word8) ->
+   let 	vec	= toVector arr'
+	len	= size $ extent arr'
 
 	copy offset
 	 | offset >= len
 	 = return ()
 
 	 | otherwise
-	 = do	pokeByteOff bufDest offset (uarr U.!: offset)
+	 = do	pokeByteOff bufDest offset (vec `V.unsafeIndex` offset)
 		copy (offset + 1)
 
     in do
@@ -41,8 +45,8 @@ toByteString arr
 	BS.packCStringLen (castPtr bufDest, len)
 
 
--- | Convert a (strict) `ByteString` to an `Array`.
---	The given array size must match the length of the `ByteString`, else `error`.
+-- | Copy a (strict) `ByteString` to a new `Array`.
+--	The given array extent must match the length of the `ByteString`, else `error`.
 fromByteString 
 	:: Shape sh
 	=> sh
@@ -58,3 +62,40 @@ fromByteString sh str
 	| otherwise
 	= fromFunction sh (\ix -> str `BS.index` toIndex sh ix)
 
+
+-- Ptr utils ------------------------------------------------------------------
+-- | Copy some data from somewhere into a new `Array`.
+copyFromPtrWord8 
+	:: Shape sh
+	=> sh
+	-> Ptr Word8
+	-> IO (Array sh Word8)
+
+{-# INLINE copyFromPtrWord8 #-}	
+copyFromPtrWord8 sh ptr
+ = do	return	$ fromFunction sh (\ix -> unsafePerformIO (peekElemOff ptr (toIndex sh ix)))
+
+
+-- | Copy array data somewhere.s
+copyToPtrWord8 
+	:: Shape sh
+	=> Ptr Word8
+	-> Array sh Word8
+	-> IO ()
+	
+{-# INLINE copyToPtrWord8 #-}
+copyToPtrWord8 ptr arr
+ = let	vec	= toVector arr
+	len	= size $ extent arr
+	
+	copy offset
+	 | offset >= len
+	 = return ()
+	
+	 | otherwise
+	 = do	pokeByteOff ptr offset (vec `V.unsafeIndex` offset)
+		copy (offset + 1)
+
+   in do
+	copy 0
+	return ()
