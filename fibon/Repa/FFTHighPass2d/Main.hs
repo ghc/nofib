@@ -20,6 +20,8 @@ main
 
          _ -> putStr $ unlines
 		[ "Usage: repa-fft-highpass <cutoff::Int> <fileIn.bmp> <fileOut.bmp>"
+		, ""
+		, "    Image dimensions must be powers of two, eg 128x512 or 64x256"
 		, "" ]
 			
 	
@@ -37,7 +39,7 @@ mainWithArgs cutoff fileIn fileOut
 	 `deepSeqArray` return ()
 		
 	-- Do the transform on each component individually
-	((arrRed', arrGreen', arrBlue'), t)
+	((arrRed', arrGreen', arrBlue'), _)
 		<- time
 		$ let	arrRed'		= transform cutoff arrRed
 			arrGreen'	= transform cutoff arrGreen
@@ -48,7 +50,7 @@ mainWithArgs cutoff fileIn fileOut
 			 `deepSeqArray` return (arrRed', arrGreen', arrBlue')
 	
 	-- putStr (prettyTime t)
-	putStrLn "Done"
+        putStrLn "Done"
 	
 	-- Write it back to file.
 	writeComponentsToBMP fileOut
