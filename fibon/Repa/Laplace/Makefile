@@ -71,7 +71,7 @@ SRCS = ../_RepaLib/bmp/Codec/BMP/Base.hs \
        SolverGet.hs \
        SolverStencil.hs \
        Main.hs
-PROG_ARGS += 1000 pls-400x400.bmp laplace.bmp
+PROG_ARGS += get 1000 pls-400x400.bmp laplace.bmp
 HC_OPTS += -threaded -i. -i../_RepaLib/repa -i../_RepaLib/repa-algorithms -i../_RepaLib/repa-io -i../_RepaLib/bmp -i../_RepaLib/repa-bytestring -i../_RepaLib/quickcheck -isrc/Laplace/src -package base -package binary -package bytestring -package dph-base -package dph-prim-par -package dph-prim-seq -package extensible-exceptions -package ghc -package mtl -package old-time -package random
 CLEAN_FILES += laplace.bmp
 include $(TOP)/mk/target.mk
