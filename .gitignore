@@ -99,3 +99,14 @@ spectral/simple/simple
 spectral/sorting/sorting
 spectral/sphere/sphere
 spectral/treejoin/treejoin
+gc/circsim/circsim
+gc/constraints/constraints
+gc/fibheaps/fibheaps
+gc/fulsom/fulsom
+gc/gc_bench/gc_bench
+gc/happy/happy
+gc/lcss/lcss
+gc/mutstore1/mutstore1
+gc/mutstore2/mutstore2
+gc/power/power
+gc/spellcheck/spellcheck
