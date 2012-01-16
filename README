@@ -33,4 +33,5 @@ There are some options you might want to tweak; search for nofib in
 Package Requirements:
  * html
  * regex-compat (mtl, regex-base, regex-posix)
+ * stm (for smp benches)
 
