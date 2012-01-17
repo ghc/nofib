@@ -277,7 +277,7 @@ wrt p h sexpr =
     writeLnSEexpr h (margin p) sexpr
 
 -- A labeled and linked preskeleton
-data Algebra t p g s e c => LPreskel t p g s e c
+data LPreskel t p g s e c
     = LPreskel { content :: Preskel t p g s e c,
                  label :: Int,
                  parent :: Maybe (LPreskel t p g s e c) }
@@ -298,7 +298,7 @@ wasSeen g (g', _) = g == g'
 
 -- A seen history as a list.
 
-newtype Algebra t p g s e c => Seen t p g s e c = Seen [IPreskel t p g s e c]
+newtype Seen t p g s e c = Seen [IPreskel t p g s e c]
 
 -- Create a singleton seen history
 hist :: Algebra t p g s e c => IPreskel t p g s e c -> Seen t p g s e c
@@ -326,7 +326,7 @@ merge (Seen xs) (Seen ys) = Seen (xs ++ ys)
 -- Contains the result of applying the cohort reduction rule.  The
 -- last position is used to hold the reverse of the labels of the
 -- seen children
-data Algebra t p g s e c => Reduct t p g s e c  =
+data Reduct t p g s e c  =
     Reduct !(LPreskel t p g s e c) !Int !Bool ![Preskel t p g s e c] ![Int]
 
 seqList :: [a] -> [a]

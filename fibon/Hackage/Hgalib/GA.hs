@@ -16,8 +16,8 @@ module GA (Config (..),
            isDone)
 where
 
-import Maybe
-import Random
+import Data.Maybe
+import System.Random
 import Control.Monad.State.Strict
 
 type GAState c p = State (Config c p)

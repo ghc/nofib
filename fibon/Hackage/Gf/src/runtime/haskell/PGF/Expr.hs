@@ -23,8 +23,8 @@ import PGF.Type
 
 import Data.Char
 import Data.Maybe
-import Data.List as List
-import Data.Map as Map hiding (showTree)
+import Data.List as List hiding (foldl', foldl, foldr)
+import Data.Map as Map hiding (showTree, foldl, foldr)
 import Control.Monad
 import qualified Text.PrettyPrint as PP
 import qualified Text.ParserCombinators.ReadP as RP

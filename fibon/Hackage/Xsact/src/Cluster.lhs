@@ -23,7 +23,7 @@ module Cluster (Cluster,cluster_single,cluster_simple,cluster_all
 import Indexed
 import EST(EST(..),mkshowlist,mkshowlist',label)
 import Pairs(SMPair, Pair(..),direction,elim_bs)
-import Data.Set hiding (insert)
+import Data.Set hiding (insert,foldl')
 import qualified Data.Set
 import Data.List(intersperse,sortBy)
 import qualified Data.List as L

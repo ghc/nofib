@@ -5,5 +5,5 @@ SRCS = GA.hs \
        Chromosome/GP.hs \
        examples/GPTest.hs
 PROG_ARGS += 1000
-HC_OPTS += -i. -package array -package base -package haskell98 -package mtl
+HC_OPTS += -i. -package array -package base -package mtl -package random
 include $(TOP)/mk/target.mk

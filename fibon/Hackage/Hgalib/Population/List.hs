@@ -9,8 +9,8 @@ import GA
 
 import Control.Monad
 import Control.Monad.State.Strict
-import Random
-import List
+import System.Random
+import Data.List
 
 -- |Config for use of lists as the population model. Lists are deprecated in favor of arrays.
 config :: PopulationConfig c [c]

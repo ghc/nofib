@@ -4,7 +4,7 @@ module Stats (UniVar(..),uniVar
               ,Quantiles(..),quantiles,histogram,display) where
 
 import Data.List (sort,sortBy,group)
-import Data.Map hiding (adjust, map)
+import Data.Map hiding (adjust, map, foldl)
 
 class Statistic s where
     samples :: s -> Int

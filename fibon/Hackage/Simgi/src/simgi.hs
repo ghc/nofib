@@ -77,10 +77,13 @@ main =
                   >>= \handle -> 
 
                   -- print initial startup info
-                  startup_message initialState
+                  -- startup_message initialState
 
                   -- ready to run the simulation
-                  >> gillespie_driver handle totalTime dataDumpIter 
+                  gillespie_driver handle totalTime dataDumpIter 
                                   initialState 
-
+                  
+                  >> putStrLn "Done"
+                  
                   >> close_handle handle
+

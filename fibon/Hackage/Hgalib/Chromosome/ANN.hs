@@ -16,8 +16,8 @@ where
 
 import GA
 import Control.Monad.State.Strict
-import List
-import Random
+import Data.List
+import System.Random
 
 -- |An Artificial Neural Network
 type ANN = [Layer]

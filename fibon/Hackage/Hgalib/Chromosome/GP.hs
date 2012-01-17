@@ -10,10 +10,10 @@ module Chromosome.GP (Op (..),
                       config)
 where
 
-import Array
+import Data.Array
 import qualified GA
 import Control.Monad.State.Strict
-import List
+import Data.List
 
 -- The config for the GP chromosome model. mutate, cross, and fitness must be defined.
 config = GA.ChromosomeConfig {

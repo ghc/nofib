@@ -8,8 +8,8 @@ module Chromosome.Bits (mutateBits,
                         config)
 where
 
-import List
-import Random
+import Data.List
+import System.Random
 import Control.Monad.State.Strict
 import GA
 

@@ -83,7 +83,7 @@ useCheckVars = False
 
 type Sid = Int                  -- Strand Identifier
 
-data Algebra t p g s e c => Instance t p g s e c = Instance
+data Instance t p g s e c = Instance
     { role :: Role t p g s e c, -- Role from which this was
                                 -- instantiated
 
@@ -316,7 +316,7 @@ graphClose orderings =
 
 -- Preskeltons
 
-data Algebra t p g s e c => Preskel t p g s e c = Preskel
+data Preskel t p g s e c = Preskel
     { gen :: !g,
       protocol :: Prot t p g s e c,
       insts :: ![Instance t p g s e c],
@@ -356,13 +356,13 @@ type Edge t p g s e c
 -- Data structure for tracking the causes for the creation of
 -- preskeletons.
 
-data Algebra t p g s e c => Cause t p g s e c
+data Cause t p g s e c
     = Cause Direction Node t (Set t)
     deriving Show
 
 data Direction = Encryption | Nonce deriving Show
 
-data Algebra t p g s e c => Method t p g s e c
+data Method t p g s e c
     = Deleted Node
     | Weakened Pair
     | Separated t
@@ -372,7 +372,7 @@ data Algebra t p g s e c => Method t p g s e c
 -- the loader, a contraction, a regular augmentation, a listener
 -- augmentation, or a mininization.  The augmentation includes a role
 -- name and instance height.
-data Algebra t p g s e c => Operation t p g s e c
+data Operation t p g s e c
     = New
     | Contracted s (Cause t p g s e c)
     | Displaced Int Int String Int (Cause t p g s e c)
@@ -620,7 +620,7 @@ roleOrigCheck k =
 -- frequently, so an specialized data structure is used.  The gist of
 -- a skeleton is all that is needed for the test for equivalence.
 
-data Algebra t p g s e c => Gist t p g s e c = Gist
+data Gist t p g s e c = Gist
     { ggen :: g,
       gtraces :: [(Int, Trace t p g s e c)],
       gorderings :: [Pair],

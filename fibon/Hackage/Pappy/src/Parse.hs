@@ -1,7 +1,7 @@
 module Parse where
 
-import Char
-import List
+import Data.Char
+import Data.List
 
 import Pos
 

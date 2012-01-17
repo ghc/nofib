@@ -1,8 +1,8 @@
 import GA
 import qualified Population.List as L
-import Random
+import System.Random
 import Control.Monad.State.Strict
-import List
+import Data.List
 import qualified Chromosome.ANN as ANN
 import Control.Monad
 

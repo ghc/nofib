@@ -35,7 +35,7 @@ addVars ts t = foldVars (flip adjoin) ts t
 
 -- Message events and traces
 
-data Algebra t p g s e c => Event t p g s e c
+data Event t p g s e c
     = In !t                      -- Inbound message
     | Out !t                     -- Outbound messasge
       deriving (Show, Eq, Ord)
@@ -149,7 +149,7 @@ comb f g x =
     S.fold h S.empty (g x)
     where h a s = S.union (f a) s
 
-data Algebra t p g s e c => Role t p g s e c = Role
+data Role t p g s e c = Role
     { rname :: !String,
       rvars :: ![t],            -- Set of role variables
                                 -- Events in causal order
@@ -207,7 +207,7 @@ mkRole name vars trace non unique comment =
 
 -- Protocols
 
-data Algebra t p g s e c => Prot t p g s e c
+data Prot t p g s e c
     = Prot { pname :: !String,  -- Name of the protocol
              alg :: !String,    -- Name of the algebra
              pgen :: !g,        -- Initial variable generator
@@ -221,3 +221,4 @@ mkProt :: Algebra t p g s e c => String -> String ->
 mkProt name alg gen roles comment =
     Prot { pname = name, alg = alg, pgen = gen,
            roles = roles, pcomment = comment }
+

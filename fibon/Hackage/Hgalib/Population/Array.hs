@@ -8,7 +8,7 @@ import GA
 import Data.Array.Diff
 import Control.Monad
 import Control.Monad.State.Strict
-import List
+import Data.List
 
 -- |The type used to represent population arrays; is a diff array.
 type PArray c = DiffArray Int c
