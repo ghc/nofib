@@ -4,3 +4,6 @@
 .depend
 .depend.bak
 
+nofib-analyse/nofib-analyse
+runstdtest/runstdtest
+
