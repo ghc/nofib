@@ -35,6 +35,9 @@ WERROR=
 #	spectral
 #	real
 #	parallel
+#	gc
+#	smp
+#	fibon
 NoFibSubDirs = imaginary spectral real
 
 # The different ways to build nofib. Default is just to mirror

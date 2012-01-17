@@ -20,7 +20,6 @@ include $(TOP)/mk/boilerplate.mk
 # you want to use in a build tree.
 SUBDIRS = runstdtest nofib-analyse $(NoFibSubDirs)
 
-
 # Include the standard targets, one of which
 # causes make to descend into the SUBDIRS.
 
@@ -29,8 +28,7 @@ SUBDIRS = runstdtest nofib-analyse $(NoFibSubDirs)
 #
 SRC_DIST_DIR=$(shell pwd)/nofib
 SRC_DIST_NAME=nofib
-SRC_DIST_DIRS=docs imaginary spectral real parallel mk
-
+SRC_DIST_DIRS=docs fibon gc imaginary smp spectral real parallel mk
 
 dist :: nofib-dist-pre
 include $(TOP)/mk/target.mk
