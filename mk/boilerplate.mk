@@ -29,7 +29,7 @@ STRIP = strip
 # built with validate.
 WERROR=
 
-# NoFibSubDirs controls which set of tests should be run
+# Benchmarks controls which set of tests should be run
 # You can run one or more of
 #	imaginary 
 #	spectral
