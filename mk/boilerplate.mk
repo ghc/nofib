@@ -34,11 +34,15 @@ WERROR=
 #	imaginary 
 #	spectral
 #	real
-#	parallel
+#
 #	gc
+#	hackage
+#	parallel
+#	repa
+#	shootout
 #	smp
-#	fibon
-NoFibSubDirs = imaginary spectral real
+Benchmarks = imaginary spectral real
+NoFibSubDirs = $(addprefix benchmarks/, $(Benchmarks))
 
 # The different ways to build nofib. Default is just to mirror
 # what is done for the ghc prelude libraries.
