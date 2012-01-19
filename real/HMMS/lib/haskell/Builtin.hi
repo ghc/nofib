@@ -1,0 +1,3 @@
+
+interface PreludeBuiltin where
+unpackLitString# :: LitString# -> [Char]
