@@ -8,7 +8,12 @@ To run the tests:
   $ make boot
   $ make 2>&1 | tee nofib-log
 
-will put the results in the file 'nofib-log'.
+will put the results in the file 'nofib-log'. You can pass extra options to a
+nofib run using the EXTRA_HC_OPTS variable like this:
+
+  $ make clean
+  $ make boot
+  $ make EXTRA_HC_OPTS="-fllvm" >&1 | tee nofib-llvm-log
 
 To compare the results of multiple runs, use the program in
 ../utils/nofib-analyse.  Something like this:
