@@ -227,21 +227,27 @@ cat /dev/null > $DefaultStdoutFile
 cat /dev/null > $DefaultStderrFile
 $PreScriptLines
 $SpixifyLine1
+# NB: if you plan to use "sed" in this script please bear in mind that in some seds (in particular BSD sed,
+# also used on OS X) the output is always terminated by a new line, even if the input wasn't. This can cause
+# spurious cmp failures if the expected stderr/stdout did not have a trailing newline.
+#
+# We try to use tr instead to avoid these problems. Make sure you run it in the C locale or else it may throw
+# an error if the input string is not encoded in the locale encoding.
 $TimeCmd /bin/sh -c \'$CachegrindPrefix $ToRun $TimingMagic @PgmArgs < $PgmStdinFile 1> $TmpPrefix/runtest$$.1.raw 2> $TmpPrefix/runtest$$.2.raw 3> $TmpPrefix/runtest$$.3.raw\'
 progexit=\$?
 if [ "$StdoutBinary" = "0" ]; then
     # remove Windows \r carraige-returns
-    sed 's/\r//g' < $TmpPrefix/runtest$$.1.raw > $TmpPrefix/runtest$$.1
+    LC_CTYPE=C tr -d '\r' < $TmpPrefix/runtest$$.1.raw > $TmpPrefix/runtest$$.1
 else
     cp $TmpPrefix/runtest$$.1.raw $TmpPrefix/runtest$$.1
 fi
 if [ "$StderrBinary" = "0" ]; then
     # remove Windows \r carraige-returns
-    sed 's/\r//g' < $TmpPrefix/runtest$$.2.raw > $TmpPrefix/runtest$$.2
+    LC_CTYPE=C tr -d '\r' < $TmpPrefix/runtest$$.2.raw > $TmpPrefix/runtest$$.2
 else
     cp $TmpPrefix/runtest$$.2.raw $TmpPrefix/runtest$$.2
 fi
-sed 's/\r//g' < $TmpPrefix/runtest$$.3.raw > $TmpPrefix/runtest$$.3
+LC_CTYPE=C tr -d '\r' < $TmpPrefix/runtest$$.3.raw > $TmpPrefix/runtest$$.3
 if [ \$progexit -eq 0 ] && [ $PgmFail -ne 0 ]; then
     echo $ToRun @PgmArgs \\< $PgmStdinFile
     echo "****" expected a failure, but was successful
@@ -255,7 +261,7 @@ else
     $PostScriptLines
     hit='NO'
     for out_file in @PgmStdoutFile ; do
-	if sed "s/\$//" $TmpPrefix/runtest$$.1 | cmp -s \$out_file - ; then
+	if cmp -s \$out_file $TmpPrefix/runtest$$.1 ; then
 	    hit='YES'
 	fi
     done
@@ -281,7 +287,7 @@ fi
 
 hit='NO'
 for out_file in @PgmStderrFile ; do
-    if sed "s/\$//" $TmpPrefix/runtest$$.2 | cmp -s \$out_file - ; then
+    if cmp -s \$out_file $TmpPrefix/runtest$$.2 ; then
 	hit='YES'
     fi
 done
