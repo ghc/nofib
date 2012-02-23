@@ -9,6 +9,7 @@ module Slurp (Status(..), Results(..), ResultTable, parse_log) where
 import Control.Monad
 import qualified Data.Map as Map
 import Data.Map (Map)
+import Data.List (isPrefixOf)
 import Text.Regex
 -- import Debug.Trace
 
@@ -411,7 +412,8 @@ parse_run_time prog (l:ls) res ex =
                         [gc0_count] [gc0] [gc0_elapsed] [gc1_count] [gc1] [gc1_elapsed] [bal]
                         [gc_work'] Nothing Nothing Nothing Nothing [in_use];
 
-            Nothing ->
+            Nothing | "<<ghc" `isPrefixOf` l -> error $ "Failed to parse GHC output " ++ show l
+                    | otherwise ->
 
         case matchRegex wrong_output l of {
             Just ["stdout"] ->
