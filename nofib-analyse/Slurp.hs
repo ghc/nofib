@@ -9,6 +9,7 @@ module Slurp (Status(..), Results(..), ResultTable, parse_log) where
 import Control.Monad
 import qualified Data.Map as Map
 import Data.Map (Map)
+import Data.List (isPrefixOf)
 import Text.Regex
 -- import Debug.Trace
 
@@ -193,7 +194,7 @@ ghc6_re s = case matchRegex re s of
                     Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', 1048576 * read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed, read gc0_count, read gc0, read gc0_elapsed, read gc1_count, read gc1, read gc1_elapsed, read bal)
                 Just _ -> error "ghc3_re: Can't happen"
                 Nothing -> Nothing
-    where re = mkRegex "^<<ghc:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs[ \t]+\\(([0-9]+)[ \t]*\\+[ \t]*([0-9]+)\\),[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(0\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(1\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) balance :ghc>>"
+    where re = mkRegex "^<<ghc:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs[ \t]+\\(([0-9]+)[ \t]*\\+[ \t]*([0-9]+)\\),[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.-]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(0\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(1\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) balance :ghc>>"
 
 wrong_exit_status, wrong_output, out_of_heap, out_of_stack :: Regex
 wrong_exit_status = mkRegex "^\\**[ \t]*expected exit status ([0-9]+) not seen ; got ([0-9]+)"
@@ -411,7 +412,8 @@ parse_run_time prog (l:ls) res ex =
                         [gc0_count] [gc0] [gc0_elapsed] [gc1_count] [gc1] [gc1_elapsed] [bal]
                         [gc_work'] Nothing Nothing Nothing Nothing [in_use];
 
-            Nothing ->
+            Nothing | "<<ghc" `isPrefixOf` l -> error $ "Failed to parse GHC output " ++ show l
+                    | otherwise ->
 
         case matchRegex wrong_output l of {
             Just ["stdout"] ->
