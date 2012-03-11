@@ -59,10 +59,16 @@ endif
 
 # All the standard gluing together, as in the comment right at the front
 
+ifeq "$(SRC_SUPERCOMP_HC_OPTS" ""
+SRC_SUPERCOMP_HC_OPTS = -fsupercompiler-bound-steps
+endif
 
 HC_OPTS            = $(BOOTSTRAPPING_PACKAGE_CONF_HC_OPTS) $(SRC_HC_OPTS) $(WAY$(_way)_HC_OPTS) $($*_HC_OPTS) $(EXTRA_HC_OPTS)
 ifeq "$(HC_VERSION_GE_6_13)" "YES"
 HC_OPTS           += -rtsopts
+endif
+ifeq "$(NoFibSupercompile)" "YES"
+HC_OPTS 		  += -O2 -fsupercompilation $(SRC_SUPERCOMP_HC_OPTS)
 endif
 
 HC_POST_OPTS       = $(SRC_HC_POST_OPTS) $(WAY$(_way)_HC_POST_OPTS) $($*_HC_POST_OPTS) $(EXTRA_HC_POST_OPTS)
