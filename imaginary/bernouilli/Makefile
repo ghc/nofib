@@ -6,5 +6,7 @@ include $(TOP)/mk/boilerplate.mk
 SRCS=Main.hs
 PROG_ARGS += 500
 
+SRC_SUPERCOMP_HC_OPTS =
+
 include $(TOP)/mk/target.mk
 
