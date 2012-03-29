@@ -70,7 +70,7 @@ SRCS = ../_RepaLib/bmp/Codec/BMP/Base.hs \
        ../_RepaLib/repa-io/Data/Array/Repa/IO/Vector.hs \
        Main.hs
 PROG_ARGS += 12 lena.bmp out.bmp
-HC_OPTS += -threaded -i. -i../_RepaLib/repa -i../_RepaLib/repa-algorithms -i../_RepaLib/repa-io -i../_RepaLib/bmp -i../_RepaLib/repa-bytestring -i../_RepaLib/quickcheck -package base -package binary -package bytestring -package dph-base -package dph-prim-par -package dph-prim-seq -package extensible-exceptions -package ghc -package mtl -package old-time -package random -package vector
+HC_OPTS += -threaded -i. -i../_RepaLib/repa -i../_RepaLib/repa-algorithms -i../_RepaLib/repa-io -i../_RepaLib/bmp -i../_RepaLib/repa-bytestring -i../_RepaLib/quickcheck -package base -package binary -package bytestring -package dph-base -package dph-prim-par -package dph-prim-seq -package ghc -package mtl -package random -package vector
 CLEAN_FILES += out.bmp
 include $(TOP)/mk/target.mk
 

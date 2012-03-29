@@ -70,5 +70,5 @@ SRCS = ../_RepaLib/bmp/Codec/BMP/Base.hs \
        ../_RepaLib/repa-io/Data/Array/Repa/IO/Vector.hs \
        Main.hs
 PROG_ARGS += -random 600 600 -random 600 600
-HC_OPTS += -threaded -i. -i../_RepaLib/repa -i../_RepaLib/repa-algorithms -i../_RepaLib/repa-io -i../_RepaLib/bmp -i../_RepaLib/repa-bytestring -i../_RepaLib/quickcheck -package base -package binary -package bytestring -package dph-base -package dph-prim-par -package dph-prim-seq -package extensible-exceptions -package ghc -package mtl -package old-time -package random
+HC_OPTS += -threaded -i. -i../_RepaLib/repa -i../_RepaLib/repa-algorithms -i../_RepaLib/repa-io -i../_RepaLib/bmp -i../_RepaLib/repa-bytestring -i../_RepaLib/quickcheck -package base -package binary -package bytestring -package dph-base -package dph-prim-par -package dph-prim-seq -package ghc -package mtl -package old-time -package random
 include $(TOP)/mk/target.mk
