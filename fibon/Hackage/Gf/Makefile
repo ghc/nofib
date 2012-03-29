@@ -115,7 +115,7 @@ SRCS = src/compiler/GF/Data/BacktrackM.hs \
        src/compiler/GFC.hs \
        src/compiler/GF.hs
 PROG_ARGS += --quiet --src --make -f haskell Eng.gf EngReal.gf FreDescr.gf EngDescr.gf Fre.gf FreReal.gf
-HC_OPTS += -isrc/compiler -isrc/runtime/haskell -igenerated -package array -package base -package bytestring -package containers -package directory -package filepath -package haskeline -package mtl -package old-time -package pretty -package process -package random -package unix -optP-DUSE_INTERRUPT
+HC_OPTS += -isrc/compiler -isrc/runtime/haskell -igenerated -package array -package base -package bytestring -package containers -package directory -package filepath -package haskeline -package mtl -package time -package pretty -package process -package random -package unix -optP-DUSE_INTERRUPT
 CLEAN_FILES += BeschFre.gfo      \
                Cat.gfo           \
                CatEng.gfo        \

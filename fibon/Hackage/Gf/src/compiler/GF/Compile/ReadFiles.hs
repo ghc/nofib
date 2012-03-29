@@ -37,15 +37,15 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Data.Maybe(isJust)
+import Data.Time.Clock
 import qualified Data.ByteString.Char8 as BS
 import qualified Data.Map as Map
-import System.Time
 import System.Directory
 import System.FilePath
 import Text.PrettyPrint
 
 type ModName = String
-type ModEnv  = Map.Map ModName (ClockTime,[ModName])
+type ModEnv  = Map.Map ModName (UTCTime,[ModName])
 
 
 -- | Returns a list of all files to be compiled in topological order i.e.
@@ -135,7 +135,7 @@ gf2gfo opts file = maybe (gfoFile (dropExtension file))
 -- From the given Options and the time stamps computes
 -- whether the module have to be computed, read from .gfo or
 -- the environment version have to be used
-selectFormat :: Options -> Maybe ClockTime -> Maybe ClockTime -> Maybe ClockTime -> (CompStatus,Maybe ClockTime)
+selectFormat :: Options -> Maybe UTCTime -> Maybe UTCTime -> Maybe UTCTime -> (CompStatus,Maybe UTCTime)
 selectFormat opts mtenv mtgf mtgfo =
   case (mtenv,mtgfo,mtgf) of
     (_,_,Just tgf)         | fromSrc  -> (CSComp,Nothing)
@@ -160,7 +160,7 @@ data CompStatus =
  | CSEnv  -- gfo is in env
   deriving Eq
 
-type ModuleInfo = (ModName,CompStatus,Maybe ClockTime,[ModName],InitPath)
+type ModuleInfo = (ModName,CompStatus,Maybe UTCTime,[ModName],InitPath)
 
 importsOfModule :: SourceModule -> (ModName,[ModName])
 importsOfModule (m,mi) = (modName m,depModInfo mi [])

@@ -62,7 +62,7 @@ instance LargeWord Word64 where
 data LargeKey a b = LargeKey a b
    deriving (Eq, Ord)
 
-instance (Ord a, Bits a, LargeWord a, Bits b, LargeWord b) =>
+instance (Num a, Num b, Ord a, Bits a, LargeWord a, Bits b, LargeWord b) =>
    LargeWord (LargeKey a b) where
       largeWordToInteger (LargeKey lo hi) =
          largeWordToInteger lo + (2^(bitSize lo)) * largeWordToInteger hi
@@ -96,17 +96,17 @@ instance (Ord a, Bits a, LargeWord a, Bits b, LargeWord b) =>
          where conv = integerToLargeWord . largeWordToInteger
       largeBitSize ~(LargeKey lo hi) = largeBitSize lo + largeBitSize hi
 
-instance (Ord a, Bits a, LargeWord a, Bits b, LargeWord b) => Show (LargeKey a b) where
+instance (Num a, Num b, Ord a, Bits a, LargeWord a, Bits b, LargeWord b) => Show (LargeKey a b) where
    showsPrec p = showInt . largeWordToInteger
 
-instance (Ord a, Bits a, LargeWord a, Bits b, LargeWord b) => 
+instance (Num a, Num b, Ord a, Bits a, LargeWord a, Bits b, LargeWord b) => 
    Num (LargeKey a b) where
       (+) = largeWordPlus
       fromInteger = integerToLargeWord 
 
 -- Larger keys are instances of Bits provided their constituents are keys.
 
-instance (Ord a, Bits a, LargeWord a, Bits b, LargeWord b) => 
+instance (Num a, Num b, Ord a, Bits a, LargeWord a, Bits b, LargeWord b) => 
    Bits (LargeKey a b) where
       (.&.) = largeWordAnd
       (.|.) = largeWordOr
@@ -130,11 +130,11 @@ aoflk = undefined
 boflk :: (LargeKey a b) -> b
 boflk = undefined
 
-instance (Ord a, Bits a, LargeWord a, Ord b, Bits b, LargeWord b) =>
+instance (Num a, Num b, Ord a, Bits a, LargeWord a, Ord b, Bits b, LargeWord b) =>
    Integral (LargeKey a b) where
       toInteger = largeWordToInteger
 
-instance (Ord a, Bits a, LargeWord a, Ord b, Bits b, LargeWord b) =>
+instance (Num a, Num b, Ord a, Bits a, LargeWord a, Ord b, Bits b, LargeWord b) =>
    Real (LargeKey a b)
 
 instance Enum (LargeKey a b)
