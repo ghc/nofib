@@ -13,19 +13,19 @@ module Main where
 
 import Control.Concurrent
 import Control.Monad
-import Foreign.Ptr
 import Data.IORef
+import Foreign.Ptr
 import System.Environment
 import System.IO
 
 main = do
   [s] <- getArgs
-  let n = read s :: Int
+  let n    = read s :: Int
+      fork = if rtsSupportsBoundThreads then forkOS else forkIO
   sem <- newQSemN 0
-  let fork = if rtsSupportsBoundThreads then forkOS else forkIO
-  replicateM n (putStr "." >> hFlush stdout >> fork (thread sem) >> thread sem)
+  replicateM n $ putStr "." >> hFlush stdout >> fork (thread sem) >> thread sem
+  putChar '\n'
   waitQSemN sem (n*2)
-
 
 thread sem = do
   var <- newIORef 0
@@ -33,7 +33,7 @@ thread sem = do
   callC =<< mkFunc f
   signalQSemN sem 1
 
-type FUNC  =  IO ()
+type FUNC = IO ()
 
 foreign import ccall unsafe "wrapper"
    mkFunc :: FUNC -> IO (FunPtr FUNC)
