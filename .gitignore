@@ -122,10 +122,12 @@ parallel/gray/gray
 parallel/mandel/mandel
 parallel/matmult/matmult
 parallel/minimax/minimax
+parallel/nbody/nbody
 parallel/parfib/parfib
 parallel/partree/partree
 parallel/prsa/prsa
 parallel/queens/queens
 parallel/ray/ray
 parallel/sumeuler/sumeuler
+parallel/transclos/transclos
 
