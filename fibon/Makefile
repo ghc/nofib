@@ -1,9 +1,7 @@
 TOP = ../
 include $(TOP)/mk/boilerplate.mk
 
-SSUBDIRS = Hackage Repa Shootout
-
-SUBDIRS = $(filter-out $(NOT_THESE), $(SSUBDIRS))
+SUBDIRS = Hackage Repa Shootout
 
 include $(TOP)/mk/target.mk
 
