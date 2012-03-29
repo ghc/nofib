@@ -16,7 +16,7 @@ module Test.QuickCheck.Exception where
 #if defined OLD_EXCEPTIONS
 import Control.Exception(evaluate, try, Exception(..))
 #else
-import Control.Exception.Extensible(evaluate, try, SomeException(SomeException)
+import Control.Exception(evaluate, try, SomeException(SomeException)
 #if defined(GHC_INTERRUPT)
   , AsyncException(UserInterrupt)
 #endif

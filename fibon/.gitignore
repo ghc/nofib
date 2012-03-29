@@ -1,3 +1,5 @@
+cachegrind.out.*
+cachegrind.out.summary
 Shootout/BinaryTrees/BinaryTrees
 Shootout/ChameneosRedux/ChameneosRedux
 Shootout/Fannkuch/Fannkuch
@@ -5,3 +7,8 @@ Shootout/Mandelbrot/Mandelbrot
 Shootout/Nbody/Nbody
 Shootout/Pidigits/Pidigits
 Shootout/SpectralNorm/SpectralNorm
+Hackage/Bzlib/Codec/Compression/BZip/Stream.hs
+Hackage/Bzlib/Codec/Compression/BZip/Stream_hsc.c
+Hackage/Gf/src/compiler/GF/Grammar/Lexer.hs
+Hackage/Gf/src/compiler/GF/Grammar/Parser.hs
+

@@ -58,21 +58,21 @@ module Codec.Compression.BZip.Stream (
 import Foreign
          ( Word8, Ptr, nullPtr, plusPtr, peekByteOff, pokeByteOff, mallocBytes
          , ForeignPtr, FinalizerPtr, newForeignPtr_, addForeignPtrFinalizer
-         , finalizeForeignPtr, withForeignPtr, touchForeignPtr
-         , unsafeForeignPtrToPtr, unsafePerformIO )
+         , finalizeForeignPtr, withForeignPtr, touchForeignPtr )
 import Foreign.C
-         ( CInt, CUInt )
+         ( CInt(..), CUInt )
+import Foreign.ForeignPtr.Unsafe ( unsafeForeignPtrToPtr )
 #ifdef BYTESTRING_IN_BASE
-import Data.ByteString.Base (nullForeignPtr)
+import Data.ByteString.Base ( nullForeignPtr )
 #else
-import Data.ByteString.Internal (nullForeignPtr)
+import Data.ByteString.Internal ( nullForeignPtr )
 #endif
-import System.IO.Unsafe (unsafeInterleaveIO)
-import System.IO (hPutStrLn, stderr)
-import Control.Monad (liftM)
-import Control.Exception (assert)
+import System.IO.Unsafe ( unsafeInterleaveIO, unsafePerformIO )
+import System.IO ( hPutStrLn, stderr )
+import Control.Monad ( liftM )
+import Control.Exception ( assert )
 
-import Prelude hiding (length)
+import Prelude hiding ( length )
 
 #include "bzlib.h"
 

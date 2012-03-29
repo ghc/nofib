@@ -1,4 +1,3 @@
-{-# OPTIONS -fglasgow-exts #-}
 module Set where
 
 import Data.FiniteMap
