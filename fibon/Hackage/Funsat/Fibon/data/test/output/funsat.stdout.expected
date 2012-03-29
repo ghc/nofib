@@ -1,9 +1,0 @@
-Feature config: vsids, restarts, unsat checking
-435 variables, 1027 clauses
-Solving ssa0432-003.cnf ...
-Num. Conflicts        50  
-Num. Learned Clauses  31  
- --> Avg. Lits/Clause 4.84
-Num. Decisions        139 
-Num. Propagations     3728
-Verifying solution...succeeded.

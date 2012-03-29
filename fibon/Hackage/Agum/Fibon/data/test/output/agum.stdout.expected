@@ -1,6 +1,0 @@
-Abelian group unification and matching -- :? for help
-agum> Problem:   2x + y = 3z
-Unifier:   [x : g0,y : -2g0 + 3g2,z : g2]
-Matcher:   [x : g0,y : -2g0 + 3z]
-
-agum> 
