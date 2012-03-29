@@ -11,12 +11,9 @@ SUBDIRS = \
 	threads007 \
 	chan
 
-# later:
-#  stm001
-#  stm02
-
 # Not a good benchmark, can go really slowly for random reasons:
 #  threads002
+OTHER_SUBDIRS = stm001 stm002 systolic tchan theads002 threads004 threads005
 
 include $(TOP)/mk/target.mk
 
