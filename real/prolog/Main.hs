@@ -14,6 +14,8 @@ import Engine
 import Version
 import Data.List(nub)--1.3
 
+import System.IO.Error (catchIOError)
+
 --- Command structure and parsing:
 
 data Command = Fact Clause | Query [Term] | Show | Error | Quit | NoChange
@@ -39,7 +41,7 @@ signOn            = "Mini Prolog Version 1.5 (" ++ version ++ ")\n\n"
 main              = --echo False abort
                     putStr signOn >>
                     putStr ("Reading " ++ stdlib) >>
-                    catch (readFile stdlib)
+                    catchIOError (readFile stdlib)
                       (\fail -> putStr "...not found\n" >> return "")
 		      >>= \ is ->
 		    if null is then
