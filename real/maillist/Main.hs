@@ -87,6 +87,8 @@ Desired enhancements:
 
 module Main where
 
+import Control.Exception (catch, IOException)
+
 type Line      = String
 type Entry     = [Line]
 type FileName  = String
@@ -105,8 +107,9 @@ mainLoop fns =
 	putStr "\nFile to be converted: " >>
 	case fns of
 	  []        -> 	putStr "\nGoodbye!\n"
-	  (fn:fns') -> 	catch (readFile fn >>= process (fn ++ ".tex") fns')
-			  (\err -> putStr ("\nCan't read " ++fn++ "; try again.\n") >>
+          (fn:fns') ->  catch (readFile fn >>= process (fn ++ ".tex") fns')
+                          (\err -> let _ = err :: IOException in
+                                   putStr ("\nCan't read " ++fn++ "; try again.\n") >>
 				   mainLoop fns')
 			
 
