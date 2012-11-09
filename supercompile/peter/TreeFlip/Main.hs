@@ -1,5 +1,7 @@
 module Main where
 
+import Prelude hiding (flip)
+
 import System.Environment
 
 main :: IO ()

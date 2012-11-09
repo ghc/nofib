@@ -27,11 +27,22 @@ main = do
 -- If we generalise away the (c n a) and (S a) then we'll get a nice tieback to what we started
 -- with that and hence build something equivalent to the input code.
 {-# SUPERCOMPILE root #-}
-root :: (Nat -> b -> b) -> b -> Nat -> Nat -> b
+root :: (b -> Nat -> b) -> b -> Nat -> Nat -> b
 root c n a b = foldl c n (enumFromTo a b)
 
 data Nat = S Nat | Z
          deriving (Eq, Show)
+
+instance Enum Nat where
+    succ = S
+    pred (S x) = x
+    toEnum x | x < 0     = error "toEnum @Nat"
+             | otherwise = go x
+      where go x = if x == 0
+                    then Z
+                    else S (go (x - 1))
+    fromEnum Z     = 0
+    fromEnum (S n) = 1 + fromEnum n
 
 peanoGt :: Nat -> Nat -> Bool
 peanoGt Z     _     = False

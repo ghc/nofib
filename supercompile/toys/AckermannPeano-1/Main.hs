@@ -8,7 +8,7 @@ ack m n = case m of S m -> case n of S n -> ack m (ack (S m) n)
                     Z   -> S n
 
 {-# SUPERCOMPILE root #-}
-root :: Nat -> Nat -> Nat
+root :: Nat -> Nat
 root x = ack (S Z) x
 
 -- Optimal output:

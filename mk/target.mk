@@ -44,7 +44,7 @@ ifneq "$(HC_FAIL)" "YES"
 ifneq "$(NoFibWithGHCi)" "YES"
 $(NOFIB_PROG_WAY) : $(OBJS)
 	@echo ==nofib$(_way)== $(NOFIB_PROG): time to link $(NOFIB_PROG) follows...
-	@$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
+	$(TIME) $(HC) $(HC_OPTS) -o $@ $^ $(LIBS)
 endif
 endif
 

@@ -23,5 +23,5 @@ main = print (root (+) 0 1 10)
 -- If we generalise away the (c n a) and (a + 1) then we'll get a nice tieback to what we started
 -- with that and hence build something equivalent to the input code.
 {-# SUPERCOMPILE root #-}
-root :: (Int -> b -> b) -> b -> Int -> Int -> b
+root :: (b -> Int -> b) -> b -> Int -> Int -> b
 root c n a b = foldl c n (enumFromTo a b)

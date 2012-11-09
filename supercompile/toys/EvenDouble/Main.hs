@@ -1,5 +1,7 @@
 module Main where
 
+import Prelude hiding (even)
+
 main :: IO ()
 main = print (root (S Z))
 

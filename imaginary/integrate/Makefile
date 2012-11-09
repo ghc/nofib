@@ -9,3 +9,5 @@ include $(TOP)/mk/target.mk
 FAST_OPTS =  5000
 NORM_OPTS = 50000
 SLOW_OPTS = 100000
+
+SRC_SUPERCOMP_HC_OPTS =

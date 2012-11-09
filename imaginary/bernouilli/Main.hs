@@ -22,7 +22,7 @@ neg_powers =
 pascal:: [[Integer]]
 pascal = [1,2,1] : map (\line -> zipWith (+) (line++[0]) (0:line)) pascal
 
-{-# SUPERCOMPILE bernoulli #-}
+{- {-# SUPERCOMPILE bernoulli #-} -}
 bernoulli 0 = 1
 bernoulli 1 = -(1%2)	
 bernoulli n | odd n = 0
@@ -34,6 +34,7 @@ bernoulli n =
      | (k,combs)<- zip [2..n] pascal]
   where powers = (neg_powers!!(n-1))
 
+{-# SUPERCOMPILE main #-}
 main = do
  [arg] <- getArgs
  let n = (read arg)::Int

@@ -1,5 +1,7 @@
 module Main where
 
+import Prelude hiding (foldl)
+
 main :: IO ()
 main = print (root [1, 2, 3])
 

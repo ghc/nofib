@@ -3,7 +3,7 @@ module Main where
 import Prelude hiding (map)
 
 main :: IO ()
-main = print (root [1, 2, 3])
+main = print (root [1, 2, 3 :: Int] :: [Either (Either Int Int) Int])
 
 map f xs = case xs of
     [] -> []

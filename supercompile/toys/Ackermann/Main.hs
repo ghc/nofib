@@ -3,9 +3,7 @@ module Main where
 import System.Environment
 
 main :: IO ()
-main = do
-    [x_str] <- getArgs
-    print (root (read x_str))
+main = print (root 0)
 
 ack :: Int -> Int -> Int
 ack m n = case m of 0 -> n + 1

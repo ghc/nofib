@@ -1,7 +1,8 @@
 module Main where
 
 main :: IO ()
-main = print root
+main = print (root Z)
+
 ack m n = case m of S m -> case n of S n -> ack m (ack (S m) n)
                                      Z   -> ack m (S Z)
                     Z   -> S n
