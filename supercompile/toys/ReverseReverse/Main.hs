@@ -1,9 +1,13 @@
 module Main where
 
+import System.Environment
+
 import Prelude hiding (reverse)
 
 main :: IO ()
-main = print (root [1, 2, 3])
+main = do
+    [n] <- fmap (map read) getArgs
+    print (length (root [1..n]))
 
 reverse xs = reverseacc [] xs
   where reverseacc ys xs = case xs of [] -> ys; (x:xs) -> reverseacc (x:ys) xs

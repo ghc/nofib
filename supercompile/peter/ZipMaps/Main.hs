@@ -1,8 +1,12 @@
 module Main where
 
+import System.Environment
+
 main :: IO ()
-main = print (root [1, 2, 3 :: Int])
+main = do
+    [n] <- fmap (map read) getArgs
+    print (root [1..n])
 
 {-# SUPERCOMPILE root #-}
-root :: [a] -> [(Either a a, Either a a)]
-root xs = zip (map (\x -> Left x) xs) (map (\x -> Right x) xs)
+root :: [a] -> Int
+root xs = length $ zip (map (\x -> Left x) xs) (map (\x -> Right x) xs)

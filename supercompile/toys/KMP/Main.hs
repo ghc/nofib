@@ -1,7 +1,11 @@
 module Main where
 
+import System.Environment
+
 main :: IO ()
-main = print (root [A, A, B, A])
+main = do
+    [n] <- fmap (map read) getArgs
+    print (root $ replicate n A ++ [A, A, B, A])
 
 alphabetEq x y = case x of
     A -> case y of A -> True

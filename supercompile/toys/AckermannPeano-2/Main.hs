@@ -1,7 +1,19 @@
 module Main where
 
+import System.Environment
+
 main :: IO ()
-main = print (root Z)
+main = do
+    [n] <- fmap (map read) getArgs
+    print (fromPeano 0 (root (toPeano n)))
+
+toPeano :: Int -> Nat
+toPeano 0 = Z
+toPeano n = S (toPeano (n - 1))
+
+fromPeano :: Int -> Nat -> Int
+fromPeano n Z     = n
+fromPeano n (S x) = n `seq` fromPeano (1 + n) x
 
 ack m n = case m of S m -> case n of S n -> ack m (ack (S m) n)
                                      Z   -> ack m (S Z)

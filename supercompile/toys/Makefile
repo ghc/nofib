@@ -1,5 +1,14 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
-SUBDIRS = AccumulatingParam-Peano AccumulatingParam Ackermann AckermannPeano-1 AckermannPeano-2 AppendAssociativity AppendRightUnit BlackHole BlackHole2 CoveredCaseBranches EvenDouble EvenDoubleGenerator FloatLetsFromCasesThatReferToUpdate FoldlSpecialisation Generalisation-Lazy Generalisation-Literals-Lazy Generalisation-Literals Generalisation InfiniteMap KMP LetRec LetRecPropagation LetRecUpdateBinding MapMapFusion NaiveReverse NegativeInformation PeterGen PeterGenEasy ReduceRollback ReverseReverse ReverseReverseEqual SimpleLaziness SpecialiseOnFVs Speculation SpeculationTricky SpeculationWorstCase StrictFoldlSpecialisation UncoveredCaseBranches UntypeableAfterSupercompilation ValueDuplication-Case ValueDuplication-Let ValueRecursion
+SUBDIRS = AccumulatingParam-Peano AccumulatingParam Ackermann AckermannPeano-1 AckermannPeano-2 EvenDouble EvenDoubleGenerator Generalisation KMP LetRec MapMapFusion ReverseReverse
+# Covered by Peter somewhat already:
+#   AppendAssociativity
+# Covered by other benchmarks:
+#   FoldlSpecialisation Generalisation-Lazy Generalisation-Literals-Lazy (AccumulatingParam-*)
+#   StrictFoldlSpecialisation (Generalisation)
+# Just boring:
+#   SpeculationWorstCase
+#   AppendRightUnit
+#   Generalisation-Literals
 
 include $(TOP)/mk/target.mk

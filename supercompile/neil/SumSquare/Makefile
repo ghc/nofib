@@ -4,3 +4,5 @@ include $(TOP)/mk/boilerplate.mk
 include $(TOP)/mk/target.mk
 
 SRCS = Main.hs
+
+SRC_SUPERCOMP_HC_OPTS =

@@ -1,7 +1,11 @@
 module Main where
 
+import System.Environment
+
 main :: IO ()
-main = print (root (+) 0 1 10)
+main = do
+    [n] <- fmap (map read) getArgs
+    print (length (root (flip (:)) [] 1 n))
 
 -- Example from Section 5 of "Shortcut Fusion for Accumulating Parameters & Zip-like Functions"
 -- Optimal output should be isomorphic to:

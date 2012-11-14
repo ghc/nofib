@@ -3,7 +3,9 @@ module Main where
 import System.Environment
 
 main :: IO ()
-main = print (root 0)
+main = do
+    [n] <- fmap (map read) getArgs
+    print (root n)
 
 ack :: Int -> Int -> Int
 ack m n = case m of 0 -> n + 1
