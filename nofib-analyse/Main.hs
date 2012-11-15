@@ -27,6 +27,9 @@ import Data.List
 -----------------------------------------------------------------------------
 -- Top level stuff
 
+mAX_PROG_NAME_LENGTH :: Int
+mAX_PROG_NAME_LENGTH  = 20
+
 die :: String -> IO a
 die s = hPutStr stderr s >> exitWith (ExitFailure 1)
 
@@ -114,12 +117,13 @@ data PerModuleTableSpec =
                 (a -> Bool)             -- Result within reasonable limits?
 
 -- The various per-program aspects of execution that we can generate results for.
-size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec,
+size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec,
     gctime_spec, gcelap_spec,
     gcwork_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec,
     gc0time_spec, gc0elap_spec, gc1time_spec, gc1elap_spec, balance_spec, totmem_spec
         :: PerProgTableSpec
 size_spec    = SpecP "Binary Sizes" "Size" "binary-sizes" binary_size compile_status always_ok
+modsize_spec = SpecP "Module Sizes" "ModSize" "module-sizes" total_module_size compile_status always_ok
 alloc_spec   = SpecP "Allocations" "Allocs" "allocations" (meanInt allocs) run_status always_ok
 runtime_spec = SpecP "Run Time" "Runtime" "run-times" (mean run_time) run_status mean_time_ok
 elapsedtime_spec = SpecP "Elapsed Time" "Elapsed" "elapsed-times" (mean elapsed_time) run_status mean_time_ok
@@ -144,6 +148,7 @@ totmem_spec   = SpecP "Total Memory in use" "TotalMem" "total-mem" (meanInt tota
 all_specs :: [PerProgTableSpec]
 all_specs = [
   size_spec,
+  modsize_spec,
   alloc_spec,
   runtime_spec,
   elapsedtime_spec,
@@ -211,7 +216,7 @@ checkTimes prog results = do
 -- These are the per-prog tables we want to generate
 per_prog_result_tab :: [PerProgTableSpec]
 per_prog_result_tab =
-        [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec, gctime_spec,
+        [ size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec, gctime_spec,
           gcelap_spec, gc0count_spec, gc0time_spec, gc0elap_spec, gc1count_spec, gc1time_spec, gc1elap_spec,
           gcwork_spec, balance_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec, totmem_spec]
 
@@ -219,11 +224,11 @@ per_prog_result_tab =
 -- aspects, each in its own column.  Only works when comparing two runs.
 normal_summary_specs :: [PerProgTableSpec]
 normal_summary_specs =
-        [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, totmem_spec ]
+        [ size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, totmem_spec ]
 
 cachegrind_summary_specs :: [PerProgTableSpec]
 cachegrind_summary_specs =
-        [ size_spec, alloc_spec, instrs_spec, mreads_spec, mwrite_spec ]
+        [ size_spec, modsize_spec, alloc_spec, instrs_spec, mreads_spec, mwrite_spec ]
 
 -- Pick an appropriate summary table: if we're cachegrinding, then
 -- we're probably not interested in the runtime, but we are interested
@@ -517,7 +522,7 @@ asciiGenModTable results args (SpecM long_name _ get_result result_ok)
 ascii_header :: Int -> [String] -> ShowS
 ascii_header w ss
         = str "\n-------------------------------------------------------------------------------\n"
-        . str (rjustify 15 "Program")
+        . str (rjustify mAX_PROG_NAME_LENGTH "Program")
         . str (space 5)
         . foldr (.) id (map (str . rjustify w) ss)
         . str "\n-------------------------------------------------------------------------------\n"
@@ -617,7 +622,7 @@ mungeForLaTeX = map transrow
 
 table_layout :: Int -> Int -> Layout
 table_layout n w boxes = foldr (.) id $ zipWith ($) fns boxes
- where fns = (str . rjustify 15 . show ) :
+ where fns = (str . rjustify mAX_PROG_NAME_LENGTH . show ) :
              (\s -> str (space 5) . str (rjustify w (show s))) :
              replicate (n-1) (str . rjustify w . show)
 
@@ -678,7 +683,7 @@ show_per_prog_results = show_per_prog_results_width fIELD_WIDTH
 
 show_per_prog_results_width :: Int -> (String, [BoxValue]) -> ShowS
 show_per_prog_results_width w (prog,results)
-        = str (rjustify 15 prog)
+        = str (rjustify mAX_PROG_NAME_LENGTH prog)
         . str (space 5)
         . foldr (.) id (map (str . rjustify w . showBox) results)
 
