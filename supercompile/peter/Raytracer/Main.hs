@@ -7,7 +7,12 @@ import Prelude hiding (sum)
 main :: IO ()
 main = do
     [n] <- fmap (map read) getArgs
-    print (root (replicate n 1) (replicate n 2))
+    print (root (my_replicate n 1) (my_replicate n 2))
+
+-- Prevent benchmark results being skewed because rewrite rules have access to more information than the SC does:
+my_replicate :: Int -> a -> [a]
+my_replicate 0 x = []
+my_replicate n x = x : my_replicate (n - 1) x
 
 {-# SUPERCOMPILE root #-}
 root :: [Int] -> [Int] -> Int

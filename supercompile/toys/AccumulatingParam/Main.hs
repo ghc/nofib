@@ -7,6 +7,12 @@ main = do
     [n] <- fmap (map read) getArgs
     print (length (root (flip (:)) [] 1 n))
 
+-- Prevent benchmark results being skewed because rewrite rules have access to more information than the SC does:
+my_length :: [a] -> Int
+my_length = go 0
+  where go n []     = n
+        go n (_:xs) = n `seq` go (n+1) xs
+
 -- Example from Section 5 of "Shortcut Fusion for Accumulating Parameters & Zip-like Functions"
 -- Optimal output should be isomorphic to:
 --

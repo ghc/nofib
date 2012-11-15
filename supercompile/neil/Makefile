@@ -1,6 +1,6 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
-SUBDIRS = SumSquare
+SUBDIRS = SumSquare SumSquare-Explicit
 
 # Worthless benchmark, runs too fast:
 # SumSquare-LazySum
