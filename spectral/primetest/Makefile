@@ -4,3 +4,5 @@ include $(TOP)/mk/boilerplate.mk
 include $(TOP)/mk/target.mk
 
 # fast/norm/slow stuff done with separate stdin files
+
+SRC_SUPERCOMP_HC_OPTS =

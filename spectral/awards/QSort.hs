@@ -10,6 +10,7 @@
 -}
 
 module QSort(sortLe, sort) where
+
 sortLe :: (a -> a -> Bool) -> [a] -> [a]
 sortLe le l = qsort le   l []
 

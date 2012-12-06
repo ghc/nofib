@@ -11,3 +11,5 @@ PROG_ARGS = holzhausen.prob
 
 include $(TOP)/mk/target.mk
 
+
+SRC_SUPERCOMP_HC_OPTS =

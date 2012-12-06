@@ -6,3 +6,5 @@ include $(TOP)/mk/target.mk
 FAST_OPTS = 16
 NORM_OPTS = 16
 SLOW_OPTS = 64
+
+SRC_SUPERCOMP_HC_OPTS =

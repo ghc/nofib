@@ -5,7 +5,7 @@ import System.Environment
 main :: IO ()
 main = do
     [n] <- fmap (map read) getArgs
-    print (length (root (flip (:)) [] 1 n))
+    print (my_length (root (flip (:)) [] 1 n))
 
 -- Prevent benchmark results being skewed because rewrite rules have access to more information than the SC does:
 my_length :: [a] -> Int

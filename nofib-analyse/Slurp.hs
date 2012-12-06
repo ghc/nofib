@@ -4,7 +4,7 @@
 --
 -----------------------------------------------------------------------------
 
-module Slurp (Status(..), Results(..), ResultTable, parse_log, total_module_size) where
+module Slurp (Status(..), Results(..), ResultTable, parse_log, total_module_size, total_module_ctime) where
 
 import Control.Monad
 import qualified Data.Foldable as Foldable
@@ -61,6 +61,11 @@ total_module_size :: Results -> Maybe Int
 total_module_size r
   | Map.null (module_size r) = Nothing
   | otherwise                = Just (Foldable.sum (module_size r))
+
+total_module_ctime :: Results -> Maybe Float
+total_module_ctime r
+  | Map.null (compile_time r) = Nothing
+  | otherwise                 = Just (Foldable.sum (compile_time r))
 
 emptyResults :: Results
 emptyResults = Results {

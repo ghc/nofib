@@ -7,3 +7,5 @@ PROG_ARGS = 27000.1 27000.2
 
 include $(TOP)/mk/target.mk
 
+
+SRC_SUPERCOMP_HC_OPTS =

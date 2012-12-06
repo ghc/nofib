@@ -9,3 +9,5 @@ SLOW_OPTS = 8 1000
 SRC_RUNTEST_OPTS += +RTS -H30m -RTS
 
 include $(TOP)/mk/target.mk
+
+SRC_SUPERCOMP_HC_OPTS =

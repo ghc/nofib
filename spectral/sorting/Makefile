@@ -5,3 +5,5 @@ STDIN_FILE = Sort.hs
 
 include $(TOP)/mk/target.mk
 
+
+SRC_SUPERCOMP_HC_OPTS =

@@ -5,3 +5,5 @@ include $(TOP)/mk/boilerplate.mk
 PROG_ARGS = 1600
 
 include $(TOP)/mk/target.mk
+
+SRC_SUPERCOMP_HC_OPTS =

@@ -8,3 +8,5 @@ NORM_OPTS = 7
 SLOW_OPTS = 11
 
 include $(TOP)/mk/target.mk
+
+SRC_SUPERCOMP_HC_OPTS =

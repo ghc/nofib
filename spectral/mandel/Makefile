@@ -10,3 +10,5 @@ SRCS = Main.lhs Mandel.lhs PortablePixmap.lhs
 
 include $(TOP)/mk/target.mk
 
+
+SRC_SUPERCOMP_HC_OPTS =

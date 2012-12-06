@@ -9,3 +9,5 @@ SRC_HC_OPTS += -cpp -fglasgow-exts
 
 include $(TOP)/mk/target.mk
 
+
+SRC_SUPERCOMP_HC_OPTS =

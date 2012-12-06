@@ -1,6 +1,8 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
-SUBDIRS = AccumulatingParam-Peano AccumulatingParam Ackermann AckermannPeano-1 AckermannPeano-2 EvenDouble EvenDoubleGenerator Generalisation KMP LetRec MapMapFusion ReverseReverse queens-explicit
+SUBDIRS = AccumulatingParam-Peano AccumulatingParam Ackermann AckermannPeano-1 AckermannPeano-2 EvenDouble EvenDoubleGenerator Generalisation KMP LetRec MapMapFusion ReverseReverse
+# Covered by flag instead:
+#   queens-explicit
 # Covered by Peter somewhat already:
 #   AppendAssociativity
 # Covered by other benchmarks:

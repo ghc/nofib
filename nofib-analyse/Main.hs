@@ -124,6 +124,7 @@ size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spe
         :: PerProgTableSpec
 size_spec    = SpecP "Binary Sizes" "Size" "binary-sizes" binary_size compile_status always_ok
 modsize_spec = SpecP "Module Sizes" "ModSize" "module-sizes" total_module_size compile_status always_ok
+modctime_spec = SpecP "Module Compile Times" "ModCTime" "module-ctimes" total_module_ctime compile_status always_ok
 alloc_spec   = SpecP "Allocations" "Allocs" "allocations" (meanInt allocs) run_status always_ok
 runtime_spec = SpecP "Run Time" "Runtime" "run-times" (mean run_time) run_status mean_time_ok
 elapsedtime_spec = SpecP "Elapsed Time" "Elapsed" "elapsed-times" (mean elapsed_time) run_status mean_time_ok
@@ -149,6 +150,7 @@ all_specs :: [PerProgTableSpec]
 all_specs = [
   size_spec,
   modsize_spec,
+  modctime_spec,
   alloc_spec,
   runtime_spec,
   elapsedtime_spec,
@@ -216,7 +218,7 @@ checkTimes prog results = do
 -- These are the per-prog tables we want to generate
 per_prog_result_tab :: [PerProgTableSpec]
 per_prog_result_tab =
-        [ size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec, gctime_spec,
+        [ size_spec, modsize_spec, modctime_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec, gctime_spec,
           gcelap_spec, gc0count_spec, gc0time_spec, gc0elap_spec, gc1count_spec, gc1time_spec, gc1elap_spec,
           gcwork_spec, balance_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec, totmem_spec]
 
@@ -224,7 +226,8 @@ per_prog_result_tab =
 -- aspects, each in its own column.  Only works when comparing two runs.
 normal_summary_specs :: [PerProgTableSpec]
 normal_summary_specs =
-        [ size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, totmem_spec ]
+        --[ size_spec, modsize_spec, alloc_spec, runtime_spec, elapsedtime_spec, totmem_spec ]
+        [ modctime_spec, runtime_spec, alloc_spec, modsize_spec ]
 
 cachegrind_summary_specs :: [PerProgTableSpec]
 cachegrind_summary_specs =
@@ -829,7 +832,7 @@ calc_minmax xs
  | otherwise = (Percentage (minimum percentages),
                 Percentage (maximum percentages))
  where
-  percentages = [ if f < 5 then 5 else f | Percentage f <- xs ]
+  percentages = [ f | Percentage f <- xs ]
 
 
 -----------------------------------------------------------------------------
@@ -942,9 +945,18 @@ latexTableLayout boxes =
   foldr (.) id . intersperse (str " & ") . map abox $ boxes
   where 
         abox (RunFailed NotDone) = id
-        abox s = str (foldr transchar "" (show s))
+        abox s = str (meh (show s))
 
-        transchar '%' s = s  -- leave out the percentage signs
+        -- HACK
+        meh "AccumulatingParam"       = "Accumulator"
+        meh "AccumulatingParam-Peano" = "%"
+        meh "Generalisation"          = "%"
+        meh "SumSquare-Explicit"      = "%"
+        meh "queens-explicit"         = "%"
+        meh "0.00" = "N/A"
+        meh s      = foldr transchar "" s
+
+        transchar '%' s = "\\%" ++ s  -- escape the percentage signs
         transchar c   s = c : s
 
 -- -----------------------------------------------------------------------------
