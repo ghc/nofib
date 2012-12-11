@@ -4,7 +4,7 @@ include $(TOP)/mk/boilerplate.mk
 PROG = nofib-analyse
 
 $(PROG):
-	$(GHC) -O -cpp -fglasgow-exts --make Main -o $(PROG)
+	$(GHC) -O -cpp --make Main -o $(PROG)
 
 all :: $(PROG)
 
