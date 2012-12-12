@@ -5,7 +5,8 @@ import Mandel
 import PortablePixmap
 import System.IO
 
-main =  getContents >>=                                 \ userInput      ->
+main =  hSetBinaryMode stdout True >>
+        getContents >>=                                 \ userInput      ->
         readNum "Enter min x  = " (lines userInput) $   \ minx input     ->
         readNum "Enter min y  = " input $               \ miny input     ->
         readNum "Enter max x  = " input $               \ maxx input     ->
