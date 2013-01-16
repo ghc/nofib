@@ -13,6 +13,11 @@ whereas it didn't before.  So allocations go up a bit.
 	Imaginary suite
 ---------------------------------------
 
+integrate
+~~~~~~~~~
+integrate1D is strict in its second argument 'u', but it also passes 'u' to
+function 'f'.  Hence it now does some reboxing, which pushes up allocation
+slightly.
 
 gen_regexps
 ~~~~~~~~~~~
@@ -215,6 +220,11 @@ Lambda
 This program shows the cost of the non-eta-expanded lambdas that arise from
 a state monad.  
 
+mandel2
+~~~~~~~
+check_perim's several calls to point_colour lead to opportunities for CSE
+which may be more or less well taken.
+
 Mandel
 ~~~~~~
 Relies heavily on having a specialised version of Complex.magnitude
@@ -339,19 +349,36 @@ Sphere also does 60,000 calls to hPutStr, so I/O plays a major role.  Currently
 this I/O does a *lot* of allocation, much of it since the adddition of thread-safety.
 
 
-Treejoin
+treejoin
 ~~~~~~~~
-Does a lot of IO.readFile.
+Does a lot of IO.readFile.  In GHC.IO.Encoding.UTF8 the demand
+analyser sees a strict function with type
+ a_s1gj :: GHC.IO.Buffer.Buffer GHC.Word.Word8
+     	-> GHC.IO.Buffer.Buffer GHC.Types.Char
+     	-> GHC.Prim.State# GHC.Prim.RealWorld
+     	-> (# GHC.Prim.State# GHC.Prim.RealWorld,
+     	      (GHC.IO.Encoding.Types.CodingProgress,
+     	       GHC.IO.Buffer.Buffer GHC.Word.Word8,
+     	       GHC.IO.Buffer.Buffer GHC.Types.Char) #)
+Unboxing both Buffer arguments makes a HUGE difference (halves
+allocation); but that makes the worker function have 12 arguments.  A
+good reason for unboxing even if the worker gets a lot of args.
+
+sorting
+~~~~~~~
+Same issue with GHC.IO.Encoding.UTF8 as treejoin
+
 
 ---------------------------------------
 	Real suite
 ---------------------------------------
 
-
+gg
+~~
+Same issue with GHC.IO.Encoding.UTF8 as treejoin
 	
 Maillist
 ~~~~~~~~
-
 Uses appendFile repeatedly rather than opening the output file once,
 which leads to numerous file opens/closes.  Allocations will rise with
 the new I/O subsystem in 5.02 because the I/O buffer will be
