@@ -5,4 +5,21 @@ micro-optimized code.
 To run the benchmarks under the official settings, pass mode=slow to
 make. You might also want to pass EXTRA_HC_OPTS="-fllvm".
 
+Notes:
+
+ * The fasta benchmark wasn't included as its output (which would have
+   to go in a .stdout file) is too large to check into the source
+   tree.
+
+ * The mandelbrot benchmark wasn't included as its binary output
+   (which would have to go in a .stdout file) is too large to check
+   into the source tree.
+
+ * The regex-dna benchmark wasn't included as it depend on regex-pcre,
+   which requires C libraries that aren't installed by default on many
+   platforms.
+
+ * The k-nucleotide benchmark wasn't included as it segfaults on my
+   64-bit OS X 10.8.2 machine.
+
 1. http://benchmarksgame.alioth.debian.org/
