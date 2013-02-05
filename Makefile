@@ -28,7 +28,7 @@ SUBDIRS = runstdtest nofib-analyse $(NoFibSubDirs)
 #
 SRC_DIST_DIR=$(shell pwd)/nofib
 SRC_DIST_NAME=nofib
-SRC_DIST_DIRS=docs fibon gc imaginary smp spectral real parallel mk
+SRC_DIST_DIRS=docs fibon gc imaginary smp spectral real parallel mk shootout
 
 dist :: nofib-dist-pre
 include $(TOP)/mk/target.mk

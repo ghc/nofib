@@ -51,6 +51,8 @@ real/scs/scs
 real/symalg/symalg
 real/veritas/veritas
 
+shootout/pidigits/pidigits
+
 spectral/ansi/ansi
 spectral/atom/atom
 spectral/awards/awards
