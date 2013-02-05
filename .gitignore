@@ -53,6 +53,7 @@ real/veritas/veritas
 
 shootout/binary-trees/binary-trees
 shootout/fannkuch-redux/fannkuch-redux
+shootout/n-body/n-body
 shootout/pidigits/pidigits
 shootout/spectral-norm/spectral-norm
 
