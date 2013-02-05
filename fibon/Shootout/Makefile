@@ -2,8 +2,7 @@ TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
 SSUBDIRS = \
-  BinaryTrees ChameneosRedux Fannkuch Mandelbrot \
-  Nbody Pidigits SpectralNorm
+  ChameneosRedux Fannkuch Mandelbrot \
   
 SUBDIRS = $(filter-out $(NOT_THESE), $(SSUBDIRS))
 
