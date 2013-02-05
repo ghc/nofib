@@ -1,7 +1,7 @@
 TOP = ..
 include $(TOP)/mk/boilerplate.mk
 
-SUBDIRS = pidigits
+SUBDIRS = fannkuch-redux pidigits
 
 include $(TOP)/mk/target.mk
 
