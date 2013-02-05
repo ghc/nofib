@@ -1,7 +1,7 @@
 TOP = ..
 include $(TOP)/mk/boilerplate.mk
 
-SUBDIRS = fannkuch-redux pidigits spectral-norm
+SUBDIRS = binary-trees fannkuch-redux pidigits spectral-norm
 
 include $(TOP)/mk/target.mk
 

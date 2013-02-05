@@ -51,6 +51,7 @@ real/scs/scs
 real/symalg/symalg
 real/veritas/veritas
 
+shootout/binary-trees/binary-trees
 shootout/fannkuch-redux/fannkuch-redux
 shootout/pidigits/pidigits
 shootout/spectral-norm/spectral-norm
