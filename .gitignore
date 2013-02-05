@@ -51,8 +51,9 @@ real/scs/scs
 real/symalg/symalg
 real/veritas/veritas
 
-shootout/fannkuch-redux/fannkuck-redux
+shootout/fannkuch-redux/fannkuch-redux
 shootout/pidigits/pidigits
+shootout/spectral-norm/spectral-norm
 
 spectral/ansi/ansi
 spectral/atom/atom
