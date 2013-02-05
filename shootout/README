@@ -1,0 +1,8 @@
+These benchmarks where take from The Computer Language Benchmarks Game
+[1] (formerly The Great Computer Language Shootout). They test highely
+micro-optimized code.
+
+To run the benchmarks under the official settings, pass mode=slow to
+make. You might also want to pass EXTRA_HC_OPTS="-fllvm".
+
+1. http://benchmarksgame.alioth.debian.org/
