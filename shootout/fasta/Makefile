@@ -33,6 +33,19 @@ fasta.slowstdout : fasta-c
 
 STDOUT_FILES = fasta.faststdout fasta.stdout fasta.slowstdout
 
+# Since the stdout files are created during the run the runstdtest
+# script doesn't correctly pick them up, so we have to specify them
+# explicitly here.
+ifeq "$(mode)" "slow"
+ SRC_RUNTEST_OPTS += -o1 fasta.slowstdout
+else
+ ifeq "$(mode)" "fast"
+  SRC_RUNTEST_OPTS += -o1 fasta.faststdout
+ else
+  SRC_RUNTEST_OPTS += -o1 fasta.stdout
+ endif
+endif
+
 all boot :: $(STDOUT_FILES)
 
 include $(TOP)/mk/target.mk
