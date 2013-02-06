@@ -54,8 +54,21 @@ real/veritas/veritas
 shootout/binary-trees/binary-trees
 shootout/fannkuch-redux/fannkuch-redux
 shootout/fasta/fasta
+shootout/fasta/fasta-c
+shootout/fasta/fasta.faststdout
+shootout/fasta/fasta.slowstdout
+shootout/fasta/fasta.stdout
 shootout/n-body/n-body
 shootout/pidigits/pidigits
+shootout/reverse-complement/fasta-c
+shootout/reverse-complement/revcomp-c
+shootout/reverse-complement/revcomp-input250000.txt
+shootout/reverse-complement/revcomp-input2500000.txt
+shootout/reverse-complement/revcomp-input25000000.txt
+shootout/reverse-complement/reverse-complement
+shootout/reverse-complement/reverse-complement.faststdout
+shootout/reverse-complement/reverse-complement.slowstdout
+shootout/reverse-complement/reverse-complement.stdout
 shootout/spectral-norm/spectral-norm
 
 spectral/ansi/ansi
