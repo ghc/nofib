@@ -16,9 +16,6 @@ HC_OPTS += -O2 -XBangPatterns -XOverloadedStrings -package bytestring
 #------------------------------------------------------------------
 # Create output to validate against
 
-# FIXME: You have to run make twice for the runstdtest.prl script to
-# find the various stdout files correctly.
-
 fasta-c : fasta-c.o
 	gcc $< -o $@
 
@@ -31,21 +28,21 @@ fasta.stdout : fasta-c
 fasta.slowstdout : fasta-c
 	./fasta-c $(SLOW_OPTS) > $@
 
-STDOUT_FILES = fasta.faststdout fasta.stdout fasta.slowstdout
-
 # Since the stdout files are created during the run the runstdtest
 # script doesn't correctly pick them up, so we have to specify them
 # explicitly here.
 ifeq "$(mode)" "slow"
- SRC_RUNTEST_OPTS += -o1 fasta.slowstdout
+ STDOUT_FILE = fasta.slowstdout
 else
  ifeq "$(mode)" "fast"
-  SRC_RUNTEST_OPTS += -o1 fasta.faststdout
+  STDOUT_FILE = fasta.faststdout
  else
-  SRC_RUNTEST_OPTS += -o1 fasta.stdout
+  STDOUT_FILE = fasta.stdout
  endif
 endif
 
-all boot :: $(STDOUT_FILES)
+SRC_RUNTEST_OPTS += -o1 $(STDOUT_FILE)
+
+all boot :: $(STDOUT_FILE)
 
 include $(TOP)/mk/target.mk
