@@ -7,10 +7,6 @@ make. You might also want to pass EXTRA_HC_OPTS="-fllvm".
 
 Notes:
 
- * The fasta benchmark wasn't included as its output (which would have
-   to go in a .stdout file) is too large to check into the source
-   tree.
-
  * The mandelbrot benchmark wasn't included as its binary output
    (which would have to go in a .stdout file) is too large to check
    into the source tree.
