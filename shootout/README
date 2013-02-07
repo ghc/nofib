@@ -15,7 +15,4 @@ Notes:
    which requires C libraries that aren't installed by default on many
    platforms.
 
- * The k-nucleotide benchmark wasn't included as it segfaults on my
-   64-bit OS X 10.8.2 machine.
-
 1. http://benchmarksgame.alioth.debian.org/

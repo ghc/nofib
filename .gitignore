@@ -58,6 +58,11 @@ shootout/fasta/fasta-c
 shootout/fasta/fasta.faststdout
 shootout/fasta/fasta.slowstdout
 shootout/fasta/fasta.stdout
+shootout/k-nucleotide/fasta-c
+shootout/k-nucleotide/k-nucleotide
+shootout/k-nucleotide/knucleotide-input250000.txt
+shootout/k-nucleotide/knucleotide-input2500000.txt
+shootout/k-nucleotide/knucleotide-input25000000.txt
 shootout/n-body/n-body
 shootout/pidigits/pidigits
 shootout/reverse-complement/fasta-c
