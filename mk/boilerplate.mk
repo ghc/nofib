@@ -38,7 +38,7 @@ WERROR=
 #	gc
 #	smp
 #	fibon
-NoFibSubDirs = imaginary spectral real
+NoFibSubDirs = imaginary spectral real shootout
 
 # The different ways to build nofib. Default is just to mirror
 # what is done for the ghc prelude libraries.
