@@ -46,7 +46,7 @@ NoFibSubDirs = imaginary spectral real shootout
 NoFibWays = $(filter-out v,$(GhcLibWays))
 
 # Haskell compiler options for nofib
-NoFibHcOpts = -O
+NoFibHcOpts = -O2
 
 # Number of times to run each program
 NoFibRuns = 5
