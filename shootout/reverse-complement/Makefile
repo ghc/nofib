@@ -49,7 +49,7 @@ all boot :: $(INPUT_FILE)
 # Create output to validate against
 
 revcomp-c : revcomp-c.o
-	gcc $< -o $@
+	gcc $< -o $@ -pthread
 
 reverse-complement.faststdout : revcomp-c
 	./revcomp-c < $(INPUT_FILE) > $@
