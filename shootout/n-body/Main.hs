@@ -17,6 +17,7 @@ import Foreign.Marshal.Alloc
 import Data.IORef
 import Control.Monad
 import System.Environment
+import System.IO.Unsafe
 import Text.Printf
 
 main = do
