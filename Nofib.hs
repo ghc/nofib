@@ -29,7 +29,8 @@ import Development.Shake.FilePath
 
 -- | These are directories that contain tests.
 testRoots :: [String]
-testRoots = words "imaginary spectral real parallel spectral/hartel"
+-- testRoots = words "imaginary spectral real parallel spectral/hartel"
+testRoots = words "imaginary spectral real spectral/hartel"
 
 
 -- | These are tests that are under testRoots, but should be skipped (all are skipped by the Makefile system)
