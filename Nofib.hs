@@ -238,7 +238,7 @@ buildRules r Build{..} = do
     "//Main.deps" *> \out -> do
         let dir = unoutput out
         config <- readConfig' $ takeDirectory out </> "config.txt"
-        system' compiler $ ["-w","-M",dir </> config "MAIN","-i" ++ dir,"-dep-makefile=" ++ out] ++
+        system' compiler $ ["-w","-M",dir </> config "MAIN","-i" ++ dir,"-dep-makefile=" ++ out, "-dep-suffix", ""] ++
                            words (config "SRC_HC_OPTS")
         src <- liftIO $ readFile out
         need [x | x <- words src, takeExtension x `elem` [".hs",".lhs",".h"]]
