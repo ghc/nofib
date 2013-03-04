@@ -213,7 +213,7 @@ buildRules r Build{..} = do
             name = takeFileName dir
         putNormal $ "==nofib== " ++ name ++ " : time to link " ++ name ++ " follows..."
         withResource r 1 $
-            system' compiler $ ["-Rghc-timing","-rtsopts","-o"++out] ++ os ++ way ++ words (config "SRC_HC_OPTS")
+            system' compiler $ ["-Rghc-timing","-rtsopts","-o",out] ++ os ++ way ++ words (config "SRC_HC_OPTS")
         putNormal $ "==nofib== " ++ name ++ ": size of " ++ name ++ " follows..."
         system' "size" [out]
 
