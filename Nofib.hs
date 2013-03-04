@@ -253,7 +253,7 @@ runTest Build{run=Just speed,..} test = do
     config <- readConfig $ output </> test </> "config.txt"
     let args = words (config "PROG_ARGS") ++ words (config $ map toUpper (show speed) ++ "_OPTS")
     stdin <- let s = config "STDIN_FILE" in if s == "" then grab "stdin" else readFile $ test </> s
-    stats <- IO.canonicalizePath $ output </> test </> "stat.txt"
+    stats <- fmap (</> "stat.txt") (IO.canonicalizePath $ output </> test)
 
     fmap and $ replicateM times $ do
         start <- getCurrentTime
