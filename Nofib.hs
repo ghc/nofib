@@ -249,7 +249,7 @@ buildRules r Build{..} = do
 --   Return True if the test passes.
 runTest :: Nofib -> String -> IO Bool
 runTest Build{run=Just speed,..} test = do
-    putStrLn $ "==nofib== " ++ takeDirectory1 test ++ ": time to run " ++ takeDirectory1 test ++ " follows..."
+    putStrLn $ "==nofib== " ++ takeDirectory1 test ++ ": time to run " ++ takeBaseName test ++ " follows..."
     config <- readConfig $ output </> test </> "config.txt"
     let args = words (config "PROG_ARGS") ++ words (config $ map toUpper (show speed) ++ "_OPTS")
     stdin <- let s = config "STDIN_FILE" in if s == "" then grab "stdin" else readFile $ test </> s
