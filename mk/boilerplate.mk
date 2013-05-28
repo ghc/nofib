@@ -18,7 +18,7 @@ show:
 NOFIB_TOP := $(TOP)
 include $(NOFIB_TOP)/../mk/tree.mk
 include $(NOFIB_TOP)/../mk/config.mk
-GHC_TOP := $(TOP)
+include $(NOFIB_TOP)/../mk/custom-settings.mk
 TOP := $(NOFIB_TOP)
 
 RM = rm -f
@@ -59,10 +59,6 @@ NoFibRuns = 5
 # -----------------------------------------------------------------
 
 WAYS=$(NoFibWays)
-
-TOP := $(GHC_TOP)
--include $(GHC_TOP)/mk/build.mk
-TOP := $(NOFIB_TOP)
 
 SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 
