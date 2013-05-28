@@ -106,7 +106,12 @@ define get-ghc-rts-field # $1 = result variable, $2 = field name
 $1 := $$(shell '$$(HC)' +RTS --info | grep '^ .("$2",' | tr -d '\r' | sed -e 's/.*", *"//' -e 's/")$$$$//')
 endef
 
+define get-ghc-field # $1 = result variable, $2 = field name
+$1 := $$(shell '$$(HC)' --info | grep '^ .("$2",' | tr -d '\r' | sed -e 's/.*", *"//' -e 's/")$$$$//')
+endef
+
 $(eval $(call get-ghc-rts-field,HC_VERSION,GHC version))
+$(eval $(call get-ghc-field,SplitObjs,Object splitting supported))
 
 define ghc-ge # $1 = major version, $2 = minor version
 HC_VERSION_GE_$1_$2 := $$(shell if [ `echo $$(HC_VERSION) | sed 's/\..*//'` -gt $1 ]; then echo YES; else if [ `echo $$(HC_VERSION) | sed 's/\..*//'` -ge $1 ] && [ `echo $$(HC_VERSION) | sed -e 's/[^.]*\.//' -e 's/\..*//'` -ge $2 ]; then echo YES; else echo NO; fi; fi)
