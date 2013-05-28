@@ -484,54 +484,6 @@ ifneq "$(TAGS_C_SRCS)" ""
 endif
 	@( DEREFFED=`ls -l Makefile | sed -e 's/.*-> \(.*\)/\1/g'` && $(RM) `dirname $$DEREFFED`/TAGS && $(CP) TAGS `dirname $$DEREFFED` ) 2>/dev/null || echo TAGS file generated, perhaps copy over to source tree?
 
-################################################################################
-#
-#			DocBook XML Documentation
-#
-################################################################################
-
-.PHONY: html html-no-chunks chm HxS fo dvi ps pdf
-
-ifneq "$(XML_DOC)" ""
-
-all :: $(XMLDocWays)
-
-# multi-file XML document: main document name is specified in $(XML_DOC),
-# sub-documents (.xml files) listed in $(XML_SRCS).
-
-ifeq "$(XML_SRCS)" ""
-XML_SRCS = $(wildcard *.xml)
-endif
-
-XML_HTML           = $(addsuffix /index.html,$(basename $(XML_DOC)))
-XML_HTML_NO_CHUNKS = $(addsuffix .html,$(XML_DOC))
-XML_CHM            = $(addsuffix .chm,$(XML_DOC))
-XML_HxS            = $(addsuffix .HxS,$(XML_DOC))
-XML_FO             = $(addsuffix .fo,$(XML_DOC))
-XML_DVI            = $(addsuffix .dvi,$(XML_DOC))
-XML_PS             = $(addsuffix .ps,$(XML_DOC))
-XML_PDF            = $(addsuffix .pdf,$(XML_DOC))
-
-$(XML_HTML) $(XML_NO_CHUNKS_HTML) $(XML_FO) $(XML_DVI) $(XML_PS) $(XML_PDF) :: $(XML_SRCS)
-
-html           :: $(XML_HTML)
-html-no-chunks :: $(XML_HTML_NO_CHUNKS)
-chm            :: $(XML_CHM)
-HxS            :: $(XML_HxS)
-fo             :: $(XML_FO)
-dvi            :: $(XML_DVI)
-ps             :: $(XML_PS)
-pdf            :: $(XML_PDF)
-
-CLEAN_FILES += $(XML_HTML_NO_CHUNKS) $(XML_FO) $(XML_DVI) $(XML_PS) $(XML_PDF)
-
-extraclean ::
-	$(RM) -rf $(XML_DOC).out $(FPTOOLS_CSS) $(basename $(XML_DOC)) $(basename $(XML_DOC))-htmlhelp
-
-validate ::
-	$(XMLLINT) --valid --noout $(XMLLINT_OPTS) $(XML_DOC).xml
-endif
-
 ##############################################################################
 #
 #	Targets: clean

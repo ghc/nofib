@@ -266,10 +266,3 @@ MOSTLY_CLEAN_FILES += \
 
 DLL_PEN = $(FPTOOLS_TOP)/dll
 
-#------------------------------------------------------------------
-#
-# Stylesheet for HTML generated from DocBook XML
-#
-
-FPTOOLS_CSS     = fptools.css
-FPTOOLS_CSS_ABS = $(FPTOOLS_TOP)/mk/$(FPTOOLS_CSS)
