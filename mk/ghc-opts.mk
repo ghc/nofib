@@ -15,8 +15,7 @@
 
 # Exports:	Define P_OPTS for the most important utility programs, P, namely
 #
-#		AR AS CPP CTAGS C FLEX HC HSTAGS LD LINT 
-#		LIT2CHANGELOG LIT2HTML LIT2LATEX LIT2PGM
+#		AR AS CPP CTAGS C FLEX HC HSTAGS LD
 #		MKDEPENDHS MKDEPENDLIT RUNTEST
 #		UNLIT          
 
