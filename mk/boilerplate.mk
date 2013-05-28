@@ -93,7 +93,6 @@ endef
 
 $(eval $(call ghc-ge,6,13))
 
-MKDEPENDC := $(GHC_TOP)/$(MKDEPENDC)
 RUNTEST   = $(NOFIB_TOP)/runstdtest/runstdtest
 
 USE_NEW_MKDEPEND_FLAGS = YES

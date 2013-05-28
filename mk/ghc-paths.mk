@@ -201,8 +201,6 @@ else
 MKDEPENDHS_SRCS=
 endif
 
-MKDEPENDC_SRCS=$(C_SRCS)
-
 #------------------------------------------------------------------
 #
 # make TAGS defaults
