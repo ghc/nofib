@@ -40,11 +40,6 @@ WERROR=
 #	fibon
 NoFibSubDirs = imaginary spectral real shootout
 
-# The different ways to build nofib. Default is just to mirror
-# what is done for the ghc prelude libraries.
-#
-NoFibWays = $(filter-out v,$(GhcLibWays))
-
 # Haskell compiler options for nofib
 NoFibHcOpts = -O2
 
@@ -57,8 +52,6 @@ NoFibRuns = 5
 # (these files are optional, so `make' won't fret if it
 #  cannot get to them).
 # -----------------------------------------------------------------
-
-WAYS=$(NoFibWays)
 
 SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 

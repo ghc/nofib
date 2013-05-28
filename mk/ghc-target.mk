@@ -76,7 +76,7 @@ ifneq "$(BootingFromHc)" "YES"
 PKGCONF_DEP = $(STAMP_PKG_CONF)
 endif
 
-MKDEPENDHS_FLAGS = -dep-suffix "" -dep-makefile .depend $(foreach way,$(WAYS),-dep-suffix $(way))
+MKDEPENDHS_FLAGS = -dep-suffix "" -dep-makefile .depend
 
 depend :: $(MKDEPENDHS_SRCS) $(PKGCONF_DEP)
 	@$(RM) .depend
@@ -560,113 +560,6 @@ maintainer-clean:: extraclean
 	@echo 'This command is intended for maintainers to use; it'
 	@echo 'deletes files that may need special tools to rebuild.'
 	rm -f $(MOSTLY_CLEAN_FILES) $(CLEAN_FILES) $(DIST_CLEAN_FILES) $(MAINTAINER_CLEAN_FILES)
-
-################################################################################
-#
-#			Way management
-#
-################################################################################
-
-# Here is the ingenious jiggery pokery that allows you to build multiple versions
-# of a program in a single build tree.
-#
-# The ways setup requires the following variables to be set:
-#
-# Expects:	$(WAYS)			the possible "way" strings to one of 
-#					which $(way) will be set
-
-ifneq "$(way)" ""
-ifeq "$(findstring $(way), $(WAYS))" ""
-$(error Unknown way $(way) of $(WAYS))
-endif
-endif
-
-# So how does $(way) ever get set to anything?  Answer, we recursively
-# invoke make, setting $(way) on the command line.
-# When do we do this recursion?  Answer: whenever the programmer
-# asks make to make a target that involves a way suffix.
-# We must remember *not* to recurse again; but that's easy: we
-# just see if $(way) is set:
-
-ifeq "$(way)" ""
-
-# If $(WAYS) = p mc, then WAY_TARGETS expands to
-#	%.p_lhs %.p_hs %.p_o ... %.mc_lhs %.p_hs ...
-# and OTHER_WAY_TARGETS to
-#	%_p.a %_p %_mc.a %_mc
-# where the suffixes are from $(SUFFIXES)
-#
-# We have to treat libraries and "other" targets differently, 
-# because their names are of the form
-#	libHS_p.a and Foo_p
-# whereas everything else has names of the form
-#	Foo.p_o
-
-FPTOOLS_SUFFIXES := o hi hc
-
-WAY_TARGETS     = $(foreach way,$(WAYS),$(foreach suffix, $(FPTOOLS_SUFFIXES), %.$(way)_$(suffix)))
-LIB_WAY_TARGETS = $(foreach way,$(filter-out %dyn,$(WAYS)), %_$(way).a)
-LIB_WAY_TARGETS_DYN =  $(foreach way,$(filter %dyn,$(WAYS)), %$(subst dyn,-ghc$(ProjectVersion),$(subst _dyn,dyn,$(way)))$(soext))
-
-# $@ will be something like Foo.p_o
-# $(suffix $@)     returns .p_o
-# $(subst .,.p_o)  returns p_o
-# $(subst _,.,p_o) returns p.o   (clever)
-# $(basename p.o)  returns p
-# 
-$(WAY_TARGETS) :
-	$(MAKE) way=$(basename $(subst _,.,$(subst .,,$(suffix $@)))) $@
-
-# $(@F) will be something like libHS_p.a, or Foo_p
-# $(basename $(@F)) will be libHS_p, or Foo_p
-# The sed script extracts the "p" part.
-
-$(LIB_WAY_TARGETS) :
-	$(MAKE) $(MFLAGS) $@ way=$(subst .,,$(suffix $(subst _,.,$(basename $@))))
-
-$(LIB_WAY_TARGETS_DYN) :
-	$(MAKE) $(MFLAGS) $@ way=$(patsubst _dyn,dyn,$(subst .,,$(suffix $(subst _,.,$(basename $(subst -ghc$(ProjectVersion),,$@)))))_dyn)
-
-endif	# if way
-
-# -------------------------------------------------------------------------
-# Object and interface files have suffixes tagged with their ways
-
-ifneq "$(way)" ""
-SRC_HC_OPTS += -hisuf $(way_)hi -hcsuf $(way_)hc -osuf $(way_)o
-endif
-
-# -------------------------------------------------------------------------
-# Rules to invoke the current target recursively for each way
-
-ifneq "$(strip $(WAYS))" ""
-ifeq "$(way)" ""
-
-# NB: the targets exclude 
-#	boot runtests
-# since these are way-independent
-all docs TAGS clean distclean mostlyclean maintainer-clean install ::
-	@echo "------------------------------------------------------------------------"
-	@echo "== Recursively making \`$@' for ways: $(WAYS) ..."
-	@echo "PWD = $(shell pwd)"
-	@echo "------------------------------------------------------------------------"
-# Don't rely on -e working, instead we check exit return codes from sub-makes.
-	case '${MFLAGS}' in *-[ik]*) x_on_err=0;; *-r*[ik]*) x_on_err=0;; *) x_on_err=1;; esac; \
-	for i in $(WAYS) ; do \
-	  echo "------------------------------------------------------------------------"; \
-	  echo "== $(MAKE) way=$$i $@;"; \
-	  echo "PWD = $(shell pwd)"; \
-	  echo "------------------------------------------------------------------------"; \
-	  $(MAKE) way=$$i --no-print-directory $(MFLAGS) $@ ; \
-	  if [ $$? -eq 0 ] ; then true; else exit $$x_on_err; fi; \
-	done
-	@echo "------------------------------------------------------------------------"
-	@echo "== Finished recursively making \`$@' for ways: $(WAYS) ..."
-	@echo "PWD = $(shell pwd)"
-	@echo "------------------------------------------------------------------------"
-
-endif
-endif
 
 include $(TOP)/mk/ghc-recurse.mk
 
