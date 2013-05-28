@@ -4,7 +4,7 @@ include $(TOP)/mk/boilerplate.mk
 PROG = nofib-analyse
 
 $(PROG):
-	$(GHC) -O -cpp --make Main -o $(PROG)
+	$(BOOT_HC) -O -cpp --make Main -o $(PROG)
 
 all :: $(PROG)
 

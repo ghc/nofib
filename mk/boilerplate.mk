@@ -18,6 +18,10 @@ show:
 RM = rm -f
 SIZE = size
 STRIP = strip
+PERL = /usr/bin/perl
+CONTEXT_DIFF = diff -U 1
+DEFAULT_TMPDIR = /tmp
+EXECUTABLE_FILE = chmod +x
 
 # Benchmarks controls which set of tests should be run
 # You can run one or more of
@@ -97,6 +101,7 @@ endif
 endif
 
 MKDEPENDHS := $(HC) # ToDo: wrong, if $(HC) isn't GHC.
+BOOT_HC := $(HC)
 
 define get-ghc-rts-field # $1 = result variable, $2 = field name
 $1 := $$(shell '$$(HC)' +RTS --info | grep '^ .("$2",' | tr -d '\r' | sed -e 's/.*", *"//' -e 's/")$$$$//')
@@ -108,6 +113,7 @@ endef
 
 $(eval $(call get-ghc-rts-field,HC_VERSION,GHC version))
 $(eval $(call get-ghc-field,SplitObjs,Object splitting supported))
+$(eval $(call get-ghc-field,CC,C compiler command))
 
 define ghc-ge # $1 = major version, $2 = minor version
 HC_VERSION_GE_$1_$2 := $$(shell if [ `echo $$(HC_VERSION) | sed 's/\..*//'` -gt $1 ]; then echo YES; else if [ `echo $$(HC_VERSION) | sed 's/\..*//'` -ge $1 ] && [ `echo $$(HC_VERSION) | sed -e 's/[^.]*\.//' -e 's/\..*//'` -ge $2 ]; then echo YES; else echo NO; fi; fi)
