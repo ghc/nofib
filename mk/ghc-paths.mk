@@ -259,10 +259,3 @@ MOSTLY_CLEAN_FILES += \
  tags TAGS *.ind *.ilg *.idx *.idx-prev *.aux *.aux-prev *.dvi *.log \
  *.toc *.lot *.lof *.blg *.cb *_stub.c *_stub.h *.raw_s *.a.list
 
-#------------------------------------------------------------------
-
-# Directory in which DLLs are dumped so as not to get picked up by running
-# programs (e.g. ghc or hsc) that run in the build tree
-
-DLL_PEN = $(FPTOOLS_TOP)/dll
-
