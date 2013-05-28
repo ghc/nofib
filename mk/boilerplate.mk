@@ -74,12 +74,50 @@ SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 SRC_HC_OPTS += -package array
 
 ifeq "$(WithNofibHc)" ""
-HC	   = $(GHC_TOP)/$(GHC_STAGE2)
-MKDEPENDHS := $(GHC_TOP)/$(GHC_STAGE2)  # ToDo: wrong, if $(WithNofibHc) isn't GHC.
+
+STAGE1_GHC := $(abspath $(TOP)/../inplace/bin/ghc-stage1)
+STAGE2_GHC := $(abspath $(TOP)/../inplace/bin/ghc-stage2)
+STAGE3_GHC := $(abspath $(TOP)/../inplace/bin/ghc-stage3)
+
+ifneq "$(wildcard $(STAGE1_GHC) $(STAGE1_GHC).exe)" ""
+
+ifeq "$(BINDIST)" "YES"
+HC := $(abspath $(TOP)/../)/bindisttest/install   dir/bin/ghc
+else ifeq "$(stage)" "1"
+HC := $(STAGE1_GHC)
+else ifeq "$(stage)" "3"
+HC := $(STAGE3_GHC)
 else
-HC	   = $(WithNofibHc)
-MKDEPENDHS := $(WithNofibHc)
+# use stage2 by default
+HC := $(STAGE2_GHC)
 endif
+
+else
+HC := $(shell which ghc)
+endif
+
+else
+
+# We want to support both "ghc" and "/usr/bin/ghc" as values of WithNofibHc
+# passed in by the user, but
+#     which ghc          == /usr/bin/ghc
+#     which /usr/bin/ghc == /usr/bin/ghc
+# so on unix-like platforms we can just always 'which' it.
+# However, on cygwin, we can't just use which:
+#     $ which c:/ghc/ghc-7.4.1/bin/ghc.exe
+#     which: no ghc.exe in (./c:/ghc/ghc-7.4.1/bin)
+# so we start off by using realpath, and if that succeeds then we use
+# that value. Otherwise we fall back on 'which'.
+HC_REALPATH := $(realpath $(WithNofibHc))
+ifeq "$(HC_REALPATH)" ""
+HC := $(shell which '$(WithNofibHc)')
+else
+HC := $(HC_REALPATH)
+endif
+
+endif
+
+MKDEPENDHS := $(HC) # ToDo: wrong, if $(HC) isn't GHC.
 
 define get-ghc-rts-field # $1 = result variable, $2 = field name
 $1 := $$(shell '$$(HC)' +RTS --info | grep '^ .("$2",' | tr -d '\r' | sed -e 's/.*", *"//' -e 's/")$$$$//')
