@@ -19,10 +19,6 @@ RM = rm -f
 SIZE = size
 STRIP = strip
 
-# Turn off -Werror for nofib. This allows you to use nofib in a tree
-# built with validate.
-WERROR=
-
 # Benchmarks controls which set of tests should be run
 # You can run one or more of
 #	imaginary 
