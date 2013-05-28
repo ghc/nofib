@@ -49,13 +49,6 @@ NoFibRuns = 5
 
 SRC_HC_OPTS += $(NoFibHcOpts) -Rghc-timing
 
-# -package array is needed for GHC 7.0.1 and later, as the haskell98 package
-# is no longer linked by default.  We would like to use
-#    -hide-all-packages -package haskell2010
-# instead, but there is at least one program that uses a non-haskell2010
-# library module (fibheaps uses Control.Monad.ST)
-SRC_HC_OPTS += -package array
-
 ifeq "$(WithNofibHc)" ""
 
 STAGE1_GHC := $(abspath $(TOP)/../inplace/bin/ghc-stage1)
