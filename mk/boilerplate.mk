@@ -15,12 +15,6 @@ default : all
 show:
 	@echo '$(VALUE)="$($(VALUE))"'
 
-NOFIB_TOP := $(TOP)
-include $(NOFIB_TOP)/../mk/tree.mk
-include $(NOFIB_TOP)/../mk/config.mk
-include $(NOFIB_TOP)/../mk/custom-settings.mk
-TOP := $(NOFIB_TOP)
-
 RM = rm -f
 SIZE = size
 STRIP = strip
@@ -120,11 +114,11 @@ endef
 
 $(eval $(call ghc-ge,6,13))
 
-RUNTEST   = $(NOFIB_TOP)/runstdtest/runstdtest
+RUNTEST   = $(TOP)/runstdtest/runstdtest
 
-include $(NOFIB_TOP)/mk/ghc-paths.mk
-include $(NOFIB_TOP)/mk/ghc-opts.mk
-include $(NOFIB_TOP)/mk/paths.mk
-include $(NOFIB_TOP)/mk/opts.mk
+include $(TOP)/mk/ghc-paths.mk
+include $(TOP)/mk/ghc-opts.mk
+include $(TOP)/mk/paths.mk
+include $(TOP)/mk/opts.mk
 
 -include .depend

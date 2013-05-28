@@ -115,7 +115,7 @@ endif # GHCI
 # We do this at the end for cosmetic reasons: it means that the "normal-way"
 # runtests will precede the "other-way" recursive invocations of make
 
-include $(NOFIB_TOP)/mk/ghc-target.mk
+include $(TOP)/mk/ghc-target.mk
 
 # Override suffix rules
-include $(NOFIB_TOP)/mk/suffix.mk
+include $(TOP)/mk/suffix.mk
