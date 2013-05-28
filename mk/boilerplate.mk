@@ -95,9 +95,6 @@ $(eval $(call ghc-ge,6,13))
 
 RUNTEST   = $(NOFIB_TOP)/runstdtest/runstdtest
 
-USE_NEW_MKDEPEND_FLAGS = YES
-# USE_NEW_MKDEPEND_FLAGS := $(shell if test `$(MKDEPENDHS) --numeric-version | sed -e "s/\./0/" -e "s/\..*//"` -ge 609; then echo YES; else echo NO; fi)
-
 include $(NOFIB_TOP)/mk/ghc-paths.mk
 include $(NOFIB_TOP)/mk/ghc-opts.mk
 include $(NOFIB_TOP)/mk/paths.mk

@@ -76,11 +76,7 @@ ifneq "$(BootingFromHc)" "YES"
 PKGCONF_DEP = $(STAMP_PKG_CONF)
 endif
 
-ifeq "$(USE_NEW_MKDEPEND_FLAGS)" "YES"
 MKDEPENDHS_FLAGS = -dep-suffix "" -dep-makefile .depend $(foreach way,$(WAYS),-dep-suffix $(way))
-else
-MKDEPENDHS_FLAGS = -optdep-f -optdep.depend $(foreach way,$(WAYS),-optdep-s -optdep$(way))
-endif
 
 depend :: $(MKDEPENDHS_SRCS) $(PKGCONF_DEP)
 	@$(RM) .depend
