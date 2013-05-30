@@ -94,7 +94,38 @@ endif
 endif
 
 MKDEPENDHS := $(HC) # ToDo: wrong, if $(HC) isn't GHC.
-BOOT_HC := $(HC)
+
+# We need a GHC that can build nofib-analyse. $(HC) will often be a
+# freshly built compiler, without the necessary packages installed,
+# so it isn't a good bet. Just using plain 'ghc' seems like our best
+# bet to find a suitable compiler.
+ifeq "$(BOOT_HC)" ""
+BOOT_HC = ghc
+endif
+
+# We want to support both "ghc" and "/usr/bin/ghc" as values of BOOT_HC
+# passed in by the user, but
+#     which ghc          == /usr/bin/ghc
+#     which /usr/bin/ghc == /usr/bin/ghc
+# so on unix-like platforms we can just always 'which' it.
+# However, on cygwin, we can't just use which:
+#     $ which c:/ghc/ghc-7.4.1/bin/ghc.exe
+#     which: no ghc.exe in (./c:/ghc/ghc-7.4.1/bin)
+# so we start off by using realpath, and if that succeeds then we use
+# that value. Otherwise we fall back on 'which'.
+#
+# Note also that we need to use 'override' in order to override a
+# value given on the commandline.
+BOOT_HC_REALPATH := $(realpath $(BOOT_HC))
+ifeq "$(BOOT_HC_REALPATH)" ""
+override BOOT_HC := $(shell which '$(BOOT_HC)')
+else
+override BOOT_HC := $(BOOT_HC_REALPATH)
+endif
+
+ifeq "$(BOOT_HC)" ""
+$(error Could not find BOOT_HC)
+endif
 
 define get-ghc-rts-field # $1 = result variable, $2 = field name
 $1 := $$(shell '$$(HC)' +RTS --info | grep '^ .("$2",' | tr -d '\r' | sed -e 's/.*", *"//' -e 's/")$$$$//')
