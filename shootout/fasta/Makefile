@@ -16,8 +16,8 @@ HC_OPTS += -O2 -XBangPatterns -XOverloadedStrings -package bytestring
 #------------------------------------------------------------------
 # Create output to validate against
 
-fasta-c : fasta-c.o
-	$(CC) $< -o $@
+fasta-c : fasta-c.c
+	$(CC) -std=gnu99 -march=native -O3 -fomit-frame-pointer $< -o $@
 
 fasta.faststdout : fasta-c
 	./fasta-c $(FAST_OPTS) > $@
