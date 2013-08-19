@@ -20,7 +20,7 @@ HC_OPTS += -O2 -XBangPatterns -funfolding-use-threshold=32 -XMagicHash \
 # Create input
 
 fasta-c : ../fasta/fasta-c.c
-	$(CC) -std=gnu99 -march=native -O3 -fomit-frame-pointer $< -o $@
+	$(CC) -std=gnu99 -O3 -fomit-frame-pointer $< -o $@
 
 revcomp-input250000.txt : fasta-c
 	./fasta-c $(FAST_OPTS) > $@
