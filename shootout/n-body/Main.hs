@@ -11,13 +11,13 @@
 -- Don't enable -optc-mfpmath=sse -optc-msse2, this triggers a gcc bug on x86
 --
 
-import Foreign
+import Foreign (Ptr, Storable(..), plusPtr, mallocBytes)
 import Foreign.Storable
 import Foreign.Marshal.Alloc
 import Data.IORef
 import Control.Monad
 import System.Environment
-import System.IO.Unsafe
+import System.IO.Unsafe (unsafePerformIO)
 import Text.Printf
 
 main = do
