@@ -7,4 +7,3 @@ FAST_OPTS = 1
 NORM_OPTS = 1
 SLOW_OPTS = 1
 
-Main.o: QSort.o
