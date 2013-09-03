@@ -48,9 +48,9 @@ two elements (with Haskell's class system that shouldn't be necessary).
 fft :: [Complex Double] -> [Complex Double] -> [Complex Double]
 fft a w  
   | length a <= 1  =  a
-  | otherwise      = let r0 = _scc_ "head"  fft (even_elts a) (even_elts w)
-			 r1 = _scc_ "head"  fft (odd_elts a) (even_elts w)
-                         z =  _scc_ "zip3"  zip3 (r0++r0) (r1++r1) w
+  | otherwise      = let r0 = {-# SCC "head" #-} fft (even_elts a) (even_elts w)
+			 r1 = {-# SCC "head" #-} fft (odd_elts a) (even_elts w)
+                         z =  {-# SCC "zip3" #-}  zip3 (r0++r0) (r1++r1) w
 		     in 
 #if defined(GRAN)
                         parList rnf r0 `par`    
@@ -69,8 +69,8 @@ complex_fft a =
   let 
       c :: Double  
       c = (2.0*pi)/(fromIntegral (length a))
-      w = _scc_ "w"  [ (cos (c*(fromIntegral i)) :+ sin (c*(fromIntegral i)) ) 
-                     | i <- [0..length a] ]
+      w = {-# SCC "w" #-}  [ (cos (c*(fromIntegral i)) :+ sin (c*(fromIntegral i)) ) 
+                           | i <- [0..length a] ]
       -- add = \ (ar,ai) (br,bi) -> (ar+br,ai+bi)
       -- mult = \ (ar,ai) (br,bi) -> (ar*br-ai*bi,ar*bi+ai*br)
   in (rnf w) `seq` fft a w 

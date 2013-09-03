@@ -221,7 +221,6 @@ incorrect.
  'then' 	{ L _ ITthen }
  'type' 	{ L _ ITtype }
  'where' 	{ L _ ITwhere }
- '_scc_'	{ L _ ITscc }	      -- ToDo: remove
 
  'forall'	{ L _ ITforall }		-- GHC extension keywords
  'foreign'	{ L _ ITforeign }
@@ -1296,8 +1295,7 @@ exp10 :: { LHsExpr RdrName }
 	| fexp					{ $1 }
 
 scc_annot :: { Located FastString }
-	: '_scc_' STRING			{ sL (comb2 $1 $>) $ getSTRING $2 }
-	| '{-# SCC' STRING '#-}'		{ sL (comb2 $1 $>) $ getSTRING $2 }
+	: '{-# SCC' STRING '#-}'		{ sL (comb2 $1 $>) $ getSTRING $2 }
 
 hpc_annot :: { Located (FastString,(Int,Int),(Int,Int)) }
 	: '{-# GENERATED' STRING INTEGER ':' INTEGER '-' INTEGER ':' INTEGER '#-}'

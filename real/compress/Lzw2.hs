@@ -79,9 +79,9 @@ lzw_code_file input code_table next_code
 code_string :: FAST_INT -> FAST_INT -> [Char] -> PrefixTree -> FAST_TRIPLE;
 
 code_string old_code next_code input@(CBOX(c) : input2) (PT k v t {-p@(PTE k v t)-} l r)
-    | CBOX(c) <  CBOX(k) = _scc_ "cs1" (f1 r1 {-p-} k v t r)
-    | CBOX(c) >  CBOX(k) = _scc_ "cs2" (f2 r2 {-p-} k v t l)
-    | otherwise {- CBOX(c) == CBOX(k) -} = _scc_ "cs3" (f3 r3 k v l r)
+    | CBOX(c) <  CBOX(k) = {-# SCC "cs1" #-} (f1 r1 {-p-} k v t r)
+    | CBOX(c) >  CBOX(k) = {-# SCC "cs2" #-} (f2 r2 {-p-} k v t l)
+    | otherwise {- CBOX(c) == CBOX(k) -} = {-# SCC "cs3" #-} (f3 r3 k v l r)
     where {
         r1 = code_string old_code next_code input  l;
         r2 = code_string old_code next_code input  r;
@@ -94,10 +94,10 @@ code_string old_code next_code input@(CBOX(c) : input2) (PT k v t {-p@(PTE k v t
 
 code_string old_code next_code input@(CBOX(c) : input_file2) PTNil
     =   if (next_code _GE_ ILIT(4096)) 
-        then _scc_ "cs4" _TRIP_(input, old_code, PTNil)
-        else _scc_ "cs5" _TRIP_(input, old_code, PT _PTE_(c, next_code, PTNil) PTNil PTNil);
+        then {-# SCC "cs4" #-} _TRIP_(input, old_code, PTNil)
+        else {-# SCC "cs5" #-} _TRIP_(input, old_code, PT _PTE_(c, next_code, PTNil) PTNil PTNil);
 
-code_string old_code next_code [] code_table = _scc_ "cs6" _TRIP_([], old_code, PTNil);
+code_string old_code next_code [] code_table = {-# SCC "cs6" #-} _TRIP_([], old_code, PTNil);
 
 integer_list_to_char_list (IBOX(n) : l)
     =   CBOX(_CHR_ (n _QUOT_ ILIT(16))) : integer_list_to_char_list2 l n;
