@@ -1,5 +1,5 @@
 import Control.Monad
-import qualified Data.HashTable as H
+import qualified HashTable as H
 import System.Environment
 
 main = do
