@@ -29,6 +29,7 @@ data Status
 
 data Results = Results {
         compile_time    :: Map String Float,
+        compile_allocs  :: Map String Integer,
         module_size     :: Map String Int,
         binary_size     :: Maybe Int,
         link_time       :: Maybe Float,
@@ -59,6 +60,7 @@ data Results = Results {
 emptyResults :: Results
 emptyResults = Results {
         compile_time    = Map.empty,
+        compile_allocs  = Map.empty,
         module_size     = Map.empty,
         binary_size     = Nothing,
         link_time       = Nothing,
@@ -219,6 +221,7 @@ combine_results = foldr f Map.empty
 combine2Results :: Results -> Results -> Results
 combine2Results
              Results{ compile_time = ct1, link_time = lt1,
+                      compile_allocs = ca1,
                       module_size = ms1,
                       run_time = rt1, elapsed_time = et1, mut_time = mt1,
                       mut_elapsed_time = me1,
@@ -232,6 +235,7 @@ combine2Results
                       run_status = rs1, compile_status = cs1,
                       total_memory = tm1 }
              Results{ compile_time = ct2, link_time = lt2,
+                      compile_allocs = ca2,
                       module_size = ms2,
                       run_time = rt2, elapsed_time = et2, mut_time = mt2,
                       mut_elapsed_time = me2,
@@ -245,6 +249,7 @@ combine2Results
                       run_status = rs2, compile_status = cs2,
                       total_memory = tm2 }
           =  Results{ compile_time   = Map.unionWith (flip const) ct1 ct2,
+                      compile_allocs = Map.unionWith (flip const) ca1 ca2,
                       module_size    = Map.unionWith (flip const) ms1 ms2,
                       link_time      = lt1 `mplus` lt2,
                       run_time       = rt1 ++ rt2,
@@ -298,52 +303,34 @@ process_chunk _ = error "process_chunk: Can't happen"
 parse_compile_time :: String -> String -> [String] -> [(String, Results)]
 parse_compile_time _    _   [] = []
 parse_compile_time progName modName (l:ls) =
-        case time_re l of {
-             Just (_real, user, _system) ->
-                let ct  = Map.singleton modName user
-                in
-                [(progName, emptyResults{compile_time = ct})];
-             Nothing ->
-
-        case time_gnu17_re l of {
-             Just (user, _system, _elapsed) ->
-                let ct  = Map.singleton modName user
-                in
-                [(progName, emptyResults{compile_time = ct})];
-             Nothing ->
-
         case ghc1_re l of {
-            Just (_, _, _, _, _, _, initialisation, _, mut, _, gc, _) ->
-              let
-                  time = (initialisation + mut + gc) :: Float
-                  ct  = Map.singleton modName time
-              in
-                [(progName, emptyResults{compile_time = ct})];
+            Just (allocations, _, _, _, _, _, initialisation, _, mut, _, gc, _) ->
+               got_compile_result allocations initialisation mut gc;
             Nothing ->
 
         case ghc2_re l of {
-           Just (_, _, _, _, _, _, initialisation, _, mut, _, gc, _) ->
-              let ct = Map.singleton modName (initialisation + mut + gc)
-              in
-                [(progName, emptyResults{compile_time = ct})];
+           Just (allocations, _, _, _, _, _, initialisation, _, mut, _, gc, _) ->
+              got_compile_result allocations initialisation mut gc;
             Nothing ->
 
         case ghc3_re l of {
-           Just (_, _, _, _, _, _, _, initialisation, _, mut, _, gc, _) ->
-              let ct = Map.singleton modName (initialisation + mut + gc)
-              in
-                [(progName, emptyResults{compile_time = ct})];
+           Just (allocations, _, _, _, _, _, _, initialisation, _, mut, _, gc, _) ->
+              got_compile_result allocations initialisation mut gc;
             Nothing ->
 
         case ghc4_re l of {
-           Just (_, _, _, _, _, _, _, initialisation, _, mut, _, gc, _, _, _, _, _) ->
-              let ct = Map.singleton modName (initialisation + mut + gc)
-              in
-                [(progName, emptyResults{compile_time = ct})];
+           Just (allocations, _, _, _, _, _, _, initialisation, _, mut, _, gc, _, _, _, _, _) ->
+              got_compile_result allocations initialisation mut gc;
             Nothing ->
 
                 parse_compile_time progName modName ls
-        }}}}}}
+        }}}}
+  where got_compile_result allocations initialisation mut gc =
+          let ct = Map.singleton modName (initialisation + mut + gc)
+              ca = Map.singleton modName allocations
+              res = emptyResults {compile_time = ct, compile_allocs = ca}
+          in
+              [(progName, res)]
 
 parse_link_time :: String -> [String] -> [(String, Results)]
 parse_link_time _ [] = []

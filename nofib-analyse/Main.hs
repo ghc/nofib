@@ -235,8 +235,9 @@ pickSummary rs
 
 per_module_result_tab :: [PerModuleTableSpec]
 per_module_result_tab =
-        [ SpecM "Module Sizes"  "mod-sizes"     module_size  always_ok
-        , SpecM "Compile Times" "compile-time"  compile_time time_ok
+        [ SpecM "Module Sizes" "mod-sizes" module_size always_ok
+        , SpecM "Compile Times" "compile-time" compile_time time_ok
+        , SpecM "Compile Allocations" "compile-allocations" compile_allocs always_ok
         ]
 
 always_ok :: a -> Bool
