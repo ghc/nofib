@@ -126,6 +126,9 @@ Expert
 In spectral/expert/Search.ask there's a statically visible CSE. Catching this 
 depends almost entirely on chance, which is a pity.
 
+Reptile
+~~~~~~~
+Performance dominated by (++) and Show.itos'
 
 Fish
 ~~~~
