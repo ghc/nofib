@@ -136,7 +136,7 @@ type Lookup_table = [Entry]
       | get_p1_nmsL rec_flag j [] = ([], j)
 
 (******************************************************************************)
-(*   Return the lookup table for the constuctors of a pass1 datatype          *)
+(*   Return the lookup table for the constructors of a pass1 datatype         *)
 (*   declaration                                                              *)
 (******************************************************************************)
 

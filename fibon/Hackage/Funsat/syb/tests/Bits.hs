@@ -12,7 +12,7 @@ internet.)
 
 Here is how it works.
 
-A constuctor is encoded as a bit stream. To this end, we encode the
+A constructor is encoded as a bit stream. To this end, we encode the
 index of the constructor as a binary number of a fixed length taking
 into account the maximum index for the type at hand. (Similarly, we
 could view the list of constructors as a binary tree, and then encode
