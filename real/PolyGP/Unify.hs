@@ -145,7 +145,7 @@ member var typeExp = case typeExp of
 -- unify function ----------------------------------------------------------------------------------
 --
 -- This function takes a list of Type Expression Pairs, a Theta (binding of temporary type variables
--- or binding of dummy type varialbes). It unifies each pair in the list and returns a new Theta.
+-- or binding of dummy type variables). It unifies each pair in the list and returns a new Theta.
 -- This function is used in two separate occasions: to bind dummy type variables in a polymorphic
 -- function and to bind temporary type variables in the parse tree. The two occassions are handled
 -- separately. Hence 2. & 4. can't never be used at the same time.
