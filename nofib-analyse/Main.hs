@@ -887,6 +887,7 @@ data BoxValue
 
 showBox :: BoxValue -> String
 showBox (RunFailed stat) = show_stat stat
+showBox (Percentage 100) = " 0.0%" -- pattern matching on Float is bad style, but this is not crucial
 showBox (Percentage f)   = case printf "%.1f%%" (f-100) of
                                xs@('-':_) -> xs
                                xs -> '+':xs
