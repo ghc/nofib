@@ -216,7 +216,7 @@ per_prog_result_tab =
           gcwork_spec, balance_spec, instrs_spec, mreads_spec, mwrite_spec, cmiss_spec, totmem_spec]
 
 -- A single summary table, giving comparison figures for a number of
--- aspects, each in its own column.  Only works when comparing two runs.
+-- aspects, each in its own column.  Only works when comparing at least two runs.
 normal_summary_specs :: [PerProgTableSpec]
 normal_summary_specs =
         [ size_spec, alloc_spec, runtime_spec, elapsedtime_spec, totmem_spec ]
@@ -437,9 +437,9 @@ latexOutput results (Just table_name) _ _ _ norm inc_baseline
         [] -> error ("can't find table named: " ++ table_name)
         (spec:_) -> latexProgTable results spec norm inc_baseline "\n"
 
-latexOutput results Nothing _ summary_spec summary_rows _ _ =
-   (if (length results == 2)
-        then ascii_summary_table True results summary_spec summary_rows
+latexOutput results Nothing column_headings summary_spec summary_rows _ _ =
+   (if (length results >= 2)
+        then ascii_summary_table True results column_headings summary_spec summary_rows
             . str "\n\n"
         else id) ""
 
@@ -494,9 +494,9 @@ asciiPage :: [ResultTable] -> [String] -> [PerProgTableSpec] -> Maybe [String]
 asciiPage results args summary_spec summary_rows norm =
   ( str reportTitle
   . str "\n\n"
-     -- only show the summary table if we're comparing two runs
-  . (if (length results == 2)
-        then ascii_summary_table False results summary_spec summary_rows . str "\n\n"
+     -- only show the summary table if we're comparing at least two runs
+  . (if (length results >= 2)
+        then ascii_summary_table False results args summary_spec summary_rows . str "\n\n"
         else id)
   . interleave "\n\n" (map (asciiGenProgTable results args norm) per_prog_result_tab)
   . str "\n"
@@ -520,7 +520,7 @@ ascii_header w ss
         = str "\n-------------------------------------------------------------------------------\n"
         . str (rjustify 15 "Program")
         . str (space 5)
-        . foldr (.) id (map (str . rjustify w) ss)
+        . foldr (.) id (intersperse (str (space 1)) (map (str . rjustify w) ss))
         . str "\n-------------------------------------------------------------------------------\n"
 
 ascii_show_results
@@ -557,27 +557,33 @@ ascii_show_results (r:rs) ss f stat result_ok norm
 ascii_summary_table
         :: Bool                         -- generate a LaTeX table?
         -> [ResultTable]
+        -> [String]
         -> [PerProgTableSpec]
         -> Maybe [String]
         -> ShowS
-ascii_summary_table _     []        _     _
+ascii_summary_table _     []         _         _     _
  = error "ascii_summary_table: Can't happen?"
-ascii_summary_table _     [_]       _     _
+ascii_summary_table _     [_]        _         _     _
  = error "ascii_summary_table: Can't happen?"
-ascii_summary_table latex (r1:r2:_) specs mb_restrict
+ascii_summary_table latex (rbase:rs) (_:names) specs mb_restrict
   | latex     = makeLatexTable (rows ++ TableLine : av_rows)
   | otherwise =
-       makeTable (table_layout (length specs) w)
-          (TableLine : TableRow header_row :
-           TableLine : rows ++
-           TableLine : av_rows)
+       makeTable (table_layout (length specs * length rs) w) $
+          [ TableLine
+          , TableRow header_row ] ++
+          [ TableRow header_row2 | length rs > 1] ++
+          [ TableLine ] ++
+          rows ++
+          [ TableLine ] ++
+          av_rows
   where
         header_row = BoxString "Program" : map BoxString headings
+        header_row2 = BoxString "" : map BoxString headings2
 
-        (headings, columns, av_cols) = unzip3 (map calc_col specs)
+        (headings, headings2, columns, av_cols) = unzip4 (concatMap calc_col_group specs)
         av_heads = [BoxString "Min", BoxString "Max", BoxString "Geometric Mean"]
-        baseline = Map.toList r1
-        progs   = map BoxString (Map.keys r1)
+        baseline = Map.toList rbase
+        progs   = map BoxString (Map.keys rbase)
         rows0   = map TableRow (zipWith (:) progs (transpose columns))
 
         rows1 = restrictRows mb_restrict rows0
@@ -586,13 +592,17 @@ ascii_summary_table latex (r1:r2:_) specs mb_restrict
              | otherwise = rows1
 
         av_rows = map TableRow (zipWith (:) av_heads (transpose av_cols))
-        w   = 10
+        w   = sUMMARY_FIELD_WIDTH
 
-        calc_col (SpecP _ heading _ getr gets ok)
+        calc_col_group :: PerProgTableSpec -> [(String, String, [BoxValue], [BoxValue])]
+        calc_col_group spec = [calc_col spec r n | (r,n) <- zip rs names]
+
+        calc_col :: PerProgTableSpec -> ResultTable -> String -> (String, String, [BoxValue], [BoxValue])
+        calc_col (SpecP _ heading _ getr gets ok) r n
             -- throw away the baseline result
-          = (heading, column, [column_min, column_max, column_mean])
+          = (heading, n, column, [column_min, column_max, column_mean])
           where (_, boxes) = unzip (map calc_one_result baseline)
-                calc_one_result = calc_result [r2] getr gets ok convert_to_percentage
+                calc_one_result = calc_result [r] getr gets ok convert_to_percentage
                 column = map (\(_:b:_) -> b) boxes
                 (_, column_mean, _) = calc_gmsd column
                 (column_min, column_max) = calc_minmax column
@@ -617,7 +627,7 @@ mungeForLaTeX = map transrow
         transchar c s = c:s
 
 table_layout :: Int -> Int -> Layout
-table_layout n w boxes = foldr (.) id $ zipWith ($) fns boxes
+table_layout n w boxes = foldr (.) id $ intersperse (str (space 1)) $ zipWith ($) fns boxes
  where fns = (str . rjustify 15 . show ) :
              (\s -> str (space 5) . str (rjustify w (show s))) :
              replicate (n-1) (str . rjustify w . show)
@@ -681,7 +691,7 @@ show_per_prog_results_width :: Int -> (String, [BoxValue]) -> ShowS
 show_per_prog_results_width w (prog,results)
         = str (rjustify 15 prog)
         . str (space 5)
-        . foldr (.) id (map (str . rjustify w . showBox) results)
+        . foldr (.) id (intersperse (str (space 1)) (map (str . rjustify w . showBox) results))
 
 -- -----------------------------------------------------------------------------
 -- CSV output
@@ -962,5 +972,8 @@ interleave s = foldr1 (\a b -> a . str s . b)
 
 fIELD_WIDTH :: Int
 fIELD_WIDTH = 16
+
+sUMMARY_FIELD_WIDTH :: Int
+sUMMARY_FIELD_WIDTH = 9
 
 -----------------------------------------------------------------------------
