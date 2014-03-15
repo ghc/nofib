@@ -586,10 +586,7 @@ ascii_summary_table latex (rbase:rs) (_:names) specs mb_restrict
         progs   = map BoxString (Map.keys rbase)
         rows0   = map TableRow (zipWith (:) progs (transpose columns))
 
-        rows1 = restrictRows mb_restrict rows0
-
-        rows | latex     = mungeForLaTeX rows1
-             | otherwise = rows1
+        rows = restrictRows mb_restrict rows0
 
         av_rows = map TableRow (zipWith (:) av_heads (transpose av_cols))
         w   = sUMMARY_FIELD_WIDTH
@@ -613,18 +610,6 @@ restrictRows (Just these) rows = filter keep_it rows
   where keep_it (TableRow (BoxString s: _)) = s `elem` these
         keep_it TableLine = True
         keep_it _ = False
-
-mungeForLaTeX :: [TableRow] -> [TableRow]
-mungeForLaTeX = map transrow
-   where
-        transrow (TableRow boxes) = TableRow (map transbox boxes)
-        transrow row = row
-
-        transbox (BoxString s) = BoxString (foldr transchar "" s)
-        transbox box = box
-
-        transchar '_' s = '\\':'_':s
-        transchar c s = c:s
 
 table_layout :: Int -> Int -> Layout
 table_layout n w boxes = foldr (.) id $ intersperse (str (space 1)) $ zipWith ($) fns boxes
@@ -949,10 +934,14 @@ latexTableLayout boxes =
   foldr (.) id . intersperse (str " & ") . map abox $ boxes
   where 
         abox (RunFailed NotDone) = id
-        abox s = str (foldr transchar "" (show s))
+        abox s = str (mungeForLaTeX (show s))
 
-        transchar '%' s = s  -- leave out the percentage signs
-        transchar c   s = c : s
+mungeForLaTeX :: String -> String
+mungeForLaTeX = foldr transchar ""
+   where
+        transchar '_' s = '\\':'_':s
+        transchar '%' s = '\\':'%':s
+        transchar c s = c:s
 
 -- -----------------------------------------------------------------------------
 -- General Utils
