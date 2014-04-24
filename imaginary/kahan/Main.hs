@@ -1,3 +1,8 @@
+{-# LANGUAGE FlexibleContexts #-}
+-- Inferred type for 'inner' has a constraint (MArray (STUArray s) Double m)
+-- An alternative fix (better, but less faithful to backward perf comparison)
+-- would be MonoLocalBinds
+
 -- | Implementation of Kahan summation algorithm that tests
 -- performance of tight loops involving unboxed arrays and floating
 -- point arithmetic.

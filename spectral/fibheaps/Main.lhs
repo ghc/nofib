@@ -1,10 +1,16 @@
+>{-# LANGUAGE FlexibleContexts #-}
+
+    Inferred type for 'getMin' has a constraint (MArray a (MyMaybe t) m)
+    An alternative fix (better, but less faithful to backward perf
+    comparison) would be MonoLocalBinds
+
 Date:    Tue, 04 Jul 1995 13:10:58 -0400
 From:    Chris_Okasaki@LOCH.MESS.CS.CMU.EDU
 To:      simonpj@dcs.gla.ac.uk
 Subject: Fibonacci Heaps
 
 As I promised at the Haskell Workshop, here is a sample program
-using encapsulated state.  I've translated this from SML, but 
+using encapsulated state.  I've translated this from SML, but
 in doing so, I noticed that in fact accumArray is all the
 encapsulated state you really need for this application.  In SML,
 we are forced to use mutable arrays because we don't have such
