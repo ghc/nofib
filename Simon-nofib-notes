@@ -54,6 +54,14 @@ I found that there were some very bad loss-of-arity cases in PrelShow.
 
   Net result: imaginary/gen_regexps more than halves in allocation!
 
+queens
+~~~~~~
+If we do
+ a) some inlining before float-out
+ b) fold/build fusion before float-out
+then queens get 40% more allocation.  Presumably the fusion 
+prevents sharing.
+
 
 x2n1
 ~~~~
@@ -114,23 +122,36 @@ like this:
 Notice the 'let' which stops the lambda moving out.
 
 
-Eliza
+eliza
 ~~~~~
 In June 2002, GHC 5.04 emitted four successive
     NOTE: Simplifier still going after 4 iterations; bailing out.
 messages.  I suspect that the simplifer is looping somehow.
 
+fibheaps
+~~~~~~~~
+If you don't inline getChildren, allocation rises by 25%
 
-Expert
+hartel/event
+~~~~~~~~~~~~
+There's a functions called f_nand and f_d, which generates tons of
+code if you inline them too vigorously.  And this can happen because
+of a massive result discount.
+
+Moreover if f_d gets inlined too much, you get lots of local lvl_xx
+things which make some closures have lots of free variables, which pushes
+up allocation.
+
+expert
 ~~~~~~
 In spectral/expert/Search.ask there's a statically visible CSE. Catching this 
 depends almost entirely on chance, which is a pity.
 
-Reptile
+reptile
 ~~~~~~~
 Performance dominated by (++) and Show.itos'
 
-Fish
+fish
 ~~~~
 The performance of fish depends crucially on inlining scale_vec2.
 It turns out to be right on the edge of GHC's normal threshold size, so
@@ -206,19 +227,38 @@ We would do better to inpline showsPrec9 but it looks too big.  Before
 it was inlined regardless by the instance-decl stuff.  So perf drops slightly.
 
 
-Integer
+integer
 ~~~~~~~
-A good benchmark for beating on big-integer arithmetic
+A good benchmark for beating on big-integer arithmetic.
+In this function:
 
-Knights
+  integerbench :: (Integer -> Integer -> a)
+  	       -> Integer -> Integer -> Integer
+               -> Integer -> Integer -> Integer
+               -> IO ()
+  integerbench op astart astep alim bstart bstep blim = do
+    seqlist ([ a `op` b
+  	   | a <- [ astart,astart+astep..alim ]
+  	   , b <- [ bstart,astart+bstep..blim ]])
+    return ()
+
+if you do a bit of inlining and rule firing before floating, we'll fuse
+the comprehension with the [bstart, astart+bstep..blim], whereas if you
+float first you'll share the [bstart...] list. The latter does 11% less
+allocation, but more case analysis etc.
+
+knights
 ~~~~~~~
-In knights/KnightHeuristic, we don't find that possibleMoves is strict
-(with important knock-on effects) unless we apply rules before floating
-out the literal list [A,B,C...].
-Similarly, in f_se (F_Cmp ...) in listcompr (but a smaller effect)
+* In knights/KnightHeuristic, we don't find that possibleMoves is strict
+  (with important knock-on effects) unless we apply rules before floating
+  out the literal list [A,B,C...].
+
+* Similarly, in f_se (F_Cmp ...) in listcompr (but a smaller effect)
+
+* If we don't inline $wmove, we get an allocation increase of 17%
 
 
-Lambda
+lambda
 ~~~~~~
 This program shows the cost of the non-eta-expanded lambdas that arise from
 a state monad.  
@@ -228,7 +268,7 @@ mandel2
 check_perim's several calls to point_colour lead to opportunities for CSE
 which may be more or less well taken.
 
-Mandel
+mandel
 ~~~~~~
 Relies heavily on having a specialised version of Complex.magnitude
 (:: Complex Double -> Double) available.
@@ -239,7 +279,7 @@ this is because the pre-let-floating simplification did too little inlining;
 in particular, it did not inline windowToViewport
 
 
-Multiplier
+multiplier
 ~~~~~~~~~~
 In spectral/multiplier, we have 
     xor = lift21 forceBit f
@@ -253,21 +293,21 @@ In spectral/multiplier, we have
   So allocation goes up.  I don't see a way around this.
 
 
-Parstof
-~~~~~~~
+hartel/partsof
+~~~~~~~~~~~~~~
 spectral/hartel/parstof ends up saying
 	case (unpackCString "x") of { c:cs -> ... }
   quite a bit.   We should spot these and behave accordingly.
 
 
-Power
+power
 ~~~~~
 With GHC 4.08, for some reason the arithmetic defaults to Double.  The
 right thing is to default to Rational, which accounts for the big increase
 in runtime after 4.08
 
 
-Puzzle
+puzzle
 ~~~~~~
 The main function is 'transfer'.  It has some complicated join points, and
 a big issue is the full laziness can float out many small MFEs that then 
@@ -296,7 +336,7 @@ Extra allocation is happening in 5.02 as well; perhaps for the same reasons.  Th
 at least one instance of floating that prevents fusion; namely the enumerated lists
 in 'transfer'.
 
-Sphere
+sphere
 ~~~~~~
 A key function is vecsub, which looks like this (after w/w)
 
