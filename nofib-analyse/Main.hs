@@ -719,7 +719,7 @@ csv_show_results (r:rs) f stat _result_ok norm stddev
           | stddev    = interleave "," (str prog : concat (map stddevbox boxes))
           | otherwise = interleave "," (str prog : map (str.showBox) boxes)
 
-        stddevbox (BoxStdDev b s) = [str (showBox b), str (printf "%.2f" s)]
+        stddevbox (BoxStdDev b s) = [str (showBox b), str (printf "%.3f" s)]
         stddevbox b = [str (showBox b), str "0"]
 
 -- ---------------------------------------------------------------------------
@@ -886,7 +886,7 @@ showBox (Percentage 100) = " 0.0%" -- pattern matching on Float is bad style, bu
 showBox (Percentage f)   = case printf "%.1f%%" (f-100) of
                                xs@('-':_) -> xs
                                xs -> '+':xs
-showBox (BoxFloat f)     = printf "%.2f" f
+showBox (BoxFloat f)     = printf "%.3f" f
 showBox (BoxInt n)       = show n
 showBox (BoxInteger n)   = show n
 --showBox (BoxInt n)       = show (n `div` (1024*1024))
