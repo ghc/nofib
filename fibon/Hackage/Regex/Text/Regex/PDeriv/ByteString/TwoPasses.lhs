@@ -28,6 +28,7 @@ failures states as long as we cannot find them in the sets.
 > import GHC.Int
 > import qualified Data.IntMap as IM
 > import qualified Data.ByteString.Char8 as S
+> import Prelude hiding (Word)
 
 > import Text.Regex.Base(RegexOptions(..))
 

@@ -26,6 +26,7 @@ an emptiable pattern and the input word is fully consumed.
 > import qualified Data.IntMap as IM
 > import qualified Data.ByteString.Char8 as S
 > import Control.DeepSeq
+> import Prelude hiding (Word)
 
 > import System.IO.Unsafe (unsafePerformIO)
 

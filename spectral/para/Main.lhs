@@ -176,6 +176,7 @@ style.
 >import Data.Char
 >import System.IO
 >import System.Environment
+>import Prelude hiding (Word)
 
 \end{mcode}
 \fi

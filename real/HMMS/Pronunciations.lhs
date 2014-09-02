@@ -25,6 +25,7 @@ described in later chapters in Part~\ref{part:library}.
 > import MaybeStateT
 > import PlainTextIO
 > import StateT
+> import Prelude hiding (Word)
 
 \end{verbatim}
 

@@ -26,6 +26,7 @@ is reached (AKA init state of the NFA) and the input word is fully consumed.
 > import GHC.Int
 > import qualified Data.IntMap as IM
 > import qualified Data.ByteString.Char8 as S
+> import Prelude hiding (Word)
 
 > import Text.Regex.Base(RegexOptions(..))
 

@@ -8,6 +8,7 @@
 -------------------------------------------------------------------------------
 
 import Data.Char -- 1.3
+import Prelude hiding (Word)
 
 main  = interact (("\n\
 		    \Hi! I'm Eliza. I am your personal therapy computer.\n\

@@ -29,6 +29,7 @@ This algorithm implements the POSIX matching policy proceeds by scanning the inp
 > import GHC.Arr 
 > import qualified Data.IntMap as IM
 > import qualified Data.ByteString.Char8 as S
+> import Prelude hiding (Word)
 
 
 > import Text.Regex.Base(RegexOptions(..),RegexLike(..),MatchArray)
