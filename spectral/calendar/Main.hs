@@ -30,8 +30,8 @@ stack, spread :: [Picture] -> Picture
 stack          = foldr1 above
 spread         = foldr1 beside
 
-empty         :: (Int,Int) -> Picture
-empty (h,w)    = copy h (copy w ' ')
+emptyPic      :: (Int,Int) -> Picture
+emptyPic (h,w) = copy h (copy w ' ')
 
 block, blockT :: Int -> [Picture] -> Picture
 block n        = stack . map spread . groop n
@@ -42,7 +42,7 @@ groop n []     = []
 groop n xs     = take n xs : groop n (drop n xs)
 
 lframe        :: (Int,Int) -> Picture -> Picture
-lframe (m,n) p = (p `beside` empty (h,n-w)) `above` empty (m-h,n)
+lframe (m,n) p = (p `beside` emptyPic (h,n-w)) `above` emptyPic (m-h,n)
 		 where h = height p
                        w = width p
 
@@ -90,12 +90,12 @@ calendar  = unlines . block 3 . map picture . months
 -- In a format somewhat closer to UNIX cal:
 
 cal year = unlines (banner year `above` body year)
-           where banner yr      = [cjustify 75 (show yr)] `above` empty (1,75)
+           where banner yr      = [cjustify 75 (show yr)] `above` emptyPic (1,75)
                  body           = block 3 . map (pad . pic) . months
                  pic (mn,fd,ml) = title mn `above` table fd ml
                  pad p          = (side`beside`p`beside`side)`above`end
-                 side           = empty (8,2)
-                 end            = empty (1,25)
+                 side           = emptyPic (8,2)
+                 end            = emptyPic (1,25)
                  title mn       = [cjustify 21 mn]
                  table fd ml    = daynames `above` entries fd ml
                  daynames       = [" Su Mo Tu We Th Fr Sa"]
