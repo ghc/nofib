@@ -15,7 +15,8 @@ can not ever reach valid results.
 module Main where
 
 import Control.Monad
-import MonadState
+import Control.Monad.Trans.State
+import Control.Monad.Trans.Class
 import Data.List
 import Data.Maybe
 
