@@ -5,6 +5,8 @@
 .depend.bak
 cachegrind.out.*
 cachegrind.out.summary
+perf.data
+perf.data.*
 
 # Specific generated files
 nofib-analyse/nofib-analyse
@@ -143,6 +145,7 @@ gc/mutstore1/mutstore1
 gc/mutstore2/mutstore2
 gc/power/power
 gc/spellcheck/spellcheck
+gc/treejoin/treejoin
 
 parallel/blackscholes/blackscholes
 parallel/coins/coins
