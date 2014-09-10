@@ -4,6 +4,7 @@ The code generator.
 (c) 1993-2001 Andy Gill, Simon Marlow
 -----------------------------------------------------------------------------
 
+> {-# LANGUAGE FlexibleContexts #-}
 > module ProduceCode (produceParser) where
 
 > import Paths_happy		( version )

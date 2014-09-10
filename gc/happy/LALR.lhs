@@ -5,6 +5,7 @@ Generation of LALR parsing tables.
 (c) 1997-2001 Simon Marlow
 -----------------------------------------------------------------------------
 
+> {-# LANGUAGE FlexibleContexts #-}
 > module LALR
 >	(genActionTable, genGotoTable, genLR0items, precalcClosure0,
 >	 propLookaheads, calcLookaheads, mergeLookaheadInfo, countConflicts,

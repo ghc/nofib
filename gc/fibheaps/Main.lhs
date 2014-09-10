@@ -50,6 +50,7 @@ first understand binomial queues.  See, for example, David King's
 "Functional Binomial Queues" from the last Glasgow workshop.
 
 > -- partain
+>{-# LANGUAGE FlexibleContexts #-}
 >module Main (main) where
 >import Data.Array
 >import System.Environment
