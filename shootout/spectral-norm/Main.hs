@@ -20,7 +20,8 @@ import Foreign
 import Text.Printf
 import Control.Concurrent
 import Control.Monad
-import GHC.Base
+import GHC.Base (Int(..), Double(..), (+#), (*#), (/##),
+                 quotInt, uncheckedIShiftRA#, int2Double#)
 import GHC.Conc
 
 type Reals = Ptr Double

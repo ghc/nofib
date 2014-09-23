@@ -466,9 +466,9 @@ avMaxAddPtR x ys
    | x `avBelowMax0R` ys = ys
    | otherwise = x:[y | y <- ys, not (y << x)]
 
-avMinR = foldr avMinAddPtR []
+avMinR = foldr avMinAddPtR [] :: [Route] -> [Route]
 
-avMaxR = foldr avMaxAddPtR []
+avMaxR = foldr avMaxAddPtR [] :: [Route] -> [Route]
 
 
 -- ==========================================================--
@@ -489,9 +489,9 @@ avMaxAddPtrep x ys
    | x `avBelowMax0rep` ys = ys
    | otherwise = x:[y | y <- ys, not (y `avBelowEQrep` x)]
 
-avMinrep = foldr avMinAddPtrep []
+avMinrep = foldr avMinAddPtrep [] :: [Rep] -> [Rep]
 
-avMaxrep = foldr avMaxAddPtrep []
+avMaxrep = foldr avMaxAddPtrep [] :: [Rep] -> [Rep]
 
 
 -- ==========================================================--

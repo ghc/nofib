@@ -152,5 +152,6 @@ find_betas
 	  do_beta_red _ (App (Binder Lambda dc tm1 _ _) tm2 _ _) 
 		= subst_trm dc tm1 tm2
 
+rep_beta :: Thm -> [[Int]] -> Thm
 rep_beta = foldl beta_rw
 
