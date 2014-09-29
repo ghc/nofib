@@ -513,6 +513,7 @@ we stipulate also that \verb"cost [] = 0".)
 The program resulting from this data refinement is as follows.
 \begin{mcode}
 
+>par1' :: [[a]] -> [[[a]]]
 >par1'
 > = the . minWith cost . fold1 step start
 >   where 
