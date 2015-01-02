@@ -47,7 +47,6 @@ reportTitle = case [ t | OptTitle t <- flags ] of
 data CLIFlags
   = OptASCIIOutput
   | OptLaTeXOutput (Maybe String)
-  | OptHTMLOutput
   | OptIgnoreSmallTimes Float
   | OptDeviations
   | OptNoDeviations
@@ -73,8 +72,6 @@ argInfo =
 	"Display this message"
   , Option ['a'] ["ascii"]   (NoArg OptASCIIOutput) 
 	"Produce ASCII output (default)"
-  , Option ['h'] ["html"]    (NoArg OptHTMLOutput)  
-	"Produce HTML output"
   , Option ['i'] ["ignore"]  (ReqArg (OptIgnoreSmallTimes . read) "secs")
 	"Ignore runtimes smaller than <secs>"
   , Option ['d'] ["deviations"] (NoArg OptDeviations)

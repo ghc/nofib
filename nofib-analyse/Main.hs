@@ -10,8 +10,6 @@ import Slurp
 import CmdLine
 
 import Text.Printf
-import Text.Html hiding (cols, rows, (!))
-import qualified Text.Html as Html ((!))
 import qualified Data.Map as Map
 import Data.Map (Map)
 import System.Exit      ( exitWith, ExitCode(..) )
@@ -20,9 +18,6 @@ import Control.Monad
 import Data.Maybe       ( isNothing )
 import System.IO
 import Data.List
-
-(<!) :: Text.Html.ADDATTRS a => a -> [HtmlAttr] -> a
-(<!) = (Html.!)
 
 -----------------------------------------------------------------------------
 -- Top level stuff
@@ -45,15 +40,13 @@ main = do
                  ["none"]    -> return NormaliseNone
                  _           -> die ("unrecognised value for --normalise\n" ++ usage)
 
- let { html  = OptHTMLOutput  `elem` flags;
-       latex = [ t | OptLaTeXOutput t <- flags ];
+ let { latex = [ t | OptLaTeXOutput t <- flags ];
        ascii = OptASCIIOutput `elem` flags;
        csv   = [ t | OptCSV t <- flags ];
        stddev = OptStdDev  `elem` flags;
        inc_baseline = OptShowBaseline  `elem` flags
      }
 
- when (ascii && html)  $ die "Can't produce both ASCII and HTML"
  when (devs && nodevs) $ die "Can't both display and hide deviations"
 
  results <- parse_logs other_args
@@ -75,8 +68,6 @@ main = do
  case () of
    _ | not (null csv) ->
         putStr (csvTable results (head csv) norm stddev)
-   _ | html      ->
-        putStr (renderHtml (htmlPage results column_headings))
    _ | not (null latex) ->
         putStr (latexOutput results (head latex) column_headings summary_spec summary_rows norm inc_baseline)
    _ | otherwise ->
@@ -100,7 +91,7 @@ data PerProgTableSpec =
            SpecP
                 String                  -- Name of the table
                 String                  -- Short name (for column heading)
-                String                  -- HTML tag for the table
+                String                  -- HTML tag for the table (currently unused)
                 (Results -> Maybe a)    -- How to get the result
                 (Results -> Status)     -- How to get the status of this result
                 (a -> Bool)             -- Result within reasonable limits?
@@ -109,7 +100,7 @@ data PerModuleTableSpec =
         forall a . Result a =>
            SpecM
                 String                  -- Name of the table
-                String                  -- HTML tag for the table
+                String                  -- HTML tag for the table (currently unused)
                 (Results -> Map String a)       -- get the module map
                 (a -> Bool)             -- Result within reasonable limits?
 
@@ -248,179 +239,6 @@ mean_time_ok  = time_ok . float
 
 time_ok :: Float -> Bool
 time_ok t = t > tooquick_threshold
-
------------------------------------------------------------------------------
--- HTML page generation
-
-htmlPage :: [ResultTable] -> [String] -> Html
-htmlPage results args
-   =  header << thetitle << reportTitle
-          +++ hr
-          +++ h1 << reportTitle
-          +++ gen_menu
-          +++ hr
-          +++ body (gen_tables results args)
-
-gen_menu :: Html
-gen_menu = unordList (map (prog_menu_item) per_prog_result_tab
-                   ++ map (module_menu_item) per_module_result_tab)
-
-prog_menu_item :: PerProgTableSpec -> Html
-prog_menu_item (SpecP long_name _ anc _ _ _)
-    = anchor <! [href ('#':anc)] << long_name
-module_menu_item :: PerModuleTableSpec -> Html
-module_menu_item (SpecM long_name anc _ _)
-    = anchor <! [href ('#':anc)] << long_name
-
-gen_tables :: [ResultTable] -> [String] -> Html
-gen_tables results args =
-      foldr1 (+++) (map (htmlGenProgTable results args) per_prog_result_tab)
-  +++ foldr1 (+++) (map (htmlGenModTable  results args) per_module_result_tab)
-
-htmlGenProgTable :: [ResultTable] -> [String] -> PerProgTableSpec -> Html
-htmlGenProgTable results args (SpecP long_name _ anc get_result get_status result_ok)
-  =   sectHeading long_name anc
-  +++ font <! [size "1"]
-        << mkTable (htmlShowResults results args get_result get_status result_ok)
-  +++ hr
-
-htmlGenModTable :: [ResultTable] -> [String] -> PerModuleTableSpec -> Html
-htmlGenModTable results args (SpecM long_name anc get_result result_ok)
-  =   sectHeading long_name anc
-  +++ font <![size "1"]
-        << mkTable (htmlShowMultiResults results args get_result result_ok)
-  +++ hr
-
-sectHeading :: String -> String -> Html
-sectHeading s nm = h2 << anchor <! [name nm] << s
-
-htmlShowResults
-    :: Result a
-        => [ResultTable]
-        -> [String]
-        -> (Results -> Maybe a)
-        -> (Results -> Status)
-        -> (a -> Bool)
-        -> HtmlTable
-
-htmlShowResults []     _  _  _   _
- = error "htmlShowResults: Can't happen?"
-htmlShowResults (r:rs) ss f stat result_ok
-  =   tabHeader ss
-  </> aboves (zipWith tableRow [1..] results_per_prog)
-  </> aboves ((if nodevs then []
-                         else [tableRow (-1) ("-1 s.d.", lows),
-                               tableRow (-1) ("+1 s.d.", highs)])
-                    ++ [tableRow (-1) ("Average", gms)])
- where
-        -- results_per_prog :: [ (String,[BoxValue a]) ]
-        results_per_prog = map (calc_result rs f stat result_ok convert_to_percentage) (Map.toList r)
-
-        results_per_run  = transpose (map snd results_per_prog)
-        (lows,gms,highs) = unzip3 (map calc_gmsd results_per_run)
-
-htmlShowMultiResults
-    :: Result a
-        => [ResultTable]
-        -> [String]
-        -> (Results -> Map String a)
-        -> (a -> Bool)
-        -> HtmlTable
-
-htmlShowMultiResults []     _  _ _
- = error "htmlShowMultiResults: Can't happen?"
-htmlShowMultiResults (r:rs) ss f result_ok =
-        multiTabHeader ss
-         </> aboves (map show_results_for_prog results_per_prog_mod_run)
-         </> aboves ((if nodevs then []
-                                      else [td << bold << "-1 s.d."
-                                            <-> tableRow (-1) ("", lows),
-                                            td << bold << "+1 s.d."
-                                            <-> tableRow (-1) ("", highs)])
-                           ++ [td << bold << "Average"
-                               <-> tableRow (-1) ("", gms)])
-  where
-        base_results = Map.toList r :: [(String,Results)]
-
-        -- results_per_prog_mod_run :: [(String,[(String,[BoxValue a])])]
-        results_per_prog_mod_run = map get_results_for_prog base_results
-
-        -- get_results_for_prog :: (String,Results) -> (String,[BoxValue a])
-        get_results_for_prog (prog, results)
-            = (prog, map get_results_for_mod (Map.toList (f results)))
-
-           where fms = map get_run_results rs
-
-                 get_run_results fm = case Map.lookup prog fm of
-                                        Nothing  -> Map.empty
-                                        Just res -> f res
-
-                 get_results_for_mod id_attr
-                     = calc_result fms Just (const Success) result_ok convert_to_percentage id_attr
-
-        show_results_for_prog (prog,mrs) =
-            td <! [valign "top"] << bold << prog
-            <-> (if null mrs then
-                   td << "(no modules compiled)"
-                 else
-                   toHtml (aboves (map (tableRow 0) mrs)))
-
-        results_per_run  = transpose [xs | (_,mods) <- results_per_prog_mod_run,
-                                           (_,xs) <- mods]
-        (lows,gms,highs) = unzip3 (map calc_gmsd results_per_run)
-
-tableRow :: Int -> (String, [BoxValue]) -> HtmlTable
-tableRow row_no (prog, results)
-        =   td <! [bgcolor left_column_color] << prog
-        <-> besides (map (\s -> td <! [align "right", clr] << showBox s)
-                                results)
-  where clr | row_no < 0  = bgcolor average_row_color
-            | even row_no = bgcolor even_row_color
-            | otherwise   = bgcolor odd_row_color
-
-left_column_color, odd_row_color, even_row_color, average_row_color :: String
-left_column_color = "#d0d0ff"  -- light blue
-odd_row_color     = "#d0d0ff"  -- light blue
-even_row_color    = "#f0f0ff"  -- v. light blue
-average_row_color = "#ffd0d0"  -- light red
-
-{-
-findBest :: Result a => [BoxValue a] -> [(Bool,BoxValue a)]
-findBest stuff@(Result base : rest)
-  = map (\a -> (a==base, a))
-  where
-        best = snd (minimumBy (\a b -> fst a < fst b) no_pcnt_stuff
-
-        no_pcnt_stuff = map unPcnt stuff
-
-        unPcnt (r@(Percentage f) : rest) = (base * f/100, r) : unPcnt rest
-        unPcnt (r@(Result a) : rest)     = (a, r) : unPcnt rest
-        unPcnt (_ : rest)                = unPcnt rest
--}
-
-logHeaders :: [String] -> HtmlTable
-logHeaders ss
-  = besides (map (\s -> (td <! [align "right", width "100"] << bold << s)) ss)
-
-mkTable :: HtmlTable -> Html
-mkTable t = table <! [cellspacing 0, cellpadding 0, border 0] << t
-
-tabHeader :: [String] -> HtmlTable
-tabHeader ss
-  =   (td <! [align "left", width "100"] << bold << "Program")
-  <-> logHeaders ss
-
-multiTabHeader :: [String] -> HtmlTable
-multiTabHeader ss
-  =   (td <! [align "left", width "100"] << bold << "Program")
-  <-> (td <! [align "left", width "100"] << bold << "Module")
-  <-> logHeaders ss
-
--- Calculate a color ranging from bright blue for -100% to bright red for +100%.
-calcColor :: Int -> String
-calcColor percentage | percentage >= 0 = printf "#%02x0000" val
-                     | otherwise       = printf "#0000%02x" val
-        where val = abs percentage * 255 `div` 100
 
 -----------------------------------------------------------------------------
 -- LaTeX table generation (just the summary for now)
