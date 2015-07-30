@@ -15,7 +15,7 @@
 // java.* -> xjava.*
 //
 // Revision 1.3  1998/02/22 01:45:09  zox
-// Changed few privates to publics and cut down unnecesary output so it can be
+// Changed few privates to publics and cut down unnecessary output so it can be
 //   invoked from TestScar.
 //
 // Revision 1.2  1998/01/15 20:30:47  raif
