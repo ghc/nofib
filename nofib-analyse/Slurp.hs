@@ -198,6 +198,14 @@ ghc6_re s = case matchRegex re s of
                 Nothing -> Nothing
     where re = mkRegex "^<<ghc:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs[ \t]+\\(([0-9]+)[ \t]*\\+[ \t]*([0-9]+)\\),[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.-]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(0\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(1\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) balance :ghc>>"
 
+ghc7_re :: String -> Maybe (Integer, Integer, Integer, Integer, Integer, Integer, Integer, Float, Float, Float, Float, Float, Float,Int,Float,Float,Int,Float,Float,Float, Integer, Integer, Integer, Integer)
+ghc7_re s = case matchRegex re s of
+                Just [allocations, gcs, gc0_count, gc1_count, avg_residency, max_residency, samples, gc_work', in_use, initialisation, initialisation_elapsed, mut, mut_elapsed, gc, gc_elapsed, gc0, gc0_elapsed, gc1, gc1_elapsed, bal, instructions, memory_reads, memory_writes, l2_cache_misses] ->
+                    Just (read allocations, read gcs, read avg_residency, read max_residency, read samples, read gc_work', 1048576 * read in_use, read initialisation, read initialisation_elapsed, read mut, read mut_elapsed, read gc, read gc_elapsed, read gc0_count, read gc0, read gc0_elapsed, read gc1_count, read gc1, read gc1_elapsed, read bal, read instructions, read memory_reads, read memory_writes, read l2_cache_misses)
+                Just _ -> error "ghc3_re: Can't happen"
+                Nothing -> Nothing
+    where re = mkRegex "^<<ghc-instrs:[ \t]+([0-9]+)[ \t]+bytes,[ \t]*([0-9]+)[ \t]+GCs[ \t]+\\(([0-9]+)[ \t]*\\+[ \t]*([0-9]+)\\),[ \t]*([0-9]+)/([0-9]+)[ \t]+avg/max bytes residency \\(([0-9]+) samples\\), ([0-9]+) bytes GC work, ([0-9]+)M in use, ([0-9.]+) INIT \\(([0-9.]+) elapsed\\), ([0-9.]+) MUT \\(([0-9.-]+) elapsed\\), ([0-9.]+) GC \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(0\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) GC\\(1\\) \\(([0-9.]+) elapsed\\), ([0-9.]+) balance, ([0-9]+) instructions, ([0-9]+) memory reads, ([0-9]+) memory writes, ([0-9]+) L2 cache misses :ghc-instrs>>"
+
 wrong_exit_status, wrong_output, out_of_heap, out_of_stack :: Regex
 wrong_exit_status = mkRegex "^\\**[ \t]*expected exit status ([0-9]+) not seen ; got ([0-9]+)"
 wrong_output      = mkRegex "^expected (stdout|stderr) not matched by reality$"
@@ -399,6 +407,14 @@ parse_run_time prog (l:ls) res ex =
                         [gc0_count] [gc0] [gc0_elapsed] [gc1_count] [gc1] [gc1_elapsed] [bal]
                         [gc_work'] Nothing Nothing Nothing Nothing [in_use];
 
+            Nothing ->
+
+        case ghc7_re l of {
+           Just (allocations, _, _, _, _, gc_work', in_use, initialisation, init_elapsed, mut, mut_elapsed, gc, gc_elapsed, gc0_count, gc0, gc0_elapsed, gc1_count, gc1, gc1_elapsed, bal, is, mem_rs, mem_ws, cache_misses') ->
+                got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed
+                        [gc0_count] [gc0] [gc0_elapsed] [gc1_count] [gc1] [gc1_elapsed] [bal]
+                        [gc_work'] (Just is) (Just mem_rs) (Just mem_ws) (Just cache_misses') [in_use];
+
             Nothing | "<<ghc" `isPrefixOf` l -> error $ "Failed to parse GHC output " ++ show l
                     | otherwise ->
 
@@ -427,7 +443,7 @@ parse_run_time prog (l:ls) res ex =
             Nothing ->
                 parse_run_time prog ls res ex;
 
-        }}}}}}}}}}
+        }}}}}}}}}}}
   where
   got_run_result allocations initialisation init_elapsed mut mut_elapsed gc gc_elapsed gc0_count gc0 gc0_elapsed gc1_count gc1 gc1_elapsed bal gc_work' instrs' mem_rs mem_ws cache_misses' in_use
       = -- trace ("got_run_result: " ++ initialisation ++ ", " ++ mut ++ ", " ++ gc) $
