@@ -105,6 +105,18 @@ data PerModuleTableSpec =
                 (Results -> Map String a)       -- get the module map
                 (a -> Bool)             -- Result within reasonable limits?
 
+aggregateModuleTable :: PerModuleTableSpec -> PerProgTableSpec
+aggregateModuleTable (SpecM long_name short_name html_tag get_results is_ok)
+ = SpecP long_name short_name html_tag (mapToMaybe . get_results) (const Success) is_ok
+  where
+    mapToMaybe m = if Map.null m then Nothing else Just (sumResult (Map.elems m))
+
+progTableHasName :: PerProgTableSpec -> String -> Bool
+progTableHasName (SpecP ln sn _ _ _ _) n = n == ln || n == sn
+
+modTableHasName :: PerModuleTableSpec -> String -> Bool
+modTableHasName (SpecM ln sn _ _ _) n = n == ln || n == sn
+
 -- The various per-program aspects of execution that we can generate results for.
 size_spec, alloc_spec, runtime_spec, elapsedtime_spec, muttime_spec, mutetime_spec,
     gctime_spec, gcelap_spec,
@@ -161,8 +173,9 @@ all_specs = [
 namedColumns :: [String] -> IO [PerProgTableSpec]
 namedColumns ss = mapM findSpec ss
   where findSpec s =
-           case [ spec | spec@(SpecP _ short_name _ _ _ _) <- all_specs,
-                         short_name == s ] of
+           case filter (`progTableHasName` s) all_specs ++
+                map aggregateModuleTable (filter (`modTableHasName` s) per_module_result_tab)
+           of
                 [] -> die ("unknown column: " ++ s)
                 (spec:_) -> return spec
 
@@ -250,10 +263,10 @@ latexOutput :: [ResultTable] -> Maybe String -> [String] -> [PerProgTableSpec]
 latexOutput results (Just table_name) _ _ _ norm inc_baseline
   = case
         [ latexProgTable results spec norm inc_baseline "\n"
-        | spec@(SpecP ln sn _ _ _ _) <- per_prog_result_tab, table_name `elem` [ln, sn]]
+        | spec <- per_prog_result_tab, spec `progTableHasName` table_name]
         ++
         [ latexModTable results spec norm inc_baseline "\n"
-        | spec@(SpecM ln sn _ _ _) <- per_module_result_tab, table_name `elem` [ln, sn]]
+        | spec <- per_module_result_tab, spec `modTableHasName` table_name]
     of
         [] -> error ("can't find table named: " ++ table_name)
         (r:_) -> r
@@ -543,10 +556,10 @@ csvTable :: [ResultTable] -> String -> Normalise -> Bool -> String
 csvTable results table_name norm stddev
   = case
         [ csvProgTable results spec norm stddev "\n"
-        | spec@(SpecP ln sn _ _ _ _) <- per_prog_result_tab, table_name `elem` [ln, sn]]
+        | spec <- per_prog_result_tab, spec `progTableHasName` table_name]
         ++
         [ csvModTable results spec norm stddev "\n"
-        | spec@(SpecM ln sn _ _ _) <- per_module_result_tab, table_name `elem` [ln, sn]]
+        | spec <- per_module_result_tab, spec `modTableHasName` table_name]
     of
         [] -> error ("can't find table named: " ++ table_name)
         (r:_) -> r
