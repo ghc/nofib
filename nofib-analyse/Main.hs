@@ -241,19 +241,21 @@ time_ok :: Float -> Bool
 time_ok t = t > tooquick_threshold
 
 -----------------------------------------------------------------------------
--- LaTeX table generation (just the summary for now)
+-- LaTeX table generation
 
 latexOutput :: [ResultTable] -> Maybe String -> [String] -> [PerProgTableSpec]
             -> Maybe [String] -> Normalise -> Bool -> String
 
 latexOutput results (Just table_name) _ _ _ norm inc_baseline
-  = let
-        table_spec = [ spec | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, 
-                       n == table_name ]
-    in
-    case table_spec of
+  = case
+        [ latexProgTable results spec norm inc_baseline "\n"
+        | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, n == table_name ]
+        ++
+        [ latexModTable results spec norm inc_baseline "\n"
+        | spec@(SpecM n _ _ _) <- per_module_result_tab, n == table_name ]
+    of
         [] -> error ("can't find table named: " ++ table_name)
-        (spec:_) -> latexProgTable results spec norm inc_baseline "\n"
+        (r:_) -> r
 
 latexOutput results Nothing column_headings summary_spec summary_rows _ _ =
    (if (length results >= 2)
@@ -297,11 +299,48 @@ latex_show_results (r:rs) f stat _result_ok norm inc_baseline
         (_lows,gms,_highs) = unzip3 (map calc_gmsd results_per_run)
         (mins, maxs)       = unzip  (map calc_minmax results_per_run)
 
-normalise :: Result a => Normalise -> a -> a -> BoxValue 
+normalise :: Result a => Normalise -> a -> a -> BoxValue
 normalise norm = case norm of
              NormalisePercent -> convert_to_percentage
              NormaliseRatio   -> normalise_to_base
              NormaliseNone    -> \_base res -> toBox res
+
+latexModTable :: [ResultTable] -> PerModuleTableSpec -> Normalise -> Bool -> ShowS
+latexModTable results (SpecM __ _ get_results result_ok) norm inc_baseline
+  = latex_show_multi_results results get_results result_ok norm inc_baseline
+
+latex_show_multi_results
+   :: Result a
+        => [ResultTable]
+        -> (Results -> Map String a)
+        -> (a -> Bool)
+        -> Normalise
+        -> Bool
+        -> ShowS
+
+latex_show_multi_results []      _ _    _ _
+ = error "latex_show_multi_results: Can't happen?"
+latex_show_multi_results (r:rs) f _result_ok norm inc_baseline
+        = makeLatexTable $
+             [ TableRow (BoxString (prog ++ "." ++ mod) : boxes)
+             | (prog,mod,boxes) <- results_per_prog_and_mod ] ++
+             if nodevs then [] else
+             [ TableLine,
+               TableRow (BoxString "Min" : mins),
+               TableRow (BoxString "Max" : maxs),
+               TableRow (BoxString "Geometric Mean" : gms) ]
+ where
+        -- results_per_prog_and_mod :: [ (String,String,[BoxValue a]) ]
+        results_per_prog_and_mod =
+            [ (prog, mod, if inc_baseline then xs else tail xs)
+            | (prog, results) <- Map.toList r
+            , (mod, result) <- Map.toList (f results)
+            , let fms = map (maybe Map.empty f . Map.lookup prog) rs
+            , let (_, xs) = calc_result fms Just (const Success) (const True) (normalise norm) (mod, result)
+            ]
+        results_per_run    = transpose [ r | (_,_,r) <- results_per_prog_and_mod ]
+        (_lows,gms,_highs) = unzip3 (map calc_gmsd results_per_run)
+        (mins, maxs)       = unzip  (map calc_minmax results_per_run)
 
 -----------------------------------------------------------------------------
 -- ASCII page generation
