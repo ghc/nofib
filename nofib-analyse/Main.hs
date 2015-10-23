@@ -734,6 +734,7 @@ class Result a where
    toBox    :: a -> BoxValue
    float    :: a -> Float
    variance :: a -> Float
+   sumResult :: [a] -> a
 
 -- We assume an Int is a size, and print it in kilobytes.
 
@@ -741,6 +742,7 @@ instance Result Int where
     toBox  = BoxInt
     float a = fromIntegral a
     variance a = 0
+    sumResult = sum
 
 data MeanStdDev a = MeanStdDev a Float
 
@@ -748,16 +750,24 @@ instance Result a => Result (MeanStdDev a) where
     toBox    (MeanStdDev a b) = BoxStdDev (toBox a) b
     float    (MeanStdDev a _) = float a
     variance (MeanStdDev _ b) = b
+    -- This summing of standard deviations is only valid if the
+    -- random variables are indepenent. If we assume that variance in measurements
+    -- is random noise, then this should be ok
+    sumResult mss = MeanStdDev
+        (sumResult [m | MeanStdDev m _ <- mss])
+        (sqrt $ sum [s^2 | MeanStdDev _ s <- mss])
 
 instance Result Integer where
     toBox = BoxInteger
     float a = fromIntegral a
     variance a = 0
+    sumResult = sum
 
 instance Result Float where
     toBox = BoxFloat
     float a = realToFrac a
     variance a = 0
+    sumResult = sum
 
 -- -----------------------------------------------------------------------------
 -- BoxValues
