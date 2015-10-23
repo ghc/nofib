@@ -501,13 +501,15 @@ show_per_prog_results_width w (prog,results)
 
 csvTable :: [ResultTable] -> String -> Normalise -> Bool -> String
 csvTable results table_name norm stddev
-  = let
-        table_spec = [ spec | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, 
-                       n == table_name ]
-    in
-    case table_spec of
+  = case
+        [ csvProgTable results spec norm stddev "\n"
+        | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, n == table_name ]
+        ++
+        [ csvModTable results spec norm stddev "\n"
+        | spec@(SpecM n _ _ _) <- per_module_result_tab, n == table_name ]
+    of
         [] -> error ("can't find table named: " ++ table_name)
-        (spec:_) -> csvProgTable results spec norm stddev "\n"
+        (r:_) -> r
 
 csvProgTable :: [ResultTable] -> PerProgTableSpec -> Normalise -> Bool -> ShowS
 csvProgTable results (SpecP _long_name _ _ get_result get_status result_ok)
@@ -536,6 +538,38 @@ csv_show_results (r:rs) f stat _result_ok norm stddev
         result_line (prog,boxes)
           | stddev    = interleave "," (str prog : concat (map stddevbox boxes))
           | otherwise = interleave "," (str prog : map (str.showBox) boxes)
+
+        stddevbox (BoxStdDev b s) = [str (showBox b), str (printf "%.3f" s)]
+        stddevbox b = [str (showBox b), str "0"]
+
+csvModTable :: [ResultTable] -> PerModuleTableSpec -> Normalise -> Bool -> ShowS
+csvModTable results (SpecM _ _ get_result result_ok)
+             norm stddev
+  = csv_show_multi_results results get_result result_ok norm stddev
+
+csv_show_multi_results
+   :: Result a
+        => [ResultTable]
+        -> (Results -> Map String a)
+        -> (a -> Bool)
+        -> Normalise
+        -> Bool
+        -> ShowS
+
+csv_show_multi_results []      _ _    _ _
+ = error "csv_show_multi_results: Can't happen?"
+csv_show_multi_results (r:rs) f _result_ok norm stddev
+        = interleave "\n"
+            [ result_line prog mod boxes
+            | (prog, results) <- Map.toList r
+            , (mod, result) <- Map.toList (f results)
+            , let fms = map (maybe Map.empty f . Map.lookup prog) rs
+            , let (_, boxes) = calc_result fms Just (const Success) (const True) (normalise norm) (mod, result)
+            ]
+ where
+        result_line prog mod boxes
+          | stddev    = interleave "," $ str prog : str mod : concat (map stddevbox boxes)
+          | otherwise = interleave "," $ str prog : str mod : map (str.showBox) boxes
 
         stddevbox (BoxStdDev b s) = [str (showBox b), str (printf "%.3f" s)]
         stddevbox b = [str (showBox b), str "0"]
