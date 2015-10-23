@@ -100,6 +100,7 @@ data PerModuleTableSpec =
         forall a . Result a =>
            SpecM
                 String                  -- Name of the table
+                String                  -- Short name (for column heading)
                 String                  -- HTML tag for the table (currently unused)
                 (Results -> Map String a)       -- get the module map
                 (a -> Bool)             -- Result within reasonable limits?
@@ -226,9 +227,9 @@ pickSummary rs
 
 per_module_result_tab :: [PerModuleTableSpec]
 per_module_result_tab =
-        [ SpecM "Module Sizes" "mod-sizes" module_size always_ok
-        , SpecM "Compile Times" "compile-time" compile_time time_ok
-        , SpecM "Compile Allocations" "compile-allocations" compile_allocs always_ok
+        [ SpecM "Module Sizes" "Mod Size" "mod-sizes" module_size always_ok
+        , SpecM "Compile Times" "Comp. Time" "compile-time" compile_time time_ok
+        , SpecM "Compile Allocations" "Comp. Alloc" "compile-allocations" compile_allocs always_ok
         ]
 
 always_ok :: a -> Bool
@@ -249,10 +250,10 @@ latexOutput :: [ResultTable] -> Maybe String -> [String] -> [PerProgTableSpec]
 latexOutput results (Just table_name) _ _ _ norm inc_baseline
   = case
         [ latexProgTable results spec norm inc_baseline "\n"
-        | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, n == table_name ]
+        | spec@(SpecP ln sn _ _ _ _) <- per_prog_result_tab, table_name `elem` [ln, sn]]
         ++
         [ latexModTable results spec norm inc_baseline "\n"
-        | spec@(SpecM n _ _ _) <- per_module_result_tab, n == table_name ]
+        | spec@(SpecM ln sn _ _ _) <- per_module_result_tab, table_name `elem` [ln, sn]]
     of
         [] -> error ("can't find table named: " ++ table_name)
         (r:_) -> r
@@ -306,7 +307,7 @@ normalise norm = case norm of
              NormaliseNone    -> \_base res -> toBox res
 
 latexModTable :: [ResultTable] -> PerModuleTableSpec -> Normalise -> Bool -> ShowS
-latexModTable results (SpecM __ _ get_results result_ok) norm inc_baseline
+latexModTable results (SpecM _ _ _ get_results result_ok) norm inc_baseline
   = latex_show_multi_results results get_results result_ok norm inc_baseline
 
 latex_show_multi_results
@@ -367,7 +368,7 @@ asciiGenProgTable results args norm (SpecP long_name _ _ get_result get_status r
   . ascii_show_results results args get_result get_status result_ok norm
 
 asciiGenModTable :: [ResultTable] -> [String] -> PerModuleTableSpec -> ShowS
-asciiGenModTable results args (SpecM long_name _ get_result result_ok)
+asciiGenModTable results args (SpecM long_name _ _ get_result result_ok)
   = str long_name
   . str "\n"
   . ascii_show_multi_results results args get_result result_ok
@@ -542,10 +543,10 @@ csvTable :: [ResultTable] -> String -> Normalise -> Bool -> String
 csvTable results table_name norm stddev
   = case
         [ csvProgTable results spec norm stddev "\n"
-        | spec@(SpecP _ n _ _ _ _) <- per_prog_result_tab, n == table_name ]
+        | spec@(SpecP ln sn _ _ _ _) <- per_prog_result_tab, table_name `elem` [ln, sn]]
         ++
         [ csvModTable results spec norm stddev "\n"
-        | spec@(SpecM n _ _ _) <- per_module_result_tab, n == table_name ]
+        | spec@(SpecM ln sn _ _ _) <- per_module_result_tab, table_name `elem` [ln, sn]]
     of
         [] -> error ("can't find table named: " ++ table_name)
         (r:_) -> r
@@ -582,7 +583,7 @@ csv_show_results (r:rs) f stat _result_ok norm stddev
         stddevbox b = [str (showBox b), str "0"]
 
 csvModTable :: [ResultTable] -> PerModuleTableSpec -> Normalise -> Bool -> ShowS
-csvModTable results (SpecM _ _ get_result result_ok)
+csvModTable results (SpecM _ _ _ get_result result_ok)
              norm stddev
   = csv_show_multi_results results get_result result_ok norm stddev
 
