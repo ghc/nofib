@@ -13,8 +13,8 @@ module CmdLine
     where
 
 import System.Console.GetOpt
-import System.Environment	( getArgs )
-import System.IO.Unsafe		( unsafePerformIO )
+import System.Environment       ( getArgs )
+import System.IO.Unsafe         ( unsafePerformIO )
 
 -----------------------------------------------------------------------------
 -- Command line arguments
@@ -25,14 +25,14 @@ args = unsafePerformIO getArgs
 flags :: [CLIFlags]
 other_args :: [String]
 cmdline_errors :: [String]
-(flags, other_args, cmdline_errors) = getOpt Permute argInfo args 
+(flags, other_args, cmdline_errors) = getOpt Permute argInfo args
 
 default_tooquick_threshold, tooquick_threshold :: Float
 default_tooquick_threshold = 0.2 {- secs -}
 tooquick_threshold
  = case [ i | OptIgnoreSmallTimes i <- flags ] of
-	[] -> default_tooquick_threshold
-	(i:_) -> i
+        [] -> default_tooquick_threshold
+        (i:_) -> i
 
 devs, nodevs :: Bool
 devs   = OptDeviations   `elem` flags
@@ -67,31 +67,31 @@ usage :: String
 usage = usageInfo usageHeader argInfo
 
 argInfo :: [ OptDescr CLIFlags ]
-argInfo = 
-  [ Option ['?'] ["help"]    (NoArg OptHelp)        
-	"Display this message"
-  , Option ['a'] ["ascii"]   (NoArg OptASCIIOutput) 
-	"Produce ASCII output (default)"
+argInfo =
+  [ Option ['?'] ["help"]    (NoArg OptHelp)
+        "Display this message"
+  , Option ['a'] ["ascii"]   (NoArg OptASCIIOutput)
+        "Produce ASCII output (default)"
   , Option ['i'] ["ignore"]  (ReqArg (OptIgnoreSmallTimes . read) "secs")
-	"Ignore runtimes smaller than <secs>"
+        "Ignore runtimes smaller than <secs>"
   , Option ['d'] ["deviations"] (NoArg OptDeviations)
-	"Display deviations (default)"
+        "Display deviations (default)"
   , Option ['l'] ["latex"]    (OptArg OptLaTeXOutput "TABLE")
-	"Produce LaTeX output"
+        "Produce LaTeX output"
   , Option [] ["columns"] (ReqArg OptColumns "COLUMNS")
-	"Specify columns for summary table (comma separates)"
+        "Specify columns for summary table (comma separates)"
   , Option [] ["rows"] (ReqArg OptRows "ROWS")
-	"Specify rows for summary table (comma separates)"
+        "Specify rows for summary table (comma separates)"
   , Option [] ["csv"] (ReqArg OptCSV "TABLE")
-	"Output a single table in CSV format"
+        "Output a single table in CSV format"
   , Option [] ["normalise"] (ReqArg OptNormalise "percent|ratio|none")
-	"normalise to the baseline"
+        "normalise to the baseline"
   , Option [] ["stddev"] (NoArg OptStdDev)
         "include standard deviations in CSV output"
   , Option ['n'] ["nodeviations"] (NoArg OptNoDeviations)
-	"Hide deviations"
+        "Hide deviations"
   , Option ['t'] ["title"] (ReqArg OptTitle "title")
-	"Specify report title"
+        "Specify report title"
   , Option ['b'] ["include-baseline"] (NoArg OptShowBaseline)
         "Include the baseline column (LaTeX)"
   ]
