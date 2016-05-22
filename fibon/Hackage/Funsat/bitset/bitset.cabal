@@ -16,5 +16,5 @@ Build-type:          Simple
 
 Exposed-modules:     Data.BitSet
 Ghc-options:         -Wall
-Ghc-prof-options:    -prof -auto-all
+Ghc-prof-options:    -prof -fprof-auto
 Extra-source-files:  tests/Properties.hs

@@ -19,5 +19,5 @@ Exposed-modules:     Data.BitSet
 Build-depends:       base >= 4.0.0
 Extensions:          ScopedTypeVariables, DeriveDataTypeable
 Ghc-options:         -Wall -O2
-Ghc-prof-options:    -prof -auto-all
+Ghc-prof-options:    -prof -fprof-auto
 Extra-source-files:  tests/Properties.hs

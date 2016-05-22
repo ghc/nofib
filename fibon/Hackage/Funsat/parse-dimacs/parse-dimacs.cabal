@@ -26,7 +26,7 @@ Extra-source-files:  CHANGES
 --                      -fwarn-incomplete-patterns
 --                      -fwarn-dodgy-imports -fwarn-incomplete-record-updates
 --                      -fwarn-unused-binds -fwarn-unused-imports
---  Ghc-prof-options:   -auto-all
+--  Ghc-prof-options:   -fprof-auto
 --  Hs-source-dirs:     . tests
 --  Other-modules:      Language.CNF.Parse.ParseDIMACS
 

@@ -45,7 +45,7 @@ library
   GHC-Options:            -Wall -O2
   -- GHC-Options:            -Wall -Werror -O2
   -- GHC-Options:            -Wall -ddump-minimal-GHC
-  -- imports-Prof-Options:       -auto-all
+  -- imports-Prof-Options:       -fprof-auto
   -- Hugs-Options:
   -- NHC-Options:
   -- Includes:
