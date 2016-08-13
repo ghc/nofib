@@ -598,7 +598,7 @@ sub process_cachegrind_files {
 	   $TotWrites =~ s/,//g;
 	};
 
-	/^==\d+==\s+L2d\s+misses:\s+([0-9,]+)/ && do {
+	/^==\d+==\s+L2|Ld\s+misses:\s+([0-9,]+)/ && do {
 	   $TotMisses = $1;
 	   $TotMisses =~ s/,//g;
 	};
