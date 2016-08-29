@@ -7,7 +7,6 @@ all::
 	$(RM) -f $(PROG)
 	echo '#!$(PERL)'                               >> $(PROG)
 	echo '$$RM             = "$(RM)";'             >> $(PROG)
-	echo '$$DEFAULT_TMPDIR = "$(DEFAULT_TMPDIR)";' >> $(PROG)
 	echo '$$CONTEXT_DIFF   = "$(CONTEXT_DIFF)";'   >> $(PROG)
 	cat $(PROG).prl                                >> $(PROG)
 	$(EXECUTABLE_FILE) $(PROG)

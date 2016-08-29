@@ -20,7 +20,6 @@ SIZE = size
 STRIP = strip
 PERL = /usr/bin/perl
 CONTEXT_DIFF = diff -U 1
-DEFAULT_TMPDIR = /tmp
 EXECUTABLE_FILE = chmod +x
 
 # Benchmarks controls which set of tests should be run
