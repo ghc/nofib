@@ -18,13 +18,13 @@ fasta-c : ../fasta/fasta-c.c
 	$(CC) -std=gnu99 -O3 -fomit-frame-pointer $< -o $@
 
 knucleotide-input250000.txt : fasta-c
-	./fasta-c $(FAST_OPTS) > $@
+	./fasta-c $(FAST_OPTS) | tr -d '\r' > $@
 
 knucleotide-input2500000.txt : fasta-c
-	./fasta-c $(NORM_OPTS) > $@
+	./fasta-c $(NORM_OPTS) | tr -d '\r' > $@
 
 knucleotide-input25000000.txt : fasta-c
-	./fasta-c $(SLOW_OPTS) > $@
+	./fasta-c $(SLOW_OPTS) | tr -d '\r' > $@
 
 ifeq "$(mode)" "slow"
  INPUT_FILE = knucleotide-input25000000.txt

@@ -19,8 +19,16 @@ RM = rm -f
 SIZE = size
 STRIP = strip
 PERL = /usr/bin/perl
-CONTEXT_DIFF = diff -U 1
+CONTEXT_DIFF_RAW = diff -U 1
 EXECUTABLE_FILE = chmod +x
+
+# Windows MSYS specific settings
+ifeq ($(shell uname -o), Msys)
+	exeext=.exe
+	CONTEXT_DIFF=$(CONTEXT_DIFF_RAW) --strip-trailing-cr
+else
+	CONTEXT_DIFF=$(CONTEXT_DIFF_RAW)
+endif
 
 # Benchmarks controls which set of tests should be run
 # You can run one or more of
