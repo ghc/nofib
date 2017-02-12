@@ -1,7 +1,0 @@
-# test the ability to "jump" across NNNNNs
->t0
-CACGTTAACGTNNNNNNNAAGCACCGAT
->t1
-                     CACCGATCGTAATG
->t2
-CACGTTAACNNNNNN

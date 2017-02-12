@@ -1,6 +1,0 @@
-
-HaLeX_DIR = /home/jas/HaLeX
-HaLeX_SOURCE = $(HaLeX_DIR)/src
-
-animation:
-	ghc --make -I$(HaLeX_SOURCE) -i$(HaLeX_SOURCE) -package util -O2 $(HaLeX_SOURCE)/MainAnim.hs -o animation	
