@@ -7,7 +7,7 @@ SUBDIRS = anna bspt cacheprof compress compress2 fem fluid fulsom gamteb gg \
 
 # Omitted: 
 #	HMMS	binary file endian-ness problems
-OTHER_SUBDIRS = HMMS PolyGP ebnf2ps linear rx
+OTHER_SUBDIRS = HMMS PolyGP linear rx
 
 include $(TOP)/mk/target.mk
 

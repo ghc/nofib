@@ -1,4 +1,0 @@
-RAtom	 = character | "\\" character | "." | "\\(" Regexp "\\)" .
-RExtAtom = RAtom ["*" | "+" | "?"] .
-RFactor	 = RExtAtom + .
-Regexp	 = Factor / "\\|" ["$"].
