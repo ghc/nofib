@@ -1,3 +1,13 @@
+UPDATE(2017.01)
+---------------
+
+To simplify the setup of the test, we have removed some of the unnecessary code
+(e.g., non-Haskell versions of the program). Please see:
+https://phabricator.haskell.org/D3041
+
+ORIGINAL README
+---------------
+
 This is the README file for the "nucleic2" benchmark program.
 
 The following files are contained in the tar file associated with
