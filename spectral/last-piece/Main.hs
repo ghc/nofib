@@ -4,9 +4,9 @@
 
 module Main where
 import Prelude hiding( flip )
-import Pretty
 import Data.Maybe
-import FiniteMap
+import Text.PrettyPrint
+import qualified Data.Map as Map
 
 ----------------------------
 --	Driver
@@ -119,19 +119,19 @@ check  :: Board -> Square -> Maybe PieceId
 extend 	     :: Board -> Square -> PieceId -> Board
 extend_maybe :: Board -> Square -> PieceId -> Maybe Board
 
-type Board = FiniteMap Square PieceId
+type Board = Map.Map Square PieceId
 
-emptyBoard = emptyFM
+emptyBoard = Map.empty
 
-check bd sq = lookupFM bd sq
+check bd sq = Map.lookup sq bd
 
-extend bd sq id = addToFM bd sq id
+extend bd sq id = Map.insert sq id bd
 
 extend_maybe bd sq@(row,col) id 
   | row > maxRow || col < 1 || col > maxCol
   = Nothing
   | otherwise
-  = case lookupFM bd sq of
+  = case check bd sq of
 	Just _  -> Nothing
 	Nothing -> Just (extend bd sq id)
 
