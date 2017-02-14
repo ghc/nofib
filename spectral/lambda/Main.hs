@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Main( main ) where
 
 -- From Mark: marku@cs.waikato.ac.nz [Nov 2001]
@@ -37,6 +39,9 @@ module Main( main ) where
 --              
 
 import System.Environment
+
+import Control.Monad.Trans.State.Strict
+import Data.Functor.Identity
 
 main :: IO ()
 main = do { mainSimple ; mainMonad }
@@ -81,8 +86,7 @@ type Env = [(String,Term)]
 ----------------------------------------------------------------------
 ev :: Term -> IO (Env,Term)
 ev t =
-    do  let StateMonad2 m = traverseTerm t
-	let (env,t2) = m []
+    do  let (t2, env) = runState (traverseTerm t :: State Env Term) []
 	putStrLn (pp t2 ++ "  " ++ ppenv env)
 	return (env,t2)
 
@@ -102,32 +106,16 @@ class (Monad m) => EvalEnvMonad m where
     withEnv   :: Env -> m a -> m a  -- uses the given environment
     pushVar v t m = do env <- currEnv; withEnv ((v,t):env) m
 
-
--- Here is a monad that evaluates the term.
-newtype StateMonad2 a = StateMonad2 (Env -> (Env,a))
-
-instance (Show a) => Show (StateMonad2 a) where
-    show (StateMonad2 f) = show (f [])
-
-instance Monad StateMonad2  where
-    return a = StateMonad2 (\s -> (s,a))
-    fail msg = StateMonad2 (\s -> (s,error msg))
-    (StateMonad2 g) >>= h =
-	StateMonad2 (\a -> (let (s,a1) = g a in
-			    (let StateMonad2 h' = h a1 in
-			     h' s)))
-
-instance EvalEnvMonad StateMonad2 where
-    incr = StateMonad2 (\s -> (s,()))
+instance EvalEnvMonad (State Env) where
+    incr = return ()
     traverseTerm = eval
-    lookupVar v =
-	StateMonad2 (\env -> (env, lookup2 env))
+    lookupVar v = do
+          env <- get
+          return $ lookup2 env
 	where
-	lookup2 env = maybe (error ("undefined var: " ++ v)) id (lookup v env)
-    currEnv =
-	StateMonad2 (\env -> (env,env))
-    withEnv tmp (StateMonad2 m) =
-	StateMonad2 (\env -> let (_,t) = m tmp in (env,t))
+          lookup2 env = maybe (error ("undefined var: " ++ v)) id (lookup v env)
+    currEnv = get
+    withEnv tmp m = return (evalState m tmp)
 
 
 eval :: (EvalEnvMonad m) => Term -> m Term
@@ -171,15 +159,11 @@ apply a b         = fail ("bad application: " ++ pp a ++
 -- A directly recursive Eval, with explicit environment
 ----------------------------------------------------------------------
 -- A trivial monad so that we can use monad syntax.
-data Id a = Id a
-
-instance Monad Id where
-    return t = Id t
-    fail = error
-    (Id t) >>= f = f t
+newtype Id a = Id (Identity a)
+    deriving (Applicative, Functor, Monad)
 
 instance Show a => Show (Id a) where
-    show (Id t) = show t
+    show (Id i) = show (runIdentity i)
 
 simpleEval :: Env -> Term -> Id Term
 simpleEval env (Var v) =
