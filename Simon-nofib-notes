@@ -384,3 +384,15 @@ which leads to numerous file opens/closes.  Allocations will rise with
 the new I/O subsystem in 5.02 because the I/O buffer will be
 re-allocated on the heap for each open, whereas previously it would be
 allocated on the C heap and therefore not show up in the stats.
+
+---------------------------------------
+	Shootout suite
+---------------------------------------
+
+binary-tree
+~~~~~~~~~~~
+
+In May 2016, a series of seemingly unrelated commits changed the runtime
+performance of this up and down by ~3%. Maybe a performance cliff. Mailinglist
+thread:
+https://mail.haskell.org/pipermail/ghc-devs/2017-March/013886.html
