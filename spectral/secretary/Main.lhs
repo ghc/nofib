@@ -16,27 +16,19 @@ import System.Random
 import Data.List
 import System.IO
 import Control.Monad
-import IOExts
 
 type Process = [Integer] -> Bool
 
--- added by SimonM
-randomRIOs :: Random a => (a,a) -> IO [a]
-randomRIOs rng 
-  = do rs <- unsafeInterleaveIO (randomRIOs rng)
-       r  <- randomRIO rng
-       return (r:rs)
+-- Modified for Haskell 98 by SimonM
+-- (2017-03): Modified by michalt to fix build and avoid global RNG
+simulate :: Int -> Integer -> Process -> Double
+simulate n m proc = length (filter id tries) // n
+  where
+    tries = [ proc (randomRs (1,m) (mkStdGen seed)) | seed <- [1..n] ]
+    n // m = fromIntegral n / fromIntegral m
 
--- modified for Haskell 98 by SimonM
-simulate :: Int -> Integer -> Process -> IO Double
-simulate n m proc =
-  do tries <- sequence [ fmap proc (randomRIOs (1,m)) | _ <- [1..n] ]
-     return (length (filter id tries) // n)
- where
-  n // m = fromInt n / fromInt m
-
-sim :: Int -> IO Double
-sim k = simulate 1000 100 proc
+sim :: Int -> Double
+sim k = simulate 5000 100 proc
  where
   proc rs = [best] == take 1 afterk
    where
@@ -46,9 +38,7 @@ sim k = simulate 1000 100 proc
     afterk = dropWhile (< bestk) (drop k xs)
 
 main :: IO ()
-main =
-  do ps <- sequence [ sim k | k <- [35..39] ]
-     print ps
+main = print [ sim k | k <- [35..39] ]
 \end{code}
 
 When I run this module with ghc-4.01, I get _wrong_ results, and a bus
