@@ -7,8 +7,7 @@ SUBDIRS = ansi atom awards banner boyer boyer2 calendar cichelli circsim \
 	  mandel mandel2 mate minimax multiplier para power pretty primetest \
 	  puzzle rewrite scc secretary simple sorting sphere treejoin
 
-# compreals	no suitable test data
-OTHER_SUBDIRS = compreals lambda last-piece triangle
+OTHER_SUBDIRS = lambda last-piece triangle
 
 include $(TOP)/mk/target.mk
 
