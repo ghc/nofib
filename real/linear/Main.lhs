@@ -129,7 +129,7 @@ main resps
 \begin{code}
 main = putStr result
           where
-          result = test bilu test_data 4 conv2
+          result = test bilu test_data 16 conv2
 
 test_data = hard_data 
 
