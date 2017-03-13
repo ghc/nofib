@@ -1,6 +1,0 @@
-treeDepth= 5
-popSize= 5000
-randomInt= 20
-maxEval= 30000
-parScale= 0.999
-xOverRate= 1000
