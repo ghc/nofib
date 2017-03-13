@@ -8,8 +8,7 @@ SUBDIRS = ansi atom awards banner boyer boyer2 calendar cichelli circsim \
 	  puzzle rewrite scc simple sorting sphere treejoin
 
 # compreals	no suitable test data
-# salishan	no Haskell code!
-OTHER_SUBDIRS = compreals lambda last-piece salishan secretary triangle
+OTHER_SUBDIRS = compreals lambda last-piece secretary triangle
 
 include $(TOP)/mk/target.mk
 
