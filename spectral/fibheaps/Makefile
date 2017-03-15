@@ -1,7 +1,7 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-​SRC_HC_OPTS += -package array
+SRC_HC_OPTS += -package array
 
 FAST_OPTS = 5000
 NORM_OPTS = 5000
