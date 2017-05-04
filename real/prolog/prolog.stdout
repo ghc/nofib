@@ -1,6 +1,6 @@
 Mini Prolog Version 1.5 (stack based)
 
-Reading stdlib........done
+Reading runtime_files/stdlib........done
 > ??
 append(nil,X,X).
 append(cons(X,Y),Z,cons(X,W)):==append(Y,Z,W).

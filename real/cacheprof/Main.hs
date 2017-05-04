@@ -1439,8 +1439,8 @@ main = seq stderr (       -- avoid bug in ghc-4.04
           f   <- getContents
           aux <- case prof_level of
                   0 -> return ""
-                  1 -> readFile "cacheprof_hooks1_x86.s"
-                  2 -> readFile "cacheprof_hooks2_x86.s"
+                  1 -> readFile "runtime_files/cacheprof_hooks1_x86.s"
+                  2 -> readFile "runtime_files/cacheprof_hooks2_x86.s"
 
           out <- doFile prof_level args f
           putStr out

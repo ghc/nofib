@@ -1,6 +1,6 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
-PROG_ARGS = inverter 345 10n 4u 1
+PROG_ARGS = runtime_files/inverter 345 10n 4u 1
 include $(TOP)/mk/target.mk
 
 

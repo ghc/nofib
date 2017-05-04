@@ -55,7 +55,7 @@ main              = --echo False abort
                       interpreter clauses
 
 stdlib           :: String
-stdlib            = "stdlib"
+stdlib            = "runtime_files/stdlib"
 
 interpreter      :: [Clause] -> IO ()
 interpreter lib   = getContents >>= \ is ->

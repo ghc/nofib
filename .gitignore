@@ -41,7 +41,7 @@ real/hidden/hidden
 real/hpg/hpg
 real/infer/infer
 real/lift/lift
-real/maillist/addresses.tex
+real/maillist/runtime_files/addresses.tex
 real/maillist/maillist
 real/mkhprog/mkhprog
 real/parser/parser

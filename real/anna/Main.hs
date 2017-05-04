@@ -158,7 +158,7 @@ main :: IO ()
 main = do
     raw_args <- getArgs
     let cmd_line_args = maGetFlags raw_args
-    tableStr <- readFile ("anna_table")
+    tableStr <- readFile ("runtime_files/anna_table")
     file_contents <- getContents
     let table = rtReadTable tableStr
     putStr (maStrictAn table cmd_line_args file_contents)
