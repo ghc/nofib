@@ -17,27 +17,28 @@ HC_OPTS += -O2 -XBangPatterns -package bytestring
 fasta-c : ../fasta/fasta-c.c
 	$(CC) -std=gnu99 -O3 -fomit-frame-pointer $< -o $@
 
-knucleotide-input250000.txt : fasta-c
+k-nucleotide.faststdin : fasta-c
 	./fasta-c $(FAST_OPTS) | tr -d '\r' > $@
 
-knucleotide-input2500000.txt : fasta-c
+k-nucleotide.stdin : fasta-c
 	./fasta-c $(NORM_OPTS) | tr -d '\r' > $@
 
-knucleotide-input25000000.txt : fasta-c
+k-nucleotide.slowstdin : fasta-c
 	./fasta-c $(SLOW_OPTS) | tr -d '\r' > $@
 
+# Since we only decide here what the INPUT_FILE is, it's required to first run
+# `make boot` and only than `make` (otherwise `make` doesn't "see" the file and
+# doesn't call `runstdtest` correctly)
 ifeq "$(mode)" "slow"
- INPUT_FILE = knucleotide-input25000000.txt
+ INPUT_FILE = k-nucleotide.slowstdin
 else
  ifeq "$(mode)" "fast"
-  INPUT_FILE = knucleotide-input250000.txt
+  INPUT_FILE = k-nucleotide.faststdin
  else
-  INPUT_FILE = knucleotide-input2500000.txt
+  INPUT_FILE = k-nucleotide.stdin
  endif
 endif
 
-SRC_RUNTEST_OPTS += -i $(INPUT_FILE)
-
-all boot :: $(INPUT_FILE)
+boot :: $(INPUT_FILE)
 
 include $(TOP)/mk/target.mk

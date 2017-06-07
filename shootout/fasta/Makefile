@@ -28,9 +28,9 @@ fasta.stdout : fasta-c
 fasta.slowstdout : fasta-c
 	./fasta-c $(SLOW_OPTS) > $@
 
-# Since the stdout files are created during the run the runstdtest
-# script doesn't correctly pick them up, so we have to specify them
-# explicitly here.
+# Since we only decide here what the INPUT_FILE is, it's required to first run
+# `make boot` and only than `make` (otherwise `make` doesn't "see" the file and
+# doesn't call `runstdtest` correctly)
 ifeq "$(mode)" "slow"
  STDOUT_FILE = fasta.slowstdout
 else
@@ -41,8 +41,6 @@ else
  endif
 endif
 
-SRC_RUNTEST_OPTS += -o1 $(STDOUT_FILE)
-
-all boot :: $(STDOUT_FILE)
+boot :: $(STDOUT_FILE)
 
 include $(TOP)/mk/target.mk
