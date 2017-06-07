@@ -1,9 +1,0 @@
-# ignore N test -- fails somewhat with -k 5, works with -k 6 (due to repeated TAACG, I'll bet)
->t0
- TAACGTAAGCACCGATTAACGGTAA
->t1
-        AGCACCGATTAACGGTAN
->t2
-NTAACGTAAGCACCG
->t3
-      TAAGCNNCGATTAA
