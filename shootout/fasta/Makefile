@@ -20,13 +20,13 @@ fasta-c : fasta-c.c
 	$(CC) -std=gnu99 -O3 -fomit-frame-pointer $< -o $@
 
 fasta.faststdout : fasta-c
-	./fasta-c $(FAST_OPTS) > $@
+	./fasta-c $(FAST_OPTS) | tr -d '\r' > $@
 
 fasta.stdout : fasta-c
-	./fasta-c $(NORM_OPTS) > $@
+	./fasta-c $(NORM_OPTS) | tr -d '\r' > $@
 
 fasta.slowstdout : fasta-c
-	./fasta-c $(SLOW_OPTS) > $@
+	./fasta-c $(SLOW_OPTS) | tr -d '\r' > $@
 
 # Since we only decide here what the INPUT_FILE is, it's required to first run
 # `make boot` and only than `make` (otherwise `make` doesn't "see" the file and

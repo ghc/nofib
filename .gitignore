@@ -1,4 +1,5 @@
 # Generated file patterns
+*.exe
 *.o
 *.hi
 .depend

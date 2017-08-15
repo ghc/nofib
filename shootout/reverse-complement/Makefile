@@ -51,13 +51,13 @@ revcomp-c : revcomp-c.o
 	gcc $< -o $@ -pthread
 
 reverse-complement.faststdout : revcomp-c $(INPUT_FILE)
-	./revcomp-c < $(INPUT_FILE) > $@
+	./revcomp-c < $(INPUT_FILE) | tr -d '\r' > $@
 
 reverse-complement.stdout : revcomp-c $(INPUT_FILE)
-	./revcomp-c < $(INPUT_FILE) > $@
+	./revcomp-c < $(INPUT_FILE) | tr -d '\r' > $@
 
 reverse-complement.slowstdout : revcomp-c $(INPUT_FILE)
-	./revcomp-c < $(INPUT_FILE) > $@
+	./revcomp-c < $(INPUT_FILE) | tr -d '\r' > $@
 
 # Since we only decide here what the OUTPUT_FILE is, it's required to first run
 # `make boot` and only than `make` (otherwise `make` doesn't "see" the file and

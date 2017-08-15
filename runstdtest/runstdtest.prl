@@ -55,11 +55,9 @@ if ( $ENV{'TMPDIR'} ) { # where to make tmp file names
     $TmpPrefix = '/tmp';
     $ENV{'TMPDIR'} = '/tmp'; # set the env var as well
 }
-$cmp = "cmp -s";
 # If this is Msys, ignore eol and CR characters.
 if ( `uname -s | grep MSYS` ) {
     $CONTEXT_DIFF=$CONTEXT_DIFF . " --strip-trailing-cr" ;
-    $cmp = $CONTEXT_DIFF . " -q";
 }
 $ScriptFile = "$TmpPrefix/run_me$$";
 $DefaultStdoutFile = "$TmpPrefix/no_stdout$$"; # can't use /dev/null (e.g. Alphas)
@@ -235,17 +233,17 @@ $TimeCmd /bin/sh -c \'$CachegrindPrefix $ToRun $TimingMagic @PgmArgs < $PgmStdin
 progexit=\$?
 if [ "$StdoutBinary" = "0" ]; then
     # remove Windows \r carraige-returns
-    LC_CTYPE=C tr -d '\r' < $TmpPrefix/runtest$$.1.raw > $TmpPrefix/runtest$$.1
+    LC_CTYPE=C tr -d '\\r' < $TmpPrefix/runtest$$.1.raw > $TmpPrefix/runtest$$.1
 else
     cp $TmpPrefix/runtest$$.1.raw $TmpPrefix/runtest$$.1
 fi
 if [ "$StderrBinary" = "0" ]; then
     # remove Windows \r carraige-returns
-    LC_CTYPE=C tr -d '\r' < $TmpPrefix/runtest$$.2.raw > $TmpPrefix/runtest$$.2
+    LC_CTYPE=C tr -d '\\r' < $TmpPrefix/runtest$$.2.raw > $TmpPrefix/runtest$$.2
 else
     cp $TmpPrefix/runtest$$.2.raw $TmpPrefix/runtest$$.2
 fi
-LC_CTYPE=C tr -d '\r' < $TmpPrefix/runtest$$.3.raw > $TmpPrefix/runtest$$.3
+LC_CTYPE=C tr -d '\\r' < $TmpPrefix/runtest$$.3.raw > $TmpPrefix/runtest$$.3
 if [ \$progexit -eq 0 ] && [ $PgmFail -ne 0 ]; then
     echo $ToRun @PgmArgs \\< $PgmStdinFile
     echo "****" expected a failure, but was successful
@@ -259,7 +257,7 @@ else
     $PostScriptLines
     hit='NO'
     for out_file in @PgmStdoutFile ; do
-	if $cmp \$out_file $TmpPrefix/runtest$$.1 ; then
+	if cmp -s \$out_file $TmpPrefix/runtest$$.1 ; then
 	    hit='YES'
 	fi
     done
@@ -285,7 +283,7 @@ fi
 
 hit='NO'
 for out_file in @PgmStderrFile ; do
-    if $cmp \$out_file $TmpPrefix/runtest$$.2 ; then
+    if cmp -s \$out_file $TmpPrefix/runtest$$.2 ; then
 	hit='YES'
     fi
 done
