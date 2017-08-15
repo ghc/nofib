@@ -57,7 +57,7 @@ if ( $ENV{'TMPDIR'} ) { # where to make tmp file names
 }
 $cmp = "cmp -s";
 # If this is Msys, ignore eol and CR characters.
-if ( `uname -o | grep Msys` ) {
+if ( `uname -s | grep MSYS` ) {
     $CONTEXT_DIFF=$CONTEXT_DIFF . " --strip-trailing-cr" ;
     $cmp = $CONTEXT_DIFF . " -q";
 }
