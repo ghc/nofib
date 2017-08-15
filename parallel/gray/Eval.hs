@@ -14,6 +14,7 @@ import Data
 import Parse (rayParse, rayParseF)
 
 import Control.Parallel
+import Control.Monad (ap)
 
 class Monad m => MonadEval m where
   doOp :: PrimOp -> GMLOp -> Stack -> m Stack
@@ -23,6 +24,13 @@ class Monad m => MonadEval m where
   tick = return ()
 
 newtype Pure a = Pure a deriving Show
+
+instance Functor Pure where
+    fmap f (Pure x) = Pure (f x)
+
+instance Applicative Pure where
+    pure = Pure
+    Pure f <*> Pure x = Pure (f x)
 
 instance Monad Pure where
     Pure x >>= k = k x
@@ -293,11 +301,18 @@ newtype Abs a   = Abs { runAbs :: Int -> AbsState a }
 data AbsState a = AbsState a !Int
                 | AbsFail String
 
+instance Functor Abs where
+    fmap f = (pure f <*>)
+
+instance Applicative Abs where
+    pure x = Abs (\ n -> AbsState x n)
+    (<*>)  = ap
+
 instance Monad Abs where
     (Abs fn) >>= k = Abs (\ s -> case fn s of
 			           AbsState r s' -> runAbs (k r) s'
                                    AbsFail m     -> AbsFail m)
-    return x     = Abs (\ n -> AbsState x n)
+    return       = pure
     fail s       = Abs (\ n -> AbsFail s)
 
 instance MonadEval Abs where
