@@ -416,10 +416,15 @@ Same issue with GHC.IO.Encoding.UTF8 as treejoin
 	Real suite
 ---------------------------------------
 
+cacheprof
+~~~~~~~~~
+Sucessive runs with the same data can yield different allocation
+totals, for some reason.
+
 gg
 ~~
 Same issue with GHC.IO.Encoding.UTF8 as treejoin
-	
+
 Maillist
 ~~~~~~~~
 Uses appendFile repeatedly rather than opening the output file once,
