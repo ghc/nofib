@@ -126,7 +126,7 @@ eliza
 ~~~~~
 In June 2002, GHC 5.04 emitted four successive
     NOTE: Simplifier still going after 4 iterations; bailing out.
-messages.  I suspect that the simplifer is looping somehow.
+messages.  I suspect that the simplifier is looping somehow.
 
 fibheaps
 ~~~~~~~~
@@ -389,7 +389,7 @@ Omitting the flag gives much better inlining for $wvecsub at least.
 
 
 Sphere also does 60,000 calls to hPutStr, so I/O plays a major role.  Currently
-this I/O does a *lot* of allocation, much of it since the adddition of thread-safety.
+this I/O does a *lot* of allocation, much of it since the addition of thread-safety.
 
 
 treejoin
