@@ -12,15 +12,17 @@ import Control.Concurrent
 import Control.Monad
 import System.Environment
 import Foreign hiding (rotate)
-import Data.Monoid
+import Data.Semigroup
 
 type Perm = Ptr Word8
 
 data F = F {-# UNPACK #-} !Int {-# UNPACK #-} !Int
 
+instance Semigroup F where
+	F s1 m1 <> F s2 m2 = F (s1 + s2) (max m1 m2)
+
 instance Monoid F where
 	mempty = F 0 0
-	F s1 m1 `mappend` F s2 m2 = F (s1 + s2) (max m1 m2)
 
 incPtr = (`advancePtr` 1)
 decPtr = (`advancePtr` (-1))
