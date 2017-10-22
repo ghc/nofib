@@ -37,7 +37,7 @@ amino homosapiens[] = {
 #define WIDTH 60
 #define LENGTH(a) (sizeof(a)/sizeof(a[0]))
 
-inline void str_write(char *s) {
+static inline void str_write(char *s) {
    write(fileno(stdout), s, strlen(s));
 }
 

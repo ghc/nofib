@@ -5,6 +5,8 @@ include $(TOP)/mk/boilerplate.mk
 # we don't want to include fasta-c.c
 SRCS = Main.hs
 
+CLEAN_FILES += fasta-c fasta.faststdout fasta.stdout fasta.slowstdout
+
 FAST_OPTS = 250000
 NORM_OPTS = 2500000
 SLOW_OPTS = 25000000  # official shootout setting
