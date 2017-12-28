@@ -34,6 +34,7 @@ import Data.Char
 import Data.List
 import System.IO
 import System.Environment
+import System.Exit
 import Arch_x86
 import Generics
 
