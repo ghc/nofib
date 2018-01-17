@@ -23,6 +23,7 @@ instance Semigroup F where
 
 instance Monoid F where
 	mempty = F 0 0
+	mappend = (<>)
 
 incPtr = (`advancePtr` 1)
 decPtr = (`advancePtr` (-1))
