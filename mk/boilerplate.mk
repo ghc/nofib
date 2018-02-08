@@ -23,7 +23,7 @@ CONTEXT_DIFF_RAW = diff -U 1
 EXECUTABLE_FILE = chmod +x
 
 # Windows MSYS specific settings
-ifeq ($(shell uname -s | grep -c MSYS), 1)
+ifeq ($(shell uname -s | grep -c 'MSYS\|MINGW'), 1)
 	exeext=.exe
 	CONTEXT_DIFF=$(CONTEXT_DIFF_RAW) --strip-trailing-cr
 else
