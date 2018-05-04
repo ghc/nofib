@@ -13,6 +13,15 @@ whereas it didn't before.  So allocations go up a bit.
 	Imaginary suite
 ---------------------------------------
 
+queens
+~~~~~~
+The comprehension
+    gen n = [ (q:b) | b <- gen (n-1), q <- [1..nq], safe q 1 b]
+
+has, for each iteration of 'b', a new list [1..nq]. This can floated
+and hence and shared, or fused.  It's quite delicate which of the two
+happens.
+
 integrate
 ~~~~~~~~~
 integrate1D is strict in its second argument 'u', but it also passes 'u' to
@@ -21,7 +30,7 @@ slightly.
 
 gen_regexps
 ~~~~~~~~~~~
-I found that there were some very bad loss-of-arity cases in PrelShow.  
+I found that there were some very bad loss-of-arity cases in PrelShow.
   In particular, we had:
 
 	showl ""       = showChar '"' s
@@ -46,7 +55,7 @@ I found that there were some very bad loss-of-arity cases in PrelShow.
 
   So I've changed PrelShow.showLitChar to use explicit \s.  Even then, showl
   doesn't work, because GHC can't see that showl xs can be pushed inside the \s.
-  So I've put an explict \s there too.  
+  So I've put an explict \s there too.
 
 	showl ""       s = showChar '"' s
 	showl ('"':xs) s = showString "\\\"" (showl xs s)
@@ -59,7 +68,7 @@ queens
 If we do
  a) some inlining before float-out
  b) fold/build fusion before float-out
-then queens get 40% more allocation.  Presumably the fusion 
+then queens get 40% more allocation.  Presumably the fusion
 prevents sharing.
 
 
@@ -81,7 +90,7 @@ It's important to inline p_ident.
 There's a very delicate CSE in p_expr
    p_expr = seQ q_op [p_term1, p_op, p_term2] ## p_term3
 
-(where all the pterm1,2,3 are really just p_term).  
+(where all the pterm1,2,3 are really just p_term).
 
 This expands into
    p_expr s = case p_term1 s of
@@ -111,7 +120,7 @@ like this:
     	  xs7_s1i8 :: GHC.Prim.Int# -> [GHC.Base.Char]
     	  [Str: DmdType]
     	  xs7_s1i8 = go_r1og ys_aGO
-    	} in 
+    	} in
     	  \ (m_XWf :: GHC.Prim.Int#) ->
     	    case GHC.Prim.<=# m_XWf 1 of wild1_aSI {
     	      GHC.Base.False ->
@@ -144,7 +153,7 @@ up allocation.
 
 expert
 ~~~~~~
-In spectral/expert/Search.ask there's a statically visible CSE. Catching this 
+In spectral/expert/Search.ask there's a statically visible CSE. Catching this
 depends almost entirely on chance, which is a pity.
 
 reptile
@@ -229,9 +238,9 @@ it was inlined regardless by the instance-decl stuff.  So perf drops slightly.
 
 integer
 ~~~~~~~
-A good benchmark for beating on big-integer arithmetic.
-In this function:
+A good benchmark for beating on big-integer arithmetic
 
+There is a delicate interaction of fusion and full laziness in the comprehension
   integerbench :: (Integer -> Integer -> a)
   	       -> Integer -> Integer -> Integer
                -> Integer -> Integer -> Integer
@@ -242,12 +251,15 @@ In this function:
   	   , b <- [ bstart,astart+bstep..blim ]])
     return ()
 
-if you do a bit of inlining and rule firing before floating, we'll fuse
-the comprehension with the [bstart, astart+bstep..blim], whereas if you
-float first you'll share the [bstart...] list. The latter does 11% less
-allocation, but more case analysis etc.
+and the analogous one for Int.
 
-knights
+Since the inner loop (for b) doesn't depend on a, we could float the
+b-list out; but it may fuse first.  In GHC 8 (and most previous
+version) this fusion did happen at type Integer, but (accidentally) not for
+Int because an interving eval got in the way.  So the b-enumeration was floated
+out, which led to less allocation of Int values.
+
+Knights
 ~~~~~~~
 * In knights/KnightHeuristic, we don't find that possibleMoves is strict
   (with important knock-on effects) unless we apply rules before floating
@@ -261,7 +273,7 @@ knights
 lambda
 ~~~~~~
 This program shows the cost of the non-eta-expanded lambdas that arise from
-a state monad.  
+a state monad.
 
 mandel2
 ~~~~~~~
@@ -281,7 +293,7 @@ in particular, it did not inline windowToViewport
 
 multiplier
 ~~~~~~~~~~
-In spectral/multiplier, we have 
+In spectral/multiplier, we have
     xor = lift21 forceBit f
       where f :: Bit -> Bit -> Bit
 	    f 0 0 = 0
@@ -310,11 +322,11 @@ in runtime after 4.08
 puzzle
 ~~~~~~
 The main function is 'transfer'.  It has some complicated join points, and
-a big issue is the full laziness can float out many small MFEs that then 
+a big issue is the full laziness can float out many small MFEs that then
 make much bigger closures.  It's quite delicate: small changes can make
 big differences, and I spent far too long gazing at it.
 
-I found that in my experimental proto 4.09 compiler I had 
+I found that in my experimental proto 4.09 compiler I had
 
 	let ds = go xs in
 	let $j = .... ds ... in
@@ -332,7 +344,7 @@ Also, making concat into a good producer made a large gain.
 My proto 4.09 still allocates more, partly because of more full laziness relative
 to 4.08; I don't know why that happens
 
-Extra allocation is happening in 5.02 as well; perhaps for the same reasons.  There is 
+Extra allocation is happening in 5.02 as well; perhaps for the same reasons.  There is
 at least one instance of floating that prevents fusion; namely the enumerated lists
 in 'transfer'.
 
@@ -357,7 +369,7 @@ $wvecsub
 	      	   case ww5 of wild1 { D# y ->
 	      	   let { a3 = -## x y
 	      	   } in  $wD# a3
-	      	   } } 
+	      	   } }
 	} in  (# a, a1, a2 #)
 
 Currently it gets guidance: IF_ARGS 6 [2 2 2 2 2 2] 25 4
