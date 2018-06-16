@@ -1,4 +1,3 @@
-{-# OPTIONS_GHC -O2 #-}
 import System.IO
 import System.Environment
 import System.CPUTime

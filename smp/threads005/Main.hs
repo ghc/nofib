@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -O2 #-}
-
 -- Program from GHC ticket #1589, to test scaling of the RTS with many threads.
 
 {-
