@@ -18,7 +18,7 @@ show:
 RM = rm -f
 SIZE = size
 STRIP = strip
-PERL = /usr/bin/perl
+PERL = /usr/bin/env perl
 CONTEXT_DIFF_RAW = diff -U 1
 EXECUTABLE_FILE = chmod +x
 
