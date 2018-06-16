@@ -37,7 +37,7 @@ module HashTable
  ) where
 
 #ifdef __GLASGOW_HASKELL__
-import GHC.Base
+import GHC.Base hiding (mapM)
 #else
 import Prelude  hiding  ( lookup )
 #endif
