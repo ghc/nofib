@@ -4,11 +4,11 @@ Matrix inversion.
 
 Based on the NESL code presented in:
    Programming Parallel Algorithms
-   by Guy E. Blelloch 
+   by Guy E. Blelloch
    in CACM 39(3), March 1996
    URL: http://www.cs.cmu.edu/afs/cs.cmu.edu/project/scandal/public/www/nesl/alg-numerical.html
 
-The following inverts a dense matrix. 
+The following inverts a dense matrix.
 It uses Gauss-Jordan elimination without pivoting.
 
 \begin{code}
@@ -17,30 +17,30 @@ import Strategies
 #endif
 import Random
 
-dist a 0 = [] 
+dist a 0 = []
 dist a n = a : dist a (n-1)
 \end{code}
 
 \begin{code}
 -- gauss_jordan :: [[Int]] -> Int -> [[Int]]
 -- gauss_jordan :: (Fractional a) => [[a]] -> Int -> [[a]]
-gauss_jordan a i 
+gauss_jordan a i
  | i == length a = a
  | otherwise =
     let
 	(irow:ap) = a                     -- pivot row
 	val = irow !! i                   -- pivot elem
-	irow' = if val ==(0:%1) 
-	          then error "val==0" 
+	irow' = if val ==(0:%1)
+	          then error "val==0"
 		  else [ v/val | v <- irow ]     -- normalised pivot row
 	ap' = [ let scale = jrow !! i
 	        in [ v - scale*x | (x, v) <- zip irow' jrow ]
 	      | jrow <- ap ]
-         
+
         strategy x = parList rnf irow' `par`
                      parList rnf ap'   `par`
                      x	
-    in 
+    in
 #if defined(GRAN)
     strategy $
 #endif
@@ -52,19 +52,19 @@ matrix_inverse a =
     n = length a
     zeros = map fromIntegral (repeat 0)
 
-    -- Pad the matrix with the identity matrix (i.e. A ++ I) 
+    -- Pad the matrix with the identity matrix (i.e. A ++ I)
     ap = [ row ++ ((take i zeros)++[fromIntegral 1]++(take (n-i-1) zeros))
 	 | (row, i) <- zip a [0..n-1] ]
 
-    -- Run Gauss-Jordan elimination on padded matrix 
+    -- Run Gauss-Jordan elimination on padded matrix
     ap' = gauss_jordan ap 0
 
-  -- Drop the identity matrix at the front 
+  -- Drop the identity matrix at the front
   in [ drop n row | row <- ap']
 
 showMat l = foldr (++) "" (zipWith (++) (map show l) (repeat "\n"))
 
-main = 
+main =
 #ifdef PRINT
        {-
        putStr "Input:\n" >>
@@ -73,16 +73,16 @@ main =
        putStr (showMat ai) >>
        putStr "2xInverse:\n" >>
        putStr (showMat aii) >>
-       putStr (if a == aii then "OK\n" else "WRONG\n") >>       
+       putStr (if a == aii then "OK\n" else "WRONG\n") >>
        putStr ((take 70 (repeat '-')) ++ "\n") >>
-       -}       
+       -}
        putStr "Input:\n" >>
        putStr (showMat a0) >>
        putStr "\nInverse:\n" >>
-       putStr (showMat a0i) 
+       putStr (showMat a0i)
        --putStr "2xInverse:\n" >>
        --putStr (showMat a0ii) >>
-       --putStr (if a0 == a0ii then "OK\n" else "WRONG\n") >>       
+       --putStr (if a0 == a0ii then "OK\n" else "WRONG\n") >>
        {-
        putStr ((take 70 (repeat '-')) ++ "\n") >>
        putStr "Input:\n" >>
@@ -91,7 +91,7 @@ main =
        putStr (showMat bi) >>
        --putStr "2xInverse:\n" >>
        --putStr (showMat bii) >>
-       --putStr (if b == bii then "OK\n" else "WRONG\n") >>       
+       --putStr (if b == bii then "OK\n" else "WRONG\n") >>
        putStr ((take 70 (repeat '-')) ++ "\n") >>
        putStr "Input:\n" >>
        putStr (showMat c) >>
@@ -99,16 +99,16 @@ main =
        putStr (showMat ci) >>
        putStr "2xInverse:\n" >>
        putStr (showMat cii) >>
-       putStr (if c == cii then "OK\n" else "WRONG\n") >>       
+       putStr (if c == cii then "OK\n" else "WRONG\n") >>
        putStr ((take 70 (repeat '-')) ++ "\n")
        -}
 #else
        rnf a0i `seq` putStr "Inversion of a 4x4 matrix finished\n"
 #endif
      where
-           a :: [[Rational]]     
-	   a = [[1, 2, 1], 
-		[2, 1, 1], 
+           a :: [[Rational]]
+	   a = [[1, 2, 1],
+		[2, 1, 1],
 		[1, 1, 2]]
 	   ai = matrix_inverse a
 	   aii = matrix_inverse ai
@@ -118,19 +118,19 @@ main =
                   [  .7500000000  -.2500000000  -.2500000000 ]
                   [                                          ]
                   [ -.2500000000  -.2500000000   .7500000000 ]
-	   
+	
            -}
 
-           a0 :: [[Rational]]     
+           a0 :: [[Rational]]
 	   a0 = [[ 4,  0, -2, 1],
 		 [ 1,  3,  1, 0],
 		 [ 0, -1,  2, 1],
                  [-1,  2, -3, 0]]
 	   a0i = matrix_inverse a0
 	   a0ii = matrix_inverse a0i
-        	   
+        	
            {- Result:
-              a0i = 
+              a0i =
                         [   11             11      13  ]
                         [  ----   5/62  - ----  - ---- ]
                         [   62             62      62  ]
@@ -183,7 +183,7 @@ main =
    [  - -------   --------   - --------   -------    --------    - ------- ]
    [    6743021   13486042     13486042   6743021    13486042      6743021 ]
 
-           -}	   
+           -}	
 
            n = 8
            c_l = take (n*n) (r_list 99)
@@ -191,8 +191,8 @@ main =
                | otherwise    = let (a,b) = (splitAt n l) in (map fromIntegral a) : f b
            c :: [[Rational]]
            c = f c_l
-           ci = matrix_inverse c	   
-           cii = matrix_inverse ci	   
+           ci = matrix_inverse c	
+           cii = matrix_inverse ci	
 \end{code}
 
 -----------------------------------------------------------------------------
@@ -202,7 +202,7 @@ This is the original NESL code:
 
 function Gauss_Jordan(A,i) =
 if (i == #A) then A
-else 
+else
     let
 	(irow,Ap) = head_rest(A);
 	val = irow[i];

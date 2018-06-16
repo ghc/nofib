@@ -45,7 +45,7 @@ main = do
 -- generate many trees
 depth :: Int -> Int -> [(Int,Int,Int)]
 depth d m
-    | d <= m    = let 
+    | d <= m    = let
     	s = sumT d n 0
     	rest = depth (d+2) m
     	in s `par` ((2*n,d,s) : rest)

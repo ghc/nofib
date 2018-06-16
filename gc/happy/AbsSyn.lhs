@@ -47,7 +47,7 @@ generate some error messages.
 >       | TokenError    String                  -- %error
 >       | TokenAttributetype String             -- %attributetype
 >       | TokenAttribute String String          -- %attribute
- 
+
 
 #ifdef DEBUG
 
@@ -55,27 +55,27 @@ generate some error messages.
 
 #endif
 
-> getTokenType ds 
-> 	= case [ t | (TokenType t) <- ds ] of 
+> getTokenType ds
+> 	= case [ t | (TokenType t) <- ds ] of
 >		[t] -> t
 >		[]  -> error "no token type given"
 >		_   -> error "multiple token types"
 
 > getParserNames ds = [ t | t@(TokenName _ _ _) <- ds ]
 
-> getLexer ds 
+> getLexer ds
 > 	= case [ (a,b) | (TokenLexer a b) <- ds ] of
 > 		[t] -> Just t
 >		[]  -> Nothing
 >		_   -> error "multiple lexer directives"
 
-> getImportedIdentity ds 
+> getImportedIdentity ds
 > 	= case [ (()) | TokenImportedIdentity <- ds ] of
 > 		[_] -> True
 >		[]  -> False
 >		_   -> error "multiple importedidentity directives"
 
-> getMonad ds 
+> getMonad ds
 > 	= case [ (True,a,b,c,d) | (TokenMonad a b c d) <- ds ] of
 > 		[t] -> t
 >		[]  -> (False,"()","HappyIdentity",">>=","return")
@@ -101,7 +101,7 @@ generate some error messages.
 >                 []  -> Nothing
 >                 _   -> error "multiple expect directives"
 
-> getError ds 
+> getError ds
 > 	= case [ a | (TokenError a) <- ds ] of
 > 		[t] -> Just t
 >		[]  -> Nothing

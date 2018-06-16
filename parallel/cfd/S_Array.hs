@@ -18,7 +18,7 @@ module S_Array (
 import Data.List(partition)
 import Data.Ix
 
-import Norm 
+import Norm
 import Parallel
 
 infixl 9 !^

@@ -151,7 +151,7 @@ code_string input@(CBOX(c) : input2) old_code next_code (PT p@(PTE k v t) l r)
 --  };
 
 code_string input@(CBOX(c) : input_file2) old_code next_code PTNil
-    =   if (next_code _GE_ ILIT(4096)) 
+    =   if (next_code _GE_ ILIT(4096))
         then _TRIP_(input, old_code, PTNil)
         else _TRIP_(input, old_code, PT _PTE_(c, next_code, PTNil) PTNil PTNil);
 

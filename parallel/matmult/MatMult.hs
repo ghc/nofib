@@ -19,7 +19,7 @@ JB for ghc-6.9: replaced Control.Parallel.Strategies by a workaround
    (reexporting what should work)
 
 -}
-        
+
 module Main(main) where
 
 import System.Environment
@@ -41,7 +41,7 @@ parListChunk c strat l = let subLs = splitAtN c l
                          in parListStrict rnf evaluateMe
 
 #else
-import Control.Parallel.Strategies 
+import Control.Parallel.Strategies
 #endif
 
 -----------  matrix strategies here:
@@ -49,7 +49,7 @@ strats :: [ Int -> Strategy Matrix {- == Int -> [[Int]] -> Done -} ]
 strats = [ undefined, -- do not use it!
             lineStrat, blockStrat, columnStrat]
 names    = ["sequential",
-            "linewise", "blockwise", "columnwise"] 
+            "linewise", "blockwise", "columnwise"]
 
 lineStrat c          = parListChunk c rdeepseq -- OK?
 columnStrat c matrix = parListChunk c rdeepseq (transpose matrix) -- bad ?
@@ -69,7 +69,7 @@ type Matrix = [Vector]
 
 -- main computation, different versions:
 mult :: Int -> Matrix -> Matrix -> Int -> [[Maybe Matrix]]
-mult 0 m1 m2 _ = 
+mult 0 m1 m2 _ =
 #ifdef OUTPUT
         [[Just $ multMatricesTr m1 (transpose m2)]]
 #else
@@ -90,7 +90,7 @@ prMM' :: (Matrix,Matrix) -> Matrix
 prMM' (c,mt) = [[prVV f c | c <- mt]|f <-c]
 prVV :: Vector -> Vector -> Int
 prVV f c = sum (zipWith (*) f c)
- 
+
 shiftRight c [] = []
 shiftRight c (xs:xss) = (xs2++xs1):shiftRight (c-1) xss
  where (xs1,xs2) = splitAt c xs
@@ -101,7 +101,7 @@ join2 :: Matrix -> Matrix -> Matrix
 join2 xs ys = zipWith (++) xs ys
 join :: [Matrix] -> Matrix
 join xss = foldr join2 (repeat []) xss
-       
+
 splitIntoClusters :: Int -> Matrix -> [[Matrix]]
 splitIntoClusters c m | c < 1 = splitIntoClusters 1 m
 splitIntoClusters c m1 = mss
@@ -109,15 +109,15 @@ splitIntoClusters c m1 = mss
         bhsplit [] [] = []
         bhsplit [] _  = error "some elements left over"
 	bhsplit (t:ts) xs = hs : (bhsplit ts rest)
-	  	  where (hs,rest) = splitAt t xs   
-        ms  = bhsplit bh m1 -- blocks of rows 
+	  	  where (hs,rest) = splitAt t xs
+        ms  = bhsplit bh m1 -- blocks of rows
         mss = map (colsplit bh) ms
         colsplit [] _  = []
         colsplit (t:ts) rs
          | head rs == [] = []
          | otherwise = (cab:colsplit ts resto)
           where  (cab,resto) = unzip (map (splitAt t) rs)
-        
+
 --        mss = map (repartir (length m1 `div` c)) ms
 --        repartir c xs
 --         | head xs == [] = []
@@ -129,9 +129,9 @@ kPartition :: Int -> Int -> [Int]
 kPartition n k = zipWith (+) ((replicate (n `mod` k) 1) ++ repeat 0)
                              (replicate k (n `div` k))
 
-          
+
 mult' :: Int -> Int -> ((Matrix,Matrix),[Matrix],[Matrix]) -> (Maybe Matrix,[Matrix],[Matrix])
-mult' nc nr ((sm1,sm2),sm1s,sm2s) 
+mult' nc nr ((sm1,sm2),sm1s,sm2s)
 #ifdef OUTPUT
     =  (Just result,toRight,toDown)
 #else
@@ -143,13 +143,13 @@ mult' nc nr ((sm1,sm2),sm1s,sm2s)
         sms      = zipWith multMatricesTr (sm1:sm1s) (sm2':sm2s)
         result = foldl1' addMatrices sms  -- foldr1: not enough demand??
 
-        
+
 addMatrices :: Matrix -> Matrix -> Matrix
 addMatrices m1 m2 = zipWith addVectors m1 m2
   where addVectors :: Vector -> Vector -> Vector
         addVectors v1 v2 = zipWith (+) v1 v2
 
--- Assumes the second matrix has already been transposed        
+-- Assumes the second matrix has already been transposed
 multMatricesTr :: Matrix -> Matrix -> Matrix
 multMatricesTr m1 m2 = [[prodEscalar2 row col | col <- m2] | row <- m1]
 
@@ -180,7 +180,7 @@ foldl1' f (x:xs) = foldl' f x xs
 foldl'           ::  NFData a => (a -> b -> a) -> a -> [b] -> a
 foldl' f a []     = a
 foldl' f a (x:xs) = -- whnf, not enough( (foldl' f) $! (f a x)) xs
-		    let first = f a x 
+		    let first = f a x
 		    in rnf first `seq` foldl' f first xs
 
 
@@ -189,7 +189,7 @@ usage name = "Cannon's algorithm: Usage:\n\t "++
 	     name ++ " <matrix size> <version> <blocksPerRow> \n" ++
              "Version selects from " ++ show (zip [0..] names)
 
-main = do 
+main = do
        args <- getArgs
        let l = length args
        if l == 0 then do n <- getProgName
@@ -199,9 +199,9 @@ main = do
 
        let    size  = if null args then 100 else read (head args)
 	      opt   = if length args < 2 then 0 else read (args!!1)
-	      chunk = if length args < 3 then 1 
+	      chunk = if length args < 3 then 1
                                          else read (args!!2)
-	      a = "Matrices of size " ++ show size ++ 
+	      a = "Matrices of size " ++ show size ++
                   " with skeleton " ++ ((names++repeat "UNDEF")!!opt) ++
                   " using chunk parameter " ++ show chunk ++ "\n"
 	      res = mult opt (mA size) (mB size) chunk
@@ -212,30 +212,30 @@ main = do
        let computed = map (map fromJust) res
            computed' = concat (map join computed)
        printMat computed'
-       if (b == computed')  
+       if (b == computed')
                  then putStrLn "Correct!"
                  else do putStrLn "WRONG RESULT! Should be"
                          printMat b
 #else
        -- putStrLn "No Output, matrix stays distributed."
        putStrLn (show res)
-#endif        
+#endif
 
 
-         
+
 m1 size = replicate size [1..size]
 m2 size = listToListList size [1..size*size]
 mA size = if size <= 4000 then m1 size else listToListList size (concat (take 20 (repeat [1..(size*size `div` 20)])))
 mB size = if size <= 4000 then m1 size else listToListList size (concat (take 20 (repeat [0,2.. ((size*size) `div` 20)-2])))
-listToListList c m 
+listToListList c m
  | length m <= c = [m]
  | otherwise = c1 : listToListList c resto
   where (c1,resto) = splitAt c m
 
 
 printMat :: Matrix -> IO ()
-printMat m = putStrLn ("Matrix: " ++ (show (length (head m))) 
-                       ++ " x " ++ (show $ length m) ++ "\n" 
+printMat m = putStrLn ("Matrix: " ++ (show (length (head m)))
+                       ++ " x " ++ (show $ length m) ++ "\n"
                        ++ (showMat m))
 
 -- instance Show a => Show (Matrix a) where

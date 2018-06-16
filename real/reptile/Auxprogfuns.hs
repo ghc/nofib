@@ -20,7 +20,7 @@ concmap3 f _      _       _     = []
 
 -- see the pic related definitions for where the numbers come from
 
---CR numeric literals here not acceptable - needs abstraction 
+--CR numeric literals here not acceptable - needs abstraction
 display :: [(a, [[Int]])] -> [Char]
 display slist = concmap3 place [624,624,624,624,724,724,724,724]
 			      [676,776,876,976,676,776,876,976]
@@ -67,7 +67,7 @@ online [x0,y0,x1,y1] xp yp =
 	b2 = square (diff x1 xp) + square (diff y1 yp)
 	c2 = square (diff x0 xp) + square (diff y0 yp)
         dx = rabs (rsub (torat xp) xp')
-        dy = rabs (rsub (torat yp) yp') 
+        dy = rabs (rsub (torat yp) yp')
 
 --CR renamed firstline as thisline, firstcircs as thesecircs
 --CR note allowance for argument order bug using \\ instead of difference
@@ -76,8 +76,8 @@ deline ls [px,py] =
     deline' ls
     where
     deline' [] = ("",ls)
-    deline' (pl:pls) =  
-      if online thisline px py then 
+    deline' (pl:pls) =
+      if online thisline px py then
         (undraw thisline ++ (undo . wline) thisline ++ decircs, remove1 ls pl)
       else deline' pls
       where
@@ -97,7 +97,7 @@ listremove1 = foldl remove1
 -- functions to do with the drawing of lines and marking of circles
 -- in the design phase
 
--- as the x and y lists for the design area are the same, the function 
+-- as the x and y lists for the design area are the same, the function
 -- onedge can be defined without specifying onedgex and onedgey
 
 onedge :: Int -> Bool
@@ -134,7 +134,7 @@ circ6 x y = circle [x,y,6]
 -- drawing circles round them. It assumes that the x and y
 -- have been adjusted to allow for the dicky cursor.
 
-circsym :: Int -> Int -> ([Char], [Int]) 
+circsym :: Int -> Int -> ([Char], [Int])
 circsym xn yn = if onedge xn then (symcircs yn,[numassoc yn])
                 else if onedge yn then (symcircs xn,[numassoc xn])
                 else ("",[])
@@ -149,9 +149,9 @@ symcircs n = concat (zipWith circ6 (sympat n) (reverse (sympat n)))
 -- assumes the coordinates have already been corrected to allow
 -- for the deficiencies of the cursor, and to fit into the grid
 cs :: [Int] -> ([Char], [Int])
-cs [x0,y0,x1,y1] = 
+cs [x0,y0,x1,y1] =
 	(line [x0,y0,x1,y1] ++ circles0 ++ circles1, ids0++ids1)
-	where  
+	where
 	(circles0,ids0) = circsym x0 y0
 	(circles1,ids1) = circsym x1 y1
 

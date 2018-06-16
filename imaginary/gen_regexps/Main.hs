@@ -2,8 +2,8 @@
 -- !!! all the expansions of a generalised regular expression
 -- !!!
 --
--- RJE: Modified so it only outputs the number of characters in the output, 
--- rather that the output itself, thus avoiding having to generate such a 
+-- RJE: Modified so it only outputs the number of characters in the output,
+-- rather that the output itself, thus avoiding having to generate such a
 -- huge output file to get a reasonable execution time.
 
 module Main (main) where

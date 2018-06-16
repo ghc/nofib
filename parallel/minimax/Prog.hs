@@ -16,7 +16,7 @@ prog decaf = showMove (head game)
 	       --"OXO\n" ++
 	       --concat (map showMove game)
 	       where
-	       game = if decaf == 0 
+	       game = if decaf == 0
 	                then error "Decaffination error\n"
 			else alternate decaf X maxE minE testBoard
 

@@ -15,9 +15,9 @@
 % program was written for clarity, to explain a fairly tricky algorithm. The
 % figures are there to show that in spite of that clarity-first style, the
 % program is still suitable for sizable experiments.
-% 
+%
 % The sources (both Haskell and C++) are on my home page at
-% 
+%
 % http://www.comlab.ox.ac.uk/oucl/users/oege.demoor/homepage.htm
 
 %% created by ODM@15:00, August 5, 1995
@@ -67,25 +67,25 @@
 
 
 \title{Bridging the Algorithm Gap: \\
-  A Linear-time Functional Program \\ 
+  A Linear-time Functional Program \\
   for Paragraph Formatting}
 \author{
   \small\begin{tabular}[t]{l}
   {\large Oege de Moor}\\
-  Programming Research Group \\ 
+  Programming Research Group \\
   Oxford University\\
-  % Wolfson Building \\ 
-  % Parks Road \\ 
+  % Wolfson Building \\
+  % Parks Road \\
   % Oxford OX1 3QD, UK
   \texttt{oege@comlab.ox.ac.uk}
   \end{tabular}
   \and
   \small\begin{tabular}[t]{l}
   {\large Jeremy Gibbons}\\
-  School of Computing \& Math.\ Sciences \\ 
+  School of Computing \& Math.\ Sciences \\
   Oxford Brookes University\\
-  % Gipsy Lane \\ 
-  % Headington \\ 
+  % Gipsy Lane \\
+  % Headington \\
   % Oxford OX3 0BP, UK
   \texttt{jgibbons@brookes.ac.uk}
   \end{tabular}
@@ -112,7 +112,7 @@ expressiveness provided by a functional language would allow the whole story
 to be told in a reasonable amount of space. In this paper we use a
 functional language to present the development of a sophisticated algorithm
 all the way to the final code. We hope to bridge
-the algorithm gap between abstract and concrete implementations, 
+the algorithm gap between abstract and concrete implementations,
 and thereby facilitate communication between the two communities.
 \end{abstract}
 
@@ -125,18 +125,18 @@ of Computing and Mathematical Sciences, Oxford Brookes University.
 
 \section{Introduction}
 
-The paragraph formatting problem \cite{knuth81} is a favourite 
+The paragraph formatting problem \cite{knuth81} is a favourite
 example for demonstrating the effectiveness of formal methods.
 Two particularly convincing derivations can be found in \cite{bird86} and \cite{morgan94}.
-The algorithms derived in these references are applications of dynamic 
-programming, and their time complexity is 
-$O(min(w n,n^2))$, where $w$ is the 
-maximum number of words on a line, and $n$ is the number of words to 
-be formatted.  
+The algorithms derived in these references are applications of dynamic
+programming, and their time complexity is
+$O(min(w n,n^2))$, where $w$ is the
+maximum number of words on a line, and $n$ is the number of words to
+be formatted.
 
-Among algorithm designers it is well-known that one can solve the 
-paragraph problem in $O(n)$ time, independent of $w$ 
-\cite{eppstein92b,galil89,hirschberg87a,hirschberg87b}. 
+Among algorithm designers it is well-known that one can solve the
+paragraph problem in $O(n)$ time, independent of $w$
+\cite{eppstein92b,galil89,hirschberg87a,hirschberg87b}.
 Typical presentations of these linear
 algorithms do however ignore some details (for instance, that the white
 space on the last line does not count), thus creating an \emph{algorithm
@@ -145,28 +145,28 @@ This contrasts with the formal developments cited above, which
 present concrete code, albeit for a less efficient solution.
 
 This paper is an experiment in bringing formal methods and algorithm
-design closer together, through the medium of functional programming. 
+design closer together, through the medium of functional programming.
 It presents a linear-time algorithm for paragraph formatting in a semi-formal
 style. The algorithm is given as executable code; in fact, the \LaTeX\ file
-used to produce this paper is also an executable 
+used to produce this paper is also an executable
 \emph{Haskell} program.
 In writing this paper we
-hope to convince the reader that 
-a functional style can be suitable for communicating non-trivial 
+hope to convince the reader that
+a functional style can be suitable for communicating non-trivial
 algorithms, without sacrificing rigour or clarity or introducing an algorithm gap.
 
 Of course, there exist algorithms that are difficult to express
-functionally. In fact, it came as a surprise to us that the algorithm 
-presented here can indeed be implemented without resorting to any 
+functionally. In fact, it came as a surprise to us that the algorithm
+presented here can indeed be implemented without resorting to any
 imperative language features. One of us (OdM) first attempted to
 explain the algorithm (which is very similar to that in \cite{galil89})
-in 1992, and then implemented it in Modula-2; when 
+in 1992, and then implemented it in Modula-2; when
 that program was discussed at the Oxford \emph{Problem Solving Club}, it met with
 a lot of disappointment because of the need for destructive updates.
 Only recently we realised how the algorithm could be expressed functionally.
 This paper is therefore also a contribution to the ongoing effort
 of determining what can be done efficiently in a purely functional
-style. 
+style.
 
 \iffalse
 \begin{mcode}
@@ -188,7 +188,7 @@ We do not assume that the reader is an expert in functional programming;
 we explain the necessary syntax and standard functions of Haskell as we go. (Of
 course, some familiarity with a modern lazy functional language
 such as Haskell, Miranda\footnote{Miranda is a trademark
-of Research Software Ltd.} or Hope would be helpful; 
+of Research Software Ltd.} or Hope would be helpful;
 but we trust that the notation is fairly self-evident.)
 In addition to the
 standard functions of Haskell, we use a number of other
@@ -197,18 +197,18 @@ primitives, which are explained in this section.
 \begin{description}
 
 \item[fold1:]
-The function \texttt{fold1} is related to the standard function \texttt{foldr}, 
+The function \texttt{fold1} is related to the standard function \texttt{foldr},
 but it operates on non-empty lists. Informally, we have
 \begin{eqnarray*}
    \hbox to 0.5in{$\verb"fold1 step start [a0,a1,...,an]"$\hss} \\
- &=& 
+ &=&
    \verb"a0 `step` (a1 `step` (... `step` start an))"
 \end{eqnarray*}
 (Here, `\verb"[a0,a1,...,an]"' denotes a list, and
 writing the binary function \texttt{f} inside backwards quotes, \verb"`f`",
 allows it to be used as an infix operator.)
-In words, \texttt{fold1} traverses a list from right to left, applying 
-\texttt{start} to the last element, and `adding in' the next element at each 
+In words, \texttt{fold1} traverses a list from right to left, applying
+\texttt{start} to the last element, and `adding in' the next element at each
 stage using the function \texttt{step}.
 The formal definition of \texttt{fold1} is
 \begin{mcode}
@@ -218,8 +218,8 @@ The formal definition of \texttt{fold1} is
 >fold1 f g (a:x) = f a (fold1 f g x)
 
 \end{mcode}
-(The first line is a \emph{type declaration}, stating that \verb"fold1" 
-takes three arguments~--- a binary function of type \verb"a->b->b", 
+(The first line is a \emph{type declaration}, stating that \verb"fold1"
+takes three arguments~--- a binary function of type \verb"a->b->b",
 a unary function of type \verb"a->b", and a list of type \verb"[a]"~---
 and returns a value of type \verb"b".
 The binary operator `\verb":"' is `cons', prepending an element onto a
@@ -298,21 +298,21 @@ and the second equation applies if it does not.)
 
 \section{Specifying the problem} \label{sec:spec}
 
-In the paragraph problem, the aim is to lay out a given text 
-as a paragraph in a visually pleasing way. A text is given 
+In the paragraph problem, the aim is to lay out a given text
+as a paragraph in a visually pleasing way. A text is given
 as a list of words, each of which is a string, that is, a sequence of
-characters: 
+characters:
 \begin{mcode}
- 
->type Txt = [Word] 
+
+>type Txt = [Word]
 >type Word = String
 
 \end{mcode}
-A paragraph is a sequence of lines, each of which is a sequence of words: 
+A paragraph is a sequence of lines, each of which is a sequence of words:
 \begin{mcode}
 
 >type Paragraph = [Line]
->type Line = [Word] 
+>type Line = [Word]
 
 \end{mcode}
 The problem can be specified as
@@ -322,7 +322,7 @@ The problem can be specified as
 >par0 = minWith cost . filter feasible . formats
 
 \end{mcode}
-or informally, to compute the minimum-cost format among all 
+or informally, to compute the minimum-cost format among all
 feasible formats.
 (The function \verb"filter p" takes a list \texttt{x} and returns exactly
 those elements of \texttt{x} that satisfy the predicate \texttt{p}.)
@@ -340,7 +340,7 @@ as a list of paragraphs:
 >formats :: Txt -> [Paragraph]
 >formats = fold1 next_word last_word
 >          where last_word w = [ [[w]] ]
->                next_word w ps = map (new w) ps ++ map (glue w) ps 
+>                next_word w ps = map (new w) ps ++ map (glue w) ps
 
 >new w ls      = [w]:ls
 >glue w (l:ls) = (w:l):ls
@@ -362,7 +362,7 @@ A paragraph format is feasible if every line fits:
 >feasible = all fits
 
 \end{mcode}
-(The predicate \verb"all p" holds of a list precisely 
+(The predicate \verb"all p" holds of a list precisely
 when all elements of the list satisfy the predicate \texttt{p}.)
 
 We define a global constant \texttt{maxw} for the maximum line width:
@@ -399,7 +399,7 @@ consecutive pair of words:
 >width = fold1 plus length
 >        where plus w n = length w + 1 + n
 
-\end{mcode} 
+\end{mcode}
 The function \texttt{length} returns the number of elements in a list.
 This notion of width is appropriate for displaying paragraphs on a device
 where every character has the same width.
@@ -421,13 +421,13 @@ depends upon an optimum line width \texttt{optw}, another global constant:
 
 \end{mcode}
 The optimum line width should of course be
-at most the maximum line width. 
+at most the maximum line width.
 
 A \emph{visually pleasing} paragraph is one in which the width of each
 line in the paragraph is as close to the optimum line width
 as possible. More precisely, we wish to minimise the total \emph{cost},
 the sum of the squares of the deviations of the line widths from the
-optimum line width: 
+optimum line width:
 \begin{mcode}
 
 >cost :: Paragraph -> Int
@@ -478,16 +478,16 @@ all that matters is that the total cost
 is the sum of the costs of the individual lines.
 
 Using the above two monotonicity properties, the standard theory alluded to above
-concludes that the 
-following dynamic programming algorithm is a valid solution 
-to the specification \texttt{par0}. 
+concludes that the
+following dynamic programming algorithm is a valid solution
+to the specification \texttt{par0}.
 This is a well-rehearsed development, so we do
 not repeat it here.
 \begin{mcode}
 
->par1 
+>par1
 > = minWith cost . fold1 step start
->   where 
+>   where
 >     step w ps = filter fitH (new w (minWith cost ps):map (glue w) ps)
 >     start w   = filter fitH [ [[w]] ]
 >fitH = fits . head
@@ -500,11 +500,11 @@ property formally we would have to generalize from functional
 programming to relational programming~\cite{bdm96}, a step that is
 beyond the scope of this paper.
 
-For efficiency, we need to perform a \emph{tupling transformation} 
+For efficiency, we need to perform a \emph{tupling transformation}
 \cite{pettorossi84,chin90}
 to avoid recomputing the width of the first line and the cost of the
-remaining candidate solutions. We represent the paragraph \texttt{(l:ls)} 
-by the triple 
+remaining candidate solutions. We represent the paragraph \texttt{(l:ls)}
+by the triple
 \begin{verbatim}
   (l:ls, width l, cost ls)
 \end{verbatim}
@@ -516,7 +516,7 @@ The program resulting from this data refinement is as follows.
 >par1' :: [[a]] -> [[[a]]]
 >par1'
 > = the . minWith cost . fold1 step start
->   where 
+>   where
 >     step w ps = filter fitH (new w (minWith cost ps):map (glue w) ps)
 >     start w   = filter fitH [([[w]], length w,0)]
 >     new w ([l],n,0)   = ([w]:[l], length w, 0)
@@ -536,7 +536,7 @@ The program resulting from this data refinement is as follows.
 
 The algorithm at the end of Section~\ref{sec:standard}
 is the standard dynamic programming solution to the paragraph
-problem, and its time complexity is 
+problem, and its time complexity is
 $O(min(w n, n^2))$ where $w$ is the maximum number of words on a line and
 $n$ is the number of words in the paragraph.
 Computational experiments confirm that this is an accurate estimate of
@@ -546,9 +546,9 @@ derivation. It does not make use of any special properties of
 \texttt{linc}, the function that returns the cost on an individual line.
 Indeed, if nothing more is known about \texttt{linc}, it is not possible
 to improve upon this algorithm,
-as noted in \cite{hirschberg87a}.  
+as noted in \cite{hirschberg87a}.
 However, as we shall show in Sections~\ref{sec:dominance}
-to~\ref{sec:differencing}, for our particular choice 
+to~\ref{sec:differencing}, for our particular choice
 of \texttt{linc}, namely
 \begin{verbatim}
  linc l = (optw - width l)^2
@@ -592,9 +592,9 @@ independent of the line width.
 
 In this section we determine a \emph{dominance criterion} whereby some
 paragraph formats can be discarded because they are dominated by another;
-thus, fewer candidate solutions need be maintained at each step. 
+thus, fewer candidate solutions need be maintained at each step.
 Dominance criteria are the basis for most improvements over straightforward
-dynamic programming. 
+dynamic programming.
 In our case, the
 dominance criterion is a consequence of the fact that
 the function \texttt{linc} is \emph{concave},
@@ -603,7 +603,7 @@ in the sense that
 \begin{eqnarray*}
    \verb"linc (l++m) - linc l" &\le& \verb"linc (k++l++m) - linc (k++l)"
 \end{eqnarray*}
-Consequently, the monotonicity property of \texttt{glue} 
+Consequently, the monotonicity property of \texttt{glue}
 (Equation~\ref{eqn:glue-monotonic}) can be strengthened to:
 \begin{eqnarray}
    \hbox to 0.5in{$\verb"cost (l:ls)" \le \verb"cost ((l++m):ms)"$\hss} \nonumber\\
@@ -624,14 +624,14 @@ paragraph with a longer first line.
 \subsection{Exploiting concavity} \label{sec:concavity}
 
 We can exploit the dominance criterion to arrive at an improved definition
-of \texttt{step}. 
+of \texttt{step}.
 Note that \verb"step w" maintains the property `is in
-strictly increasing order of length of first line' of the list of candidate 
+strictly increasing order of length of first line' of the list of candidate
 solutions. Now suppose that we have two formats \texttt{p} and \texttt{q}, in that
-order, in the list of candidate solutions; 
+order, in the list of candidate solutions;
 the first line of \texttt{q} is longer than the
-first line of~\texttt{p}. Suppose also that $\verb"cost p" \le \verb"cost q"$. 
-Then \verb"p" dominates \verb"q": 
+first line of~\texttt{p}. Suppose also that $\verb"cost p" \le \verb"cost q"$.
+Then \verb"p" dominates \verb"q":
 by the monotonicity property of \texttt{new} (Equation~\ref{eqn:new-monotonic})
 and the stronger property of \texttt{glue} (Equation~\ref{eqn:glue-monotonic-stronger}),
 it follows that \texttt{q} may be safely discarded, because any
@@ -646,7 +646,7 @@ candidate solutions (namely, the formats~\verb"q" for which there is a
 format~\verb"p" appearing earlier in the collection with $\verb"cost p"
 \le \verb"cost q"$):
 \begin{verbatim}
- trim []                             = [] 
+ trim []                             = []
  trim [p]                            = [p]
  trim (ps++[p,q]) | cost p <= cost q = trim (ps++[p])
                   | otherwise        = trim (ps++[p]) ++ [q]
@@ -661,12 +661,12 @@ respectively; we omit the details.
 
 >par2'
 > = minWith cost . fold1 step start
->   where 
+>   where
 >     step w ps = trim (filter fitH (new w (minWith cost ps):map (glue w) ps))
 >     start w   = filter fitH [ [[w]] ]
 >     trim []   = []
 >     trim [p]  = [p]
->     trim pspq 
+>     trim pspq
 >       | cost p <= cost q = trim psp
 >       | otherwise        = trim psp ++ [q]
 >       where q   = last pspq
@@ -684,7 +684,7 @@ the better choice, because we will develop a criterion for stopping trimming ear
 \subsection{Trimming introduces order} \label{sec:trim-order}
 
 Now note further that the result of a \texttt{trim} is in strictly
-decreasing order of cost, 
+decreasing order of cost,
 so the cheapest candidate solution is the last in the
 list. We can therefore improve the definition of \texttt{step} further, by
 using \verb"last" instead of \verb"minWith cost":
@@ -701,7 +701,7 @@ To remedy this inefficiency we will develop a criterion for stopping
 trimming before having traversed the whole list of candidate
 solutions. Observe that we maintain
 a list of paragraph formats with strictly increasing
-first line lengths, and strictly decreasing costs. 
+first line lengths, and strictly decreasing costs.
 
 Say that a candidate solution
 element is \emph{bumped} by its predecessor when it is eliminated
@@ -715,7 +715,7 @@ for trimming.
 
 We introduce a function \verb"cg :: Paragraph -> Int -> Int" (for
 `cost-glue') such that
-\marginnote{wouldn't it be simpler with a \texttt{cg'} such that 
+\marginnote{wouldn't it be simpler with a \texttt{cg'} such that
 \texttt{cg'~p~n = cg~p~(n+1)}?}
 \begin{verbatim}
  cg p (length w + 1) = cost (glue w p)
@@ -729,18 +729,18 @@ In words, \texttt{cg p n} is the total cost of the paragraph formed after a
 sequence of words whose width is \texttt{n} has been glued to the first
 line of paragraph \texttt{p}. Note that we do not check whether the maximum line
 width is exceeded, and so the notion of cost may be meaningless
-in terms of paragraphs. 
+in terms of paragraphs.
 We allow negative values of \texttt{n} as
-arguments of \verb|cg|. 
+arguments of \verb|cg|.
 
 Using the function \texttt{cg}, we can forecast when a paragraph \texttt{p}
 will bump a paragraph \texttt{q} in the process of
-gluing more 
-words to both paragraphs. Define 
+gluing more
+words to both paragraphs. Define
 the function \texttt{bf} (for `bump factor') by
 \begin{verbatim}
    bf p q
- =  
+ =
    setmin {n | cg p n <= cg q n}  `min` (maxw - width (head q) + 1)
 \end{verbatim}
 (This is not a Haskell definition ---~Haskell does not have sets, and
@@ -755,7 +755,7 @@ the definition of \verb|bf| reflects the fact that after gluing
 than paragraph \verb|q|, because the first line of \verb|q| exceeds
 the maximum line width. It can happen that \verb|bf| returns a negative
 number, namely when \verb|p| is better than \verb|q| to start
-with. 
+with.
 
 \subsection{Using the bump factor} \label{sec:using-bump-factor}
 
@@ -779,7 +779,7 @@ Finally, define the predicate \texttt{better} by
 \marginnote{`$\mathtt{better\;w\;p\;q}$' is equivalent to `$\mathtt{1{+}\#w \ge
 bf\,p\,q}$'}
 \begin{verbatim}
- better w p q  =  cost (glue w p) <= cost (glue w q) || 
+ better w p q  =  cost (glue w p) <= cost (glue w q) ||
                   not (fitH (glue w q))
 \end{verbatim}
 (The binary operator \verb"||" is boolean disjunction; later on we use
@@ -787,7 +787,7 @@ bf\,p\,q}$'}
 In words, \verb"better w p q" states that, after gluing a word \texttt{w},
 paragraph \texttt{p} will be better than paragraph \texttt{q}, either on grounds
 of cost or because the first line of \texttt{q} has become too long.
-Suppose \verb|p = l0:ls0|, \verb|q = (l0++l1):ls1|, 
+Suppose \verb|p = l0:ls0|, \verb|q = (l0++l1):ls1|,
 \verb|r = (l0++l1++l2):ls2|, and  $\verb"bf p q" \le \verb"bf q r"$.
 We have the following property:
 \begin{eqnarray*}
@@ -796,12 +796,12 @@ We have the following property:
   \verb"better w p q" \;\land\; \verb"better w p r"
 \end{eqnarray*}
 In words, this property says that whenever \verb|q| gets better than
-\verb|r| by gluing a word \verb|w|, 
+\verb|r| by gluing a word \verb|w|,
 then \verb|p| is better than both \verb|q| and \verb|r| after
-gluing the same word. 
+gluing the same word.
 It follows that \verb|q| can never be useful, and therefore, if we
 had a triple like \verb|p|, \verb|q| and \verb|r| in the list of
-candidate solutions, \verb|q| could be safely discarded. 
+candidate solutions, \verb|q| could be safely discarded.
 
 \subsection{Tight lists of solutions}
 
@@ -842,7 +842,7 @@ solutions. For properties~\ref{property:width} and~\ref{property:cost}
 this is obvious. For property~\ref{property:bf} it follows from the fact
 that $\verb"bf p q" \ge \verb"bf p r" \ge \verb"bf q r"$, provided that
 $\verb"bf p q" > \verb"bf q r"$ and \texttt{p}, \texttt{q} and \texttt{r} are in
-strictly increasing order of length of first line; 
+strictly increasing order of length of first line;
 \marginnote{I have a marvellous demonstration that this margin is too
 narrow to hold\ldots}
 this fact is not too hard to establish.
@@ -850,15 +850,15 @@ this fact is not too hard to establish.
 Suppose that \verb|ps| satisfies property~\ref{property:bf}.
 Because \verb|glue| respects the \verb|bf|
 order (Equation~\ref{eqn:glue-respects-bf}), the list \verb|map (glue w) ps| also
-satisfies property~\ref{property:bf}. 
-It is however not necessarily the case that 
+satisfies property~\ref{property:bf}.
+It is however not necessarily the case that
 \verb"new w (last ps) : map (glue w) ps"
 satisfies property~\ref{property:bf}:
 the presence of the new element at the beginning may require some of the
 initial elements of \verb|map (glue w) ps| to be removed. So, the cons operator
 \verb|(:)| in the definition of \verb"step" is replaced by a \emph{smart constructor}
-\verb|add|, 
-which does the required pruning~--- 
+\verb|add|,
+which does the required pruning~---
 by the argument at the end of Section~\ref{sec:using-bump-factor}, if we
 have three consecutive candidate solutions \texttt{p}, \texttt{q} and \texttt{r}
 with $\verb"bf p q" \le \verb"bf q r"$, solution \texttt{q} can be discarded.
@@ -869,7 +869,7 @@ with $\verb"bf p q" \le \verb"bf q r"$, solution \texttt{q} can be discarded.
                    | otherwise        = [p,q,r]++rs
 \end{verbatim}
 Now the list of candidate solutions \verb"new w (last ps) `add` map (glue w) ps"
-satisfies property~\ref{property:bf}. 
+satisfies property~\ref{property:bf}.
 Note that \verb"p `add` ps" is a subsequence of \verb"p:ps", so
 properties~\ref{property:width} and~\ref{property:cost} are still
 maintained; for the same reason, all three
@@ -901,11 +901,11 @@ the initial segment of the list of candidate solutions ending
 with solution \texttt{q} already satisfies property~\ref{property:cost}.
 Thus, we have
 \verb"trim (ps++[p,q]) = ps++[p,q]"~--- the second recursive call to
-\texttt{trim} can be omitted 
+\texttt{trim} can be omitted
 when \verb"ps++[p,q]" satisfies property~\ref{property:bf} and
 $\verb"cost p" > \verb"cost q"$.
 
-Because we are now manipulating the list of candidate solutions at both ends, 
+Because we are now manipulating the list of candidate solutions at both ends,
 it will be profitable
 to use a symmetric set of list operations, where \texttt{head} and \texttt{last}
 are equally efficient. Such an implementation of lists is
@@ -924,7 +924,7 @@ In outline, the program now is
 
 >par2
 > = last . fold1 step start
->   where 
+>   where
 >     step w ps = trim(filter fitH (new w (last ps) `add` map (glue w) ps))
 >     start w   = filter fitH [ [[w]] ]
 >     add p []                          = [p]
@@ -932,7 +932,7 @@ In outline, the program now is
 >     add p (q:r:rs) | bf p q <= bf q r = add p (r:rs)
 >                    | otherwise        = p:q:r:rs
 >     bf p q
->       | single q && cost pt == 0 
+>       | single q && cost pt == 0
 >                   = (optw - wph) `min` rqh
 >       | single q  = rqh
 >       | otherwise = ceildiv (cost p - cost q) (2*(wqh-wph)) `min` rqh
@@ -957,8 +957,8 @@ In outline, the program now is
 paragraphs is in strictly decreasing order of cost, replacing the
 \verb"minWith cost" in \verb"par2" by \verb"last".)
 This new  program is in fact quite efficient:
-computational experiments 
-show that at each step of the computation, only a very small 
+computational experiments
+show that at each step of the computation, only a very small
 number of candidate solutions
 are kept. Still, all candidate solutions get inspected each time \texttt{step}
 is evaluated, and this remains a source of inefficiency.
@@ -969,13 +969,13 @@ we do this in Sections~\ref{sec:filtering} and~\ref{sec:differencing}.
 \subsection{Computing the bump factor}
 
 One point that we have not touched upon is how \texttt{bf} can be efficiently
-implemented. This is an exercise in high-school algebra. 
+implemented. This is an exercise in high-school algebra.
 Note that, when \texttt{p} and \texttt{q} appear in that order in the list of
-candidate solutions, \texttt{p} cannot be a singleton: 
+candidate solutions, \texttt{p} cannot be a singleton:
 there is just one
 way of formatting a paragraph into a single line, and if that line fits
 it will be the last candidate solution because it has the longest first line.
-Therefore there are just two cases to consider in computing \verb"bf p q": 
+Therefore there are just two cases to consider in computing \verb"bf p q":
 when \texttt{q} is a singleton, and when \texttt{q} is not.
 Recall the definition of \verb"bf":
 \begin{eqnarray*}
@@ -983,16 +983,16 @@ Recall the definition of \verb"bf":
   &=&
   \verb"setmin {n | cg p n <= cg q n} `min` (maxw - width (head q) + 1)"
 \end{eqnarray*}
-Note that the second term 
+Note that the second term
 $\verb"rqh" = \verb"maxw - width (head q) + 1"$ is always greater than zero.
 \begin{description}
 
 \item[Case \texttt{q} is a singleton:]
 so \verb"cg q n" is zero for any \texttt{n}. Thus, the only value of \texttt{n} for
-which $\verb"cg p n" \le \verb"cg q n"$ would be one for which 
+which $\verb"cg p n" \le \verb"cg q n"$ would be one for which
 \verb"cg p n" is zero; this can only happen when
 $\verb"n" = \verb"optw - width (head p)"$ and $\verb"cost (tail p)" = \verb"0"$.
-This case therefore splits into two subcases: 
+This case therefore splits into two subcases:
 if \verb"cost (tail p)" is zero, then \verb"bf p q" is the smaller of
 \texttt{rqh} and \verb"optw - width (head p)";
 otherwise, there are no suitable values of \texttt{n}, and \verb"bf p q" is
@@ -1016,10 +1016,10 @@ the smaller of this first term and \texttt{rqh}.
 \end{description}
 Thus, we can implement \texttt{bf} as follows:
 \begin{verbatim}
- bf p q 
+ bf p q
    | single q && cost pt == 0 = (optw - wph) `min` rqh
    | single q                 = rqh
-   | otherwise                = ceildiv (cost p - cost q) 
+   | otherwise                = ceildiv (cost p - cost q)
                                         (2*(wqh - wph)) `min` rqh
       where
         ph:pt = p
@@ -1036,7 +1036,7 @@ Because the list of candidate paragraphs is kept in increasing order of
 length of the first line, the \texttt{filter} is easily dealt with. The net
 effect of filtering is that the last few formats (namely, those with the
 longest first lines) are discarded, and the remainder are
-retained. Therefore, instead of \verb"filter fitH" we can use 
+retained. Therefore, instead of \verb"filter fitH" we can use
 \verb"droptail (not . fitH)", where
 \begin{verbatim}
  droptail :: (a->Bool) -> [a] -> [a]
@@ -1065,7 +1065,7 @@ satisfy predicate~\verb"p".
 >     add p (q:r:rs) | bf p q <= bf q r = add p (r:rs)
 >                    | otherwise        = p:q:r:rs
 >     bf p q
->       | single q && cost pt == 0 
+>       | single q && cost pt == 0
 >                   = (optw - wph) `min` rqh
 >       | single q  = rqh
 >       | otherwise = ceildiv (cost p - cost q) (2*(wqh-wph)) `min` rqh
@@ -1091,7 +1091,7 @@ satisfy predicate~\verb"p".
 
 In this section we will get rid of the \verb"map" from the
 definition of \verb"step", by making a change of representation under
-which \verb"glue w" is the identity function. 
+which \verb"glue w" is the identity function.
 If we assume that the list
 operations \verb"head", \verb"tail", \verb"init" and \verb"last" take
 amortized constant time, then this gives an amortized linear-time
@@ -1105,7 +1105,7 @@ discarded.
 
 Elimination of \texttt{glue} can be achieved by computing only the tail
 of each paragraph. As long as we have the original text available
-(which is the concatenation of the paragraph), 
+(which is the concatenation of the paragraph),
 all necessary quantities can be computed in terms of the tail alone:
 \begin{verbatim}
  length (head p) = length (concat p) - length (concat (tail p))
@@ -1127,7 +1127,7 @@ It will be useful to have a type synonym
 for the new representation of paragraphs:
 \begin{mcode}
 
->type Par    = (Width,Cost,Length) 
+>type Par    = (Width,Cost,Length)
 >type Width  = Int
 >type Cost   = Int
 >type Length = Int
@@ -1147,7 +1147,7 @@ second and third components of a triple, respectively.
 
 \end{mcode}
 On this representation, the function \texttt{glue w} is the identity function,
-as required. 
+as required.
 
 \subsection{The overall structure}
 
@@ -1159,7 +1159,7 @@ The program presented below is based on the fact that
 a solution to \texttt{par0} is returned by \texttt{par3}, where
 \begin{verbatim}
  par3 :: Txt -> Paragraph
- par3 ws 
+ par3 ws
    = tile ws (map (length.concat.tail.par0) (tails ws), length ws)
 \end{verbatim}
 The function \texttt{tile xs} produces the required solution by
@@ -1173,23 +1173,23 @@ exploiting the differencing equation for \verb"length . head":
 >                         (ws1,ws2) = splitAt l ws
 
 \end{mcode}
-(Here, 
+(Here,
 \verb"splitAt l x" is a pair of lists, the first element of
 the pair being the first \texttt{l} elements of \texttt{x} and the second element
 being the remainder;
 \verb"drop l x" is the second component of \verb"splitAt l x".)
 The proof that this works is an induction over all tails of the argument,
 and a detailed exposition can be found in \cite{bird93d}. It is perhaps
-interesting to note that a program involving \texttt{tile} 
+interesting to note that a program involving \texttt{tile}
 is the starting point
-for the paper by Hirschberg and Larmore \cite{hirschberg87a}; 
+for the paper by Hirschberg and Larmore \cite{hirschberg87a};
 for us, it is part of a
 final optimisation.
 
 Adapting the algorithm developed in previous sections to the new
 representation of paragraphs, one
-can find functions 
-\texttt{stepr} and \texttt{startr} ---~data refinements of 
+can find functions
+\texttt{stepr} and \texttt{startr} ---~data refinements of
 \texttt{step} and \texttt{start}~--- such that
 \begin{verbatim}
    fold1 stepr startr (map length ws)
@@ -1202,8 +1202,8 @@ can be written in terms of \verb|scan1|,
 \begin{verbatim}
    scan1 stepr startr (map length ws)
  =
-   zip3 (map (map rep . fold1 step start) (tails ws), 
-         map width (tails ws), 
+   zip3 (map (map rep . fold1 step start) (tails ws),
+         map width (tails ws),
          map length (tails ws))
 \end{verbatim}
 (The function \texttt{zip3} `zips' in the obvious way a triple of lists, all of the
@@ -1222,13 +1222,13 @@ and
    map (len_tl . last . map rep . fold1 step start) (tails ws)
  =   { above }
    map (len_tl . last . fst3) zs
-\end{verbatim}   
+\end{verbatim}
 The resulting program is below.
 (Recall that the dashed list operations are the operations on symmetric
 lists, defined in the appendix.)
 \begin{mcode}
 
->par3 :: Txt -> Paragraph 
+>par3 :: Txt -> Paragraph
 >par3 ws
 > = tile ws (map (len_tl.last'.fst3) zs, thd3 (head zs))
 >   where zs = scan1 stepr startr (map length ws)
@@ -1241,7 +1241,7 @@ lists, defined in the appendix.)
 \subsection{Implementing the data refinement}
 
 It remains to give appropriate definitions of \texttt{stepr} and \texttt{startr}.
-The definition of \texttt{startr} is 
+The definition of \texttt{startr} is
 \begin{mcode}
 
 >startr :: Length -> (SymList Par, Width, Length)
@@ -1250,22 +1250,22 @@ The definition of \texttt{startr} is
 \end{mcode}
 
 The definition of \texttt{stepr} mirrors that in the preceding section,
-except that all operations on paragraphs have been data-refined  
+except that all operations on paragraphs have been data-refined
 to the new representation of paragraphs.
 Those modifications are justified by
 the differencing equations stated above,
-and the following definitions are 
+and the following definitions are
 immediate consequences of those identities:
 \begin{mcode}
 
->stepr :: Length -> 
->        (SymList Par, Cost, Length) -> 
+>stepr :: Length ->
+>        (SymList Par, Cost, Length) ->
 >        (SymList Par, Cost, Length)
->stepr w (ps,tw,tl)  
+>stepr w (ps,tw,tl)
 > = (trim (drop_nofit (new (last' ps) `add` ps)), tot_width, tot_len)
->   where 
+>   where
 >     single p      = len_tl p == 0
->     cost p 
+>     cost p
 >       | single p  = 0
 >       | otherwise = cost_tl p + (optw - width_hd p)^2
 >     width_hd p
@@ -1276,7 +1276,7 @@ immediate consequences of those identities:
 
 \end{mcode}
 The operator \texttt{new} adds a new line to the front of a paragraph.
-It is important that, in computing the cost of the tail of the 
+It is important that, in computing the cost of the tail of the
 newly created paragraph, we use the old width of the head, that is,
 without taking the new word \texttt{w} into account:
 \begin{mcode}
@@ -1299,9 +1299,9 @@ The definition of \texttt{trim} is not changed at all:
 >                        p    = last' ps_p
 
 \end{mcode}
-whereas \verb"drop_nofit" is an implementation of 
+whereas \verb"drop_nofit" is an implementation of
 \verb"droptail (not . fitH)", using the new implementation \verb"width_hd"
-of \verb"width . head". 
+of \verb"width . head".
 \begin{mcode}
 
 >     drop_nofit ps_p | null' ps_p        = ps_p
@@ -1314,7 +1314,7 @@ of \verb"width . head".
 The definition of \texttt{add} is similarly unaffected.
 On an intuitive level, there seems to be a duality between
 the ways \texttt{trimf} and \texttt{add} operate, but we have been unable
-to bring this out in the code, 
+to bring this out in the code,
 partly because \texttt{trimf} also performs
 the filtering operation.
 \marginnote{also because \texttt{add} compares \texttt{f p} with \texttt{f q},
@@ -1332,10 +1332,10 @@ whereas \texttt{trim} compares \texttt{f p q} with \texttt{f q r}}
 Finally, the data-refined version of \texttt{bf} becomes
 \begin{mcode}
 
->     bf p q 
->       | single q && cost_tl p == 0 = (optw - wph) `min` rqh 
+>     bf p q
+>       | single q && cost_tl p == 0 = (optw - wph) `min` rqh
 >       | single q                   = rqh
->       | otherwise                  = ceildiv (cost p-cost q) 
+>       | otherwise                  = ceildiv (cost p-cost q)
 >                                              (2*(wqh-wph)) `min` rqh
 >          where
 >            wph = width_hd p
@@ -1358,8 +1358,8 @@ We now have the ingredients for writing a program that has the
 same functionality as the Unix utility \emph{fmt},
 although its output will be far superior (\emph{fmt}
 uses a naive greedy strategy, and the resulting
-paragraphs are \emph{not} visually pleasing). 
-We shall make use of the functions 
+paragraphs are \emph{not} visually pleasing).
+We shall make use of the functions
 \begin{verbatim}
  parse :: String -> [Paragraph]
  unparse :: [Paragraph] -> String
@@ -1368,8 +1368,8 @@ which are well-known text-processing primitives in
 functional programming \cite{bird88}. Their
 definitions are included in an appendix to this paper.
 Using these primitives, our implementation of \texttt{fmt}
-takes a single line:  
-\begin{mcode} 
+takes a single line:
+\begin{mcode}
 
 >fmt = unparse . map (par3 . concat) . parse
 
@@ -1381,7 +1381,7 @@ takes a single line:
 
 \end{mcode}
 \fi
-Joe Programmer 
+Joe Programmer
 may not be happy about this implementation of a high-quality \texttt{fmt}.
 Although there is
 no algorithm gap, one might expect a \emph{performance gap} between
@@ -1390,9 +1390,9 @@ in a more conventional language.
 To measure the performance gap we compared the
 Haskell program for \texttt{fmt} to a hand-coded C++
 implementation that is in close correspondence to the program
-presented here. 
+presented here.
 The conventional program in C++ does make extensive use
-of destructive updates, however, 
+of destructive updates, however,
 and the implementation of symmetric lists is replaced by an array implementation.
 Because the program only makes use of {\em cons} (and not of {\em snoc}), we can
 implement it by declaring an array whose size is an upperbound on the number of
@@ -1401,32 +1401,32 @@ the symmetric list. (If we also had a {\em snoc} operation, we would need to
 use the folklore circular array code for queues.) All data structures in the conventional
 program are therefore of fixed size. Appropriate size bounds were determined
 by experimentation.
-The conventional program is of course longer than 
+The conventional program is of course longer than
 the Haskell program, but this is mostly due to the unwieldy syntax,
 as the difference is only a factor of one third. Personally we
-found the 
+found the
 conventional code much harder to write because it uses a lot of indexing
-in arrays, as opposed to the standard list processing functions in 
-Haskell. 
+in arrays, as opposed to the standard list processing functions in
+Haskell.
 
 In writing the C++ code, we attempted to apply all the standard tricks that good C++ programmers
 employ to speed up their programs. For example, index calculations were avoided through use
-of pointers, and we provided ample hints to the compiler through {\em const} 
+of pointers, and we provided ample hints to the compiler through {\em const}
 declarations and {\em inline} directives. To check that we did indeed conform to
 good practice in writing the C++ program, we compared its performance to that of
-the \verb|fmt| utility: our code for the sophisticated algorithm is only 18% 
-slower than \verb|fmt|. 
+the \verb|fmt| utility: our code for the sophisticated algorithm is only 18%
+slower than \verb|fmt|.
 By contrast, the Haskell program in this paper
 has {\em not} been fine-tuned for performance at all, and we directly compiled the
 \LaTeX source of this paper.
-It follows that the performance measurements reported give an edge to C++. 
+It follows that the performance measurements reported give an edge to C++.
 
 All three programs were compiled on a Pentium II processor, running RedHat Linux.
-For Haskell we used version 4.01 of the Glasgow compiler \texttt{ghc}, 
+For Haskell we used version 4.01 of the Glasgow compiler \texttt{ghc},
 because it
-produces the best code of all Haskell compilers available. 
+produces the best code of all Haskell compilers available.
 The same code was also compiled with \texttt{hbc}, which also has a good
-reputation for speed and reliability. 
+reputation for speed and reliability.
 For C++ we used the Gnu compiler.
 All three executables were reduced in size using the utility \texttt{strip}.
 The Haskell executables are, as expected, vastly larger than the
@@ -1435,16 +1435,16 @@ In all cases we switched on all optimizers. This has a spectacular
 effect for the \texttt{ghc} program: it ran more than four times faster
 than without the optimisation switch. Indeed, this is were we claw back some
 of the gains obtained by hand-coded optimisations in the C++ code: the \texttt{ghc}
-compiler aggressively applies optimising program transformations \cite{peyton-jones98}. 
+compiler aggressively applies optimising program transformations \cite{peyton-jones98}.
 
 
-To compare the performance of the two executables, we 
+To compare the performance of the two executables, we
 formatted the full text of Thomas Hardy's
 \emph{Far from the madding crowd}, an ASCII file of approximately
-780Kb \cite{gutenberg}. The three programs were run to format this file 
+780Kb \cite{gutenberg}. The three programs were run to format this file
 for a maximum line width of 70 characters and an optimum width of 63.
 The CPU time was measured
-using the \texttt{time} command provided by the Linux \texttt{bash} shell. 
+using the \texttt{time} command provided by the Linux \texttt{bash} shell.
 The \texttt{ghc} executable is about twice as fast as the \texttt{hbc} program,
  which is shows how much can be achieved by automatic transformation of
 Haskell programs. The C++ program is eleven times faster
@@ -1455,7 +1455,7 @@ The table below summarises the above comparison: the first two columns
 compare
 the programs with respect to their textual length (lines and characters),
 the third column is the
-size of the executable (in Kbytes), and the last column shows 
+size of the executable (in Kbytes), and the last column shows
 their execution time (in CPU seconds).
 \begin{center}
 \begin{tabular}{l|rrrrr}
@@ -1470,8 +1470,8 @@ Haskell (ghc)/C++   &  0.44 &  0.74 &   24.50~~~ &  11.27~~~
 In summary, the performance gap is not all that great;
 it furthermore seems likely that advances in compiler technology
 (illustrated by the difference between \texttt{hbc} and \texttt{ghc})
-will cancel the remaining advantages of languages like 
-C++ over Haskell in the next few years. 
+will cancel the remaining advantages of languages like
+C++ over Haskell in the next few years.
 
 \section{Discussion}
 
@@ -1481,16 +1481,16 @@ style. We personally believe that for a large class of problems,
 this style of presentation is adequate, at once closing the
 algorithm gap and reconciling algorithm design with formal methods.
 The comparison with the hand-coded conventional implementations indicates that
-for non-trivial algorithms like the one presented here, the performance 
+for non-trivial algorithms like the one presented here, the performance
 gap is rather small too.
 There are, however, two unsatisfactory aspects of the material
 presented here:
 
 \begin{itemize}
 \item First, we are not entirely satisfied with the semi-formal style of
-this paper. Up to the introduction of \texttt{trim}, 
+this paper. Up to the introduction of \texttt{trim},
 the program derivation is absolutely
-standard, and no invention is involved in 
+standard, and no invention is involved in
 synthesizing the program. That part of the paper could easily be
 cast in calculational form, given the right machinery.
 The invention of the `bump factor', and its role
@@ -1499,16 +1499,16 @@ escapes, at present, an elegant calculational treatment. This is
 unsatisfactory, especially since
 the technique seems more generally applicable.
 
-\item Second, we are very dissatisfied with the way one has to program 
+\item Second, we are very dissatisfied with the way one has to program
 differencing in
 a functional language.
 In a sense this is the least interesting part of the programming process,
 and yet it is quite error-prone. Moreover, differencing destroys some of the
 delightful elegance that characterises the functional expression of
-the standard algorithm. Meta-programming features in the spirit of 
-Paige's \texttt{invariant} construct \cite{paige86} 
+the standard algorithm. Meta-programming features in the spirit of
+Paige's \texttt{invariant} construct \cite{paige86}
 such as those espoused by Smith~\cite{smith90} and Liu~\cite{liu95}
-might be used to 
+might be used to
 circumvent this problem, but
 unfortunately we do not know of any modern functional language that
 supports those ideas.
@@ -1518,10 +1518,10 @@ supports those ideas.
 Finally, the algorithm presented here is representative of a large
 class of ingenious algorithms, collectively known under the name
 \emph{sparse dynamic programming}
-\cite{eppstein92b}. It would be nice to see whether 
+\cite{eppstein92b}. It would be nice to see whether
 a generic treatment of this class of algorithms is possible, in
 the style of \cite{demoor95}. It seems that such a generic approach
-is within reach, but we have not investigated this in any depth. 
+is within reach, but we have not investigated this in any depth.
 
 \iffalse
   \bibliographystyle{plain}
@@ -1641,7 +1641,7 @@ is within reach, but we have not investigated this in any depth.
 \section*{Appendix: Symmetric lists}
 
 The implementation of symmetric lists given below is explained in some
-depth in \cite{hoogerwoord92}. Briefly, a 
+depth in \cite{hoogerwoord92}. Briefly, a
 list \texttt{x} is represented as a pair
 of lists \texttt{(y,z)} such that \verb"abs (y,z)"~=~\verb"x", where the
 \emph{abstraction function} \texttt{abs} is defined by
@@ -1698,7 +1698,7 @@ amortised constant time.
 
 \section*{Appendix: Text processing}
 
-The text processing package given below 
+The text processing package given below
 is explained in \cite{bird88}.
 It provides primitives for converting between strings and lines,
 lines and words, and paragraphs and lines. In each case, the forward
@@ -1737,7 +1737,7 @@ Haskell prelude. The function \texttt{id} is the identity function.
 
 \end{mcode}
 
-\end{document} 
+\end{document}
 
 The simple greedy algorithm:
 
@@ -1757,7 +1757,7 @@ For comparison, the quadratic algorithm:
 
 Some test data:
 
->test = 
+>test =
 >  "In the constructive programming community it is commonplace to see " ++
 >  "formal developments of textbook algorithms. In the algorithm design " ++
 >  "community, on the other hand, it may be well known that the textbook " ++

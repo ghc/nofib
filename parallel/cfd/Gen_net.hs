@@ -38,10 +38,10 @@ get_node_list p_total v_total coord v_steer (all_bry,(x_fixed,y_fixed)) p_fixed 
 			e =
 				(
 					((abs (e_det)) / 2),
-					(  
+					(
 						((y2-y3)/e_det,(y3-y1)/e_det,(y1-y2)/e_det),
 						((x3-x2)/e_det,(x1-x3)/e_det,(x2-x1)/e_det)
-					)  
+					)
 				)
 			v1 = coord!^n1
 			v2 = coord!^n2

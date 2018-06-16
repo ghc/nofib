@@ -9,7 +9,7 @@ import Defs
 -----------------------------------------------------------
 
 cc_list :: () ->
-	[ 
+	[
 		(
 			[Frac_type],
 			[Frac_type],
@@ -119,13 +119,13 @@ c_mat :: () ->
 
 c_mat () = -- parameter: element_factors velocities
 	s_listArray bnds (map f1 (cc_list ()))
-	where 
+	where
 	f1 (col1,col2,col3,col4,col5,col6) =
 		\(y1,y2) (u1,u2) -> zipWith (+) (f3 y1 u1) (f3 y2 u2)
 		where
 		f3 = \(gd1,gd2,gd3) u ->
 			map (\col->list_inner_prod col u)
-			[   
+			[
 				map ((*) gd1) col1,
 				map ((*) gd2) col2,
 				map ((*) gd3) col3,

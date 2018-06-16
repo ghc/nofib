@@ -70,7 +70,7 @@ utRandomInts s1 s2
          seed2_ok = 1 <= s2 && s2 <= 2147483398
 
          rands :: Int -> Int -> [Int]
-         rands s1 s2 
+         rands s1 s2
             = let k    = s1 `div` 53668
                   s1'  = 40014 * (s1 - k * 53668) - k * 12211
                   s1'' = if s1' < 0 then s1' + 2147483563 else s1'
@@ -78,13 +78,13 @@ utRandomInts s1 s2
                   s2'  = 40692 * (s2 - k' * 52774) - k' * 3791
                   s2'' = if s2' < 0 then s2' + 2147483399 else s2'
                   z    = s1'' - s2''
-              in  
-                  if     z < 1 
-                  then   z + 2147483562 : rands s1'' s2'' 
+              in
+                  if     z < 1
+                  then   z + 2147483562 : rands s1'' s2''
                   else   z : rands s1'' s2''
      in
-         if     seed1_ok && seed2_ok 
-         then   rands s1 s2 
+         if     seed1_ok && seed2_ok
+         then   rands s1 s2
          else   panic "utRandomInts: bad seeds"
 
 
@@ -95,7 +95,7 @@ utRandomInts s1 s2
 -- ====================================--
 
 utSCdexprs :: StaticComponent -> DExprEnv
-utSCdexprs (dexprs, domains, constrelems, freevars, flags, lims, sizes) 
+utSCdexprs (dexprs, domains, constrelems, freevars, flags, lims, sizes)
    = dexprs
 
 utSCdomains :: StaticComponent -> DSubst
@@ -136,9 +136,9 @@ utLookup ((k,v):bs) k' | k == k'   = Just v
 
 -- ==========================================================--
 --
-utSureLookup []         msg k' 
+utSureLookup []         msg k'
    = panic ( "utSureLookup: key not found in " ++ msg )
-utSureLookup ((k,v):bs) msg k' 
+utSureLookup ((k,v):bs) msg k'
    | k == k'     = v
    | otherwise   = utSureLookup bs msg k'
 
@@ -187,7 +187,7 @@ utInitialNameSupply = 0
 --
 utGetName :: NameSupply -> [Char] -> (NameSupply, [Char])
 
-utGetName name_supply prefix 
+utGetName name_supply prefix
    = (name_supply+1, utMakeName prefix name_supply)
 
 
@@ -196,8 +196,8 @@ utGetName name_supply prefix
 --
 utGetNames :: NameSupply -> [[Char]] -> (NameSupply, [[Char]])
 
-utGetNames name_supply prefixes 
-  = (name_supply + length prefixes, 
+utGetNames name_supply prefixes
+  = (name_supply + length prefixes,
      zipWith utMakeName prefixes (myIntsFrom name_supply))
 
 
@@ -238,8 +238,8 @@ utiLayn iss = utiLaynN 1 iss
               where
               utiLaynN :: Int -> [Iseq] -> Iseq
               utiLaynN n []       = utiNil
-              utiLaynN n (is:isz) 
-                = utiConcat [  (utiLjustify 4 (utiAppend (utiNum n) (utiStr ") "))), 
+              utiLaynN n (is:isz)
+                = utiConcat [  (utiLjustify 4 (utiAppend (utiNum n) (utiStr ") "))),
                                (utiIndent is),
                                (utiLaynN (n+1) isz)
                             ]
@@ -249,7 +249,7 @@ utiLayn iss = utiLaynN 1 iss
 --
 utiLjustify :: Int -> Iseq -> Iseq
 
-utiLjustify n s 
+utiLjustify n s
    = s `utiAppend` (utiStr (utpspaces (n - length (utiMkStr s)) ""))
 
 
@@ -318,18 +318,18 @@ utiMkStr iseq = utoMkstr (iseq utoEmpty)
 utiChar :: Char -> Iseq
 
 utiChar '\n' rest indent col = '\n' : rest indent 0
-utiChar c    rest indent col 
+utiChar c    rest indent col
    | col>=indent  = c   : rest indent (col+1)
    | otherwise    = utpspaces (indent - col) (c : rest indent (indent+1))
 
 
 -- ==========================================================--
 --
-utiIndent iseq oseq indent col 
+utiIndent iseq oseq indent col
  = iseq oseq' (max col indent) col
-   where 
+   where
    oseq' indent' col' = oseq indent col'
-   -- Ignore the indent passed along to oseq; 
+   -- Ignore the indent passed along to oseq;
    -- use the original indent instead.
 
 
@@ -424,7 +424,7 @@ utSetIntersection (MkSet (a:as)) (MkSet (b:bs))
 utSetSubtraction (MkSet [])     (MkSet [])      = (MkSet [])
 utSetSubtraction (MkSet [])     (MkSet (b:bs))  = (MkSet [])
 utSetSubtraction (MkSet (a:as)) (MkSet [])      = (MkSet (a:as))
-utSetSubtraction (MkSet (a:as)) (MkSet (b:bs))  
+utSetSubtraction (MkSet (a:as)) (MkSet (b:bs))
     | a < b   = MkSet (a: (unMkSet (utSetSubtraction (MkSet as) (MkSet (b:bs)))))
     | a == b  = utSetSubtraction (MkSet as) (MkSet bs)
     | a > b   = utSetSubtraction (MkSet (a:as)) (MkSet bs)
@@ -509,8 +509,8 @@ utBagEmpty = []
 splitList :: (a -> Bool) -> [a] -> ([a], [a])
 
 splitList p []      = ([],[])
-splitList p (x:xs)  = case splitList p xs of 
-                        (ayes, noes) -> 
+splitList p (x:xs)  = case splitList p xs of
+                        (ayes, noes) ->
                           if p x then (x:ayes, noes) else (ayes, x:noes)
 
 
@@ -527,7 +527,7 @@ second (a,b) = b
 
 -- ================================================--
 --
-mapAccuml :: (a -> b -> (a, c)) -- Function of accumulator and element 
+mapAccuml :: (a -> b -> (a, c)) -- Function of accumulator and element
                                    --   input list, returning new
                                    --   accumulator and element of result list
              -> a                  -- Initial accumulator
@@ -535,8 +535,8 @@ mapAccuml :: (a -> b -> (a, c)) -- Function of accumulator and element
              -> (a, [c])         -- Final accumulator and result list
 
 mapAccuml f acc []     = (acc, [])
-mapAccuml f acc (x:xs) = (acc2, x':xs')       
-                         where (acc1, x')  = f acc x 
+mapAccuml f acc (x:xs) = (acc2, x':xs')
+                         where (acc1, x')  = f acc x
                                (acc2, xs') = mapAccuml f acc1 xs
 
 

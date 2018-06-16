@@ -10,7 +10,7 @@
 -- Using Strategies to define parallelism.
 -- Tunable grid size and number of words to search.
 -- Haskell98 version.
--- 
+--
 ------------------------------------------------------------------
 
 module Main(main) where
@@ -37,7 +37,7 @@ import Control.Exception
 -- @section Datatypes
 
 data	DIRS = RIGHT | DOWN | DOWNLEFT | UPLEFT
-	     | LEFT  | UP   | UPRIGHT  | DOWNRIGHT 
+	     | LEFT  | UP   | UPRIGHT  | DOWNRIGHT
 	     deriving (Show,Eq)
 
 instance NFData DIRS
@@ -45,11 +45,11 @@ instance NFData DIRS
 -- @node Main fct, Aux fcts, Datatypes
 -- @section Main fct
 
-main = do 
+main = do
         [n] <- fmap (fmap read) getArgs
         grid <- mk_grid n           -- build a grid of the given size
         evaluate (rnf grid)
-        let 
+        let
     	 r    = grid
     	 d    = transpose grid
     	 dl   = diagonals grid
@@ -80,9 +80,9 @@ main = do
 
          {- if returning all matches do:
          res_str = show $
-                   foldr (\ (word,dirs) str -> 
-                            ((word ++ " -> " ++ (show dirs) ++ "\n") ++ str)) 
-	                 [] 
+                   foldr (\ (word,dirs) str ->
+                            ((word ++ " -> " ++ (show dirs) ++ "\n") ++ str))
+	                 []
                          res
          -}
 
@@ -90,7 +90,7 @@ main = do
 
 myParList [] = ()
 myParList (x:xs) = x `par` myParList xs
-        
+
 -- @node Aux fcts,  , Main fct
 -- @section Aux fcts
 
@@ -111,7 +111,7 @@ zipinit (x:xs) (y:ys) = (x : y) : zipinit xs ys
 contains xs ys = any (prefix xs) (suffixes ys)
 
 suffixes [] = []
-suffixes xs = xs : suffixes (tail xs) 
+suffixes xs = xs : suffixes (tail xs)
 
 prefix [] ys = True
 prefix xs [] = False

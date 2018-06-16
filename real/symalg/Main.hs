@@ -22,7 +22,7 @@ main = cmdloop (initEnv [])
         putStr prompt
         hFlush stdout
         l <- getLine
-        if l == "exit" then 
+        if l == "exit" then
 	   return ()
 	 else do
            let (res, nenv) = cmd_process (l, env)
@@ -33,12 +33,12 @@ main = cmdloop (initEnv [])
 
 -- process the command line
 cmd_process :: (String, Env) -> (String, Env)
-cmd_process (c,e) = 
+cmd_process (c,e) =
 	case c of
 	"env"   -> ((printEnv e e),e)
 	"clear" -> ("",initEnv [])
 	"?"	-> (printHelp, e)
-	_	-> 
+	_	->
 		case ast of
 		(Set evar bexpr)     -> (printAst ast e, enterEnv evar bexpr e)
 		(EvalSet evar bexpr) -> (res, enterEnv evar rexpr e)
@@ -60,7 +60,7 @@ printHelp = "Commands:\n"++
 	    "?            display this help info\n"++
 	    "$var = 'expr augment the environment\n"++
 	    "$var = expr  eval and assign\n"++
-	    "expr         evaluate the expression\n\n"++ 
+	    "expr         evaluate the expression\n\n"++
   "where expr could be any of the following:\n\n"++
   "EXP -> BINARY-EXP (EXP1,EXP2)\n"++
   "     | UNARY-EXP (EXP)\n"++

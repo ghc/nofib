@@ -57,7 +57,7 @@ read_n_val rd_f n in_str =
 		| n == 0	= i
 		| otherwise = dropval (n-1) rest
 		where (x,rest) = (rd_f i)
- 
+
 -----------------------------------------------------------
 -- reading a number of Int                               --
 -----------------------------------------------------------
@@ -130,7 +130,7 @@ read_data f =
 		read_n_val (rd_pair rd_int (read_n_val
 		(rd_pair rd_int rd_flt) line_size)) bnd_total rest8
 	-- velocity steering vector
-	v_steer = 
+	v_steer =
 		s_array (1,e_total) (map (\(i:_:rest)->i=:rest) v_vals)
 	-- pressure steering vector
 	p_steer =
@@ -145,7 +145,7 @@ read_data f =
 	init_u =
 		(
 			s_def_array (1,n_total) (0::Frac_type)
-			[ i =: 
+			[ i =:
 				if x_fixed!^i
 				then
 					(fst.snd.head) (dropWhile (\t->(fst t)/=i) bry_xys)

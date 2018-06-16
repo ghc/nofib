@@ -140,10 +140,10 @@ Basic circuit components
 >	= None	-- no component
 >	| Inp	-- input to the entire circuit
 >	| Outp	-- output from the entire circuit
->	| Dff	-- delay flip flop  
->	| Inv	-- inverter         
->	| And2	-- 2-input and gate 
->	| Or2	-- 2-input or gate  
+>	| Dff	-- delay flip flop
+>	| Inv	-- inverter
+>	| And2	-- 2-input and gate
+>	| Or2	-- 2-input or gate
 >	| Xor	-- exclusive or gate
 >	deriving (Eq, Show)
 
@@ -165,12 +165,12 @@ a is the type of a signal (the value on a wire)
 >    a)		-- latch to hold the input signal value
 
 > type OutPort a =
->	(Int,	-- output port number for the signal value      
->	a,	-- latch to hold the signal value               
->	Bool,	-- need to send it to the left?                 
->	Int,	-- distance to send to the left                 
->	Bool,	-- need to send it to the right?                
->	Int)	-- distance to send to the right                
+>	(Int,	-- output port number for the signal value
+>	a,	-- latch to hold the signal value
+>	Bool,	-- need to send it to the left?
+>	Int,	-- distance to send to the left
+>	Bool,	-- need to send it to the right?
+>	Int)	-- distance to send to the right
 
 
 
@@ -235,9 +235,9 @@ a power of two
 
 
 > emptyState :: Signal a => State a
-> emptyState = PS {	pid = -1, 
->			compType = None, 
->			pathDepth = -1, 
+> emptyState = PS {	pid = -1,
+>			compType = None,
+>			pathDepth = -1,
 >			inports = [],
 >			outports = []}
 
@@ -274,12 +274,12 @@ Packets are just OutPorts with a pid
 
 > type Packet a =
 >	(Pid,	-- id of this packet
->	Int,	-- output port number for the signal value      
->	a,	-- latch to hold the signal value               
->	Bool,	-- need to send it to the left?                 
->	Int,	-- distance to send to the left                 
->	Bool,	-- need to send it to the right?                
->	Int,	-- distance to send to the right  
+>	Int,	-- output port number for the signal value
+>	a,	-- latch to hold the signal value
+>	Bool,	-- need to send it to the left?
+>	Int,	-- distance to send to the left
+>	Bool,	-- need to send it to the right?
+>	Int,	-- distance to send to the right
 >	Int)	-- extent
 
 
@@ -388,7 +388,7 @@ need to restore them to there original values.
 > restore_requests old_states new_states
 >		= zipWith restore old_states new_states
 >      where
->	restore os ns = ns { outports = zipWith restore_outport (outports os) 
+>	restore os ns = ns { outports = zipWith restore_outport (outports os)
 >						    (outports ns) }
 >	restore_outport (p,_,ql,dl,qr,dq) (_,m,_,_,_,_) = (p,m,ql,dl,qr,dq)
 
@@ -427,10 +427,10 @@ Update both the inports and outports of a state
 > update_io :: Signal a => Int -> [(Packet a,Packet a)] -> State a -> State a
 > update_io d lrps state = update_os (update_is state)
 >     where
->	update_is state = state { inports = foldr update_i 
+>	update_is state = state { inports = foldr update_i
 >						       (inports state) lrps }
 >	update_os state = if pathDepth state == d
->			    then state { outports = zipWith update_o 
+>			    then state { outports = zipWith update_o
 >							lrps (outports state) }
 >			    else state
 
@@ -529,7 +529,7 @@ Place input values into circuit's input components
 > store_inputs :: Signal a => [(Label,a)] -> State a -> State a
 > store_inputs label_inputs state@(PS {compType=Inp})
 >	= head [ update_outports state value
->			| ((label, input_pid), value) <- label_inputs,  
+>			| ((label, input_pid), value) <- label_inputs,
 >						pid state == input_pid ]
 > store_inputs label_inputs state = state
 
@@ -593,7 +593,7 @@ Circuit example -- a register
 >			compType  = Inp,
 >			pathDepth = 0,
 >			inports    = [],
->			outports   = [(0, zeroS, False, 
+>			outports   = [(0, zeroS, False,
 >				       0, True, 8*(bits-1)+5)]
 >		}
 

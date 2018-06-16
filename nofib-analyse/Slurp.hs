@@ -261,7 +261,7 @@ combine2Results
                       module_size    = Map.unionWith (flip const) ms1 ms2,
                       link_time      = lt1 `mplus` lt2,
                       run_time       = rt1 ++ rt2,
-                      elapsed_time   = et1 ++ et2, 
+                      elapsed_time   = et1 ++ et2,
                       mut_time       = mt1 ++ mt2,
                       mut_elapsed_time = me1 ++ me2,
                       instrs         = is1 `mplus` is2,
@@ -492,7 +492,7 @@ parse_size progName modName (l:ls) =
             Nothing -> parse_size progName modName ls
             Just (text, datas, _bss)
                  | progName == modName ->
-                        [(progName,emptyResults{binary_size = 
+                        [(progName,emptyResults{binary_size =
                                              Just (text + datas),
                                     compile_status = Success})]
                  | otherwise ->

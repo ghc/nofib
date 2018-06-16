@@ -38,7 +38,7 @@ undo :: [Char] -> [Char]
 undo f = func 0 ++ f ++ func 15
 
 undraw :: [Int] -> [Char]
-undraw = undo . line 
+undraw = undo . line
 
 drawlines :: [[Int]] -> [Char]
 drawlines = concat . map line
@@ -47,11 +47,11 @@ allpairs _ [] _ = []
 allpairs _ _ [] = []
 allpairs f (x:xs) ys = map (f x) ys ++ allpairs f xs ys
 
--- grid -- a function that draws a grid. 
+-- grid -- a function that draws a grid.
 -- The function drawf is applied to each x y pair in the grid
 
 grid :: Int -> Int -> Int -> Int -> Int -> Int -> (Int -> Int -> [a]) -> [a]
-grid xor yor xgap ygap xlength ylength drawf = 
+grid xor yor xgap ygap xlength ylength drawf =
 	concat (allpairs drawf x0list y0list)
         where
 	x0list = gridlist xor xgap xlength

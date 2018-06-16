@@ -30,7 +30,7 @@
 > data Point = Pt Numb Numb deriving (Eq,Show{-was:Text-})
 
 
-	The Halfspace type enumerates the possible classifications of 
+	The Halfspace type enumerates the possible classifications of
 	a point with respect to a line.
 	
 > data Halfspace = Fore | Coin | Rear deriving (Eq,Show{-was:Text-})
@@ -63,7 +63,7 @@
 
 	space : determines the halfspace of pt w.r.t. line
 		eqn returns a value representing the dot product of point/line
-		zerO,positive are GeomNum class methods. 
+		zerO,positive are GeomNum class methods.
 
 > space :: Line -> Point -> Halfspace
 > space line pt = if zerO val then Coin else
@@ -78,7 +78,7 @@
 
 
 	convert : Takes two points and produces the line equation of the line
-		those points lie on. Note that ratio produces 
+		those points lie on. Note that ratio produces
 		diffx and diffy at the most reduced form ensuring that
 		the Line definition is a canonical form.
 		This makes comparing lines for equality trivial and
@@ -86,7 +86,7 @@
 
 > convert :: Point -> Point -> Line
 > convert (Pt x1 y1) (Pt x2 y2) = Ln (diffy) (-diffx) (diffx*y1-diffy*x1)
->                                 where 
+>                                 where
 >					dy=y2-y1
 >                                       dx=x2-x1
 >                                       (diffx,diffy) = ratio dx dy
@@ -101,7 +101,7 @@
 
 	solve : Takes two line equations and produces the point at which
 		they intersect. The point (Pt 0 0) is currently returned
-		if the two lines are parallel. 
+		if the two lines are parallel.
 
 > solve :: Line -> Line -> Point
 > solve (Ln a b c) (Ln d e f) | zerO ((a*e)-(b*d)) = (Pt 0 0)
@@ -109,7 +109,7 @@
 > 			    | otherwise 	= solveAux (Ln d e (-f)) (Ln a b (-c))
 
 > solveAux :: Line -> Line -> Point
-> solveAux (Ln a b c) (Ln 0 e f) = (Pt x y) 
+> solveAux (Ln a b c) (Ln 0 e f) = (Pt x y)
 > 					where y = f/e
 > 					      x = (c-b*y)/a
 
@@ -122,7 +122,7 @@
 	
 > triangleArea :: [Point] -> Numb
 > triangleArea [p1,p2,p3] = abs ((1/2) * (x1*y2-y1*x2))
->				where 
+>				where
 >				(Pt x1 y1) = minus p2
 >				(Pt x2 y2) = minus p3
 >				minus x = minusPoint p1 x
@@ -135,7 +135,7 @@
 
 	
 	mkPoint: Takes a string of the form "x y" and creates
-			the point (Pt x y) where x and y are 
+			the point (Pt x y) where x and y are
 			number conversions of the strings x and y.
 			If x or y are not digits the Null point is returned.
 			Note use of mouse displacement corrections.
@@ -150,11 +150,11 @@
 
 
 	mkPolygon: converts a list of points of the form
-			[p1,p2,p3..pn] representing the vertices of 
+			[p1,p2,p3..pn] representing the vertices of
 		a polygon,
 		to the B-rep form [(p1,p2),(p2,p3),..,(pn,p1)]
-	 
-> mkPolygon :: [Point] -> Faces 
+	
+> mkPolygon :: [Point] -> Faces
 > mkPolygon [] = []
 > mkPolygon (a:l) = map2 f (a:l) (l++[a])
 >			where f x y = mkFace (x,y)
@@ -162,7 +162,7 @@
 
 
 
-	drawface: Returns the escape string required to plot the 
+	drawface: Returns the escape string required to plot the
 			face on the screen. Note that each of the
 			co-ords is rounded to the nearest pixel
 			position.
@@ -172,7 +172,7 @@
 
 
 	inRange: tests whether the point a b lives in the box with
-		origin (top left corner) at (x,y) with height h and 
+		origin (top left corner) at (x,y) with height h and
 		width w.
 
 > {- UNUSED: (an illegal name, too)

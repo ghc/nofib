@@ -50,7 +50,7 @@ invert n a = if e<0 then e+n else e
 iter :: Integer -> Integer -> Integer -> Integer -> Integer
 iter g v 0  w = v
 iter g v h w = iter h w (g - fact * h) (v - fact * w)
-    where  fact = g `div` h 
+    where  fact = g `div` h
 
 
 ------- Fast exponentiation, mod m -----------------

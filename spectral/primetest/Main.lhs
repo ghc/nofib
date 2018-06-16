@@ -3,7 +3,7 @@
 \def\fromemail{dlester@@cs.man.ac.uk}
 \def\doctype{Benchmark-0002}
 \def\title{Probabalistic Primality Testing}
-% Filled in on creation of document: \author, \fromemail, \doctype and \title 
+% Filled in on creation of document: \author, \fromemail, \doctype and \title
 
 % RCS amended stuff
 %$Log: Main.lhs,v $

@@ -1,4 +1,4 @@
-\section{Densematrix} 
+\section{Densematrix}
 
   ============================================================+
   ================== A MATRIX IMPLEMENTATION ==================
@@ -8,9 +8,9 @@
    This is an implementation of the types "matrix" and "vector"
    and their associated operations.  It is most appropriate for
    dense matrices and vectors.
-   
+
   The operations involved are:
-   
+
          mmult matvecmult vmmult  Multiplication
          madd  vadd               Addition
          msub  vsub               Subtraction
@@ -256,8 +256,8 @@ displayvector
 
 
   ============================================================
-       ============== LU DECOMPOSITION ============== 
-       ============== (to do inverses) ============== 
+       ============== LU DECOMPOSITION ==============
+       ============== (to do inverses) ==============
   ============================================================
 
 
@@ -313,7 +313,7 @@ apply_factor factor m
         (Lu_fact lvecs uvecs ps) = factor
 
 
-  
+
 forward  [] p b = b
 forward (l:ls) (p:ps) b
    = y1 : (forward ls ps y')
@@ -367,7 +367,7 @@ findpivot a
        loc_of_max n (x:xs)
                 = if (absfloat x) == absmax then n
                   else loc_of_max (n+1) xs
-       
+
 
 absfloat :: Float -> Float
 absfloat n = if n < 0 then -n
@@ -379,7 +379,7 @@ maxlist xs = foldl1 max xs
 \end{code}
 
 
-            
+
 
 
 

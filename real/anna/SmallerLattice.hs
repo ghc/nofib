@@ -21,10 +21,10 @@ import Data.List(nub,transpose) -- 1.3
 
 instance (Text a, Ord a) => Num (ExceptionInt a) where
 
-   (MkExInt i1 xs1) + (MkExInt i2 xs2) 
+   (MkExInt i1 xs1) + (MkExInt i2 xs2)
       = MkExInt (i1 + i2) (xs1 ++ xs2)
 
-   (MkExInt i1 xs1) * (MkExInt i2 xs2) 
+   (MkExInt i1 xs1) * (MkExInt i2 xs2)
       = MkExInt (i1 * i2) (xs1 ++ xs2)
 -}
 
@@ -47,9 +47,9 @@ slCard rho (Lift2 ds)
 slCard rho (Func dss dt)
    = let norm_func_domain
             = fixWith slNorm (Func dss dt)
-         fixWith f x 
+         fixWith f x
             = let y = f x in if x == y then x else fixWith f y
-         rho_lookup 
+         rho_lookup
             = case utLookup rho norm_func_domain of
                  Nothing -> MkExInt 0 [norm_func_domain]
                  Just n  -> MkExInt n []
@@ -77,7 +77,7 @@ slNorm (Func [Lift2 [Two]] Two)    = Lift1 [Lift2 [Two]]
 slNorm (Func [Two] (Lift1 [Two]))  = Func [Two, Two] Two
 slNorm (Func [Two] (Lift2 [Two]))  = Func [Lift1 [Two]] (Lift1 [Two])
 
-slNorm (Func dss dt) 
+slNorm (Func dss dt)
    = Func (sort (map slNorm dss)) (slNorm dt)
 
 
@@ -85,13 +85,13 @@ slNorm (Func dss dt)
 --
 slReduce :: Domain -> [Domain]
 
-slReduce Two 
+slReduce Two
    = []
 
 slReduce (Lift1 ds)
    = let reduced_and_original = myZipWith2 (:) ds (map slReduce ds)
      in
-         [Lift1 ds_reduced 
+         [Lift1 ds_reduced
           | ds_reduced <- tail (myCartesianProduct reduced_and_original)]
          ++
          [Two]
@@ -99,7 +99,7 @@ slReduce (Lift1 ds)
 slReduce (Lift2 ds)
    = let reduced_and_original = myZipWith2 (:) ds (map slReduce ds)
      in
-         [Lift2 ds_reduced 
+         [Lift2 ds_reduced
           | ds_reduced <- tail (myCartesianProduct reduced_and_original)]
          ++
          [Two]
@@ -109,11 +109,11 @@ slReduce (Func dss dt)
          res_domain_reduced  = slReduce dt
          originals    = dt : dss
          reduced_all  = res_domain_reduced : arg_domains_reduced
-         variants     = tail (myCartesianProduct 
+         variants     = tail (myCartesianProduct
                              (myZipWith2 (:) originals reduced_all))
      in
          [Func dss dt | (dt:dss) <- variants]
-         ++ 
+         ++
          [Two]
 
 
@@ -145,7 +145,7 @@ slMakeSequence table scaleup_ratio dss lowlimit highlimit
          equalLengths = map (reverse.take limit) initially
 
          -- transpose, to get it round the way we need it
-         -- outer list: the sequence, one elem contains all functions at a 
+         -- outer list: the sequence, one elem contains all functions at a
          --             given size
          equalLengthsT = transpose equalLengths
 
@@ -221,7 +221,7 @@ slMakeOneSequence table scaleup_ratio ds
 
          -- flatten it out
          iaboves_flattened :: [(DInt, DInt)]
-         iaboves_flattened 
+         iaboves_flattened
             = concat (map ( \ (x, ys) -> [(x,y) | y <- ys] ) iaboves)
 
          -- the local cost function
@@ -244,7 +244,7 @@ slMakeOneSequence table scaleup_ratio ds
      in
          slDijkstra iaboves_costed start end
 
-         
+
 
 -- ==========================================================--
 --
@@ -252,13 +252,13 @@ slRecover :: Eq a => [a] -> (a -> a -> Bool) -> AList a [a]
 
 slRecover latt leq
    = let
-        iaboves s 
+        iaboves s
            = foldr minInsert [] (allabove s)
-        allabove s 
+        allabove s
            = [t | t <- latt, s `leq` t  &&  s /= t]
-        minInsert t s 
-           = if     myAny (`leq` t) s 
-             then   s 
+        minInsert t s
+           = if     myAny (`leq` t) s
+             then   s
              else   t : [u | u <- s, not (t `leq` u)]
      in
         [(s, iaboves s) | s <- latt]
@@ -278,9 +278,9 @@ slDijkstra roads start end
 
 -- ==========================================================--
 --
-slDijkstra_aux :: Eq a => [(a, a, Int)] -> 
-                          a -> 
-                          [(a, Int, a)] -> 
+slDijkstra_aux :: Eq a => [(a, a, Int)] ->
+                          a ->
+                          [(a, Int, a)] ->
                           [(a, Int, a)]
 
 slDijkstra_aux roads end considered
@@ -301,7 +301,7 @@ slDijkstra_aux roads end considered
         updAll olds [] = olds
         updAll olds ((pl,newco,bak):rest) = updAll (upd (pl, newco, bak) olds) rest
 
-        considered2 = updAll removeBest bigY        
+        considered2 = updAll removeBest bigY
     in  if null considered then panic "Dijkstra failed" else
         if best == end then [(best, bestcost, bestback)] else
         (best, bestcost, bestback) : slDijkstra_aux roads end considered2

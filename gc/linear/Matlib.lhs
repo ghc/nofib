@@ -15,18 +15,18 @@
 Notes:
 
   Scale_function and Precond_function were originally exported
-  but hbc will not allow this, and as they are not used by the 
-  only importing module(Test) they have been left out of the 
+  but hbc will not allow this, and as they are not used by the
+  only importing module(Test) they have been left out of the
   export list here(irm)
 
   The import of AbsDensematrix is to keep hbc happy.
 
 \begin{code}
-module Matlib (scale, precond, uncondition) where 
+module Matlib (scale, precond, uncondition) where
 
 import Data.List (genericLength)
 import Matrix
-import AbsDensematrix 
+import AbsDensematrix
 
 
 type Scale_function   = Matrix -> Vector -> (Matrix,Vector)
@@ -48,7 +48,7 @@ uncondition :: Precond_function
 Notes:
 
     bdscl is Block diagonal scaling
-    BDSCL (A = L + D + U)  , V   ->    (L_new, I, U_new) , V_new 
+    BDSCL (A = L + D + U)  , V   ->    (L_new, I, U_new) , V_new
 
 
 \begin{code}
@@ -89,11 +89,11 @@ bdscl m vs
    an incomplete LU factorization, where only the diagonal blocks
    are altered.  The rows and columns which represent wells in the
    reservoir model (and occupy the last rows & columns) are then
-   treated to full Gaussian elimination.  Once this has been 
+   treated to full Gaussian elimination.  Once this has been
    accomplished (by the function "pseudofactor"), back substitution
    is performed on the vector to be conditioned.  This vector
    supplies a better guess than might otherwise be used for the
-   direction the solution vector must move. 
+   direction the solution vector must move.
 
 
   Given a sparse matrix, perform incomplete lu decomposition
@@ -116,12 +116,12 @@ bdscl m vs
  ======== Notes on the functions to follow ==================
 
 
-   precond 
+   precond
 
    Given the number of rows/columns which represent well terms,
    the system matrix and some vector, do the preconditioning on
    the vector (as described above)
-      
+
         ------------------
    pseudofactor
 
@@ -131,7 +131,7 @@ bdscl m vs
    in more detail above.
         ------------------
    colsbefore
-  
+
    Given a row of block tuples, return only the columns before the one given.
         ------------------
    backsubs
@@ -146,7 +146,7 @@ bdscl m vs
     forward m r
 
     returns the vector y which satisfies:
- 
+
       (L+D) y = r
 
         ==>
@@ -174,7 +174,7 @@ bdscl m vs
     of the matrix m.  [So... m = (L+Dinv+U)]
 
     This is calculated in block matrix format in this manner:
- 
+
         p_i = y_i - Dinv_i * sum [ B_i_j * p_j ]
                              j>i
 
@@ -182,7 +182,7 @@ bdscl m vs
 
 
 
-         
+
 
 
 \begin{code}
@@ -190,7 +190,7 @@ precond nwells a v
     = backsubs (pseudofactor firstwell a) v
     where
         firstwell = (numrows a) - nwells
-  
+
 
 pseudofactor :: Int -> Matrix -> Matrix
 pseudofactor n mat
@@ -199,7 +199,7 @@ pseudofactor n mat
         mat' = mkmatrix [ newrow k | k <- blocknums mat ]
         newrow k = (bilu k) ++ (bclu k)
         maxblock = last (blocknums mat)
-        bilu k = if (k>=n) then []                 
+        bilu k = if (k>=n) then []
                  else  map bilu' (colsbefore n (getrow k mat))
         bilu' (r,c,oldb)
            = if r/=c then (r,c,oldb)
@@ -214,7 +214,7 @@ pseudofactor n mat
         b' i j = msubscript i j mat'
 
         first_col_in_row r
-           = if getrow r mat == [] then  maxblock                   
+           = if getrow r mat == [] then  maxblock
              else colno (head (getrow r mat))
         colno (r,c,b) = c
         firstcols = [first_col_in_row r | r<-[n..maxblock]]
@@ -232,8 +232,8 @@ pseudofactor n mat
              else if i==j then (i,j,binverse (head result))
              else (i,j,head result)
              where
-             result =  if i<j then [b' i i] `mult` ([b i j] `sub` sumpartU)  
-                      else [b i j] `sub` sumpartL   
+             result =  if i<j then [b' i i] `mult` ([b i j] `sub` sumpartU)
+                      else [b i j] `sub` sumpartL
              sumpartU = sumblocks [ [bik] `mult` [b k j]
                                       | (x,k,bik) <- (getrow i mat), k<i ]
              sumpartL = sumblocks [ [bik] `mult` [b' k k] `mult` [b' k j]
@@ -244,7 +244,7 @@ pseudofactor n mat
 colsbefore n row = [(r,c,b) | (r,c,b) <- row, c < n ]
 
 
-  
+
 backsubs m v
    = v'
       where
@@ -253,12 +253,12 @@ backsubs m v
 
 
 forward m rs
-   = mkvector [(y k) | k <- (blocknums m) ] 
+   = mkvector [(y k) | k <- (blocknums m) ]
      where
         y k = bvecmult (dinv k) (terms k)
         dinv k = b k k
         r k = vsubscript k rs
-        terms k = if (sumpart k)==[] then (r k)                              
+        terms k = if (sumpart k)==[] then (r k)
                   else  (r k) `vecsub` (vecsum (sumpart k))
         sumpart k = sumparts!!k
         sumparts = [ [ b_ij `bvecmult` (y j) | (i,j, b_ij) <- (getrow k m) , j<i ]
@@ -266,7 +266,7 @@ forward m rs
         b i j = msubscript i j m
 
 
- 
+
 
 backward :: Matrix -> Vector -> [Vec]
 backward m ys
@@ -302,7 +302,7 @@ sub  [ ] [y] = [bneg y]
 sub  [x] [y] = [bsub x y]
 
 sumblocks xs = if blocks /= [] then [bsum blocks]
-               else []           
+               else []
                where blocks = concat xs
 \end{code}
 
@@ -316,7 +316,7 @@ Notes:
 
      bsum sums up a bunch of blocks.
 
-     diag_matrix returns a matrix which consists of the diagonal blocks of 
+     diag_matrix returns a matrix which consists of the diagonal blocks of
      a sparse matrix.
 
      is_diag determines whether or not a block is on the diagonal.
@@ -379,7 +379,7 @@ symmetric m
      where
 	symmetric_row row = concat [ has_corresponding elem | elem <- row ]
 	has_corresponding (r,c,b)
-	   = if exists c r then []     
+	   = if exists c r then []
 	     else "Cannot find corresponding block for " ++ (show (r,c))++"\n"
 	exists r c = (filter (iscol c) (getrow r m)) /= []
 	iscol c (i,j,b) = c==j
@@ -395,11 +395,11 @@ sorted m
 sort :: (Ord a) => [a] -> [a]
 sort xs = if (n == 1) then xs
           else merge (sort us) (sort vs)
-          where 
+          where
            n = genericLength xs
            us = take (n `div` 2) xs
            vs = drop (n `div` 2) xs
-     
+
 
 merge :: (Ord a) => [a] -> [a] -> [a]
 merge [] ys = ys

@@ -114,7 +114,7 @@ EXPRESSIONS
 > data EXPR = Func FUNC [EXPR] | Var VAR
 >	-- deriving Eq
 >
-> instance Eq EXPR where 
+> instance Eq EXPR where
 >   (Func f1 es1) == (Func f2 es2) = f1 == f2 && es1 == es2
 >   (Var v1) == (Var v2) = v1 == v2
 >   other1 == other2 = False
@@ -201,7 +201,7 @@ The parser itself:
 > p_expr = seQ q_op [p_term, p_op, p_term] ## p_term
 > q_op [Expr a, MkString op, Expr b] = Expr (Func op [a, b])
 
-> p_term = seQ q_func [p_ident, look_for '(', 
+> p_term = seQ q_func [p_ident, look_for '(',
 >                       list_of p_expr ',', look_for ')'] ## p_prim
 > q_func [MkString fun, lb, List args, rb] = Expr (Func fun (map unExpr args))
 
@@ -217,8 +217,8 @@ The parser itself:
 
 > opsym = (`elem` "*+%@-/?:")
 
-> alphanum c = (c >= 'A' && c <= 'Z') 
->              || (c >= 'a' && c <= 'z') 
+> alphanum c = (c >= 'A' && c <= 'Z')
+>              || (c >= 'a' && c <= 'z')
 >              || (c >= '0' && c <= '9')
 
 SUBSTITUTIONS
@@ -259,8 +259,8 @@ SUBTERMS and REPLACEMENT
 
 > subterms :: EXPR -> [(PATH, EXPR)]
 > subterms (Var v) = []
-> subterms (Func f a) 
->       = [([], Func f a)] 
+> subterms (Func f a)
+>       = [([], Func f a)]
 >         ++ [(i:k, u) | (i, t) <- ([0..] `zip` a), (k, u) <- subterms t]
 
 > replace :: EXPR -> PATH -> EXPR -> EXPR
@@ -277,7 +277,7 @@ MATCHING
 > match :: EXPR -> EXPR -> Maybe SUBST
 > match p t = match' [] (p, t)
 
-> match' s (Var v, t) 
+> match' s (Var v, t)
 >       = if not (exists u) then succeed ((v, t):s)
 >         else if the u == t then succeed s
 >         else croak
@@ -298,7 +298,7 @@ REWRITING
 > try_all = foldr (##) (const croak)
 
 > inside :: TACTIC -> TACTIC
-> inside rw t = first_ok [ lift (replace t k) (rw u) 
+> inside rw t = first_ok [ lift (replace t k) (rw u)
 >                          | (k, u) <- subterms t ]
 
 > reduce1 eqn = inside (rewrite eqn)
@@ -389,12 +389,12 @@ default to use for variables) or a return of an equation list:
 >         where d' = thread z e (Return eqns)
 
 > map_dnet :: (a -> b) -> DISC_NET a -> DISC_NET b
-> map_dnet f (Switch alist defalt) 
+> map_dnet f (Switch alist defalt)
 >       = Switch (map (id `cross` map_dnet f) alist) (map_dnet f defalt)
 > map_dnet f (Return x) = Return (f x)
 
 > delete_eqns :: [NUM] -> DNET -> DNET
-> delete_eqns nums 
+> delete_eqns nums
 >       = map_dnet (filter ok)
 >         where ok e = not ((eqno e) `elem` nums)
 
@@ -409,7 +409,7 @@ RECURSIVE PATH ORDERING
 > data ANSWER = Equal | Greater | Less | Unrelated
 >	-- deriving Eq
 >
-> instance Eq ANSWER where 
+> instance Eq ANSWER where
 >   Equal	== Equal	= True
 >   Greater	== Greater	= True
 >   Less	== Less		= True
@@ -444,7 +444,7 @@ RECURSIVE PATH ORDERING
 
 > rem_eq :: RELATION a b -> ([a], [b]) -> ([a], [b])
 > rem_eq eq ([], ys) = ([], ys)
-> rem_eq eq (x:xs, ys) 
+> rem_eq eq (x:xs, ys)
 >       = lift (rem_eq eq . pair xs) (delete eq x ys)
 >         ?? add_x (rem_eq eq (xs, ys))
 >         where add_x (xs', ys') = (x:xs', ys')
@@ -513,7 +513,7 @@ AGENDA
 > mk_item cfun eqn = Item (cfun eqn) eqn
 
 > addby :: (a -> NUM) -> [a] -> [a] -> [a]
-> addby f xs ys 
+> addby f xs ys
 >       = foldr insert ys xs
 >         where insert x []     = [x]
 >               insert x (y:ys) = if f x <= f y then x:y:ys else y:insert x ys
@@ -540,7 +540,7 @@ SUPERPOSITION
 >                    ++ map (mk_crit e2 e1) (strict_super (lhs e2) (lhs e1))
 
 > all_crit_pairs :: EQUATION -> [EQUATION] -> [CRIT_PAIR]
-> all_crit_pairs eqn theory 
+> all_crit_pairs eqn theory
 >       = map (mk_crit eqn' eqn'') (strict_super (lhs eqn') (lhs eqn''))
 >         ++ concat (map (crit_pairs eqn') theory'')
 >         where eqn' = stand_eqn "1" eqn
@@ -569,7 +569,7 @@ KNUTH-BENDIX COMPLETION
 >       = (simplify (super_reduce net) lhs,
 >          simplify (super_reduce net) rhs)
 
-> process1 :: KB_DATA -> NUM -> [EQUATION] -> DNET -> AGENDA 
+> process1 :: KB_DATA -> NUM -> [EQUATION] -> DNET -> AGENDA
 >                                               -> CRIT_PAIR -> DNET
 > process1 datums n thy net todo (lhs, rhs)
 >       = case o of
@@ -589,10 +589,10 @@ KNUTH-BENDIX COMPLETION
 >               net' = add_eqn (delete_eqns (map eqno deleted) net) new_rule
 >               deletions = map eqpr deleted
 >               critical = all_crit_pairs new_rule thy'
->               new_agenda = sift (map (resolve (super_reduce net')) 
+>               new_agenda = sift (map (resolve (super_reduce net'))
 >                                               (deletions ++ critical))
 >               todo' = add_agenda (snd datums) new_agenda todo
-        
+
 > resolve :: TACTIC -> CRIT_PAIR -> Maybe CRIT_PAIR
 > resolve tac pr
 >       = if lhs' == rhs' then croak
@@ -611,9 +611,9 @@ KNUTH-BENDIX COMPLETION
 
 BENCHMARK
 
-> group_rules = map parse_eqn [ 
->               "(a * b) * c = a * (b * c)", 
->               "E * x = x", 
+> group_rules = map parse_eqn [
+>               "(a * b) * c = a * (b * c)",
+>               "E * x = x",
 >               "I(x) * x = E" ]
 
 > rank "E" = 1

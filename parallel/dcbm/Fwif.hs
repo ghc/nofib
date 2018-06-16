@@ -21,10 +21,10 @@ fwifdb p x y =
     case (boolval p) of
         TRUE ->    x
         FALSE ->   y
-        UNKNOWN -> 
+        UNKNOWN ->
 	    if eq x y then x
 	    else x `seqt` y `seqt`
-		 if eq x y then x 
+		 if eq x y then x
 		 else case x of
 
 		      Node1 l1 k1 r1 ->
@@ -35,7 +35,7 @@ fwifdb p x y =
 				       where
 					    l' = fwifdb p l1 l2
 					    r' = fwifdb p r1 r2
-					    newnode = 
+					    newnode =
 						Node1 l'
 					     	 (if k1 == k2 then k1 else
 					      	  if p then k1 else k2)
@@ -57,8 +57,8 @@ fwifdb p x y =
 					   l' = fwifdb p l1 l2
 					   m' = fwifdb p m1 m2
 				           r' = fwifdb p r1 r2
-				           newnode = 
-					        Node2 
+				           newnode =
+					        Node2
 						    l'
 					           (if k11 == k12 then k11 else
 					            if p then k11 else k12)
@@ -77,7 +77,7 @@ fwifdb p x y =
 
 		      Tip_Acc e1 a1 ->
 			   case y of
-			        Tip_Acc e2 a2 -> 
+			        Tip_Acc e2 a2 ->
 					e1 `seqi` a1 `seqi` e2 `seqi` a2 `seqi`
 				           Tip_Acc (if p then e1 else e2) (if p then a1 else a2)
 				_ ->  if p then x else y

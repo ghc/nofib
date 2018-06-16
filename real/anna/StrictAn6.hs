@@ -39,7 +39,7 @@ saMain :: AnnExpr Naam TExpr ->
 
 saMain typedTree typeDAR simplestTEnv freeVars builtins dataDefs flags table
    = let domaindTree
-            = tx2dxAnnTree typeDAR typedTree        
+            = tx2dxAnnTree typeDAR typedTree
          recGroups
             = saMkGroups domaindTree
          simplestDEnv
@@ -47,7 +47,7 @@ saMain typedTree typeDAR simplestTEnv freeVars builtins dataDefs flags table
          simplestDs
             = map2nd dxApplyDSubst_2 simplestDEnv
          statics
-            = (simplestDEnv, simplestDs, cargs, 
+            = (simplestDEnv, simplestDs, cargs,
                freeVars, flags, (pLim, mLim, lLim, uLim, sRat), table)
          cargs
             = saMkCargs dataDefs
@@ -55,11 +55,11 @@ saMain typedTree typeDAR simplestTEnv freeVars builtins dataDefs flags table
             = SimpleInv `elem` utSCflags statics
          use_baraki
             = NoBaraki `notElem` utSCflags statics
-         saResult      
+         saResult
             = saUndoCAFkludge (saGroups statics builtins recGroups)
          setting_info
             = saSettingInfo pLim mLim lLim uLim sRat mindless_inv use_baraki
-         result        
+         result
             = concat (map (saPrinter statics mindless_inv) saResult)
          pLim
             = case head (filter isP flags) of {PolyLim n -> n}
@@ -125,8 +125,8 @@ saSettingInfo pLim mLim lLim uLim sRat mindless_inv use_baraki
 
 -- ==========================================================--
 --
-saGroups :: StaticComponent -> 
-            AList Naam (HExpr Naam) -> 
+saGroups :: StaticComponent ->
+            AList Naam (HExpr Naam) ->
             DefnGroup (Naam, AnnExpr Naam DExpr) ->
             [SAInfo]
 
@@ -148,12 +148,12 @@ saGroups statics beta [] = []
    The current beta will contain bindings for all functions
    preceding this one.  This fn does not call itself, so we
    chuck it into "sa" with beta as it is, supplying none of the
-   free vars.  Then optimise it.  Then knock it into a 
+   free vars.  Then optimise it.  Then knock it into a
    frontier representation.
 -}
 
 saGroups statics beta ((False, [(defname, defrhs)]): rest)
-   = let hrhs 
+   = let hrhs
             = siVectorise (optFunc (sa statics beta defrhs))
          defDexpr
             = utSureLookup (utSCdexprs statics) "sa(1)" defname
@@ -167,7 +167,7 @@ saGroups statics beta ((False, [(defname, defrhs)]): rest)
             = saNonRecStartup statics defname defDomain hrhs
          route
             = saGetResult (last callSearchResult)
-         betaAug 
+         betaAug
             = [(defname, HPoint route)]
          restInfo
             = saGroups statics (betaAug++beta) rest
@@ -178,7 +178,7 @@ saGroups statics beta ((False, [(defname, defrhs)]): rest)
          ++
          restInfo
 
-         
+
 {- Recursive function binding.
    ===========================
 
@@ -211,13 +211,13 @@ saGroups statics beta ((True, defs):rest)
             = map saGetResult (filter saIsResult callFixResult)
          betaAug
             = myZip2 defNames (map HPoint fixpoints)
-         optFunc 
+         optFunc
             = if Simp `elem` utSCflags statics then siSimplify else id
          show_hexprs
             = ShowHExpr `elem` utSCflags statics
          restinfo
             = saGroups statics (betaAug++beta) rest
-     in  
+     in
          (if show_hexprs then myZipWith2 SAHExpr defNames hrhss else [])
          ++
          callFixResult
@@ -257,7 +257,7 @@ saFixStartup
             = myZipWith2 saMkFunc final_arg_dss targ_ds
          safe_and_live_bottoms
             = map avBottomR init_domains
-         result 
+         result
             = saFixMain statics
                         names
                         sequence
@@ -351,9 +351,9 @@ saNonRecSearch
      old_safe_abstraction
      old_live_abstraction
      tree
-   = 
+   =
      let
-         finished_after_this_search 
+         finished_after_this_search
             = saSequenceIsEmpty (saGetSeqTail sequence)
          given_up_early
             = saGivenUpEarly sequence
@@ -361,8 +361,8 @@ saNonRecSearch
             = saGetNextNonRec sequence
          given_up_early_result
             = head (saFinalExpansion statics
-                                     [final_domain] 
-                                     [old_domain] 
+                                     [final_domain]
+                                     [old_domain]
                                      [old_safe_abstraction])
          done_result
             = if     given_up_early
@@ -380,14 +380,14 @@ saNonRecSearch
          curr_live_initialiser
             = acConc Safe curr_domain old_domain old_live_abstraction {-Safe live-}
          (next_safe, next_safe_evals)
-            = fsMakeFrontierRep Safe False 
+            = fsMakeFrontierRep Safe False
                                 tree
                                 curr_domain
                                 final_arg_ds
                                 curr_live_initialiser
                                 curr_safe_initialiser
          (next_live, next_live_evals)
-            = fsMakeFrontierRep Live False 
+            = fsMakeFrontierRep Live False
                                 tree
                                 curr_domain
                                 final_arg_ds
@@ -397,14 +397,14 @@ saNonRecSearch
             = [SASearch Safe name size next_safe_evals,
                SASearch Live name size next_live_evals]
          not_done_result
-            = saNonRecSearch statics 
-                             name 
+            = saNonRecSearch statics
+                             name
                              (saGetSeqTail sequence)
-                             curr_arg_ds 
-                             targ_d 
-                             final_arg_ds 
-                             next_safe 
-                             next_live 
+                             curr_arg_ds
+                             targ_d
+                             final_arg_ds
+                             next_safe
+                             next_live
                              tree
      in
          if     finished_after_this_search
@@ -457,12 +457,12 @@ saFixMain
          curr_live
             = myZipWith3 (acConc Live) curr_domains prev_domains prev_live
          max0_init
-            = curr_live 
-              --myZipWith3 (acConc Live) 
+            = curr_live
+              --myZipWith3 (acConc Live)
               --curr_domains prev_domains prev_live {-Live safe-}
          min1_init
             = curr_safe
-              --myZipWith3 (acConc Safe) 
+              --myZipWith3 (acConc Safe)
               --curr_domains prev_domains prev_safe {-Safe live-}
          thisSizeInfo
             = saFixAtSizeLive statics
@@ -542,9 +542,9 @@ saFixAtSizeLive
             = myZipWith2 saMkFunc big_argdss targ_ds
          big_live_abstractions
             = myZipWith3 (acConc Live) big_domains curr_domains live_abstractions
-         curr_live_beta 
+         curr_live_beta
             = myZip2 names big_live_abstractions
-         trees_live 
+         trees_live
             = map (saHSubst curr_live_beta) trees
          next_live_with_evals
             = myZipWith5 (fsMakeFrontierRep Live (lev==0))
@@ -553,7 +553,7 @@ saFixAtSizeLive
                          big_argdss
                          min1_init
                          live_abstractions --max0_init
-         (next_live, next_live_evals) 
+         (next_live, next_live_evals)
             = unzip2 next_live_with_evals
          got_fixed_point
             = myAndWith2 (\a b -> a == b) next_live live_abstractions
@@ -574,7 +574,7 @@ saFixAtSizeLive
          work_here_commentary
             = myZipWith3 (SASearch Live) names sizes next_live_evals
          not_fixed_point_result
-            = work_here_commentary ++              
+            = work_here_commentary ++
               saFixAtSizeLive statics
                               next_live
                               names
@@ -627,9 +627,9 @@ saFixAtSizeSafe
             = myZipWith2 saMkFunc big_argdss targ_ds
          big_safe_abstractions
             = myZipWith3 (acConc Safe) big_domains curr_domains safe_abstractions
-         curr_safe_beta 
+         curr_safe_beta
             = myZip2 names big_safe_abstractions
-         trees_safe 
+         trees_safe
             = map (saHSubst curr_safe_beta) trees
          next_safe_with_evals
             = myZipWith5 (fsMakeFrontierRep Safe (lev==0))
@@ -648,7 +648,7 @@ saFixAtSizeSafe
          work_here_commentary
             = myZipWith3 (SASearch Safe) names sizes next_safe_evals
          not_fixed_point_result
-            = work_here_commentary ++              
+            = work_here_commentary ++
               saFixAtSizeSafe statics
                               next_safe
                               live_fixes
@@ -670,7 +670,7 @@ saFixAtSizeSafe
 
 -- ==========================================================--
 --
-saFinalExpansion :: StaticComponent -> 
+saFinalExpansion :: StaticComponent ->
                     [Domain] ->
                     [Domain] ->
                     [Route] ->
@@ -722,23 +722,23 @@ saPrinter statics mi (SASearch mode name size n)
      " \"" ++ name ++ "\"\n"
 
 saPrinter statics mi (SASizes name useSizes noUseSizes)
-   = "\nDomains for \"" ++ name ++ "\" are\n" ++ 
+   = "\nDomains for \"" ++ name ++ "\" are\n" ++
      saPrinter_aux True useSizes ++ saPrinter_aux False noUseSizes ++ "\n"
 
 saPrinter statics mi (SAHExpr name tree)
    = "\nAbstract tree for \"" ++ name ++ "\" is\n\n" ++ show tree ++ "\n\n"
 
 saPrinter statics mi (SAGiveUp names)
-   = "Giving up on " ++ 
-     interleave " and " (map (\n -> "\"" ++ n ++ "\"") names) ++ 
+   = "Giving up on " ++
+     interleave " and " (map (\n -> "\"" ++ n ++ "\"") names) ++
      ".\n"
 
 
-saPrinter_aux use [] 
+saPrinter_aux use []
    = ""
 saPrinter_aux use ((s,ds):sds)
    = rjustify 8 (show s) ++ " " ++
-     (if use then " " else "*") ++ " " 
+     (if use then " " else "*") ++ " "
      ++ show ds ++ "\n" ++ saPrinter_aux use sds
 
 
@@ -810,7 +810,7 @@ saMakeSizeInfo :: Sequence -> [Naam] -> [SAInfo]
 
 saMakeSizeInfo (use, noUse) names
    = let useT = transpose use
-         noUseT 
+         noUseT
             = transpose noUse
          noUseT2 = (if null noUse then [[] | _ <- useT] else noUseT)
      in
@@ -835,7 +835,7 @@ saHSubst fenv (HVAp f es)       = HVAp (saHSubst fenv f) (map (saHSubst fenv) es
 
 -- ==========================================================--
 --
-saMkGroups :: AnnExpr Naam DExpr -> 
+saMkGroups :: AnnExpr Naam DExpr ->
             DefnGroup (AnnDefn Naam DExpr)
 
 saMkGroups (_, ALet rf subdefs rest) = (rf, subdefs):saMkGroups rest
@@ -853,16 +853,16 @@ sa :: StaticComponent ->
       AnnExpr Naam DExpr ->
       HExpr Naam
 
-sa statics beta (dtau, AConstr _) 
+sa statics beta (dtau, AConstr _)
    = panic "sa: AConstr encountered"
 
 sa statics beta (dtau, ALet _ _ _)
    = panic "sa: ALet encountered"
 
-sa statics beta (dtau, ANum n) 
+sa statics beta (dtau, ANum n)
    = HPoint One
 
-sa statics beta (dtau, AAp e1 e2) 
+sa statics beta (dtau, AAp e1 e2)
    = HApp (sa statics beta e1) (sa statics beta e2)
 
 sa statics beta (dtau, ALam vs e)
@@ -874,7 +874,7 @@ sa statics beta (dtau, AVar v)
       If it's a function which is accounted for in beta, do likewise.
       If it's a function which is not accounted for in beta, ignore it,
       since it must be a call to the current recursive group.
-      If it's a variable, look it up in beta, and if it isn't there, 
+      If it's a variable, look it up in beta, and if it isn't there,
       just leave alone.  Otherwise replace.  This allows the
       case-statement-algorithm to work properly.
    -}
@@ -900,7 +900,7 @@ sa statics beta (dtau, AVar v)
             = NoBaraki `notElem` (utSCflags statics)
          (pLim, mLim, lLim, uLim, scale_ratio)
             = utSClims statics
-         f_at_instance 
+         f_at_instance
             = bcMakeInstance use_baraki pLim Safe
                              v_dtype_simple v_instance v_lookup_point
          mindless_inv
@@ -919,7 +919,7 @@ sa statics beta (dtau, AVar v)
          else
          if    isVariable && not accounted_for
          then  HVar v
-         else  
+         else
          if    isFunction && accounted_for
          then  HPoint f_at_instance
          else
@@ -940,18 +940,18 @@ sa statics beta (dtau, ACase (dtau_sw, expr_sw) alts)
          alternative with that value and HMeet all the values
          together (yuck).
    -}
-   = let 
+   = let
          ----------------------------------------------------------
          -- check for special case of case-ing on a known value  --
          ----------------------------------------------------------
 
          caseOfKnownVal
             = case expr_sw of
-                AVar v_sw -> isLower (head v_sw) && 
+                AVar v_sw -> isLower (head v_sw) &&
                              v_sw `elem` map first beta
                 anyElse   -> False
 
-         v_sw_pt = case utSureLookup beta "sa(??)" 
+         v_sw_pt = case utSureLookup beta "sa(??)"
                         (case expr_sw of AVar v_sw -> v_sw)
                    of HPoint p -> p
 
@@ -979,20 +979,20 @@ sa statics beta (dtau, ACase (dtau_sw, expr_sw) alts)
 
          constructorNames = map first alts
 
-         constrSimpDTypes = map (utSureLookup (utSCdexprs statics) "sa(9)") 
+         constrSimpDTypes = map (utSureLookup (utSCdexprs statics) "sa(9)")
                                 constructorNames
 
          constrSimpDFinal = let getDxt (DXFunc _ dxt) = dxt
                                 getDxt other_dx = other_dx
                             in  map getDxt constrSimpDTypes
 
-         constrInstances  = map (\si -> txGetInstantiations si dtau_sw) 
+         constrInstances  = map (\si -> txGetInstantiations si dtau_sw)
                                 constrSimpDFinal
 
-         constrDomains = myZipWith2 dxApplyDSubst 
+         constrDomains = myZipWith2 dxApplyDSubst
                          constrInstances constrSimpDTypes
 
-         constrCElems     = map (utSureLookup (utSCconstrelems statics) "sa(10)") 
+         constrCElems     = map (utSureLookup (utSCconstrelems statics) "sa(10)")
                             constructorNames
 
          constrActuals = myZipWith3 (coMakeConstructorInstance mindless_inv)
@@ -1002,7 +1002,7 @@ sa statics beta (dtau, ACase (dtau_sw, expr_sw) alts)
 
          allConstrNumbers = 0 `myIntsFromTo` (length alts - 1)
 
-         allAltInfo          
+         allAltInfo
             = [(constrActuals ## n,             -- the constructor itself
                 constrDomains ## n,             -- the constructor's domain
                 conIsCAF (constrActuals ## n),  -- is-a-caf flag

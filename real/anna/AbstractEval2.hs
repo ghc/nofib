@@ -1,4 +1,4 @@
- 
+
 -- ==========================================================--
 -- === Reduction of abstract expressions                  ===--
 -- ===                                   AbstractEval2.hs ===--
@@ -42,7 +42,7 @@ aeEval x = panic "aeEval(4)"
 --
 aeEvalConst :: HExpr Naam -> Route
 
-aeEvalConst e 
+aeEvalConst e
    = case aeEval e of {HPoint p -> p; _ -> panic "aeEvalConst"}
 
 

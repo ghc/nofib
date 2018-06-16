@@ -70,7 +70,7 @@ data Lex = Lcon             -- constructor used as prefix:
 
          | Leof deriving (Eq, Show{-was:Text-})
 
-{- 
+{-
    Lexing rules:
 
    case (
@@ -136,7 +136,7 @@ data Lex = Lcon             -- constructor used as prefix:
 --
 leLex :: Int -> Int -> String -> [Token]
 
-leLex l n [] 
+leLex l n []
    = repeat (99997, 99997, Leof, "")
 
 leLex l n ('(':[])
@@ -165,7 +165,7 @@ leLex l n ('`':c:cs)
    = case leChunk (n+1) isAlpha cs of
         (restSym, nn, restInput) -> case restInput of
            []        -> leFail l nn "  `  expected"
-           ('`':as)  -> (l, n, if isUpper c then Lconop else Lvarop, c:restSym) 
+           ('`':as)  -> (l, n, if isUpper c then Lconop else Lvarop, c:restSym)
                         : leLex l (nn+1) as
            (_:_)     -> leFail l nn "  `  expected"
    | otherwise
@@ -222,7 +222,7 @@ leLex l n ('-':cs)
         ('}':cs3)  -> leFail l n "Misplaced -}"
         (_:_)      -> (l, n, Lminus, "-") : leLex l (n+1) cs
 
-leLex l n (' ':cs) 
+leLex l n (' ':cs)
    = leLex l (n+1) cs
 
 leLex l n ('\n':cs)
@@ -249,22 +249,22 @@ leLex l n (c:cs)
      else
      if   isAlpha c
      then case leChunk (n+1) leIsTailChar cs of
-             (restSym, nn, restText) -> (l, n, if   isUpper c 
-                                               then Lcon 
+             (restSym, nn, restText) -> (l, n, if   isUpper c
+                                               then Lcon
                                                else Lvar, c:restSym) :
-                                        leLex l nn restText 
+                                        leLex l nn restText
      else
      if   isDigit c
      then case leChunk (n+1) isDigit cs of
              (restSym, nn, restText) -> (l, n, Lintlit, c:restSym) :
-                                        leLex l nn restText 
+                                        leLex l nn restText
      else
      if   leIsSymbol c
      then case leChunk (n+1) leIsSymbol cs of
-             (restSym, nn, restText) -> (l, n, if   c == ':' 
-                                               then Lconop 
+             (restSym, nn, restText) -> (l, n, if   c == ':'
+                                               then Lconop
                                                else Lvarop, c:restSym) :
-                                        leLex l nn restText 
+                                        leLex l nn restText
      else
      leFail l n ("Illegal character  " ++ [c])
 
@@ -344,7 +344,7 @@ leLexLComment l n cs
 --
 leLexRComment :: Int -> Int -> String -> [Token]
 
-leLexRComment l n [] 
+leLexRComment l n []
    = leFail l n "End of file inside {- ... -} comment"
 
 leLexRComment l n ('-':'}':cs)
@@ -373,11 +373,11 @@ leSymbols = ":!#$%&*+./<=>?\\@^|~"
 --
 leIsTailChar :: Char -> Bool
 
-leIsTailChar c 
-   = isLower c || 
-     isUpper c || 
-     isDigit c || 
-     c == '\'' || 
+leIsTailChar c
+   = isLower c ||
+     isUpper c ||
+     isDigit c ||
+     c == '\'' ||
      c == '_'  ||
      c == '\''
 
@@ -406,7 +406,7 @@ leStringToInt
 -- ==========================================================--
 --
 leFail l n m
-  = faiL ("Lexical error, line " ++ show l ++ ", col " ++ show n ++ 
+  = faiL ("Lexical error, line " ++ show l ++ ", col " ++ show n ++
           ":\n   " ++ m )
 
 faiL m = error ( "\n\n" ++ m ++ "\n" )
@@ -426,7 +426,7 @@ faiL m = error ( "\n\n" ++ m ++ "\n" )
 --
 laKeyword :: Token -> Token
 
-laKeyword (l, n, what, text) 
+laKeyword (l, n, what, text)
    = let
         f Lvarop "="      = Lequals
         f Lvarop "|"      = Lbar
@@ -448,7 +448,7 @@ laKeyword (l, n, what, text)
         f Lvar "where"    = Lwhere
 
         f item words      = item
-        
+
      in
          (l, n, f what text, text)
 
@@ -470,7 +470,7 @@ laLayout l (s:ss) (t1@(l1, n1, w1, c1) :
    = t1 :
      (l1, n1, Llbrace, "{") :
      t2 :
-     laLayout l2 (n2:s:ss) ts 
+     laLayout l2 (n2:s:ss) ts
 
    | l1 == l
    = t1 :
@@ -492,7 +492,7 @@ laLayout l (s:ss) (t1@(l1, n1, w1, c1) :
 
 -- ==========================================================--
 --
-laRbrace c l n 
+laRbrace c l n
    = take c (repeat (l, n, Lrbrace, "}"))
 
 -- ==========================================================--
@@ -514,14 +514,14 @@ laMain
 
 --module AbsSyntax where
 
---1.3:data Maybe a = Nothing 
+--1.3:data Maybe a = Nothing
 --             | Just a
 
 type AList a b = [(a, b)]
 
 type Id = String
 
-data Module 
+data Module
    = MkModule Id [TopDecl]
              deriving (Show{-was:Text-})
 
@@ -564,7 +564,7 @@ data Lhs
    | LhsVar Id [Pat]
              deriving (Show{-was:Text-})
 
-data Pat 
+data Pat
    = PatVar Id
    | PatCon Id [Pat]
    | PatWild
@@ -636,7 +636,7 @@ pgAlts :: [Parser a] -> Parser a
 
 pgAlts ps env toks
    = let
-        useAlts [] bestErrTok 
+        useAlts [] bestErrTok
            = PFail bestErrTok
         useAlts (p:ps) bestErrTok
            = case p env toks of
@@ -648,25 +648,25 @@ pgAlts ps env toks
              else if n1 > n2 then x1
              else x2
      in
-        useAlts ps (head (toks ++ [pgEOF])) 
+        useAlts ps (head (toks ++ [pgEOF]))
 
 
 -- ==========================================================--
 --
-pgThen2 :: (a -> b -> c) -> 
-           Parser a -> 
-           Parser b -> 
+pgThen2 :: (a -> b -> c) ->
+           Parser a ->
+           Parser b ->
            Parser c
 
 pgThen2 combine p1 p2 env toks
    = case p1 env toks of
      {
-       PFail tok1 
+       PFail tok1
          -> PFail tok1 ;
-       POk env1 toks1 item1 
+       POk env1 toks1 item1
          -> case p2 env1 toks1 of
             {
-              PFail tok2 
+              PFail tok2
                 -> PFail tok2 ;
               POk env2 toks2 item2
                 -> POk env2 toks2 (combine item1 item2)
@@ -676,21 +676,21 @@ pgThen2 combine p1 p2 env toks
 
 -- ==========================================================--
 --
-pgThen3 :: (a -> b -> c -> d) -> 
-           Parser a -> 
-           Parser b -> 
-           Parser c -> 
+pgThen3 :: (a -> b -> c -> d) ->
+           Parser a ->
+           Parser b ->
+           Parser c ->
            Parser d
 
 pgThen3 combine p1 p2 p3 env toks
    = case p1 env toks of
      {
-       PFail tok1 
+       PFail tok1
          -> PFail tok1 ;
-       POk env1 toks1 item1 
+       POk env1 toks1 item1
          -> case p2 env1 toks1 of
             {
-              PFail tok2 
+              PFail tok2
                 -> PFail tok2 ;
               POk env2 toks2 item2
                 -> case p3 env2 toks2 of
@@ -706,22 +706,22 @@ pgThen3 combine p1 p2 p3 env toks
 
 -- ==========================================================--
 --
-pgThen4 :: (a -> b -> c -> d -> e) -> 
-           Parser a -> 
-           Parser b -> 
-           Parser c -> 
+pgThen4 :: (a -> b -> c -> d -> e) ->
+           Parser a ->
+           Parser b ->
+           Parser c ->
            Parser d ->
            Parser e
 
 pgThen4 combine p1 p2 p3 p4 env toks
    = case p1 env toks of
      {
-       PFail tok1 
+       PFail tok1
          -> PFail tok1 ;
-       POk env1 toks1 item1 
+       POk env1 toks1 item1
          -> case p2 env1 toks1 of
             {
-              PFail tok2 
+              PFail tok2
                 -> PFail tok2 ;
               POk env2 toks2 item2
                 -> case p3 env2 toks2 of
@@ -731,7 +731,7 @@ pgThen4 combine p1 p2 p3 p4 env toks
                      POk env3 toks3 item3
                        -> case p4 env3 toks3 of
                           {
-                            PFail tok4 
+                            PFail tok4
                               -> PFail tok4 ;
                             POk env4 toks4 item4
                               -> POk env4 toks4 (combine item1 item2 item3 item4)
@@ -748,18 +748,18 @@ pgZeroOrMore :: Parser a -> Parser [a]
 pgZeroOrMore p env toks
    = case p env toks of
      {
-       PFail tok1 
+       PFail tok1
          -> POk env toks [] ;
-       POk env1 toks1 item1 
+       POk env1 toks1 item1
          -> case pgZeroOrMore p env1 toks1 of
             {
-              PFail tok2 
+              PFail tok2
                 -> POk env1 toks1 [item1] ;
               POk env2 toks2 item2_list
                 -> POk env2 toks2 (item1 : item2_list)
             }
      }
-         
+
 
 -- ==========================================================--
 --
@@ -792,7 +792,7 @@ pgTwoOrMoreWithSep p psep
         (\i1 s1 i2 rest -> i1:i2:rest)
         p
         psep
-        p 
+        p
         (pgZeroOrMore (pgThen2 (\sep x -> x) psep p))
 
 
@@ -836,7 +836,7 @@ pgOptional p env toks
 pgGetLineNumber :: Parser a -> Parser (Int, a)
 
 pgGetLineNumber p env toks
-   = let 
+   = let
          lineNo = case (head (toks ++ [pgEOF])) of (l, n, w, t) -> l
      in
          case p env toks of
@@ -871,7 +871,7 @@ pgEOF = (88888, 88888, Lvar, "*** Unexpected end of source! ***")
 --
 pgEatEnd :: Parser ()
 
-pgEatEnd env [] 
+pgEatEnd env []
    = POk env [] ()
 
 pgEatEnd env (tok@(l, n, w, t):toks)
@@ -884,7 +884,7 @@ pgEatEnd env (tok@(l, n, w, t):toks)
 pgDeclList :: Parser a -> Parser [a]
 
 pgDeclList p
-   = pgThen3 (\a b c -> b) (pgItem Llbrace) 
+   = pgThen3 (\a b c -> b) (pgItem Llbrace)
                            (pgOneOrMoreWithSep p (pgItem Lsemi))
                            pgEatEnd
 
@@ -908,7 +908,7 @@ panic = error
 
 paLiteral :: Parser Literal
 paLiteral
-   = pgAlts 
+   = pgAlts
      [
         pgApply (LiteralInt . leStringToInt) (pgItem Lintlit),
         pgApply (LiteralChar . head)         (pgItem Lcharlit),
@@ -916,10 +916,10 @@ paLiteral
      ]
 
 paExpr
-   = pgAlts 
+   = pgAlts
      [
-        paCaseExpr, 
-        paLetExpr, 
+        paCaseExpr,
+        paLetExpr,
         paLamExpr,
         paIfExpr,
         paUnaryMinusExpr,
@@ -928,7 +928,7 @@ paExpr
 
 paUnaryMinusExpr
    = pgThen2
-        (\minus (_, aexpr, _) -> 
+        (\minus (_, aexpr, _) ->
              ExprApp (ExprApp (ExprVar "-") (ExprLiteral (LiteralInt 0))) aexpr)
         paMinus
         paAExpr
@@ -945,7 +945,7 @@ paAlt
    = pgAlts
      [
         pgThen4
-           (\pat arrow expr wheres 
+           (\pat arrow expr wheres
                 -> MkExprCaseAlt pat (pa_MakeWhereExpr expr wheres))
            paPat
            (pgItem Larrow)
@@ -984,10 +984,10 @@ paLetExpr
         (pgItem Lin)
         paExpr
 
-paValdefs 
+paValdefs
    = pgApply pa_MergeValdefs (pgDeclList paValdef)
 
-pa_MergeValdefs 
+pa_MergeValdefs
    = id
 
 paLhs
@@ -1001,24 +1001,24 @@ paValdef
    = pgAlts
      [
         pgThen4
-           (\(line, lhs) eq rhs wheres 
+           (\(line, lhs) eq rhs wheres
                 -> MkValBind line lhs (pa_MakeWhereExpr rhs wheres))
            (pgGetLineNumber paLhs)
            (pgItem Lequals)
            paExpr
            (pgOptional paWhereClause),
         pgThen3
-           (\(line, lhs) grdrhss wheres 
-                -> MkValBind line lhs 
+           (\(line, lhs) grdrhss wheres
+                -> MkValBind line lhs
                       (pa_MakeWhereExpr (ExprGuards grdrhss) wheres))
            (pgGetLineNumber paLhs)
            (pgOneOrMore paGrhs)
            (pgOptional paWhereClause)
      ]
 
-pa_MakeWhereExpr expr Nothing 
+pa_MakeWhereExpr expr Nothing
    = expr
-pa_MakeWhereExpr expr (Just whereClauses) 
+pa_MakeWhereExpr expr (Just whereClauses)
    = ExprWhere expr whereClauses
 
 paWhereClause
@@ -1030,7 +1030,7 @@ paGrhs
         paExpr
         (pgItem Lequals)
         paExpr
-        
+
 
 paAPat
    = pgAlts
@@ -1040,12 +1040,12 @@ paAPat
         pgApply (const PatWild) (pgItem Lunder),
         pgApply PatTuple
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llparen) 
+                         (pgItem Llparen)
                          (pgTwoOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrparen)),
         pgApply PatList
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llbrack) 
+                         (pgItem Llbrack)
                          (pgZeroOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrbrack)),
         pgThen3 (\l p r -> p)
@@ -1083,7 +1083,7 @@ paIfExpr
 
 paAExpr
  = pgApply (\x -> (False, x, []))
-   (pgAlts 
+   (pgAlts
     [
        pgApply ExprVar paVar,
        pgApply ExprCon paCon,
@@ -1095,14 +1095,14 @@ paAExpr
    )
 
 paListExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llbrack) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llbrack)
              (pgZeroOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrbrack)
 
 paTupleExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llparen) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llparen)
              (pgTwoOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrparen)
 
@@ -1139,10 +1139,10 @@ paConstrs
         paCon
         (pgZeroOrMore paAType)
 
-paType 
+paType
    = pgAlts
      [
-        pgThen3 
+        pgThen3
            (\atype arrow typee -> TypeArr atype typee)
            paAType
            (pgItem Larrow)
@@ -1180,14 +1180,14 @@ paInfixDecl env toks
   = let dump (ExprVar v) = v
         dump (ExprCon c) = c
     in
-    pa_UpdateFixityEnv 
+    pa_UpdateFixityEnv
        (pgThen3
           (\assoc prio name -> MkFixDecl name (assoc, prio))
           paInfixWord
-          (pgApply leStringToInt (pgItem Lintlit)) 
+          (pgApply leStringToInt (pgItem Lintlit))
           (pgApply (\(_, op, _) -> dump op) paOp)
-          env 
-          toks 
+          env
+          toks
        )
 
 paInfixWord
@@ -1198,11 +1198,11 @@ paInfixWord
        pgApply (const InfixN) (pgItem Linfix)
     ]
 
-pa_UpdateFixityEnv (PFail tok) 
+pa_UpdateFixityEnv (PFail tok)
    = PFail tok
 
 pa_UpdateFixityEnv (POk env toks (MkFixDecl name assoc_prio))
-   = let 
+   = let
          new_env = (name, assoc_prio) : env
      in
          POk new_env toks (MkFixDecl name assoc_prio)
@@ -1222,7 +1222,7 @@ paModule
         paCon
         (pgItem Lwhere)
         (pgDeclList paTopDecl)
-   
+
 parser_test toks
    = let parser_to_test
             = --paPat
@@ -1233,7 +1233,7 @@ parser_test toks
               --paType
               paModule
               --pgTwoOrMoreWithSep (pgItem Lsemi) (pgItem Lcomma)
-              
+
      in
          parser_to_test hsPrecTable toks
 
@@ -1244,7 +1244,7 @@ parser_test toks
 --
 -- ==========================================================--
 --
-hsAExprOrOp 
+hsAExprOrOp
  = pgAlts [paAExpr, paOp]
 
 hsDoExpr :: [PEntry] -> Parser Expr
@@ -1252,7 +1252,7 @@ hsDoExpr :: [PEntry] -> Parser Expr
 -- hsDoExpr uses a parser (hsAexpOrOp :: Parsr PaEntry) for atomic
 -- expressions or operators
 
-hsDoExpr stack env toks = 
+hsDoExpr stack env toks =
   let
      (validIn, restIn, parseIn, err)
         = case hsAExprOrOp env toks of
@@ -1266,20 +1266,20 @@ hsDoExpr stack env toks =
         = utLookupDef env nameIn (InfixL, 9)
      shift
         = hsDoExpr (parseIn:stack) env restIn
-  in 
+  in
      case stack of
         s1:s2:s3:ss
            | validIn && opS2 && opIn && priorS2 > priorIn
               -> reduce
            | validIn && opS2 && opIn && priorS2 == priorIn
-              -> if assocS2 == InfixL && 
-                    assocIn == InfixL 
+              -> if assocS2 == InfixL &&
+                    assocIn == InfixL
                  then reduce
-	         else 
-                 if assocS2 == InfixR && 
-                    assocIn == InfixR 
+	         else
+                 if assocS2 == InfixR &&
+                    assocIn == InfixR
                  then shift
-	         else PFail (head toks) -- Because of ambiguousness 
+	         else PFail (head toks) -- Because of ambiguousness
            | not validIn && opS2
               -> reduce
              where
@@ -1287,7 +1287,7 @@ hsDoExpr stack env toks =
                (opS2, valueS2, nameS2) = s2
                (opS3, valueS3, nameS3) = s3
                (assocS2, priorS2) = utLookupDef env nameS2 (InfixL, 9)
-               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3) 
+               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3)
                                                   valueS1, [])
                                   : ss) env toks
         s1:s2:ss
@@ -1296,7 +1296,7 @@ hsDoExpr stack env toks =
              where
                 (opS1, valueS1, nameS1) = s1
                 (opS2, valueS2, nameS2) = s2
-                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss) 
+                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss)
                                   env toks
         (s1:[])
            | validIn -> shift
@@ -1345,7 +1345,7 @@ main = do
     let parser_res = parser_test tokens
     putStr (showx parser_res)
 
-showx (PFail t) 
+showx (PFail t)
  = "\n\nFailed on token: " ++ show t ++  "\n\n"
 
 showx (POk env toks result)

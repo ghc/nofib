@@ -38,7 +38,7 @@ txGetInstantiations simplest usage
                 usage_arity = length dxss2
                 (new_dxss2, new_dxt2) =
                    if usage_arity > basis_arity
-                   then (take basis_arity dxss2, 
+                   then (take basis_arity dxss2,
                          DXFunc (drop basis_arity dxss2) dxt2)
                    else (dxss2, dxt2)
             in  gi dxt1 new_dxt2 ++ concat (myZipWith2 gi dxss1 new_dxss2)
@@ -47,7 +47,7 @@ txGetInstantiations simplest usage
         consistent acc ((v,dx):rest)
            = case utLookup acc v of
                 Nothing -> consistent ((v,dx):acc) rest
-                Just dy -> if dx == dy 
+                Just dy -> if dx == dy
                            then consistent acc rest
                            else panic "txGetInstantiations"
 
@@ -65,23 +65,23 @@ tx2dxAnnTree td tree = tcMapAnnExpr (tx2dx td) tree
 --
 tx2dx :: TypeDependancy -> TExpr -> DExpr
 
-tx2dx td texpr 
+tx2dx td texpr
    = let typeVars = sort (nub (tcTvars_in texpr))
          dVarEnv = zip typeVars [[x] | x <- "abcdefghijklmnopqrstuvwxyz"]
-     in  if length typeVars > 26 
-         then panic "tx2dx" 
+     in  if length typeVars > 26
+         then panic "tx2dx"
          else dxNormaliseDExpr (tx2dx_aux td dVarEnv texpr)
 
-tx2dx_aux td env (TVar v) 
+tx2dx_aux td env (TVar v)
    = DXVar (utSureLookup env "tx2dx_aux(1)" v)
-tx2dx_aux td env (TCons "int" []) 
+tx2dx_aux td env (TCons "int" [])
    = DXTwo
-tx2dx_aux td env (TCons "char" []) 
+tx2dx_aux td env (TCons "char" [])
    = DXTwo
-tx2dx_aux td env (TArr t1 t2) 
+tx2dx_aux td env (TArr t1 t2)
    = DXFunc [tx2dx_aux td env t1] (tx2dx_aux td env t2)
-tx2dx_aux td env (TCons tname targs) 
-   = if mdIsRecursiveType td tname 
+tx2dx_aux td env (TCons tname targs)
+   = if mdIsRecursiveType td tname
      then DXLift2 (map (tx2dx_aux td env) targs)
      else DXLift1 (map (tx2dx_aux td env) targs)
 

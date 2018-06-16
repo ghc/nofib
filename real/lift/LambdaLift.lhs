@@ -17,9 +17,9 @@ Department of Computer Science, University of Manchester, M13 9PL}
 An important step in many compilers for functional languages is
 {\em lambda lifting}.  In his thesis, Hughes showed that by doing lambda
 lifting in a particular way, a useful property called {\em full laziness}
-can be preserved.[.hughes thesis.]  
+can be preserved.[.hughes thesis.]
 Full laziness has been seen as intertwined with
-lambda lifting ever since.  
+lambda lifting ever since.
 
 We show that, on the contrary, full laziness can be regarded as a completely
 separate process to lambda lifting, thus making it easy to use different
@@ -41,27 +41,27 @@ Bird.[.bird supercombinator.]
 Our treatment differs from earlier work in the following ways:
 \begin{itemize}
 \item
-The main technical contribution is to show how full 
+The main technical contribution is to show how full
 laziness can be separated from lambda lifting, so that
-the two transformations can be carried out independently.   This 
+the two transformations can be carried out independently.   This
 makes each transformation easier to understand and
 improves the modularity of the compiler.
 \item
 Our treatment deals with a language including let- and letrec-expressions.
 Not only is this essential for efficient compilation in the later stages
-of most compilers, but we also show that 
+of most compilers, but we also show that
 eliminating let(rec) expressions, by translating them into
 lambda abstractions, loses full laziness.
 To our knowledge, this has not previously been realised.
 \item
-We show how to decompose each of the transformations further 
-into a composition of simple steps, 
+We show how to decompose each of the transformations further
+into a composition of simple steps,
 each of which is very easy to program, thus further improving modularity.
 \item
 We have developed an elegant use of parameterised data types, which
 allows the type system to help express the purpose of each pass.
 \end{itemize}
-We present the complete source code for our solution, and we 
+We present the complete source code for our solution, and we
 document some of the experience we gained in developing it; indeed
 the paper can be read as an exercise in functional programming.
 
@@ -71,8 +71,8 @@ Lines of code are distinguished by a leading @>@ sign, the rest of
 the text being commentary.
 
 We introduce all the notation and background that is required to understand
-the paper.  The first three sections 
-introduce the language to be compiled, the 
+the paper.  The first three sections
+introduce the language to be compiled, the
 \Haskell{} language, and the main data types to be used.
 Following these preliminaries we develop a non-fully-lazy lambda lifter
 and then refine it into a fully lazy one.
@@ -89,7 +89,7 @@ expression	& ::= & name	\\
 		& | & expression_1\ expression_2	& \mbox{Application}\\
 		& | & @let@\ defns\ @in@\ expression	
 				& \mbox{Non-recursive definitions}\\
-		& | & @letrec@\ defns\ @in@\ expression  
+		& | & @letrec@\ defns\ @in@\ expression
 				& \mbox{Recursive definitions}\\
 		& | & \lambda\ name @->@ expression	
 				& \mbox{Lambda abstraction}\\
@@ -122,14 +122,14 @@ by Peyton Jones.[.peyton book.]
 Notice that let(rec)-expressions are retained, despite the fact that they
 are responsible for many of the subtleties in the rest of the paper.
 They can certainly be transformed into applications of lambda abstractions and
-the @Y@ combinator, but doing so straightforwardly may result in 
+the @Y@ combinator, but doing so straightforwardly may result in
 a serious loss of efficiency.[.peyton book <, Chapter 14>.]
 For example, eliminating a let-expression introduces a new
 lambda abstraction, which will (under the compilation scheme described
-in this paper) be lambda-lifted, and thereby decompose 
-execution into smaller steps.  
+in this paper) be lambda-lifted, and thereby decompose
+execution into smaller steps.
 Similarly, a naive treatment of mutual local recursion using
-@Y@ involves much packing and unpacking of 
+@Y@ involves much packing and unpacking of
 tuples, which can easily be avoided
 if the letrec-expression is handled explicitly.
 Finally, later on we show that laziness
@@ -139,14 +139,14 @@ can be lost if let-expressions are not handled specially%
 
 \section{\Haskell{}}
 
-\Haskell{} is a recently-designed common non-strict pure functional 
+\Haskell{} is a recently-designed common non-strict pure functional
 language.[.Haskell{} report.]  For the purposes of this paper it is fairly
 similar to SML or Miranda\footnote{Miranda is a trade mark of Research
 Software Ltd}, except in its treatment of abstract data types and modules.
 We make little use of Haskell{}'s major technical innovation,
 namely systematic overloading using type classes.
 
-Haskell{} modules begin with a declaration naming the module, and 
+Haskell{} modules begin with a declaration naming the module, and
 importing any modules it requires:
 
 > module LambdaLift where
@@ -162,20 +162,20 @@ the Appendix.
 
 Every compiler has a data type which represents the abstract syntax
 tree of the program being compiled.  The definition of this data type has
-a substantial impact on the clarity and efficiency of the compiler, so 
+a substantial impact on the clarity and efficiency of the compiler, so
 it merits careful thought.
 
 \subsection{First failed attempt}
 
-As a first attempt, the language described in the previous 
+As a first attempt, the language described in the previous
 section can translated directly into the
 following \Haskell{} {\em algebraic data type} declaration\footnote{%
 Notice that data constructors, such as @EVar@ and @ELam@,
-and type constructors, such as @Expresssion@ and @Name@, 
+and type constructors, such as @Expresssion@ and @Name@,
 must both begin with capital letter in \Haskell{}.
 }:
 
-1> data Expression 
+1> data Expression
 1>	= EConst Constant
 1>	| EVar Name
 1>	| EAp Expression Expression
@@ -190,7 +190,7 @@ a {\em type synonym} declaration.
 Constants may be numbers, booleans, the names of global functions, and
 so on:
 
-> data Constant = CNum Integer | CBool Bool | CFun Name 
+> data Constant = CNum Integer | CBool Bool | CFun Name
 
 % deriving(Text)
 The definition of the @Constant@ type can be changed without affecting
@@ -201,7 +201,7 @@ the \Haskell{} expression
 \begin{verbatim}
 	EAp (EAp (EConst (CFun "+")) (EVar "a")) (EConst (CNum 3))
 \end{verbatim}
-Let-expressions can usually be treated in the same manner 
+Let-expressions can usually be treated in the same manner
 as letrec-expressions, so the two are given a common constructor, and
 distinguished by a flag of type @IsRec@.   It is convenient to use
 a boolean for this flag:
@@ -210,7 +210,7 @@ a boolean for this flag:
 > recursive = True
 > nonRecursive = False
 
-Each definition in the definition list of 
+Each definition in the definition list of
 an @ELet@ construction is just a pair:
 
 1> type Definition = (Name, Expression)
@@ -230,7 +230,7 @@ and sharing analysis.
 The most obvious way to add such information is to add a new constructor
 for annotations to the @Expr@ data type, thus:
 
-1> data Expression 
+1> data Expression
 1>	= EVar Name
 1>	| ...
 1>	| EAnnot Annotation Expression
@@ -246,15 +246,15 @@ in the Appendix, but whose implementation is not further defined.}%
 1>		   | Level Integer
 
 This allows annotations to appear freely throughout the syntax tree,
-which appears admirably flexible.  In practice, it suffers from two 
+which appears admirably flexible.  In practice, it suffers from two
 major disadvantages
 \begin{itemize}
 \item
-It is easy enough to {\em add} annotation information in the form 
+It is easy enough to {\em add} annotation information in the form
 just described,
 but writing a compiler
 pass which {\em uses} information placed there by a previous pass is downright
-awkward.  
+awkward.
 Suppose, for example, that a pass wishes to use the free-variable
 information left at every node of the tree by a previous pass. Presumably
 this information is attached immediately above every node, but the
@@ -263,7 +263,7 @@ and worse still none (or more than one) might have a free-variable annotation.
 
 Even if the programmer is prepared to certify that there is exactly one
 annotation node above every tree node, and that it is a free-variable
-annotation, the implementation will still perform pattern-matching to 
+annotation, the implementation will still perform pattern-matching to
 check these assertions when extracting the annotation.
 
 Both of these problems, namely the requirement for uncheckable programmer
@@ -273,7 +273,7 @@ the fact that every annotated tree has the rather uninformative type
 
 \item
 The second major problem is that further experimentation reveals that
-{\em two} distinct forms of annotation are required. 
+{\em two} distinct forms of annotation are required.
 The first annotates
 expressions as above, but the second annotates the binding occurrences of
 variables; that is, the occurrences on the left-hand sides of definitions,
@@ -318,14 +318,14 @@ can be defined thus:
 where @TypeExpr@ is a data type representing type expressions.
 
 Returning to annotations on expressions, we can re-use the same technique by
-parameterising the data type of expressions with repect 
+parameterising the data type of expressions with repect
 to the annotation type.
 We want to have an annotation on every node of the tree, so one possibility
 would be to add an extra field to every constructor with the annotation
 information.  This is inconvenient if, for example, you simply want to
 extract the free-variable information at the top of a given expression
 without performing case analysis on the root node.  This leads to the
-following idea: each level of the tree is a pair, whose first component 
+following idea: each level of the tree is a pair, whose first component
 is the annotation, and whose second component is the abstract syntax tree
 node.  Here are the corresponding \Haskell{} data type definitions:
 
@@ -348,19 +348,19 @@ with free variables has type @AnnExpr Name (Set Name)@.
 
 It is a real annoyance that @AnnExpr'@ and @Expr@ have to define two
 essentially identical sets of constructors.  There appears to be no way
-around this within the Hindley-Milner type system.  
+around this within the Hindley-Milner type system.
 It would be possible to abandon the @Expr@ type altogether, because
 the @Expr a@ is nearly isomorphic to @AnnExpr a ()@, but
-there are two reasons why we chose not to do this. 
+there are two reasons why we chose not to do this.
 Firstly, the two types
 are not quite isomorphic, because the latter distinguishes $@((),@\perp@)@$
 from $\perp$ while the former does not. Secondly (and more seriously),
 it is very tiresome to write all the @()@'s when building and pattern-matching
 on trees of type @AnnExpr a ()@.
 
-Finally, we define two useful functions, @bindersOf@ and @rhssOf@ 
-(right-hand-sides of), 
-which each take the 
+Finally, we define two useful functions, @bindersOf@ and @rhssOf@
+(right-hand-sides of),
+which each take the
 list of definitions in an @ELet@,
 and pick out the list of variables bound by the let(rec), and list of
 right-hand sides to which they are bound, respectively:
@@ -372,7 +372,7 @@ right-hand sides to which they are bound, respectively:
 > rhssOf defns  =  [rhs | (name,rhs) <- defns]
 
 This definition illustrates the use of a {\em type signature} to express the
-type of the function to be defined; and of 
+type of the function to be defined; and of
 a {\em list comprehension} in the right hand side of @bindersOf@, which
 may be read ``the list of all @name@s, where the pair @(name,rhs)@ is
 drawn from the list @defns@''.
@@ -380,13 +380,13 @@ Both of these are now conventional features of functional programming
 languages.
 
 This completes our development of the central data type.  The discussion
-has revealed some of the strengths, and a weakness, of the 
+has revealed some of the strengths, and a weakness, of the
 algebraic data types provided by all modern functional programming languages.
 
 \section{Lambda lifting}
 \label{lambda-lift}
 
-Any implementation of a lexically-scoped 
+Any implementation of a lexically-scoped
 programming language has to cope with the fact that a function
 may have free variables.  Unless these are removed in some way, an
 environment-based implementation has to manipulate linked environment
@@ -405,13 +405,13 @@ For example, Pascal allows a function to be declared locally within another
 function, and the inner function may have free variables bound by the
 outer scope.
 On the other hand, the C language does not permit such local definitions.
-In the absence of side effects, it 
+In the absence of side effects, it
 is simple to make a local function definition into a global one: all
 we need do is add the free variables as extra parameters, and add these
 parameters to every call.
 This is exactly what lambda lifting does.
 
-In a functional-language context, 
+In a functional-language context,
 lambda lifting transforms an {\em expression} into a {\em set of
 supercombinator definitions}, each of which defines a function of zero
 or more arguments, and whose body contains no embedded lambda
@@ -423,14 +423,14 @@ together with an expression to be evaluated''.
 
 To take a simple example, consider the program
 \begin{verbatim}
-	let 
+	let
 	    f = \x -> let g = \y -> x*x + y in (g 3 + g 4)
 	in
 	f 6
 \end{verbatim}
 Here, @x@ is free in the abstraction @\y -> x*x + y@.  The free variable can be
 removed by defining a new function @$g@ which takes @x@ as an extra parameter,
-but whose body is the offending abstraction, 
+but whose body is the offending abstraction,
 and redefining @g@ in terms of @$g@, giving the following set of supercombinator
 definitions:
 \begin{verbatim}
@@ -445,7 +445,7 @@ on the left of the @=@ sign.)
 Matters are no more complicated when recursion is involved.  Suppose that
 @g@ was recursive, thus:
 \begin{verbatim}
-	let 
+	let
 	    f = \x -> letrec g = \y -> cons (x*y) (g y) in g 3
 	in
 	f 6
@@ -462,7 +462,7 @@ has eliminated the local lambda abstraction.  The program is now directly
 implementable by most compiler back ends.
 
 This is not the only way to handle local recursive function definitions.
-The main alternative is 
+The main alternative is
 described by Johnsson,[.johnsson thesis.] who generates directly-recursive
 supercombinators from locally-recursive function definitions; in our example,
 @$g@ would be directly recursive rather than calling its parameter @g@, thus:
@@ -496,8 +496,8 @@ the list of its arguments, and its body:
 It should be the case that there are no @ELam@ constructors
 anywhere in the third component of
 the triple.
-Unfortunately, there is no way to express (and hence enforce) 
-this constraint in the type, 
+Unfortunately, there is no way to express (and hence enforce)
+this constraint in the type,
 except by declaring yet another new variant of @Expr@ lacking
 such a constructor.  This is really another shortcoming of the type system:
 there is no means of expressing this sort of subtyping relationship.
@@ -511,7 +511,7 @@ to add to a lambda abstraction.  The @freeVars@ function has type
 
 > freeVars :: Expression -> AnnExpr Name (Set Name)
 
-\item 
+\item
 Second, the function @abstract@ abstracts the free variables
 from each lambda abstraction, replacing the lambda abstraction with the
 application of the new abstraction (now a supercombinator) to the free
@@ -548,13 +548,13 @@ It would of course be possible to do all the work in a single pass,
 but the modularity provided by separating them has a number of advantages:
 each individual pass is easier to understand, the passes may be reusable
 (for example, we reuse @freeVars@ below), and modularity makes it easier
-to change the algorithm somewhat.  
+to change the algorithm somewhat.
 
 As an example of the final point, the
 \Haskell{} compiler under development at Glasgow
 will be able to generate better code by omitting
 the @collectSCs@ pass, because more is then known about the context in which
-the supercombinator is applied.  
+the supercombinator is applied.
 For example, consider the expression, which might be produced by the
 @abstract@ pass:
 \begin{verbatim}
@@ -565,7 +565,7 @@ Here @abstract@ has removed @v@ as a free variable from the @\x@-abstraction.
 Rather than compiling the supercombinator independently of its context,
 our compiler constructs a closure for @f@, whose code accesses @v@ directly
 from the closure and @x@ from the stack.  The calls to @f@ thus do not have
-to move @v@ onto the stack.  
+to move @v@ onto the stack.
 The more free variables there are the more
 beneficial this becomes.
 Nor do the calls to @f@ become less efficient
@@ -607,7 +607,7 @@ language notation.
 > freeVarsOf :: AnnExpr Name (Set Name) -> Set Name
 > freeVarsOf (free_vars, expr) = free_vars
 
-In the definition of @defnsFree@, the boolean condition between the 
+In the definition of @defnsFree@, the boolean condition between the
 vertical bar and the equals sign is a {\em guard}, which serves to
 select the appropriate right-hand side.
 The function @zip@ in the definition of @defns'@ is a standard function which
@@ -623,7 +623,7 @@ Otherwise the code should be self-explanatory.
 \label{abstract}
 
 The next pass merely replaces each lambda abstraction, which is
-now annotated with its free variables, with a new abstraction 
+now annotated with its free variables, with a new abstraction
 (the supercombinator) applied
 to its free variables.
 The full definition is given in the Appendix%
@@ -638,19 +638,19 @@ equation is that dealing with lambda abstractions:
 1>   sc = ELam (fvList ++ args) (abstract body)
 
 The function @foldl@ is a standard function; given a dyadic function
-$\oplus$, a value $b$, and a list $xs\ =\ [x_1,...,x_n]$, 
+$\oplus$, a value $b$, and a list $xs\ =\ [x_1,...,x_n]$,
 $@foldl@\ \oplus\ b\ xs$
-computes $( \ldots ((b~ \oplus~ x_1)~ \oplus~ x_2)~ \oplus~ \ldots x_n)$. 
+computes $( \ldots ((b~ \oplus~ x_1)~ \oplus~ x_2)~ \oplus~ \ldots x_n)$.
 Notice the way that the free-variable information is discarded by the pass,
 since it is no longer required.
 
 We also observe that @abstract@ treats the two expressions
 @ELam args1 (ELam args2 body))@ and
-@(ELam (args1++args2) body)@ differently.  
+@(ELam (args1++args2) body)@ differently.
 In the former case, the two abstractions
 will be treated separately, generating two supercombinators, while in the
 latter only one supercombinator is produced.
-It is clearly advantageous to merge directly-nested @ELam@s before 
+It is clearly advantageous to merge directly-nested @ELam@s before
 performing lambda lifting.  This is equivalent to the $\eta$-abstraction
 optimisation noted by Hughes.[.hughes thesis.]
 
@@ -663,7 +663,7 @@ in particular, it must take the
 name supply as an argument and return a depleted supply as a result.
 In addition, it must return the collection of supercombinators it has found,
 and the transformed expression.
-Because of these auxiliary arguments and results, 
+Because of these auxiliary arguments and results,
 we define a function @collectSCs_e@
 which does all the work, with @collectSCs@ being defined in terms of it:
 
@@ -683,7 +683,7 @@ The collection of supercombinators is a {\em bag}, represented by the
 abstract data type of @Bag@, which has similar operations defined on it
 as those for @Set@.
 
-The ``@_@'' in the last line of @collectSCs@ is a {\em wildcard} which 
+The ``@_@'' in the last line of @collectSCs@ is a {\em wildcard} which
 signals the fact that we are not interested in the depleted name supply
 resulting from transforming the whole program.
 The code is now easy to write.
@@ -720,7 +720,7 @@ A common paradigm occurs in the case for let(rec):
 
 When processing a list of definitions, we need to generate a new list
 of definitions, threading the name supply through each.
-This is done by a new 
+This is done by a new
 higher-order function @mapAccuml@, which behaves like a combination
 of  @map@ and @foldl@;
 it applies a function to each element of a list, passing an accumulating
@@ -736,11 +736,11 @@ We now turn our attention to full laziness.
 
 \section{Separating full laziness from lambda lifting}
 
-Previous accounts of full laziness have invariably linked it to 
-lambda lifting, 
+Previous accounts of full laziness have invariably linked it to
+lambda lifting,
 by describing ``fully-lazy lambda lifting'', which turns out to be
-rather a complex process. 
-Hughes 
+rather a complex process.
+Hughes
 gives an algorithm but it is extremely subtle
 and does not handle let(rec) expressions.[.hughes thesis.]
 On the other hand, Peyton Jones
@@ -748,7 +748,7 @@ does cover let(rec) expressions, but
 the description is only informal and no algorithm is given.[.peyton book.]
 
 In this section we show how full laziness and lambda lifting can
-be cleanly separated.  
+be cleanly separated.
 This is done by means of a transformation involving let-expressions.
 Lest it be supposed that we have simplified things in one way only
 by complicating them in another, we also show that performing fully-lazy lambda
@@ -762,7 +762,7 @@ We begin by briefly reviewing the concept of full laziness.
 Consider again the example given earlier.
 %in Section~\ref{lambda-lift}.
 \begin{verbatim}
-	let 
+	let
 	    f = \x -> let g = \y -> x*x + y in (g 3 + g 4)
 	in
 	f 6
@@ -786,7 +786,7 @@ parameter to @$g@, we make @x*x@ into a parameter, like this:
 (we omit the definition of @$main@ from now on, since it does not change).
 So a fully-lazy lambda lifter will make each {\em maximal
 free sub-expresssion} (rather than each {\em free variable})
-of a lambda abstraction into an argument of the 
+of a lambda abstraction into an argument of the
 corresponding supercombinator.
 A maximal free expression (or MFE) of a lambda abstraction is an expression
 which contains no occurrences of the variable bound by the abstraction, and is
@@ -796,15 +796,15 @@ Full laziness corresponds precisely to moving a loop-invariant
 expression outside the loop, so that it is computed just once at the
 beginning rather than once for each loop iteration.
 
-How important is full laziness for ``real'' programs?  
+How important is full laziness for ``real'' programs?
 No serious studies have yet been made of this question, though we plan to
 do so.
-However, recent work by Holst 
-suggests that the importance of full laziness may be greater than 
+However, recent work by Holst
+suggests that the importance of full laziness may be greater than
 might at first be supposed.[.Holst improving full laziness.]
 He shows how to perform a transformation which automatically enhances the
 effect of full laziness, to the point where the optimisations obtained
-compare favourably with those gained by partial 
+compare favourably with those gained by partial
 evaluation,[.mix jones sestoft.]
 though with much less effort.
 
@@ -817,21 +817,21 @@ to make this worse by introducing a new language construct.
 For example, suppose the definition of @g@ in our running example was slightly
 more complex, thus:
 \begin{verbatim}
-	g = \y -> let z = x*x 
+	g = \y -> let z = x*x
 		  in let p = z*z
-		  in p + y 
+		  in p + y
 \end{verbatim}
 Now, the sub-expression @x*x@ is a MFE of the @\y@-abstraction,
 but sub-expression @z*z@ is not since @z@ is bound inside the @\y@-abstraction.
 Yet it is clear that @p@ depends only on @x@ (albeit indirectly), and so
 we should ensure that @z*z@ should only be computed once.
 
-Does a fully-lazy lambda lifter spot this if let-expressions are coded as 
+Does a fully-lazy lambda lifter spot this if let-expressions are coded as
 lambda applications?  No, it does not.  The definition of @g@ would become
 \begin{verbatim}
 	g = \y -> (\z -> (\p -> p+y) (z*z)) (x*x)
 \end{verbatim}
-Now, @x*x@ is free as before, but @z*z@ is not.  In other words, {\em 
+Now, @x*x@ is free as before, but @z*z@ is not.  In other words, {\em
 if the compiler does not treat let(rec)-expressions specially, it may
 lose full laziness which the programmer might reasonably expect to
 be preserved}.
@@ -839,17 +839,17 @@ be preserved}.
 Fortunately, there is a straightforward way to handle let(rec)-expressions,
 as described by Peyton Jones,
 namely to ``float'' each let(rec)
-definition outward until it is outside any lambda abstraction in which 
+definition outward until it is outside any lambda abstraction in which
 it is free.[.peyton book <, Chapter 15>.]
 For example, all we need do is
 transform the definition of @g@ to the following:
 \begin{verbatim}
-	g = let z = x*x 
+	g = let z = x*x
 	    in let p = z*z
-	    in \y -> p + y 
+	    in \y -> p + y
 \end{verbatim}
 Now @x*x@ and @z*z@ will each be computed only once.
-Notice that this property should hold 
+Notice that this property should hold
 {\em for any implementation of the language},
 not merely for one based on lambda lifting and graph reduction.
 This is a clue that full laziness and lambda lifting are not as closely related
@@ -865,13 +865,13 @@ First, assign to each lambda-bound variable a level number, which
 says how many lambdas enclose it.   Thus in our example,
 @x@ would be assigned level number 1, and @y@ level number 2.
 \item
-Now, assign a level number to each let(rec)-bound variable (outermost first), 
+Now, assign a level number to each let(rec)-bound variable (outermost first),
 which is the maximum of the level numbers of its free variables, or zero
 if there are none.
 In our example, both @p@ and @z@ would be assigned level number 1.
 Some care needs to be taken to handle letrecs correctly.
 \item
-Finally, float each definition (whose binder has level $n$, say) 
+Finally, float each definition (whose binder has level $n$, say)
 outward, until it is outside
 the lambda abstraction whose binder has level $n+1$, but still inside
 the level-$n$ abstraction.
@@ -919,25 +919,25 @@ the let(rec) floating transformation, which can now float out the new
 definitions.  Ordinary lambda lifting can then be performed.
 For example, consider the original definition of @g@:
 \begin{verbatim}
-	let 
-	    f = \x -> let g = \y -> x*x + y 
+	let
+	    f = \x -> let g = \y -> x*x + y
 		      in (g 3 + g 4)
 	in
 	f 6
 \end{verbatim}
-The subexpression @x*x@ is an MFE, so it 
+The subexpression @x*x@ is an MFE, so it
 is replaced by a trivial let-expression:
 \begin{verbatim}
-	let 
-	    f = \x -> let g = \y -> (let v = x*x in v) + y 
+	let
+	    f = \x -> let g = \y -> (let v = x*x in v) + y
 		      in (g 3 + g 4)
 	in
 	f 6
 \end{verbatim}
 Now the let-expression is floated outward:
 \begin{verbatim}
-	let 
-	    f = \x -> let g = let v = x*x in \y -> v + y 
+	let
+	    f = \x -> let g = let v = x*x in \y -> v + y
 		      in (g 3 + g 4)
 	in
 	f 6
@@ -950,7 +950,7 @@ Finally, ordinary lambda lifting will discover that @v@ is free in the
 	      in (g 3 + g 4)
 	$main = f 6
 \end{verbatim}
-A few points should be noted here.  
+A few points should be noted here.
 Firstly, the original definition of a maximal free expression
 was relative to a {\em particular} lambda abstraction.
 The new algorithm we have just developed transforms certain expressions
@@ -967,7 +967,7 @@ After introducing the trivial let-bindings, the expression becomes
 	\y -> \z -> (let v1 = y + (let v2 = x*x in v2) in v1) / z
 \end{verbatim}
 
-Secondly, the 
+Secondly, the
 newly-introduced variable @v@ must either be unique, or the expression
 must be uniquely renamed after the MFE-identification pass.
 
@@ -988,7 +988,7 @@ into the following stages:
 \begin{itemize}
 \item
 First we must make sure that all @ELam@ constructors bind only a single
-variable, because the fully-lazy lambda lifter must treat each lambda 
+variable, because the fully-lazy lambda lifter must treat each lambda
 individually.
 It would be possible to encode this in later phases of the algorithm,
 by dealing with a list of arguments, but it turns out that we can
@@ -1031,7 +1031,7 @@ the section dealing with simple lambda lifting.
 
 The fully lazy lambda lifter is just the composition of these passes:
 
-> fullyLazyLift = lambdaLift . float . rename . 
+> fullyLazyLift = lambdaLift . float . rename .
 >		  identifyMFEs . addLevels . separateLams
 
 \subsection{Separating the lambdas}
@@ -1040,7 +1040,7 @@ The fully lazy lambda lifter is just the composition of these passes:
 The first pass, which separates lambdas so that each @ELam@ only
 binds a single argument,
 is completely straightforward.
-The only interesting equation 
+The only interesting equation
 is that which handles abstractions, which we give here:
 
 1> separateLams (ELam args body) = foldr mkLam (separateLams body) args
@@ -1053,7 +1053,7 @@ The other equations are given in the Appendix.
 \label{levels}
 
 There are a couple of complications concerning annotating an expression
-with level-numbers.  
+with level-numbers.
 
 At first it looks as though it is sufficient to write a function which
 returns an expresssion annotated with level numbers; then for an
@@ -1067,11 +1067,11 @@ the expression with its free variables, and then use a mapping
 free-variable annotations to level numbers.
 
 > freeSetToLevel :: Set Name -> Assn Name Level -> Level
-> freeSetToLevel free_vars env = 
+> freeSetToLevel free_vars env =
 >	maximum (0 : map (assLookup env) (setToList free_vars))
 >	-- If there are no free variables, return level zero
 
-The second complication concerns letrec expressions.  
+The second complication concerns letrec expressions.
 What is the correct level number to attribute to the newly-introduced variables?
 The right thing to do is to take the maximum of the levels of the
 free variables of all the
@@ -1106,12 +1106,12 @@ the Appendix%
 % ~\ref{utilities}%
 .
 but notice that it is {\em not} abstract.  It is so convenient
-to use all the standard functions on lists, and notation for lists, 
+to use all the standard functions on lists, and notation for lists,
 rather than to invent their
 analogues for associations, that we have compromised the abstraction.
 
 For constants, variables and applications, it is simpler and more efficient
-to ignore the free-variable information and calculate the level number 
+to ignore the free-variable information and calculate the level number
 directly.
 
 > freeToLevel_e level env (_, AConst k) = (0, AConst k)
@@ -1147,7 +1147,7 @@ section.
 >   where
 >   binders = bindersOf defns
 >   freeRhsVars = setUnionList [free | (free, _) <- rhssOf defns]
->   maxRhsLevel = freeSetToLevel freeRhsVars 
+>   maxRhsLevel = freeSetToLevel freeRhsVars
 >				 ([(name,0) | name <- binders] ++ env)
 >   defns' = map freeToLevel_d defns
 >   body' = freeToLevel_e level (bindersOf defns' ++ env) body
@@ -1162,9 +1162,9 @@ This is valid provided the body refers to all the binders directly or
 indirectly.  If any definition is unused, we might assign a level number
 to the letrec which would cause it to be floated outside the scope of some
 variable mentioned in the unused definition.  This is easily fixed, but
-it is simpler to assume that the expression contains no redundant 
+it is simpler to assume that the expression contains no redundant
 definitions\footnote{%
-The dependency analysis phase referred to earlier could 
+The dependency analysis phase referred to earlier could
 eliminate such definitions.}.
 
 Finally the auxillary function @levelOf@ extracts the level from an
@@ -1197,7 +1197,7 @@ MFEs deserve special treatment in this way.  For example, it would be
 a waste of time to wrap such a let-expression around an MFE consisting
 of a single variable or constant.  Other examples are given below, in
 the section on redundant full laziness.
-%Section~\ref{redundant}.  
+%Section~\ref{redundant}.
 We encode this knowledge of which MFEs
 deserve special treatment in a function @notMFECandidate@.
 
@@ -1209,11 +1209,11 @@ deserve special treatment in a function @notMFECandidate@.
 that of its context.  If they are the same, or for some other reason the
 expression is not a candidate for special treatment, the expression is left
 unchanged, except that @identifyMFEs_e1@ is used to apply @identifyMFEs_e@
-to its subexpressions; otherwise we use @transformMFE@ to perform the 
+to its subexpressions; otherwise we use @transformMFE@ to perform the
 appropriate transformation.
 
 > identifyMFEs_e cxt (level, e) =
->   if (level == cxt || notMFECandidate e) 
+>   if (level == cxt || notMFECandidate e)
 >   then e'
 >   else transformMFE level e'
 >   where
@@ -1235,7 +1235,7 @@ a name supply in a similar manner to @collectSCs@.
 The final pass, which floats let(rec) expressions out to the appropriate
 level, is also fairly easy.
 
-Complete definitions for @rename@ and @float@ are given in 
+Complete definitions for @rename@ and @float@ are given in
 the Appendix%
 %~\ref{omitted}%
 .
@@ -1255,30 +1255,30 @@ to two arguments, which may well be more expensive.
 Lifting out MFEs removes subexpressions from their context, and thereby
 reduces opportunities for a compiler to perform optimisations.  Such
 optimisations might be partially restored by an interprocedural analysis
-which figured out the contexts again, but it is better still to avoid 
+which figured out the contexts again, but it is better still to avoid
 creating the problem.
 \end{itemize}
 These points are elaborated by Fairbairn [.fairbairn redundant.]
 and Goldberg.[.goldberg thesis.]
 Furthermore, they point out that often no benefit arises from
-lifting out {\em every} MFE from 
+lifting out {\em every} MFE from
 {\em every} lambda abstraction.  In particular,
 \begin{itemize}
 \item
 If no partial applications of a multiple abstraction can be shared, then
-nothing is gained by floating MFEs out to {\em between} the 
+nothing is gained by floating MFEs out to {\em between} the
 nested abstractions.
 \item
-Very little is gained by lifting out an MFE that is not a 
+Very little is gained by lifting out an MFE that is not a
 reducible expression.
-No work is shared thereby, though there may be some saving in storage 
-because the closure need only be constructed once. 
+No work is shared thereby, though there may be some saving in storage
+because the closure need only be constructed once.
 This is more than outweighed by the loss of compiler optimisations
 caused by removing the expression from its context.
 \item
-Lifting out an MFE which is a constant expression (ie level 0), 
+Lifting out an MFE which is a constant expression (ie level 0),
 thereby adding an extra parameter
-to pass in, is inefficient.  It would be better to make the constant 
+to pass in, is inefficient.  It would be better to make the constant
 expression into a supercombinator.
 \end{itemize}
 These observations suggest some improvements to the fully lazy lambda
@@ -1310,19 +1310,19 @@ can be made in many cases; for example @(+ 3)@ is obviously not a redex.
 \item
 When identifying MFEs it is easy to spot those that are constant expressions,
 because their level numbers are zero.
-We can rather neatly ensure that it is turned 
+We can rather neatly ensure that it is turned
 into a supercombinator by the subsequent
-lambda-lifting pass, 
+lambda-lifting pass,
 by making it into a lambda abstraction {\em with an empty
-argument list}.  
+argument list}.
 This was the other reason why we decided to make the @ELam@ constructor take
 a list of arguments.
 The modification affects only @identifyMFEs_e@, thus:
 
 1> identifyMFEs_e cxt (level, e) =
-1>   if (level == cxt || notMFECandidate e) then 
+1>   if (level == cxt || notMFECandidate e) then
 1>		e'
-1>   else if (level > 0) then 
+1>   else if (level > 0) then
 1>		ELet nonRecursive [(("v",level), e')] (EVar "v")
 1>   else
 1>		ELam [] e'
@@ -1334,7 +1334,7 @@ The modification affects only @identifyMFEs_e@, thus:
 \section{Retrospective and comparison with other work}
 
 It is interesting to compare our approach with Bird's
-very nice paper 
+very nice paper
 [.bird supercombinator compiler.] which addresses a similar problem.
 Bird's objective is to give a formal development of an efficient
 fully lazy lambda lifter, by successive transformation of an initial
@@ -1342,9 +1342,9 @@ specification.
 The resulting algorithm is rather complex, and would be hard to write
 down directly, thus fully justifying the effort of a formal development.
 
-In contrast, we have expressed our algorithm as a 
+In contrast, we have expressed our algorithm as a
 composition of a number of very simple phases, each of which can readily
-be specified and 
+be specified and
 written down directly.  The resulting program has a constant-factor
 inefficiency, because it makes many traversals of the expression.
 This is easily removed by folding together successive passes into
@@ -1352,7 +1352,7 @@ a single function, eliminating the intermediate data structure.
 Unlike Bird's transformations, this is a straightforward process.
 
 Our approach has the major advantage that is is {\em modular}.
-This allows changes to be made more easily. 
+This allows changes to be made more easily.
 For example,
 it would be a simple matter to replace the lambda lifter with one which
 performed lambda-lifting in the way suggested by Johnsson
@@ -1364,7 +1364,7 @@ algorithm to be more selective about where full laziness is introduced%
 .
 
 The main disadvantage of our approach is that we are unable to take
-advantage of one optimisation suggested by Hughes, namely ordering the 
+advantage of one optimisation suggested by Hughes, namely ordering the
 parameters to a supercombinator to reduce the number of MFEs.
 The reason for this is that the optimisation absolutely requires that
 lambda lifting be entwined with the process of MFE identification, while
@@ -1374,7 +1374,7 @@ are always partial applications, which should probably {\em not} be
 identified as MFEs because no work is shared thereby%
 % (Section \ref{redundant})%
 .
-Even so, matters might not have fallen out so fortuitously, and 
+Even so, matters might not have fallen out so fortuitously, and
 our separation of concerns has certainly made some sorts of transformation
 rather difficult.
 
@@ -1383,7 +1383,7 @@ rather difficult.
 We owe our thanks to John Robson and Kevin Hammond, and two anonymous
 referees for their useful comments on a draft of this paper.
 
-\section*{References} 
+\section*{References}
 
 .[]
 
@@ -1447,15 +1447,15 @@ number carried down as its first argument.
 >   (_, argLevel) = head args
 >
 > identifyMFEs_e1 level (ALet isRec defns body) =
->   ELet isRec defns' body' 
+>   ELet isRec defns' body'
 >   where
 >   body' = identifyMFEs_e level body
->   defns' = [ ((name,rhsLevel),identifyMFEs_e rhsLevel rhs) 
+>   defns' = [ ((name,rhsLevel),identifyMFEs_e rhsLevel rhs)
 >	     | ((name,rhsLevel),rhs) <- defns]
 
 \subsection{@rename@}
 
-The function @rename@ gives unique names 
+The function @rename@ gives unique names
 to the variables in an expression.
 % from Section~\ref{rename}.
 We need an auxiliary function @rename_e@ to do all
@@ -1463,7 +1463,7 @@ the work:
 
 > rename e = e' where (_, e') = rename_e [] initialNameSupply e
 
-> rename_e :: Assn Name Name -> NameSupply -> Expr (Name,a) 
+> rename_e :: Assn Name Name -> NameSupply -> Expr (Name,a)
 >	   -> (NameSupply, Expr (Name,a))
 > rename_e env ns (EConst k) = (ns, EConst k)
 > rename_e env ns (EVar v) = (ns, EVar (assLookup env v))
@@ -1491,7 +1491,7 @@ the work:
 
 @newBinder@ is just like @newName@, but works over @(Name,a)@ binders.
 
-> newBinder ns (name, info) = 
+> newBinder ns (name, info) =
 >   (ns1, (name', info)) where (ns1, name') = newName ns name
 
 @assocBinders@ builds an assocation list between the names inside two lists
@@ -1505,7 +1505,7 @@ of @(Name,a)@ binders.
 The final pass floats let(rec) expressions out to the appropriate level%
 % (Section~\ref{float})%
 .
-The main function has to return an expression together with a 
+The main function has to return an expression together with a
 list of definitions which should be floated outside the expression.
 
 > float_e :: Expr (Name, Level) -> (FloatedDefns, Expression)
@@ -1546,12 +1546,12 @@ variables, constants and applications are straightforward.
 >			(fd1, e1') = float_e e1
 >			(fd2, e2') = float_e e2
 
-How far out should a definition be floated?  There is more than 
+How far out should a definition be floated?  There is more than
 one possible choice, but here we choose to install a definition
-just inside the innermost lambda which binds one its 
+just inside the innermost lambda which binds one its
 free variables\footnote{
-Recall 
-%from Section~\ref{levels} 
+Recall
+%from Section~\ref{levels}
 that all variables bound by a single
 @ELam@ construct are given the same level.}.
 
@@ -1596,7 +1596,7 @@ Finally, here is the full definition of utility function @mapAccuml@.
 1>	     -> (b, [c])	     -- Final accumulator and result list
 1>
 1> mapAccuml f b []     = (b, [])
-1> mapAccuml f b (x:xs) = (b2, x':xs') where (b1, x') = f b x 
+1> mapAccuml f b (x:xs) = (b2, x':xs') where (b1, x') = f b x
 1>					      (b2, xs') = mapAccuml f b1 xs
 
 

@@ -21,7 +21,7 @@ import Elemstif
 
 kdd :: (Array Int Int, Array Int Float) -> Vbm Float
 
-kdd s = 
+kdd s =
 	incrvbmat initial_value index_value_assoc_s
 	where
 	initial_value = makevbmat (ndgrs s) (diagadr s) (\ i -> 0.0)
@@ -35,7 +35,7 @@ index_value_assoc s =
 assemble s till_now_dd element =
 	(till_now_dd++dd_this')
 	where
-	dd_this' = [ ( 	(f i, f j) ,  x i j) 
+	dd_this' = [ ( 	(f i, f j) ,  x i j)
                      | i <- [0..n-1], j <- [0..i], f i > 0 , f j > 0 ]
 	dgrs_list = (dgrs_list_node nodel) ++ (dgrs_list_node noder)
 	(nodel,noder) = getenlr s element

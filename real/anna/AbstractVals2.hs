@@ -1,4 +1,4 @@
- 
+
 -- ==========================================================--
 -- === Revised domain operations for HO analysis          ===--
 -- ===                                   AbstractVals2.hs ===--
@@ -43,7 +43,7 @@ avTopR d@(Func dss dt)   = Rep (avTopR_aux d)
 --
 avTopR_aux_2 :: [Domain] -> Frontier
 
-avTopR_aux_2 dss 
+avTopR_aux_2 dss
    = Min1Max0 (length dss) [MkFrel (map avBottomR dss)] []
 
 
@@ -83,7 +83,7 @@ avBottomR d@(Func dss dt)   = Rep (avBottomR_aux d)
 --
 avBottomR_aux_2 :: [Domain] -> Frontier
 
-avBottomR_aux_2 dss 
+avBottomR_aux_2 dss
    = Min1Max0 (length dss) [] [MkFrel (map avTopR dss)]
 
 
@@ -95,7 +95,7 @@ avBottomR_aux (Func dss Two)
    = RepTwo (avBottomR_aux_2 dss)
 
 avBottomR_aux (Func dss (Lift1 dts))
-   = let lf = avBottomR_aux_2 dss 
+   = let lf = avBottomR_aux_2 dss
          hf_domains = map (avUncurry dss) dts
          hfs = map avBottomR_aux hf_domains
      in
@@ -131,7 +131,7 @@ avIsBottomRep (RepTwo (Min1Max0 ar f1 f0))
    = null f1
 avIsBottomRep (Rep1 (Min1Max0 lf_ar lf_f1 lf_f0) hfs)
    = null lf_f1
-avIsBottomRep (Rep2 (Min1Max0 lf_ar lf_f1 lf_f0) mf hfs)   
+avIsBottomRep (Rep2 (Min1Max0 lf_ar lf_f1 lf_f0) mf hfs)
    = null lf_f1
 
 
@@ -178,7 +178,7 @@ One          <<   Zero        = False
 
 Stop1        <<   _           = True
 Up1 rs1      <<   Up1 rs2     = avLEQR_list rs1 rs2
-Up1 rs1      <<   _           = False    
+Up1 rs1      <<   _           = False
 
 Stop2        <<   _           = True
 Up2          <<   Stop2       = False
@@ -198,17 +198,17 @@ avLEQR_list :: [Route] -> [Route] -> Bool
 avLEQR_list [] []
    = True
 
-avLEQR_list (a1:[]) (b1:[]) 
+avLEQR_list (a1:[]) (b1:[])
    = a1 << b1
 
 avLEQR_list (a1:a2:[]) (b1:b2:[])
-   = if      a1 << b1 
-     then    a2 << b2 
+   = if      a1 << b1
+     then    a2 << b2
      else    False
 
 avLEQR_list (a1:a2:a3:[]) (b1:b2:b3:[])
-   = if      a1 << b1 
-     then    if      a2 << b2 
+   = if      a1 << b1
+     then    if      a2 << b2
              then    a3 << b3
              else    False
      else    False
@@ -258,7 +258,7 @@ avBelowEQfrontier (Min1Max0 ar1 f1a f0a) (Min1Max0 ar2 f1b f0b)
    -- = myAnd [myOr [q `avBelowEQfrel` p | q <- f1b] | p <- f1a]
    --
    -- Tail recursive special
-   -- 
+   --
    = let outer []        = True
          outer (x:xs)    = if inner x f1b then outer xs else False
          inner y []      = False
@@ -315,7 +315,7 @@ p@(Rep rep1)   \/  q@(Rep rep2)   = Rep (avLUBrep rep1 rep2)
 --
 avLUBfrel :: FrontierElem -> FrontierElem -> FrontierElem
 
-avLUBfrel (MkFrel rs1) (MkFrel rs2) 
+avLUBfrel (MkFrel rs1) (MkFrel rs2)
    = MkFrel (myZipWith2 (\/) rs1 rs2)
 
 
@@ -381,7 +381,7 @@ p@(Rep rep1)   /\  q@(Rep rep2)     = Rep (avGLBrep rep1 rep2)
 --
 avGLBfrel :: FrontierElem -> FrontierElem -> FrontierElem
 
-avGLBfrel (MkFrel rs1) (MkFrel rs2) 
+avGLBfrel (MkFrel rs1) (MkFrel rs2)
    = MkFrel (myZipWith2 (/\) rs1 rs2)
 
 

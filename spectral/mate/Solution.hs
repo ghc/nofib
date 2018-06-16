@@ -10,7 +10,7 @@ solve bd c n = showResult (solution bd c (2*n-1))
 data Solution = Solution MoveInFull [(MoveInFull,Solution)]
 
 solution :: Board -> Colour -> Int -> Maybe Solution
-solution bd c n | n > 0 = 
+solution bd c n | n > 0 =
 	let mds = moveDetailsFor c bd in
 	foldr solnOr Nothing mds
 	where

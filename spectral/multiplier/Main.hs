@@ -226,7 +226,7 @@ bdemux1 c a = (and2 (inv c) a, and2 c a)
 bdemux :: Int -> [B] -> B -> [B]
 bdemux 0 [] x = [x]
 --should be:bdemux (n+1) as x = bdemux n (tail as) p ++ bdemux n (tail as) q
-bdemux n as x 
+bdemux n as x
  | n < 0 = error "bdemux; n < 0"
  | otherwise = let n' = n-1 in
   bdemux n' (tail as) p ++ bdemux n' (tail as) q
@@ -252,7 +252,7 @@ wlat k (x:xs) | k < 0 = error "wlat"
 
 -------------------------------------------------------------------
 -- Primitive components
-                                 
+
 latch :: B -> B
 latch a = 0:a
 
@@ -463,7 +463,7 @@ rept i x = x : rept (i-1) x
 mksepline c = "\n" ++ rept 79 c ++ "\n"
 sepline = mksepline '-'
 bigsepline = mksepline '='
-   
+
 format :: Int -> [[[a]]] -> [a]
 format limit = concat . take limit . map concat . trans
 

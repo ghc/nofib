@@ -69,7 +69,7 @@ public class GCBench {
                 return 2 * TreeSize(kStretchTreeDepth) / TreeSize(i);
         }
 
-	// Build tree top down, assigning to older objects. 
+	// Build tree top down, assigning to older objects.
 	static void Populate(int iDepth, Node thisNode) {
 		if (iDepth<=0) {
 			return;
@@ -221,7 +221,7 @@ newMutNode x = do
   r <- newIORef MutEmpty
   return (MutNode l r x)
 
--- Build tree top down, assigning to older objects. 
+-- Build tree top down, assigning to older objects.
 populate 0 node = return ()
 populate iDepth (MutNode lref rref i) = do
   l <- newMutNode iDepth
@@ -257,9 +257,9 @@ timeConstruction max depth = do
 
 main = do
   args <- getArgs
-  let 
-    [kLongLivedTreeDepth, 
-     kArraySize, 
+  let
+    [kLongLivedTreeDepth,
+     kArraySize,
      kMinTreeDepth,
      kMaxTreeDepth] = map read args :: [Int]
 
@@ -277,10 +277,10 @@ main = do
   populate kLongLivedTreeDepth longLivedTree2
 
   -- Create long-lived array, filling half of it
---  printf " Creating a long-lived array of %d doubles\n" kArraySize 
+--  printf " Creating a long-lived array of %d doubles\n" kArraySize
   array <- newArray (1,kArraySize) 0.0
   let _ = array :: IOArray Int Double
-  sequence_ [ writeArray array i (1.0 / fromIntegral i) 
+  sequence_ [ writeArray array i (1.0 / fromIntegral i)
 	    | i <- [ 1 .. kArraySize `quot` 2 ] ]
 
   sequence_ [ timeConstruction kMaxTreeDepth d

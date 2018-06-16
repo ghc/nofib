@@ -16,7 +16,7 @@ main = do
 
    mvar <- newEmptyMVar
 
-   let 
+   let
    	spawner :: (IO () -> IO ThreadId) -> Int -> IO ()
    	spawner c 0 = putMVar mvar ()
    	spawner c n = do { c (spawner c (n-1)); return ()}

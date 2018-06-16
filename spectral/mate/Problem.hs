@@ -12,7 +12,7 @@ parseProblem :: [String] -> (Board, (Colour, Int))
 parseProblem s = (bd, gl)
 	where
 	bd = parseBoard bdtxt
-	gl = parseGoal gltxt 
+	gl = parseGoal gltxt
         (bdtxt, gltxt) = splitAt 8 (filter (not . comment) s)
 
 parseBoard :: [String] -> Board
@@ -24,12 +24,12 @@ parseBoard = convert . concat . zipWith parseRank (reverse [1..8])
 parseRank r = concat . zipWith (parseSquare r) [1..8] . filter (/= ' ')
 
 parseSquare r f '-' = []
-parseSquare r f  c  = 
+parseSquare r f  c  =
 	[((clr,kin), (f,r))]
 	where
-	clr = if isUpper c then Black else White 
+	clr = if isUpper c then Black else White
 	kin = case toLower c of
-              'k' -> King 
+              'k' -> King
 	      'q' -> Queen
 	      'r' -> Rook
 	      'b' -> Bishop

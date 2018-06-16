@@ -53,7 +53,7 @@ bmNorm_2 dss (Min1Max0 ar f1 f0)
      in
          Min1Max0 ar norm_f1 norm_f0
 
-bmNorm_frel dss (MkFrel fels) 
+bmNorm_frel dss (MkFrel fels)
    = MkFrel (myZipWith2 bmNorm dss fels)
 
 
@@ -120,7 +120,7 @@ One          %%   Zero        = False
 
 Stop1        %%   _           = True
 Up1 rs1      %%   Up1 rs2     = myAndWith2 (%%) rs1 rs2
-Up1 rs1      %%   _           = False    
+Up1 rs1      %%   _           = False
 
 Stop2        %%   _           = True
 Up2          %%   Stop2       = False

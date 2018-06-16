@@ -49,7 +49,7 @@ fmSelect a_rand up_space down_space fromTop
      in
          if null min_max_pairs
          then Nothing
-         else 
+         else
          if fromTop
          then Just (second selected_pair)
          else Just (first  selected_pair)
@@ -82,19 +82,19 @@ fmMinIntersection xx yy
 -- ==========================================================--
 --
 fmReviseMinXX :: [Domain] ->
-                 [FrontierElem] -> 
-                 FrontierElem -> 
+                 [FrontierElem] ->
+                 FrontierElem ->
                  [FrontierElem]
 
 fmReviseMinXX ds trial_min_xx args
    = let (x_underneath, x_not_underneath)
             = splitList (`avBelowEQfrel` args) trial_min_xx
-         optimised_result 
+         optimised_result
             = fmReviseMinXX_aux
                     (fmMinIntersection x_underneath (spSuccsFrel ds args))
                     x_not_underneath
-         fmReviseMinXX_aux xs ys 
-            = if     length xs < length ys 
+         fmReviseMinXX_aux xs ys
+            = if     length xs < length ys
               then   foldr avMinAddPtfrel xs ys
               else   foldr avMinAddPtfrel ys xs
      in
@@ -103,9 +103,9 @@ fmReviseMinXX ds trial_min_xx args
 
 -- ==========================================================--
 --
-fmReviseMaxYY :: [Domain] -> 
-                 [FrontierElem] -> 
-                 FrontierElem -> 
+fmReviseMaxYY :: [Domain] ->
+                 [FrontierElem] ->
+                 FrontierElem ->
                  [FrontierElem]
 
 fmReviseMaxYY ds trial_max_yy args

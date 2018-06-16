@@ -29,8 +29,8 @@ main
          d = first (head (reads inText))
      in
      mySeq d (putStr ("\n\n" ++ pretty (map length (amAllUpSlices d))))
-   where 
-         banner = concat 
+   where
+         banner = concat
                    [ "\nMonster 0.400r: generates all points in a domain.\n",
                      "Copyright (c) Julian Seward 1992",
                      "\n\nEnter the domain: " ]

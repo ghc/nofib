@@ -16,15 +16,15 @@ data Lexeme = Ide String
 lexer :: String -> ([Lexeme], Bool)
 
 lexer ""      = ([], True)
-lexer r@(c:s) = 
+lexer r@(c:s) =
 	if isSpace c      then lexer (dropWhile isSpace s)
-	else if isAlpha c then 
+	else if isAlpha c then
                           let (str1,str2) = span isAlphaNum r
                           in current_lexeme (Ide str1) str2
-	else if isDigit c then 
+	else if isDigit c then
                           let (lexeme, rest) = (lexerNum r)
                           in current_lexeme lexeme rest
-	else if isOp c    then 
+	else if isOp c    then
                           let (op, rest) = getOp (c:s)
                           in current_lexeme (Op op) rest
 	else if c == '('  then current_lexeme Lparen s
@@ -49,7 +49,7 @@ lexer r@(c:s) =
 
 	lexerNum r = ((Num (ds++f)), t) where (ds,s) = span isDigit r
 				              (f,t) = lexFracExp s
-	lexFracExp ('.':r) = ('.':ds, s) 
+	lexFracExp ('.':r) = ('.':ds, s)
 		where (ds, s) = span isDigit r
 	lexFracExp s = ("",s)
 	consume [] = []

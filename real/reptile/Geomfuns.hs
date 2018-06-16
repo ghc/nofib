@@ -2,7 +2,7 @@
 -- Haskell translation: Colin Runciman, May 1991
 
 module Geomfuns(
-mapx, mapy, col, row, lrinvert, antirotate, place, rotatecw, 
+mapx, mapy, col, row, lrinvert, antirotate, place, rotatecw,
        tbinvert, tile, t4, xymax) where
 
 import Mgrfuns
@@ -18,14 +18,14 @@ swapxy :: [Int] -> [Int]
 --ys [x1,y1,x2,y2] = [y1,y2]
 swapxy [x1,y1,x2,y2] = [y1,x1,y2,x2]
 
-mapx, mapy :: (Int -> Int) -> [Int] -> [Int] 
+mapx, mapy :: (Int -> Int) -> [Int] -> [Int]
 
 mapx f [x1,y1,x2,y2] = [f x1, y1, f x2, y2]
 mapy f [x1,y1,x2,y2] = [x1, f y1, x2, f y2]
 
 toright, down :: Int -> [[Int]] -> [[Int]]
 
-toright = map . mapx . (+) 
+toright = map . mapx . (+)
 down = map . mapy . (+)
 
 origin :: Int -> Int -> [[Int]] -> [[Int]]

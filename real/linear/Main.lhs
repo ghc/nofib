@@ -1,6 +1,6 @@
 
 \section{Main}
- 
+
  =======================================================================
   Test function: Runs the Linear System Solver (Bi-CGSTAB).
 
@@ -67,7 +67,7 @@
 
   conv1 : (r,r) < 0.000001
   conv2 : sqrt(r,r) < 0.0000004
- 
+
 \begin{code}
 import Matrix  -- matrix implementation
 import Input   -- read gcomp data files
@@ -82,14 +82,14 @@ Absmatlib imports the preconditioner.
 \begin{code}
 
 import AbsCg (solve_iters, Cg_state (..), show_state)
-import Absmatlib 
+import Absmatlib
 
 
- 
- 
+
+
 conv1 (Cg_stateC x r p q c) =
     (norm r) < 0.000001
- 
+
 conv2 (Cg_stateC x r p q c) =
     sqrt (norm r) < 0.0000004
 
@@ -97,12 +97,12 @@ conv2 (Cg_stateC x r p q c) =
 
 
 
-main resps 
+main resps
  = [ReadChan stdin,            -- to get input parameters
     ReadFile ... ,             -- all of the data files
     AppendChan stdout result]  -- the final result
-    where 
-    result 
+    where
+    result
      = case (resps !! 0) of
         (Str str) -> let (process, data, set, conv) = parseInp str
                          file1 = getFile1 set (tail resps)
@@ -117,10 +117,10 @@ main resps
  1) write parseInp (give read a signature which does the parse)
  2) write getFile functions
  3) alter test, test' so that instead of propagating set,
-    the files are passed to the appropriate function. For 
+    the files are passed to the appropriate function. For
     example, pass file5 to soln_vect, but just pass set to
     a_easy.
- 4) change soln_vect, gmat, etc. so that they get the file, not 
+ 4) change soln_vect, gmat, etc. so that they get the file, not
     set
  5) change readmtx, etc. so that x becomes "file"; no call
     to doread, etc. needed.
@@ -131,7 +131,7 @@ main = putStr result
           where
           result = test bilu test_data 16 conv2
 
-test_data = hard_data 
+test_data = hard_data
 
 noscale a b = (a,b)
 noprecond a b = b
@@ -143,14 +143,14 @@ test process data' set conv =
 test' process data' set conv
    = header ++ output ++ "\n"
      where
-        output = 
-              concat (map (show_state soln) iterations) 
+        output =
+              concat (map (show_state soln) iterations)
         iterations =
             takeuntil conv (take maxiters all_iterations)
         all_iterations =
             solve_iters scale precond a b
         (scale,precond)
-           = case process of 
+           = case process of
               "bilu" -> (doscale,doprecond numwells)
               "none" -> (noscale,noprecond)
               _ ->  error usage
@@ -158,12 +158,12 @@ test' process data' set conv
            = case data' of
               "easy_data" -> (a_easy set, x1 set, mvmult a soln, 0)
               "hard_data" -> (a_hard set, x1 set, mvmult a soln, 0)
-              "gcomp_data" -> (gmat set, soln_vect set, rhside set, wells set)  
+              "gcomp_data" -> (gmat set, soln_vect set, rhside set, wells set)
               _      -> error usage
         maxiters = 50
         usage =
            "Usage: test (bilu|none) (test_data|gcomp_data)" ++
-           " num (conv1|conv2)" 
+           " num (conv1|conv2)"
 
 
 header :: [Char]
@@ -185,6 +185,6 @@ none      = "none"
 
 
 
-               
-               
+
+
 

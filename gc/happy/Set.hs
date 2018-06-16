@@ -32,6 +32,6 @@ filter p s = mkSet [ x | x <- setToList s, p x ]
 fold :: (a -> b -> b) -> b -> Set a -> b
 fold f z = foldr f z . setToList
 
-toAscList :: Set a -> [a] 
+toAscList :: Set a -> [a]
 toAscList = setToList
 #endif

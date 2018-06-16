@@ -22,7 +22,7 @@ import Assemble_loadvec
 
 uvw     :: (Array Int Int, Array Int Float) -> Vec Float
 
-getnuvw :: (Array Int Int, Array Int Float) -> Int -> 
+getnuvw :: (Array Int Int, Array Int Float) -> Int ->
 	    	Vec Float -> (Float, Float, Float)
 
 t_Ub s = vbllsolution (kdd s) (loadvec s)
@@ -48,5 +48,5 @@ getnuvw s node uvw =
 	u = vecsub uvw index
 	v = vecsub uvw (index+1)
 	theta = vecsub uvw (index+2)
-	index = 3 * (node - 1) + 1 
+	index = 3 * (node - 1) + 1
 

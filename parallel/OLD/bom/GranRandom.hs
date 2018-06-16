@@ -21,7 +21,7 @@ getRandIntList len bound = getRandomInts bound >>= \ l ->
 getRandomInts :: Int -> IO [Int]
 getRandomInts bound = getRandInt 2147483561 >>= \ s1 ->
                       getRandInt 2147483397 >>= \ s2 ->
-                      let 
+                      let
 		        randomList = randomInts (s1+1) (s2+1)
                       in
                       return (map (`mod` bound) randomList )
@@ -29,22 +29,22 @@ getRandomInts bound = getRandInt 2147483561 >>= \ s1 ->
 getRandomDoubles :: Double -> IO [Double]
 getRandomDoubles bound = getRandInt 2147483561 >>= \ s1 ->
                       	 getRandInt 2147483397 >>= \ s2 ->
-                      	 let 
+                      	 let
                            -- Doubles uniformly distibuted in (0,1)
 		      	   randomList = randomDoubles (s1+1) (s2+1)
                       	 in
                       	 return (map (* bound) randomList)
-                       
+
 getNormalRandomDoubles :: Double -> IO [Double]
 getNormalRandomDoubles bound = getRandInt 2147483561 >>= \ s1 ->
                       	       getRandInt 2147483397 >>= \ s2 ->
-                      	       let 
+                      	       let
 		      	 	 randomList = normalRandomDoubles (s1+1) (s2+1)
                       	       in
                       	       return (map (* bound) randomList)
 
 getRandInt :: Int -> IO Int
-getRandInt bound = 
+getRandInt bound =
     getClockTime >>= \ t ->
     let
      CalendarTime _ _ _ _ _ _ x _ _ _ _ _  = toCalendarTime b
@@ -59,7 +59,7 @@ unsafeGetRandIntList len bound =
  unsafePerformIO ( getRandIntList len bound )
 
 unsafeGetRandomInts :: Int -> [Int]
-unsafeGetRandomInts = unsafePerformIO . getRandomInts  
+unsafeGetRandomInts = unsafePerformIO . getRandomInts
 
 unsafeGetRandomDoubles :: Double -> [Double]
 unsafeGetRandomDoubles = unsafePerformIO . getRandomDoubles
@@ -78,9 +78,9 @@ unsafeGetStardate :: Int -> Stardate
 unsafeGetStardate = unsafePerformIO . getStardate
 
 getStardate :: Int -> IO Stardate
-getStardate prec = 
+getStardate prec =
     _casm_ ``%r = time((time_t *)0);'' `thenIO_Prim` \ tm ->
-    let 
+    let
       (iss, int, frac) = stardate tm
     in
     return (iss, int, (frac `div` (10^prec)))
@@ -88,7 +88,7 @@ getStardate prec =
 stardate :: Int -> Stardate
 stardate tm = (issue, integer, fraction)
               where -- fraction = ( (tm%17280) *1000000) / 17280
-	            (tm_quot, tm_rem) = quotRem tm 17280 
+	            (tm_quot, tm_rem) = quotRem tm 17280
 	            fraction  = tm_rem * 3125 `div` 54
                     integer'  = tm_quot + 9350
                     (int_quot, int_rem) = quotRem integer' 10000

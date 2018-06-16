@@ -1,7 +1,7 @@
 Utilities module for the fully lazy lambda lifter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-> module Utilities( 
+> module Utilities(
 >	Assn, assLookup,
 >	NameSupply, initialNameSupply, newName,
 >	Set, setFromList, setEmpty, setSingleton, setToList,
@@ -68,7 +68,7 @@ Now the basic combining functions.
 >					| x==y  = x : intersect xs' ys'
 >					| x>y	= intersect xs ys'
 
-> setDifference (MkSet xs) (MkSet ys) = 
+> setDifference (MkSet xs) (MkSet ys) =
 >   MkSet (difference xs ys) where
 >	difference [] ys = []
 >	difference xs [] = xs
@@ -101,15 +101,15 @@ MkBags are represented by unordered lists
 >	    -> (b, [c])		-- Final accumulator and result list
 >
 > mapAccuml f b []     = (b, [])
-> mapAccuml f b (x:xs) = (b'', x':xs') where 
->					  (b', x') = f b x 
+> mapAccuml f b (x:xs) = (b'', x':xs') where
+>					  (b', x') = f b x
 >					  (b'', xs') = mapAccuml f b' xs
 
 |sortNoDups| sorts a list and removes duplicates from it.
 
 > sortNoDups :: Ord a => [a] -> [a]
 > sortNoDups [] = []
-> sortNoDups (x:xs) = sortNoDups [y | y <- xs, y < x] 
+> sortNoDups (x:xs) = sortNoDups [y | y <- xs, y < x]
 >		      ++ [x] ++
 >		      sortNoDups [y | y <- xs, y > x]
 

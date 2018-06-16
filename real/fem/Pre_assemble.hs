@@ -25,16 +25,16 @@ diagadr s =
 	where
  	v = makevec bound f
 	bound = boundvec (bandvec_s)
-	f i   = 
-		if ( i == 1) then 1 
+	f i   =
+		if ( i == 1) then 1
 		else vecsub v (i-1) + vecsub bandvec_s i
 	bandvec_s = bandvec s
 
 bandvec s =
-	maxupdvec initial_value 
+	maxupdvec initial_value
 		( concat (map pre_assemble_s [1..(nelem s)]))
 	where
-	initial_value = makevec (ndgrs s) (\ i -> 0) 
+	initial_value = makevec (ndgrs s) (\ i -> 0)
 	pre_assemble_s = pre_assemble s
 
 pre_assemble s element =
@@ -49,5 +49,5 @@ pre_assemble s element =
 diagadrrlt :: (Array Int Int, Array Int Float) -> [Char]
 
 diagadrrlt s =
-	"DIAGONAL ADDRESS VECTOR=\n" ++ 
+	"DIAGONAL ADDRESS VECTOR=\n" ++
 	displayvec (diagadr s)

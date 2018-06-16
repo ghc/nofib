@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -13,7 +13,7 @@ photoElec :: Particle -> Probability -> (Particle, Value, Bool)
 photoElec p prob =
 	if (w' > wgtCut2)
 	  then (Part pos dir w' e eIndx cell seed', absorb, False)
-	  else	-- terminate particle because of weight cutoff 
+	  else	-- terminate particle because of weight cutoff
 	    if ((w' * fromIntegral cell) < (r1 * wgtCut))
 	      then (Part pos dir w' e eIndx cell seed', absorb, True)
 	      else (Part pos dir w'' e eIndx cell seed', absorb, False)

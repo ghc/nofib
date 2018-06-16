@@ -1,10 +1,10 @@
-{- 
+{-
 Time-stamp: <2010-10-13 10:22:48 simonmar>
 
 Source file: /local/grasp/trinder/tests/strategies/
 
  Module expressing Dates Bill of Material Program
-	Phil Trinder 18/9/95                             
+	Phil Trinder 18/9/95
 
 Slightly adapted for general GranSim setup by H.W. Loidl
 
@@ -66,7 +66,7 @@ rands s1 s2 = z' : rands s1'' s2''
                 k    = s1 `quot` 53668
                 s1'  = 40014 * (s1 - k * 53668) - k * 12211
                 s1'' = if s1' < 0 then s1' + 2147483563 else s1'
-    
+
                 k'   = s2 `quot` 52774
                 s2'  = 40692 * (s2 - k' * 52774) - k' * 3791
                 s2'' = if s2' < 0 then s2' + 2147483399 else s2'
@@ -83,7 +83,7 @@ suitable n (r:rs) chosen = if r < n && notElem r chosen then
 		      	     suitable n rs chosen
 
 
-genBetween lo hi rs 
+genBetween lo hi rs
 	| lo == hi 	= []
 	| otherwise	= (lo,m1,2):(lo,m2,4):(lo,m3,1):
 	                  genBetween (lo+1) hi rs'''
@@ -94,16 +94,16 @@ genBetween lo hi rs
 	
 {- Generates 2n tuples in a directed acyclic graph. Each tuple in the
 range (n..n/3] is linked to 3 other tuples smaller than it, and no
-tuple is linked to the same child twice. e.g. generate 12 = 
+tuple is linked to the same child twice. e.g. generate 12 =
 [(4,1,2), (4,2,4), (4,3,1), (5,1,2), (5,2,4), (5,3,1),
- (6,1,2), (6,2,4), (6,3,1), (7,4,2), (7,3,4), (7,2,1), 
- (8,1,2), (8,2,4), (8,3,1), (9,3,2), (9,4,4), (9,5,1), 
+ (6,1,2), (6,2,4), (6,3,1), (7,4,2), (7,3,4), (7,2,1),
+ (8,1,2), (8,2,4), (8,3,1), (9,3,2), (9,4,4), (9,5,1),
  (10,5,2), (10,4,4), (10,3,1), (11,2,2), (11,1,4), (11,3,1)]
 -}
 
 {-
 generate n = genBetween (n `div` 3) n rs
-	       where 
+	       where
 		 rs = map (\x -> mod x n) (randomInts 53 107)
 -}
 
@@ -113,7 +113,7 @@ generate n = getRandomInts n >>= \ rs ->
 	     return (genBetween (n `div` 3) n rs)
 
 explode :: [(Int,Int,Int)] -> Int -> [Int]
-explode r ass = nub [p | (m,s,n) <- r, m == ass, p <- (s:explode r s)] 
+explode r ass = nub [p | (m,s,n) <- r, m == ass, p <- (s:explode r s)]
 {- explode r ass = [p | (m,s,n) <- r, m == ass, p <- (s:explode r s)] -}
 
 {- First create the list of tuples, then explode (some), finally print
@@ -121,10 +121,10 @@ out how many in each explosion -}
 
 doQuery :: Int -> Int -> Int -> IO [Int]
 doQuery lo hi bomSize = generate bomSize >>= \ bom ->
-                        let 
+                        let
 			 explodeList = map (explode bom) [lo..hi]
 			 strategy result =
-			   (seqList rnf bom) `seq` 
+			   (seqList rnf bom) `seq`
                            (parList rnf explodeList) `seq`
 			   result
                         in
@@ -140,7 +140,7 @@ main = 	getArgs >>=  \[a1, a2, a3] ->
 #  if defined(PRINT)
 	putStr (show l)
 #  else
-        (rnf l) `seq` putStr "Done\n" 
+        (rnf l) `seq` putStr "Done\n"
 #  endif
 
 # else
@@ -152,7 +152,7 @@ main = 	let lo      = 70
 #  if defined(PRINT)
 	putStr (show l)
 #  else
-        (rnf l) `seq` putStr "Done\n" 
+        (rnf l) `seq` putStr "Done\n"
 #  endif
 # endif
 
@@ -167,7 +167,7 @@ doQuery lo hi bomSize = strategy (map length explodeList)
 			 bom = generate bomSize
 			 explodeList = map (explode bom) [lo..hi]
 			 strategy result =
-			   (seqList rnf bom) `seq` 
+			   (seqList rnf bom) `seq`
                            (parList rnf explodeList) `seq`
 			   result
 

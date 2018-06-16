@@ -9,7 +9,7 @@ import Control.Parallel.Strategies
 
 boardDim = 4
 
-type Board = [Row] 
+type Board = [Row]
 type Row = [Piece]
 data Piece = X | O | Empty deriving (Eq,Show)
 
@@ -37,12 +37,12 @@ empty (x,y) board = isEmpty ((board !! (y-1)) !! (x-1))
 fullBoard b = all (not.isEmpty) (concat b)
 
 newPositions :: Piece -> Board -> [Board]
-newPositions piece board = 
+newPositions piece board =
 --  [ placePiece piece board (x,y) | (x,y) <- empties board ]
     goRows piece id board
 
 goRows p rowsL [] = []
-goRows p rowsL (row:rowsR) 
+goRows p rowsL (row:rowsR)
   = goRow p rowsL id row rowsR ++ goRows p (rowsL . (row:)) rowsR
 
 goRow p rowsL psL [] rowsR = []
@@ -100,7 +100,7 @@ scoreString !n (O:ps)     = scoreString (n-1) ps
 scoreString !n (Empty:ps) = scoreString n ps
 
 score :: Board -> [Evaluation]
-score board = 
+score board =
    [ eval (scoreString 0 row) | row <- board ] ++
    [ eval (scoreString 0 col) | col <- transpose board ] ++
    [ eval (scoreString 0 (zipWith (!!) board [0..])),

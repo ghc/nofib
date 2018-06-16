@@ -7,7 +7,7 @@ On a 1.86GHz Intel Xeon:
 
 GHC 6.8.3, with -threaded:
 
-$ ./1589 100000 1 
+$ ./1589 100000 1
 Creating pipeline with 100000 processes in it.
 Pumping a single message through the pipeline.
 Pumping a 1 messages through the pipeline.
@@ -27,7 +27,7 @@ Pumping a 1 messages through the pipeline.
 
 GHC 6.10.1, with -threaded:
 
-$ ./1589 1000000 1                         
+$ ./1589 1000000 1
 Creating pipeline with 1000000 processes in it.
 Pumping a single message through the pipeline.
 Pumping a 1 messages through the pipeline.

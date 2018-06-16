@@ -34,7 +34,7 @@
 > build_trm' sg ( App itm1 itm2 tyL attL )
 >	= add_l ( appl tm1 tm2 ) tyL attL
 >	  where
->	  tm1 = build_trm' sg itm1 
+>	  tm1 = build_trm' sg itm1
 >	  tm2 = build_trm' sg itm2
 
 have to deduce term if not explicitely given (type is U-1)
@@ -45,8 +45,8 @@ have to deduce term if not explicitely given (type is U-1)
 >	  tm1 = build_trm' sg itm1
 >	  tm2 = build_trm' sg itm2
 >	  tm3 = case itm3 of
->			Constant ( Univ (-1)) _ _ 
->				-> sigma btm2 
+>			Constant ( Univ (-1)) _ _
+>				-> sigma btm2
 >				   where
 >				   btm2 = shift_Trm 1 sg2 ( typ_of_Trm tm2 )
 >				   sg2  = extend bdc1 sg
@@ -90,7 +90,7 @@ have to deduce term if not explicitely given (type is U-1)
 >			Issubtype -> issubtype
 
 > build_trm' sg ( Unary Not itm tyL attL )
->	= add_l ( negation tm ) tyL attL 
+>	= add_l ( negation tm ) tyL attL
 >	  where
 >	  tm = build_trm' sg itm
 
@@ -100,7 +100,7 @@ have to deduce term if not explicitely given (type is U-1)
 >	  tm1 = build_trm' sg2 itm1
 >	  tm2 = build_trm' sg3 itm2
 >	  sg2 = extend dc1 sg
->	  sg3 = extend dc2 sg 
+>	  sg3 = extend dc2 sg
 >	  dc2 = symbol_dec ( negation ( typ_of_Dec dc1 ))
 >	  dc1 = gen_dc sg idc
 
@@ -135,9 +135,9 @@ Check type of itm and build axiom_dec if bool
 
 > gen_dc sg ( Symbol_dec itm attL )
 >	= case typ_of_trm isg itm of
->		Constant Bool' _ _ 
+>		Constant Bool' _ _
 >		       -> set_Dec_att ( axiom_dec ( build_trm' sg itm )) attL
->		otherwise 
+>		otherwise
 >		       -> set_Dec_att ( symbol_dec ( build_trm' sg itm )) attL
 >	  where
 >	  isg = internal_Sgn sg
@@ -149,8 +149,8 @@ Check type of itm and build axiom_dec if bool
 >	= set_Dec_att dc_pair attL
 >	  where
 >	  dc_pair = decpair dc2
->	  dc2     = gen_dc sg2 idc2 
->	  sg2     = extend dc1 sg 
+>	  dc2     = gen_dc sg2 idc2
+>	  sg2     = extend dc1 sg
 >	  dc1     = gen_dc sg idc1
 
 > gen_dc _ _ = error "Only symbol_dec so far implemented"
@@ -165,13 +165,13 @@ pass on nested errors unchanged
 check validity of sort at head of sort list if present
 
 > add_l tm tyL@( srt : _ ) attL
->	= if eq_trm srt_tm srt 
+>	= if eq_trm srt_tm srt
 >		then set_Trm_att tm [] attL	
 >	        else TM_Err "Invalid type specification"
 >	  where
 >	  ( _ , srt_tm , _ ) = internal_Trm tm
 
-> add_l tm [] attL 
+> add_l tm [] attL
 >	= set_Trm_att tm [] attL
 
 
@@ -183,7 +183,7 @@ this function ignores attributes
 
 > build_sg ( Empty _ ) = empty
 
-> build_sg ( Extend idc isg _ ) 
+> build_sg ( Extend idc isg _ )
 >	= extend ( build_dc sg idc ) sg
 >	  where
 >	  sg = build_sg isg

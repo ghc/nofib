@@ -5,7 +5,7 @@ import Lexer
 
 -- parser produced by Happy Version 1.16
 
-data HappyAbsSyn 
+data HappyAbsSyn
 	= HappyTerminal Token
 	| HappyErrorToken Int
 	| HappyAbsSyn4 (AbsSyn)
@@ -20,12 +20,12 @@ data HappyAbsSyn
 	| HappyAbsSyn14 ((String,String))
 	| HappyAbsSyn15 ([String])
 
-type HappyReduction m = 
-	   Int 
+type HappyReduction m =
+	   Int
 	-> (Token)
 	-> HappyState (Token) (HappyStk HappyAbsSyn -> m HappyAbsSyn)
-	-> [HappyState (Token) (HappyStk HappyAbsSyn -> m HappyAbsSyn)] 
-	-> HappyStk HappyAbsSyn 
+	-> [HappyState (Token) (HappyStk HappyAbsSyn -> m HappyAbsSyn)]
+	-> HappyStk HappyAbsSyn
 	-> m HappyAbsSyn
 
 action_0,
@@ -412,14 +412,14 @@ happyReduction_2 (HappyAbsSyn6  happy_var_2)
 	 =  HappyAbsSyn5
 		 (happy_var_2 : happy_var_1
 	)
-happyReduction_2 _ _  = notHappyAtAll 
+happyReduction_2 _ _  = notHappyAtAll
 
 happyReduce_3 = happySpecReduce_1  5 happyReduction_3
 happyReduction_3 (HappyAbsSyn6  happy_var_1)
 	 =  HappyAbsSyn5
 		 ([happy_var_1]
 	)
-happyReduction_3 _  = notHappyAtAll 
+happyReduction_3 _  = notHappyAtAll
 
 happyReduce_4 = happyReduce 5 6 happyReduction_4
 happyReduction_4 ((HappyAbsSyn7  happy_var_5) `HappyStk`
@@ -451,7 +451,7 @@ happyReduction_6 (HappyAbsSyn7  happy_var_3)
 	 =  HappyAbsSyn6
 		 ((happy_var_1,happy_var_3,Nothing)
 	)
-happyReduction_6 _ _ _  = notHappyAtAll 
+happyReduction_6 _ _ _  = notHappyAtAll
 
 happyReduce_7 = happySpecReduce_3  7 happyReduction_7
 happyReduction_7 (HappyAbsSyn7  happy_var_3)
@@ -460,14 +460,14 @@ happyReduction_7 (HappyAbsSyn7  happy_var_3)
 	 =  HappyAbsSyn7
 		 (happy_var_1 : happy_var_3
 	)
-happyReduction_7 _ _ _  = notHappyAtAll 
+happyReduction_7 _ _ _  = notHappyAtAll
 
 happyReduce_8 = happySpecReduce_1  7 happyReduction_8
 happyReduction_8 (HappyAbsSyn8  happy_var_1)
 	 =  HappyAbsSyn7
 		 ([happy_var_1]
 	)
-happyReduction_8 _  = notHappyAtAll 
+happyReduction_8 _  = notHappyAtAll
 
 happyReduce_9 = happyMonadReduce 4 8 happyReduction_9
 happyReduction_9 (_ `HappyStk`
@@ -492,7 +492,7 @@ happyReduction_11 (HappyTerminal (TokenInfo happy_var_2 TokId))
 	 =  HappyAbsSyn9
 		 (Just happy_var_2
 	)
-happyReduction_11 _ _  = notHappyAtAll 
+happyReduction_11 _ _  = notHappyAtAll
 
 happyReduce_12 = happySpecReduce_0  9 happyReduction_12
 happyReduction_12  =  HappyAbsSyn9
@@ -505,14 +505,14 @@ happyReduction_13 (HappyAbsSyn11  happy_var_2)
 	 =  HappyAbsSyn10
 		 (happy_var_2 : happy_var_1
 	)
-happyReduction_13 _ _  = notHappyAtAll 
+happyReduction_13 _ _  = notHappyAtAll
 
 happyReduce_14 = happySpecReduce_1  10 happyReduction_14
 happyReduction_14 (HappyAbsSyn11  happy_var_1)
 	 =  HappyAbsSyn10
 		 ([happy_var_1]
 	)
-happyReduction_14 _  = notHappyAtAll 
+happyReduction_14 _  = notHappyAtAll
 
 happyReduce_15 = happySpecReduce_2  11 happyReduction_15
 happyReduction_15 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
@@ -520,7 +520,7 @@ happyReduction_15 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenType happy_var_2
 	)
-happyReduction_15 _ _  = notHappyAtAll 
+happyReduction_15 _ _  = notHappyAtAll
 
 happyReduce_16 = happySpecReduce_2  11 happyReduction_16
 happyReduction_16 (HappyAbsSyn13  happy_var_2)
@@ -528,7 +528,7 @@ happyReduction_16 (HappyAbsSyn13  happy_var_2)
 	 =  HappyAbsSyn11
 		 (TokenSpec happy_var_2
 	)
-happyReduction_16 _ _  = notHappyAtAll 
+happyReduction_16 _ _  = notHappyAtAll
 
 happyReduce_17 = happySpecReduce_3  11 happyReduction_17
 happyReduction_17 (HappyAbsSyn9  happy_var_3)
@@ -537,7 +537,7 @@ happyReduction_17 (HappyAbsSyn9  happy_var_3)
 	 =  HappyAbsSyn11
 		 (TokenName happy_var_2 happy_var_3 False
 	)
-happyReduction_17 _ _ _  = notHappyAtAll 
+happyReduction_17 _ _ _  = notHappyAtAll
 
 happyReduce_18 = happySpecReduce_3  11 happyReduction_18
 happyReduction_18 (HappyAbsSyn9  happy_var_3)
@@ -546,7 +546,7 @@ happyReduction_18 (HappyAbsSyn9  happy_var_3)
 	 =  HappyAbsSyn11
 		 (TokenName happy_var_2 happy_var_3 True
 	)
-happyReduction_18 _ _ _  = notHappyAtAll 
+happyReduction_18 _ _ _  = notHappyAtAll
 
 happyReduce_19 = happySpecReduce_1  11 happyReduction_19
 happyReduction_19 _
@@ -561,7 +561,7 @@ happyReduction_20 (HappyTerminal (TokenInfo happy_var_3 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenLexer happy_var_2 happy_var_3
 	)
-happyReduction_20 _ _ _  = notHappyAtAll 
+happyReduction_20 _ _ _  = notHappyAtAll
 
 happyReduce_21 = happySpecReduce_2  11 happyReduction_21
 happyReduction_21 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
@@ -569,7 +569,7 @@ happyReduction_21 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenMonad "()" happy_var_2 ">>=" "return"
 	)
-happyReduction_21 _ _  = notHappyAtAll 
+happyReduction_21 _ _  = notHappyAtAll
 
 happyReduce_22 = happySpecReduce_3  11 happyReduction_22
 happyReduction_22 (HappyTerminal (TokenInfo happy_var_3 TokCodeQuote))
@@ -578,7 +578,7 @@ happyReduction_22 (HappyTerminal (TokenInfo happy_var_3 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenMonad happy_var_2 happy_var_3 ">>=" "return"
 	)
-happyReduction_22 _ _ _  = notHappyAtAll 
+happyReduction_22 _ _ _  = notHappyAtAll
 
 happyReduce_23 = happyReduce 4 11 happyReduction_23
 happyReduction_23 ((HappyTerminal (TokenInfo happy_var_4 TokCodeQuote)) `HappyStk`
@@ -607,7 +607,7 @@ happyReduction_25 (HappyAbsSyn15  happy_var_2)
 	 =  HappyAbsSyn11
 		 (TokenNonassoc happy_var_2
 	)
-happyReduction_25 _ _  = notHappyAtAll 
+happyReduction_25 _ _  = notHappyAtAll
 
 happyReduce_26 = happySpecReduce_2  11 happyReduction_26
 happyReduction_26 (HappyAbsSyn15  happy_var_2)
@@ -615,7 +615,7 @@ happyReduction_26 (HappyAbsSyn15  happy_var_2)
 	 =  HappyAbsSyn11
 		 (TokenRight happy_var_2
 	)
-happyReduction_26 _ _  = notHappyAtAll 
+happyReduction_26 _ _  = notHappyAtAll
 
 happyReduce_27 = happySpecReduce_2  11 happyReduction_27
 happyReduction_27 (HappyAbsSyn15  happy_var_2)
@@ -623,7 +623,7 @@ happyReduction_27 (HappyAbsSyn15  happy_var_2)
 	 =  HappyAbsSyn11
 		 (TokenLeft happy_var_2
 	)
-happyReduction_27 _ _  = notHappyAtAll 
+happyReduction_27 _ _  = notHappyAtAll
 
 happyReduce_28 = happySpecReduce_2  11 happyReduction_28
 happyReduction_28 (HappyTerminal (TokenNum happy_var_2  TokNum))
@@ -631,7 +631,7 @@ happyReduction_28 (HappyTerminal (TokenNum happy_var_2  TokNum))
 	 =  HappyAbsSyn11
 		 (TokenExpect happy_var_2
 	)
-happyReduction_28 _ _  = notHappyAtAll 
+happyReduction_28 _ _  = notHappyAtAll
 
 happyReduce_29 = happySpecReduce_2  11 happyReduction_29
 happyReduction_29 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
@@ -639,7 +639,7 @@ happyReduction_29 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenError happy_var_2
 	)
-happyReduction_29 _ _  = notHappyAtAll 
+happyReduction_29 _ _  = notHappyAtAll
 
 happyReduce_30 = happySpecReduce_2  11 happyReduction_30
 happyReduction_30 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
@@ -647,7 +647,7 @@ happyReduction_30 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenAttributetype happy_var_2
 	)
-happyReduction_30 _ _  = notHappyAtAll 
+happyReduction_30 _ _  = notHappyAtAll
 
 happyReduce_31 = happySpecReduce_3  11 happyReduction_31
 happyReduction_31 (HappyTerminal (TokenInfo happy_var_3 TokCodeQuote))
@@ -656,14 +656,14 @@ happyReduction_31 (HappyTerminal (TokenInfo happy_var_3 TokCodeQuote))
 	 =  HappyAbsSyn11
 		 (TokenAttribute happy_var_2 happy_var_3
 	)
-happyReduction_31 _ _ _  = notHappyAtAll 
+happyReduction_31 _ _ _  = notHappyAtAll
 
 happyReduce_32 = happySpecReduce_1  12 happyReduction_32
 happyReduction_32 (HappyTerminal (TokenInfo happy_var_1 TokId))
 	 =  HappyAbsSyn9
 		 (Just happy_var_1
 	)
-happyReduction_32 _  = notHappyAtAll 
+happyReduction_32 _  = notHappyAtAll
 
 happyReduce_33 = happySpecReduce_0  12 happyReduction_33
 happyReduction_33  =  HappyAbsSyn9
@@ -676,14 +676,14 @@ happyReduction_34 (HappyAbsSyn13  happy_var_2)
 	 =  HappyAbsSyn13
 		 (happy_var_1:happy_var_2
 	)
-happyReduction_34 _ _  = notHappyAtAll 
+happyReduction_34 _ _  = notHappyAtAll
 
 happyReduce_35 = happySpecReduce_1  13 happyReduction_35
 happyReduction_35 (HappyAbsSyn14  happy_var_1)
 	 =  HappyAbsSyn13
 		 ([happy_var_1]
 	)
-happyReduction_35 _  = notHappyAtAll 
+happyReduction_35 _  = notHappyAtAll
 
 happyReduce_36 = happySpecReduce_2  14 happyReduction_36
 happyReduction_36 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
@@ -691,7 +691,7 @@ happyReduction_36 (HappyTerminal (TokenInfo happy_var_2 TokCodeQuote))
 	 =  HappyAbsSyn14
 		 ((happy_var_1,happy_var_2)
 	)
-happyReduction_36 _ _  = notHappyAtAll 
+happyReduction_36 _ _  = notHappyAtAll
 
 happyReduce_37 = happySpecReduce_2  15 happyReduction_37
 happyReduction_37 (HappyAbsSyn15  happy_var_2)
@@ -699,7 +699,7 @@ happyReduction_37 (HappyAbsSyn15  happy_var_2)
 	 =  HappyAbsSyn15
 		 (happy_var_1 : happy_var_2
 	)
-happyReduction_37 _ _  = notHappyAtAll 
+happyReduction_37 _ _  = notHappyAtAll
 
 happyReduce_38 = happySpecReduce_0  15 happyReduction_38
 happyReduction_38  =  HappyAbsSyn15
@@ -711,7 +711,7 @@ happyReduction_39 (HappyTerminal (TokenInfo happy_var_1 TokCodeQuote))
 	 =  HappyAbsSyn9
 		 (Just happy_var_1
 	)
-happyReduction_39 _  = notHappyAtAll 
+happyReduction_39 _  = notHappyAtAll
 
 happyReduce_40 = happySpecReduce_0  16 happyReduction_40
 happyReduction_40  =  HappyAbsSyn9
@@ -719,7 +719,7 @@ happyReduction_40  =  HappyAbsSyn9
 	)
 
 happyNewToken action sts stk
-	= lexer(\tk -> 
+	= lexer(\tk ->
 	let cont i = action i i tk (HappyState action) sts stk in
 	case tk of {
 	TokenEOF -> action 40 40 tk (HappyState action) sts stk;
@@ -773,7 +773,7 @@ happyError = lineP >>= \l -> fail (show l ++ ": Parse error\n")
 {-# LINE 1 "<built-in>" #-}
 {-# LINE 1 "<command line>" #-}
 {-# LINE 1 "GenericTemplate.hs" #-}
--- Id: GenericTemplate.hs,v 1.26 2005/01/14 14:47:22 simonmar Exp 
+-- Id: GenericTemplate.hs,v 1.26 2005/01/14 14:47:22 simonmar Exp
 
 {-# LINE 28 "GenericTemplate.hs" #-}
 
@@ -806,7 +806,7 @@ happyParse start_state = happyNewToken start_state notHappyAtAll notHappyAtAll
 -- the stack in this case.
 happyAccept (1) tk st sts (_ `HappyStk` ans `HappyStk` _) =
 	happyReturn1 ans
-happyAccept j tk st sts (HappyStk ans _) = 
+happyAccept j tk st sts (HappyStk ans _) =
 	 (happyReturn1 ans)
 
 -----------------------------------------------------------------------------
@@ -912,7 +912,7 @@ happyGoto action j tk st = action j j tk (HappyState action)
 
 -- parse error if we are in recovery and we fail again
 happyFail  (1) tk old_st _ stk =
---	trace "failing" $ 
+--	trace "failing" $
     	happyError_ tk
 
 {-  We don't need state discarding for our restricted implementation of
@@ -920,7 +920,7 @@ happyFail  (1) tk old_st _ stk =
     for now --SDM
 
 -- discard a state
-happyFail  (1) tk old_st (((HappyState (action))):(sts)) 
+happyFail  (1) tk old_st (((HappyState (action))):(sts))
 						(saved_tok `HappyStk` _ `HappyStk` stk) =
 --	trace ("discarding state, depth " ++ show (length stk))  $
 	action (1) (1) tk (HappyState (action)) sts ((saved_tok`HappyStk`stk))
@@ -946,7 +946,7 @@ notHappyAtAll = error "Internal Happy error\n"
 
 
 -----------------------------------------------------------------------------
--- Seq-ing.  If the --strict flag is given, then Happy emits 
+-- Seq-ing.  If the --strict flag is given, then Happy emits
 --	happySeq = happyDoSeq
 -- otherwise it emits
 -- 	happySeq = happyDontSeq

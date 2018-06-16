@@ -8,7 +8,7 @@ module KnightHeuristic(
 	ChessSet,
 	startTour,
 	descendents,
-	tourFinished 
+	tourFinished
 ) where
 \end{code}
 
@@ -16,14 +16,14 @@ module KnightHeuristic(
 %%%%%%%%%%%%%%%%%% I M P O R T S  /  T Y P E   D E F S %%%%%%%%%%%%%%
 This module imports the @ChessSet@ algebraic data type, and a sort
 function. For reasons unknown to me the crappy @quickSort@ gives the best
-results when used here??? 
-The enumerated type @Direction@ represents the possible 
+results when used here???
+The enumerated type @Direction@ represents the possible
 directions in which a knight can move on a chess board. For example the
-constructor @UL@ represents a knight moving two spaces {\em Up}, then 
+constructor @UL@ represents a knight moving two spaces {\em Up}, then
 one space {\em Left} on a chess board.
 
 \begin{code}
-import Sort(quickSort) 
+import Sort(quickSort)
 import ChessSetList
 
 data Direction = UL | UR | DL |DR | LU | LD | RU | RD
@@ -51,8 +51,8 @@ cannot move.
 
 \begin{code}
 startTour::Tile -> Int -> ChessSet
-startTour st size 
-   | (size `mod` 2) == 0 = createBoard size st 
+startTour st size
+   | (size `mod` 2) == 0 = createBoard size st
    | otherwise           = error "Tour doesnt exist for odd size board"
 \end{code}
 
@@ -73,7 +73,7 @@ canMove board dir
 
 canMoveTo::Tile -> ChessSet -> Bool
 canMoveTo t@(x,y) board
-   = (x >= 1) && (x <=sze) && 
+   = (x >= 1) && (x <=sze) &&
      (y >= 1) && (y <=sze) &&
      isSquareFree t board
      where
@@ -86,14 +86,14 @@ The function @Descendents@ forms the heart of the knights tour. It
 has various heuristics built into it that try to reject dead end positions.
 These set of heuristics are take from Richard's book \cite{bornat:prog1} under
 the section ``Positively the last flourish''. For reasons not clear to me,
-the combination of these heuristics work so well that the system finds the 
-first twenty tours\footnote{I could'nt be botherd asking for more} 
+the combination of these heuristics work so well that the system finds the
+first twenty tours\footnote{I could'nt be botherd asking for more}
 without backtracking !
 
 The Heuristics used in the following function are summerised below :
 \begin{enumerate}
 \item	At any point in the tour, if it is possible to move to the first
-	tile of the tour, and if by moving to that square produces a 
+	tile of the tour, and if by moving to that square produces a
 	dead end, then their is no point in carrying on with the current
 	tour because you will never be able to get back to the first square
 	- dead end.
@@ -101,8 +101,8 @@ The Heuristics used in the following function are summerised below :
 	take their is only one position that has a single descendent
 	\footnote{The descendents of a tile is the number of moves you
 	can make from that tile without falling off the board, or jumping
-	onto a tile that has already been visited.}, then you {\em must} 
-	take that move otherwise you will be cutting off that tile for a 
+	onto a tile that has already been visited.}, then you {\em must}
+	take that move otherwise you will be cutting off that tile for a
 	subsequent move in the tour -  dead end.
 \item   At any point in the tour, if for each of the possible moves you can
 	take their is more than one position with a single descendent, then
@@ -117,7 +117,7 @@ The Heuristics used in the following function are summerised below :
 
 \begin{code}
 descendents::ChessSet -> [ChessSet]
-descendents board 
+descendents board
    | (canJumpFirst board) &&
      (deadEnd (addPiece (firstPiece board) board)) = []
    | otherwise          = case (length singles) of
@@ -128,12 +128,12 @@ descendents board
 		             singles = singleDescend board
 
 singleDescend::ChessSet -> [ChessSet]		
-singleDescend board =[x | (y,x) <- descAndNo board, y==1] 
-  
+singleDescend board =[x | (y,x) <- descAndNo board, y==1]
+
 descAndNo::ChessSet -> [(Int,ChessSet)]
 descAndNo board
    = [(length (possibleMoves (deleteFirst x)),x) | x<- allDescend board]
-    
+
 allDescend::ChessSet -> [ChessSet]
 allDescend board
    =  map (moveKnight board) (possibleMoves board)
@@ -159,7 +159,7 @@ board), and move number 64 of the tour can jump back to the first square
 \begin{code}
 tourFinished::ChessSet -> Bool
 tourFinished board
-   = (noPieces board == sze*sze) && (canJumpFirst board)  
+   = (noPieces board == sze*sze) && (canJumpFirst board)
      where
         sze = sizeBoard board
 \end{code}

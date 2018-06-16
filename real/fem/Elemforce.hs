@@ -14,16 +14,16 @@ import Vector
 import DB_interface
 import Displacement
 
-forces :: (Array Int Int, Array Int Float) -> 
+forces :: (Array Int Int, Array Int Float) ->
 		Vec Float -> Vec Float
 	-- The vector which stores the internal forces of all elements
 
-getefrc :: (Array Int Int, Array Int Float) -> Int -> 
+getefrc :: (Array Int Int, Array Int Float) -> Int ->
 		Vec Float -> Float
 	-- Return the internal force of given element
 
 forces db uvw =
-	makevec (nelem db) force_2d_bar_s 
+	makevec (nelem db) force_2d_bar_s
 	where
 	force_2d_bar_s = force_2d_bar db uvw
 

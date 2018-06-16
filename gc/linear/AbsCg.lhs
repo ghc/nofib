@@ -1,5 +1,5 @@
-\section{AbsCg} 
- 
+\section{AbsCg}
+
 This module imports definitions from Cg and
 renames them before exporting to Main.
 

@@ -39,7 +39,7 @@ coMakeConstructorInstance mi cargs simplest_init usage
         -- Find out if it is a recursive type.                        --
         ----------------------------------------------------------------
 
-        recursive 
+        recursive
            = case simplest of
                 DXFunc _  (DXLift1 _) -> False
                 DXFunc _  (DXLift2 _) -> True
@@ -73,7 +73,7 @@ coMakeConstructorInstance mi cargs simplest_init usage
                 (False, Two)          -> [One]
 
         tagTable
-           = [(p, arg_bottoms) 
+           = [(p, arg_bottoms)
              | p <- points_below_structure_point] ++
              [(p, [MkFrel (map (magic p) cargs)])
              | p <- points_not_below_structure_point]
@@ -88,7 +88,7 @@ coMakeConstructorInstance mi cargs simplest_init usage
         magic p ConstrRec       = p
         magic p (ConstrVar n)   = xpts p ## n
 
-        xpts p 
+        xpts p
            | recursive   = case p of UpUp2 rs -> rs
            | otherwise   = case p of Up1 rs   -> rs
 
@@ -109,7 +109,7 @@ coCGen_aux :: Bool ->
               Domain ->                     -- domain of the function to be made
               Rep
 
-coCGen_aux mi tt (Func dss Two) 
+coCGen_aux mi tt (Func dss Two)
    = let f1 = sort (utSureLookup tt "coCGen_aux(1)" One)
          f0 = spMax0FromMin1 dss f1
          ar = case head (f1 ++ f0) of MkFrel fels -> length fels
@@ -121,7 +121,7 @@ coCGen_aux mi tt (Func dss (Lift1 dts))
          lf_ar = length dss
          newtt = [(rs, fels) | (Up1 rs, fels) <- tt]
      in
-         Rep1 (Min1Max0 lf_ar lf_f1 lf_f0) 
+         Rep1 (Min1Max0 lf_ar lf_f1 lf_f0)
               (coCGen_aux_cross mi newtt dss dts)
 
 coCGen_aux mi tt (Func dss (Lift2 dts))
@@ -139,8 +139,8 @@ coCGen_aux mi tt (Func dss (Lift2 dts))
 coCGen_aux mi tt (Func dss gDomain@(Func dss2 dt))
    = let newtt = map makenewtt (amAllRoutes dt)
          makenewtt x
-            = (x, 
-               avMinfrel [MkFrel (xs++ys) 
+            = (x,
+               avMinfrel [MkFrel (xs++ys)
                           | (g, min_args_to_get_g) <- tt,
                             MkFrel xs <- min_args_to_get_g,
                             MkFrel ys <- inMinInverse mi gDomain g x] )
@@ -150,10 +150,10 @@ coCGen_aux mi tt (Func dss gDomain@(Func dss2 dt))
 
 -- ==========================================================--
 --
-coCGen_aux_cross :: Bool -> 
-                    AList [Route] [FrontierElem] -> 
-                    [Domain] -> 
-                    [Domain] -> 
+coCGen_aux_cross :: Bool ->
+                    AList [Route] [FrontierElem] ->
+                    [Domain] ->
+                    [Domain] ->
                     [Rep]
 
 coCGen_aux_cross mi tt dss dts
@@ -163,7 +163,7 @@ coCGen_aux_cross mi tt dss dts
             = coCGen_aux mi (fixtt n) (Func dss (dts ## n))
                               --- ** DENORMALISATION ** ---
          fixtt n
-            = let thisDimPoints 
+            = let thisDimPoints
                      = taddall [] tt
 
                   taddall acc []
@@ -171,8 +171,8 @@ coCGen_aux_cross mi tt dss dts
                   taddall acc ((rs,fel):rest)
                      = taddall (tadd (rs ## n) fel acc) rest
 
-                  tadd :: Route -> 
-                          [FrontierElem] -> 
+                  tadd :: Route ->
+                          [FrontierElem] ->
                           AList Route [[FrontierElem]] ->
                           AList Route [[FrontierElem]]
                   tadd r fel []
@@ -181,13 +181,13 @@ coCGen_aux_cross mi tt dss dts
                      | r == rr    = (rr, fel:fels):rest
                      | otherwise  = this : tadd r fel rest
 
-                  fixedtt 
-                     = map2nd 
+                  fixedtt
+                     = map2nd
                           (foldr avLUBmin1frontier [MkFrel (map avTopR dss)])
                           thisDimPoints
-              in 
+              in
                   fixedtt
-     in  
+     in
          map doOneDimension (0 `myIntsFromTo` (numberOfDimensions-1))
 
 

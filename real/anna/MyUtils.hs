@@ -60,7 +60,7 @@ myZip4 = myZipWith4 (\a b c d -> (a, b, c, d))
 
 -- ==========================================================--
 --
-myZipWith5 :: (a -> b -> c -> d -> e -> f) -> 
+myZipWith5 :: (a -> b -> c -> d -> e -> f) ->
               [a] -> [b] -> [c] -> [d] -> [e] -> [f]
 
 myZipWith5 f [] [] [] [] [] = []
@@ -126,7 +126,7 @@ myListVariants _ _ = panic "myListVariants: unequal lists"
 --
 myCartesianProduct :: [[a]] -> [[a]]
 
-myCartesianProduct [] 
+myCartesianProduct []
    = [[]]
 
 myCartesianProduct (xs:xss)

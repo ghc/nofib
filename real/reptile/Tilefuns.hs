@@ -2,7 +2,7 @@
 -- Haskell translation: Colin Runciman, May 1991
 
 module Tilefuns(
-alistind, initalist, mark, unmark, sqid, sqas, btlocate, newas, 
+alistind, initalist, mark, unmark, sqid, sqas, btlocate, newas,
        pam, put, ineights, tpatformat, rot, inv, turn, squas, inbox) where
 
 import Layout
@@ -38,7 +38,7 @@ mark n = rectangle [x-3, y-3, x + w + 3, y + h + 3]  --CR why the 3's?
          where
          [x,y,w,h] = picbox n
 
--- to find the x of the top left corner of 
+-- to find the x of the top left corner of
 -- the square in which the middle button is pressed
 
 tlx, tly :: Int -> Int
@@ -97,7 +97,7 @@ rot n = case n of
 	  n -> n + 1
 
 turn :: Int -> Int
-turn n = if n==0 then 0 else 
+turn n = if n==0 then 0 else
                    (if n == 4 then 8 else (n + 4) `mod` 8)
 
 -- Because of the arrangement of the 8 pictures
@@ -113,11 +113,11 @@ inbox :: [Int] -> Int
 inbox [xp,yp] = inbox' 1
 	        where
                 inbox' n =
-                  if n > 8 then 0 
+                  if n > 8 then 0
 	          else if inrect x y w h xp yp then n
                   else inbox' (n+1)
                   where
-                  [x,y,w,h] = picbox n 
+                  [x,y,w,h] = picbox n
 
 tpatformat :: [[Int]] -> [Char]
 tpatformat [] = ""

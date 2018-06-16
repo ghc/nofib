@@ -1,5 +1,5 @@
 
-module Tags 
+module Tags
 where
 
 import Parse
@@ -75,7 +75,7 @@ default_tag_tbl = tgL
 	and rw_fn [] [th1,th2] [iL] = subterm_rw th1 th2 iL
 	(* and recurse_rw_fn  _ [th1,th2] [iL] = recurse_rw th1 th2 iL *)
 	and inj_fn _ [th] _ = injection th
-	and widen_fn [tm] [th] _ = widen tm th 
+	and widen_fn [tm] [th] _ = widen tm th
 	and choose_fn _ [th] _ = choose th
 	and exists_intro_fn [tm1,tm2] [th] _ = exists_intro th tm1 tm2
 	and reflex_fn [tm] _ _ = reflex tm
@@ -87,73 +87,73 @@ default_tag_tbl = tgL
 				unimplemented "into on trms" ,
 				into_fn ,
 				unimplemented "into on thms" ) ,
-			( "from" , 
+			( "from" ,
 				[ Term_Arg ] ,
 				unimplemented "from to trms" ,
 				unimplemented "from to Trms" ,
 				from_fn ) ,
-			( "º" , 
-				[ Term_Arg ] , 
+			( "º" ,
+				[ Term_Arg ] ,
 				unimplemented "º to trms" ,
 				unimplemented "º to Trms" ,
 				taut_fn ) ,
-			( "beta_rw" , 
+			( "beta_rw" ,
 				[ Deriv_Arg , Int_Arg ] ,
 				unimplemented "beta_rw on trms" ,
 				unimplemented "beta_rw on Trms" ,
 				beta_fn ) ,
-			( "eta_rw" , 
+			( "eta_rw" ,
 				[ Deriv_Arg , Int_Arg ] ,
 				unimplemented "eta_rw on trms" ,
 				unimplemented "eta_rw on Trms" ,
 				eta_fn ) ,
-			( "if_true_rw" , 
+			( "if_true_rw" ,
 				[ Deriv_Arg , Int_Arg ] ,
 				unimplemented "if_true_rw on trms" ,
 				unimplemented "if_true_rw on Trms" ,
 				if_true_fn ) ,
-			( "if_false_rw" , 
+			( "if_false_rw" ,
 				[ Deriv_Arg , Int_Arg ] ,
 				unimplemented "if_false_rw on trms" ,
 				unimplemented "if_false_rw on Trms" ,
 				if_false_fn ) ,
 		    (*
-			( "recurse_rw" , 
+			( "recurse_rw" ,
 				[ Deriv_Arg , Int_Arg ] ,
 				unimplemented "recurse_rw on trms" ,
 				unimplemented "recurse_rw on Trms" ,
 				recurse_rw_fn ) ,
 		    *)
-			( "ò" , 
+			( "ò" ,
 				[ Deriv_Arg , Int_Arg ] ,
 				unimplemented "ò on trms" ,
 				unimplemented "ò on Trms" ,
 				rw_fn ) ,
-			( "widen" , 
+			( "widen" ,
 				[ Term_Arg , Deriv_Arg ] ,
 				unimplemented "widen on trms" ,
 				widen_fn ,
 				unimplemented "widen on Thms" ) ,
-			( "inj" , 
+			( "inj" ,
 				[ Deriv_Arg ] ,
 				unimplemented "inj on trms" ,
 				unimplemented "inj on Trms" ,
 				inj_fn ) ,
-			( "choose" , 
+			( "choose" ,
 				[ Deriv_Arg ] ,
 				unimplemented "chose on trms" ,
 				choose_fn ,
 				unimplemented "choose on Thms" ) ,
-			( "exists_intro" , 
+			( "exists_intro" ,
 				[ Deriv_Arg , Term_Arg , Term_Arg ] ,
 				unimplemented "exists_intro on trms" ,
 				unimplemented "exists_intro on Trms" ,
 				exists_intro_fn ) ,
-			( "reflex" , 
+			( "reflex" ,
 				[ Term_Arg ] ,
 				unimplemented "reflex on trms" ,
 				unimplemented "reflex on Trms" ,
-				reflex_fn ) 
+				reflex_fn )
 		]
 
 	val default_tag_tbl = foldr build_enrty empty_tbl default_entries

@@ -7,7 +7,7 @@ import EdgePlate	( Input(..) )  -- partain
 import Postscript	( Output(..) ) -- partain
 import System.IO
 
-main = 
+main =
   do
    ls <- hGetContents stdin
    (getFilename $

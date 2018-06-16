@@ -119,7 +119,7 @@ calFor year | illFormed = fail (userError "Bad argument")
                     yr        = atoi ds
                     atoi s    = foldl (\a d -> 10*a+d) 0 (map toDigit s)
                     toDigit d = fromEnum d - fromEnum '0'
-       
+
 
 -- End of calendar program
 

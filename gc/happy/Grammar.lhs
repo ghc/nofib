@@ -7,7 +7,7 @@ The Grammar data type.
 Here is our mid-section datatype
 
 > module Grammar (
-> 	Name, isEmpty, 
+> 	Name, isEmpty,
 >	
 >	Production, Grammar(..), mangler,
 >	
@@ -39,7 +39,7 @@ Here is our mid-section datatype
 
 > type Production = (Name,[Name],(String,[Int]),Priority)
 
-> data Grammar 
+> data Grammar
 >       = Grammar {
 >		productions 	  :: [Production],
 >		lookupProdNo 	  :: Int -> Production,
@@ -67,7 +67,7 @@ Here is our mid-section datatype
 #ifdef DEBUG
 
 > instance Show Grammar where
->       showsPrec _ (Grammar 
+>       showsPrec _ (Grammar
 >		{ productions		= p
 >		, token_specs		= t
 >               , terminals		= ts
@@ -164,14 +164,14 @@ In hindsight, this was probably a bad idea.
 
 This bit is a real mess, mainly because of the error message support.
 
-> m `thenE` k 
+> m `thenE` k
 > 	= case m of
 >		Failed e    -> Failed e
 >		Succeeded a -> case k a of
 >				Failed e -> Failed e
 >				Succeeded b -> Succeeded b
 
-> m `parE` k 
+> m `parE` k
 > 	= case m of
 >		Failed e    -> case k (error "parE") of
 >				Failed e' -> Failed (e ++ e')
@@ -192,7 +192,7 @@ This bit is a real mess, mainly because of the error message support.
 
 
 > mangler :: FilePath -> AbsSyn -> MaybeErr Grammar [String]
-> mangler file (AbsSyn hd dirs rules tl) = 
+> mangler file (AbsSyn hd dirs rules tl) =
 
 >	  -- add filename to all error messages
 >	failMap (\s -> file ++ ": " ++ s) $
@@ -233,7 +233,7 @@ Build up a mapping from name values to strings.
 >	lookupName :: String -> [Name]
 >	lookupName n = [ t | (t,r) <- name_env, r == n ]
 
->       mapToName str = 
+>       mapToName str =
 >             case lookupName str  of
 >                [a] -> Succeeded a
 >                []  -> Failed ["unknown identifier `" ++ str ++ "'"]
@@ -271,7 +271,7 @@ Deal with priorities...
 
 Translate the rules from string to name-based.
 
->	convNT (nt, prods, ty) 
+>	convNT (nt, prods, ty)
 >	  = mapToName nt `thenE` \nt' ->
 >	    Succeeded (nt', prods, ty)
 >
@@ -306,7 +306,7 @@ Translate the rules from string to name-based.
 >	parEs (map transRule rules1) `thenE` \rules2 ->
 
 >	let
->	tys = accumArray (\a b -> b) Nothing (first_nt, last_nt) 
+>	tys = accumArray (\a b -> b) Nothing (first_nt, last_nt)
 >			[ (nm, Just ty) | (nm, _, Just ty) <- rules1 ]
 
 >	env_array :: Array Int String
@@ -315,7 +315,7 @@ Translate the rules from string to name-based.
 
 Get the token specs in terms of Names.
 
->	let 
+>	let
 >	fixTokenSpec (a,b) = mapToName a `thenE` \a -> Succeeded (a,b)
 >	in
 >       parEs (map fixTokenSpec (getTokenSpec dirs)) `thenE` \tokspec ->
@@ -371,7 +371,7 @@ So is this.
 
 > checkRules (name:rest) above nonterms
 >       | name == above = checkRules rest name nonterms
->       | name `elem` nonterms 
+>       | name `elem` nonterms
 >		= Failed ["Multiple rules for `" ++ name ++ "'"]
 >       | otherwise = checkRules rest name (name : nonterms)
 
@@ -409,12 +409,12 @@ So is this.
 
    now check that $i references are in range
 
->            in parEs (map checkArity (mentionedProductions rules)) `thenE` \prods -> 
+>            in parEs (map checkArity (mentionedProductions rules)) `thenE` \prods ->
 
    and output the rules
 
->                formatRules arity attrNames defaultAttr 
->                            allSubProductions selfRules 
+>                formatRules arity attrNames defaultAttr
+>                            allSubProductions selfRules
 >                            subRules conditions `thenE` \rulesStr ->
 
    return the munged code body and all sub-productions mentioned
@@ -436,7 +436,7 @@ So is this.
 >          getTokens (SubAssign _ toks)       = toks
 >          getTokens (Conditional toks)       = toks
 >          getTokens (RightmostAssign _ toks) = toks
->           
+>
 >          checkArity x = if x <= arity then Succeeded x else Failed [show x++" out of range"]
 
 
@@ -445,8 +445,8 @@ So is this.
 -- Actually emit the code for the record bindings and conditionals
 --
 
-> formatRules :: Int -> [String] -> String -> [Name] 
->             -> [AgRule] -> [AgRule] -> [AgRule] 
+> formatRules :: Int -> [String] -> String -> [Name]
+>             -> [AgRule] -> [AgRule] -> [AgRule]
 >             -> MaybeErr String [String]
 
 > formatRules arity attrNames defaultAttr prods selfRules subRules conditions = Succeeded $
@@ -472,7 +472,7 @@ So is this.
 
 >        subProductionRules = concat $ map formatSubRules prods
 
->        formatSubRules i = 
+>        formatSubRules i =
 >           let attrs = fromMaybe [] . lookup i $ subRulesMap
 >               attrUpdates' = concat $ intersperse ", " $ map (formatSubRule i) attrs
 >               attrUpdates  = case attrUpdates' of [] -> []; x -> "{ "++x++" }"
@@ -480,7 +480,7 @@ So is this.
 >                     ," happyEmptyAttrs"
 >                     , attrUpdates
 >                     ]
->         
+>
 >        formattedConditions = concat $ intersperse "++" $ localConditions : (map (\i -> "happyConditions_"++(show i)) prods)
 >        localConditions = "["++(concat $ intersperse ", " $ map formatCondition conditions)++"]"
 >        formatCondition (Conditional toks) = formatTokens toks
@@ -498,10 +498,10 @@ So is this.
 >        formatToken (AgTok_SelfRef [])     = "("++defaultAttr++" happySelfAttrs) "
 >        formatToken (AgTok_SelfRef x)      = "("++x++" happySelfAttrs) "
 >        formatToken (AgTok_RightmostRef x) = formatToken (AgTok_SubRef (arity,x))
->        formatToken (AgTok_SubRef (i,[])) 
+>        formatToken (AgTok_SubRef (i,[]))
 >            | i `elem` prods = "("++defaultAttr++" happySubAttrs_"++(show i)++") "
 >            | otherwise      = mkHappyVar i ++ " "
->        formatToken (AgTok_SubRef (i,x)) 
+>        formatToken (AgTok_SubRef (i,x))
 >            | i `elem` prods = "("++x++" happySubAttrs_"++(show i)++") "
 >            | otherwise      = error "lhs "++(show i)++" is not a non-terminal"
 >        formatToken (AgTok_Unknown x)     = x++" "
@@ -529,19 +529,19 @@ So is this.
 >		'\\':'$':r -> go r ('$':acc) used
 >
 >		'$':'>':r -- the "rightmost token"
->			| arity == 0 -> Failed [ "$> in empty rule" ] 
+>			| arity == 0 -> Failed [ "$> in empty rule" ]
 >			| otherwise  -> go r (reverse (mkHappyVar arity) ++ acc)
 >					 (arity : used)
 >
->		'$':r@(i:_) | isDigit i -> 
+>		'$':r@(i:_) | isDigit i ->
 >			case reads r :: [(Int,String)] of
->			  (j,r):_ -> 
->			     if j > arity 
->			   	  then Failed [ '$': show j ++ " out of range" ] 
+>			  (j,r):_ ->
+>			     if j > arity
+>			   	  then Failed [ '$': show j ++ " out of range" ]
 >				 	`parE` \_ -> go r acc used
->			   	  else go r (reverse (mkHappyVar j) ++ acc) 
+>			   	  else go r (reverse (mkHappyVar j) ++ acc)
 >					 (j : used)
->			  
+>			
 >		c:r  -> go r (c:acc) used
 
 > mkHappyVar n 	= "happy_var_" ++ show n
@@ -567,15 +567,15 @@ So is this.
 
 > type ActionTable = Array Int{-state-} (Array Int{-terminal#-} LRAction)
 
- instance Text LRAction where 
+ instance Text LRAction where
    showsPrec _ (LR'Shift i _)  = showString ("s" ++ show i)
-   showsPrec _ (LR'Reduce i _) 
+   showsPrec _ (LR'Reduce i _)
        = showString ("r" ++ show i)
    showsPrec _ (LR'Accept)     = showString ("acc")
    showsPrec _ (LR'Fail)       = showString (" ")
- instance Eq LRAction where { (==) = primGenericEq } 
+ instance Eq LRAction where { (==) = primGenericEq }
 
-> data Goto = Goto Int | NoGoto 
+> data Goto = Goto Int | NoGoto
 >       deriving(Eq
 
 #ifdef DEBUG

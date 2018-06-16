@@ -60,7 +60,7 @@ unGraph' lg   = ung lg `startingWith` []
 visited      :: Label -> SM [Label] Bool
 visited n     = fetch                               `bind` \us ->
                 if n `elem` us then retURN True
-                               else set (n:us)      `bind` \_ -> 
+                               else set (n:us)      `bind` \_ ->
                                     retURN False
 
 -- Find (and eliminate) repeated subtrees in a labelled graph: ---------------

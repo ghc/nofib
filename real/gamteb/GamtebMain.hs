@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -16,7 +16,7 @@
 module GamtebMain (gamteb) where
 
 import GamtebType
-import Consts 
+import Consts
 import Utils
 import TransPort
 import Output

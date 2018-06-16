@@ -19,7 +19,7 @@ showMoveInFull = showMove True
 showMove withPiece (MoveInFull p@(c,k) sq (Move sq' mcp mpp)) =
 	let capt = mcp /= Nothing
 	    prom = mpp /= Nothing in
-	( if withPiece then 
+	( if withPiece then
 		showPiece p ++
 		(if k==King || k==Pawn && not (capt||prom) then ""
 		else "/" ++ showSquare c sq)
@@ -40,7 +40,7 @@ moveDetailsFor c bd =
 		foldr (\rm ms' -> maybe id (:) (tryMove c ksq rm bd) ms')
                    ms
                    (rawmoves c ksq bd) )
-	      [] 
+	      []
               (forcesColoured c bd)
 
 tryMove :: Colour -> (Kind,Square) -> Move -> Board -> Maybe (MoveInFull,Board)
@@ -54,7 +54,7 @@ tryMove c ksq@(k,sq) m@(Move sq' mcp mpp) bd =
 	bd2 =	maybe (putPieceAt sq' p' bd1)
 		      (const (putPieceAt sq' p' (rmPieceAt (opponent c) sq' bd1)))
 		      mcp
- 
+
 -- NB raw move = might illegally leave the king in check.
 rawmoves :: Colour -> (Kind,Square) -> Board -> [Move]
 rawmoves c (k,sq) bd = m c sq bd
@@ -127,7 +127,7 @@ pawnmoves c (p,q) bd = movs ++ caps
 		if pieceAt bd on1 == Nothing then
 			promote on1 Nothing ++
 			if (q==2 && c==White || q==7 && c==Black) &&
-			 	pieceAt bd on2 == Nothing then [Move on2 Nothing Nothing] 
+			 	pieceAt bd on2 == Nothing then [Move on2 Nothing Nothing]
 			else []
 		else []
 	caps =	concat [ promote sq mcp
@@ -136,7 +136,7 @@ pawnmoves c (p,q) bd = movs ++ caps
 	fwd  =	case c of
        		White -> 1
 		Black -> -1
-	promote sq@(x,y) mcp =  
+	promote sq@(x,y) mcp =
 		if (c==Black && y==1 || c==White && y==8) then
 			map (Move sq mcp . Just)
 			    [(c,Queen), (c,Rook), (c,Bishop), (c,Knight)]

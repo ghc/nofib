@@ -6,9 +6,9 @@ module Layout( setup,dpxyorig, dpxygap, dpxynum,invisibletext,
 	       textarea, helptextarea, dpgrid,tpgrid,picgrid,
 	       cleara, picxorig, picyorig, picbox,menumark,unmenumark,
 	       tpxorig, tpyorig, tpxygap,inrect, incirc,
-	       todesign, tofiddle, totile, tohelp, indgrid, 
+	       todesign, tofiddle, totile, tohelp, indgrid,
 	       inbigtile, indesign, indsave, indclear,
-	       indget, intsave, intclear, intget, intile4, 
+	       indget, intsave, intclear, intget, intile4,
 	       inhelp, inquit, intodraw, intotile, intoalter) where
 
 import Mgrfuns
@@ -150,7 +150,7 @@ menustrings = func 4 ++
 	      func 15
 
 -- invisibletext sets up a scrolling text region, then moves the
--- text cursor out of it. 
+-- text cursor out of it.
 
 invisibletext :: [Char]
 invisibletext = vistextreg ++
@@ -166,10 +166,10 @@ dmcirc, tmcirc, amcirc, hmcirc :: [Char]
 dmcirc = circle [425,54,30]
 tmcirc = circle [485,282,30]
 amcirc = circle [485,339,30]
-hmcirc = circle [485,712,38] 
+hmcirc = circle [485,712,38]
 
 modemark :: [Char] -> [Char]
-modemark str = 
+modemark str =
 	case str of
 	  "draw" -> dmcirc ++ undo (tmcirc ++ amcirc ++ hmcirc)
 	  "tile" -> tmcirc ++ undo (dmcirc ++ amcirc ++ hmcirc)
@@ -196,7 +196,7 @@ indgrid [x0,y0,x1,y1] = indesign x0 y0 && indesign x1 y1
 
 inbigtile, indesign :: Int -> Int -> Bool
 inbigtile = inrect tpxorig tpyorig tpwh tpwh
-	    where 
+	    where
 	    tpwh = tpxygap * (tpxynum - 1)
 indesign = inrect 0 0 390 390
 
@@ -225,7 +225,7 @@ buttons = circle [485,712,36] ++ circle [485,812,36]
 
 setup :: [Char]
 setup = textregion [0,0,0,0] ++
-	clear ++ 
+	clear ++
  	tpgrid ++
  	dpgrid ++
  	tmgrid ++
@@ -245,9 +245,9 @@ todesign = setevent 1 "msc %p\n" ++ setevent 2 "cs %l\n" ++ modemark "draw"
 -- over one of them, perhaps incorporate this in msa
 totile :: [Char]
 totile = setevent 1 "msa %p\n" ++
-         setevent 2 "put %p\n" ++ 
+         setevent 2 "put %p\n" ++
          tpgrid ++
-         modemark "tile" 
+         modemark "tile"
 
 tofiddle :: [Char]
 tofiddle = setevent 1 "msb %p\n" ++ setevent 2 "rot %p\n" ++ modemark "alter"

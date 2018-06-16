@@ -15,7 +15,7 @@ import DomainExpr
 
 
 -- ==========================================================--
--- 
+--
 acUncurryWRT :: Domain -> Domain -> Domain
 --              small     big
 --
@@ -32,24 +32,24 @@ acUncurryWRT (Func ds_s dt_s) (Func ds_b dt_b)
    = let small_arity  = length ds_s
          big_arity    = length ds_b
          fixed_at_outer_level
-            = if     small_arity == big_arity 
+            = if     small_arity == big_arity
               then   Func ds_b dt_b
               else
               if     small_arity < big_arity
-              then   Func (take small_arity ds_b) 
+              then   Func (take small_arity ds_b)
                           (Func (drop small_arity ds_b) dt_b)
               else   panic "acUncurryWRT"
-         totally_fixed 
+         totally_fixed
             = case fixed_at_outer_level of
                  Func ds_ol dt_ol
-                   -> Func (myZipWith2 acUncurryWRT ds_s ds_ol) 
+                   -> Func (myZipWith2 acUncurryWRT ds_s ds_ol)
                            (acUncurryWRT dt_s dt_ol)
      in
         totally_fixed
 
 
 -- ==========================================================--
--- 
+--
 acNormAndCurried :: Domain -> Domain -> (Domain, Domain)
 
 acNormAndCurried small_d big_d
@@ -62,7 +62,7 @@ acNormAndCurried small_d big_d
 acCompatible :: Domain ->    Domain      -> Bool
 --
 -- In the (DFunc _ _) (DFunc _ _) case, note that
--- the big domain is 
+-- the big domain is
 -- assumed to be curried, so its apparent arity is
 -- the same as that of the small domain.
 --
@@ -84,7 +84,7 @@ acCompatible _ _
 
 
 -- ==========================================================--
--- 
+--
 acConc :: ACMode -> Domain -> Domain -> Route -> Route
 
 acConc s_or_l big_d small_d small_r
@@ -97,10 +97,10 @@ acConc s_or_l big_d small_d small_r
          if    big_d == small_d
          then  small_r
          else
-         if    not isOk 
+         if    not isOk
          then  panic "acConc: incompatible domains\n\n"
          else
-         if    isFn 
+         if    isFn
          then  Rep (acConcRep s_or_l big_d_c big_d_u small_d small_rep)
          else  acConcData s_or_l big_d_u small_d small_r
 
@@ -142,18 +142,18 @@ acConcRep s_or_l big_d_c@(Func dss_b_c dt_b_c)
               = amStrongNormalise (acConcSourceD big_d_c small_d)
            concd_all
               = acConcTarget s_or_l dt_b_c concd_source_d concd_source
-       in  
+       in
            concd_all
 
 
 -- ==========================================================--
--- Concretise target domain of a function.  
+-- Concretise target domain of a function.
 --                    target_big    rep_current
 acConcTarget :: ACMode -> Domain -> Domain -> Rep -> Rep
--- target_big may be a function space, derived from 
+-- target_big may be a function space, derived from
 -- *curried* final desired domain.
 --
-acConcTarget   
+acConcTarget
      s_or_l
      Two
    c@(Func dsc Two)
@@ -161,7 +161,7 @@ acConcTarget
    = f
 
 
-acConcTarget   
+acConcTarget
      s_or_l
      (Lift1 dts)
    c@(Func dsc Two)
@@ -171,7 +171,7 @@ acConcTarget
          Rep1 fr (map doOne dts)
 
 
-acConcTarget   
+acConcTarget
      s_or_l
      (Lift2 dts)
    c@(Func dsc Two)
@@ -183,7 +183,7 @@ acConcTarget
 
 acConcTarget
      s_or_l
-     (Func es g)  
+     (Func es g)
    c@(Func dsc Two)
    f@(RepTwo fr)
    = let arity_increase   = length es
@@ -240,7 +240,7 @@ acConcTarget
 ac_increase_arity_safe :: Int ->        -- arity increase
                           [Domain] ->   -- existing arg domains
                           [Domain] ->   -- new arg domains
-                          Frontier ->   -- the function 
+                          Frontier ->   -- the function
                           Rep
 
 ac_increase_arity_safe arity_increase argds new_argds fr
@@ -260,7 +260,7 @@ ac_increase_arity_safe arity_increase argds new_argds fr
 ac_increase_arity_live :: Int ->        -- arity increase
                           [Domain] ->   -- existing arg domains
                           [Domain] ->   -- new arg domains
-                          Frontier ->   -- the function 
+                          Frontier ->   -- the function
                           Rep
 
 ac_increase_arity_live arity_increase argds new_argds fr
@@ -284,9 +284,9 @@ ac_ia_aux :: ACMode ->     -- mode
              Frontier ->   -- the function
              Rep
 
-ac_ia_aux 
-     s_or_l 
-     ai 
+ac_ia_aux
+     s_or_l
+     ai
      new_points
      final_argds
      (Min1Max0 ar f1 f0)
@@ -298,19 +298,19 @@ ac_ia_aux
 
 -- ==========================================================--
 --
-ac_extend_fr :: ACMode -> 
-                [Domain] -> 
-                [FrontierElem] -> 
+ac_extend_fr :: ACMode ->
+                [Domain] ->
                 [FrontierElem] ->
-                [Route] -> 
+                [FrontierElem] ->
+                [Route] ->
                 ([FrontierElem], [FrontierElem])
 
 ac_extend_fr s_or_l final_argds f1 f0 new_points
    = let new_f0_safe = [MkFrel (frel++new_points) | MkFrel frel <- f0]
-         new_f1_safe = spMin1FromMax0 final_argds new_f0_safe 
+         new_f1_safe = spMin1FromMax0 final_argds new_f0_safe
          new_f1_live = [MkFrel (frel++new_points) | MkFrel frel <- f1]
-         new_f0_live = spMax0FromMin1 final_argds new_f1_live 
-     in  
+         new_f0_live = spMax0FromMin1 final_argds new_f1_live
+     in
          case s_or_l of
             Safe -> (new_f1_safe, new_f0_safe)
             Live -> (new_f1_live, new_f0_live)
@@ -351,13 +351,13 @@ acConcSource :: ACMode -> Domain -> Domain -> Rep -> Rep
 -- sticks on those "dss" components ignored here.
 --
 
-acConcSource s_or_l (Func dss_b dt_b) 
-                    (Func dss_s Two) 
+acConcSource s_or_l (Func dss_b dt_b)
+                    (Func dss_s Two)
                     (RepTwo fr)
    = RepTwo (acConcSource_aux s_or_l dss_b dss_s fr)
 
 
-acConcSource s_or_l (Func dss_b (Lift1 dts_b)) 
+acConcSource s_or_l (Func dss_b (Lift1 dts_b))
                     (Func dss_s (Lift1 dts_s))
                     (Rep1 lf hfs)
    = let new_lf             = acConcSource_aux s_or_l dss_b dss_s lf
@@ -369,7 +369,7 @@ acConcSource s_or_l (Func dss_b (Lift1 dts_b))
          Rep1 new_lf new_hfs
 
 
-acConcSource s_or_l (Func dss_b (Lift2 dts_b)) 
+acConcSource s_or_l (Func dss_b (Lift2 dts_b))
                     (Func dss_s (Lift2 dts_s))
                     (Rep2 lf mf hfs)
    = let new_lf             = acConcSource_aux s_or_l dss_b dss_s lf
@@ -396,9 +396,9 @@ acConcSourceD (Func dss_b (Lift1 dts_b)) (Func dss_s (Lift1 dts_s))
          hf_small_ds     = map (avUncurry dss_s) dts_s
          hf_resultants   = myZipWith2 acConcSourceD hf_big_ds hf_small_ds
          hf_res2         = map drop_lf_ar hf_resultants
-         drop_lf_ar (Func ess et) 
+         drop_lf_ar (Func ess et)
             = let ess2 = drop low_fac_arity ess
-              in     if null ess2 
+              in     if null ess2
               then   et
               else   Func ess2 et
      in
@@ -423,7 +423,7 @@ acMakeInstance :: ACMode ->  -- should be Safe for real applications
        those supplied in the DSubst.
    2.  The DExpr is of the form (DXFunc _ _) and correspondingly
        the supplied Point is of the form (DFunc _ _, RFunc _),
-       and that the DFunc's args and DXFunc's args are 
+       and that the DFunc's args and DXFunc's args are
        appropriately related.
 -}
 acMakeInstance s_or_l

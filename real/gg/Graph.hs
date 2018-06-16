@@ -21,9 +21,9 @@ ePostscript (reqdx,reqdy) str = initialise (stdheader++
 	++ scale (my_fromInt reqdx*10/my_fromInt paperX) (my_fromInt reqdy*10/my_fromInt paperY) ++ str ++
 	showpage
 
-initGraph title pedata (topX,topY) (xlabel,ylabel) keys = 
+initGraph title pedata (topX,topY) (xlabel,ylabel) keys =
 	drawBox (Pt 0 0) paperX paperY ++  -- setup graphwindow
-	drawBox (Pt 1 1) (paperX-2) 5 ++ 
+	drawBox (Pt 1 1) (paperX-2) 5 ++
 	drawBox (Pt 1 (paperY-7)) (paperX-2) 6 ++
 	setfont "BOLD" ++ moveto (Pt (paperX `div` 2) (paperY-6)) ++ cjustify (title) ++
 	setfont "NORM" ++
@@ -37,9 +37,9 @@ initGraph title pedata (topX,topY) (xlabel,ylabel) keys =
 	moveto (Pt 0 (dimY+4)) ++ rjustify ylabel ++ stroke ++
 	moveto (Pt dimX (-8)) ++ rjustify xlabel ++ stroke ++
 	setfont "NORM" ++
-	dokeys dimX keys 
+	dokeys dimX keys
 
-placePEs (pes,on) | checkPEs (tail pes) on = 
+placePEs (pes,on) | checkPEs (tail pes) on =
 		showActive (length pes) (length used) ++
 		showUsed pes used ++ setfont "NORM"
 		where used = if on==[] then tail pes else on
@@ -58,16 +58,16 @@ dokeys left keys = concat (map2 format (places 0) keys)
 	where
 	format pt@(Pt x y) (col,tex,pc) = fillBox pt 16 9 col ++ stroke ++ moveto (Pt (x+17) (y+3))
 					++ text tex ++ stroke ++ moveto (Pt (x+8) (y+3)) ++
-					inv col ++ setfont "BOLD" ++ cjustify (pc) ++ 
-					stroke ++ setfont "NORM" ++ setgray 10 
+					inv col ++ setfont "BOLD" ++ cjustify (pc) ++
+					stroke ++ setfont "NORM" ++ setgray 10
 	no=left `div` length keys
 	places n | n == no = []
 	places n = (Pt (n*no) (-17)):places (n+1)
 
-showActive t f = 
+showActive t f =
 		setfont "LARGE" ++ moveto (Pt 10 16) ++ cjustify (show f) ++
-		setfont "SMALL" ++ moveto (Pt 10 12) ++ cjustify "PE(s)" ++ stroke ++ 
-		setfont "SMALL" ++ moveto (Pt 10 8) ++ cjustify "displayed" ++ stroke ++ 
+		setfont "SMALL" ++ moveto (Pt 10 12) ++ cjustify "PE(s)" ++ stroke ++
+		setfont "SMALL" ++ moveto (Pt 10 8) ++ cjustify "displayed" ++ stroke ++
 		setfont "NORM"
 
 showUsed (m:pes) on = moveto (Pt 2 2) ++ setfont "SMALL" ++ text "Configuration:" ++
@@ -103,10 +103,10 @@ markXAxis :: Int -> Int -> Postscript
 markXAxis dimX maxX = label 10 ++ markOnX 100
 	where
 	label 0 = ""
-	label x = newpath ++ moveto (Pt (notch x) 0) ++ rlineto 0 (-2) ++ 
-		  moveto (Pt (notch x) (-5)) ++ 
+	label x = newpath ++ moveto (Pt (notch x) 0) ++ rlineto 0 (-2) ++
+		  moveto (Pt (notch x) (-5)) ++
 		  cjustify (printFloat (t x)) ++ stroke ++ label (x-1)
-	t x = my_fromInt x*(my_fromInt maxX / my_fromInt 10) 
+	t x = my_fromInt x*(my_fromInt maxX / my_fromInt 10)
 	notch x = x*(dimX `div` 10)
 
 markOnX n = mapcat notches [1..n] ++ stroke
@@ -119,10 +119,10 @@ markYAxis :: Int -> Int -> Postscript
 markYAxis dimY maxY = label 10 ++ markOnY (calibrate maxY)
 	where
 	label 0 = ""
-	label x = newpath ++ moveto (Pt 0 (notch x)) ++ rlineto (-2) 0 ++ 
-		  moveto (Pt (-3) (notch x)) ++ 
+	label x = newpath ++ moveto (Pt 0 (notch x)) ++ rlineto (-2) 0 ++
+		  moveto (Pt (-3) (notch x)) ++
 		  rjustify (printFloat (t x)) ++ stroke ++ label (x-1)
-	t x = my_fromInt x*(my_fromInt maxY / my_fromInt 10) 
+	t x = my_fromInt x*(my_fromInt maxY / my_fromInt 10)
 	notch x = x*(dimY `div` 10)
 
 calibrate x | x<=1 = 1
@@ -131,7 +131,7 @@ calibrate x | x<=1 = 1
 
 markOnY n = mapcat notches [1..n] ++ stroke
 	where
-	notches n = movetofloat 0 (m*my_fromInt n) ++  (rlineto (-1) 0) 
+	notches n = movetofloat 0 (m*my_fromInt n) ++  (rlineto (-1) 0)
 	m = my_fromInt dimY/my_fromInt n
 
 movetofloat x y = show x ++ " " ++ show y ++ " moveto\n"
@@ -147,7 +147,7 @@ axisScale' x m	| x <= m = m
 		| x <= m*2 = m*2
 		| x <= m*5 = m*5
 		| x <= m*10 = m*10
-		| otherwise = axisScale' x (m*10) 
+		| otherwise = axisScale' x (m*10)
 
 minandmax :: [Point] -> (Point,Point)
 minandmax [] = error "No points"

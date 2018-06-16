@@ -3,7 +3,7 @@
 --
 -- Test wrapper for (parallel) transitive closure computation.
 -- The main parallel version is: TRANSCL_NESTED
--- Other versions are: 
+-- Other versions are:
 --  TRANSCL ... seq, circular implementation over lists
 --  TRANSCL_SET ... seq, circular implementation over sets
 -----------------------------------------------------------------------------
@@ -101,7 +101,7 @@ main = do
          let res = m `elem` zs  -- NO: parallelism is hopeless on this one:  `using` strat)
 #elif defined(TRANSCL_NESTED)
          let res = if (v==4)  -- special case for parBuffer (not of strategy type!)
-                     then m `elem` (nub (concat (runEval $ do let (first, rest) = splitAt (length seeds) zs  
+                     then m `elem` (nub (concat (runEval $ do let (first, rest) = splitAt (length seeds) zs
                                                               rest' <- parBuffer n rdeepseq rest
                                                               return (first ++ rest') ))) -- main PARALLEL version
                      else m `elem` (nub (concat (zs `using` strat))) -- main PARALLEL version

@@ -7,7 +7,7 @@
 -- *                                                                    *
 -- * CHANGES  : 							*
 -- *     1. Mon May 27 11:27:43 BST 1991				*
--- *        Not to scan the source data more times than needed.		* 
+-- *        Not to scan the source data more times than needed.		*
 -- **********************************************************************
 
 module Database(idatabase,rdatabase) where
@@ -30,7 +30,7 @@ rdatabase s = listArray (0,n-1) rl
 
 isource :: [Char] -> [Int]
 
-isource s = fst (irsource s) 
+isource s = fst (irsource s)
 
 rsource :: [Char] -> [Float]
 
@@ -47,7 +47,7 @@ intreal (x:ls) = if (elem '.' x) then (idb, (realreal x) : rdb)
 {- Mon May 27 11:27:43 BST 1991
 isource :: [Char] -> [Int]
 
-isource s = 
+isource s =
 	map intint (filter (\x -> not (elem '.' x) ) (words s) )
 -}
 

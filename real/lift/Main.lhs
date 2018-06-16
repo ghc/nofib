@@ -19,14 +19,14 @@ Main program for lambda lifter
 >     output = pprintSCs (lambdaLift inputExpr)
 
 > {- OLD: 1.2
-> main ~(Str argString : ~(Str input : rest)) = 
+> main ~(Str argString : ~(Str input : rest)) =
 
 --> 	GetArgs :
 --> 	ReadFile file :
 
 >	AppendChan stdout ( -- "Args " ++ argString ++
 
->		-- "\nInput file " ++ file ++ 
+>		-- "\nInput file " ++ file ++
 >		-- "\nInput data " ++ input ++
 
 >		"\nInput expression " ++ pprintExpr inputExpr ++
@@ -34,7 +34,7 @@ Main program for lambda lifter
 >		"\nFully lazy \n" ++ pprintSCs (fullyLazyLift inputExpr) ++
 >		"\n") :
 >	[]
-> 
+>
 >     where
 >     args = my_splitAt '\n' argString
 >     file = args !! 0

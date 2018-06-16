@@ -21,7 +21,7 @@ module Interact(Interactive, skip, end, readln, writeln, readch) where
 --                from the input stream and behaves like the interactive
 --                program act c.  If the input character stream is empty,
 --                readch act def prints the default string def and terminates.
--- 
+--
 -- readln p g     is an interactive program which prints the prompt p and
 --                reads a line (upto the first carriage return, or end of
 --                input) from the input stream.  It then behaves like g line.

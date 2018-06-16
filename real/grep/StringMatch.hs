@@ -1,4 +1,4 @@
---                            -*- Mode: Haskell -*- 
+--                            -*- Mode: Haskell -*-
 -- StringMatch.hs --- translate regular expression into a string match function
 -- Author          : Peter Thiemann
 -- Created On      : Thu Dec 23 11:16:26 1993
@@ -6,7 +6,7 @@
 -- Last Modified On: Thu Dec 23 12:32:39 1993
 -- Update Count    : 18
 -- Status          : Unknown, Use with caution!
--- 
+--
 -- $Locker:  $
 -- $Log: StringMatch.hs,v $
 -- Revision 1.1  1996/01/08 20:02:55  partain
@@ -15,7 +15,7 @@
 -- Revision 1.1  1994/03/15  15:34:53  thiemann
 -- Initial revision
 --
--- 
+--
 
 module StringMatch {-(stringMatch)-} where
 
@@ -55,7 +55,7 @@ type ParseRegexp = Parser Char String
 rrAtom :: Parser Char ParseRegexp
 rrAtom =
      lit '\\' ..+ lit '(' ..+ rrRegexp +.. lit '\\' +.. lit ')'
- ||| 
+ |||
    ( lit '\\' ..+ butC "|()"	<<< lit
  ||| lit '.'			<<< const anyC
  ||| butC "\\.$"		<<< lit
@@ -93,4 +93,4 @@ stringMatch :: String -> String -> Bool
 stringMatch re subject = wellformed && not (null (filter (null . snd) (match subject)))
     where matches      = regexp0 re
 	  wellformed   = not (null matches) && null rest
-	  (match,rest) = head matches 
+	  (match,rest) = head matches

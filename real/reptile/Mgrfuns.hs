@@ -5,8 +5,8 @@ module Mgrfuns(
        aligntext, bitcopy, circle, clear, clearevent,
        clearmode, destroywin, dragcircle, dragline,
        dragrect, font, func, go, highlight,
-       line, mapevent, newwin, rcircle, 
-       selectwin, setevent, setmode, shapewindow, standend, 
+       line, mapevent, newwin, rcircle,
+       selectwin, setevent, setmode, shapewindow, standend,
        stringto, standout, textregion, textreset) where
 
 import Diff

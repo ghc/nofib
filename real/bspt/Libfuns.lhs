@@ -1,4 +1,4 @@
-> module Libfuns 
+> module Libfuns
 
 	Module for local dummy parallel annotations
 

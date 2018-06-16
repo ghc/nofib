@@ -4,7 +4,7 @@ Computing the convex  hull  of a  given set  of  points using   a bisecting
 divide-and-conquer approach (similar to  quicksort in its structure). Based
 on the NESL code presented in:
    Programming Parallel Algorithms
-   by Guy E. Blelloch 
+   by Guy E. Blelloch
    in CACM 39(3), March 1996
    URL: http://www.cs.cmu.edu/afs/cs.cmu.edu/project/scandal/public/www/nesl/alg-geometry.html
 
@@ -54,14 +54,14 @@ get_maximum gt (x:xs) = get_maximum' x xs
 
 \begin{code}
 cross_product :: Point -> Line -> Coor
-cross_product pt@(xo,yo) line@((x1,y1),(x2,y2))  = 
+cross_product pt@(xo,yo) line@((x1,y1),(x2,y2))  =
 	      (x1-xo)*(y2-yo) - (y1-yo)*(x2-xo)
 
 (*.) = cross_product
 \end{code}
 
 Given two points on the convex hull (p1 and p2), hsplit finds
-all the points on the hull between p1 and p2 (clockwise), 
+all the points on the hull between p1 and p2 (clockwise),
 inclusive of p1 but not of p2.
 
 \begin{code}
@@ -72,9 +72,9 @@ hsplit points p1 p2 =
   in if (length packed < 2) then p1:packed
      else
        let pm = fst (get_maximum (\ (p, c) (p', c') -> c>c') pts_cross)
-           left_res  = hsplit packed p1 pm 
+           left_res  = hsplit packed p1 pm
            right_res = hsplit packed pm p2
-           result = left_res ++ right_res 
+           result = left_res ++ right_res
 #if defined(GRAN)
            strategy x = rnf pm `par`
 	                parList rnf pts_cross `par`
@@ -98,20 +98,20 @@ quick_hull points =
       minx = get_maximum (\ (x,y) (x',y') -> x<x') points
       maxx = get_maximum (\ (x,y) (x',y') -> x>x') points
       left_res  = (hsplit points minx maxx)
-      right_res = (hsplit points maxx minx)      
-#if defined(GRAN) 
+      right_res = (hsplit points maxx minx)
+#if defined(GRAN)
       -- _parGlobal_ 21# 21# 0# 0# left_res $
-      -- _parGlobal_ 22# 22# 0# 0# right_res $ 
+      -- _parGlobal_ 22# 22# 0# 0# right_res $
       strategy x = rnf minx `par`
                    rnf maxx `par`
 		   rnf left_res `par`
                    rnf right_res `par`
-                   x	   
+                   x	
   in
   strategy $ (left_res ++ right_res)
 #else
   in
-  (left_res ++ right_res) 
+  (left_res ++ right_res)
 #endif
 
 \end{code}
@@ -139,8 +139,8 @@ args_to_IntList a = if length a < 2
 #if defined(ARGS)
 munch_args = 	getArgs >>= \ a ->
                 return (args_to_IntList a) >>= \[n,m] ->
-                getRandomDoubles (fromIntegral m) >>= \ random_list -> 
-	        let 
+                getRandomDoubles (fromIntegral m) >>= \ random_list ->
+	        let
                   (l1, random_list') = splitAt n random_list
                   (l2, random_list'') = splitAt n random_list'
                   x = zip l1 l2
@@ -163,12 +163,12 @@ This is the original NESL code for this algorithm:
 
 % Used to find the distance of a point (o) from a line (line). %
 function cross_product(o,line) =
-let (xo,yo) = o; 
+let (xo,yo) = o;
     ((x1,y1),(x2,y2)) = line;
 in (x1-xo)*(y2-yo) - (y1-yo)*(x2-xo);
 
 % Given two points on the convex hull (p1 and p2), hsplit finds
-  all the points on the hull between p1 and p2 (clockwise), 
+  all the points on the hull between p1 and p2 (clockwise),
   inclusive of p1 but not of p2. %
 function hsplit(points,(p1,p2)) =
 let cross = {cross_product(p,(p1,p2)): p in points};

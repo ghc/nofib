@@ -1,7 +1,7 @@
 {-
 Return-Path: colin@uk.ac.york.minster
 Return-Path: <colin@uk.ac.york.minster>
-Received: from minster.york.ac.uk by goggins.dcs.gla.ac.uk with SMTP (PP) 
+Received: from minster.york.ac.uk by goggins.dcs.gla.ac.uk with SMTP (PP)
           id <02303-0@goggins.dcs.gla.ac.uk>; Thu, 24 Jun 1993 15:10:40 +0100
 From: colin@minster.york.ac.uk
 Date: Thu, 24 Jun 93 14:00:31
@@ -28,7 +28,7 @@ main = par (unigrid d) (par (unigrid dr) (par (unigrid ur) (
         dirs = par forw (seq back (map snd (forw ++ back)))
         forw = filter (parany (contains word) . fst)
                [(r,"right "), (d,"down "), (dr,"downright "), (ur,"upright ")]
-        back = filter (parany (contains drow) . fst) 
+        back = filter (parany (contains drow) . fst)
                [(r,"left "), (d,"up "), (dr,"upleft "), (ur,"downleft ")]
         drow = reverse word
     r  = grid
@@ -53,11 +53,11 @@ parmap2 f (x:xs) = par fx (seq fxs (fx : fxs))
 
 unimap :: ([Char] -> ()) -> [[Char]] -> ()
 unimap f [] = ()
-unimap f (x:xs) = seq (f x) (unimap f xs)  
+unimap f (x:xs) = seq (f x) (unimap f xs)
 
 unimap2 :: (Char -> Char) -> [Char] -> ()
 unimap2 f [] = ()
-unimap2 f (x:xs) = seq (f x) (unimap2 f xs)  
+unimap2 f (x:xs) = seq (f x) (unimap2 f xs)
 
 unigrid :: [[Char]] -> ()
 unigrid = unimap unilist
@@ -70,7 +70,7 @@ unilist2 = unimap3 id
 
 unimap3 :: (String -> String) -> [String] -> ()
 unimap3 f [] = ()
-unimap3 f (x:xs) = seq (f x) (unimap3 f xs)  
+unimap3 f (x:xs) = seq (f x) (unimap3 f xs)
 
 parany = (\x -> or . x) . parmap2
 
@@ -83,7 +83,7 @@ zipinit (x:xs) (y:ys) = (x : y) : zipinit xs ys
 contains xs ys = any (prefix xs) (suffixes ys)
 
 suffixes [] = []
-suffixes xs = xs : suffixes (tail xs) 
+suffixes xs = xs : suffixes (tail xs)
 
 prefix [] ys = True
 prefix xs [] = False

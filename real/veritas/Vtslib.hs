@@ -28,7 +28,7 @@ forall p = and . ( map p )
 -}
 
 exists :: ( a -> Bool ) -> [a] -> Bool
-    
+
 exists p = or . ( map p )
 
 
@@ -43,9 +43,9 @@ exists p = or . ( map p )
 
 assoc :: ( Eq a ) => a -> [(a,b)] -> Option b
 
-assoc key [] = NONE 
+assoc key [] = NONE
 
-assoc key ((key',entry):l') 
+assoc key ((key',entry):l')
 	| key == key' = SOME entry
 	| otherwise   = assoc key l'
 
@@ -59,7 +59,7 @@ assoc key ((key',entry):l')
 -}
 
 
-haskey key al 
+haskey key al
 	= case assoc key al of
 	      SOME _ -> True
 	      NONE   -> False
@@ -116,7 +116,7 @@ haskey key al
 for :: Int -> (b -> b) -> b -> b
 
 for 0 f y = y
- 
+
 for i f y = for (i-1) f ( f y )
 
 
@@ -126,16 +126,16 @@ for i f y = for (i-1) f ( f y )
 		val zero_ord = fromEnum "0"
 		val nine_ord = fromEnum "9"
 		fun is_digit i = i >= zero_ord andalso i <= nine_ord
-		fun convert si i = 
-			if si >= s_len 
-			then i 
+		fun convert si i =
+			if si >= s_len
+			then i
 			else if is_digit (ordof (s,si))  then
 				 convert (si + 1) (i * 10 - zero_ord + ordof (s,si))
 			else raise Str_to_int
 	    in if s_len > 1 then
 		   if ordof (s, 0) = fromEnum "~" then
 			~ (convert 1 0)
-		   else 
+		   else
 			convert 0 0
 	       else if s_len > 0 then
 			convert 0 0
@@ -146,7 +146,7 @@ for i f y = for (i-1) f ( f y )
 
 map' :: (Int -> b -> c) -> [b] -> [c]
 
-map' f = mapf 0 
+map' f = mapf 0
 	 where
          mapf i [] = []
 

@@ -1,8 +1,8 @@
-{-	A kernel fragment from a program written by 
+{-	A kernel fragment from a program written by
 		Ron Legere  -- http://www.its.caltech.edu/~legere
 		Caltech Quantum Optics
 
-	It has the interesting property that Classic Hugs 
+	It has the interesting property that Classic Hugs
 	runs it 20x faster than GHC!
 	Reason: runExperiment calls itself with identical parameters,
 		and Hugs commons that up for some reason.
@@ -28,21 +28,21 @@ main = do
  let n = read arg :: Int
  putStr (show (take n test))
 
-test :: StateStream 
-test = runExperiment testforce 0.02 [1.0] (State [1.0] [0.0]) 
+test :: StateStream
+test = runExperiment testforce 0.02 [1.0] (State [1.0] [0.0])
 
 
 testforce :: ForceLaw [Float]
-testforce k [] = [] 
-testforce k ( (State pos vel):atoms) = (-1.0) .* k * pos: 
+testforce k [] = []
+testforce k ( (State pos vel):atoms) = (-1.0) .* k * pos:
 		                       testforce k atoms
 
 {-
-The test force: K is a list of spring 
+The test force: K is a list of spring
 constants. (But here I am only doing one dimension for the purposes
 of demonstrating the approach)
 -}
- 
+
 
 
 {-
@@ -75,11 +75,11 @@ be simpler!
 Now we need a function to write out the results to a file in a nice format.
 I think I would prefer a simple x y z /n x y z /n etc
 
-NOTE that show AtomState only shows the position! 
+NOTE that show AtomState only shows the position!
 -}
 
 instance Show AtomState where
-  show  (State pos vel) = concat [ (show component) ++ "\t"  | component <- pos ]    
+  show  (State pos vel) = concat [ (show component) ++ "\t"  | component <- pos ]
   showList states = showString (concat [(show state) ++ "\n" | state <- states])
 
 
@@ -101,10 +101,10 @@ type ForceLaw a = a -> StateStream -> [Force]
 The force law maps a stream of states to a stream of forces so that time
 dependant forces can be used. The parametric type 'a' is to allow the force law
 to depend on some parameter, for example (the common case!) a seed for a random number
-generater, and/or the timestep, or the spring constant 
+generater, and/or the timestep, or the spring constant
 -}
- 
-runExperiment :: ForceLaw a -> Float -> a -> AtomState -> StateStream 
+
+runExperiment :: ForceLaw a -> Float -> a -> AtomState -> StateStream
 
 {-
 	In this form this program takes 1 min when compiled under ghc-4.05,
@@ -126,16 +126,16 @@ runExperiment law dt param init = stream
 -}
 
 {-
-runExperiment forces timestep param initialcondition :: [AtomState] 
-is an infinite stream of atom states. We can then use this to 
-generate necessary averages, temperatures, allen variences , or wtf 
-you want. 
- 
-We could for example, start the random number generator with seed param, if
-the type is int . 
+runExperiment forces timestep param initialcondition :: [AtomState]
+is an infinite stream of atom states. We can then use this to
+generate necessary averages, temperatures, allen variences , or wtf
+you want.
 
-It is an error to have the initial 
-atom state not have the correct number of dimensions. 
+We could for example, start the random number generator with seed param, if
+the type is int .
+
+It is an error to have the initial
+atom state not have the correct number of dimensions.
 -}
 
 propagate :: Float -> Force -> AtomState -> AtomState

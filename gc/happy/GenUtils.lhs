@@ -6,7 +6,7 @@ All the code below is understood to be in the public domain.
 
 > module GenUtils (
 
->       partition', tack, 
+>       partition', tack,
 >       assocMaybeErr,
 >       arrElem,
 >       memoise,
@@ -24,7 +24,7 @@ All the code below is understood to be in the public domain.
 >       space,
 >       copy,
 >	combinePairs,
->	--trace,		-- re-export it 
+>	--trace,		-- re-export it
 >	fst3,
 >	snd3,
 >	thd3,
@@ -41,7 +41,7 @@ All the code below is understood to be in the public domain.
 
 %------------------------------------------------------------------------------
 
-Here are two defs that everyone seems to define ... 
+Here are two defs that everyone seems to define ...
 HBC has it in one of its builtin modules
 
 > mapMaybe :: (a -> Maybe b) -> [a] -> [b]
@@ -54,7 +54,7 @@ HBC has it in one of its builtin modules
 > maybeMap f (Just a) = Just (f a)
 > maybeMap f Nothing  = Nothing
 
-> joinMaybe :: (a -> a -> a) -> Maybe a -> Maybe a -> Maybe a 
+> joinMaybe :: (a -> a -> a) -> Maybe a -> Maybe a -> Maybe a
 > joinMaybe _ Nothing  Nothing  = Nothing
 > joinMaybe _ (Just g) Nothing  = Just g
 > joinMaybe _ Nothing  (Just g) = Just g
@@ -62,8 +62,8 @@ HBC has it in one of its builtin modules
 
 > data MaybeErr a err = Succeeded a | Failed err deriving (Eq,Show)
 
-@mkClosure@ makes a closure, when given a comparison and iteration loop. 
-Be careful, because if the functional always makes the object different, 
+@mkClosure@ makes a closure, when given a comparison and iteration loop.
+Be careful, because if the functional always makes the object different,
 This will never terminate.
 
 > mkClosure :: (a -> a -> Bool) -> (a -> a) -> a -> a
@@ -76,7 +76,7 @@ This will never terminate.
 > foldb f [] = error "can't reduce an empty list using foldb"
 > foldb f [x] = x
 > foldb f l  = foldb f (foldb' l)
->    where 
+>    where
 >       foldb' (x:y:x':y':xs) = f (f x y) (f x' y') : foldb' xs
 >       foldb' (x:y:xs) = f x y : foldb' xs
 >       foldb' xs = xs
@@ -88,7 +88,7 @@ This will never terminate.
 > handleMaybe m k = case m of
 >                Nothing -> k
 >                _ -> m
- 
+
 > findJust :: (a -> Maybe b) -> [a] -> Maybe b
 > findJust f = foldr handleMaybe Nothing . map f
 
@@ -115,33 +115,33 @@ Gofer-like stuff:
 > partition' :: (Eq b) => (a -> b) -> [a] -> [[a]]
 > partition' f [] = []
 > partition' f [x] = [[x]]
-> partition' f (x:x':xs) | f x == f x' 
+> partition' f (x:x':xs) | f x == f x'
 >    = tack x (partition' f (x':xs))
->                       | otherwise 
+>                       | otherwise
 >    = [x] : partition' f (x':xs)
 
 > tack x xss = (x : head xss) : tail xss
 
 > combinePairs :: (Ord a) => [(a,b)] -> [(a,[b])]
-> combinePairs xs = 
+> combinePairs xs =
 >	combine [ (a,[b]) | (a,b) <- sortBy (\ (a,_) (b,_) -> compare a b) xs]
 >  where
 >	combine [] = []
 >	combine ((a,b):(c,d):r) | a == c = combine ((a,b++d) : r)
 >	combine (a:r) = a : combine r
-> 
+>
 
 > assocMaybeErr :: (Eq a) => [(a,b)] -> a -> MaybeErr b String
 > assocMaybeErr env k = case [ val | (key,val) <- env, k == key] of
 >                        [] -> Failed "assoc: "
 >                        (val:vs) -> Succeeded val
-> 
+>
 
 Now some utilties involving arrays.  Here is a version of @elem@ that
 uses partial application to optimise lookup.
 
 > arrElem :: (Ix a, Ord a) => [a] -> a -> Bool
-> arrElem obj = \x -> inRange size x && arr ! x 
+> arrElem obj = \x -> inRange size x && arr ! x
 >   where
 >       obj' = sort obj
 >       size = (head obj',last obj')
@@ -164,7 +164,7 @@ will give a very efficent variation of the fib function.
 >   where arr = array bds [ (t, f t) | t <- range bds ]
 
 > listArray' :: (Int,Int) -> [a] -> Array Int a
-> listArray' (low,up) elems = 
+> listArray' (low,up) elems =
 >	if length elems /= up-low+1 then error "wibble" else
 >	listArray (low,up) elems
 
@@ -191,12 +191,12 @@ Replace $$ with an arbitrary string, being careful to avoid ".." and '.'.
 
 
 %-------------------------------------------------------------------------------
-Fast string-building functions. 
+Fast string-building functions.
 
 > str = showString
 > char c = (c :)
 > interleave s = foldr (\a b -> a . str s . b) id
-> interleave' s = foldr1 (\a b -> a . str s . b) 
+> interleave' s = foldr1 (\a b -> a . str s . b)
 
 > strspace = char ' '
 > nl = char '\n'

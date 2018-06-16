@@ -26,7 +26,7 @@ import Core_datatype
 
 type Index = Sum (Int , Bool) ( Int , Int , [(Int , Int)] )
 
-type Entry = [(String , Option (Index , (Int , String) ))] 
+type Entry = [(String , Option (Index , (Int , String) ))]
 
 type Lookup_table = [Entry]
 
@@ -51,19 +51,19 @@ type Lookup_table = [Entry]
     and get_nmsL jf k [] [] =
     	    []
       | get_nmsL jf k (nm :: nmL) (tmL :: tmLL) =
-      	    get_nms (inr (jf,k,(length tmL, rec_pars 0 tmL))) nm @ 
+      	    get_nms (inr (jf,k,(length tmL, rec_pars 0 tmL))) nm @
 	    get_nmsL jf (k+1) nmL tmLL
       | get_nmsL jf k _ _ =
 	    []
 
     and rec_pars _ [] = []
-      | rec_pars i (tm :: tmL) = 
+      | rec_pars i (tm :: tmL) =
 	    (if is_00_sm tm then [i] else []) @ rec_pars (i+1) tmL
 
-    and is_00_sm (Sym (0,0,_,_)) = true 
+    and is_00_sm (Sym (0,0,_,_)) = true
       | is_00_sm _ = false
 
-    
+
 (******************************************************************************)
 (*   Return the lookup table for a declaration                                *)
 (******************************************************************************)
@@ -82,7 +82,7 @@ type Lookup_table = [Entry]
 	        | _ => ([], j))
       | get_dec_nms rec_flag j (Data (_,tmLL,attL)) =
             (case get_att Name_Style attL
-	       of SOME (Datatype_Name (nm::nmL)) => 
+	       of SOME (Datatype_Name (nm::nmL)) =>
 		      (get_nms (inr (j,0,(0,[]))) nm @
 			       get_nmsL j 1 nmL tmLL, j)
 	        | _ => ([], j))
@@ -146,7 +146,7 @@ type Lookup_table = [Entry]
 	    get_con_nms j (k+1) nmL
 
     and get_pvars _ [] = []
-      | get_pvars i (tm :: tmL) = 
+      | get_pvars i (tm :: tmL) =
 	    (if is_00_psm tm then [i] else []) @ get_pvars (i+1) tmL
 
     and is_00_psm (P1_Sym (0,0,_)) = true
@@ -164,7 +164,7 @@ type Lookup_table = [Entry]
 	             []
 	       | Extend (dc,sg,_) =>
 		     extend_lookup_table true dc (create_lookup_table sg)
-	       | Combine (sg1,sg2,_,_,_) => 
+	       | Combine (sg1,sg2,_,_,_) =>
 		     let val tbl1 = create_lookup_table sg2
 			 and tbl2 = create_lookup_table sg1
 		     in [] :: tbl1 @ tbl2 end
@@ -193,7 +193,7 @@ type Lookup_table = [Entry]
 		     extend_tbl true dc []
 	       | P1_Extend (dc,sg) =>
 		     extend_tbl true dc (create_tbl sg)
-	       | P1_Combine (sg1,sg2) => 
+	       | P1_Combine (sg1,sg2) =>
 		     let val tbl1 = create_tbl sg2
 			 and tbl2 = create_tbl sg1
 		     in [] :: tbl1 @ tbl2 end
@@ -218,23 +218,23 @@ type Lookup_table = [Entry]
 (******************************************************************************)
 
     fun lookup_name (tbl : lookup_table) (str : string) =
-	    let fun lookup i [] = 
+	    let fun lookup i [] =
 			NONE
 		  | lookup i (entry :: tbl) =
 			case assoc str entry
-			  of SOME (inl (j,true),opr_op) => 
+			  of SOME (inl (j,true),opr_op) =>
 				SOME (P1_Sym (i,j,true), opr_op)
-			   | SOME (inr (j,k,_),opr_op) => 
+			   | SOME (inr (j,k,_),opr_op) =>
 				SOME (P1_Const (i,j,k,true), opr_op)
 			   | _ => lookup (i+1) tbl
 	    in lookup 0 tbl end
 
     fun lookup_rec_name (tbl : lookup_table) (str : string) =
-	    let fun lookup i [] = 
+	    let fun lookup i [] =
 			NONE
 		  | lookup i (entry :: tbl) =
 			case assoc str entry
-			  of SOME (inl (j, false),opr_op) => 
+			  of SOME (inl (j, false),opr_op) =>
 				SOME (P1_Sym (i,j,true), opr_op)
 			   | _ => lookup (i+1) tbl
 	    in lookup 0 tbl end
@@ -246,8 +246,8 @@ type Lookup_table = [Entry]
 		fun is_sm (_,(inl (j',_),_)) = j = j'
 		  | is_sm _ = false
 	    in case filter is_sm entry
-		 of ((s,(inl (_,f),NONE)) :: _) => SOME (s, f, NONE) 
-		  | ( (s,(inl (_,f),SOME (i, opr))) :: _) => 
+		 of ((s,(inl (_,f),NONE)) :: _) => SOME (s, f, NONE)
+		  | ( (s,(inl (_,f),SOME (i, opr))) :: _) =>
 			SOME (s, f, SOME (i,opr))
 		  | _ => NONE
 	    end
@@ -257,7 +257,7 @@ type Lookup_table = [Entry]
 		fun is_sm (_,(inr (j',k',_),_)) = (j',k') = (j,k)
 		  | is_sm _ = false
 	    in case filter is_sm entry
-		 of ( (s,(inr (_,_,_),SOME (i, opr))) :: _) => 
+		 of ( (s,(inr (_,_,_),SOME (i, opr))) :: _) =>
 			SOME (s, SOME (i,opr))
 		  | ((s,(inr (_,_,_),_)) :: _) => SOME (s, NONE)
 		  | _ => NONE

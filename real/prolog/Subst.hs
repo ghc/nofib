@@ -40,7 +40,7 @@ nullSubst i              = Var i
             | otherwise  = Var j
 
 (@@)                    :: Subst -> Subst -> Subst
-s1 @@ s2                 = apply s1 . s2 
+s1 @@ s2                 = apply s1 . s2
 
 --- Unification:
 

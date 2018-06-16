@@ -14,7 +14,7 @@ Implementation of FIRST
 \subsection{Utilities}
 
 > joinSymSets :: (a -> Set Name) -> [a] -> Set Name
-> joinSymSets f = foldr 
+> joinSymSets f = foldr
 >       (\ h b -> let
 >                   h' = f h
 >                 in
@@ -43,9 +43,9 @@ Does the Set include the $\epsilon$ symbol ?
 >       env = mkClosure (==) (getNext fst_term prodNo prodsOfName)
 >               [ (name,Set.empty) | name <- nts ]
 
-> getNext fst_term prodNo prodsOfName env = 
+> getNext fst_term prodNo prodsOfName env =
 >		[ (nm, next nm) | (nm,_) <- env ]
->    where 
+>    where
 >    	fn t | t == errorTok || t >= fst_term = Set.singleton t
 >    	fn x = case lookup x env of
 >           	        Just t -> t
@@ -53,9 +53,9 @@ Does the Set include the $\epsilon$ symbol ?
 
 > 	next :: Name -> Set Name
 > 	next t | t >= fst_term = Set.singleton t
-> 	next n = 
->       	foldb Set.union 
->               	[ joinSymSets fn (snd4 (prodNo rl)) | 
+> 	next n =
+>       	foldb Set.union
+>               	[ joinSymSets fn (snd4 (prodNo rl)) |
 >				rl <- prodsOfName n ]
 
 My little hack

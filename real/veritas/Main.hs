@@ -35,11 +35,11 @@ import Kernel
 import Tags
 
 import Parse
- 
+
 import System.IO
 
 
---proof_edit : string list * string list -> unit 
+--proof_edit : string list * string list -> unit
 
 main = do
     hSetBinaryMode stdin  True
@@ -47,15 +47,15 @@ main = do
     ins <- getContents
     putStr (main' ins)
 
-main' instr 
-	= rqts 
+main' instr
+	= rqts
 	  where
 	  ( _ , _ , rqts ) = edits
-	  edits = proof_edit default_ds ( split '\n' args ) (instr , rsps , [1..]) 
+	  edits = proof_edit default_ds ( split '\n' args ) (instr , rsps , [1..])
           default_ds = "" --home ++ "/VTS"
 	  args = "" -- temp test
 	  rsps = [0..] -- dummy response list
-	  
+	
 
 
 
@@ -67,32 +67,32 @@ main' instr
 
 
 {-
---	= parse_spec_trm (strings_to_input [s]) 
+--	= parse_spec_trm (strings_to_input [s])
 --		(set_lookup_table initial_state lt) sg
 
 -- other parsers later
 
-parse_sgn lt sg s 
-	= sgparse_spec_sgn (strings_to_input [s]) 
+parse_sgn lt sg s
+	= sgparse_spec_sgn (strings_to_input [s])
 		(set_lookup_table initial_state lt)
 
-parse_dec lt sg s 
-	= parse_spec_dec (strings_to_input [s]) 
+parse_dec lt sg s
+	= parse_spec_dec (strings_to_input [s])
 		(set_lookup_table initial_state lt) sg
 -}
 
 
 
-goto_next tr@(TreeSt t _ _) 
+goto_next tr@(TreeSt t _ _)
 	= tree_top tr /./
 	  (\ tr' -> case tree_search incomplete_tree False t of
 	       	        ((iL,_):_) -> reTurn ( tree_goto iL tr )
 	                _          -> case search_tree of
 				          ((iL,_):_) -> reTurn(tree_goto iL tr')
-				          _          -> reTurn tr 
+				          _          -> reTurn tr
 			  	      where
-			              (TreeSt t' _ _) = tr' 
-	  			      search_tree = tree_search 
+			              (TreeSt t' _ _) = tr'
+	  			      search_tree = tree_search
 						      incomplete_tree False t' )
 
 
@@ -106,28 +106,28 @@ incomplete_tree (Tree _ tl NONE _ _ ) = forall is_complete tl
 
 
 
-goto_named tr@(TreeSt t _ _ ) 
+goto_named tr@(TreeSt t _ _ )
 	= x_form True form /.>/
-	  tree_top tr /./ 
-	  exp 
+	  tree_top tr /./
+	  exp
 	  where
-	  exp ( SOME [OutText uid] , tr' ) 
+	  exp ( SOME [OutText uid] , tr' )
 		  = case tree_search is_node True t' of
 			 ((iL,_):_) -> reTurn ( tree_goto iL tr' )
 			 _          -> x_set_status "No such node"  ./.
-				       reTurn tr 
+				       reTurn tr
 		    where
 		    (TreeSt t' _ _ ) = tr'
-		    is_node (Tree (Goal _ _ _ uid' _ _ _ _) _ _ _ _ ) 
+		    is_node (Tree (Goal _ _ _ uid' _ _ _ _) _ _ _ _ )
 				= uid == uid'
-	  exp _ = reTurn tr 
+	  exp _ = reTurn tr
 
 	  form = [InComment "Goto Node",
 		  InComment "",
 		  InComment "Uid of Node",
 		  InSingleText "" ""]
 
-tree_cmdL = 
+tree_cmdL =
 	[
 	    ( "Top", tree_top ),
 	    ( "P",	tree_up ),
@@ -177,16 +177,16 @@ strip_tac = strip (error "") auto_tac
 triv_tac = triv auto_tac
 
 
-edit = editor tree_cmdL initialize update_state my_quit finish 
+edit = editor tree_cmdL initialize update_state my_quit finish
 
 
-proof_edit default_ds argL 
---	= getops "d:s:t:" argL 
-	= exp ( [] , [] ) --('t',SOME "Trm")], ["hello"]) --temp arg parse 
+proof_edit default_ds argL
+--	= getops "d:s:t:" argL
+	= exp ( [] , [] ) --('t',SOME "Trm")], ["hello"]) --temp arg parse
 	  where
-	  exp _ --(options, [arg])  
-		= edit 
+	  exp _ --(options, [arg])
+		= edit
 	  	  `handle`
 	  	  err_handler
-	  err_handler mesg = x_error mesg /./ 
+	  err_handler mesg = x_error mesg /./
 		             ( \ _ -> proof_edit default_ds argL )

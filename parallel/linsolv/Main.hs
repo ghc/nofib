@@ -1,8 +1,8 @@
-{- 
+{-
 Time-stamp: <2010-11-03 09:26:39 simonmar>
 $Id: testLinSolv.hs,v 1.6.2.5 2002/06/21 02:39:07 hwloidl Exp $
 
-Main module for testing linSolv.hs, the solution of a system of 
+Main module for testing linSolv.hs, the solution of a system of
 linear equations by using the modular method.                             -}
 
 -- @node Top, Modular Arithmetic, (dir), (dir)
@@ -17,7 +17,7 @@ module Main where
 -- @menu
 -- * Modular Arithmetic::	
 -- * ADT Matrix::		
--- * LinSolv top level function::  
+-- * LinSolv top level function::
 -- @end menu
 
 -- ----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ import System.Environment(getArgs)
 import ModArithm
 
 -- @include Matrix-list.hs
-import Matrix (SqMatrix, Vector, 
+import Matrix (SqMatrix, Vector,
                vector,
 	       lolSqMatrix,listSqMatrix,maxElemVec)
 
@@ -54,7 +54,7 @@ import Inputs8
 get_input n = case (lookup (fromIntegral n) all_inputs) of
                 Just x -> x
                 Nothing -> error $ "Unknown input " ++ (show n) ++ ". Possible inputs are " ++ (show (map fst all_inputs))
-              
+
 -- ----------------------------------------------------------------------------
 -- @node Functions for I/O, Main fct, Imports, Test wrapper for LinSolv
 -- @section Functions for I/O
@@ -68,7 +68,7 @@ get_input n = case (lookup (fromIntegral n) all_inputs) of
 
 --compact :: (Integral a) => (Vector a, a, a, a) -> a
 {-
-compact (x', a, b, _) = if a == 0 
+compact (x', a, b, _) = if a == 0
 	               then if b == 0 then x
 		    		      else 1 +  x
 	               else if b == 1 then  x
@@ -83,7 +83,7 @@ compact (x', a, b, _) = if a == 0
 
 main = do
         args <- getArgs
-        let 
+        let
          v = read (args!!0) :: Int -- version (i.e. strategy to use)
          n = read (args!!1) :: Int -- input
 	 -- Pick input based on command line argument
@@ -98,8 +98,8 @@ main = do
 	putStr ("Testing linSolv with various matrices:\n" ++
 		"\nSolving a*x=b for a = " ++
 		show a ++
-		"b = " ++ 
-		show b ++ 
+		"b = " ++
+		show b ++
 		"\nSolution: " ++
 		show x ++
 	        "\n")

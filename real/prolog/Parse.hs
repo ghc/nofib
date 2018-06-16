@@ -34,17 +34,17 @@ type Parser a = [Char] -> [(a,[Char])]
 -- sat p    is a parser which succeeds with value c if c is the first input
 --          character and c satisfies the predicate p.
 
-faiL        :: Parser a 
+faiL        :: Parser a
 faiL inn      = []
 
-okay        :: a -> Parser a  
+okay        :: a -> Parser a
 okay v inn    = [(v,inn)]
 
 tok         :: [Char] -> Parser [Char]
 tok w inn     = [(w, drop n inn) | w == take n inn]
                where n = length w
 
-sat         :: (Char -> Bool) -> Parser Char 
+sat         :: (Char -> Bool) -> Parser Char
 sat p []     = []
 sat p (c:inn) = [ (c,inn) | p c ]
 
@@ -68,13 +68,13 @@ sat p (c:inn) = [ (c,inn) | p c ]
 -- listOf p s     parses a list of input values using the parser p, with
 --                separators parsed using the parser s.
 
-orelse             :: Parser a -> Parser a -> Parser a 
+orelse             :: Parser a -> Parser a -> Parser a
 orelse p1 p2 inn = p1 inn ++ p2 inn
- 
+
 seQ                :: Parser a -> Parser b -> Parser (a,b)
 seQ p1 p2 inn    = [((v1,v2),inn2) | (v1,inn1) <- p1 inn, (v2,inn2) <- p2 inn1]
 
-doo                 :: Parser a -> (a -> b) -> Parser b 
+doo                 :: Parser a -> (a -> b) -> Parser b
 doo p f inn       = [(f v, inn1) | (v,inn1) <- p inn]
 
 just               :: Parser a -> Parser a

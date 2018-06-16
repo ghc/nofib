@@ -12,7 +12,7 @@ import Data.Ratio
 -- print an abstract syntax tree
 printAst :: Ast -> Env -> String
 printAst (Set name bexp) env = "Set "++name++" to "++(printBasicExp bexp env)
-printAst (EvalSet name bexp) env = 
+printAst (EvalSet name bexp) env =
 		"Eval\t"++(printBasicExp bexp env)++"\n"++
 		"Set\t"++name++" to "
 printAst (Eval bexp) env = "Eval "++(printBasicExp bexp env)
@@ -79,13 +79,13 @@ printEnv :: Env -> Env -> String
 printEnv [] _ = ""
 printEnv (e:es) env = pEnv e env ++ (printEnv es env)
 	where
-		pEnv e@(str, bexp) env = 
+		pEnv e@(str, bexp) env =
 			str++"\t"++(printBasicExp bexp env)++"\n"
 
 mybasicNumber2str :: BasicNumber -> Integer -> String
 mybasicNumber2str (BasRationalC x) p =
 	if numerator sx == 0 then "0"
-	else if denominator sx == 1 then show (numerator sx) 
+	else if denominator sx == 1 then show (numerator sx)
 	     else "("++(basicNumber2str (BasRationalC sx) p)++")"
 		where sx = x/1
-mybasicNumber2str x p = basicNumber2str x p 
+mybasicNumber2str x p = basicNumber2str x p

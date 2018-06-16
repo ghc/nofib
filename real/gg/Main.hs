@@ -24,7 +24,7 @@ control args = do
 	    else ePostscript (sizeX,sizeY)
     graph :: String -> Postscript
     graph stats = if (elem P args) then poolGraph processors stats
-	    else if orderSp/=[] then sparkGraph orderSp processors stats 
+	    else if orderSp/=[] then sparkGraph orderSp processors stats
 		    else activityGraph orderAct processors stats
 
     (A orderAct) = lookUp (A defaultAct) args
@@ -52,7 +52,7 @@ data Args = A [Activity]
 	  | F
 	  | G
 	  | PS [PElement]
-	  | IO (String,String) 
+	  | IO (String,String)
 
 instance Eq Args where
 	(==) (A _) (A _) = True
@@ -67,7 +67,7 @@ instance Eq Args where
 
 defaultAct = [GC,REDN,IDLE,FLUSH]
 defaultSp = [RESUMED,USED,CREATED,LOST]
-defaultSize = (15::Int,10::Int) 
+defaultSize = (15::Int,10::Int)
 defaultPS = [PE "14" 1]
 
 instance Parse Args where
@@ -97,8 +97,8 @@ instance Parse Args where
                 (processors,more) = parse string
 	parseType ('-':string) = error("Illegal flag to GRIP-graph : -" ++ string ++ "\n")
 	parseType string = (IO files,"")
-		where 
-		files = if string == "" then ("stdin","stdout") 
+		where
+		files = if string == "" then ("stdin","stdout")
 				else if (whiteSpace more) == "" then (file1,file1++".ps")
 					else (file1,file2)
 		(file1,more) = span (\x->x/=' ') string

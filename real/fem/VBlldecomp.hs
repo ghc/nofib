@@ -15,7 +15,7 @@ import Vector
 
 import VBmatrix
 
-vblldecomp :: Vbm Float -> Vbm Float 
+vblldecomp :: Vbm Float -> Vbm Float
 
 	-- L[i,i] = sqrt(A[i,i] - ***)
 	--          where
@@ -25,23 +25,23 @@ vblldecomp :: Vbm Float -> Vbm Float
 	--	    *** = SUM [ L[i,k]*L[j,k] | k <- [1..j-1] ]
 
 vbllsolution :: Vbm Float -> Vec Float -> Vec Float
-	-- Solve equation system, the variable bandwidth matrix is 
+	-- Solve equation system, the variable bandwidth matrix is
 	-- undecomposed, ie it is the original matrix.
 
 vbllsolution' :: Vbm Float -> Vec Float -> Vec Float
         -- Solve equation system, the variable bandwidth matrix is decomposed.
 
 vblldecomp mA = m
-        where 
-        m = makevbmat (boundvbmat mA) (diagadrvbm mA) f 
+        where
+        m = makevbmat (boundvbmat mA) (diagadrvbm mA) f
         f (i,j) =
-		if (i == j) then 
+		if (i == j) then
 			sqrt ( vbmatsub mA (i,i)  -
 			       sum ( map ( \ k -> vbmatsub m (i,k) *
                                            vbmatsub m (i,k) )
 			  	        [(fstclvbmat mA i) .. (i-1)] ) )
 
-		else 
+		else
 		    (	vbmatsub mA (i,j) -
 			sum ( map ( \ k -> (vbmatsub m (i,k) *
                                             vbmatsub m (j,k) ) )
@@ -49,7 +49,7 @@ vblldecomp mA = m
                     ) / ( vbmatsub m (j,j) )
 	k0 i j = if ( (fstclvbmat mA i) >= (fstclvbmat mA j) ) then
 	   	     (fstclvbmat mA i)
-	         else 
+	         else
 		     (fstclvbmat mA j)
 
 vbllsolution a b =
@@ -64,7 +64,7 @@ forwarding ( b,  mVB ) =
 	b' = makevec n f
 	n = boundvec b
 	f i = ( vecsub b i -
-		sum [(vbmatsub mVB (i,j)) * (vecsub b' j) | j<-[l i..i-1] ] 
+		sum [(vbmatsub mVB (i,j)) * (vecsub b' j) | j<-[l i..i-1] ]
               ) / (vbmatsub mVB (i,i))
 	l i = fstclvbmat mVB i
 
@@ -77,9 +77,9 @@ backwarding ( b, mVB ) =
 		sum [( vbmatsub mVB (j,i) ) * ( vecsub b' j )
                      | j <- ( validj i [i+1..n] ) ]
               ) / (vbmatsub mVB (i,i))
-	validj i (j:js) = if ( i >= fstclvbmat mVB j ) then 
+	validj i (j:js) = if ( i >= fstclvbmat mVB j ) then
 				j : (validj i js)
-                          else 
+                          else
 				validj i js
 	validj i []      = []
 

@@ -18,7 +18,7 @@ import Vector
 import DB_interface
 
 ndgrs :: (Array Int Int, Array Int Float) -> Int
-	 -- Return the total number of degrees 
+	 -- Return the total number of degrees
 
 getndgr :: (Array Int Int, Array Int Float) -> Int -> [Int]
 	 -- Return the degree numbers of a node (U, V and THETA)
@@ -43,22 +43,22 @@ ndgrs_and_dgrsn :: (Array Int Int, Array Int Float) -> (Int,[Int])
 
 ndgrs_and_dgrsn s =
 	foldl counting_one_node_s (0,[]) [1..(nnode s)]
-	where 
+	where
 	counting_one_node_s = counting_one_node s
 
 counting_one_node s (ndgrs_till_now,dgrsn_till_now) i =
 	(ndgrs_till_now + ndgrs_this_node, dgrsn_till_now ++ dgrsn_this_node)
 	where
 		dof = [ fod j | j <- [2,1,0]]
-		fod j = if (mod (div bc (e_10 j)) 10 == 1) then 
-				1 
+		fod j = if (mod (div bc (e_10 j)) 10 == 1) then
+				1
 			else    0
 		e_10 j = if (j == 0) then (1::Int) else 10 * (e_10 (j-1))
 		ndgrs_this_node = sum dof
 		dgrsn_this_node = [g j | j <- [0,1,2]]
-		g j = if ( (dof!!j) == 0 ) then 
-				0 
-		      else 
+		g j = if ( (dof!!j) == 0 ) then
+				0
+		      else
 				sum (take (j+1) dof) + ndgrs_till_now
 		bc =  getnbc s i
 
@@ -73,7 +73,7 @@ degreesrlt s =
 	a_node_s = a_node s
 
 a_node s node =
-      	"  Node.no = " ++ (showrj 2 node) ++ 
+      	"  Node.no = " ++ (showrj 2 node) ++
 	"   u = " ++ (showrj 8 u) ++ "   v = " ++ (showrj 8 v) ++
 	" theta=" ++ (showrj 8 theta) ++
 	"   bc = " ++ ( showrj 3 bc) ++ "\n"

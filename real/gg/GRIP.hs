@@ -24,7 +24,7 @@ getParameters lines = (pe,ticks,lines')
 
 getAct :: [PElement] -> [Line] -> [Activities]
 getAct [] = aux (\x->True)
-getAct pes = aux (\x->elem x pes) 
+getAct pes = aux (\x->elem x pes)
 
 aux _ [] = []
 aux f ((Ln pe a s):more) | f pe = a:aux f more
@@ -46,7 +46,7 @@ scaleAct m a@(Act n i r g f t) 	| m==t = a
 					where	c = m `div` t
 
 data Sparks = Sp Int Int Int Int Int deriving (Show{-was:Text-},Eq)
-	-- bucket sprkd sused resum lost 
+	-- bucket sprkd sused resum lost
 
 numberSp (Sp n _ _ _ _) = n
 created (Sp _ s _ _ _) = s
@@ -67,11 +67,11 @@ total (Act _ _ _ _ _ t) = t
 data Line =  Ln PElement Activities Sparks | PEs PElement | BucketFull Int | Null deriving (Show{-was:Text-},Eq)
 
 instance Parse Line where
-	parseType ('B':string) = 
-		((Ln pe (Act bucket idle redn gc (flush+read) (idle+redn+gc+flush+read+io)) 
+	parseType ('B':string) =
+		((Ln pe (Act bucket idle redn gc (flush+read) (idle+redn+gc+flush+read+io))
 				(Sp bucket sprkd sused resum lost)),more)
 			where
-			(pe,':':p) = parse string   
+			(pe,':':p) = parse string
 			(bucket,':':a) = parse p
 			(idle,b) = parse a
 			(redn,c) = parse b
@@ -87,8 +87,8 @@ instance Parse Line where
 	parseType ('P':'S':string) = (PEs pe,more)
 		where
 		(pe,more) = parse (tail (dropWhile ((/=) 'r') string))
---	parseType ('S':' ':string) = test (reverse string) 
---			where 
+--	parseType ('S':' ':string) = test (reverse string)
+--			where
 --			test ('.':'m':_) = (BucketFull x,"")
 --			test _ = (Null,"")
 --			(x,_) = parse string

@@ -11,15 +11,15 @@ where {
     f_benchmark_main a_n=(++) (f_sumcode (f_output_print (f_solution a_n))) "\n";
     f_sumcode::[Char] -> [Char];
     f_sumcode a_xs=
-        let { 
+        let {
             f_sumcode' [] a_sum a_n=(++) (strict_show_i (((+) :: (Int -> Int -> Int)) a_sum a_n)) ((:) '/' (strict_show_i a_n));
             f_sumcode' (a_x:a_xs) a_sum a_n=f_sumcode' a_xs (((+) :: (Int -> Int -> Int)) a_sum (fromEnum a_x)) (((+) :: (Int -> Int -> Int)) a_n (1 :: Int))
          } in  f_sumcode' a_xs (0 :: Int) (0 :: Int);
-type 
+type
     T_matrix t1=Array_type (Array_type t1);
     f_descr_print::Descr_type -> [Char];
     f_descr_print a_d=
-        let { 
+        let {
             r_low=lowbound a_d;
             r_up=upbound a_d
          } in  (++) "[" ((++) (strict_show_i r_low) ((++) ".." ((++) (strict_show_i r_up) "]")));
@@ -31,12 +31,12 @@ type
         elems a_mat]);
     f_tabulate2::(Int -> Int -> t1) -> Descr_type -> Descr_type -> T_matrix t1;
     f_tabulate2 a_f a_di a_dj=
-        let { 
+        let {
             f_tabhulp a_f a_dj a_i=tabulate (a_f a_i) a_dj
          } in  tabulate (f_tabhulp a_f a_dj) a_di;
     f_getdescr2::(T_matrix t1) -> (Descr_type,Descr_type);
     f_getdescr2 a_arr=
-        let { 
+        let {
             r_dx=bounds a_arr;
             r_dy=bounds ((!) a_arr (lowbound r_dx))
          } in  (r_dx,r_dy);
@@ -44,29 +44,29 @@ type
     f_subscript2 a_a a_i a_j=(!) ((!) a_a a_i) a_j;
     f_transpose2::(T_matrix t1) -> T_matrix t1;
     f_transpose2 a_arr=
-        let { 
+        let {
             (r_dx,r_dy)=f_getdescr2 a_arr;
             f_subhulp a_arr a_j a_i=f_subscript2 a_arr a_i a_j
          } in  f_tabulate2 (f_subhulp a_arr) r_dy r_dx;
     f_updaterange::(T_matrix t1) -> (T_matrix t1) -> T_matrix t1;
     f_updaterange a_a a_b=
-        let { 
+        let {
             (r_dax,r_day)=f_getdescr2 a_a
          } in  f_tabulate2 (f_updatehulp a_a a_b) r_dax r_day;
     f_updatehulp::(T_matrix t1) -> (T_matrix t1) -> Int -> Int -> t1;
     f_updatehulp a_a a_b a_i a_j=
-        let { 
+        let {
             r_in_bx=f_indexindescr a_i r_dbx;
             r_in_by=f_indexindescr a_j r_dby;
             (r_dbx,r_dby)=f_getdescr2 a_b
-         } in  
+         } in
             if (
                 if r_in_bx
                 then r_in_by
-                else 
+                else
                     False)
             then (f_subscript2 a_b a_i a_j)
-            else 
+            else
                 (f_subscript2 a_a a_i a_j);
     f_getleftcol::(T_matrix t1) -> Array_type t1;
     f_getleftcol a_arr=f_getfirstel a_arr;
@@ -74,12 +74,12 @@ type
     f_getrightcol a_arr=f_getlastel a_arr;
     f_getbottomrow::(T_matrix t1) -> Array_type t1;
     f_getbottomrow a_arr=
-        let { 
+        let {
             f_getbottomhulp a_arr a_i=f_getfirstel ((!) a_arr a_i)
          } in  tabulate (f_getbottomhulp a_arr) (bounds a_arr);
     f_gettoprow::(T_matrix t1) -> Array_type t1;
     f_gettoprow a_arr=
-        let { 
+        let {
             f_gettophulp a_arr a_i=f_getlastel ((!) a_arr a_i)
          } in  tabulate (f_gettophulp a_arr) (bounds a_arr);
     f_prependcol::(T_matrix t1) -> (Array_type t1) -> T_matrix t1;
@@ -88,19 +88,19 @@ type
     f_appendcol a_arr a_col=f_appendel a_arr a_col;
     f_prependrow::(T_matrix t1) -> (Array_type t1) -> T_matrix t1;
     f_prependrow a_arr a_row=
-        let { 
+        let {
             f_prependhulp a_arr a_row a_i=f_prependel ((!) a_arr a_i) ((!) a_row a_i)
          } in  tabulate (f_prependhulp a_arr a_row) (bounds a_arr);
     f_appendrow::(T_matrix t1) -> (Array_type t1) -> T_matrix t1;
     f_appendrow a_arr a_row=
-        let { 
+        let {
             f_appendhulp a_arr a_row a_i=f_appendel ((!) a_arr a_i) ((!) a_row a_i)
          } in  tabulate (f_appendhulp a_arr a_row) (bounds a_arr);
     f_indexindescr::Int -> Descr_type -> Bool;
     f_indexindescr a_i a_d=
         if (((>=) :: (Int -> Int -> Bool)) a_i (lowbound a_d))
         then (((<=) :: (Int -> Int -> Bool)) a_i (upbound a_d))
-        else 
+        else
             False;
     f_getfirstel::(Array_type t1) -> t1;
     f_getfirstel a_arr=(!) a_arr (lowbound (bounds a_arr));
@@ -108,26 +108,26 @@ type
     f_getlastel a_arr=(!) a_arr (upbound (bounds a_arr));
     f_prependel::(Array_type t1) -> t1 -> Array_type t1;
     f_prependel a_ar a_x=
-        let { 
+        let {
             r_lu=bounds a_ar;
             r_l=lowbound r_lu;
             r_u=upbound r_lu;
             f_generate a_i=
                 if (((<) :: (Int -> Int -> Bool)) a_i r_l)
                 then a_x
-                else 
+                else
                     ((!) a_ar a_i)
          } in  tabulate f_generate (descr (((-) :: (Int -> Int -> Int)) r_l (1 :: Int)) r_u);
     f_appendel::(Array_type t1) -> t1 -> Array_type t1;
     f_appendel a_ar a_x=
-        let { 
+        let {
             r_lu=bounds a_ar;
             r_l=lowbound r_lu;
             r_u=upbound r_lu;
             f_generate a_i=
                 if (((>) :: (Int -> Int -> Bool)) a_i r_u)
                 then a_x
-                else 
+                else
                     ((!) a_ar a_i)
          } in  tabulate f_generate (descr r_l (((+) :: (Int -> Int -> Int)) r_u (1 :: Int)));
     c_imax,c_jmax,c_imax1,c_jmax1,c_imid,c_imid1,c_jmid,c_jmid1::Int;
@@ -149,13 +149,13 @@ type
     c_gr=(9.80000 :: Double);
     c_lbd=(0.00240000 :: Double);
     c_vwn=(0.00000 :: Double);
-type 
+type
     T_mat=T_matrix Double;
-type 
+type
     T_col=Array_type Double;
-type 
+type
     T_row=Array_type Double;
-type 
+type
     T_triplet=(T_mat,T_mat,T_mat);
     f_u0::Int -> Int -> Double;
     f_u0 a_i a_j=(0.00000 :: Double);
@@ -176,92 +176,92 @@ type
     c_chy=((/) :: (Double -> Double -> Double)) c_deltat (((*) :: (Double -> Double -> Double)) (4.00000 :: Double) c_deltay);
     f_updu::T_mat -> T_mat -> T_mat -> Int -> Int -> Double;
     f_updu a_u a_v a_h a_i a_j=
-        let { 
+        let {
             r_height=((*) :: (Double -> Double -> Double)) c_cux (((-) :: (Double -> Double -> Double)) (f_subscript2 a_h a_i a_j) (f_subscript2 a_h (((-) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j));
             r_coriolis=
-                let { 
+                let {
                     r_v1=f_subscript2 a_v (((-) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j;
                     r_v2=f_subscript2 a_v (((-) :: (Int -> Int -> Int)) a_i (1 :: Int)) (((+) :: (Int -> Int -> Int)) a_j (1 :: Int));
                     r_v3=f_subscript2 a_v a_i a_j;
                     r_v4=f_subscript2 a_v a_i (((+) :: (Int -> Int -> Int)) a_j (1 :: Int))
                  } in  ((*) :: (Double -> Double -> Double)) c_ccr (((+) :: (Double -> Double -> Double)) r_v1 (((+) :: (Double -> Double -> Double)) r_v2 (((+) :: (Double -> Double -> Double)) r_v3 r_v4)));
-            r_friction=((*) :: (Double -> Double -> Double)) c_cfr (((/) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) r_bodem c_windx) (((+) :: (Double -> Double -> Double)) (f_d a_i a_j) (f_d a_i 
+            r_friction=((*) :: (Double -> Double -> Double)) c_cfr (((/) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) r_bodem c_windx) (((+) :: (Double -> Double -> Double)) (f_d a_i a_j) (f_d a_i
                 (((+) :: (Int -> Int -> Int)) a_j (1 :: Int)))));
             r_bodem=((*) :: (Double -> Double -> Double)) c_lbd (f_subscript2 a_u a_i a_j)
-         } in  
+         } in
             if (((==) :: (Int -> Int -> Bool)) a_i (0 :: Int))
             then (0.00000 :: Double)
-            else 
+            else
             if (((==) :: (Int -> Int -> Bool)) a_i c_imax1)
             then (0.00000 :: Double)
-            else 
+            else
                 (((+) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) (f_subscript2 a_u a_i a_j) r_height) (((-) :: (Double -> Double -> Double)) r_coriolis r_friction));
     f_updv::T_mat -> T_mat -> T_mat -> Int -> Int -> Double;
     f_updv a_u a_v a_h a_i a_j=
-        let { 
+        let {
             r_height=((*) :: (Double -> Double -> Double)) c_cuy (((-) :: (Double -> Double -> Double)) (f_subscript2 a_h a_i a_j) (f_subscript2 a_h a_i (((-) :: (Int -> Int -> Int)) a_j (1 :: Int))));
             r_coriolis=
-                let { 
+                let {
                     r_u1=f_subscript2 a_u a_i (((-) :: (Int -> Int -> Int)) a_j (1 :: Int));
                     r_u2=f_subscript2 a_u (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) (((-) :: (Int -> Int -> Int)) a_j (1 :: Int));
                     r_u3=f_subscript2 a_u a_i a_j;
                     r_u4=f_subscript2 a_u (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j
                  } in  ((*) :: (Double -> Double -> Double)) c_ccr (((+) :: (Double -> Double -> Double)) r_u1 (((+) :: (Double -> Double -> Double)) r_u2 (((+) :: (Double -> Double -> Double)) r_u3 r_u4)));
-            r_friction=((*) :: (Double -> Double -> Double)) c_cfr (((/) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) r_bodem c_windy) (((+) :: (Double -> Double -> Double)) (f_d a_i a_j) (f_d 
+            r_friction=((*) :: (Double -> Double -> Double)) c_cfr (((/) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) r_bodem c_windy) (((+) :: (Double -> Double -> Double)) (f_d a_i a_j) (f_d
                 (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j)));
             r_bodem=((*) :: (Double -> Double -> Double)) c_lbd (f_subscript2 a_v a_i a_j)
-         } in  
+         } in
             if (((==) :: (Int -> Int -> Bool)) a_j (0 :: Int))
             then (0.00000 :: Double)
-            else 
+            else
             if (((==) :: (Int -> Int -> Bool)) a_j c_jmax1)
             then (0.00000 :: Double)
-            else 
+            else
                 (((-) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) (f_subscript2 a_v a_i a_j) r_height) (((+) :: (Double -> Double -> Double)) r_coriolis r_friction));
     f_updh::T_mat -> T_mat -> T_mat -> Int -> Int -> Double;
     f_updh a_u a_v a_h a_i a_j=
-        let { 
-            r_d1=((*) :: (Double -> Double -> Double)) (((+) :: (Double -> Double -> Double)) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) 
+        let {
+            r_d1=((*) :: (Double -> Double -> Double)) (((+) :: (Double -> Double -> Double)) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int))
                 (((+) :: (Int -> Int -> Int)) a_j (1 :: Int)))) (f_subscript2 a_u (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j);
             r_d2=((*) :: (Double -> Double -> Double)) (((+) :: (Double -> Double -> Double)) (f_d a_i a_j) (f_d a_i (((+) :: (Int -> Int -> Int)) a_j (1 :: Int)))) (f_subscript2 a_u a_i a_j);
-            r_d3=((*) :: (Double -> Double -> Double)) (((+) :: (Double -> Double -> Double)) (f_d a_i (((+) :: (Int -> Int -> Int)) a_j (1 :: Int))) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) 
+            r_d3=((*) :: (Double -> Double -> Double)) (((+) :: (Double -> Double -> Double)) (f_d a_i (((+) :: (Int -> Int -> Int)) a_j (1 :: Int))) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int))
                 (((+) :: (Int -> Int -> Int)) a_j (1 :: Int)))) (f_subscript2 a_v a_i (((+) :: (Int -> Int -> Int)) a_j (1 :: Int)));
             r_d4=((*) :: (Double -> Double -> Double)) (((+) :: (Double -> Double -> Double)) (f_d a_i a_j) (f_d (((+) :: (Int -> Int -> Int)) a_i (1 :: Int)) a_j)) (f_subscript2 a_v a_i a_j)
-         } in  ((-) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) (f_subscript2 a_h a_i a_j) (((*) :: (Double -> Double -> Double)) c_chx (((-) :: (Double -> Double -> Double)) r_d1 r_d2))) (((*) :: (Double -> Double -> Double)) c_chy 
+         } in  ((-) :: (Double -> Double -> Double)) (((-) :: (Double -> Double -> Double)) (f_subscript2 a_h a_i a_j) (((*) :: (Double -> Double -> Double)) c_chx (((-) :: (Double -> Double -> Double)) r_d1 r_d2))) (((*) :: (Double -> Double -> Double)) c_chy
             (((-) :: (Double -> Double -> Double)) r_d3 r_d4));
     f_printall::[T_triplet] -> [Char];
     f_printall a_trips=
-        let { 
+        let {
             (r_us,r_vs,r_hs)=f_unzip3 a_trips
          } in  f_printtrip (f_join r_us,f_join r_vs,f_join r_hs);
     f_printtrip::T_triplet -> [Char];
     f_printtrip (a_u,a_v,a_h)=
-        let { 
+        let {
             r_us=f_matrix_print (f_showfix (3 :: Int)) '\o012' (f_transpose2 a_u);
             r_vs=f_matrix_print (f_showfix (3 :: Int)) '\o012' (f_transpose2 a_v);
             r_hs=f_matrix_print (f_showfix (3 :: Int)) '\o012' (f_transpose2 a_h)
-         } in  f_concat ((:) r_us ((:) ((:) '\o012' []) ((:) r_vs ((:) 
+         } in  f_concat ((:) r_us ((:) ((:) '\o012' []) ((:) r_vs ((:)
             ((:) '\o012' []) ((:) r_hs ((:) ((:) '\o012' []) []))))));
     f_showfix::Int -> Double -> [Char];
     f_showfix a_w a_x=
-        let { 
+        let {
             r_sign=
                 if (((<) :: (Double -> Double -> Bool)) a_x (0.00000 :: Double))
                 then '-'
-                else 
+                else
                     ' ';
             r_i=floor (entier (((+) :: (Double -> Double -> Double)) (0.500000 :: Double) (f_abs (((*) :: (Double -> Double -> Double)) a_x (100.000 :: Double)))));
             r_d3_c=toEnum (((+) :: (Int -> Int -> Int)) (fromEnum '0') (((rem) :: (Int -> Int -> Int)) r_i (10 :: Int)));
             r_d2_c=toEnum (((+) :: (Int -> Int -> Int)) (fromEnum '0') (((rem) :: (Int -> Int -> Int)) (((quot) :: (Int -> Int -> Int)) r_i (10 :: Int)) (10 :: Int)));
             r_d1_c=toEnum (((+) :: (Int -> Int -> Int)) (fromEnum '0') (((rem) :: (Int -> Int -> Int)) (((quot) :: (Int -> Int -> Int)) r_i (100 :: Int)) (10 :: Int)))
-         } in  
+         } in
             if (((>) :: (Int -> Int -> Bool)) r_i (999 :: Int))
             then "*****"
-            else 
+            else
                 ((:) r_sign ((:) r_d1_c ((:) '.' ((:) r_d2_c ((:) r_d3_c [])))));
     f_join::[T_mat] -> T_mat;
     f_join a_ranges=
-        let { 
+        let {
             r_arr=f_tabulate2 f_zero2 (descr (0 :: Int) c_imax) (descr (0 :: Int) c_jmax)
          } in  f_foldl f_updaterange r_arr a_ranges;
     f_zero2::Int -> Int -> Double;
@@ -269,18 +269,18 @@ type
     f_unzip3::[(t1,t2,t3)] -> ([t1],[t2],[t3]);
     f_unzip3 []=([],[],[]);
     f_unzip3 ((a_u,a_v,a_h):a_ts)=
-        let { 
+        let {
             (r_us,r_vs,r_hs)=f_unzip3 a_ts
          } in  ((:) a_u r_us,(:) a_v r_vs,(:) a_h r_hs);
-type 
+type
     T_double_matrix=T_matrix Double;
-type 
+type
     T_double_array=Array_type Double;
-type 
+type
     T_double_matrix_triple=(T_double_matrix,T_double_matrix,T_double_matrix);
-type 
+type
     T_double_array_tuple=(T_double_array,T_double_array);
-type 
+type
     T_double_matrix_triple_pair=(T_double_matrix_triple,T_double_matrix_triple);
     f_matrix_first_col a_m=f_getleftcol a_m;
     f_matrix_last_col a_m=f_getrightcol a_m;
@@ -293,7 +293,7 @@ type
     f_prog::T_double_matrix_triple -> T_double_matrix_triple -> T_double_array_tuple -> Int -> T_double_matrix_triple_pair;
     f_prog a_mfh a_mgh a_mghds 0=(a_mfh,a_mgh);
     f_prog a_mfh a_mgh a_mghds a_n=
-        let { 
+        let {
             r_mfh'=f_fvh r_mfu;
             r_mghds'=f_first_borders r_mgh';
             r_mgh'=f_gvh r_mgu r_mfulst;
@@ -314,32 +314,32 @@ type
     f_last_borders (a_u,a_v,a_h)=f_matrix_last_col a_u;
     f_fu::T_double_matrix_triple -> T_double_array_tuple -> T_double_matrix_triple;
     f_fu (a_u,a_v,a_h) (a_vc,a_hc)=
-        let { 
+        let {
             r_u1=f_matrix_tab (f_updu a_u (f_matrix_append_col a_v a_vc) (f_matrix_append_col a_h a_hc)) c_dul
          } in  (r_u1,a_v,a_h);
     f_fv::T_double_matrix_triple -> T_double_matrix_triple;
     f_fv (a_u,a_v,a_h)=
-        let { 
+        let {
             r_v1=f_matrix_tab (f_updv a_u a_v a_h) c_dvl
          } in  (a_u,r_v1,a_h);
     f_fh::T_double_matrix_triple -> T_double_matrix_triple;
     f_fh (a_u,a_v,a_h)=
-        let { 
+        let {
             r_h1=f_matrix_tab (f_updh a_u a_v a_h) c_dhl
          } in  (a_u,a_v,r_h1);
     f_gu::T_double_matrix_triple -> T_double_matrix_triple;
     f_gu (a_u,a_v,a_h)=
-        let { 
+        let {
             r_u1=f_matrix_tab (f_updu a_u a_v a_h) c_dur
          } in  (r_u1,a_v,a_h);
     f_gv::T_double_matrix_triple -> T_double_array -> T_double_matrix_triple;
     f_gv (a_u,a_v,a_h) a_uc=
-        let { 
+        let {
             r_v1=f_matrix_tab (f_updv (f_matrix_prepend_col a_u a_uc) a_v a_h) c_dvr
          } in  (a_u,r_v1,a_h);
     f_gh::T_double_matrix_triple -> T_double_array -> T_double_matrix_triple;
     f_gh (a_u,a_v,a_h) a_uc=
-        let { 
+        let {
             r_h1=f_matrix_tab (f_updh (f_matrix_prepend_col a_u a_uc) a_v a_h) c_dhr
          } in  (a_u,a_v,r_h1);
     c_k::Int;
@@ -359,19 +359,19 @@ type
     c_vr0=f_matrix_tab f_v0 c_dvr;
     c_hr0=f_matrix_tab f_h0 c_dhr;
     f_output_print::T_double_matrix_triple_pair -> [Char];
-    f_output_print ((a_lu,a_lv,a_lh),(a_ru,a_rv,a_rh))=f_concat [(++) (f_matrix_print (f_showfix (2 :: Int)) '\o012' a_m) "\n"|a_m<-(:) a_lu ((:) a_ru 
+    f_output_print ((a_lu,a_lv,a_lh),(a_ru,a_rv,a_rh))=f_concat [(++) (f_matrix_print (f_showfix (2 :: Int)) '\o012' a_m) "\n"|a_m<-(:) a_lu ((:) a_ru
         ((:) a_lv ((:) a_rv ((:) a_lh ((:) a_rh [])))))];
     f_abs::Double -> Double;
     f_abs a_x=
         if (((<=) :: (Double -> Double -> Bool)) a_x (0.00000 :: Double))
         then (((negate) :: (Double -> Double)) a_x)
-        else 
+        else
             a_x;
     f_and::[Bool] -> Bool;
     f_and a_xs=f_foldr (&&) True a_xs;
     f_cjustify::Int -> [Char] -> [Char];
     f_cjustify a_n a_s=
-        let { 
+        let {
             r_margin=((-) :: (Int -> Int -> Int)) a_n (length a_s);
             r_lmargin=((quot) :: (Int -> Int -> Int)) r_margin (2 :: Int);
             r_rmargin=((-) :: (Int -> Int -> Int)) r_margin r_lmargin
@@ -384,7 +384,7 @@ type
     f_digit a_x=
         if (((<=) :: (Int -> Int -> Bool)) (fromEnum '0') (fromEnum a_x))
         then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_x) (fromEnum '9'))
-        else 
+        else
             False;
     f_drop::Int -> [t1] -> [t1];
     f_drop 0 a_x=a_x;
@@ -395,7 +395,7 @@ type
     f_dropwhile a_f (a_a:a_x)=
         if (a_f a_a)
         then (f_dropwhile a_f a_x)
-        else 
+        else
             ((:) a_a a_x);
     c_e::Double;
     c_e=((exp) :: (Double -> Double)) (1.00000 :: Double);
@@ -404,7 +404,7 @@ type
     f_foldl::(t1 -> t2 -> t1) -> t1 -> [t2] -> t1;
     f_foldl a_op a_r []=a_r;
     f_foldl a_op a_r (a_a:a_x)=
-        let { 
+        let {
             f_strict a_f a_x=miraseq a_x (a_f a_x)
          } in  f_foldl a_op (f_strict a_op a_r a_a) a_x;
     f_foldl1::(t1 -> t1 -> t1) -> [t1] -> t1;
@@ -421,7 +421,7 @@ type
     f_id a_x=a_x;
     f_index::[t1] -> [Int];
     f_index a_x=
-        let { 
+        let {
             f_f a_n []=[];
             f_f a_n (a_a:a_x)=(:) a_n (f_f (((+) :: (Int -> Int -> Int)) a_n (1 :: Int)) a_x)
          } in  f_f (0 :: Int) a_x;
@@ -429,7 +429,7 @@ type
     f_init (a_a:a_x)=
         if (null a_x)
         then []
-        else 
+        else
             ((:) a_a (f_init a_x));
     f_iterate::(t1 -> t1) -> t1 -> [t1];
     f_iterate a_f a_x=(:) a_x (f_iterate a_f (a_f a_x));
@@ -440,9 +440,9 @@ type
     f_lay (a_a:a_x)=(++) a_a ((++) "\n" (f_lay a_x));
     f_layn::[[Char]] -> [Char];
     f_layn a_x=
-        let { 
+        let {
             f_f a_n []=[];
-            f_f a_n (a_a:a_x)=(++) (f_rjustify (4 :: Int) (strict_show_i a_n)) ((++) ") " ((++) a_a ((++) "\n" 
+            f_f a_n (a_a:a_x)=(++) (f_rjustify (4 :: Int) (strict_show_i a_n)) ((++) ") " ((++) a_a ((++) "\n"
                 (f_f (((+) :: (Int -> Int -> Int)) a_n (1 :: Int)) a_x))))
          } in  f_f (1 :: Int) a_x;
     f_letter::Char -> Bool;
@@ -450,33 +450,33 @@ type
         if (
             if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'a') (fromEnum a_c))
             then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'z'))
-            else 
+            else
                 False)
         then True
-        else 
+        else
         if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'A') (fromEnum a_c))
         then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'Z'))
-        else 
+        else
             False;
     f_limit::[Double] -> Double;
     f_limit (a_a:a_b:a_x)=
         if (((==) :: (Double -> Double -> Bool)) a_a a_b)
         then a_a
-        else 
+        else
             (f_limit ((:) a_b a_x));
     f_lines::[Char] -> [[Char]];
     f_lines []=[];
     f_lines (a_a:a_x)=
-        let { 
+        let {
             r_xs=
                 if (pair a_x)
                 then (f_lines a_x)
-                else 
+                else
                     ((:) [] [])
-         } in  
+         } in
             if (((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum '\o012'))
             then ((:) [] (f_lines a_x))
-            else 
+            else
                 ((:) ((:) a_a (head r_xs)) (tail r_xs));
     f_ljustify::Int -> [Char] -> [Char];
     f_ljustify a_n a_s=(++) a_s (f_spaces (((-) :: (Int -> Int -> Int)) a_n (length a_s)));
@@ -490,7 +490,7 @@ type
     f_max2 a_a a_b=
         if (((>=) :: (Int -> Int -> Bool)) a_a a_b)
         then a_a
-        else 
+        else
             a_b;
     f_member::[Int] -> Int -> Bool;
     f_member a_x a_a=f_or (f_map (flip ((==) :: (Int -> Int -> Bool)) a_a) a_x);
@@ -500,7 +500,7 @@ type
     f_merge (a_a:a_x) (a_b:a_y)=
         if (((<=) :: (Int -> Int -> Bool)) a_a a_b)
         then ((:) a_a (f_merge a_x ((:) a_b a_y)))
-        else 
+        else
             ((:) a_b (f_merge ((:) a_a a_x) a_y));
     f_min::[Int] -> Int;
     f_min a_xs=f_foldl1 f_min2 a_xs;
@@ -508,7 +508,7 @@ type
     f_min2 a_a a_b=
         if (((>) :: (Int -> Int -> Bool)) a_a a_b)
         then a_b
-        else 
+        else
             a_a;
     f_mkset::[Int] -> [Int];
     f_mkset []=[];
@@ -531,7 +531,7 @@ type
     f_rjustify a_n a_s=(++) (f_spaces (((-) :: (Int -> Int -> Int)) a_n (length a_s))) a_s;
     f_scan::(t1 -> t2 -> t1) -> t1 -> [t2] -> [t1];
     f_scan a_op=
-        let { 
+        let {
             f_g a_r []=(:) a_r [];
             f_g a_r (a_a:a_x)=(:) a_r (f_g (a_op a_r a_a) a_x)
          } in  f_g;
@@ -539,13 +539,13 @@ type
     f_snd (a_a,a_b)=a_b;
     f_sort::[Int] -> [Int];
     f_sort a_x=
-        let { 
+        let {
             r_n=length a_x;
             r_n2=((quot) :: (Int -> Int -> Int)) r_n (2 :: Int)
-         } in  
+         } in
             if (((<=) :: (Int -> Int -> Bool)) r_n (1 :: Int))
             then a_x
-            else 
+            else
                 (f_merge (f_sort (f_take r_n2 a_x)) (f_sort (f_drop r_n2 a_x)));
     f_spaces::Int -> [Char];
     f_spaces a_n=f_rep a_n ' ';
@@ -553,7 +553,7 @@ type
     f_subtract a_x a_y=((-) :: (Int -> Int -> Int)) a_y a_x;
     f_sum::[Int] -> Int;
     f_sum a_xs=f_foldl ((+) :: (Int -> Int -> Int)) (0 :: Int) a_xs;
-data 
+data
     T_sys_message=F_Stdout [Char] | F_Stderr [Char] | F_Tofile [Char] [Char] | F_Closefile [Char] | F_Appendfile [Char] | F_System [Char] | F_Exit Int;
     f_take::Int -> [t1] -> [t1];
     f_take 0 a_x=[];
@@ -564,22 +564,22 @@ data
     f_takewhile a_f (a_a:a_x)=
         if (a_f a_a)
         then ((:) a_a (f_takewhile a_f a_x))
-        else 
+        else
             [];
     f_transpose::[[t1]] -> [[t1]];
     f_transpose a_x=
-        let { 
+        let {
             r_x'=f_takewhile pair a_x
-         } in  
+         } in
             if (null r_x')
             then []
-            else 
+            else
                 ((:) (f_map head r_x') (f_transpose (f_map tail r_x')));
     f_until::(t1 -> Bool) -> (t1 -> t1) -> t1 -> t1;
     f_until a_f a_g a_x=
         if (a_f a_x)
         then a_x
-        else 
+        else
             (f_until a_f a_g (a_g a_x));
     f_zip2::[t1] -> [t2] -> [(t1,t2)];
     f_zip2 (a_a:a_x) (a_b:a_y)=(:) (a_a,a_b) (f_zip2 a_x a_y);

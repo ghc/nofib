@@ -19,7 +19,7 @@
  	where 	(low,high) = group a l
  group :: Ord a => a -> [a] -> ([a],[a])
  group _ [] = ([],[])
- group i (a:l) = f (group i l) 
+ group i (a:l) = f (group i l)
 		where f (low,high) | a<i = (a:low,high)
 		 		   | otherwise = (low,a:high)
  insert :: Ord a => a -> [a] -> [a]
@@ -28,7 +28,7 @@
  		     | otherwise = x:insert a xs
  replace :: Eq a => a -> [a] -> [a]
  replace a [] = []
- replace a (x:xs) | a == x = a:xs 
+ replace a (x:xs) | a == x = a:xs
  		   | otherwise = x:replace a xs
  remove :: Eq a => a -> [a] -> [a]
  remove a [] = []

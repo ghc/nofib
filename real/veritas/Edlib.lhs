@@ -18,8 +18,8 @@
 
 
 
->-- type Xin = ( String , [Response] , [Int]) 
-> type Xin = ( String , [Int] , [Int]) 
+>-- type Xin = ( String , [Response] , [Int])
+> type Xin = ( String , [Int] , [Int])
 
 > type Xout = String
 >-- type Xout = [Request]
@@ -42,7 +42,7 @@
 
 > (\\\) :: Xio -> Xio_fn -> Xio
 
-> ( xin , xout ) \\\ g 
+> ( xin , xout ) \\\ g
 >	= ( xin2 , xout ++ xout2 )
 >         where
 >	  ( xin2, xout2  ) = g xin
@@ -65,7 +65,7 @@ composition f - output fn, g - input fn with state (st)
 >	  ( xin2, st, xout2  ) = g xin'
 
 
-utility to apply a list of functions to a state 
+utility to apply a list of functions to a state
 
 > app :: [ Xin -> Xio ] -> Xin -> Xio
 
@@ -91,10 +91,10 @@ utility to apply a list of functions to a state
 
 vanilla Maybe composed with IO fn
 
-> s |.| f 
+> s |.| f
 > 	= case s of
 >		Ok t    -> f t
->		Bad err -> return_err err 
+>		Bad err -> return_err err
 
 
 
@@ -126,7 +126,7 @@ vanilla Maybe composed with IO fn
 >	= sendout x x'
 >	  where
 >	  x' = case st of
->	 	   Ok val   -> f val xin 
+>	 	   Ok val   -> f val xin
 >		   Bad mesg -> ( xin , Bad mesg , [] )
 
 
@@ -134,11 +134,11 @@ vanilla Maybe composed with IO fn
 
 as above except second argument not fully evaluated
 
-> (/./) :: (Xin -> Xst (MayBe a b)) -> ( a -> Xin -> Xst (MayBe c b)) 
+> (/./) :: (Xin -> Xst (MayBe a b)) -> ( a -> Xin -> Xst (MayBe c b))
 >					           -> Xin -> Xst (MayBe c b)
 
 > (/./) f g xin
->	= f xin /// g 
+>	= f xin /// g
 
 
 
@@ -161,11 +161,11 @@ as above except second argument not fully evaluated
 
 
 
-> (/.>/) :: (Xin -> Xst (MayBe a b)) -> ( Xin -> Xst (MayBe c b)) 
+> (/.>/) :: (Xin -> Xst (MayBe a b)) -> ( Xin -> Xst (MayBe c b))
 >					       -> Xin -> Xst (MayBe (a,c) b)
 
 > (/.>/) f g xin
->	= f xin />/ g 
+>	= f xin />/ g
 
 
 
@@ -187,24 +187,24 @@ as above except form list as state output rather than nested two tuples
 
 
 
-> (/.:>/) :: (Xin -> Xst (MayBe a b)) -> ( Xin -> Xst (MayBe [a] b)) 
+> (/.:>/) :: (Xin -> Xst (MayBe a b)) -> ( Xin -> Xst (MayBe [a] b))
 >					       -> Xin -> Xst (MayBe [a] b)
 
 > (/.:>/) f g xin
->	= f xin /:>/ g 
+>	= f xin /:>/ g
 
 
 error handler
 
 > handle f handler xin
->	= f xin `ihandle` handler 
+>	= f xin `ihandle` handler
 
-> ihandle x@( xin , st , _ ) handler 
+> ihandle x@( xin , st , _ ) handler
 >	= sendout x x'
 >	  where
 >	  x' = case st of
 >		  Ok val   -> ( xin, Ok val, [] )
->		  Bad mesg -> handler mesg xin 
+>		  Bad mesg -> handler mesg xin
 
 
 
@@ -214,7 +214,7 @@ error handler
 push non-MayBe Xio fn into valid MayBe result with unused non-xio
 result
 
-> mk_ok x_fn arg 
+> mk_ok x_fn arg
 >	= Ok ( x_fn arg )
 
 
@@ -223,7 +223,7 @@ split a list on a given element
 
 > split :: ( Eq a ) => a -> [a] -> [[a]]
 
-> split c ( a : x ) 
+> split c ( a : x )
 >	| a == c = [] : split c x
 >	| a /= c = case split c x of
 >			b : y -> ( a : b ) : y
@@ -278,14 +278,14 @@ parsing functions
 
 >{-
 
-> ( f >> g ) 
-> 	= next_tk f /./ ( next_tk . g ) 
+> ( f >> g )
+> 	= next_tk f /./ ( next_tk . g )
 
 > ( f >>> g)
 >	= next_tk f /:>/ next_tk g
 
 
-> ( f *>> g ) 
+> ( f *>> g )
 >	= f >> ( g . discard_tk )
 
 > ( f *>>> g)
@@ -295,13 +295,13 @@ parsing functions
 
 
 > ( f >>+ g )
->	= ( \ tk -> f tk /./ pst_extend ) >> g 
+>	= ( \ tk -> f tk /./ pst_extend ) >> g
 
 > ( f >>>+ g )
 >	= ( \ tk -> f tk /./ pst_extend ) >>> g
 
 > ( f *>>+ g )
->	= ( \ tk -> f tk /./ pst_extend ) *>> g 
+>	= ( \ tk -> f tk /./ pst_extend ) *>> g
 
 > ( f *>>>+ g )
 >	= ( \ tk -> f tk /./ pst_extend ) *>>> g
@@ -326,7 +326,7 @@ parsing functions
 
 
 
-> next_tk f ( tk : tkL, pst, xin ) 
+> next_tk f ( tk : tkL, pst, xin )
 >	= f tk ( tkL, pst, xin )
 
 > next_tk _ st@( [] , _ , _ )
@@ -358,7 +358,7 @@ parsing functions
 
 > pst_extend resL st
 >	= pst_extend' resL st ./.
->	  return resL 
+>	  return resL
 
 
 
@@ -366,11 +366,11 @@ parsing functions
 > pst_extend' ( Opnd ( Idec idc ) : _ ) ( tkL, ( tgL, isg ), xin )
 >	= ( tkL, ( tgL, Extend idc isg [] ), xin )
 
-> pst_extend' ( _ : resL ) 
->	= pst_extend' resL 
+> pst_extend' ( _ : resL )
+>	= pst_extend' resL
 
-> pst_extend' [] 
->	= return_err "No dc with which to extend sg" 
+> pst_extend' []
+>	= return_err "No dc with which to extend sg"
 
 
 

@@ -2,10 +2,10 @@
    This module implements a sort function using a variation on
    quicksort.  It is stable, uses no concatenation and compares
    only with <=.
-  
+
    sortLe sorts with a given predicate
    sort   uses the <= method
-  
+
    Author: Lennart Augustsson
 -}
 

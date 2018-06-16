@@ -7,7 +7,7 @@
 > infixr 8 +.+ , +.. , ..+
 > infixl 7 <<< , <<*
 > infixr 6 |||
-> 
+>
 > (+.+) = thn
 > (..+) = xthn
 > (+..) = thnx
@@ -44,7 +44,7 @@
   Regexp	= Factor / "\\|" ["$"].
 -}
 
-> data NFANode 
+> data NFANode
 >      	= NFAChar Char NFANode
 > 	| NFAAny  NFANode
 >	| NFAEps  [NFANode]
@@ -70,17 +70,17 @@ NFATable charTrans anyTrans endTrans final
 > nfaEnd  = NFAEnd
 > nfaFinal= NFAFinal
 
-just wrappers for the NFANode constructors, 
+just wrappers for the NFANode constructors,
 modified such that epsilon transitions are compressed into tables
 
-> mkTable pairs anys ends final []      = NFATable pairs anys ends final 
+> mkTable pairs anys ends final []      = NFATable pairs anys ends final
 > mkTable pairs anys ends final (NFAChar c n:ns) = mkTable ((c,n):pairs) anys ends final ns
 > mkTable pairs anys ends final (NFAAny n:ns) = mkTable pairs (n:anys) ends final ns
 > mkTable pairs anys ends final (NFATable pairs' anys' ends' final':ns) = mkTable (pairs'++pairs) (anys'++anys) (ends'++ends) (final' || final) ns
 > mkTable pairs anys ends final (NFAEnd n:ns) = mkTable pairs anys (n:ends) final ns
 > mkTable pairs anys ends final (NFAFinal:ns) = mkTable pairs anys ends True ns
 > mkTable _ _ _ _ _ = error "illegal argument to mkTable"
-> 
+>
 > type NFAproducer = NFANode -> NFANode
 
 An NFAproducer takes a final state and produces the initial state of a
@@ -109,7 +109,7 @@ non-deterministic automaton.
 >      where
 >        helper (ea, []) = ea
 >        helper (ea, [f]) = f ea
-> 
+>
 > nnFactor :: Parser Char NFAproducer
 > nnFactor =
 >      plus nnExtAtom	<<< foldr (.) id
@@ -124,7 +124,7 @@ non-deterministic automaton.
 >	 combine f1 f2 final = nfaEps [f1 final, f2 final]
 
 Step function for the NFA interpreter.
-Note if epsilon compression is removed above, all {- epsClosure -} must 
+Note if epsilon compression is removed above, all {- epsClosure -} must
 be uncommented!
 
 > nfaStep states c = {- epsClosure -} (concat (map step states))

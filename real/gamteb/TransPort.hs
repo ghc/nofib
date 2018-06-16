@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -46,9 +46,9 @@ transPort p prob =
 noCollision :: Particle -> Probability -> Int -> ([Result], [Stat])
 noCollision p@(Part pos dir w e eIndx cell seed) prob surf =
 	case surf of
-	    1 -> ([(scatter, eIndx)=:w], [ns=:1]) 
-	    2 -> ([(escape, eIndx)=:w], [ne=:1]) 
-	    4 -> ([(transit, eIndx)=:w], [nt=:1]) 
+	    1 -> ([(scatter, eIndx)=:w], [ns=:1])
+	    2 -> ([(escape, eIndx)=:w], [ne=:1])
+	    4 -> ([(transit, eIndx)=:w], [nt=:1])
 	    3 -> -- cross internal surface
 		 -- particle will split, die in russian roulette, or continue
 		 -- cell = [1..] causes roulet or split to alternate
@@ -75,7 +75,7 @@ noCollision p@(Part pos dir w e eIndx cell seed) prob surf =
 
 collision :: Particle -> Probability -> Bool -> ([Result], [Stat])
 collision p prob doCompton =
-	if (wgtKill) 
+	if (wgtKill)
 	  then ([], [nwk=:1])
 	  else
 	    if (doCompton)
@@ -90,7 +90,7 @@ collision p prob doCompton =
 	    	(let
 		    (p'', prob', pairCut) = pair p'
 		 in
-		 if (pairCut) 
+		 if (pairCut)
 		    then ([], [nek=:1])
 		    else transPort p'' prob')
 	where
@@ -102,7 +102,7 @@ collision p prob doCompton =
 -- translate a particle position
 
 transPos :: Point -> Point -> Value -> Point
-transPos (x,y,z) (u,v,w) dist = 
+transPos (x,y,z) (u,v,w) dist =
 	(x',y',z')
 	where
 	    x' = x + u*dist

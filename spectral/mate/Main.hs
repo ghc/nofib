@@ -12,7 +12,7 @@ mateInN file
 	 putStrLn ("File: " ++ file) ;
 	 input <- readFile file ;
 	 let {	(bd, (c,n)) = readProblem input ;
-		result      = showBoard bd ++ 
+		result      = showBoard bd ++
 				"\n" ++
 				show c ++ " to move and mate in " ++ show n ++ "\n" ++
 				"\n" ++
@@ -20,4 +20,4 @@ mateInN file
 		
 	 } ;
 	 putStr result  }
-        
+

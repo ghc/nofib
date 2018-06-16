@@ -12,12 +12,12 @@ import System.Environment (getArgs)
 import Control.Parallel
 
 main = do args <- getArgs
-          let 
+          let
             n = read (args!!0)  -- size of the interval
             t = read (args!!1)  -- threshold
             res = pfact n t
-          putStrLn ("pfact " ++ (show n) ++ " " ++ (show t) ++ " = " ++ (show res)) {- ++ 
-                    "\nResult is " ++ 
+          putStrLn ("pfact " ++ (show n) ++ " " ++ (show t) ++ " = " ++ (show res)) {- ++
+                    "\nResult is " ++
                     (if (sum [1..n] == res) then "ok"  else "NOT OK"))-}
 
 -- ASSERT: pfact n _ == sum [1..n]
@@ -30,5 +30,5 @@ pfact' m n t | (n-m) <= t = sum [m..n]             -- seq version below t
              | otherwise  = left `par` right `seq` -- par d&c version
                             (left + right)
                             where mid = (m + n) `div` 2
-                                  left = pfact' m mid t 
+                                  left = pfact' m mid t
                                   right = pfact' (mid+1) n t

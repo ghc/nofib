@@ -128,7 +128,7 @@ ppHang p1 n p2 width is_vert  -- This is a little bit stricter than it could
 			      -- Eg the output always starts with seq1
  = if emp1 then
       p2 width is_vert
-   else 
+   else
    if (ll1 <= n) `orL` sl2 then       -- very ppBesideSP'ish
       -- Hang it if p1 shorter than indent or if it doesn't fit
       MkPrettyRep (seq1 `cAppend` (cCh ' ') `cAppend` (cIndent (ll1+1) seq2))

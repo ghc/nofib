@@ -48,15 +48,15 @@ in_poly_range (p,q,r) Vs
    where Vs is a list of the vertices of a Polygon,
    tests whether the point (p,q,r) lies within the 'range' of the polygon.
    This means p must be less than the largest x component within Vs
-   and greater than the smallest.  Similarly for q and r. 
+   and greater than the smallest.  Similarly for q and r.
    The fn returns a 6-tuple of bools: (xbig,xsmall,ybig,ysmall,zbig,zsmall)
    where xbig is true if p is greater than all polygon x components
-         xsmall is true if p is smaller than all polygon x components 
-         etc 
+         xsmall is true if p is smaller than all polygon x components
+         etc
 
 > in_poly_range :: Coord -> [Vector] -> (Bool,Bool,Bool,Bool,Bool,Bool)
 > in_poly_range (p,q,r) [] = (True,True,True,True,True,True)
-> in_poly_range (p,q,r) ((u,v,w):vs) = 
+> in_poly_range (p,q,r) ((u,v,w):vs) =
 >	        (xbig && p>u+jot,xsmall && p<u-jot,
 >		 ybig && q>v+jot,ysmall && q<v-jot,
 >		 zbig && r>w+jot,zsmall && r<w-jot)
@@ -65,7 +65,7 @@ in_poly_range (p,q,r) Vs
 
  cross_dot_sign (a,b,c) (d,e,f) (A,B,C)
    returns ~1 or 1 according to the sign of the dot product of
-   (P,Q,R) & (A,B,C) where (P,Q,R) is the cross product of (a,b,c) & (d,e,f) 
+   (P,Q,R) & (A,B,C) where (P,Q,R) is the cross product of (a,b,c) & (d,e,f)
    (A,B,C) is the normal to a polygon so this test returns 1 if
    the cross product point 'up' from the polygon and ~1 if it points 'down'
 
@@ -78,7 +78,7 @@ in_poly_range (p,q,r) Vs
 >           	cd = p*a'+q*b'+r*c'
 
 
-really_in_poly (p,q,r) (A,B,C) Vs 
+really_in_poly (p,q,r) (A,B,C) Vs
    tests is point (p,q,r) is inside the polygon with normal (A,B,C)
    and vertices Vs
    test that cross_dot_sign returns the same sign for all edges *)
@@ -86,7 +86,7 @@ really_in_poly (p,q,r) (A,B,C) Vs
 > really_in_poly :: Vector -> Vector -> [Coord] -> (Bool,Int)
 > really_in_poly (p,q,r) (a,b,c) [(x1,y1,z1),(x2,y2,z2)] =
 >	(True,cross_dot_sign (x2-p,y2-q,z2-r) (x2-x1,y2-y1,z2-z1) (a,b,c))
-> really_in_poly (p,q,r) (a,b,c) ((x1,y1,z1):(x2,y2,z2):vs) 
+> really_in_poly (p,q,r) (a,b,c) ((x1,y1,z1):(x2,y2,z2):vs)
 >	| in_poly =   if s1 == s then (True,s1) else (False,0)
 >	| otherwise = is
 >	where is@(in_poly,s) = really_in_poly (p,q,r) (a,b,c) ((x2,y2,z2):vs)
@@ -138,7 +138,7 @@ in_poly_test (p,q,r) (A,B,C) Vs
 > 	where earliest = insert earlier NoImpact
 
 > findImpacts :: [Ray] -> [Object] -> [Impact]
-> findImpacts rays objects  = parallel $      
+> findImpacts rays objects  = parallel $
 >                               map (firstImpact objects) rays
 >  where
 #ifdef STRATEGIES_2
@@ -175,7 +175,7 @@ in_poly_test (p,q,r) (A,B,C) Vs
 >					| otherwise = ps : ray_points (i+1,j) detail (p,q,r) vx vy
 >	where ivx = vmult (fromIntegral i/fromIntegral (detail-1)) vx
 > 	      jvy = vmult (fromIntegral j/fromIntegral (detail-1)) vy
->	      ps =  vadd (vadd (p,q,r) ivx) jvy 
+>	      ps =  vadd (vadd (p,q,r) ivx) jvy
 
 > generateRays det x y z =
 > 	map (\ (x',y',z') -> ((x,y,z),(x'-x,y'-y,z'-z))) rps
@@ -225,7 +225,7 @@ in_poly_test (p,q,r) (A,B,C) Vs
            /       \
          y          x
 
-> 
+>
 > sc = [
 >       Polygon 1 (1.0,0.0,0.0) [(1.0,0.0,-0.5), (1.0,0.0,0.5),   (1.0,-1.0,0.5), (1.0,-1.0,-0.5), (1.0,0.0,-0.5)],
 >       Polygon 2 (0.0,0.0,1.0) [(1.0,0.0,0.5),  (0.0,0.0,0.5),   (0.0,-1.0,0.5), (1.0,-1.0,0.5),  (1.0,0.0,0.5)],

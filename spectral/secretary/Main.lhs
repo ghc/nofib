@@ -1,4 +1,4 @@
-From: Koen Claessen [mailto:koen@cs.chalmers.se] 
+From: Koen Claessen [mailto:koen@cs.chalmers.se]
 Sent: Wednesday, January 27, 1999 3:05 PM
 To: glasgow-haskell-bugs-outgoing@dcs.gla.ac.uk
 Subject: Possible bug

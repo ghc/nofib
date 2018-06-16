@@ -18,17 +18,17 @@ import Data.Char(isAlpha,isDigit)
 
 -- ==========================================================--
 --
-paLex :: Int -> 
-         [Char] -> 
+paLex :: Int ->
+         [Char] ->
          [Token]
 
-paLex n (':':':':'=':cs) 
+paLex n (':':':':'=':cs)
    = (n,"::="):paLex n cs
 
-paLex n (c1:c2:cs) 
+paLex n (c1:c2:cs)
      | [c1,c2] `elem` ["==", ">=", "<=", "->", ";;"] = (n, [c1,c2]):paLex n cs
 
-paLex n ('{':cs) 
+paLex n ('{':cs)
    = lexcomment n cs
      where
         lexcomment n [] = paLex n []
@@ -36,26 +36,26 @@ paLex n ('{':cs)
         lexcomment n ('\n':ds) = lexcomment (n+1) ds
         lexcomment n (e:es) = lexcomment n es
 
-paLex n ('\n':cs) 
+paLex n ('\n':cs)
    = paLex (n+1) cs
 
-paLex n (c:cs) 
+paLex n (c:cs)
    | c `elem` " \t" = paLex n cs
 
-paLex n (c:cs) 
+paLex n (c:cs)
      | isDigit c = (n, num_token): paLex n rest_cs
      where
         num_token = c:takeWhile isDigit cs
         rest_cs = dropWhile isDigit cs
 
-paLex n (c:cs) 
+paLex n (c:cs)
      | isAlpha c = (n, var_tok):paLex n rest_cs
      where
         var_tok = c:takeWhile isIdChar cs
         rest_cs = dropWhile isIdChar cs
         isIdChar c = isAlpha c || isDigit c || (c == '_')
 
-paLex n (c:cs) 
+paLex n (c:cs)
    = (n, [c]):paLex n cs
 
 paLex n [] = [(999999, "$$$")]
@@ -80,7 +80,7 @@ paGetRest (PFail rest) = rest
 
 -- ==========================================================--
 --
-paLit :: [Char] -> 
+paLit :: [Char] ->
          Parser [Char]
 
 paLit lit []                          = PFail []
@@ -110,10 +110,10 @@ paThen2 :: (a -> b -> c) ->
 paThen2 combine p1 p2 toks
    = let p1parse = p1 toks
          p2parse = p2 (paGetRest p1parse)
-     in  
+     in
              if paFailed p1parse then PFail (paGetRest p1parse)
         else if paFailed p2parse then PFail (paGetRest p2parse)
-        else POk (combine (paGetItem p1parse) (paGetItem p2parse)) 
+        else POk (combine (paGetItem p1parse) (paGetItem p2parse))
                  (paGetRest p2parse)
 
 
@@ -129,11 +129,11 @@ paThen3 combine p1 p2 p3 toks
    = let p1parse = p1 toks
          p2parse = p2 (paGetRest p1parse)
          p3parse = p3 (paGetRest p2parse)
-     in  
+     in
              if paFailed p1parse then PFail (paGetRest p1parse)
         else if paFailed p2parse then PFail (paGetRest p2parse)
         else if paFailed p3parse then PFail (paGetRest p3parse)
-        else POk (combine (paGetItem p1parse) (paGetItem p2parse) 
+        else POk (combine (paGetItem p1parse) (paGetItem p2parse)
                           (paGetItem p3parse))
                 (paGetRest p3parse)
 
@@ -152,12 +152,12 @@ paThen4 combine p1 p2 p3 p4 toks
          p2parse = p2 (paGetRest p1parse)
          p3parse = p3 (paGetRest p2parse)
          p4parse = p4 (paGetRest p3parse)
-     in  
+     in
              if paFailed p1parse then PFail (paGetRest p1parse)
         else if paFailed p2parse then PFail (paGetRest p2parse)
         else if paFailed p3parse then PFail (paGetRest p3parse)
         else if paFailed p4parse then PFail (paGetRest p4parse)
-        else POk (combine (paGetItem p1parse) (paGetItem p2parse) 
+        else POk (combine (paGetItem p1parse) (paGetItem p2parse)
                          (paGetItem p3parse) (paGetItem p4parse))
                 (paGetRest p4parse)
 
@@ -187,8 +187,8 @@ paOneOrMore p
 
 -- ==========================================================--
 --
-paOneOrMoreWithSep :: Parser a -> 
-                      Parser b -> 
+paOneOrMoreWithSep :: Parser a ->
+                      Parser b ->
                       Parser [a]
 
 paOneOrMoreWithSep p psep toks
@@ -207,14 +207,14 @@ paOneOrMoreWithSep p psep toks
 
 -- ==========================================================--
 --
-paApply :: Parser a -> 
-           (a -> b) -> 
+paApply :: Parser a ->
+           (a -> b) ->
            Parser b
 
 paApply p f toks
    = let pParse = p toks
-     in  
-        if      paFailed pParse 
+     in
+        if      paFailed pParse
         then    PFail (paGetRest pParse)
         else    POk (f (paGetItem pParse)) (paGetRest pParse)
 
@@ -242,7 +242,7 @@ paEmpty v toks = POk v toks
 -- ====================================--
 
 -- ================================================--
-paSyntax 
+paSyntax
    = get_parse . paProgram
      where
         get_parse (PFail [])
@@ -272,8 +272,8 @@ paIsName s = isAlpha (head s) &&  not (s `elem` paKeywords)
 paCname = paSat paIsCname
 
 -- ================================================--
-paIsCname s = ('A'<=(head s)) && 
-              ((head s)<='Z') && 
+paIsCname s = ('A'<=(head s)) &&
+              ((head s)<='Z') &&
               not (s `elem` paKeywords)
 
 -- ================================================--
@@ -293,7 +293,7 @@ paNum = paSat paIsNum `paApply` paNumval
 
 -- ================================================--
 paNumval :: [Char] -> Int
-paNumval cs 
+paNumval cs
    = sum (powers 1 (map (\d -> fromEnum d - 48) (reverse cs)))
      where
         powers n [] = []
@@ -314,7 +314,7 @@ paTypeDefList = paZeroOrMore (paThen2 f paTypeDef (paLit ";"))
                 where f a b = a
 
 -- ================================================--
-paTypeDef 
+paTypeDef
    = paThen4 f paName (paZeroOrMore paName) (paLit "::=") paConstrAlts
      where f a b c d = (a,b,d)
 
@@ -472,10 +472,10 @@ paAssembleOp e1 (FoundOp op e2) = EAp (EAp (EVar op) e1) e2
 
 -- ==========================================================--
 --
-paProgramToAtomic :: CoreProgram -> 
+paProgramToAtomic :: CoreProgram ->
                      AtomicProgram
 
-paProgramToAtomic (tds, scdefs) 
+paProgramToAtomic (tds, scdefs)
    = (tds, ce)
      where
         ce = ELet True
@@ -517,8 +517,8 @@ paValidTypeDefs tds rda
                       tvsIn (TDefVar n) = [n]
                       tvsIn (TDefCons n tel) = concat (map tvsIn tel)
                       g tDefExprList = concat (map tvsIn tDefExprList)
-                      isBalanced (tname, tvs, cal) 
-                         = (utSetFromList tvs) == 
+                      isBalanced (tname, tvs, cal)
+                         = (utSetFromList tvs) ==
                            (utSetFromList (concat (map (g.second) cal)))
         allDefined = utSetSubsetOf
                         (utSetFromList (concat (map mdFreeTVarsIn tds)))
@@ -528,31 +528,31 @@ paValidTypeDefs tds rda
                         f (tname, tvs, cal) = and (map (g.second) cal)
                         g tDefExprList = and (map rArity tDefExprList)
                         rArity (TDefVar v) = True
-                        rArity (TDefCons n tel) 
-                           = (length tel == utSureLookup arityMap "paVTD`rA`rA" n) && 
+                        rArity (TDefCons n tel)
+                           = (length tel == utSureLookup arityMap "paVTD`rA`rA" n) &&
                              (and (map rArity tel))
         allSimple = and (map f tds)
                     where
-                       f (tname, tvs, cal) = 
+                       f (tname, tvs, cal) =
                           utSetSubsetOf (utSetFromList (allVars cal))
                                         (utSetFromList (tvs++(groupOf tname rda)))
                        allVars cal = concat (map g cal)
                        g (n, tel) = concat (map allTVs tel)
                        allTVs (TDefVar n) = [n]
                        allTVs (TDefCons n tel) = n:concat (map allTVs tel)
-                       groupOf tname ((rf, group):rest) 
+                       groupOf tname ((rf, group):rest)
                            | tname `elem` group &&  rf    = group
-                           | tname `elem` group && not rf = []                
+                           | tname `elem` group && not rf = []
                            | otherwise                    = groupOf tname rest
 
-            
+
 -- ==========================================================--
 --
 paParse :: [Char] -> (TypeDependancy, AtomicProgram)
 
 paParse fileContents
-   = if typeDefErrors == "" 
-        then (dependResult, (typeDefs, mainExpr)) 
+   = if typeDefErrors == ""
+        then (dependResult, (typeDefs, mainExpr))
         else myFail typeDefErrors
      where
         (typeDefs, mainExpr) = paProgramToAtomic parsedProgram

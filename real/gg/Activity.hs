@@ -7,14 +7,14 @@ import Graph
 import Parse
 
 
-activityGraph ordering selectpes statFile = 
+activityGraph ordering selectpes statFile =
 				--show (pes,ticks) ++
 				--show "DEBUG " ++ show (aggs) ++
 			  	initGraph "Processor Activity Graph"
-				 (pes,selectpes) (ticks*100,100) ("Time (ms)","% Activity") 
+				 (pes,selectpes) (ticks*100,100) ("Time (ms)","% Activity")
 						(map f ordering)
 				
-				++ scale (my_fromInt dimX/my_fromInt 100) 
+				++ scale (my_fromInt dimX/my_fromInt 100)
 						(my_fromInt dimY/my_fromInt (maxticks))
 				++ concat (map2 plotCurve (map colour order)
 						  (outlinesTrace traces))
@@ -31,7 +31,7 @@ activityGraph ordering selectpes statFile =
 	stats = parseFile statFile
 
 processAct :: [Activities->Int] -> State -> Activities -> (Trace,State)
-processAct extractors (i,r,g,f,t) a@(Act n i' r' g' f' t') 
+processAct extractors (i,r,g,f,t) a@(Act n i' r' g' f' t')
                         = (trace, (i'+i,r'+r,g'+g,f'+f,t+t'))
 		where
 		trace@(T _ (m:_)) = makeTrace extractors n a
@@ -50,24 +50,24 @@ data Trace = T Int [Int]
 outlinesTrace :: [Trace] -> [[Point]]
 outlinesTrace [T n a] = map (\x->[Pt n x]) a
 outlinesTrace (T n a:more) = map2 (:) (map (\x->Pt n x) a) (outlinesTrace more)
- 
+
 aggr IDLE (i,_,_,_,t) = printFloat (percentage i t) ++ "%"
 aggr REDN (_,r,_,_,t) = printFloat (percentage r t) ++ "%"
 aggr GC  (_,_,g,_,t) = printFloat (percentage g t) ++ "%"
 aggr FLUSH (_,_,_,f,t) = printFloat (percentage f t) ++ "%"
 
 percentage x y = my_fromInt x * 100 / my_fromInt y
- 
+
 gatherAct :: Activities -> [Activities] -> [Activities]
 gatherAct t [] = [t,(Act (numberAct t+1) 0 0 0 0 0)]
 gatherAct t l@(a:as) | numberAct t==numberAct a = gatherAct (addAct t a) as
                      | otherwise = t:gatherAct (Act (n+1) 0 0 0 0 0) l
 					where 	n=numberAct t
- 
+
 
 pam [] _ = []
 pam (f:fs) a = f a:pam fs a
- 
+
 
 data Activity = REDN | IDLE | FLUSH | GC deriving (Eq)
 

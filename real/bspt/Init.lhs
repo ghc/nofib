@@ -1,4 +1,4 @@
-> module Init 
+> module Init
 	
 	Module to deal with the screen and mouse initialisation.
 	Also contains function to control active screen regions.
@@ -39,14 +39,14 @@
 			  switches the off,
 			  sets the textscreen to be the whole window,
 			  clear the textscreen.
-			  It then gets drawscreen to set up the 
+			  It then gets drawscreen to set up the
 			  Geometric modeller interface screen.
 			  Finally it switches to the 'notext' region.
-			  
+			
 > initialiseScreen :: String
 > initialiseScreen =  	seQuence [	setMode 7,
->					setCursor 5, 
->					textReset, 
+>					setCursor 5,
+>					textReset,
 >					clear,
 > 					drawScreen,
 > 					toNoTextRegion]
@@ -58,7 +58,7 @@
 				The Rendering Window
 				The Tree Form Window
 				The Mouse State/Text window.
-			It thens intiates the drawing of the buttons on the 
+			It thens intiates the drawing of the buttons on the
 			Button Pad and the Mouse State diagram.
 
 > drawScreen :: String
@@ -71,13 +71,13 @@
 	drawMouse: Draws the Mouse State diagram. This is a Box labelled
 			"Mouse" with three interior boxes representing
 			the mouses button. The left is permanently
-			marked "SYSTEM RESERVED" since the MGR window 
+			marked "SYSTEM RESERVED" since the MGR window
 			manager reserves this button for MGR operations.
 			The remaining button are labelled for the initial
 			state.	
 
 > drawMouse :: String
-> drawMouse = seQuence [	movePrintTo mouseCaptionAcross mouseCaptionDown "Mouse", 
+> drawMouse = seQuence [	movePrintTo mouseCaptionAcross mouseCaptionDown "Mouse",
 > 		    		drawBox mouseBox,
 > 				drawBox button1Box,
 > 				drawBox button2Box,
@@ -86,7 +86,7 @@
 > 		    		labelButtons ("BUTTON   ","DISABLED ") ("SELECT   ","OPERATION")]
 
 
-	labelButtons: Takes two pairs of strings and labels the 
+	labelButtons: Takes two pairs of strings and labels the
 			middle and right button boxes on the mouse state
 			diagram respectively.
 
@@ -171,7 +171,7 @@
 
 
 	mark: Takes a button indicated by its position on the pad
-		and wipes of the remaining button labels. Thus 
+		and wipes of the remaining button labels. Thus
 		indicates the button selected.
 	
 > mark :: Command -> String
@@ -182,11 +182,11 @@
 	noMark: Restores the buttons after an operation has taken place
 
 > noMark :: Command -> String
-> noMark cmd = seQuence [	toScreenRegion, 
->			mapcatButton title cmd buttons, 
+> noMark cmd = seQuence [	toScreenRegion,
+>			mapcatButton title cmd buttons,
 >			toNoTextRegion]
 > 		where 	
-> 		title (_,d,str) = movePrintTo textIn (d+textDown) str 
+> 		title (_,d,str) = movePrintTo textIn (d+textDown) str
 
 
 	mapcatButton : applies a function f to each button except the one
@@ -195,7 +195,7 @@
 
 > mapcatButton :: (Button->String) -> Command -> [Button] -> String
 > mapcatButton f cmd [] = []
-> mapcatButton f cmd (butt@(cmd',_,_):butts) 
+> mapcatButton f cmd (butt@(cmd',_,_):butts)
 >				| cmd==cmd' = mapcat f butts
 >		 		| otherwise = f butt ++ mapcatButton f cmd butts
 
@@ -212,7 +212,7 @@
 
 
 	reset: Disclaims control of the window when GMS is Quit.
-		Cursor returned to normal and text region 
+		Cursor returned to normal and text region
 		returned to full screen.
 
 > reset :: String
@@ -221,11 +221,11 @@
         indicate : Unlabels all button but the one selected,
                         evaluates the string given
                  and labels the buttons again.
- 
+
 > indicate :: Command -> [String] -> String
 > indicate Null _ = ""
 > indicate cmd str = mark cmd ++ seQuence str ++ noMark cmd
- 
+
 
         unlabelButtons, labelDefinePoly, labelClassify:
                 Shorthand definitions for labelling actions.
@@ -238,5 +238,5 @@
 
 > labelClassify = labelButtons ("FINISH   ","CLASSIFY ")
 >                               ("CLASSIFY ","POINT    ")
- 
+
 

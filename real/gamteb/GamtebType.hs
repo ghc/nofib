@@ -1,10 +1,10 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --	GAMTEB: Monte Carlo
 --      1990 August
 --
-module GamtebType (Angle, Coord, Energy, Indx, PartType, Prob, 
+module GamtebType (Angle, Coord, Energy, Indx, PartType, Prob,
 		 Random, StatType, Weight, Value, Result, Stat,
 		 Point, Particle(..), Probability) where
 
@@ -23,7 +23,7 @@ type	Stat		= (StatType, Value)
 type	Point		= (Coord, Coord, Coord)
 type	Probability	= (Prob, Prob, Prob, Prob)
 
-data Particle = 
+data Particle =
 	Part
 	Point			-- position of particle
 	Point			-- direction particle is moving in

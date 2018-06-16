@@ -23,8 +23,8 @@ process s =
 	putStr a
         where
 		a  = source_data db ++
-		     uvwresult db uvwres ++ 
-		     forceresult db frc     
+		     uvwresult db uvwres ++
+		     forceresult db frc
 		db = (idatabase s, rdatabase s)
 		uvwres = uvw db
 		frc    = forces db uvwres

@@ -1,4 +1,4 @@
- 
+
 -- ==========================================================--
 -- === Miscellaneous operations in the Abstract value     ===--
 -- === world.                             AbstractMisc.hs ===--
@@ -63,7 +63,7 @@ amAllDownSlices d
 --
 amAllRoutes :: Domain -> [Route]
 
-amAllRoutes Two 
+amAllRoutes Two
    = [Zero, One]
 
 amAllRoutes (Lift1 dss)
@@ -80,10 +80,10 @@ amAllRoutes (Func dss dt)
 --
 amUpCloseOfMinf :: Domain -> [Route] -> [Route]
 
-amUpCloseOfMinf d [] 
+amUpCloseOfMinf d []
    = []
-amUpCloseOfMinf d q@(x:_) 
-   = x : (amUpCloseOfMinf d 
+amUpCloseOfMinf d q@(x:_)
+   = x : (amUpCloseOfMinf d
             (avMinR [ y \/ z | y <- q, z <- spSuccsR d x ]))
 
 
@@ -91,9 +91,9 @@ amUpCloseOfMinf d q@(x:_)
 --
 amDownCloseOfMaxf :: Domain -> [Route] -> [Route]
 
-amDownCloseOfMaxf d [] 
+amDownCloseOfMaxf d []
    = []
-amDownCloseOfMaxf d q@(x:_) 
+amDownCloseOfMaxf d q@(x:_)
    = x : (amDownCloseOfMaxf d
             (avMaxR [ y /\ z | y <- q, z <- spPredsR d x ]))
 
@@ -111,10 +111,10 @@ amAllRoutesMinusTopJONES d
 --amAllRoutesMinusTopMINE :: Domain -> [Route]
 --
 --amAllRoutesMinusTopMINE d
---   = let sliceJustBelowTop 
+--   = let sliceJustBelowTop
 --            = spPredsR d (avTopR d)
 --         allSlices
---            = takeWhile (not.null) 
+--            = takeWhile (not.null)
 --                        (iterate (amPushDownFF d) sliceJustBelowTop)
 --     in
 --         concat allSlices
@@ -125,8 +125,8 @@ amAllRoutesMinusTopJONES d
 amEqualPoints :: Point -> Point -> Bool
 
 amEqualPoints (d1, r1) (d2, r2)
-   = if     d1 == d2 
-     then   r1 == r2 
+   = if     d1 == d2
+     then   r1 == r2
      else   panic "Comparing points in different domains."
 
 
@@ -134,7 +134,7 @@ amEqualPoints (d1, r1) (d2, r2)
 --
 amIsaHOF :: Domain -> Bool
 
-amIsaHOF (Func dss dt) 
+amIsaHOF (Func dss dt)
    = amContainsFunctionSpace dt ||
      myAny amContainsFunctionSpace dss
 
@@ -169,7 +169,7 @@ amRepArity (Rep2 (Min1Max0 lf_ar lf_f1 lf_f0) mf hfs)   = lf_ar
 --
 amStrongNormalise :: Domain -> Domain
 
-amStrongNormalise Two 
+amStrongNormalise Two
    = Two
 
 amStrongNormalise (Lift1 ds)
@@ -181,7 +181,7 @@ amStrongNormalise (Lift2 ds)
 amStrongNormalise (Func dss (Func dss2 dt))
    = amStrongNormalise (Func (dss++dss2) dt)
 
-amStrongNormalise (Func dss non_func_res) 
+amStrongNormalise (Func dss non_func_res)
    = Func (map amStrongNormalise dss) (amStrongNormalise non_func_res)
 
 
@@ -189,7 +189,7 @@ amStrongNormalise (Func dss non_func_res)
 --
 amMeetIRoutes :: Domain -> [Route]
 
-amMeetIRoutes Two 
+amMeetIRoutes Two
    = [Zero]
 amMeetIRoutes (Lift1 ds)
    = Stop1 :

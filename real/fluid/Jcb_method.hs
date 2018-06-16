@@ -54,7 +54,7 @@ jcb_method f_step el_det_fac asb_table v_steer
 	sub_jacobi old_x n = -- X(r) iteration_counter
 		if
 			-- checking the iteration limit
-			( n <= 1 ) || 
+			( n <= 1 ) ||
 			-- checking the tolerance
 			(
 				(n /= max_iter) &&
@@ -102,7 +102,7 @@ jcb_method f_step el_det_fac asb_table v_steer
 		--		relax*(B - MX(r))/D
 		find_diff fixed x b = -- list_of_unfixed_nodes X(r) B
 			s_def_listArray n_bnds (0::Frac_type)
-			[ 
+			[
 				if fixed!^i
 				then 0
 				else
@@ -113,7 +113,7 @@ jcb_method f_step el_det_fac asb_table v_steer
 						else
 							b' -
 							sum [
-								(list_inner_prod 
+								(list_inner_prod
 								(get_val x (v_steer!^e))
 								(map (mult (fst (el_det_fac!^e))) (m_mat!^id)))
 								| (e,id)<-asb_table!^i

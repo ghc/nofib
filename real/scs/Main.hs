@@ -14,7 +14,7 @@ main = do
 	  then putStr (unlines ["Set Circuit Simulator", "scs <file> <seed> <dt> <end time> [<temperature>] [<random background charge>]"])
 	  else do
 	  	let [file, seed', dt', end_time', temperature', rbc'] = take 6 (args ++ ["0", "0"])
-	        
+	
   		input <- readFile (file ++ ".in")
 		let
 			(circuit, names)		= get (parse_circuit input       )  "Syntactic error in circuit description"

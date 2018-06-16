@@ -40,8 +40,8 @@ showMove :: Move -> String
 showMove (b,e) = show e ++ "\n" ++ showBoard b
 
 bestMove :: Int -> Piece -> Player -> Player -> Board -> Evaluation
-bestMove depth p f g 
-  = parMise 2 f g 
+bestMove depth p f g
+  = parMise 2 f g
   . cropTree
   . mapTree static
   . prune depth

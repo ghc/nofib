@@ -22,7 +22,7 @@ applyFilter rgen resultMV
        let inputStream = take 2000 (randomRs (0.0, 100.0) rgen)
        let result = last (systolicFilter weights inputStream)
        putMVar resultMV result
- 
+
 rgens 0 _ = []
 rgens n rgen
   = nextGen : rgens (n-1) nextGen
@@ -31,7 +31,7 @@ rgens n rgen
 
 instances = 1000
 
-main  
+main
   = do putStrLn "SMP Systolic Filter Benchmarks"
        dones <- sequence (replicate instances newEmptyMVar)
        rgen1 <- getStdGen

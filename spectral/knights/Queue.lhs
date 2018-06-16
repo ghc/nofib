@@ -8,7 +8,7 @@
 module Queue(
 		Queue, createQueue, addFront, addBack,
 		addAllFront, addAllBack, inquireFront,
-		inquireBack, removeFront, removeBack, 
+		inquireBack, removeFront, removeBack,
 		emptyQueue
 ) where
 \end{code}
@@ -39,7 +39,7 @@ inquireFront (h:t) = h
 
 inquireBack::Queue a -> a
 inquireBack []     = error "Cannot inquire on empty Queue"
-inquireBack [x]    = x                 
+inquireBack [x]    = x
 inquireBack (x:xs) = inquireBack xs
 
 removeFront::Queue a -> Queue a
@@ -48,7 +48,7 @@ removeFront (h:t) = t
 
 removeBack::Queue a -> Queue a
 removeBack []    = error "Cannot inquire on empty Queue"
-removeBack [x]   =  []                
+removeBack [x]   =  []
 removeBack (x:xs) = x:(removeBack xs)
 
 emptyQueue::(Eq a) => Queue a -> Bool

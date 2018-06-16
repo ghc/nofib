@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -42,7 +42,7 @@ vCycle phi rho n depth =
 	    phi' = relax phi rho n
 	    rho' = residual phi' rho n
 	    rCoarse = coarseMesh rho' n
-	    eZero = array ((0,0), (nHalf',nHalf')) 
+	    eZero = array ((0,0), (nHalf',nHalf'))
 			[((i,j), 0.0) | i<-[0..nHalf'], j<-[0..nHalf']]
 	    eCoarse = vCycle eZero rCoarse nHalf (depth-1)
 
@@ -52,7 +52,7 @@ vCycle phi rho n depth =
 -- a   b   c
 -- d   e   f
 -- g   h   i
- 
+
 laplacianOp :: Mesh -> Range -> Value
 laplacianOp mesh [iLo, i, iHi, jLo, j, jHi] =
         -(mesh!(iLo,j)+mesh!(i,jHi)+mesh!(i,jLo)+mesh!(iHi,j)-4*mesh!(i,j))
@@ -74,7 +74,7 @@ relax mesh mesh' n =
 	applyOpToMesh (relaxOp mesh') mesh n
 	where
 	    relaxOp mesh' mesh [iLo, i, iHi, jLo, j, jHi] =
-		0.25 * mesh'!(i,j) + 
+		0.25 * mesh'!(i,j) +
 	        0.25 * (mesh!(iLo,j)+mesh!(i,jLo)+mesh!(i,jHi)+mesh!(iHi,j))
 
 correct :: Phi -> Mesh -> Indx -> Indx -> Phi

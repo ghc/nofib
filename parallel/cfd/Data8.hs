@@ -25,7 +25,7 @@ n_total = 25
 p_total :: Int
 p_total = 9
 coord :: () -> My_Array Int (Frac_type, Frac_type)
-coord () = Mk_t_Array (1, 25) Nothing 
+coord () = Mk_t_Array (1, 25) Nothing
 	(let
 	t1111 = (Fork 1 (Leaf (0.00000000, 0.00000000)) (Leaf (1.00000000, 0.00000000)
 		))
@@ -69,7 +69,7 @@ p_fixed :: [Int]
 p_fixed = [4]
 init_vec :: () -> (My_Array Int Frac_type, My_Array Int (Frac_type, Frac_type)
 		)
-init_vec () = (Mk_t_Array (1, 9) Nothing 
+init_vec () = (Mk_t_Array (1, 9) Nothing
 	(let
 	t1111 = (Leaf 0.00000000)
 	t1112 = (Leaf 0.00000000)
@@ -104,7 +104,7 @@ init_vec () = (Mk_t_Array (1, 9) Nothing
 		) (Fork 4 (Null ) (Fork 2 t1221 t1222))) (Fork 8 (Fork 4 (Null )
 		 (Fork 2 t2121 t2122)) (Null )))	))
 tri_fac :: () -> TriMat Frac_type
-tri_fac () = 
+tri_fac () =
 	(TriM (TriM (TriM (TriM (SingTM 1.11803401 ) (SingM (-2.23606795e-1)
 		 ) (SingTM 1.56524765 )) (RectM (ZeroM ) (SingM (-1.59719139e-1)
 		 ) (ZeroM ) (ZeroM )) (TriM (SingTM 1.10656667 ) (SingM (-9.03696120e-1)

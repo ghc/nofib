@@ -84,7 +84,7 @@ simulate circuit seed dt end_time temp rbc	= select trace
 		energy_source' _ _ _					= 0
 
 		events'        (i, p, m, Junction  (c, r, _))		= [(r, s // [(i, s ! i + e)], v_map (const 0) o, []),
-									   (r, s // [(i, s ! i - e)], v_map (const 0) o, [])]             
+									   (r, s // [(i, s ! i - e)], v_map (const 0) o, [])]
 		events'        _					= []
 
 prepare :: Circuit -> Time -> (Vector Approx, Matrix Approx, Matrix Approx, Matrix Approx, Matrix Approx)

@@ -52,9 +52,9 @@ algc m n xs ys
 lcss :: (Eq a) => [a] -> [a] -> [a]
 lcss xs ys = algc (length xs) (length ys) xs ys []
 
-main = do 
+main = do
  [a,b,c,d,e,f] <- getArgs
  let a', b', c', d', e', f' :: Int
-     a' = read a; b' = read b; c' = read c; 
+     a' = read a; b' = read b; c' = read c;
      d' = read d; e' = read e; f' = read f
  print (lcss [a',b'..c'] [d',e'..f'])

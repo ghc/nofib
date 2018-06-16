@@ -38,5 +38,5 @@ unifyTVar                             :: TVarId -> MonoType -> Sub -> Maybe Sub
 unifyTVar x t s | x `elem` domSub s     =  unify (lookupSub s x) t s
                 | TVar x == t         =  returnM s
                 | x `elem` freeVars t   =  failM
-                | otherwise           =  returnM (extendSub s x t)    
+                | otherwise           =  returnM (extendSub s x t)
 freeVars                              =  freeTVarMono

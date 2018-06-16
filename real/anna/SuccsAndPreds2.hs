@@ -1,4 +1,4 @@
- 
+
 -- ==========================================================--
 -- === Successors and predecessors of a point in a        ===--
 -- === finite lattice.                  SuccsAndPreds2.hs ===--
@@ -34,16 +34,16 @@ spSuccsR :: Domain -> Route -> [Route]
 spSuccsR Two Zero   = [One]
 spSuccsR Two One    = []
 
-spSuccsR (Lift1 ds) Stop1 
+spSuccsR (Lift1 ds) Stop1
    = [Up1 (map avBottomR ds)]
 spSuccsR (Lift1 [d]) (Up1 [r])
    = map (\rs -> Up1 [rs]) (spSuccsR d r)    {-OPTIONAL-}
 spSuccsR (Lift1 ds) (Up1 rs)
    = map Up1 (myListVariants (map avBottomR ds) (myZipWith2 spSuccsR ds rs))
 
-spSuccsR (Lift2 ds) Stop2 
+spSuccsR (Lift2 ds) Stop2
    = [Up2]
-spSuccsR (Lift2 ds) Up2 
+spSuccsR (Lift2 ds) Up2
    = [UpUp2 (map avBottomR ds)]
 spSuccsR (Lift2 [d]) (UpUp2 [r])
    = map (\rs -> UpUp2 [rs]) (spSuccsR d r)  {-OPTIONAL-}
@@ -68,7 +68,7 @@ spSuccsRep (Func dss (Lift1 dts)) (Rep1 lf hfs)
          s1 = [spLEmb hfBottoms h
               | RepTwo h <- spSuccsRep (Func dss Two) (RepTwo lf)]
          s2 = [spLLift initTops dss hfDomains hfs2
-              | hfs2 <- myListVariants hfBottoms 
+              | hfs2 <- myListVariants hfBottoms
                         (myZipWith2 spSuccsRep hfDomains hfs)]
      in
          avMinrep (s1 ++ s2)
@@ -98,7 +98,7 @@ spSuccsFrel ds (MkFrel rs)
 --
 spLEmb :: [Rep] -> Frontier -> Rep
 
-spLEmb hfBottoms h 
+spLEmb hfBottoms h
    = Rep1 h hfBottoms
 
 
@@ -108,7 +108,7 @@ spLLift :: [Route] -> [Domain] -> [Domain] -> [Rep] -> Rep
 
 spLLift initTops initDss hfDomains hfs_reps
    = let lf_arity = length initTops
-         zapped_hfs = myZipWith2 (spLLift_aux lf_arity initTops initDss) 
+         zapped_hfs = myZipWith2 (spLLift_aux lf_arity initTops initDss)
                               hfDomains hfs_reps
          new_lf = case foldr1 avLUBrep zapped_hfs of
                          RepTwo fr -> fr
@@ -132,7 +132,7 @@ spLLift_aux des_arity initTops initDss (Func dss (Lift2 dts)) (Rep2 lf mf hfs)
 --
 spLLift_reduce_arity_as_top :: Int -> [Route] -> [Domain] -> Rep -> Rep
 
-spLLift_reduce_arity_as_top des_arity initTops initDss 
+spLLift_reduce_arity_as_top des_arity initTops initDss
                             f@(RepTwo (Min1Max0 ar f1 f0))
    | ar == des_arity
    = f
@@ -158,7 +158,7 @@ spPredsR :: Domain -> Route -> [Route]
 spPredsR Two Zero   = []
 spPredsR Two One    = [Zero]
 
-spPredsR (Lift1 ds) Stop1 
+spPredsR (Lift1 ds) Stop1
    = []
 spPredsR (Lift1 [d]) (Up1 [r])
    = if   avIsBottomR r
@@ -169,9 +169,9 @@ spPredsR (Lift1 ds) (Up1 rs)
      then  [Stop1]
      else  map Up1 (myListVariants (map avTopR ds) (myZipWith2 spPredsR ds rs))
 
-spPredsR (Lift2 ds) Stop2 
+spPredsR (Lift2 ds) Stop2
    = []
-spPredsR (Lift2 ds) Up2 
+spPredsR (Lift2 ds) Up2
    = [Stop2]
 spPredsR (Lift2 [d]) (UpUp2 [r])
    = if   avIsBottomR r
@@ -245,19 +245,19 @@ spGEmb lf hfTargDs = Rep1 lf (map (spGEmb_aux lf) hfTargDs)
 --
 spGEmb_aux :: Frontier -> Domain -> Rep
 
-spGEmb_aux lf Two 
+spGEmb_aux lf Two
    = RepTwo lf
 
-spGEmb_aux lf (Lift1 dss) 
+spGEmb_aux lf (Lift1 dss)
    = Rep1 lf (map (spGEmb_aux lf) dss)
 
-spGEmb_aux lf (Lift2 dss) 
+spGEmb_aux lf (Lift2 dss)
    = Rep2 lf lf (map (spGEmb_aux lf) dss)
 
 spGEmb_aux lf (Func dss dt)
-   = spGEmb_aux 
+   = spGEmb_aux
         (case spGEmb_increase_arity_ignore lf dss of
-           RepTwo re -> re) 
+           RepTwo re -> re)
         dt
 
 
@@ -265,7 +265,7 @@ spGEmb_aux lf (Func dss dt)
 --
 spGEmb_increase_arity_ignore :: Frontier -> [Domain] -> Rep
 
-spGEmb_increase_arity_ignore f [] 
+spGEmb_increase_arity_ignore f []
    = RepTwo f  {-OPTIONAL-}
 
 spGEmb_increase_arity_ignore (Min1Max0 ar f1 f0) dss
@@ -283,11 +283,11 @@ spGEmb_increase_arity_ignore (Min1Max0 ar f1 f0) dss
 --
 spMax0FromMin1 :: [Domain] -> [FrontierElem] -> [FrontierElem]
 
-spMax0FromMin1 dss f1 
+spMax0FromMin1 dss f1
    = spMax0FromMin1_aux (map avTopR dss) dss f1
 
 spMax0FromMin1_aux tops dss f1
-   = sort (foldr avLUBmax0frontier [MkFrel tops] 
+   = sort (foldr avLUBmax0frontier [MkFrel tops]
                  (map (spPredsFrel dss) f1))
 
 

@@ -53,10 +53,10 @@ unparse functions ro allow editor to type check
 
 
 > unparse sg ( Opnd ( Itrm tm ))
->	= unparse' sg tm 
+>	= unparse' sg tm
 
 > unparse sg ( Opnd ( Idec dc ))
->	= unparse_dc sg dc 
+>	= unparse_dc sg dc
 
 > unparse _ ( Prs_Err mess ) = mess ++ "\n"
 
@@ -67,9 +67,9 @@ other (debugging) unparses
 
 > unparse _ ( Opr (Spl "") _ _ ) = "unparse operator"
 
-> unparse sg ( Opnd ( TypApp tm )) = "Unparse TypApp: " ++ unparse sg tm 
+> unparse sg ( Opnd ( TypApp tm )) = "Unparse TypApp: " ++ unparse sg tm
 
-> unparse sg ( Opr ( Spl "typed" ) _ _ ) = "Unparse 'typed'" 
+> unparse sg ( Opr ( Spl "typed" ) _ _ ) = "Unparse 'typed'"
 
 > unparse sg oth = "unparse unknown"
 
@@ -94,7 +94,7 @@ other (debugging) unparses
 >	  where
 >	  sg2 = Extend dc sg []
 
-N.B. Implies needs extended sg 
+N.B. Implies needs extended sg
 
 > unparse' sg ( Binder Imp dc tm _ _ )
 >	= " [" ++ unparse_dc sg dc ++ "] " ++ "\182" ++ " " ++ unparse' sg2 tm
@@ -102,19 +102,19 @@ N.B. Implies needs extended sg
 >	  sg2 = Extend dc sg []
 
 > unparse' sg ( Binder con dc tm _ _ )
->	= "(" ++ unparse_bdr con ++ unparse_dc sg dc ++ ". " ++ unparse' sg2 tm ++ ")" 
+>	= "(" ++ unparse_bdr con ++ unparse_dc sg dc ++ ". " ++ unparse' sg2 tm ++ ")"
 >	  where
 >	  sg2 = Extend dc sg []
 
 > unparse' sg ( Constant con _ _ )
-> 	= unparse_constant con 
+> 	= unparse_constant con
 
 > unparse' sg ( Unary con tm _ _ )
 >	= " \181" ++ unparse' sg tm
 
 
 > unparse' sg ( Binary' con tm1 tm2 _ _ )
->	= "(" ++ unparse' sg tm1 ++ " " ++ unparse_bcon con 
+>	= "(" ++ unparse' sg tm1 ++ " " ++ unparse_bcon con
 >			++ " " ++ unparse' sg tm2 ++ ")"
 
 > unparse' sg ( Cond dc tm1 tm2 _ _ )
@@ -162,14 +162,14 @@ N.B. Implies needs extended sg
 
 
 
-> unparse_dc sg ( Symbol_dec tm attL ) 
+> unparse_dc sg ( Symbol_dec tm attL )
 >	= unparse_nm nm ++ " : " ++ unparse' sg tm
 >	  where
 >	  nm = case attval Name_Style attL of
 >		   Symbol_Name nm'   -> nm'
 >		   Datatype_Name nmL -> Name " Unexpected Datatype "
 
-> unparse_dc sg ( Axiom_dec tm attL ) 
+> unparse_dc sg ( Axiom_dec tm attL )
 >	= unparse_nm nm ++ " :a: " ++ unparse' sg tm
 >	  where
 >	  nm = case attval Name_Style attL of
@@ -179,13 +179,13 @@ N.B. Implies needs extended sg
 > unparse_dc sg ( Decpair dc1 dc2 _ )
 >	= " ( " ++ unparse_dc sg dc1 ++ " ; " ++ unparse_dc sg2 dc2 ++ " ) "
 >	  where
->	  sg2 = Extend dc1 sg [] 
+>	  sg2 = Extend dc1 sg []
 
 > unparse_dc sg ( Data dcl ctrs attL )
 >	= "datatype " ++ unparse_nm nm ++ " " ++ unparse_fmls sg dcl ++ " = " ++ unparse_ctrs sg2 nmL ctrs
 >	  where
 >	  sg2 = Extend tp_dcl ( extend_sg sg ( reverse dcl )) []
->	  tp_dcl = Symbol_dec u0 [ sym_nm nm ] 
+>	  tp_dcl = Symbol_dec u0 [ sym_nm nm ]
 >	  u0 = Constant ( Univ 0 ) [] []
 >	  extend_sg sg' ( dc : dcl ) = extend_sg ( Extend dc sg' []) dcl
 >	  extend_sg sg' [] = sg'
@@ -206,7 +206,7 @@ N.B. Implies needs extended sg
 
 
 > unparse_fmls sg ( dc : dcl )
->	= "(" ++ unparse_dc sg dc ++ ") " ++ unparse_fmls sg dcl 
+>	= "(" ++ unparse_dc sg dc ++ ") " ++ unparse_fmls sg dcl
 
 > unparse_fmls _ [] = ""
 
@@ -318,7 +318,7 @@ N.B. Implies needs extended sg
 >		   Symbol_Name nm'    -> [ nm' ] -- error cond (change?)
 >		   Datatype_Name nmL' -> nmL'
 
-> lookup_dc ( Def _ _ attL ) _ 0 _ 
+> lookup_dc ( Def _ _ attL ) _ 0 _
 >	= case nm of
 >	 	Name inm         -> inm
 >		Operator' op _ _ -> op

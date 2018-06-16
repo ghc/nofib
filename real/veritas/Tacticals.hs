@@ -27,39 +27,39 @@ infixr 4 `andthen`
 
 
 
-orelse f1 f2 trst 
+orelse f1 f2 trst
 	= f1 trst
-	  `handle` 
+	  `handle`
 	  ( \ _ -> f2 trst )
 
 
 
-andthen f1 f2 trst 
+andthen f1 f2 trst
 	= f1 trst     /./
-	  subtrst f2 
+	  subtrst f2
 
 
-repeat_tac f trst 
+repeat_tac f trst
 	= f trst /./
-	  ( \ trst' -> subtrst (repeat_tac f) trst' 
-	               `handle` 
+	  ( \ trst' -> subtrst (repeat_tac f) trst'
+	               `handle`
 	               ( \ _ -> reTurn trst ))
 
 
 
 for' 0 f trst = reTurn trst
 
-for' i f trst 
+for' i f trst
 	= f trst                  /./
-	  subtrst (for' (i-1) f) 
+	  subtrst (for' (i-1) f)
 
 
 
-subtrst f trst@(TreeSt (Tree _ trL _ _ _) _ _) 
+subtrst f trst@(TreeSt (Tree _ trL _ _ _) _ _)
 	= subtrst' 0 (length trL) f trst
 
 
-subtrst' i j f trst 
+subtrst' i j f trst
 	| i >= j    = reTurn trst
 	| otherwise = tree_down i trst   /./
                       f                  /./

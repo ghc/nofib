@@ -21,7 +21,7 @@ positive integers.  The complicated guard is to see if we can output a
 digit regardless of what the input is; i.e., to see if the interval
 [1,infinity) is mapped into [k,k+1) for some k.
 
-> -- ratTrans (a,b,c,d) x: compute (a + bx)/(c+dx) as a continued fraction 
+> -- ratTrans (a,b,c,d) x: compute (a + bx)/(c+dx) as a continued fraction
 > ratTrans :: (Integer,Integer,Integer,Integer) -> ContFrac -> ContFrac
 > -- Output a digit if we can
 > ratTrans (a,b,c,d) xs |

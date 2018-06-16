@@ -12,7 +12,7 @@
  - more details.
  -
  - You should have received a copy of the GNU Lesser General Public License along with
- - this program; if not, write to the Free Software Foundation, Inc., 
+ - this program; if not, write to the Free Software Foundation, Inc.,
  - 51 Franklin St - Fifth Floor, Boston, MA 02110-1301 USA.
  -
  -}
@@ -20,8 +20,8 @@
 
 -- Author: Chih-Ping Chen
 
--- This program uses CnC to calculate the accelerations of the bodies in a 3D system.  
-  
+-- This program uses CnC to calculate the accelerations of the bodies in a 3D system.
+
 import System.Environment
 import Data.Int
 import Control.Monad hiding (join)
@@ -45,7 +45,7 @@ genVector tag = (tag' * 1.0, tag' * 0.2, tag' * 30.0)
    where tag' = fromIntegral tag
 
 -- Only doing the O(N^2) part in parallel:
--- This step computes the accelerations of the bodies.       
+-- This step computes the accelerations of the bodies.
 compute vecList tag =
        let myvector = vecList Array.! (tag-1) in
        accel myvector vecList
@@ -77,13 +77,13 @@ compute vecList tag =
              (strt,end) = Array.bounds vecList
 
              accel :: Float3D -> (Array.Array Int Float3D) -> Float3D
-	     accel vector vecList = 
+	     accel vector vecList =
 
              -- Manually inlining to see if the tuples unbox:
 	        let (# sx,sy,sz #) = loop strt 0 0 0
 		    loop !i !ax !ay !az
                       | i == end = (# ax,ay,az #)
-		      | otherwise = 
+		      | otherwise =
                        let ( x,y,z )    = vector
 			   ( x',y',z' ) = vecList Array.! i
 
@@ -103,7 +103,7 @@ compute vecList tag =
 #endif
 
 
--- This describes the graph-- The same tag collection prescribes the two step collections.             
+-- This describes the graph-- The same tag collection prescribes the two step collections.
 --run :: Int -> (b, c)
 --run :: Int -> ([(Int, (Float, Float, Float))], [(Int, (Float, Float, Float))])
 --run :: Int -> ([Float3D], [Float3D])
@@ -122,9 +122,9 @@ run n = runEval $ do
            ls <- mapM join fs
            return (concat ls)
 
-main = 
-    do args <- getArgs 
-       let accList = case args of 
+main =
+    do args <- getArgs
+       let accList = case args of
                       []  -> run (3::Int)
 		      [s] -> run (read s)
        --putStrLn $ show accList;

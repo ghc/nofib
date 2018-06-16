@@ -11,7 +11,7 @@ import Data.Array--1.3
 
 -- Phase IV: Particle push
 -- Each particle has an initial velocity determined by its motion during the
---     previous timestep and is accelerated by the field induced by the 
+--     previous timestep and is accelerated by the field induced by the
 --     collection of particles
 --
 -- Compute the acceleration of each particle
@@ -20,11 +20,11 @@ import Data.Array--1.3
 --     distance greater than the cell
 -- Compute new position and velocity of each particle
 
-pushParticle :: ParticleHeap -> Electric -> Value -> Value -> Value -> (Value, Value, ParticleHeap) 
+pushParticle :: ParticleHeap -> Electric -> Value -> Value -> Value -> (Value, Value, ParticleHeap)
 pushParticle ([], []) xyElec dt maxAcc maxVel = (maxAcc, maxVel, ([], []))
 pushParticle (((xPos,yPos):xyPos), ((xVel,yVel):xyVel))
 	     (xElec, yElec) dt maxAcc maxVel =
-	(maxAcc'', maxVel'', 
+	(maxAcc'', maxVel'',
 	    (((xPos',yPos'):xyPos'), ((xVel',yVel'):xyVel')))
 	where
 	    i = truncate xPos
@@ -42,14 +42,14 @@ pushParticle (((xPos,yPos):xyPos), ((xVel,yVel):xyVel))
 	    maxAcc' = max maxAcc (max (abs xAcc) (abs yAcc))
 	    maxVel' = max maxVel (max (abs xTV) (abs yTV))
 	    (xVel',yVel') = (xTV, yTV)
-	    xPos' = if (xT >= fromIntegral nCell) 
+	    xPos' = if (xT >= fromIntegral nCell)
 			then xT - fromIntegral nCell
-			else if (xT < 0.0) 
+			else if (xT < 0.0)
 			    then xT + fromIntegral nCell
 			    else xT
-	    yPos' = if (yT >= fromIntegral nCell) 
+	    yPos' = if (yT >= fromIntegral nCell)
 			then yT - fromIntegral nCell
-			else if (yT < 0.0) 
+			else if (yT < 0.0)
 			    then yT + fromIntegral nCell
 			    else yT
 	    (maxAcc'', maxVel'', (xyPos', xyVel')) =

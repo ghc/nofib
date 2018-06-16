@@ -22,15 +22,15 @@ apApply (Rep func) args = apPapConst (apPap func args)
 apPap_2 :: Int -> Frontier -> [Route] -> Frontier
 
 apPap_2 argCount (Min1Max0 ar f1 f0) args
-   = let newf1 
-            = sort (avMinfrel 
-                   [MkFrel (drop argCount fel) 
-                   | MkFrel fel <- f1, 
+   = let newf1
+            = sort (avMinfrel
+                   [MkFrel (drop argCount fel)
+                   | MkFrel fel <- f1,
                      myAndWith2 (<<) (take argCount fel) args
                    ])
-         newf0 
-            = sort (avMaxfrel 
-                   [MkFrel (drop argCount fel) 
+         newf0
+            = sort (avMaxfrel
+                   [MkFrel (drop argCount fel)
                    | MkFrel fel <- f0,
                      myAndWith2 (<<) args (take argCount fel)
                    ])
@@ -47,7 +47,7 @@ apPap (RepTwo fr) args
    = let argCount = length args
      in
          RepTwo (apPap_2 argCount fr args)
-                        
+
 apPap (Rep1 lf hfs) args
    = let argCount = length args
          new_lf = apPap_2 argCount lf args

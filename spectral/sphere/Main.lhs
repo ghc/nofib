@@ -1,5 +1,5 @@
 {-
-From: David J King [mailto:gnik@dcs.gla.ac.uk] 
+From: David J King [mailto:gnik@dcs.gla.ac.uk]
 Sent: Thursday, October 01, 1998 1:37 PM
 Subject: Challenge applications -- the ray tracer for spheres
 
@@ -189,7 +189,7 @@ standard balls
 main routine
 
 > ray :: Int -> [((Int, Int),Vector)]
-> ray winsize = [ ((i,j), f i j) | i<-[0..winsize-1], j<-[0..winsize-1]] 
+> ray winsize = [ ((i,j), f i j) | i<-[0..winsize-1], j<-[0..winsize-1]]
 >     where
 >       lights = testlights
 >       (firstray, scrnx, scrny) = camparams lookfrom lookat vup fov (fromIntegral winsize)
@@ -241,7 +241,7 @@ find first intersection point in set of all objects
 > trace :: [Sphere] -> Vector -> Vector -> (Bool,Double,Sphere)
 > trace spheres pos dir
 >               = if (null dists)
->                   then (False, infinity, head spheres)        -- missed all   
+>                   then (False, infinity, head spheres)        -- missed all
 >                   else (True, mindist, sp)            -- pick the smallest one
 >     where
 >       (mindist, sp) = foldr f (head dists) (tail dists)
@@ -354,7 +354,7 @@ and if it's shadowed by another object in the world.  Return light's
 contribution to the object's colour
 
 > lightray :: Light -> Vector -> Vector -> Vector -> [Surfspec] -> Vector
-> lightray l pos norm refl surf = 
+> lightray l pos norm refl surf =
 >      let
 >        (ldir, dist) = lightdirection l pos
 >        cosangle = vecdot ldir norm      -- lightray is this far off normal

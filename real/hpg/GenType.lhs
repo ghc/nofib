@@ -13,7 +13,7 @@ parameters:
 \item[Variants] the number of alternatives in a datatype declaration.
     For example:
     \begin{verbatim}
-    data Tree = Leaf Int | Node Tree Tree 
+    data Tree = Leaf Int | Node Tree Tree
     \end{verbatim}
     has two variants.
 \item[Fields] the arity of a constructor.
@@ -81,27 +81,27 @@ The first variant of this type is a zero-arity constructor.
 >        (\n -> get_constructors (n + one)
 >        (\cs -> cmap (rep n (gen_argtypes flds tns dp))
 >        (\as -> tc (zip cs ([]:as)))))
- 
+
 \end{haskell}
- 
+
 \prog{gen\_argtypes flds tns dp asc} applies \prog{asc} to a list of up to
 \prog{flds} argtypes, each of depth \prog{dp}, possibly referring to names
 in \prog{tns}.
 \begin{haskell}
- 
+
 > gen_argtypes :: Int -> [Type_name] -> Int -> Xscont Argtype -> Cont
 > gen_argtypes flds tns dp asc
 >     =  upto flds (\n -> cmap (rep n (gen_argtype tns dp)) asc)
- 
+
 \end{haskell}
- 
+
 \prog{gen\_argtype tns dp ac} applies \prog{ac} to a random argtype, of
 depth \prog{dp}, which may refer to names in \prog{tns}.
 It operates by selecting one of the elements of the list argument of choose;
 this generates either a type name, a basic type, a list type, a tuple type
 or an array type.
 \begin{haskell}
- 
+
 > gen_argtype :: [Type_name] -> Int -> Xcont Argtype -> Cont
 > gen_argtype tns dp ac | dp <= one  =  gen_base ac
 > gen_argtype tns dp ac
@@ -114,8 +114,8 @@ or an array type.
 >                gen_ix_type tns (dp - one)
 >                  (\a -> gen_argtype tns (dp - one)
 >                  (\a' -> ac (Array_type a a')))] id
->                
- 
+>
+
 \end{haskell}
 Note that we can generate tuple types with just one component --- these are
 degenerate and are interpreted as the component type, without any

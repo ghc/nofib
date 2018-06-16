@@ -3,11 +3,11 @@
 {--- Beginnings of X86 specific stuff                Arch_X86.hs      ---}
 {------------------------------------------------------------------------}
 
-{- 
+{-
    This file is part of Cacheprof, a profiling tool for finding
    sources of cache misses in programs.
 
-   Copyright (C) 1999 Julian Seward (jseward@acm.org) 
+   Copyright (C) 1999 Julian Seward (jseward@acm.org)
    Home page: http://www.cacheprof.org
 
    This program is free software; you can redistribute it and/or
@@ -38,11 +38,11 @@ module Arch_x86 (
 
 where
 
-data Opcode 
+data Opcode
    = O_movl | O_movw | O_movb
-   | O_movzbw | O_movzbl | O_movzwl 
-   | O_movsbw | O_movsbl | O_movswl 
-   | O_pushl | O_popl 
+   | O_movzbw | O_movzbl | O_movzwl
+   | O_movsbw | O_movsbl | O_movswl
+   | O_pushl | O_popl
    | O_pushfl | O_popfl
    | O_notl | O_notw | O_notb
    | O_sall | O_salw | O_salb
@@ -75,8 +75,8 @@ data Opcode
    | O_stosl | O_stosw | O_stosb
 
    | O_leave | O_ret | O_call | O_jmp
-   | O_je | O_jne 
-   | O_jl | O_jle 
+   | O_je | O_jne
+   | O_jl | O_jle
    | O_jg | O_jge
    | O_js | O_jns
    | O_jz | O_jnz
@@ -98,7 +98,7 @@ data Opcode
    | O_cbtw
    | O_rep | O_repz | O_repnz
    | O_fild | O_fildl | O_fildll
-   | O_fsubp | O_fsubr | O_fsubrp | O_fsubrl | O_fsubrs 
+   | O_fsubp | O_fsubr | O_fsubrp | O_fsubrl | O_fsubrs
              | O_fsubs | O_fsubl | O_fsub
    | O_faddp | O_fadds | O_faddl | O_fadd | O_fiaddl
    | O_fmul | O_fmuls | O_fmull | O_fmulp
@@ -130,7 +130,7 @@ data Opcode
 
 
 x86info :: [(Opcode, OperandInfo)]
-x86info 
+x86info
   = [
       (O_movl,    OI [OE_RW 4 4]),
       (O_movw,    OI [OE_RW 2 2]),
@@ -430,8 +430,8 @@ nonJumpyOpcodes
         ,O_shrl ,O_shrw ,O_shrb
         ,O_sarl
         ,O_leal
-        ,O_movzbw ,O_movzbl ,O_movzwl 
-        ,O_movsbw ,O_movsbl ,O_movswl 
+        ,O_movzbw ,O_movzbl ,O_movzwl
+        ,O_movsbw ,O_movsbl ,O_movswl
 
         , O_seta , O_setae
         , O_setb , O_setbe

@@ -8,7 +8,7 @@ module Parse
        asciiP, controlP, printP, spaceP,              --  character parsers
        alphaP, upperP, lowerP, digitP, alphanumP,
        surroundP, plusSepP, starSepP, parenP, listP,  --  surrounds and separators
-       useP)                                          --  using a parser      
+       useP)                                          --  using a parser
       where
 
 import Data.Char -- 1.3

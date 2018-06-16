@@ -21,11 +21,11 @@ type Transaction = Dbt -> (Msgt,Dbt)
   stamp, but the current implementation simply sets the time stamp to the dummy value 0.
 -}
 
-data Histrt = His Int Int Int Int Int 
+data Histrt = His Int Int Int Int Int
 	deriving Eq
 
 
-{- 
+{-
   The database type "Dbt" is the database as described in the
   DebitCredit benchmark. The database consists of 3 relations and a
   history of commited transactions. The first relation is the account
@@ -40,7 +40,7 @@ data Histrt = His Int Int Int Int Int
   simple list of history records.
 -}
 
-data Dbt = Root Tree Tree Tree [Histrt] 
+data Dbt = Root Tree Tree Tree [Histrt]
 	deriving Eq
 
 
@@ -50,7 +50,7 @@ data Dbt = Root Tree Tree Tree [Histrt]
   as "Ok aid", or they can fail, which is represented by "Error aid".
 -}
 
-data Msgt = Ok Int | Error Int 
+data Msgt = Ok Int | Error Int
 	deriving (Eq,Show{-was:Text-})
 
 

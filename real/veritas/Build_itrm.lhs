@@ -76,7 +76,7 @@ improve err mess
 
 > cond' _ _ ( Prs_Err x ) = Prs_Err x
 
-> cond' ( Opnd ( Idec dc ) ) ( Opnd ( Itrm tm1 ) ) ( Opnd ( Itrm tm2 )) 
+> cond' ( Opnd ( Idec dc ) ) ( Opnd ( Itrm tm1 ) ) ( Opnd ( Itrm tm2 ))
 >	= Opnd ( Itrm ( Cond dc tm1 tm2 [] [] ))
 
 
@@ -88,7 +88,7 @@ improve err mess
 
 > let' _ _ ( Prs_Err x ) = Prs_Err x
 
-> let' ( Opnd ( Idec dc)) ( Opnd ( Itrm tm1)) ( Opnd ( Itrm tm2 )) 
+> let' ( Opnd ( Idec dc)) ( Opnd ( Itrm tm1)) ( Opnd ( Itrm tm2 ))
 >	= opnd ( App ( Binder Lambda dc tm2 [] [] ) tm1 [] [let_stl] )
 
 > let' ( Opr _ _ _ ) _ _ = error "1"
@@ -121,32 +121,32 @@ by term' in parser )
 
 infix binders x , -> etc
 
-> app' ( Opr ( OpBdr bdr ) _ _ )  ( Opnd ( Idec dc ))  
+> app' ( Opr ( OpBdr bdr ) _ _ )  ( Opnd ( Idec dc ))
 > 	= Opnd ( PApp bdr dc False )
 
-> app' ( Opr ( OpBdr bdr ) _ _ )  ( Opnd ( Itrm srt ))  
+> app' ( Opr ( OpBdr bdr ) _ _ )  ( Opnd ( Itrm srt ))
 > 	= Opnd ( PApp bdr dc True )
 >	  where
 >	  dc = Symbol_dec srt [ sym_nm ( Name "_" ) ]
 
 > app' (Opnd ( PApp bdr dc anon )) ( Opnd ( Itrm tm ))
-> 	= opnd ( Binder bdr dc shft_tm [] [ifx_bdr] ) 
+> 	= opnd ( Binder bdr dc shft_tm [] [ifx_bdr] )
 >	  where
 >	  shft_tm | anon     = shift_trm [] 1 tm
->		  | not anon = tm 
+>		  | not anon = tm
 
 infix operators , /\. \/ etc
 
 > app' ( Opr ( OpIfx op ) _ _ ) ( Opnd ( Itrm tm ))
 >	= Opnd ( ParIfx op tm )
 
-> app' ( Opnd ( ParIfx op tm1 ) ) ( Opnd ( Itrm tm2 )) 
+> app' ( Opnd ( ParIfx op tm1 ) ) ( Opnd ( Itrm tm2 ))
 > 	= opnd ( Binary' op tm1 tm2 [] [] )
 
 
 PairApp is , applied to first argument only
 
-> app' ( Opr ( Spl "," ) _ _ )  ( Opnd ( Itrm tm1 )) 
+> app' ( Opr ( Spl "," ) _ _ )  ( Opnd ( Itrm tm1 ))
 >	= Opnd ( PairApp tm1 )
 
 form pair when second argument found
@@ -154,11 +154,11 @@ type set to U-1 to indicate it has not yet been defined. Will be defined
 explicitely by "typed" (see following clause) or will be deduced by
 `build_trm'' when proper term is constructed.
 
-> app' ( Opnd ( PairApp tm1 )) ( Opnd ( Itrm tm2 )) 
->	= Opnd ( Itrm pairtm ) 
+> app' ( Opnd ( PairApp tm1 )) ( Opnd ( Itrm tm2 ))
+>	= Opnd ( Itrm pairtm )
 > 	  where
 >	  pairtm = Pair tm1 tm2 pdt [] [pr_untyped]
->	  pdt = Constant ( Univ (-1) ) [] [] 
+>	  pdt = Constant ( Univ (-1) ) [] []
 
 TypApp is 'typed' applied to its first argument
 (does it need flagged_itrm as an argument in general?)
@@ -188,18 +188,18 @@ prefix not
 
 four permutations for operators and operands
 
-> app' ( Opnd ( Itrm tm1 )) ( Opnd ( Itrm tm2 )) 
->	= opnd ( App tm1 tm2 [] [] ) 
+> app' ( Opnd ( Itrm tm1 )) ( Opnd ( Itrm tm2 ))
+>	= opnd ( App tm1 tm2 [] [] )
 
-> app' ( Opr ( OpItrm op ) stl _ ) ( Opnd ( Itrm tm )) 
+> app' ( Opr ( OpItrm op ) stl _ ) ( Opnd ( Itrm tm ))
 >	= opnd ( App op tm [] [ op_stl stl ] )
 
 > app' ( Opnd ( Itrm tm )) ( Opr ( OpItrm op ) _ _ ) -- happen?
->	= opnd ( App tm op [] [] ) 
+>	= opnd ( App tm op [] [] )
 
 ?what happens to style for second operator here?
 
-> app' ( Opr ( OpItrm op1 ) stl _ ) ( Opr ( OpItrm op2 ) _ _ ) 
+> app' ( Opr ( OpItrm op1 ) stl _ ) ( Opr ( OpItrm op2 ) _ _ )
 >	= opnd ( App op1 op2 [] [ op_stl stl ] )
 
 > app' ( Prs_Err mess ) _ = Prs_Err mess
@@ -251,7 +251,7 @@ include following as optimisation?
 
 > data' ( type_nm , dcl ) ctr_defs
 >	= case ctrs of
->		Ok ( ctr_nml , ctr_srtl ) 
+>		Ok ( ctr_nml , ctr_srtl )
 >			 -> ( Opnd . Idec ) ( Data ( clear dcl ) ctr_srtl att )
 >			    where
 >         		    att = [ dat_nm ( type_nm : ctr_nml ) ]	
@@ -266,7 +266,7 @@ include following as optimisation?
 
 > ctr' nml argll (( nm , argl ) : ctrl )
 >	= case checked_args of
->		Ok iargl -> ctr' ( nm : nml ) ( iargl : argll ) ctrl 
+>		Ok iargl -> ctr' ( nm : nml ) ( iargl : argll ) ctrl
 >	 	Bad mesg -> Bad mesg
 >	  where
 >	  checked_args = check_arg [] argl
@@ -321,10 +321,10 @@ include following as optimisation?
 
 > add_sg_att ( Prs_Err mesg ) _ = Prs_Err mesg
 
-> add_sg_att ( Opnd ( Isgn ( Empty attl ))) att 
+> add_sg_att ( Opnd ( Isgn ( Empty attl ))) att
 >	= Opnd ( Isgn ( Empty ( att : attl )))
 
-> add_sg_att ( Opnd ( Isgn ( Extend  dc sg attl ))) att 
+> add_sg_att ( Opnd ( Isgn ( Extend  dc sg attl ))) att
 >	= Opnd ( Isgn ( Extend dc sg ( att : attl )))
 
 
@@ -337,10 +337,10 @@ include following as optimisation?
 > recurse' tml ( Opnd ( Itrm srt ))
 >	= case clr [] tml of
 >		Ok itml  -> Opnd ( Itrm ( Recurse itml srt [] [rcrs_stl] ))
->	        Bad mesg -> Prs_Err mesg 
+>	        Bad mesg -> Prs_Err mesg
 >	  where
 >	  clr itml (( Opnd ( Itrm tm )) : tml ) = clr ( tm : itml ) tml
->	  clr itml [] = Ok itml 
+>	  clr itml [] = Ok itml
 >	  clr _ ( Prs_Err mesg : _ ) = Bad mesg
 
 

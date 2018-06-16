@@ -76,7 +76,7 @@ payA_par _     _   []    acc = ANil
 payA_par depth val ((c,q):coins) acc
   | c > val    = payA_par depth val coins acc
   | otherwise  = res
-                
+
   where
     res = runEval $ pure append <*> rpar left <*> rseq right
 
@@ -92,18 +92,18 @@ payA_par depth val ((c,q):coins) acc
 pay :: Int -> Int -> [Int] -> [Int] -> [[Int]]
 pay _   0 coins accum   = [accum]
 pay _   val [] _        = []
-pay pri val coins accum = 
+pay pri val coins accum =
     res		
-    where -- 
+    where --
           coins'  = dropWhile (>val) coins
-          coin_vals = nub coins'      
+          coin_vals = nub coins'
           res = concat ( map
-                           ( \ c -> let 
-                                      new_coins = 
+                           ( \ c -> let
+                                      new_coins =
                                           ((dropWhile (>c) coins')\\[c])
-                                    in 			   
+                                    in 			
                                       pay (pri-1)
-				          (val-c) 
+				          (val-c)
                                           new_coins
      	                                  (c:accum)
                            )
@@ -120,20 +120,20 @@ pay1 _   val [] _        = []
 pay1 pri val coins accum = res
     where --
           coins'  = dropWhile ((>val) . fst) coins
-          res = concat ( 
+          res = concat (
                          map
-                           ( \ (c,q) -> let 
-                                          -- several traversals                                        
-                                          new_coins = 
+                           ( \ (c,q) -> let
+                                          -- several traversals
+                                          new_coins =
                                             filter (not . (==0) . snd) $
                                              map (\ x'@(c',q') -> if c==c' then (c',q'-1) else x') $
                                               dropWhile ((>c) . fst) $
                                                coins'
-                                          new_accum = 
+                                          new_accum =
                                             map (\ x'@(c',q') -> if c==c' then (c',q'+1) else x') accum
-                                        in 			   
+                                        in 			
                                       	  pay1 (pri-1)
-				      	      (val-c) 
+				      	      (val-c)
                                       	      new_coins
      	                              	      new_accum
                            )
@@ -165,7 +165,7 @@ payN_par _     _   []     = 0
 payN_par depth val ((c,q):coins)
   | c > val    = payN_par depth val coins
   | otherwise  = res
-                
+
   where
     res = right `par` left `pseq` left + right
 
@@ -179,7 +179,7 @@ payN_par depth val ((c,q):coins)
 -- driver
 
 main = do
-         let vals = [250, 100, 25, 10, 5, 1]   
+         let vals = [250, 100, 25, 10, 5, 1]
          -- let quants = [1, 3, 2, 5, 7, 12]		   -- small setup
          -- let quants = [5, 8, 8, 9, 12, 17]           -- std setup
          let quants = [55, 88, 88, 99, 122, 177]  -- large setup

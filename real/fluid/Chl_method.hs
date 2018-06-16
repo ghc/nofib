@@ -95,7 +95,7 @@ bwd_sbs chl_fac y =
 			s_accum (-)
 			(s_listArray block_bounds [y!^i|i<-range block_bounds])
 			( concat
-				[ 
+				[
 					zipWith (\l v->l=:v) (range (j,u))
 					(map ((*) (x_res!^k)) vs)
 					| (k,(j,vs)) <- lower_part u off_diag
@@ -130,7 +130,7 @@ chl_method (chl_fac,o_to_n) b scalor =
 	s_amap ((*) scalor) (s_ixmap bnds ((!^) o_to_n) x)
 	where
 	x = bwd_sbs chl_fac (fwd_sbs chl_fac new_b)
-	new_b = 
+	new_b =
 		s_array bnds
 		(map (\(i,v)->(o_to_n!^i)=:v) (s_assocs b))
 	bnds = s_bounds b

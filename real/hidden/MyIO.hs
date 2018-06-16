@@ -7,7 +7,7 @@ import System.Environment(getArgs)--1.3
 type InputCont = [String] -> IO ()
 
 getFilename :: (String -> InputCont) -> InputCont
-getFilename success inp = 
+getFilename success inp =
 	getArgs >>= \ args ->
 	case  args  of
 		"help":_ -> usage
@@ -17,7 +17,7 @@ getFilename success inp =
   where
 	test filename inp ('t':'r':_) = success filename inp
 	test filename inp ('f':'r':_) = success filename inp
-	test filename inp _ = 
+	test filename inp _ =
 		hPutStr stderr ("Can not read: "++filename++"\n") >>
 		hPutStr stderr "Give the filename of an object: " >>
 		fromInp inp
@@ -48,7 +48,7 @@ getit success      (l:ls) =
 
 process :: (Vector -> String -> String) -> String -> InputCont
 process f filename =
-	getDirection 
+	getDirection
                 (\ viewdir ls ->
 		   readFile filename >>= \ cs ->
 		   printFrom viewdir (process f filename) cs ls

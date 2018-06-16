@@ -18,7 +18,7 @@ module Parsers where
 
 infixl 6 `using`, `using2`
 infixr 7 `alt`
-infixr 8 `thn`, `xthn`, `thnx` 
+infixr 8 `thn`, `xthn`, `thnx`
 
 type Parser a b = [a] -> [(b, [a])]
 
@@ -52,7 +52,7 @@ thn p1 p2 =
 	. p1
 
 thnx :: Parser alpha beta -> Parser alpha gamma -> Parser alpha beta
-thnx p1 p2 = 
+thnx p1 p2 =
 	concat
 	. map (\ (v1, tokens1) -> map (\ (v2, tokens2) -> (v1, tokens2)) (p2 tokens1))
 	. p1

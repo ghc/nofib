@@ -7,7 +7,7 @@
 > import Data.Complex--1.3
 > import Data.List(transpose)--1.3
 > import Complex_Vectors
-                
+
 > fft:: [ComplexF] -> [ComplexF] -- Warning: works only for n=2^km
 >                                -- time=O(n log(n)) algorithm
 > fft xs = map((1/(fromInt n))*) (ffth xs us)   where
@@ -23,7 +23,7 @@
 
 > ffth:: [ComplexF] -> [ComplexF] -> [ComplexF]
 > ffth xs us
->  | n>1    =             (replikate fftEvn) `plus` 
+>  | n>1    =             (replikate fftEvn) `plus`
 >             (us `times` (replikate fftOdd))
 >  | n==1   = xs
 >  where
@@ -37,7 +37,7 @@
 
   Discrete Fourier Transform (fft generalized to non-binary orders)
 
-> dft:: [ComplexF] -> [ComplexF] 
+> dft:: [ComplexF] -> [ComplexF]
 >      -- time=O(n*sum(map (^2) (factors n))) algorithm
 >      --     =O(n*log(n)) when n is a product of small primes
 > dft xs

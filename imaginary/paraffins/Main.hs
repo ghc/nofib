@@ -23,7 +23,7 @@ remainders (r:rs) = (r:rs) : (remainders rs)
 radical_generator :: Int -> Array Int [Radical]
 radical_generator n =
   radicals
- where 
+ where
   radicals =
     array (0,n) ((0,[H]) : [(j,rads_of_size_n radicals j) | j <- [1..n]])
 
@@ -45,7 +45,7 @@ bcp_generator radicals n =
   else
     [ (BCP r1 r2) | (r1:r1s) <- (remainders (radicals!(div n 2))),
                     r2       <- (r1:r1s) ]
-    
+
 four_partitions :: Int -> [(Int,Int,Int,Int)]
 four_partitions m =
   [ (i,j,k,l)

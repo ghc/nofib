@@ -17,14 +17,14 @@
 
 \begin{code}
 
-module Cg(cgiters,Cg_state (..),showcg_state) 
+module Cg(cgiters,Cg_state (..),showcg_state)
         where
 
-import Matrix (Vector , Matrix , 
+import Matrix (Vector , Matrix ,
                Block_list , Col_pos , Row_pos ,
                vsub,vdot,svmult,vadd,mvmult,norm)
 
-import AbsDensematrix 
+import AbsDensematrix
 
 import Utils
 
@@ -78,11 +78,11 @@ cgiters scale precond a0 b0
         (a,b) = scale a0 b0
         r0 = b
         p0 = precondition r0
-        q0 = a `mvmult` p0 
+        q0 = a `mvmult` p0
         precondition = precond a
-        cgiter (Cg_stateC x r p q cnt) 
-	     = (Cg_stateC x' r' p' q' cnt')       
-               where 
+        cgiter (Cg_stateC x r p q cnt)
+	     = (Cg_stateC x' r' p' q' cnt')
+               where
                   qq = q `vdot` q
                   cnt' = cnt + 1
                   x' = x `vadd` (alpha `svmult` p)
@@ -90,12 +90,12 @@ cgiters scale precond a0 b0
                   alpha = rq / qq
                   rq = r `vdot` q
                   p'' = precondition r'
-                  q'' = a `mvmult` p'' 
+                  q'' = a `mvmult` p''
                   beta  = qp / qq
-                  qp = q `vdot` q'' 
+                  qp = q `vdot` q''
                   p' = p'' `vsub` (beta `svmult` p)
-                  q' = q'' `vsub` (beta `svmult` q) 
-         
+                  q' = q'' `vsub` (beta `svmult` q)
+
 
 
 showcg_state :: Vector -> Cg_state -> [Char]

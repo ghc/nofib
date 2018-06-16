@@ -1,4 +1,4 @@
--- tak benchmark program 
+-- tak benchmark program
 -- Divide-and-conquer structure with tertiary parallelism.
 -----------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ main = do [x,y,z] <- map read `fmap` getArgs
           putStrLn ("tak " ++ show x ++ " " ++ show y ++ " " ++ show z ++ " = " ++ (show res))
 
 partak :: Int -> Int -> Int -> Int
-partak x y z 
+partak x y z
     | x <= y     = z
     | otherwise  = x' `par` y' `par` z' `par`
                    res
@@ -20,5 +20,5 @@ partak x y z
                          x' = partak (x-1) y z
                          y' = partak (y-1) z x
                          z' = partak (z-1) x y
-                         -- g =  gran x y z	 
+                         -- g =  gran x y z	
                          -- gran x y z = abs (z-y) + abs (y-x) + abs (z-x)

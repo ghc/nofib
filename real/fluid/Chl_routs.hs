@@ -78,7 +78,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 	min_to_n :: My_Array Int Int
 --	min_to_n = s_listArray n_bnds' (range n_bnds')
 --	min_to_o = min_to_n
-	min_to_n = 
+	min_to_n =
 		s_array n_bnds' ((0=:0):(fst (recur ([],1) (chn!^0))))
 		where
 		chn = chldrn min_e_tree
@@ -135,7 +135,7 @@ orded_mat p_total el_det_fac p_steer fixed =
 	-- initial L
 	init_L =
 		s_listArray (1,length block_ends)
-		[ 
+		[
 			(
 				s_listArray bn [get_v i i|i<-range bn],
 				(filter (\ (_,j)->j<=u)

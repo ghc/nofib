@@ -12,5 +12,5 @@ tak x y z = if not(y < x) then z
 		(tak (z-1) x y)
 
 main = do
-	[xs,ys,zs] <- getArgs  
+	[xs,ys,zs] <- getArgs
 	print (tak (read xs) (read ys) (read zs))

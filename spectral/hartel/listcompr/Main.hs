@@ -7,17 +7,17 @@ where {
     strict_show_d::Double -> [Char];
     strict_show_d x=miraseq x (show x);
 
-type 
+type
     T_var=[Char];
-data 
+data
     T_def=F_Def T_var [T_var] T_expr;
-data 
+data
     T_expr=F_Apl T_var [T_expr] | F_Cmp T_expr [T_qual] | F_Let [T_def] T_expr | F_Cns [Char] | F_Var T_var;
-data 
+data
     T_qual=F_Gen Int T_var T_expr | F_Fil T_expr;
     f_var_cmp::T_var -> T_var -> Int;
     f_var_cmp a_vx a_vy=
-        let { 
+        let {
             f_char_cmp a_x a_y=((-) :: (Int -> Int -> Int)) (fromEnum a_x) (fromEnum a_y)
          } in  f_list_cmp f_char_cmp a_vx a_vy;
     f_var_less,f_var_equal,f_var_greater::T_var -> T_var -> Bool;
@@ -32,7 +32,7 @@ data
     f_def_list_remove a_vxs a_vys=f_remove_cmp f_def_cmp a_vxs a_vys;
     c_prg::[T_def];
     c_prg=
-        let { 
+        let {
             r_va=F_Var "a";
             r_vb=F_Var "b";
             r_vc=F_Var "c";
@@ -48,19 +48,19 @@ data
             r_one=F_Cns "1";
             r_true=F_Cns "true";
             r_false=F_Cns "false"
-         } in  (:) (F_Def "sqs" ((:) "xs" []) (F_Cmp (F_Apl "sq" ((:) r_vx [])) 
-            ((:) (F_Gen (1 :: Int) "x" r_vxs) ((:) (F_Fil (F_Apl "odd" ((:) r_vx []))) [])))) ((:) 
-            (F_Def "xys" ((:) "xs" ((:) "ys" [])) (F_Cmp (F_Apl "," ((:) r_vx ((:) r_vy []))) 
-            ((:) (F_Gen (2 :: Int) "x" r_vxs) ((:) (F_Gen (3 :: Int) "y" r_vys) [])))) ((:) (F_Def "sq" ((:) "x" []) 
-            (F_Apl "*" ((:) r_vx ((:) r_vx [])))) ((:) (F_Def "odd" ((:) "x" []) (F_Apl "if" 
-            ((:) (F_Apl "=" ((:) (F_Apl "%" ((:) r_vx ((:) r_one []))) ((:) r_zero []))) 
-            ((:) r_true ((:) r_false []))))) ((:) (F_Def "q" ((:) "c" ((:) "d" [])) (F_Let 
-            ((:) (F_Def "e" ((:) "z" []) (F_Apl "*" ((:) r_vc ((:) r_vz [])))) ((:) 
-            (F_Def "p" ((:) "a" ((:) "b" [])) (F_Let ((:) (F_Def "f" ((:) "x" 
-            ((:) "y" [])) (F_Apl "*" ((:) r_vc ((:) r_vx [])))) ((:) (F_Def "g" ((:) "y" 
-            ((:) "z" [])) (F_Apl "f" ((:) r_vb ((:) r_vy [])))) ((:) (F_Def "h" [] (F_Apl "g" 
-            ((:) r_va ((:) r_vd [])))) []))) (F_Apl "f" ((:) (F_Apl "g" ((:) r_vh ((:) r_va []))) 
-            ((:) r_vc []))))) ((:) (F_Def "q" [] (F_Apl "e" ((:) (F_Apl "p" ((:) r_vc 
+         } in  (:) (F_Def "sqs" ((:) "xs" []) (F_Cmp (F_Apl "sq" ((:) r_vx []))
+            ((:) (F_Gen (1 :: Int) "x" r_vxs) ((:) (F_Fil (F_Apl "odd" ((:) r_vx []))) [])))) ((:)
+            (F_Def "xys" ((:) "xs" ((:) "ys" [])) (F_Cmp (F_Apl "," ((:) r_vx ((:) r_vy [])))
+            ((:) (F_Gen (2 :: Int) "x" r_vxs) ((:) (F_Gen (3 :: Int) "y" r_vys) [])))) ((:) (F_Def "sq" ((:) "x" [])
+            (F_Apl "*" ((:) r_vx ((:) r_vx [])))) ((:) (F_Def "odd" ((:) "x" []) (F_Apl "if"
+            ((:) (F_Apl "=" ((:) (F_Apl "%" ((:) r_vx ((:) r_one []))) ((:) r_zero [])))
+            ((:) r_true ((:) r_false []))))) ((:) (F_Def "q" ((:) "c" ((:) "d" [])) (F_Let
+            ((:) (F_Def "e" ((:) "z" []) (F_Apl "*" ((:) r_vc ((:) r_vz [])))) ((:)
+            (F_Def "p" ((:) "a" ((:) "b" [])) (F_Let ((:) (F_Def "f" ((:) "x"
+            ((:) "y" [])) (F_Apl "*" ((:) r_vc ((:) r_vx [])))) ((:) (F_Def "g" ((:) "y"
+            ((:) "z" [])) (F_Apl "f" ((:) r_vb ((:) r_vy [])))) ((:) (F_Def "h" [] (F_Apl "g"
+            ((:) r_va ((:) r_vd [])))) []))) (F_Apl "f" ((:) (F_Apl "g" ((:) r_vh ((:) r_va [])))
+            ((:) r_vc []))))) ((:) (F_Def "q" [] (F_Apl "e" ((:) (F_Apl "p" ((:) r_vc
             ((:) r_vd []))) []))) []))) (F_Apl "e" ((:) r_vq [])))) []))));
     f_sp::[T_def] -> [Char];
     f_sp a_ds=f_concat [(++) (f_sd a_d) ";\n"|a_d<-a_ds];
@@ -68,18 +68,18 @@ data
     f_sd (F_Def a_f a_bs a_e)=(++) a_f ((++) (f_concat [(++) " " a_b|a_b<-a_bs]) ((++) " = " (f_se a_e)));
     f_se::T_expr -> [Char];
     f_se (F_Apl a_h a_es)=
-        let { 
+        let {
             r_se'=
                 if (not (f_letter (head a_h)))
-                then ((++) "(" ((++) (f_se ((!!) a_es (0 :: Int))) ((++) a_h ((++) 
+                then ((++) "(" ((++) (f_se ((!!) a_es (0 :: Int))) ((++) a_h ((++)
                     (f_se ((!!) a_es (1 :: Int))) ")"))))
-                else 
+                else
                     ((++) "(" ((++) a_h ((++) (f_concat [(++) " " (f_se a_e)|a_e<-a_es]) ")")))
          } in  r_se';
-    f_se (F_Cmp a_e a_qs)=(++) "[" ((++) (f_se a_e) ((++) " | " ((++) (tail 
+    f_se (F_Cmp a_e a_qs)=(++) "[" ((++) (f_se a_e) ((++) " | " ((++) (tail
         (f_concat [(++) ";" (f_sq a_q)|a_q<-a_qs])) "]")));
     f_se (F_Let [] a_e)=f_se a_e;
-    f_se (F_Let a_ds a_e)=(++) "(LET " ((++) (tail (f_concat [(++) ";\n" (f_sd a_d)|a_d<-a_ds])) 
+    f_se (F_Let a_ds a_e)=(++) "(LET " ((++) (tail (f_concat [(++) ";\n" (f_sd a_d)|a_d<-a_ds]))
         ((++) " IN  " ((++) (f_se a_e) ")")));
     f_se (F_Cns a_c)=a_c;
     f_se (F_Var a_v)=a_v;
@@ -103,34 +103,34 @@ data
     f_te (F_Var a_v) a_f=F_Var a_v;
     f_tq::T_expr -> T_expr -> T_var -> T_expr;
     f_tq (F_Cmp a_e ((F_Gen a_n a_v a_l1):a_qs)) a_l2 a_f=
-        let { 
+        let {
             r_h=(++) a_f ((++) "_h" (strict_show_i a_n));
             r_us=(++) a_f ((++) "_l" (strict_show_i a_n));
             r_us'=(++) a_f ((++) "_t" (strict_show_i a_n));
             r_vus=F_Var r_us;
             r_vus'=F_Var r_us'
-         } in  F_Let ((:) (F_Def r_h ((:) r_us []) (F_Apl "if" ((:) 
-            (F_Apl "null" ((:) r_vus [])) ((:) (f_te a_l2 a_f) ((:) (F_Let ((:) 
-            (F_Def a_v [] (F_Apl "hd" ((:) r_vus []))) ((:) (F_Def r_us' [] (F_Apl "tl" ((:) r_vus []))) [])) 
+         } in  F_Let ((:) (F_Def r_h ((:) r_us []) (F_Apl "if" ((:)
+            (F_Apl "null" ((:) r_vus [])) ((:) (f_te a_l2 a_f) ((:) (F_Let ((:)
+            (F_Def a_v [] (F_Apl "hd" ((:) r_vus []))) ((:) (F_Def r_us' [] (F_Apl "tl" ((:) r_vus []))) []))
             (f_tq (F_Cmp a_e a_qs) (F_Apl r_h ((:) r_vus' [])) a_f)) []))))) []) (F_Apl r_h ((:) (f_te a_l1 a_f) []));
-    f_tq (F_Cmp a_e ((F_Fil a_b):a_qs)) a_l2 a_f=F_Apl "if" ((:) (f_te a_b a_f) ((:) (f_tq (F_Cmp a_e a_qs) a_l2 a_f) 
+    f_tq (F_Cmp a_e ((F_Fil a_b):a_qs)) a_l2 a_f=F_Apl "if" ((:) (f_te a_b a_f) ((:) (f_tq (F_Cmp a_e a_qs) a_l2 a_f)
         ((:) (f_te a_l2 a_f) [])));
     f_tq (F_Cmp a_e []) a_l2 a_f=F_Apl ":" ((:) (f_te a_e a_f) ((:) (f_te a_l2 a_f) []));
     f_lp::[T_def] -> [T_def];
     f_lp a_p=f_concat [f_ld a_d []|a_d<-a_p];
     f_ld::T_def -> [T_var] -> [T_def];
     f_ld (F_Def a_f a_bs a_e) a_gs=
-        let { 
+        let {
             (r_p,r_e')=f_le a_e (f_usort ((++) a_bs a_gs))
          } in  (:) (F_Def a_f a_bs r_e') r_p;
     f_le::T_expr -> [T_var] -> ([T_def],T_expr);
     f_le (F_Apl a_h a_es) a_gs=
-        let { 
+        let {
             r_pes=[f_le a_e a_gs|a_e<-a_es]
          } in  (f_flatmap f_fst r_pes,F_Apl a_h (f_map f_snd r_pes));
     f_le (F_Cmp a_e a_qs) a_gs=([],F_Cmp a_e a_qs);
     f_le (F_Let a_ds a_e) a_gs=
-        let { 
+        let {
             (r_p,r_e')=f_le a_e a_gs;
             r_ds'=f_concat [f_ld a_d a_gs|a_d<-a_ds];
             r_cafs=[F_Def a_c [] a_e|(F_Def a_c [] a_e)<-r_ds'];
@@ -147,12 +147,12 @@ data
     f_le (F_Var a_v) a_gs=([],F_Var a_v);
     f_xe::T_expr -> [(T_var,[T_expr])] -> T_expr;
     f_xe (F_Apl a_h a_es) a_xs=
-        let { 
+        let {
             f_extend []=[];
             f_extend ((a_f,a_xs):a_xtra)=
                 if (f_var_equal a_h a_f)
                 then a_xs
-                else 
+                else
                     (f_extend a_xtra)
          } in  F_Apl a_h ((++) (f_extend a_xs) [f_xe a_e a_xs|a_e<-a_es]);
     f_xe (F_Cmp a_e a_qs) a_xs=F_Cmp a_e a_qs;
@@ -196,7 +196,7 @@ data
     f_max2_cmp a_cmp a_a a_b=
         if (((>=) :: (Int -> Int -> Bool)) (a_cmp a_a a_b) c_cmp_equal)
         then a_a
-        else 
+        else
             a_b;
     f_member_cmp::(t1 -> t1 -> Int) -> [t1] -> t1 -> Bool;
     f_member_cmp a_cmp a_x a_a=f_or (f_map ((.) (flip ((==) :: (Int -> Int -> Bool)) c_cmp_equal) (a_cmp a_a)) a_x);
@@ -206,7 +206,7 @@ data
     f_min2_cmp a_cmp a_a a_b=
         if (((>) :: (Int -> Int -> Bool)) (a_cmp a_a a_b) c_cmp_equal)
         then a_b
-        else 
+        else
             a_a;
     f_mkset_cmp::(t1 -> t1 -> Int) -> [t1] -> [t1];
     f_mkset_cmp a_cmp []=[];
@@ -215,25 +215,25 @@ data
     f_uniqmerge_cmp a_cmp [] a_y=a_y;
     f_uniqmerge_cmp a_cmp (a_a:a_x) []=(:) a_a a_x;
     f_uniqmerge_cmp a_cmp (a_a:a_x) (a_b:a_y)=
-        let { 
+        let {
             r_order=a_cmp a_a a_b
-         } in  
+         } in
             if (((<) :: (Int -> Int -> Bool)) r_order c_cmp_equal)
             then ((:) a_a (f_uniqmerge_cmp a_cmp a_x ((:) a_b a_y)))
-            else 
+            else
             if (((==) :: (Int -> Int -> Bool)) r_order c_cmp_equal)
             then ((:) a_a (f_uniqmerge_cmp a_cmp a_x a_y))
-            else 
+            else
                 ((:) a_b (f_uniqmerge_cmp a_cmp ((:) a_a a_x) a_y));
     f_uniqsort_cmp::(t1 -> t1 -> Int) -> [t1] -> [t1];
     f_uniqsort_cmp a_cmp a_x=
-        let { 
+        let {
             r_n=length a_x;
             r_n2=((quot) :: (Int -> Int -> Int)) r_n (2 :: Int)
-         } in  
+         } in
             if (((<=) :: (Int -> Int -> Bool)) r_n (1 :: Int))
             then a_x
-            else 
+            else
                 (f_uniqmerge_cmp a_cmp (f_uniqsort_cmp a_cmp (f_take r_n2 a_x)) (f_uniqsort_cmp a_cmp (f_drop r_n2 a_x)));
     f_merge_cmp::(t1 -> t1 -> Int) -> [t1] -> [t1] -> [t1];
     f_merge_cmp a_cmp [] a_y=a_y;
@@ -241,39 +241,39 @@ data
     f_merge_cmp a_cmp (a_a:a_x) (a_b:a_y)=
         if (((<=) :: (Int -> Int -> Bool)) (a_cmp a_a a_b) c_cmp_equal)
         then ((:) a_a (f_merge_cmp a_cmp a_x ((:) a_b a_y)))
-        else 
+        else
             ((:) a_b (f_merge_cmp a_cmp ((:) a_a a_x) a_y));
     f_sort_cmp::(t1 -> t1 -> Int) -> [t1] -> [t1];
     f_sort_cmp a_cmp a_x=
-        let { 
+        let {
             r_n=length a_x;
             r_n2=((quot) :: (Int -> Int -> Int)) r_n (2 :: Int)
-         } in  
+         } in
             if (((<=) :: (Int -> Int -> Bool)) r_n (1 :: Int))
             then a_x
-            else 
+            else
                 (f_merge_cmp a_cmp (f_sort_cmp a_cmp (f_take r_n2 a_x)) (f_sort_cmp a_cmp (f_drop r_n2 a_x)));
     f_list_cmp::(t1 -> t1 -> Int) -> [t1] -> [t1] -> Int;
     f_list_cmp a_cmp [] []=c_cmp_equal;
     f_list_cmp a_cmp [] a_ys=c_cmp_less;
     f_list_cmp a_cmp a_xs []=c_cmp_greater;
     f_list_cmp a_cmp (a_x:a_xs) (a_y:a_ys)=
-        let { 
+        let {
             r_order=a_cmp a_x a_y
-         } in  
+         } in
             if (((==) :: (Int -> Int -> Bool)) r_order c_cmp_equal)
             then (f_list_cmp a_cmp a_xs a_ys)
-            else 
+            else
                 r_order;
     f_remove_cmp::(t1 -> t1 -> Int) -> [t1] -> [t1] -> [t1];
     f_remove_cmp a_cmp a_xs []=a_xs;
     f_remove_cmp a_cmp a_xs (a_y:a_ys)=
-        let { 
+        let {
             f_remove' a_y []=[];
             f_remove' a_y (a_x:a_xs)=
                 if (((==) :: (Int -> Int -> Bool)) (a_cmp a_x a_y) c_cmp_equal)
                 then a_xs
-                else 
+                else
                     ((:) a_x (f_remove' a_y a_xs))
          } in  f_remove_cmp a_cmp (f_remove' a_y a_xs) a_ys;
     f_cmp_combine::[Int] -> Int;
@@ -281,19 +281,19 @@ data
     f_cmp_combine (a_x:a_xs)=
         if (((==) :: (Int -> Int -> Bool)) a_x c_cmp_equal)
         then (f_cmp_combine a_xs)
-        else 
+        else
             a_x;
     f_abs::Double -> Double;
     f_abs a_x=
         if (((<=) :: (Double -> Double -> Bool)) a_x (0.00000 :: Double))
         then (((negate) :: (Double -> Double)) a_x)
-        else 
+        else
             a_x;
     f_and::[Bool] -> Bool;
     f_and a_xs=f_foldr (&&) True a_xs;
     f_cjustify::Int -> [Char] -> [Char];
     f_cjustify a_n a_s=
-        let { 
+        let {
             r_margin=((-) :: (Int -> Int -> Int)) a_n (length a_s);
             r_lmargin=((quot) :: (Int -> Int -> Int)) r_margin (2 :: Int);
             r_rmargin=((-) :: (Int -> Int -> Int)) r_margin r_lmargin
@@ -306,7 +306,7 @@ data
     f_digit a_x=
         if (((<=) :: (Int -> Int -> Bool)) (fromEnum '0') (fromEnum a_x))
         then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_x) (fromEnum '9'))
-        else 
+        else
             False;
     f_drop::Int -> [t1] -> [t1];
     f_drop 0 a_x=a_x;
@@ -317,7 +317,7 @@ data
     f_dropwhile a_f (a_a:a_x)=
         if (a_f a_a)
         then (f_dropwhile a_f a_x)
-        else 
+        else
             ((:) a_a a_x);
     c_e::Double;
     c_e=((exp) :: (Double -> Double)) (1.00000 :: Double);
@@ -326,7 +326,7 @@ data
     f_foldl::(t1 -> t2 -> t1) -> t1 -> [t2] -> t1;
     f_foldl a_op a_r []=a_r;
     f_foldl a_op a_r (a_a:a_x)=
-        let { 
+        let {
             f_strict a_f a_x=miraseq a_x (a_f a_x)
          } in  f_foldl a_op (f_strict a_op a_r a_a) a_x;
     f_foldl1::(t1 -> t1 -> t1) -> [t1] -> t1;
@@ -343,7 +343,7 @@ data
     f_id a_x=a_x;
     f_index::[t1] -> [Int];
     f_index a_x=
-        let { 
+        let {
             f_f a_n []=[];
             f_f a_n (a_a:a_x)=(:) a_n (f_f (((+) :: (Int -> Int -> Int)) a_n (1 :: Int)) a_x)
          } in  f_f (0 :: Int) a_x;
@@ -351,7 +351,7 @@ data
     f_init (a_a:a_x)=
         if (null a_x)
         then []
-        else 
+        else
             ((:) a_a (f_init a_x));
     f_iterate::(t1 -> t1) -> t1 -> [t1];
     f_iterate a_f a_x=(:) a_x (f_iterate a_f (a_f a_x));
@@ -362,9 +362,9 @@ data
     f_lay (a_a:a_x)=(++) a_a ((++) "\n" (f_lay a_x));
     f_layn::[[Char]] -> [Char];
     f_layn a_x=
-        let { 
+        let {
             f_f a_n []=[];
-            f_f a_n (a_a:a_x)=(++) (f_rjustify (4 :: Int) (strict_show_i a_n)) ((++) ") " ((++) a_a ((++) "\n" 
+            f_f a_n (a_a:a_x)=(++) (f_rjustify (4 :: Int) (strict_show_i a_n)) ((++) ") " ((++) a_a ((++) "\n"
                 (f_f (((+) :: (Int -> Int -> Int)) a_n (1 :: Int)) a_x))))
          } in  f_f (1 :: Int) a_x;
     f_letter::Char -> Bool;
@@ -372,33 +372,33 @@ data
         if (
             if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'a') (fromEnum a_c))
             then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'z'))
-            else 
+            else
                 False)
         then True
-        else 
+        else
         if (((<=) :: (Int -> Int -> Bool)) (fromEnum 'A') (fromEnum a_c))
         then (((<=) :: (Int -> Int -> Bool)) (fromEnum a_c) (fromEnum 'Z'))
-        else 
+        else
             False;
     f_limit::[Double] -> Double;
     f_limit (a_a:a_b:a_x)=
         if (((==) :: (Double -> Double -> Bool)) a_a a_b)
         then a_a
-        else 
+        else
             (f_limit ((:) a_b a_x));
     f_lines::[Char] -> [[Char]];
     f_lines []=[];
     f_lines (a_a:a_x)=
-        let { 
+        let {
             r_xs=
                 if (pair a_x)
                 then (f_lines a_x)
-                else 
+                else
                     ((:) [] [])
-         } in  
+         } in
             if (((==) :: (Int -> Int -> Bool)) (fromEnum a_a) (fromEnum '\o012'))
             then ((:) [] (f_lines a_x))
-            else 
+            else
                 ((:) ((:) a_a (head r_xs)) (tail r_xs));
     f_ljustify::Int -> [Char] -> [Char];
     f_ljustify a_n a_s=(++) a_s (f_spaces (((-) :: (Int -> Int -> Int)) a_n (length a_s)));
@@ -412,7 +412,7 @@ data
     f_max2 a_a a_b=
         if (((>=) :: (Int -> Int -> Bool)) a_a a_b)
         then a_a
-        else 
+        else
             a_b;
     f_member::[Int] -> Int -> Bool;
     f_member a_x a_a=f_or (f_map (flip ((==) :: (Int -> Int -> Bool)) a_a) a_x);
@@ -422,7 +422,7 @@ data
     f_merge (a_a:a_x) (a_b:a_y)=
         if (((<=) :: (Int -> Int -> Bool)) a_a a_b)
         then ((:) a_a (f_merge a_x ((:) a_b a_y)))
-        else 
+        else
             ((:) a_b (f_merge ((:) a_a a_x) a_y));
     f_min::[Int] -> Int;
     f_min a_xs=f_foldl1 f_min2 a_xs;
@@ -430,7 +430,7 @@ data
     f_min2 a_a a_b=
         if (((>) :: (Int -> Int -> Bool)) a_a a_b)
         then a_b
-        else 
+        else
             a_a;
     f_mkset::[Int] -> [Int];
     f_mkset []=[];
@@ -453,7 +453,7 @@ data
     f_rjustify a_n a_s=(++) (f_spaces (((-) :: (Int -> Int -> Int)) a_n (length a_s))) a_s;
     f_scan::(t1 -> t2 -> t1) -> t1 -> [t2] -> [t1];
     f_scan a_op=
-        let { 
+        let {
             f_g a_r []=(:) a_r [];
             f_g a_r (a_a:a_x)=(:) a_r (f_g (a_op a_r a_a) a_x)
          } in  f_g;
@@ -461,13 +461,13 @@ data
     f_snd (a_a,a_b)=a_b;
     f_sort::[Int] -> [Int];
     f_sort a_x=
-        let { 
+        let {
             r_n=length a_x;
             r_n2=((quot) :: (Int -> Int -> Int)) r_n (2 :: Int)
-         } in  
+         } in
             if (((<=) :: (Int -> Int -> Bool)) r_n (1 :: Int))
             then a_x
-            else 
+            else
                 (f_merge (f_sort (f_take r_n2 a_x)) (f_sort (f_drop r_n2 a_x)));
     f_spaces::Int -> [Char];
     f_spaces a_n=f_rep a_n ' ';
@@ -475,7 +475,7 @@ data
     f_subtract a_x a_y=((-) :: (Int -> Int -> Int)) a_y a_x;
     f_sum::[Int] -> Int;
     f_sum a_xs=f_foldl ((+) :: (Int -> Int -> Int)) (0 :: Int) a_xs;
-data 
+data
     T_sys_message=F_Stdout [Char] | F_Stderr [Char] | F_Tofile [Char] [Char] | F_Closefile [Char] | F_Appendfile [Char] | F_System [Char] | F_Exit Int;
     f_take::Int -> [t1] -> [t1];
     f_take 0 a_x=[];
@@ -486,22 +486,22 @@ data
     f_takewhile a_f (a_a:a_x)=
         if (a_f a_a)
         then ((:) a_a (f_takewhile a_f a_x))
-        else 
+        else
             [];
     f_transpose::[[t1]] -> [[t1]];
     f_transpose a_x=
-        let { 
+        let {
             r_x'=f_takewhile pair a_x
-         } in  
+         } in
             if (null r_x')
             then []
-            else 
+            else
                 ((:) (f_map head r_x') (f_transpose (f_map tail r_x')));
     f_until::(t1 -> Bool) -> (t1 -> t1) -> t1 -> t1;
     f_until a_f a_g a_x=
         if (a_f a_x)
         then a_x
-        else 
+        else
             (f_until a_f a_g (a_g a_x));
     f_zip2::[t1] -> [t2] -> [(t1,t2)];
     f_zip2 (a_a:a_x) (a_b:a_y)=(:) (a_a,a_b) (f_zip2 a_x a_y);

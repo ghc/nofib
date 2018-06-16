@@ -14,7 +14,7 @@ panic = error
 
 --paLiteral :: Parser Literal
 paLiteral
-   = pgAlts 
+   = pgAlts
      [
         pgApply (LiteralInt.leStringToInt) (pgItem Lintlit),
         pgApply (LiteralChar.head)         (pgItem Lcharlit),
@@ -22,10 +22,10 @@ paLiteral
      ]
 
 paExpr
-   = pgAlts 
+   = pgAlts
      [
-        paCaseExpr, 
-        paLetExpr, 
+        paCaseExpr,
+        paLetExpr,
         paLamExpr,
         paIfExpr,
         paUnaryMinusExpr,
@@ -34,7 +34,7 @@ paExpr
 
 paUnaryMinusExpr
    = pgThen2
-        (\minus (_, aexpr, _) -> 
+        (\minus (_, aexpr, _) ->
              ExprApp (ExprApp (ExprVar "-") (ExprLiteral (LiteralInt 0))) aexpr)
         paMinus
         paAExpr
@@ -51,7 +51,7 @@ paAlt
    = pgAlts
      [
         pgThen4
-           (\pat arrow expr wheres 
+           (\pat arrow expr wheres
                 -> MkExprCaseAlt pat (pa_MakeWhereExpr expr wheres))
            paPat
            (pgItem Larrow)
@@ -90,10 +90,10 @@ paLetExpr
         (pgItem Lin)
         paExpr
 
-paValdefs 
+paValdefs
    = pgApply pa_MergeValdefs (pgDeclList paValdef)
 
-pa_MergeValdefs 
+pa_MergeValdefs
    = id
 
 paLhs
@@ -107,24 +107,24 @@ paValdef
    = pgAlts
      [
         pgThen4
-           (\(line, lhs) eq rhs wheres 
+           (\(line, lhs) eq rhs wheres
                 -> MkValBind line lhs (pa_MakeWhereExpr rhs wheres))
            (pgGetLineNumber paLhs)
            (pgItem Lequals)
            paExpr
            (pgOptional paWhereClause),
         pgThen3
-           (\(line, lhs) grdrhss wheres 
-                -> MkValBind line lhs 
+           (\(line, lhs) grdrhss wheres
+                -> MkValBind line lhs
                       (pa_MakeWhereExpr (ExprGuards grdrhss) wheres))
            (pgGetLineNumber paLhs)
            (pgOneOrMore paGrhs)
            (pgOptional paWhereClause)
      ]
 
-pa_MakeWhereExpr expr Nothing 
+pa_MakeWhereExpr expr Nothing
    = expr
-pa_MakeWhereExpr expr (Just whereClauses) 
+pa_MakeWhereExpr expr (Just whereClauses)
    = ExprWhere expr whereClauses
 
 paWhereClause
@@ -136,7 +136,7 @@ paGrhs
         paExpr
         (pgItem Lequals)
         paExpr
-        
+
 
 paAPat
    = pgAlts
@@ -146,12 +146,12 @@ paAPat
         pgApply (const PatWild) (pgItem Lunder),
         pgApply PatTuple
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llparen) 
+                         (pgItem Llparen)
                          (pgTwoOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrparen)),
         pgApply PatList
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llbrack) 
+                         (pgItem Llbrack)
                          (pgZeroOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrbrack)),
         pgThen3 (\l p r -> p)
@@ -189,7 +189,7 @@ paIfExpr
 
 paAExpr
  = pgApply (\x -> (False, x, []))
-   (pgAlts 
+   (pgAlts
     [
        pgApply ExprVar paVar,
        pgApply ExprCon paCon,
@@ -201,14 +201,14 @@ paAExpr
    )
 
 paListExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llbrack) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llbrack)
              (pgZeroOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrbrack)
 
 paTupleExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llparen) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llparen)
              (pgTwoOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrparen)
 
@@ -245,10 +245,10 @@ paConstrs
         paCon
         (pgZeroOrMore paAType)
 
-paType 
+paType
    = pgAlts
      [
-        pgThen3 
+        pgThen3
            (\atype arrow typee -> TypeArr atype typee)
            paAType
            (pgItem Larrow)
@@ -286,14 +286,14 @@ paInfixDecl env toks
   = let dump (ExprVar v) = v
         dump (ExprCon c) = c
     in
-    pa_UpdateFixityEnv 
+    pa_UpdateFixityEnv
        (pgThen3
           (\assoc prio name -> MkFixDecl name (assoc, prio))
           paInfixWord
-          (pgApply leStringToInt (pgItem Lintlit)) 
+          (pgApply leStringToInt (pgItem Lintlit))
           (pgApply (\(_, op, _) -> dump op) paOp)
-          env 
-          toks 
+          env
+          toks
        )
 
 paInfixWord
@@ -304,11 +304,11 @@ paInfixWord
        pgApply (const InfixN) (pgItem Linfix)
     ]
 
-pa_UpdateFixityEnv (PFail tok) 
+pa_UpdateFixityEnv (PFail tok)
    = PFail tok
 
 pa_UpdateFixityEnv (POk env toks (MkFixDecl name assoc_prio))
-   = let 
+   = let
          new_env = (name, assoc_prio) : env
      in
          POk new_env toks (MkFixDecl name assoc_prio)
@@ -328,7 +328,7 @@ paModule
         paCon
         (pgItem Lwhere)
         (pgDeclList paTopDecl)
-   
+
 parser_test toks
    = let parser_to_test
             = --paPat
@@ -339,7 +339,7 @@ parser_test toks
               --paType
               paModule
               --pgTwoOrMoreWithSep (pgItem Lsemi) (pgItem Lcomma)
-              
+
      in
          parser_to_test hsPrecTable toks
 
@@ -350,7 +350,7 @@ parser_test toks
 --
 --==========================================================--
 --
-hsAExprOrOp 
+hsAExprOrOp
  = pgAlts [paAExpr, paOp]
 
 --hsDoExpr :: [PEntry] -> Parser Expr
@@ -358,7 +358,7 @@ hsAExprOrOp
 -- hsDoExpr uses a parser (hsAexpOrOp :: Parsr PaEntry) for atomic
 -- expressions or operators
 
-hsDoExpr stack env toks = 
+hsDoExpr stack env toks =
   let
      (validIn, restIn, parseIn, err)
         = case hsAExprOrOp env toks of
@@ -372,20 +372,20 @@ hsDoExpr stack env toks =
         = utLookupDef env nameIn (InfixL, 9)
      shift
         = hsDoExpr (parseIn:stack) env restIn
-  in 
+  in
      case stack of
         s1:s2:s3:ss
            | validIn && opS2 && opIn && priorS2 > priorIn
               -> reduce
            | validIn && opS2 && opIn && priorS2 == priorIn
-              -> if assocS2 == InfixL && 
-                    assocIn == InfixL 
+              -> if assocS2 == InfixL &&
+                    assocIn == InfixL
                  then reduce
-	         else 
-                 if assocS2 == InfixR && 
-                    assocIn == InfixR 
+	         else
+                 if assocS2 == InfixR &&
+                    assocIn == InfixR
                  then shift
-	         else PFail (head toks) -- Because of ambiguousness 
+	         else PFail (head toks) -- Because of ambiguousness
            | not validIn && opS2
               -> reduce
              where
@@ -393,7 +393,7 @@ hsDoExpr stack env toks =
                (opS2, valueS2, nameS2) = s2
                (opS3, valueS3, nameS3) = s3
                (assocS2, priorS2) = utLookupDef env nameS2 (InfixL, 9)
-               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3) 
+               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3)
                                                   valueS1, [])
                                   : ss) env toks
         s1:s2:ss
@@ -402,7 +402,7 @@ hsDoExpr stack env toks =
              where
                 (opS1, valueS1, nameS1) = s1
                 (opS2, valueS2, nameS2) = s2
-                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss) 
+                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss)
                                   env toks
         (s1:[])
            | validIn -> shift
@@ -452,7 +452,7 @@ panic = error
 
 --paLiteral :: Parser Literal
 paLiteral
-   = pgAlts 
+   = pgAlts
      [
         pgApply (LiteralInt.leStringToInt) (pgItem Lintlit),
         pgApply (LiteralChar.head)         (pgItem Lcharlit),
@@ -460,10 +460,10 @@ paLiteral
      ]
 
 paExpr
-   = pgAlts 
+   = pgAlts
      [
-        paCaseExpr, 
-        paLetExpr, 
+        paCaseExpr,
+        paLetExpr,
         paLamExpr,
         paIfExpr,
         paUnaryMinusExpr,
@@ -472,7 +472,7 @@ paExpr
 
 paUnaryMinusExpr
    = pgThen2
-        (\minus (_, aexpr, _) -> 
+        (\minus (_, aexpr, _) ->
              ExprApp (ExprApp (ExprVar "-") (ExprLiteral (LiteralInt 0))) aexpr)
         paMinus
         paAExpr
@@ -489,7 +489,7 @@ paAlt
    = pgAlts
      [
         pgThen4
-           (\pat arrow expr wheres 
+           (\pat arrow expr wheres
                 -> MkExprCaseAlt pat (pa_MakeWhereExpr expr wheres))
            paPat
            (pgItem Larrow)
@@ -528,10 +528,10 @@ paLetExpr
         (pgItem Lin)
         paExpr
 
-paValdefs 
+paValdefs
    = pgApply pa_MergeValdefs (pgDeclList paValdef)
 
-pa_MergeValdefs 
+pa_MergeValdefs
    = id
 
 paLhs
@@ -545,24 +545,24 @@ paValdef
    = pgAlts
      [
         pgThen4
-           (\(line, lhs) eq rhs wheres 
+           (\(line, lhs) eq rhs wheres
                 -> MkValBind line lhs (pa_MakeWhereExpr rhs wheres))
            (pgGetLineNumber paLhs)
            (pgItem Lequals)
            paExpr
            (pgOptional paWhereClause),
         pgThen3
-           (\(line, lhs) grdrhss wheres 
-                -> MkValBind line lhs 
+           (\(line, lhs) grdrhss wheres
+                -> MkValBind line lhs
                       (pa_MakeWhereExpr (ExprGuards grdrhss) wheres))
            (pgGetLineNumber paLhs)
            (pgOneOrMore paGrhs)
            (pgOptional paWhereClause)
      ]
 
-pa_MakeWhereExpr expr Nothing 
+pa_MakeWhereExpr expr Nothing
    = expr
-pa_MakeWhereExpr expr (Just whereClauses) 
+pa_MakeWhereExpr expr (Just whereClauses)
    = ExprWhere expr whereClauses
 
 paWhereClause
@@ -574,7 +574,7 @@ paGrhs
         paExpr
         (pgItem Lequals)
         paExpr
-        
+
 
 paAPat
    = pgAlts
@@ -584,12 +584,12 @@ paAPat
         pgApply (const PatWild) (pgItem Lunder),
         pgApply PatTuple
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llparen) 
+                         (pgItem Llparen)
                          (pgTwoOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrparen)),
         pgApply PatList
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llbrack) 
+                         (pgItem Llbrack)
                          (pgZeroOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrbrack)),
         pgThen3 (\l p r -> p)
@@ -627,7 +627,7 @@ paIfExpr
 
 paAExpr
  = pgApply (\x -> (False, x, []))
-   (pgAlts 
+   (pgAlts
     [
        pgApply ExprVar paVar,
        pgApply ExprCon paCon,
@@ -639,14 +639,14 @@ paAExpr
    )
 
 paListExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llbrack) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llbrack)
              (pgZeroOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrbrack)
 
 paTupleExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llparen) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llparen)
              (pgTwoOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrparen)
 
@@ -683,10 +683,10 @@ paConstrs
         paCon
         (pgZeroOrMore paAType)
 
-paType 
+paType
    = pgAlts
      [
-        pgThen3 
+        pgThen3
            (\atype arrow typee -> TypeArr atype typee)
            paAType
            (pgItem Larrow)
@@ -724,14 +724,14 @@ paInfixDecl env toks
   = let dump (ExprVar v) = v
         dump (ExprCon c) = c
     in
-    pa_UpdateFixityEnv 
+    pa_UpdateFixityEnv
        (pgThen3
           (\assoc prio name -> MkFixDecl name (assoc, prio))
           paInfixWord
-          (pgApply leStringToInt (pgItem Lintlit)) 
+          (pgApply leStringToInt (pgItem Lintlit))
           (pgApply (\(_, op, _) -> dump op) paOp)
-          env 
-          toks 
+          env
+          toks
        )
 
 paInfixWord
@@ -742,11 +742,11 @@ paInfixWord
        pgApply (const InfixN) (pgItem Linfix)
     ]
 
-pa_UpdateFixityEnv (PFail tok) 
+pa_UpdateFixityEnv (PFail tok)
    = PFail tok
 
 pa_UpdateFixityEnv (POk env toks (MkFixDecl name assoc_prio))
-   = let 
+   = let
          new_env = (name, assoc_prio) : env
      in
          POk new_env toks (MkFixDecl name assoc_prio)
@@ -766,7 +766,7 @@ paModule
         paCon
         (pgItem Lwhere)
         (pgDeclList paTopDecl)
-   
+
 parser_test toks
    = let parser_to_test
             = --paPat
@@ -777,7 +777,7 @@ parser_test toks
               --paType
               paModule
               --pgTwoOrMoreWithSep (pgItem Lsemi) (pgItem Lcomma)
-              
+
      in
          parser_to_test hsPrecTable toks
 
@@ -788,7 +788,7 @@ parser_test toks
 --
 --==========================================================--
 --
-hsAExprOrOp 
+hsAExprOrOp
  = pgAlts [paAExpr, paOp]
 
 --hsDoExpr :: [PEntry] -> Parser Expr
@@ -796,7 +796,7 @@ hsAExprOrOp
 -- hsDoExpr uses a parser (hsAexpOrOp :: Parsr PaEntry) for atomic
 -- expressions or operators
 
-hsDoExpr stack env toks = 
+hsDoExpr stack env toks =
   let
      (validIn, restIn, parseIn, err)
         = case hsAExprOrOp env toks of
@@ -810,20 +810,20 @@ hsDoExpr stack env toks =
         = utLookupDef env nameIn (InfixL, 9)
      shift
         = hsDoExpr (parseIn:stack) env restIn
-  in 
+  in
      case stack of
         s1:s2:s3:ss
            | validIn && opS2 && opIn && priorS2 > priorIn
               -> reduce
            | validIn && opS2 && opIn && priorS2 == priorIn
-              -> if assocS2 == InfixL && 
-                    assocIn == InfixL 
+              -> if assocS2 == InfixL &&
+                    assocIn == InfixL
                  then reduce
-	         else 
-                 if assocS2 == InfixR && 
-                    assocIn == InfixR 
+	         else
+                 if assocS2 == InfixR &&
+                    assocIn == InfixR
                  then shift
-	         else PFail (head toks) -- Because of ambiguousness 
+	         else PFail (head toks) -- Because of ambiguousness
            | not validIn && opS2
               -> reduce
              where
@@ -831,7 +831,7 @@ hsDoExpr stack env toks =
                (opS2, valueS2, nameS2) = s2
                (opS3, valueS3, nameS3) = s3
                (assocS2, priorS2) = utLookupDef env nameS2 (InfixL, 9)
-               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3) 
+               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3)
                                                   valueS1, [])
                                   : ss) env toks
         s1:s2:ss
@@ -840,7 +840,7 @@ hsDoExpr stack env toks =
              where
                 (opS1, valueS1, nameS1) = s1
                 (opS2, valueS2, nameS2) = s2
-                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss) 
+                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss)
                                   env toks
         (s1:[])
            | validIn -> shift
@@ -890,7 +890,7 @@ panic = error
 
 --paLiteral :: Parser Literal
 paLiteral
-   = pgAlts 
+   = pgAlts
      [
         pgApply (LiteralInt.leStringToInt) (pgItem Lintlit),
         pgApply (LiteralChar.head)         (pgItem Lcharlit),
@@ -898,10 +898,10 @@ paLiteral
      ]
 
 paExpr
-   = pgAlts 
+   = pgAlts
      [
-        paCaseExpr, 
-        paLetExpr, 
+        paCaseExpr,
+        paLetExpr,
         paLamExpr,
         paIfExpr,
         paUnaryMinusExpr,
@@ -910,7 +910,7 @@ paExpr
 
 paUnaryMinusExpr
    = pgThen2
-        (\minus (_, aexpr, _) -> 
+        (\minus (_, aexpr, _) ->
              ExprApp (ExprApp (ExprVar "-") (ExprLiteral (LiteralInt 0))) aexpr)
         paMinus
         paAExpr
@@ -927,7 +927,7 @@ paAlt
    = pgAlts
      [
         pgThen4
-           (\pat arrow expr wheres 
+           (\pat arrow expr wheres
                 -> MkExprCaseAlt pat (pa_MakeWhereExpr expr wheres))
            paPat
            (pgItem Larrow)
@@ -966,10 +966,10 @@ paLetExpr
         (pgItem Lin)
         paExpr
 
-paValdefs 
+paValdefs
    = pgApply pa_MergeValdefs (pgDeclList paValdef)
 
-pa_MergeValdefs 
+pa_MergeValdefs
    = id
 
 paLhs
@@ -983,24 +983,24 @@ paValdef
    = pgAlts
      [
         pgThen4
-           (\(line, lhs) eq rhs wheres 
+           (\(line, lhs) eq rhs wheres
                 -> MkValBind line lhs (pa_MakeWhereExpr rhs wheres))
            (pgGetLineNumber paLhs)
            (pgItem Lequals)
            paExpr
            (pgOptional paWhereClause),
         pgThen3
-           (\(line, lhs) grdrhss wheres 
-                -> MkValBind line lhs 
+           (\(line, lhs) grdrhss wheres
+                -> MkValBind line lhs
                       (pa_MakeWhereExpr (ExprGuards grdrhss) wheres))
            (pgGetLineNumber paLhs)
            (pgOneOrMore paGrhs)
            (pgOptional paWhereClause)
      ]
 
-pa_MakeWhereExpr expr Nothing 
+pa_MakeWhereExpr expr Nothing
    = expr
-pa_MakeWhereExpr expr (Just whereClauses) 
+pa_MakeWhereExpr expr (Just whereClauses)
    = ExprWhere expr whereClauses
 
 paWhereClause
@@ -1012,7 +1012,7 @@ paGrhs
         paExpr
         (pgItem Lequals)
         paExpr
-        
+
 
 paAPat
    = pgAlts
@@ -1022,12 +1022,12 @@ paAPat
         pgApply (const PatWild) (pgItem Lunder),
         pgApply PatTuple
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llparen) 
+                         (pgItem Llparen)
                          (pgTwoOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrparen)),
         pgApply PatList
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llbrack) 
+                         (pgItem Llbrack)
                          (pgZeroOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrbrack)),
         pgThen3 (\l p r -> p)
@@ -1065,7 +1065,7 @@ paIfExpr
 
 paAExpr
  = pgApply (\x -> (False, x, []))
-   (pgAlts 
+   (pgAlts
     [
        pgApply ExprVar paVar,
        pgApply ExprCon paCon,
@@ -1077,14 +1077,14 @@ paAExpr
    )
 
 paListExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llbrack) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llbrack)
              (pgZeroOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrbrack)
 
 paTupleExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llparen) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llparen)
              (pgTwoOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrparen)
 
@@ -1121,10 +1121,10 @@ paConstrs
         paCon
         (pgZeroOrMore paAType)
 
-paType 
+paType
    = pgAlts
      [
-        pgThen3 
+        pgThen3
            (\atype arrow typee -> TypeArr atype typee)
            paAType
            (pgItem Larrow)
@@ -1162,14 +1162,14 @@ paInfixDecl env toks
   = let dump (ExprVar v) = v
         dump (ExprCon c) = c
     in
-    pa_UpdateFixityEnv 
+    pa_UpdateFixityEnv
        (pgThen3
           (\assoc prio name -> MkFixDecl name (assoc, prio))
           paInfixWord
-          (pgApply leStringToInt (pgItem Lintlit)) 
+          (pgApply leStringToInt (pgItem Lintlit))
           (pgApply (\(_, op, _) -> dump op) paOp)
-          env 
-          toks 
+          env
+          toks
        )
 
 paInfixWord
@@ -1180,11 +1180,11 @@ paInfixWord
        pgApply (const InfixN) (pgItem Linfix)
     ]
 
-pa_UpdateFixityEnv (PFail tok) 
+pa_UpdateFixityEnv (PFail tok)
    = PFail tok
 
 pa_UpdateFixityEnv (POk env toks (MkFixDecl name assoc_prio))
-   = let 
+   = let
          new_env = (name, assoc_prio) : env
      in
          POk new_env toks (MkFixDecl name assoc_prio)
@@ -1204,7 +1204,7 @@ paModule
         paCon
         (pgItem Lwhere)
         (pgDeclList paTopDecl)
-   
+
 parser_test toks
    = let parser_to_test
             = --paPat
@@ -1215,7 +1215,7 @@ parser_test toks
               --paType
               paModule
               --pgTwoOrMoreWithSep (pgItem Lsemi) (pgItem Lcomma)
-              
+
      in
          parser_to_test hsPrecTable toks
 
@@ -1226,7 +1226,7 @@ parser_test toks
 --
 --==========================================================--
 --
-hsAExprOrOp 
+hsAExprOrOp
  = pgAlts [paAExpr, paOp]
 
 --hsDoExpr :: [PEntry] -> Parser Expr
@@ -1234,7 +1234,7 @@ hsAExprOrOp
 -- hsDoExpr uses a parser (hsAexpOrOp :: Parsr PaEntry) for atomic
 -- expressions or operators
 
-hsDoExpr stack env toks = 
+hsDoExpr stack env toks =
   let
      (validIn, restIn, parseIn, err)
         = case hsAExprOrOp env toks of
@@ -1248,20 +1248,20 @@ hsDoExpr stack env toks =
         = utLookupDef env nameIn (InfixL, 9)
      shift
         = hsDoExpr (parseIn:stack) env restIn
-  in 
+  in
      case stack of
         s1:s2:s3:ss
            | validIn && opS2 && opIn && priorS2 > priorIn
               -> reduce
            | validIn && opS2 && opIn && priorS2 == priorIn
-              -> if assocS2 == InfixL && 
-                    assocIn == InfixL 
+              -> if assocS2 == InfixL &&
+                    assocIn == InfixL
                  then reduce
-	         else 
-                 if assocS2 == InfixR && 
-                    assocIn == InfixR 
+	         else
+                 if assocS2 == InfixR &&
+                    assocIn == InfixR
                  then shift
-	         else PFail (head toks) -- Because of ambiguousness 
+	         else PFail (head toks) -- Because of ambiguousness
            | not validIn && opS2
               -> reduce
              where
@@ -1269,7 +1269,7 @@ hsDoExpr stack env toks =
                (opS2, valueS2, nameS2) = s2
                (opS3, valueS3, nameS3) = s3
                (assocS2, priorS2) = utLookupDef env nameS2 (InfixL, 9)
-               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3) 
+               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3)
                                                   valueS1, [])
                                   : ss) env toks
         s1:s2:ss
@@ -1278,7 +1278,7 @@ hsDoExpr stack env toks =
              where
                 (opS1, valueS1, nameS1) = s1
                 (opS2, valueS2, nameS2) = s2
-                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss) 
+                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss)
                                   env toks
         (s1:[])
            | validIn -> shift
@@ -1328,7 +1328,7 @@ panic = error
 
 --paLiteral :: Parser Literal
 paLiteral
-   = pgAlts 
+   = pgAlts
      [
         pgApply (LiteralInt.leStringToInt) (pgItem Lintlit),
         pgApply (LiteralChar.head)         (pgItem Lcharlit),
@@ -1336,10 +1336,10 @@ paLiteral
      ]
 
 paExpr
-   = pgAlts 
+   = pgAlts
      [
-        paCaseExpr, 
-        paLetExpr, 
+        paCaseExpr,
+        paLetExpr,
         paLamExpr,
         paIfExpr,
         paUnaryMinusExpr,
@@ -1348,7 +1348,7 @@ paExpr
 
 paUnaryMinusExpr
    = pgThen2
-        (\minus (_, aexpr, _) -> 
+        (\minus (_, aexpr, _) ->
              ExprApp (ExprApp (ExprVar "-") (ExprLiteral (LiteralInt 0))) aexpr)
         paMinus
         paAExpr
@@ -1365,7 +1365,7 @@ paAlt
    = pgAlts
      [
         pgThen4
-           (\pat arrow expr wheres 
+           (\pat arrow expr wheres
                 -> MkExprCaseAlt pat (pa_MakeWhereExpr expr wheres))
            paPat
            (pgItem Larrow)
@@ -1404,10 +1404,10 @@ paLetExpr
         (pgItem Lin)
         paExpr
 
-paValdefs 
+paValdefs
    = pgApply pa_MergeValdefs (pgDeclList paValdef)
 
-pa_MergeValdefs 
+pa_MergeValdefs
    = id
 
 paLhs
@@ -1421,24 +1421,24 @@ paValdef
    = pgAlts
      [
         pgThen4
-           (\(line, lhs) eq rhs wheres 
+           (\(line, lhs) eq rhs wheres
                 -> MkValBind line lhs (pa_MakeWhereExpr rhs wheres))
            (pgGetLineNumber paLhs)
            (pgItem Lequals)
            paExpr
            (pgOptional paWhereClause),
         pgThen3
-           (\(line, lhs) grdrhss wheres 
-                -> MkValBind line lhs 
+           (\(line, lhs) grdrhss wheres
+                -> MkValBind line lhs
                       (pa_MakeWhereExpr (ExprGuards grdrhss) wheres))
            (pgGetLineNumber paLhs)
            (pgOneOrMore paGrhs)
            (pgOptional paWhereClause)
      ]
 
-pa_MakeWhereExpr expr Nothing 
+pa_MakeWhereExpr expr Nothing
    = expr
-pa_MakeWhereExpr expr (Just whereClauses) 
+pa_MakeWhereExpr expr (Just whereClauses)
    = ExprWhere expr whereClauses
 
 paWhereClause
@@ -1450,7 +1450,7 @@ paGrhs
         paExpr
         (pgItem Lequals)
         paExpr
-        
+
 
 paAPat
    = pgAlts
@@ -1460,12 +1460,12 @@ paAPat
         pgApply (const PatWild) (pgItem Lunder),
         pgApply PatTuple
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llparen) 
+                         (pgItem Llparen)
                          (pgTwoOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrparen)),
         pgApply PatList
                 (pgThen3 (\l es r -> es)
-                         (pgItem Llbrack) 
+                         (pgItem Llbrack)
                          (pgZeroOrMoreWithSep paPat (pgItem Lcomma))
                          (pgItem Lrbrack)),
         pgThen3 (\l p r -> p)
@@ -1503,7 +1503,7 @@ paIfExpr
 
 paAExpr
  = pgApply (\x -> (False, x, []))
-   (pgAlts 
+   (pgAlts
     [
        pgApply ExprVar paVar,
        pgApply ExprCon paCon,
@@ -1515,14 +1515,14 @@ paAExpr
    )
 
 paListExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llbrack) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llbrack)
              (pgZeroOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrbrack)
 
 paTupleExpr
-   = pgThen3 (\l es r -> es) 
-             (pgItem Llparen) 
+   = pgThen3 (\l es r -> es)
+             (pgItem Llparen)
              (pgTwoOrMoreWithSep paExpr (pgItem Lcomma))
              (pgItem Lrparen)
 
@@ -1559,10 +1559,10 @@ paConstrs
         paCon
         (pgZeroOrMore paAType)
 
-paType 
+paType
    = pgAlts
      [
-        pgThen3 
+        pgThen3
            (\atype arrow typee -> TypeArr atype typee)
            paAType
            (pgItem Larrow)
@@ -1600,14 +1600,14 @@ paInfixDecl env toks
   = let dump (ExprVar v) = v
         dump (ExprCon c) = c
     in
-    pa_UpdateFixityEnv 
+    pa_UpdateFixityEnv
        (pgThen3
           (\assoc prio name -> MkFixDecl name (assoc, prio))
           paInfixWord
-          (pgApply leStringToInt (pgItem Lintlit)) 
+          (pgApply leStringToInt (pgItem Lintlit))
           (pgApply (\(_, op, _) -> dump op) paOp)
-          env 
-          toks 
+          env
+          toks
        )
 
 paInfixWord
@@ -1618,11 +1618,11 @@ paInfixWord
        pgApply (const InfixN) (pgItem Linfix)
     ]
 
-pa_UpdateFixityEnv (PFail tok) 
+pa_UpdateFixityEnv (PFail tok)
    = PFail tok
 
 pa_UpdateFixityEnv (POk env toks (MkFixDecl name assoc_prio))
-   = let 
+   = let
          new_env = (name, assoc_prio) : env
      in
          POk new_env toks (MkFixDecl name assoc_prio)
@@ -1642,7 +1642,7 @@ paModule
         paCon
         (pgItem Lwhere)
         (pgDeclList paTopDecl)
-   
+
 parser_test toks
    = let parser_to_test
             = --paPat
@@ -1653,7 +1653,7 @@ parser_test toks
               --paType
               paModule
               --pgTwoOrMoreWithSep (pgItem Lsemi) (pgItem Lcomma)
-              
+
      in
          parser_to_test hsPrecTable toks
 
@@ -1664,7 +1664,7 @@ parser_test toks
 --
 --==========================================================--
 --
-hsAExprOrOp 
+hsAExprOrOp
  = pgAlts [paAExpr, paOp]
 
 --hsDoExpr :: [PEntry] -> Parser Expr
@@ -1672,7 +1672,7 @@ hsAExprOrOp
 -- hsDoExpr uses a parser (hsAexpOrOp :: Parsr PaEntry) for atomic
 -- expressions or operators
 
-hsDoExpr stack env toks = 
+hsDoExpr stack env toks =
   let
      (validIn, restIn, parseIn, err)
         = case hsAExprOrOp env toks of
@@ -1686,20 +1686,20 @@ hsDoExpr stack env toks =
         = utLookupDef env nameIn (InfixL, 9)
      shift
         = hsDoExpr (parseIn:stack) env restIn
-  in 
+  in
      case stack of
         s1:s2:s3:ss
            | validIn && opS2 && opIn && priorS2 > priorIn
               -> reduce
            | validIn && opS2 && opIn && priorS2 == priorIn
-              -> if assocS2 == InfixL && 
-                    assocIn == InfixL 
+              -> if assocS2 == InfixL &&
+                    assocIn == InfixL
                  then reduce
-	         else 
-                 if assocS2 == InfixR && 
-                    assocIn == InfixR 
+	         else
+                 if assocS2 == InfixR &&
+                    assocIn == InfixR
                  then shift
-	         else PFail (head toks) -- Because of ambiguousness 
+	         else PFail (head toks) -- Because of ambiguousness
            | not validIn && opS2
               -> reduce
              where
@@ -1707,7 +1707,7 @@ hsDoExpr stack env toks =
                (opS2, valueS2, nameS2) = s2
                (opS3, valueS3, nameS3) = s3
                (assocS2, priorS2) = utLookupDef env nameS2 (InfixL, 9)
-               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3) 
+               reduce = hsDoExpr ((False, ExprApp (ExprApp valueS2 valueS3)
                                                   valueS1, [])
                                   : ss) env toks
         s1:s2:ss
@@ -1716,7 +1716,7 @@ hsDoExpr stack env toks =
              where
                 (opS1, valueS1, nameS1) = s1
                 (opS2, valueS2, nameS2) = s2
-                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss) 
+                reduce = hsDoExpr ((False, ExprApp valueS2 valueS1, []) : ss)
                                   env toks
         (s1:[])
            | validIn -> shift

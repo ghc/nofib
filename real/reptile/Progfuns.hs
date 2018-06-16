@@ -21,7 +21,7 @@ tilequit _ (('q':_):_) = True
 tilequit _ []          = True
 tilequit _           _ = False
 
-type State = ([([Int],[Int])], Int, [((Int,Int),Int)])  --CR needs abstraction! 
+type State = ([([Int],[Int])], Int, [((Int,Int),Int)])  --CR needs abstraction!
 type Trans = State -> [[Char]] -> ([Char], State, [[Char]])
 
 tiletrans :: Trans
@@ -83,7 +83,7 @@ tiletrans state (('m':'s':'d':' ':rest):inpt) =
 
 tiletrans (dlist,sel,tilist) (('c':'s':' ':rest):inpt) =
 	if indgrid nstoilrest then
-	  (linecircs ++ wnstoilrest,(newele:dlist,sel,tilist),inpt) 
+	  (linecircs ++ wnstoilrest,(newele:dlist,sel,tilist),inpt)
 	else
 	  ("",(dlist,sel,tilist),inpt)
         where
@@ -94,7 +94,7 @@ tiletrans (dlist,sel,tilist) (('c':'s':' ':rest):inpt) =
         newele  = (nstoilrest,snd cssr)
 	linecircs = fst cssr
 
-         
+
 tiletrans (dlist,sel,tilist) (('r':'o':'t':' ':rest):inpt) =
   	if lsrest == [0,0] then
   	  ("",(dlist,sel,tilist),inpt)
@@ -109,7 +109,7 @@ tiletrans (dlist,sel,tilist) (('r':'o':'t':' ':rest):inpt) =
   	oldas = assoc (sqid stoilrest) tilist
   	newtilist = newas (sqid stoilrest) (rot oldas) tilist
   	lsrest = btlocate stoilrest
-  
+
 tiletrans (dlist,sel,tilist) (('p':'u':'t':' ':rest):inpt) =
         if lsrest == [0,0] then
   	  ("",(dlist,sel,tilist),inpt)
@@ -120,7 +120,7 @@ tiletrans (dlist,sel,tilist) (('p':'u':'t':' ':rest):inpt) =
           , inpt )
         where
   	stoilrest = stoil rest
-        newtilist = newas (sqid stoilrest) sel tilist 
+        newtilist = newas (sqid stoilrest) sel tilist
         lsrest = btlocate stoilrest
 	coords = map fst dlist
 	oldas = assoc (sqid stoilrest) tilist
@@ -160,7 +160,7 @@ rl rest (dlist,sel,tilist) inpt =
 	where
         (out,newdlist) = deline dlist (stoil rest)
 	
-dsave _ state inpt = ("", state, inpt) --CR: dsave does nothing, for now 
+dsave _ state inpt = ("", state, inpt) --CR: dsave does nothing, for now
 -- dsave _ (dlist,sel,tilist) inpt =
 -- 	(out,(dlist,sel,tilist),t)
 --         where
@@ -176,10 +176,10 @@ dsave _ state inpt = ("", state, inpt) --CR: dsave does nothing, for now
 dclear rest (dlist,sel,tilist) inpt =
         ( menumark "dclear" ++ newdraw ++ unmark sel ++ unmenumark "dclear"
         , ([],1,initalist)
-        , inpt ) 
+        , inpt )
 
 
-dget _ state inpt = ("", state, inpt) --CR: dget does nothing, for now 
+dget _ state inpt = ("", state, inpt) --CR: dget does nothing, for now
 -- dget _ (dlist,sel,tilist) inpt =
 -- 	( menumark "dget" ++ prompt ++ out ++ unmenumark "dget"
 --         , (newd,news,newt)
@@ -221,18 +221,18 @@ delsq rest (dlist,sel,tilist) inpt =
 inv' rest (dlist,sel,tilist) inpt =
   	if lsrest == [0,0] then
   	  ("",(dlist,sel,tilist),inpt)
-        else 
+        else
   	  ( undo (put lsrest (orient xymax oldas wcoords)) ++
             put lsrest (orient xymax (inv oldas) wcoords)
           , (dlist,sel,newtilist)
-          , inpt ) 
+          , inpt )
         where
   	stoilrest = stoil rest
 	wcoords = map (map wscale) (map fst dlist)
   	oldas = assoc (sqid stoilrest) tilist
   	newtilist = newas (sqid stoilrest) (inv oldas) tilist
   	lsrest = btlocate stoilrest
-  
+
 tclear, tsave, tget, t4' :: [Char] -> Trans
 
 tclear _ (dlist,sel,tilist) inpt =
@@ -244,7 +244,7 @@ tclear _ (dlist,sel,tilist) inpt =
     , (dlist,sel,initalist)
     , inpt )
 
-tsave _ state inpt = ("", state, inpt) --CR: tsave does nothing, for now 
+tsave _ state inpt = ("", state, inpt) --CR: tsave does nothing, for now
 -- tsave _ (dlist,sel,tilist) inpt =
 --     ( menumark "tsave" ++
 --       prompt ++
@@ -264,7 +264,7 @@ tsave _ state inpt = ("", state, inpt) --CR: tsave does nothing, for now
 --     (h:t) = inpt
 --     tops = (map (map wwscale)) . (map fst)
 
-tget _ state inpt = ("", state, inpt) --CR: tget does nothing, for now 
+tget _ state inpt = ("", state, inpt) --CR: tget does nothing, for now
 -- tget rest (dlist,sel,tilist) inpt =
 -- 	(out,(dlist,sel,(snd infromfile)),i)
 --         where
@@ -277,7 +277,7 @@ tget _ state inpt = ("", state, inpt) --CR: tget does nothing, for now
 -- 	infromfile = case openfile patfile of
 -- 		       No emsg -> ( emsg ++ "\n" ++ delay 1000 ++ tpgrid
 --                                   , tilist )
--- 		       Yes ls8 -> ( concat (map2 put (map squas alistind) 
+-- 		       Yes ls8 -> ( concat (map2 put (map squas alistind)
 -- 				       (pam (orient xymax) orilist wcoords))
 --                                   , zip alistind orilist )
 --                                   where
@@ -302,11 +302,11 @@ t4' _ (dlist,sel,tilist) inpt =
                 cr34 = concrep 4 [n3,n4]
                 [n1,n2,n3,n4] = orilist
     out = menumark "t4" ++
-          cleara tilearea ++ 
+          cleara tilearea ++
           tile tpxorig tpyorig 4 4 pic ++
           unmenumark "t4"
 
-assoc :: (Eq a) => a -> [(a,b)] -> b 
+assoc :: (Eq a) => a -> [(a,b)] -> b
 assoc i ((j,v):ivs) = if i == j then v else assoc i ivs
 
 q :: [Char] -> Trans

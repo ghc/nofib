@@ -25,12 +25,12 @@ import Sub_Core1
 
 
 
-select_sm_ty f sg i j 
+select_sm_ty f sg i j
 	= case extract_dc j dc of
 	         Symbol_dec tm _ | f     -> uncurry_trm dc j tm
 	         Axiom_dec tm _  | not f -> uncurry_trm dc j tm
 	         Def _ tm _      | f     -> uncurry_trm dc j tm
-		 Def tm _ _   	 | not f -> Binary' Eq' (Sym 0 j [] []) 
+		 Def tm _ _   	 | not f -> Binary' Eq' (Sym 0 j [] [])
 						(uncurry_trm dc j tm) [] []
 	         _ -> error ("select: " ++ show f ++ show i ++ show j ++ "|\n")
 	  where
@@ -41,22 +41,22 @@ select_sm_ty f sg i j
 
 select_cn_ty :: ISgn -> Int -> Int -> Int -> ITrm
 
-select_cn_ty sg i j k 
+select_cn_ty sg i j k
 	= Sym 0 0 [] []
 {-
 	= case extract_dc j dc of
-		Data dcL tmL _ 
-			-> if k == 0 then uncurry_trm dc j ty 
-				     else remake_ty ty4 dcL 
+		Data dcL tmL _
+			-> if k == 0 then uncurry_trm dc j ty
+				     else remake_ty ty4 dcL
 					 (foldr make_app sms_base (reverse sms))
 			   where
-			   ty  = foldr mk_pi (Constant (Univ 0) [] []) 
+			   ty  = foldr mk_pi (Constant (Univ 0) [] [])
 						( reverse dcL )
 	    		   sms = mk_smsl dcL 0 []
 			   ty1 = foldr make_app (Sym 0 0 [] []) ( reverse sms )
 			   ty2 = foldr mk_fnspace (Sym 0 0 [] []) (tmL!!k-1)
 			   d1  = Symbol_dec (Constant (Univ 0) [] [] ) []
-		 	   ty3 = foldr mk_pi (Binder Pi d1 ty2 [] []) 
+		 	   ty3 = foldr mk_pi (Binder Pi d1 ty2 [] [])
 						( reverse dcL )
 			   ty4 = uncurry_trm dc j ty3
 			   sms_base = Const (length dcL) j 0 [] []
@@ -71,8 +71,8 @@ make_app tm1 tm2 = App tm1 tm2 [] []
 
 {- return the type of a symbol -}
 
-typ_of_sm sg i j 
-	= shift_trm (get_share_map sg) i ty1 
+typ_of_sm sg i j
+	= shift_trm (get_share_map sg) i ty1
 	  where
 	  ty1 = select_sm_ty True sg i j -- partain: was true
 
@@ -82,10 +82,10 @@ typ_of_sm sg i j
 
 {- return the type of a constructor -}
 
-typ_of_cn sg i j k 
-	= shift_trm (get_share_map sg) i ty1 
+typ_of_cn sg i j k
+	= shift_trm (get_share_map sg) i ty1
 	  where
-	  ty1 = select_cn_ty sg i j k 
+	  ty1 = select_cn_ty sg i j k
 
 
 
@@ -94,8 +94,8 @@ typ_of_cn sg i j k
 
 {- return the type of an axiom -}
 
-typ_of_axm sg i j 
-	= shift_trm (get_share_map sg) i ty1 
+typ_of_axm sg i j
+	= shift_trm (get_share_map sg) i ty1
 	  where
 	  ty1 = select_sm_ty False sg i j -- partain: was false
 
@@ -137,77 +137,77 @@ other_typ (Recurse _ _ tmL _) = tmL
 
 -- typ_of_trm :: ISgn -> ITrm -> ITrm
 
-typ_of_trm sg tm 
+typ_of_trm sg tm
 	= case other_typ tm of
 	      []     -> typ_of_trm' sg tm
 	      (tm:_) -> tm
 
 
 
-typ_of_trm' sg (Sym i j _ _) 
+typ_of_trm' sg (Sym i j _ _)
 	= typ_of_sm sg i j
 
-typ_of_trm' sg (Const i j k _ _) 
-	= typ_of_cn sg i j k 
+typ_of_trm' sg (Const i j k _ _)
+	= typ_of_cn sg i j k
 
-typ_of_trm' sg (App tm1 tm2 _ _) 
+typ_of_trm' sg (App tm1 tm2 _ _)
 	= case typ_of_trm sg tm1 of
 	       Binder Pi dc tm3 _ _
 			-> subst_trm dc tm3 tm2
 	       _        -> case typ_of_trm' sg tm1 of
-		                Binder Pi dc tm3 _ _ 
+		                Binder Pi dc tm3 _ _
 				     -> subst_trm dc tm3 tm2
 --		                _    -> error "TypeOfTerm" -- ** exn
 
-typ_of_trm' sg (Pair tm1 tm2 tm3 _ _) 
+typ_of_trm' sg (Pair tm1 tm2 tm3 _ _)
 	= tm3
 
-typ_of_trm' sg (Binder q dc tm _ _) 
+typ_of_trm' sg (Binder q dc tm _ _)
 	= typ_of_bnd sg q dc tm
 
-typ_of_trm' sg (Constant c _ _) 
+typ_of_trm' sg (Constant c _ _)
 	= typ_of_cnt c
 
-typ_of_trm' sg (Recurse _ tm _ _) 
+typ_of_trm' sg (Recurse _ tm _ _)
 	= tm
 
-typ_of_trm' _ _ 
-	= Constant Bool' [] []
-    
-
-
-
-
-typ_of_bnd sg Forall dc tm 
+typ_of_trm' _ _
 	= Constant Bool' [] []
 
-typ_of_bnd sg Exists dc tm 
+
+
+
+
+typ_of_bnd sg Forall dc tm
 	= Constant Bool' [] []
 
-typ_of_bnd sg Imp dc tm 
+typ_of_bnd sg Exists dc tm
 	= Constant Bool' [] []
 
-typ_of_bnd sg Pi dc tm 
-	= Constant (Univ (max i j)) [] [] 
+typ_of_bnd sg Imp dc tm
+	= Constant Bool' [] []
+
+typ_of_bnd sg Pi dc tm
+	= Constant (Univ (max i j)) [] []
 	  where
 	  sg1 = Extend dc sg []
 	  (Constant (Univ i) _ _) = typ_of_trm sg1 tm
 	  (Constant (Univ j) _ _) = typ_of_trm sg (typ_of_dec dc)
 
-typ_of_bnd sg Sigma dc tm 
-	= Constant (Univ (max i j)) [] [] 
+typ_of_bnd sg Sigma dc tm
+	= Constant (Univ (max i j)) [] []
 	  where
 	  sg1 = Extend dc sg []
 	  (Constant (Univ i) _ _) = typ_of_trm sg1 tm
 	  (Constant (Univ j) _ _) = typ_of_trm sg (typ_of_dec dc)
 
-typ_of_bnd sg Subtype dc tm 
+typ_of_bnd sg Subtype dc tm
 	= Constant (Univ 0) [] []
 
-typ_of_bnd sg Lambda dc tm 
+typ_of_bnd sg Lambda dc tm
 	= Binder Pi dc (typ_of_trm (Extend dc sg []) tm) [] []
 
-typ_of_bnd sg Choose dc tm 
+typ_of_bnd sg Choose dc tm
 	= Binder Subtype dc tm [] []
 
 --typ_of_bnd _ _ _ _ = error "System_Error" -- ** exn
@@ -247,31 +247,31 @@ eval (Constant F _ _) = False
 
 --eval (Constant _ _ _) = error "EvalError" -- ** exn
 	
-eval (Binder Forall dc tm _ _) 
+eval (Binder Forall dc tm _ _)
 	= eval_quant forall dc tm
 
-eval (Binder Exists dc tm _ _) 
+eval (Binder Exists dc tm _ _)
 	= eval_quant exists dc tm
 
-eval (Binder Imp dc tm _ _) 
+eval (Binder Imp dc tm _ _)
 	= not (eval ( typ_of_dec dc)) || eval tm
 
---eval (Binder _ _ _ _ _) 
+--eval (Binder _ _ _ _ _)
 --	= error "EvalError"
 
-eval (Binary' And tm1 tm2 _ _) 
+eval (Binary' And tm1 tm2 _ _)
 	= eval tm1 && eval tm2
 
-eval (Binary' Or tm1 tm2 _ _) 
+eval (Binary' Or tm1 tm2 _ _)
 	= eval tm1 || eval tm2
 
-eval (Binary' Eq' tm1 tm2 _ _) 
+eval (Binary' Eq' tm1 tm2 _ _)
 	= eval tm1 == eval tm2
 
-eval (Unary Not tm _ _) 
+eval (Unary Not tm _ _)
 	= not (eval tm)
 
-eval (Cond dc tm1 tm2 _ _) 
+eval (Cond dc tm1 tm2 _ _)
 	= eval (subst_trm dc tm1 (Constant T [] [])) &&
 	    eval (subst_trm dc tm1 (Constant F [] []))
 
@@ -281,17 +281,17 @@ eval (Cond dc tm1 tm2 _ _)
 
 
 
-eval_quant f dc tm 
+eval_quant f dc tm
 	= f (eval . subst_trm dc tm) (truth_table dc)
 
 
 
 
 
-truth_table (Symbol_dec (Constant Bool' _ _ ) _) 
+truth_table (Symbol_dec (Constant Bool' _ _ ) _)
 	= [ Constant T [] [] , Constant F [] [] ]
 
-truth_table (Decpair dc1 dc2 _) 
+truth_table (Decpair dc1 dc2 _)
 	= make_pair (truth_table dc1) (truth_table dc2)
 
 --truth_table _ = error "EvalError" -- ** exn
@@ -302,8 +302,8 @@ truth_table (Decpair dc1 dc2 _)
 
 make_pair [] _ = []
 
-make_pair (tm:tmL) l 
-	= map (\ x -> Pair tm x (Constant Bool' [] []) [] []) l 
+make_pair (tm:tmL) l
+	= map (\ x -> Pair tm x (Constant Bool' [] []) [] []) l
 		++ make_pair tmL l
 
 
@@ -314,28 +314,28 @@ make_pair (tm:tmL) l
  * check to see if any symbols are defined at particular level
 -}
 
-occurs n (Sym i _ _ _) 
+occurs n (Sym i _ _ _)
 	= n == i
 
-occurs n (App tm1 tm2 _ _) 
-	= occurs n tm1 || occurs n tm2 
+occurs n (App tm1 tm2 _ _)
+	= occurs n tm1 || occurs n tm2
 
-occurs n (Pair tm1 tm2 tm3 _ _) 
+occurs n (Pair tm1 tm2 tm3 _ _)
 	= occurs n tm1 || occurs n tm2 || occurs n tm3
 
-occurs n (Binder _ dc tm _ _) 
-	= occurs' n dc || occurs (n+1) tm 
+occurs n (Binder _ dc tm _ _)
+	= occurs' n dc || occurs (n+1) tm
 
-occurs n (Unary _ tm _ _) 
-	= occurs n tm 
+occurs n (Unary _ tm _ _)
+	= occurs n tm
 
-occurs n (Binary' _ tm1 tm2 _ _) 
-	= occurs n tm1 || occurs n tm2 
+occurs n (Binary' _ tm1 tm2 _ _)
+	= occurs n tm1 || occurs n tm2
 
-occurs n (Cond dc tm1 tm2 _ _) 
+occurs n (Cond dc tm1 tm2 _ _)
 	= occurs' n dc || occurs (n+1) tm1 || occurs (n+1) tm2
 
-occurs n (Recurse tmL tm _ _) 
+occurs n (Recurse tmL tm _ _)
 	= exists (occurs n) tmL || occurs n tm
 
 occurs _ _ = False
@@ -344,13 +344,13 @@ occurs _ _ = False
 
 
 
-occurs' n (Symbol_dec tm _) 
+occurs' n (Symbol_dec tm _)
 	= occurs n tm
 
-occurs' n (Axiom_dec tm _) 
+occurs' n (Axiom_dec tm _)
 	= occurs n tm
 
-occurs' n (Decpair dc1 dc2 _) 
+occurs' n (Decpair dc1 dc2 _)
 	= occurs' n dc1 || occurs' (n+1) dc2
 
 --occurs' _ _ = error "VTS_ERROR" -- ** exn
@@ -364,7 +364,7 @@ occurs' n (Decpair dc1 dc2 _)
  * term, decs and sigs.
 -}
 
-get_trm_att tm iL 
+get_trm_att tm iL
 	= case subtm of
 		(Sym _ _ _ att)       -> att
       		(App _ _ _ att)       -> att
@@ -382,8 +382,8 @@ get_trm_att tm iL
 
 
 
-set_trm_att tm iL att 
-	= replace_trm tm (set subtm) iL 
+set_trm_att tm iL att
+	= replace_trm tm (set subtm) iL
 	  where
     	  set (Sym i j tmL _)          = Sym i j tmL att
 	  set (App tm1 tm2 tmL _)      = App tm1 tm2 tmL att

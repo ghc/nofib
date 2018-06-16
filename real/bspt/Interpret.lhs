@@ -1,4 +1,4 @@
-> module Interpret 
+> module Interpret
 
 	Module that produces the interpretation of the users input
 	producing a list of human readable operation specifications
@@ -42,24 +42,24 @@
 >				command = (toCommand.mkPoint) head
 
 	toOperation: Produces an operation from a command and a string
-		this involves interpreting a returning any list of points 
+		this involves interpreting a returning any list of points
 		associated the command.
 
 > toOperation :: Command -> [String] -> (Operation,[String])
 > toOperation Polygon str = ((Polygon,mkPoints points),out)
->				where 
+>				where
 >				(points,out) = splitAt_YORK delimiter str
 > toOperation Union str = ((Union,mkPoints points),out)
->				where 
+>				where
 >				(points,out) = splitAt_YORK delimiter str
 > toOperation Intersect str = ((Intersect,mkPoints points),out)
->				where 
+>				where
 >				(points,out) = splitAt_YORK delimiter str
 > toOperation Subtract str = ((Subtract,mkPoints points),out)
->				where 
+>				where
 >				(points,out) = splitAt_YORK delimiter str
 > toOperation Classify str = ((Classify,mkPoints points),out)
->				where 
+>				where
 >				(points,out) = splitAt_YORK delimiter str
 > toOperation Complement str = ((Complement,[]),str)
 > toOperation Partition str = ((Partition,[]),str)
@@ -81,8 +81,8 @@
 		in button pad region. If so it searches through the
 		buttons, otherwise returns the Null button.
 
-> toCommand :: Point -> Command 
-> toCommand (Pt x y) | x<fromIntegral buttonIndent || 
+> toCommand :: Point -> Command
+> toCommand (Pt x y) | x<fromIntegral buttonIndent ||
 >				x>fromIntegral (buttonIndent+buttonWidth)
 >					 = Null
 >		   | otherwise = command

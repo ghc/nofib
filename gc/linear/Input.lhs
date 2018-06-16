@@ -1,6 +1,6 @@
 \section{Input}
 
- Represent a sparse matrix where each "element" of the 
+ Represent a sparse matrix where each "element" of the
  matrix is a dense block
  Roger L. Wainwright  6-8-90
 
@@ -11,7 +11,7 @@
       These functions create test data sets for the linear
       system solver.
 
-  ================================================================ 
+  ================================================================
 
 Notes:
 
@@ -22,14 +22,14 @@ Notes:
       a_easy n provides some "easy" a matrix.
       a_hard n provides some "hard" a matrix.
       x1 n provides a vector of all 1's for (a_easy n)
-      
+
       AbsDensematrix is imported to keep hbc happy.
-      
+
       mkbigvec and mksparse contain some yucky kludges.
       (r,c,b) = (r-1,c-1,..) to make indices zero origin.
 
 \begin{code}
-module Input 
+module Input
 (gmat,rhside,soln_vect,wells,split,blm',mkbigvec,
               mksparse,a_easy,a_hard,x1) where
 
@@ -37,7 +37,7 @@ module Input
 import Data.List (transpose)
 import Matrix
 import AbsDensematrix
-import Utils 
+import Utils
 
 
 
@@ -48,7 +48,7 @@ mksparse :: [[(Int,Int,[[Float]])]] -> Matrix
 mksparse m
    = mkmatrix (map (map f) m)
      where
-	f (r,c,b) = (r-1,c-1,mkblock b)   
+	f (r,c,b) = (r-1,c-1,mkblock b)
 \end{code}
 
  #######################################################################
@@ -64,10 +64,10 @@ mksparse m
    as a temporary measure(irm) except in myread in which it
    replaces:
       f (system ("cat "++fname))
-         where 
-         f (a,b,c) = a 
+         where
+         f (a,b,c) = a
 
-           
+
 \begin{code}
 directory :: String
 directory = "./Data/"
@@ -97,54 +97,54 @@ file6 :: Int -> String
 file6  n = directory ++ "gcomp.mat" ++ (show n) ++ ".well"
 
 file :: String
-file   = "gconem.bmtx3"  -- original file 
+file   = "gconem.bmtx3"  -- original file
 
 resn = 11
 resm = 21
 resnm = resn * resm
 
-readmtx rtype x 
+readmtx rtype x
       = map (map numval) (map f y)
-        where 
-               y = if (rtype == 1) then drop 1 (lines ("abc")) 
+        where
+               y = if (rtype == 1) then drop 1 (lines ("abc"))
                    else
-                        if (rtype == 2) then init (lines ("abc")) 
+                        if (rtype == 2) then init (lines ("abc"))
                         else  lines ("abc")
 
                f y   = [take 15 (drop 1  y ) ,
                         take 15 (drop 16 y ) ,
                         take 15 (drop 31 y ) ,
                         take 15 (drop 46 y ) ]
-readsoln x 
+readsoln x
       = map (map numval) (map f y)
-        where  y = lines ("abc")  
-               f y   = [take 15 (drop 8  y ) , 
+        where  y = lines ("abc")
+               f y   = [take 15 (drop 8  y ) ,
                         take 15 (drop 24 y ) ,
                         take 15 (drop 40 y ) ,
                         take 15 (drop 56 y ) ]
 
 
-myreadmtx rtype x  
+myreadmtx rtype x
       = map (map numval) (map f y)
-        where  y = if (rtype == 1) then drop 1 (lines (myread x))   
+        where  y = if (rtype == 1) then drop 1 (lines (myread x))
                    else
-                        if (rtype == 2) then init (lines (myread x))   
-                        else lines (myread x)     
-               f y   = [take 15 (drop 1  y ) , 
+                        if (rtype == 2) then init (lines (myread x))
+                        else lines (myread x)
+               f y   = [take 15 (drop 1  y ) ,
                         take 15 (drop 16 y ) ,
                         take 15 (drop 31 y ) ,
                         take 15 (drop 46 y ) ]
 
 myread fname
    = "abc"
- 
+
 
 
 readsolnvect x
     = collect_by4 (concat z)
       where z = map (map numval) (map f y)
             y = lines ("abc")
-            f y   = [take 21 (drop 11 y )] 
+            f y   = [take 21 (drop 11 y )]
 
 collect_by4 [] = []
 collect_by4 (a:b:c:d:xs)
@@ -156,7 +156,7 @@ collect_by4 (a:b:c:d:xs)
 
 ******* TEST VARIOUS OPERATIONS ************************
 
-  file1 contains a header line                      
+  file1 contains a header line
   file4 contains an END line
 
   input1' looks like: [ [4 values] [4 values] ... [4 values] ]
@@ -164,13 +164,13 @@ collect_by4 (a:b:c:d:xs)
   input1 looks like: [blocks] as shown below
     [ [ [4 values] [4 values] [4values] [4values] ]
       [ [        ] [        ] [       ] [       ] ]
-      . .          
+      . .
       . .
       [ [        ] [        ] [       ] [       ] ] ]
 
 
 \begin{code}
-split m []        = []                            
+split m []        = []
 split m xs        = (take m xs):(split m (drop m xs))
 splitmtx n m xs = split n (split m xs)
 \end{code}
@@ -221,11 +221,11 @@ mdiagband'  = input2b
 mdiagband n = map transpose (mdiagband' n)
 block_mdiagband n = convert_mdiagband (mdiagband' n)
 \end{code}
- 
+
 ********************** FILE 2c *******************************
 
 \begin{code}
-udiagband' n = init(input2c n)                               
+udiagband' n = init(input2c n)
 udiagband n = map transpose (udiagband' n)
 block_udiagband n = convert_udiagband (udiagband' n)
 \end{code}
@@ -253,35 +253,35 @@ soln_vect n = mkbigvec (input5' n)
 ******* END TEST VARIOUS OPERATIONS *********************
 
 \begin{code}
-convert_lowerband :: [[[Float]]] -> Block_list 
-convert_lowerband b 
+convert_lowerband :: [[[Float]]] -> Block_list
+convert_lowerband b
         = [(i+resn,i,head (drop(i-1) b) ) | i <-[1..length b]]
 
 
-convert_ldiagband :: [[[Float]]] -> Block_list 
-convert_ldiagband b 
+convert_ldiagband :: [[[Float]]] -> Block_list
+convert_ldiagband b
         = [(i+1,i,head (drop(i-1)b)) | i <-[1..length b]]
-     
 
 
 
-convert_mdiagband :: [[[Float]]] -> Block_list 
-convert_mdiagband b 
+
+convert_mdiagband :: [[[Float]]] -> Block_list
+convert_mdiagband b
         = [(i,i,head (drop(i-1)b)) | i <-[1..length b]]
-                    
 
 
 
-convert_udiagband :: [[[Float]]] -> Block_list 
-convert_udiagband b 
+
+convert_udiagband :: [[[Float]]] -> Block_list
+convert_udiagband b
         = [(i,i+1,head (drop(i-1)b))| i <-[1..length b]]
-        
 
-convert_upperband :: [[[Float]]] -> Block_list 
-convert_upperband b 
+
+convert_upperband :: [[[Float]]] -> Block_list
+convert_upperband b
         = [(i,i+resn, head (drop(i-1) b)) | i <-[1..length b]]
 \end{code}
-      
+
  ------------------ more testing ------------------------------------------
 
 Note:
@@ -306,35 +306,35 @@ gvect0 :: Vector
 gvect0 = mkbigvec (rep resnm [0,0,0,0])
 
 
-make_lmat :: Block_list -> Block_list -> Block_list -> 
+make_lmat :: Block_list -> Block_list -> Block_list ->
              Block_list -> Block_list -> Matrix
 make_lmat lower ldiag mdiag udiag  upper
    = mksparse [row i | i<- [1..resnm]]
-   where 
+   where
    row i = combine i lower ldiag mdiag udiag  upper
-   combine i low ld md ud up = 
-                  if (i==1) then (take 1 md) ++ (take 1 ud) ++ (take 1 up) 
-                  else if (i <=resn) then  diag3 ++ upper 
-                        else if (i >(resnm - resn)) then lower ++ diag3  
-                              else if (i == resnm) then 
-                                   [last low] ++ [last ld] ++ [last md]  
-                                    else lower ++ diag3 ++ upper                                       
+   combine i low ld md ud up =
+                  if (i==1) then (take 1 md) ++ (take 1 ud) ++ (take 1 up)
+                  else if (i <=resn) then  diag3 ++ upper
+                        else if (i >(resnm - resn)) then lower ++ diag3
+                              else if (i == resnm) then
+                                   [last low] ++ [last ld] ++ [last md]
+                                    else lower ++ diag3 ++ upper
      where
          diag3 = (take 1 (drop (i-2) ld ))  ++
                   (take 1 (drop (i-1) md ))  ++
                   (take 1 (drop (i-1) ud ))
-         upper = take 1(drop(i-1) up) 
-         lower = take 1(drop (i-resn-1) low) 
+         upper = take 1(drop(i-1) up)
+         lower = take 1(drop (i-resn-1) low)
 \end{code}
 
   ===========================================================
-  =================== DEBUGGING CONSTANTS =================== 
+  =================== DEBUGGING CONSTANTS ===================
   ===========================================================
 
 \begin{code}
 x0 size = mkbigvec [ [0,0,0,0] | i<-[1..size*size]]
 x1 size = mkbigvec [ [1,1,1,1] | i<-[1..size*size]]
-           
+
 a_easy size
    = if (size > 1) then blm size
      else  mksparse [[(1,1,[[11,-1, 0, 0],
@@ -378,7 +378,7 @@ hard_d_block    = (map (map (/90))
   Note we assume 4x4 blocks in this pattern.
 
    br (build row) will build a block-row
-   blm (build list matrix) will build a list matrix 
+   blm (build list matrix) will build a list matrix
 
 
 \begin{code}
@@ -392,7 +392,7 @@ blm' n = [row i | i<- [1..(n*n)]]
 
 br :: Int -> Int -> [(Int,Int,[[Float]])]
 br rw n =
-           if ((rw == 1) ||  (rw == (n*n-n+1))) then 
+           if ((rw == 1) ||  (rw == (n*n-n+1))) then
             [block i| i<- [1,2,n+1,n+2]]
 
            else if ((rw == n) || (rw == n*n)) then [block i | i<-[n-1,n,2*n-1,2*n]]
@@ -406,13 +406,13 @@ br rw n =
             else [block i | i<-[m,1+m,2+m,n+m,n+1+m,n+2+m,
                  2*n+m,2*n+1+m,2*n+2+m]]
 
-           where 
+           where
              block i = if (rw == (i+offset)) then (rw,i+offset,d_block)
                        else (rw,i+offset,off_block)
              m = (rw `mod` n) -1
              offset = if (rw <= n) then 0
                       else (((rw-1) `div` n) -1) * n
-           
+
 
 blm_hard  :: Int -> Matrix
 blm_hard n
@@ -427,8 +427,8 @@ blm_hard n
 ======================================================
  Include wells in a given matrix
  (Copied from Roger Wainwright and modified)
-  ======================================================= 
- 
+  =======================================================
+
 Note:
 
 include_wells :: matrix -> [[num]] -> [[num]] -> [[num]] -> [[num]] -> matrix
@@ -462,15 +462,15 @@ include_row_well m well_pos wellh
             f x y = (row_num, x,[y])
             row_num = length m +1
 
- 
+
 include_col_well m well_pos wellg
     = foldl append_row m x
       where x = zip2 well_pos (split 4 wellg)
 
- 
+
 include_dw m welldw = append_row m (length m,welldw)
 
- 
+
 append_row m (rownum, dat)
     = m'
       where m' = (take (rownum-1) m) ++
@@ -479,7 +479,7 @@ append_row m (rownum, dat)
             appendrow = row ++ [(rownum,colnum,data')]
             data' = split 1 dat
             row = m !! (rownum-1)
-            colnum = length m   
+            colnum = length m
 
 
 numval :: String -> Float
@@ -490,6 +490,6 @@ numval x = (read x)::Float
 
  ----------------------------------------------------------------
   ---------- THAT'S ALL FOLKS -------------------------------------
-  ----------------------------------------------------------------- 
+  -----------------------------------------------------------------
 
 

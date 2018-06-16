@@ -235,7 +235,7 @@ nuc_C1XXX
     x)
   = c1XXX
 
-nuc_C2 
+nuc_C2
   (Nuc
     dgf_base_tfo p_o3XXX_275_tfo p_o3XXX_180_tfo p_o3XXX_60_tfo
     p o1p o2p o5XXX c5XXX h5XXX h5XXXXXX c4XXX h4XXX o4XXX c1XXX h1XXX c2XXX h2XXXXXX o2XXX h2XXX
@@ -251,7 +251,7 @@ nuc_C3XXX
     x)
   = c3XXX
 
-nuc_C4 
+nuc_C4
   (Nuc
     dgf_base_tfo p_o3XXX_275_tfo p_o3XXX_180_tfo p_o3XXX_60_tfo
     p o1p o2p o5XXX c5XXX h5XXX h5XXXXXX c4XXX h4XXX o4XXX c1XXX h1XXX c2XXX h2XXXXXX o2XXX h2XXX
@@ -267,7 +267,7 @@ nuc_C4XXX
     x)
   = c4XXX
 
-nuc_N1 
+nuc_N1
   (Nuc
     dgf_base_tfo p_o3XXX_275_tfo p_o3XXX_180_tfo p_o3XXX_60_tfo
     p o1p o2p o5XXX c5XXX h5XXX h5XXXXXX c4XXX h4XXX o4XXX c1XXX h1XXX c2XXX h2XXXXXX o2XXX h2XXX
@@ -323,7 +323,7 @@ nuc_p_o3XXX_60_tfo
     x)
   = p_o3XXX_60_tfo
 
-rA_N9  
+rA_N9
   (Nuc
     dgf_base_tfo p_o3XXX_275_tfo p_o3XXX_180_tfo p_o3XXX_60_tfo
     p o1p o2p o5XXX c5XXX h5XXX h5XXXXXX c4XXX h4XXX o4XXX c1XXX h1XXX c2XXX h2XXXXXX o2XXX h2XXX
@@ -331,7 +331,7 @@ rA_N9
     (A n6 n7 n9 c8 h2 h61 h62 h8))
   = n9
 
-rG_N9  
+rG_N9
   (Nuc
     dgf_base_tfo p_o3XXX_275_tfo p_o3XXX_180_tfo p_o3XXX_60_tfo
     p o1p o2p o5XXX c5XXX h5XXX h5XXXXXX c4XXX h4XXX o4XXX c1XXX h1XXX c2XXX h2XXXXXX o2XXX h2XXX
@@ -577,7 +577,7 @@ search partial_inst (h:t) constraint = try_assignments (h partial_inst)
 -- from the strand A.
 --
 -- "wc" (stands for Watson-Crick and is a type of base-pairing),
--- and "wc-dumas" describe the spatial relationship between 
+-- and "wc-dumas" describe the spatial relationship between
 -- nucleotides from two chains that are growing in opposite directions.
 -- E.g. the nucleotides C1 from strand A and G12 from strand B.
 
@@ -638,7 +638,7 @@ wc_dumas_tfo
       FL_LIT(-0.1779)  FL_LIT(0.2417) FL_LIT(-0.9539)
        FL_LIT(0.1422) FL_LIT(-0.9529) FL_LIT(-0.2679)
        FL_LIT(0.4837)  FL_LIT(6.2649)  FL_LIT(8.0285)
-         
+
 wc_dumas nuc i j partial_inst
   = [ mk_var i (dgf_base wc_dumas_tfo (get_var j partial_inst) nuc) nuc ]
 
@@ -678,13 +678,13 @@ stacked5XXX nuc i j partial_inst
 a38_g37_tfo
   = Tfo
        FL_LIT(0.9991) FL_LIT(-0.0375)  FL_LIT(0.0189)
-       FL_LIT(0.0164)  FL_LIT(0.7616)  FL_LIT(0.6478) 
+       FL_LIT(0.0164)  FL_LIT(0.7616)  FL_LIT(0.6478)
       FL_LIT(-0.0387) FL_LIT(-0.6470)  FL_LIT(0.7615)
        FL_LIT(3.3819)  FL_LIT(0.7718) FL_LIT(-2.5321)
 
 a38_g37 nuc i j partial_inst
   = mk_var i (dgf_base a38_g37_tfo (get_var j partial_inst) nuc) nuc
-   
+
 stacked3XXX nuc i j partial_inst
   = a38_g37 nuc i j partial_inst : helix3XXX nuc i j partial_inst
 
@@ -774,7 +774,7 @@ pseudoknot_domains
      stacked5XXX rU   INT_LIT(5)  INT_LIT(4), --  | 4.5 Angstroms
      stacked5XXX rC   INT_LIT(6)  INT_LIT(5)  -- <-XXX
     ]
-  
+
 -- Pseudoknot constraint
 
 pseudoknot_constraint v@(Var i t n) partial_inst
@@ -879,7 +879,7 @@ check = length pseudoknot
 -- We use direct C Calls and monadic IO instead
 
 #ifdef USE_GLASGOW_HACKS
-mainPrimIO = 
+mainPrimIO =
 	let most_distant = most_distant_atom pseudoknot in
 	_ccall_ printf ``"%f\n"'' (F# most_distant) `seqPrimIO`
 	returnPrimIO ()

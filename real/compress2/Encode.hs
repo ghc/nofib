@@ -8,7 +8,7 @@ data PrefixTrie a b = PTNil |
 
 type CodeTable = PrefixTrie Char Int
 
-data CodeEvent = 
+data CodeEvent =
                  Code Int |
                  NewWordSize |
                  Clear deriving Show{-was:Text-}
@@ -30,27 +30,27 @@ firstChange = (2^9) + 1 :: Int
 maxmaxCode = 2^maxBits + 1 :: Int
 
 encode :: [Int] -> String -> [CodeEvent]
-encode = encode' (CS 3 1 firstCheck 0 firstEnt firstChange) initial_table 
+encode = encode' (CS 3 1 firstCheck 0 firstEnt firstChange) initial_table
 
 encode' :: CodeState -> CodeTable -> [Int] -> String -> [CodeEvent]
 encode' _ _ _ [] = []
-encode' c@(CS bo ci cp ra nx cg) t sizes input 
+encode' c@(CS bo ci cp ra nx cg) t sizes input
   = if nx == cg then
-    NewWordSize : encode' (CS (bo+s) ci cp ra nx cg') t ss input 
+    NewWordSize : encode' (CS (bo+s) ci cp ra nx cg') t ss input
   else
     if nx == maxmaxCode then
       if ci >= cp then
         let ra' = (ci * 256) `div` bo in
           if ra' > ra then
-            encode' (CS bo ci (ci+checkGap) ra' nx cg) t sizes input 
+            encode' (CS bo ci (ci+checkGap) ra' nx cg) t sizes input
           else
             Clear :
             encode' (CS (bo+s) ci (ci+checkGap) 0 firstEnt firstChange)
-                    initial_table ss input 
-       else 
+                    initial_table ss input
+       else
          let (input', n, i) = code_string_r (input, 0, 0) nx t
          in  Code n :
-             encode' (CS (bo+s) (ci+i) cp ra nx cg) t ss input' 
+             encode' (CS (bo+s) (ci+i) cp ra nx cg) t ss input'
      else
        (\ ((input', n, i), t') ->
        Code n :
@@ -61,7 +61,7 @@ encode' c@(CS bo ci cp ra nx cg) t sizes input
   cg' = let val = ((cg - 1) * 2) + 1 in
              if val == maxmaxCode then 0 else val
 
-csForced (CS a b c d e f) = (a==a) && (b==b) && (c==c) && (d==d) 
+csForced (CS a b c d e f) = (a==a) && (b==b) && (c==c) && (d==d)
                                    && (e==e) && (f==f)
 
 code_string_r :: (String, Int, Int) -> Int -> CodeTable -> (String, Int, Int)

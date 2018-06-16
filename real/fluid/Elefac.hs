@@ -30,7 +30,7 @@ get_el_det_fac
 			(Frac_type,Frac_type,Frac_type))))
 get_el_det_fac e_total coord p_steer =
 	s_listArray (1,e_total)
-	[ 
+	[
 		(coord!^n1)			`bindTo` ( \ (x1,y1) ->
 		(coord!^n2)			`bindTo` ( \ (x2,y2) ->
 		(coord!^n3)			`bindTo` ( \ (x3,y3) ->

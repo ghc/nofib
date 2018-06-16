@@ -1,7 +1,7 @@
 {-
 The second module of Choleski decomposition.
 Contains Choleski factorization function.
-   
+
 XZ, 24/10/91
 -}
 
@@ -15,9 +15,9 @@ XZ, 24/10/91
 
 	XZ, 7/2/92
 -}
-   
+
 module Chl_decomp ( chl_factor ) where
-   
+
 import Defs
 import S_Array	-- not needed w/ proper module handling
 import Norm	-- ditto
@@ -25,7 +25,7 @@ import Asb_routs
 import Data.Ix
 infix 1 =:
 (=:) a b = (a,b)
-   
+
 -----------------------------------------------------------
 -- Choleski factorization:                               --
 -- it adopts the matrix struct derived from Liu's so     --
@@ -78,7 +78,7 @@ chl_factor init_L = foldl f init_L (range (s_bounds init_L))
 				subs_segs rest
 			subs_segs _ = []
 			new_diag =
-				s_accum (-) old_diag 
+				s_accum (-) old_diag
 				[ i =: list_inner_prod vs vs
 					| (i,(_,vs@(_:_))) <- segs_jk
 				]

@@ -280,14 +280,14 @@ new cmpr hash = do
   table <- newIORef ht
   return (HashTable { tab=table, hash_fn=hash, cmp=cmpr })
 
-{- 
-   bitTwiddleSameAs takes as arguments positive Int32s less than maxBound/2 and 
-   returns the smallest power of 2 that is greater than or equal to the 
+{-
+   bitTwiddleSameAs takes as arguments positive Int32s less than maxBound/2 and
+   returns the smallest power of 2 that is greater than or equal to the
    argument.
    http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
 -}
 bitTwiddleSameAs :: Int32 -> Int32
-bitTwiddleSameAs v0 = 
+bitTwiddleSameAs v0 =
     let v1 = v0-1
         v2 = v1 .|. (v1`shiftR`1)
         v3 = v2 .|. (v2`shiftR`2)
@@ -297,17 +297,17 @@ bitTwiddleSameAs v0 =
     in v6+1
 
 {-
-  powerOver takes as arguments Int32s and returns the smallest power of 2 
-  that is greater than or equal to the argument if that power of 2 is 
+  powerOver takes as arguments Int32s and returns the smallest power of 2
+  that is greater than or equal to the argument if that power of 2 is
   within [tABLE_MIN,tABLE_MAX]
 -}
 powerOver :: Int32 -> Int32
-powerOver n = 
+powerOver n =
     if n <= tABLE_MIN
     then tABLE_MIN
     else if n >= tABLE_MAX
          then tABLE_MAX
-         else bitTwiddleSameAs n 
+         else bitTwiddleSameAs n
 
 -- | Creates a new hash table with the given minimum size.
 newHint

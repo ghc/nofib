@@ -1,5 +1,5 @@
 -- benchmarks communication on TChan
--- 
+--
 -- This is a synthetic benchmark that is sensitive to scheduler
 -- behaviour.  In GHC 6.12 and earlier we triggered a context switch
 -- shortly after waking up a thread, whereas in 6.14 and later we

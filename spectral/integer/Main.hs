@@ -33,8 +33,8 @@ runalltests astart astep alim bstart bstep blim = do
   runbench (>) (>) "(>)" astart astep alim astart astep alim
   runbench (>=) (>=) "(>=)" astart astep alim astart astep alim
 
-runbench 
-	:: (Integer -> Integer -> a) 
+runbench
+	:: (Integer -> Integer -> a)
 	-> (Int -> Int -> b)
 	-> String
 	-> Integer -> Integer -> Integer
@@ -44,22 +44,22 @@ runbench jop iop opstr astart astep alim bstart bstep blim = do
  intbench iop astart astep alim astart astep alim
  integerbench jop astart astep alim astart astep alim
 
-integerbench :: (Integer -> Integer -> a) 
+integerbench :: (Integer -> Integer -> a)
 	-> Integer -> Integer -> Integer
 	-> Integer -> Integer -> Integer
 	-> IO ()
 integerbench op astart astep alim bstart bstep blim = do
-  seqlist ([ a `op` b 
+  seqlist ([ a `op` b
 	   | a <- [ astart,astart+astep..alim ]
 	   , b <- [ bstart,astart+bstep..blim ]])
   return ()
 
-intbench :: (Int -> Int -> a) 
+intbench :: (Int -> Int -> a)
 	-> Integer -> Integer -> Integer
 	-> Integer -> Integer -> Integer
 	-> IO ()
 intbench op astart astep alim bstart bstep blim = do
-  seqlist ([ a `op` b 
+  seqlist ([ a `op` b
 	   | a <- [ fromInteger astart,fromInteger astart + fromInteger astep .. fromInteger alim ]
 	   , b <- [ fromInteger bstart,fromInteger astart + fromInteger bstep .. fromInteger blim ]])
   return ()

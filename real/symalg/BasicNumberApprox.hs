@@ -1,4 +1,4 @@
-module BasicNumberApprox (equ, lt, gt, lte, gte, ne, rabs, rsignum, 
+module BasicNumberApprox (equ, lt, gt, lte, gte, ne, rabs, rsignum,
                           rtoRational, basicNumber2str) where
 
 import RealM
@@ -67,9 +67,9 @@ rabs a n = abs a
 
 -- Get the sign of a number.
 rsignum :: BasicNumber -> Integer -> BasicNumber
-rsignum (a@(BasRealC ar)) n = if ev_ar < 0 
+rsignum (a@(BasRealC ar)) n = if ev_ar < 0
                               then fromInteger (-1)
-                              else if ev_ar == 0 
+                              else if ev_ar == 0
                                    then fromInteger 0
                                    else fromInteger 1
                             where
@@ -79,7 +79,7 @@ rsignum a n = signum a
 
 -- Convert a BasicNumber to a rational with precision n.
 rtoRational :: BasicNumber -> Integer -> BasicNumber
-rtoRational (BasRealC a) n = if n <= 0 
+rtoRational (BasRealC a) n = if n <= 0
                              then (BasRationalC ((evalReal a n) % (10^(-n))))
                              else (BasRationalC (((evalReal a n)*(10^n)) % 1))
 rtoRational a _            = makeRational a

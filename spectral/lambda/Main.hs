@@ -36,7 +36,7 @@ module Main( main ) where
 --
 -- Conclusion:  mainMonad is about 4 times slower than mainSimple
 --              and about 7 times more memory.
---              
+--
 
 import System.Environment
 

@@ -12,7 +12,7 @@
 -- more details.
 --
 -- You should have received a copy of the GNU Lesser General Public License along with
--- this program; if not, write to the Free Software Foundation, Inc., 
+-- this program; if not, write to the Free Software Foundation, Inc.,
 -- 51 Franklin St - Fifth Floor, Boston, MA 02110-1301 USA.
 
 -- Ported from CnC/C++ program by Ryan Newton
@@ -21,14 +21,14 @@
 -- ===========
 
 -- The Black-Scholes equation is a differential equation that describes how,
--- under a certain set of assumptions, the value of an option changes as the 
+-- under a certain set of assumptions, the value of an option changes as the
 -- price of the underlying asset changes.
 
--- The formula for a put option is similar. The cumulative normal distribution 
+-- The formula for a put option is similar. The cumulative normal distribution
 -- function, CND(x), gives the probability that normally distributed random
 -- variable will have a value less than x. There is no closed form expression for
--- this function, and as such it must be evaluated numerically. The other 
--- parameters are as follows: S underlying asset's current price, 
+-- this function, and as such it must be evaluated numerically. The other
+-- parameters are as follows: S underlying asset's current price,
 -- X the strike price, T time to the expiration date, r risk-less rate of return,
 -- and v stock's volatility.
 
@@ -36,8 +36,8 @@
 -- for each tag in the tag collection <tags>. This tag collection is produced
 -- by the environment.
 
--- (compute) inputs [data] items. Each [data] item contains a pointer to an 
--- array of ParameterSet objects. For each ParameterSet object the Black-Scholes equation 
+-- (compute) inputs [data] items. Each [data] item contains a pointer to an
+-- array of ParameterSet objects. For each ParameterSet object the Black-Scholes equation
 -- is solved, and results are stored in the emitted items [price].
 
 -- To reduce the influence of the serial part each calculation is repeated for NUM_RUNS times.
@@ -57,7 +57,7 @@
 -- blackscholes b n
 --     b  : positive integer for the size of blocks
 --     n  : positive integer for the number of options
-    
+
 -- e.g.
 -- blackscholes 100000 100 4
 
@@ -85,8 +85,8 @@ type FpType = Float
 -- 	r       :: FpType ,	        -- risk-free interest rate
 -- 	divq    :: FpType ,	        -- dividend rate
 -- 	v       :: FpType ,		-- volatility
--- 	t       :: FpType ,		-- time to maturity or option expiration in years 
--- 				       	--     (1yr = 1.0, 6mos = 0.5, 3mos = 0.25, ..., etc)  
+-- 	t       :: FpType ,		-- time to maturity or option expiration in years
+-- 				       	--     (1yr = 1.0, 6mos = 0.5, 3mos = 0.25, ..., etc)
 -- 	optionType :: String,	-- Option type.  "P"=PUT, "C"=CALL
 -- 	divs :: FpType,		-- dividend vals (not used in this test)
 -- 	dGrefval :: FpType	-- DerivaGem Reference Value
@@ -102,7 +102,7 @@ type FpType = Float
 -- 	volatility :: UArray Int FpType ,
 -- 	otime      :: UArray Int FpType,
 -- 	otype      :: UArray Int Bool,
--- 	granularity :: Int 
+-- 	granularity :: Int
 -- } deriving Show
 
 
@@ -129,19 +129,19 @@ inv_sqrt_2xPI = 0.39894228040143270286
 
 cndf :: FpType -> FpType
 cndf inputX = if sign then 1.0 - xLocal else xLocal
-  where 
+  where
     sign = inputX < 0.0
     inputX' = if sign then -inputX else inputX
-    
+
     -- Compute NPrimeX term common to both four & six decimal accuracy calcs
     xNPrimeofX = inv_sqrt_2xPI * exp(-0.5 * inputX * inputX);
 
-    xK2 = 1.0 / (0.2316419 * inputX + 1.0);    
+    xK2 = 1.0 / (0.2316419 * inputX + 1.0);
     xK2_2 = xK2   * xK2; -- Need all powers of xK2 from ^1 to ^5:
     xK2_3 = xK2_2 * xK2;
     xK2_4 = xK2_3 * xK2;
     xK2_5 = xK2_4 * xK2;
-    
+
     xLocal   = 1.0 - xLocal_1 * xNPrimeofX;
     xLocal_1 = xK2   *   0.319381530  + xLocal_2;
     xLocal_2 = xK2_2 * (-0.356563782) + xLocal_3 + xLocal_3' + xLocal_3'';
@@ -157,45 +157,45 @@ blkSchlsEqEuroNoDiv sptprice strike rate volatility time otype timet =
    else let negNofXd1 = 1.0 - nofXd1
 	    negNofXd2 = 1.0 - nofXd2
 	in (futureValueX * negNofXd2) - (sptprice * negNofXd1)
- where 
-   logValues  = log( sptprice / strike )                
+ where
+   logValues  = log( sptprice / strike )
    xPowerTerm = 0.5 * volatility * volatility
    xDen = volatility * sqrt(time)
    xD1  = (((rate + xPowerTerm) * time) + logValues) / xDen
    xD2  = xD1 -  xDen
 
-   nofXd1 = cndf xD1 
-   nofXd2 = cndf xD1    
+   nofXd1 = cndf xD1
+   nofXd2 = cndf xD1
    futureValueX = strike *  exp ( -(rate) * (time) )
 
 executeStep :: Int -> Int -> UArray Int FpType
-executeStep t granularity = 
+executeStep t granularity =
 --       stepPutStr$ "  Executing "++ show granularity ++ " iterations starting at "++ show t ++ "\n"
---       let ls = map (\ j ->        
+--       let ls = map (\ j ->
        listArray (0, granularity-1) $
-		        Prelude.map (\i -> 
+		        Prelude.map (\i ->
 --                              let OptionData { .. } = data_init ! (t+i `mod` size_init)
                               let ParameterSet { .. } = data_init ! ((t+i) `mod` size_init)
 			      in blkSchlsEqEuroNoDiv sptprice strike rate volatility otime otype 0)
 		            [0 .. granularity-1]
 --                     )
 --	         [0 .. num_runs-1]
-                 
+
 
 blackscholes :: Int -> Int -> Eval Float
-blackscholes numOptions granularity = 
-   do 
+blackscholes numOptions granularity =
+   do
       fs <- forM [0, granularity .. numOptions-1] $ \t ->
               fork (return (executeStep t granularity))
 
-      foldM (\ acc f -> 
+      foldM (\ acc f ->
 		 do x <- join f
 		    return (acc + (x ! 0)))
 	        0 fs
 
-main = do args <- getArgs 
+main = do args <- getArgs
           let (numOptions, granularity) =
-               case args of 
+               case args of
 --  	         []      -> (10, 5)
   	         []      -> (10000, 1000)
   	         [b]     -> (10, read b)

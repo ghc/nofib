@@ -1,4 +1,4 @@
- 
+
 -- ==========================================================--
 -- === Main module                                Main.hs ===--
 -- ==========================================================--
@@ -22,8 +22,8 @@ import Data.Char(isDigit)
 --
 maBaseTypes :: TcTypeEnv
 
-maBaseTypes 
-   = [ 
+maBaseTypes
+   = [
       ("_not", Scheme [] (TArr tcBool tcBool)),
       ("_+",   Scheme [] (TArr tcInt (TArr tcInt tcInt))),
       ("_-",   Scheme [] (TArr tcInt (TArr tcInt tcInt))),
@@ -42,15 +42,15 @@ maBaseTypes
       ("_&",   Scheme [] (TArr tcBool (TArr tcBool tcBool))),
       ("_#",   Scheme [] (TArr tcBool (TArr tcBool tcBool)))
        -- *** parallel or *** ---
-     ] 
+     ]
 
 
 -- ==========================================================--
 --
 maBaseAnns :: AList Naam (HExpr Naam)
 
-maBaseAnns 
-   = [ 
+maBaseAnns
+   = [
       ("_not",   strictUnaryFunc ),
       ("_+",     strictBinaryFunc ),
       ("_-",     strictBinaryFunc ),
@@ -70,11 +70,11 @@ maBaseAnns
       ("True",   HPoint One)
      ]
      where
-	strictUnaryFunc 
-           = HPoint (Rep (RepTwo 
+	strictUnaryFunc
+           = HPoint (Rep (RepTwo
                       (Min1Max0 1 [MkFrel [One]]
                                   [MkFrel [Zero]])))
-        strictBinaryFunc 
+        strictBinaryFunc
            = HPoint (Rep (RepTwo
                       (Min1Max0 2 [MkFrel [One, One]]
                                   [MkFrel [Zero, One], MkFrel [One, Zero]])))
@@ -92,7 +92,7 @@ maKludgeFlags flags
    = if     DryRun `elem` flags
      then   bdDryRunSettings ++ flags ++ bdDefaultSettings
      else                       flags ++ bdDefaultSettings
-     
+
 
 -- ==========================================================--
 --
@@ -110,7 +110,7 @@ maStrictAn table flagsInit fileName
      "\n\n\n=============" ++
      "\n=== Types ===" ++
      "\n=============\n" ++
-     prettyTypes ++ 
+     prettyTypes ++
      "\n\n" ++
      strictAnResults ++ "\n"
      where
@@ -119,26 +119,26 @@ maStrictAn table flagsInit fileName
          strictAnResults
             = if Typecheck `notElem` flags
               then
-               saMain 
-                 (eaEtaAbstract typedTree) darAug fullEnvAug pseudoParams 
+               saMain
+                 (eaEtaAbstract typedTree) darAug fullEnvAug pseudoParams
                  maBaseAnns tdsAug flags table
               else ""
 
          -- call the parser (never returns if cannot parse)
 	 (dar, (tds, expr)) = paParse fileName
 
-         (progAfterLL, pseudoParams) 
+         (progAfterLL, pseudoParams)
             = llMain builtInNames expr doPretty
          builtInNames = map first maBaseAnns
          prog = (tds, progAfterLL)
          doPretty = NoPretty `notElem` flags
 
          -- call the typechecker, fish out the resulting components
-         (prettyTypes, typedTree, fullEnv) 
+         (prettyTypes, typedTree, fullEnv)
             = f (tcCheck maBaseTypes ([1],[0]) prog)
-         f (words, (Fail m)) 
+         f (words, (Fail m))
             = panic "maStrictAn: Typecheck failed -- cannot proceed."
-	 f (words, Ok (rootTree, fullEnv)) 
+	 f (words, Ok (rootTree, fullEnv))
             = (words, rootTree, fullEnv)
 
          -- augment type definitions to cover built-in type bool
@@ -203,9 +203,9 @@ maGetFlags (other:_) = myFail ("Unknown flag: " ++ other ++ maUsage )
 --
 maUsage :: String
 
-maUsage 
-   = concat 
-     [ 
+maUsage
+   = concat
+     [
        "\n\nUsage:   Anna400 [lmlflags -] [flags] < corefile",
        "\n",
        "\nAllowable flags are:",

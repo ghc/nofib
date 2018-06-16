@@ -29,7 +29,7 @@ data Assign = Var := Value deriving (Eq, Ord, Show)
 
 type Relation = Assign -> Assign -> Bool
 
-data CSP = CSP { vars, vals :: Int, rel :: Relation } 
+data CSP = CSP { vars, vals :: Int, rel :: Relation }
 
 type State = [Assign]
 
@@ -111,18 +111,18 @@ data Maybe a = Just a | Nothing deriving Eq
 
 earliestInconsistency :: CSP -> State -> Maybe (Var,Var)
 earliestInconsistency CSP{rel=rel} [] = Nothing
-earliestInconsistency CSP{rel=rel} (a:as) = 
+earliestInconsistency CSP{rel=rel} (a:as) =
         case filter (not . rel a) (reverse as) of
           [] -> Nothing
           (b:_) -> Just (level a, level b)
 
 labelInconsistencies :: CSP -> Transform State (State,Maybe (Var,Var))
-labelInconsistencies csp = mapTree f 
+labelInconsistencies csp = mapTree f
     where f s = (s,earliestInconsistency csp s)
 
 btsolver0 :: CSP -> [State]
 btsolver0 csp =
-  (filter (complete csp) . leaves . (mapTree fst) . prune ((/= Nothing) . snd) 
+  (filter (complete csp) . leaves . (mapTree fst) . prune ((/= Nothing) . snd)
                                             . (labelInconsistencies csp) .  mkTree) csp
 
 -----------------------------------------------
@@ -150,7 +150,7 @@ search labeler csp =
 
 bt :: Labeler
 bt csp = mapTree f
-      where f s = (s, 
+      where f s = (s,
                    case earliestInconsistency csp s of
                      Nothing    -> checkComplete csp s
                      Just (a,b) -> Known [a,b])
@@ -211,14 +211,14 @@ fillTable :: State -> CSP -> Table -> Table
 fillTable [] csp tbl = tbl
 fillTable ((var' := val'):as) CSP{vars=vars,vals=vals,rel=rel} tbl =
     zipWith (zipWith f) tbl [[(var,val) | val <- [1..vals]] | var <- [var'+1..vars]]
-          where f cs (var,val) = if cs == Unknown && not (rel (var' := val') (var := val)) then 
-                                   Known [var',var] 
+          where f cs (var,val) = if cs == Unknown && not (rel (var' := val') (var := val)) then
+                                   Known [var',var]
                                  else cs
 
 lookupCache :: CSP -> Transform (State, Table) ((State, ConflictSet), Table)
 lookupCache csp t = mapTree f t
   where f ([], tbl)      = (([], Unknown), tbl)
-        f (s@(a:_), tbl) = ((s, cs), tbl) 
+        f (s@(a:_), tbl) = ((s, cs), tbl)
 	     where cs = if tableEntry == Unknown then checkComplete csp s else tableEntry
                    tableEntry = (head tbl)!!(value a-1)
 
@@ -233,18 +233,18 @@ bjbt' :: Labeler
 bjbt' csp = bj' csp . bt csp
 
 bj :: CSP -> Transform (State, ConflictSet) (State, ConflictSet)
-bj csp = foldTree f 
+bj csp = foldTree f
   where f (a, Known cs) chs = Node (a,Known cs) chs
         f (a, Unknown)  chs = Node (a,Known cs') chs
           where cs' = combine (map label chs) []
 
 combine :: [(State, ConflictSet)] -> [Var] -> [Var]
-combine []                 acc = acc 
+combine []                 acc = acc
 combine ((s, Known cs):css) acc =
   if maxLevel s `notElem` cs then cs else combine css (cs `union` acc)
 
 bj' :: CSP -> Transform (State, ConflictSet) (State, ConflictSet)
-bj' csp = foldTree f 
+bj' csp = foldTree f
   where f (a, Known cs) chs = Node (a,Known cs) chs
         f (a, Unknown) chs = if knownConflict cs' then Node (a,cs') [] else Node (a,cs') chs
            where cs' = Known (combine (map label chs) [])
@@ -262,8 +262,8 @@ collect (Known cs:css) = cs `union` (collect css)
 
 domainWipeOut :: CSP -> Transform ((State, ConflictSet), Table) (State, ConflictSet)
 domainWipeOut CSP{vars=vars} t = mapTree f t
-  where f ((as, cs), tbl) = (as, cs')  
-          where wipedDomains = ([vs | vs <- tbl, all (knownConflict) vs]) 
+  where f ((as, cs), tbl) = (as, cs')
+          where wipedDomains = ([vs | vs <- tbl, all (knownConflict) vs])
                 cs' = if null wipedDomains then cs else Known (collect (head wipedDomains))
 
 

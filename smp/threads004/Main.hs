@@ -6,7 +6,7 @@
 
 -- A Modification of threads003, using explicit assigning of threads to CPUs
 -- (assumes 2 CPUs).  This version can go faster with -N2 than -N1.
--- 
+--
 -- NB. don't forget to run it with +RTS -qm, to disable automatic migration.
 
 import Control.Concurrent

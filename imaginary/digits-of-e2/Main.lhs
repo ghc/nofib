@@ -7,7 +7,7 @@ Due to John Hughes, Aug 2001
 Here's a way to compute all the digits of e. We use the series
 
    e = 2  +  1  +  1  +  1  +  ...
-             --    --    --  
+             --    --    --
              2!    3!    4!
 
 which we can think of as representing e as 2.11111... in a strange
@@ -36,7 +36,7 @@ are much better ways than this of solving the problem, but this one
 works.
 
 > carryPropagate base (d:ds)
->   | carryguess == (d+9) `div` base 
+>   | carryguess == (d+9) `div` base
 >       = carryguess : (remainder+nextcarry) : fraction
 >   | otherwise
 >       = (dCorrected `div` base) : (dCorrected `mod` base) : fraction
@@ -46,7 +46,7 @@ works.
 >         dCorrected = d + nextcarry
 
 > e :: String
-> e = ("2."++) $ 
+> e = ("2."++) $
 >     tail . concat $
 >     map (show.head) $
 >     iterate (carryPropagate 2 . map (10*) . tail) $

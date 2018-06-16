@@ -94,8 +94,8 @@ promptReadAt (x,y) l prompt use
 defPromptReadAt (x,y) l prompt def use
                    = writeAt (x,y) prompt (
                      defReadAt (x+length prompt,y) l def use)
-                                  
- 
+
+
 -- A sample program:
 -- Enter the expression `run program' in Hugs to try this program out
 

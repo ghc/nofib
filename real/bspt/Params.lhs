@@ -7,7 +7,7 @@
 	Command is a data type that enumerates the possible actions
 	the user may select (along with the Null command)
 
-> data Command = Polygon | Union | Intersect | Subtract | Complement | Partition 
+> data Command = Polygon | Union | Intersect | Subtract | Complement | Partition
 >                 | Render | Classify | Area | Quit | Null deriving (Eq)
 
 	Define String as a list of Characters
@@ -52,7 +52,7 @@
 > textDown :: Int
 > textDown =  30
 
-	Define the render region of the screen. 
+	Define the render region of the screen.
 
 > renderRegion :: [Int]
 > renderRegion = [renderLeft,renderTop,windowWidth,renderHeight]
@@ -155,7 +155,7 @@
 
 > buttons :: [Button]
 > buttons = [primitiveButton,unionButton,intersectButton,subtractButton,
-> 		complementButton, partitionButton, renderButton, 
+> 		complementButton, partitionButton, renderButton,
 > 				classifyButton, areaButton, quitButton]
 
 	Define each button.

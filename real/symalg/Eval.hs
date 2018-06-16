@@ -33,7 +33,7 @@ eval_func_1 name arg env =
 		if isBuiltin1 name then
 			(getBuiltin1 name) narg (getPrec env)
 		else	Func name [narg]
-		where 
+		where
 		    narg = eval arg env
 
 -- evaluate functions with 2 arguments.
@@ -70,7 +70,7 @@ getBuiltin1 "sqrt" = aBnf2Bef1 "sqrt" sqrt1 where
 getBuiltin1 "real" = aBnf2Bef1 "real" makeReal1 where
 			makeReal1 :: BasicNumber -> Integer -> BasicNumber
 			makeReal1 n _ = makeReal n
-getBuiltin1 "rat"  = aBnf2Bef1 "rat"  rtoRational 
+getBuiltin1 "rat"  = aBnf2Bef1 "rat"  rtoRational
 getBuiltin1 "neg"  = aBnf2Bef1 "neg" negation where
 			negation :: BasicNumber -> Integer -> BasicNumber
 			negation x _ = 0-x
@@ -100,7 +100,7 @@ isBuiltin2 "gt"  = True
 isBuiltin2 _     = False
 
 -- get a builtin function with 2 arguments
-getBuiltin2 :: String -> BasicExp -> BasicExp -> 
+getBuiltin2 :: String -> BasicExp -> BasicExp ->
 		(BasicExp -> BasicExp -> Integer -> BasicExp)
 getBuiltin2 "add" _	   _	    = aBnf2Bef "add" (+)
 getBuiltin2 "sub" _	   _	    = aBnf2Bef "sub" (-)
@@ -122,7 +122,7 @@ bool2bexp False = Numb 0
 
 bBnf2Bef :: String -> (BasicNumber -> BasicNumber -> Integer -> Bool)
 	 -> BasicExp -> BasicExp -> Integer -> BasicExp
-bBnf2Bef name fun e1 e2 prec = 
+bBnf2Bef name fun e1 e2 prec =
 	case (e1,e2) of
 		((Numb n1),(Numb n2)) -> bool2bexp (fun n1 n2 prec)
 		_		      -> (Func name [e1,e2])

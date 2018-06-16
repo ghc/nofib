@@ -59,11 +59,11 @@ decode' (c:cs) n t
         where
         (NONE, ch) = lookup c t
 
-{- do_decode decodes all the codes bar the first. 
+{- do_decode decodes all the codes bar the first.
  -
- - If the code is in the table (ie the code is less than the next code to be 
- - added) then we output the string for that code (using unfold if a prefix 
- - type) and add a new code to the table with the final character output as 
+ - If the code is in the table (ie the code is less than the next code to be
+ - added) then we output the string for that code (using unfold if a prefix
+ - type) and add a new code to the table with the final character output as
  - the extension and the previous code as prefix.
  -
  - If the code is not one we know about then we give it to decode_special for

@@ -121,7 +121,7 @@ deScc :: (Ord a) =>
          [Set a]       -- The topologically sorted components
 
 deScc ins outs
-   = spanning . depthFirst 
+   = spanning . depthFirst
      where depthFirst = second . deDepthFirstSearch outs (utSetEmpty, [])
 	   spanning   = second . deSpanningSearch   ins  (utSetEmpty, [])
 
@@ -159,14 +159,14 @@ deDepends (free, ALet isRec defns body)
      ins  v     = [u | (u,w) <- edges, v==w]
      outs v     = [w | (u,w) <- edges, v==u]
      components = map utSetToList (deScc ins outs binders)
-     defnGroups = [[(n, utSureLookup defns "depends`defnGroups" n) 
+     defnGroups = [[(n, utSureLookup defns "depends`defnGroups" n)
 					 | n <- ns] | ns <- components]
 
 
 
 -- ==========================================================--
 --
-deElet isRec dfs e 
+deElet isRec dfs e
    = if not isRec || nonRec dfs
         then ELet False dfs' e
         else ELet True  dfs' e

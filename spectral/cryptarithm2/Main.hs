@@ -1,7 +1,7 @@
-{- Andy Gill, Oct 99 
+{- Andy Gill, Oct 99
 
 Here is a generic cryptarithm solver, written in Haskell. It does
-use a State Monad library, which is based on the work documented in 
+use a State Monad library, which is based on the work documented in
 "Functional Programming with Overloading and Higher-Order Polymorphism",
 Mark P. Jones, Advanced School of Functional Programming, 1995.
 
@@ -32,7 +32,7 @@ type DigitState a = StateT Digits [] a
 
 data Digits = Digits {
 		digits :: [Int],
-		digitEnv :: [(Char,Int)] 
+		digitEnv :: [(Char,Int)]
 	} deriving Show
 
 initState = Digits {
@@ -60,7 +60,7 @@ permute c =
 -- add a new mapping.
 
 select :: Char -> DigitState Int
-select c = 
+select c =
      do st <- get
 	case lookup c (digitEnv st) of
 	  Just r -> return r
@@ -81,7 +81,7 @@ solve :: [[Char]] -> [Char] -> Int -> DigitState ()
 solve tops (bot:bots) carry =
   do topN <- (case tops of
 		   [] -> return carry
-		   (top:_) -> 
+		   (top:_) ->
 		     do topNS <- mapM select top
 	     	        return (sum topNS + carry))
      botN <- select bot
@@ -97,16 +97,16 @@ solve _  _  _ = mzero
 -- The strings are in the order *we* write them.
 
 puzzle :: [[Char]] -> [Char] -> String
-puzzle top bot = 
-	     if length (nub (concat top ++ bot)) > 10 
+puzzle top bot =
+	     if length (nub (concat top ++ bot)) > 10
 	     then error "can not map more than 10 chars"
-	else if topVal /= botVal 
+	else if topVal /= botVal
 	     then error ("Internal Error")
 	else unlines [ [c] ++ " => " ++ show i |
 			(c,i) <- digitEnv answer
 		   ]
    where
-	solution = solve (transpose (map reverse top)) 
+	solution = solve (transpose (map reverse top))
 			 (reverse bot)
 			 0
 	answer  = case (execStateT solution initState) of
@@ -114,7 +114,7 @@ puzzle top bot =
 		     [] -> error "can not find a solution"
 	env    = digitEnv answer
 	look c = fromJust (lookup c env)
-	topVal = sum [expand xs | xs <- top] 
+	topVal = sum [expand xs | xs <- top]
 	botVal = expand bot
 	expand = foldl (\ a b -> a * 10 + look b) 0
 			

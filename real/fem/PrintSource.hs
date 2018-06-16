@@ -17,11 +17,11 @@ import Basics
 
 source_data :: (Array Int Int, Array Int Float) -> [Char]
 source_data db
-      = 
-        control_data db ++ 
-	node_data db ++ 
-	material_data db ++ 
-  	elements db ++ 
+      =
+        control_data db ++
+	node_data db ++
+	material_data db ++
+  	elements db ++
 	plds db
 
 control_data db
@@ -31,7 +31,7 @@ control_data db
         "   Number of point loads = " ++ (showlj 3 (nplds db)) ++ "\n" ++
         "   Total number of materials = "++ (showlj 3 (nmats db)) ++ "\n\n\n"
 
-node_data db 
+node_data db
       = "NODE INFORMATION  :\n\n" ++
         (concat ( map a_node_s [1..(nnode db)] )) ++ "\n\n"
 	where	

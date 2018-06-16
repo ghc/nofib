@@ -1,6 +1,6 @@
 {-
  - Uncompress.hs
- - 
+ -
  - This program is a version of the compress utility as defined in
  - "A Technique for High Performance Data Compression", Terry A. Welch,
  - Computer, vol 17, no 6 1984, pp 8-19

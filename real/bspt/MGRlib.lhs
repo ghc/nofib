@@ -1,12 +1,12 @@
-> module MGRlib 
+> module MGRlib
 
-	Module that acts as interface to MGR window manager. 
+	Module that acts as interface to MGR window manager.
 	Window manager functions by picking up escaped command
 	from standard output.
 
->		(setTextRegion, textReset, clear, clearEvent, func, 
+>		(setTextRegion, textReset, clear, clearEvent, func,
 > 		 line, setCursor, setEvent, setMode, shapeWindow,
-> 		 stringTo, printOver, movePrintTo,writeVert) 
+> 		 stringTo, printOver, movePrintTo,writeVert)
 
 > where
 
@@ -23,7 +23,7 @@
 	setTextRegion : define a text Region by its origin height and width
 
 > setTextRegion :: [Int] -> String
-> setTextRegion = command "t" 
+> setTextRegion = command "t"
 
 	textReset : clear textRegion
 
@@ -50,9 +50,9 @@
 
 	func : sets up the drawing mode for graphics and bit_blt
 		operations.
-		func 4 = invertMode 
+		func 4 = invertMode
 		func 0 = deleteMode
-		func 15 = insertMode 
+		func 15 = insertMode
 
 > func :: Int -> String
 > func mode = command "b" [mode]

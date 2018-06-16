@@ -19,7 +19,7 @@ Kevin
 -- and achieved a total score greater than the fixed threshold
 -- for the award.
 
--- No score can be counted towards more than one award, 
+-- No score can be counted towards more than one award,
 -- but there is no limit on the total number of awards that can be won.
 
 -- The thresholds for the various awards are:
@@ -38,7 +38,7 @@ perms 1 l  = map (: []) l
 perms m (n:ns) = map ((:) n) (perms (m-1) ns) ++ perms m ns
 
 -- Find the (sorted) list of possible awards for a list of scores
-awards scores = 
+awards scores =
 	award ("Gold",70) ++ award ("Silver",60) ++ award ("Bronze",50)
 	where sumscores = map (\ p -> (sum p, p)) (perms 3 scores)
 	      atleast threshold = filter (\(sum,p) -> sum >= threshold) sumscores
@@ -52,12 +52,12 @@ findawards scores | null theawards = []
 
 -- Find the awards for all competitors, each competitor is a pair of
 -- (Name, list of scores)
-findallawards competitors = 
+findallawards competitors =
 	map (\ (name,scores) -> (name,findawards scores)) competitors
 
 
 competitors = [
-		("Simon",[35,27,40,19,34,21]), 
+		("Simon",[35,27,40,19,34,21]),
 		("Hans",[23,19,45,17,10,5,8,14]),
 		("Phil",[1,18,35,20,21,19,34,8,16,21]),
 		("Kevin",[9,23,17,54,18,41,9,18,14])

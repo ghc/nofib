@@ -105,7 +105,7 @@ one_way_unify1 term1 term2@(Var vid2) subst
           else (True, (vid2,term1):subst)
           where (found, v2) = find vid2 subst
 {-
-        = case find vid2 subst of { (found, v2) -> 
+        = case find vid2 subst of { (found, v2) ->
           if found
           then (term1 == v2, subst)
           else (True, (vid2,term1):subst)
@@ -229,7 +229,7 @@ actually relevant to the truth of the theorem.  In fact none of them
 can be rewritten in any interesting way.
 \begin{code}
 
-main = do 
+main = do
   (n:_) <- getArgs
   print (test (read n))
 
@@ -268,7 +268,7 @@ test0 xxxx = tautp (apply_subst subst0 theorem)
         false   = Fun FALSE [] []
         nil     = Fun NIL   [] []
         true    = Fun TRUE  [] []
-        zero    = Fun ZERO  [] [] 
+        zero    = Fun ZERO  [] []
 
 -- Functions with their associated lemmas
 

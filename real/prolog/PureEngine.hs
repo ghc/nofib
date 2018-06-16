@@ -16,7 +16,7 @@ import Subst
 --         is the required substitution
 -- or:     a choice between a number of subtrees ts, each corresponding to a
 --         proof of a subgoal of the current goal, represented by Choice ts.
---         The proof tree corresponding to an unsolvable goal is Choice [] 
+--         The proof tree corresponding to an unsolvable goal is Choice []
 
 data Prooftree = Done Subst  |  Choice [Prooftree]
 

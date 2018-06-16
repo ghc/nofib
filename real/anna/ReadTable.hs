@@ -17,13 +17,13 @@ rtReadTable :: String -> [(Domain, Int)]
 
 rtReadTable s
    = case rtTable (rtLex 1 s) of
-        PFail [] 
+        PFail []
            -> myFail "Unexpected end of lattice table"
-        PFail ((n,t):_) 
+        PFail ((n,t):_)
            -> myFail ("Syntax error in lattice table, line " ++ show n ++ ".")
-        POk tab [] 
+        POk tab []
            -> tab
-        POk tab ((n,t):_) 
+        POk tab ((n,t):_)
            -> myFail ("Syntax error in lattice table, line " ++ show n ++ ".")
 
 
@@ -49,9 +49,9 @@ rtLex n ('L':'i':'f':'t':'1':cs)  = (n, "L"):rtLex n cs
 rtLex n ('L':'i':'f':'t':'2':cs)  = (n, "M"):rtLex n cs
 
 rtLex n (c:cs)
-   | isDigit c 
+   | isDigit c
    = (n, c:takeWhile isDigit cs):rtLex n (dropWhile isDigit cs)
-   | otherwise 
+   | otherwise
    = myFail ("Illegal character " ++ show c ++
            " in lattice table, line " ++ show n ++ "." )
 
@@ -63,12 +63,12 @@ rtPWithComma p = paThen2 (\a b -> a) p (paLit ",")
 -- ==========================================================--
 --
 rtListMain p
-  = paAlts 
-    [ ( (=="]"), 
+  = paAlts
+    [ ( (=="]"),
         paApply (paLit "]") (const []) ),
 
-      ( const True, 
-        paThen3 (\a b c -> a ++ [b]) 
+      ( const True,
+        paThen3 (\a b c -> a ++ [b])
                (paZeroOrMore (rtPWithComma p)) p (paLit "]") ) ]
 
 -- ==========================================================--
@@ -100,7 +100,7 @@ rtPair pa pb
 
 -- ==========================================================--
 --
-rtTable 
+rtTable
   = rtList (rtPair rtDomain paNum)
 
 

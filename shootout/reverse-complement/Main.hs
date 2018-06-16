@@ -10,7 +10,7 @@ import Foreign
 import Data.ByteString.Internal
 import System.IO
 
-data Buf = Buf !Int !Int !(Ptr Word8) 
+data Buf = Buf !Int !Int !(Ptr Word8)
 
 withBuf run = run . Buf 0 ini =<< mallocBytes ini
   where ini = 1024
@@ -41,7 +41,7 @@ main = allocaArray 82 $ \ line ->
   let go !buf = do
       !m <- hGetBuf stdin line 82
       if m == 0 then revcomp buf else do
-        findChar line m (c2w '>') 
+        findChar line m (c2w '>')
           (putBuf line m buf go)
           (\ end -> do
             putBuf line end buf revcomp
@@ -52,7 +52,7 @@ main = allocaArray 82 $ \ line ->
 (+*) = advancePtr
 
 {-# INLINE comps #-}
-comps = Prelude.zipWith (\ a b -> (fromEnum a, c2w b)) "AaCcGgTtUuMmRrYyKkVvHhDdBb" 
+comps = Prelude.zipWith (\ a b -> (fromEnum a, c2w b)) "AaCcGgTtUuMmRrYyKkVvHhDdBb"
   "TTGGCCAAAAKKYYRRMMBBDDHHVV"
 
 ca :: Ptr Word8
@@ -71,14 +71,14 @@ revcomp (Buf lBuf _ pBuf) = when (lBuf > 0) $ ca `seq`
       if x == c2w '\n' then let !i' = i +* 1 in rc1 j i' =<< peek i'
         else rc1 j i x
     rc i j = when (i == j) (poke i =<< comp =<< peek i)
-    
+
     rc1 !j !i !xi = do
       y <- peek j
       if y == c2w '\n' then let !j' = j +* (-1) in rc2 i xi j' =<< peek j'
         else rc2 i xi j y
-    
+
     comp = peekElemOff ca . fromIntegral
-    
+
     rc2 !i !xi !j !xj = do
       poke j =<< comp xi
       poke i =<< comp xj

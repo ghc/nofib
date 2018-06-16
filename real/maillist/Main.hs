@@ -1,7 +1,7 @@
-{- 
+{-
 		       Mailing List Generator
 		       ----------------------
-				   
+				
 		 Written by Paul Hudak, January 1992.
 
 
@@ -61,7 +61,7 @@ file, whose name should be "labels.sty":
  {\lline{#1}{#2}{#3}\\}
 
 \newcommand{\lblock}[9]
- {\lline{#1}{#2}{#3}\vspace{\vertspace}\\ 
+ {\lline{#1}{#2}{#3}\vspace{\vertspace}\\
   \lline{#4}{#5}{#6}\vspace{\vertspace}\\
   \lline{#7}{#8}{#9}\vspace{\vertspace}\\}
 
@@ -77,7 +77,7 @@ file, whose name should be "labels.sty":
   \end{tabular}}
 
 
-Desired enhancements: 
+Desired enhancements:
 ---------------------
   allow more than one input file for same output file
   do character conversion for LaTex to avoid having to put "\&", etc. on input
@@ -103,7 +103,7 @@ main =	do
     mainLoop (lines s)
 
 mainLoop :: UserInput -> IO ()
-mainLoop fns = 
+mainLoop fns =
 	putStr "\nFile to be converted: " >>
 	case fns of
 	  []        -> 	putStr "\nGoodbye!\n"
@@ -114,7 +114,7 @@ mainLoop fns =
 			
 
 process :: FileName -> UserInput -> String -> IO ()
-process out fns rawText = 
+process out fns rawText =
 	writeFile out "% Latex Mailing List.\n\n\
                       \\\input{labels.sty}\n\n\
                       \\\begin{document}\n\n"     >>
@@ -145,10 +145,10 @@ long  = "{\\lblock{\n"
 short = "{\\sblock{\n"
 
 writeBlock :: FileName -> [Entry] -> String -> Int -> IO [Entry]
-writeBlock out ps kind size = 
+writeBlock out ps kind size =
 	appendFile out kind >>
 	loop ps 1
-	where	loop (e:es) n = 
+	where	loop (e:es) n =
 			writeEntry out e >>
 			(if n==size then appendFile out "\n}}\n" >>
 					 return es
@@ -161,8 +161,8 @@ writeEntry out entry = loop entry 1  where
   loop [] n =
 	if n<5 then loop (take (5-n) (repeat "")) n
 	       else return ()
-  loop (ln:lns) n = 
-	if n>4 
+  loop (ln:lns) n =
+	if n>4
 	then putStr
                "\nThis entry was truncated to 4 lines:\n" >>
 	     print entry >>

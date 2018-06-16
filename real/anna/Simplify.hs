@@ -16,11 +16,11 @@ import Apply
 --
 siVectorise :: HExpr Naam -> HExpr Naam
 
-siVectorise (HLam vs1 (HLam vs2 e)) 
+siVectorise (HLam vs1 (HLam vs2 e))
    = siVectorise (HLam (vs1++vs2) e)
-siVectorise (HLam vs e) 
+siVectorise (HLam vs e)
    = HLam vs (siVectorise e)
-siVectorise (HApp (HTable t) e) 
+siVectorise (HApp (HTable t) e)
    = HApp (HTable (map2nd siVectorise t)) (siVectorise e)
 siVectorise (HApp f a)
    = case siVectorise f of
@@ -38,7 +38,7 @@ siVectorise (HMeet es) = HMeet (map siVectorise es)
 siSimplify :: HExpr Naam -> HExpr Naam
 
 siSimplify hexpr
-  = 
+  =
     let hexpr_after_one_cycle = siHOpt hexpr
     in
         if    hexpr == hexpr_after_one_cycle
@@ -85,10 +85,10 @@ siHOpt_meet es
 --
 siHOpt_app :: HExpr Naam -> HExpr Naam -> HExpr Naam
 
-siHOpt_app (HTable t) (HPoint p) 
+siHOpt_app (HTable t) (HPoint p)
   = siHOpt (utSureLookup t "siHOpt_app" p)
 
-siHOpt_app (HPoint p1) (HPoint p2) 
+siHOpt_app (HPoint p1) (HPoint p2)
   = HPoint (apApply p1 [p2])
 
 siHOpt_app h1_other h2_other = HApp h1_other h2_other

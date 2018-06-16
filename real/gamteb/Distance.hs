@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -30,7 +30,7 @@ distSurf (p1@(x,y,z)) (p2@(u,v,w)) =
 distCyl :: Point -> Point -> Value
 distCyl (x,y,z) (u,v,w)
 	| (u*u + w*w) == 0	= big		-- w*w used to be v*v  LA
-	| (u /= 0)		= 
+	| (u /= 0)		=
 		let
 		    m = w/u
 		    b = z - m*x
@@ -41,7 +41,7 @@ distCyl (x,y,z) (u,v,w)
 			    else (-m*b - r) / s
 		in
 		(x'-x) / u
-	| (u == 0 && v /= 0)	= 
+	| (u == 0 && v /= 0)	=
 		let
 		    m = w/v
 		    b = z - m*y
@@ -58,7 +58,7 @@ distCyl (x,y,z) (u,v,w)
 -- find distance of a particle to a plane
 
 distPlane :: Coord -> Coord -> Value -> Value
-distPlane y v yPlane 
+distPlane y v yPlane
 	| v == 0	= big
 	| y >= yPlane	= big
 	| otherwise	= (yPlane-y) / v

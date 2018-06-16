@@ -14,7 +14,7 @@ primes = sieve wheels primes squares
 sieve (Wheel s ns:ws) ps qs =
   [n' | o <- s:[s*2,s*3..(head ps-1)*s],
         n <- ns,
-        n'<- [n+o], noFactor n'] 
+        n'<- [n+o], noFactor n']
   ++
   sieve ws (tail ps) (tail qs)
   where
@@ -27,7 +27,7 @@ squares :: [Int]
 squares = [p*p | p<-primes]
 
 wheels :: [Wheel]
-wheels = Wheel 1 [1] : zipWith nextSize wheels primes 
+wheels = Wheel 1 [1] : zipWith nextSize wheels primes
 
 nextSize (Wheel s ns) p =
   Wheel (s*p) ns'

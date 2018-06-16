@@ -16,7 +16,7 @@ takeuntil :: (a ->Bool) -> [a] -> [a]
 
 
 takeuntil p [] = []
-takeuntil p (x:xs) 
+takeuntil p (x:xs)
                   | p x = [x]
                   | otherwise  = x:(takeuntil p xs)
 
@@ -25,7 +25,7 @@ inrange :: Int -> Int -> Int -> Bool
 inrange low high x = (low<=x)&&(x<=high)
 
 forceVec :: [Float] -> [Float]
-forceVec v = 
+forceVec v =
     case (f v) of
     True -> v
     where
@@ -74,7 +74,7 @@ mkrunitem output label = (output,label)
 run :: Runitem -> [Char]
 run (output,label)
    = "START" ++ output ++ "\n" ++ "END"
-    
+
 \end{code}
 
   ==================================================================

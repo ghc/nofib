@@ -16,10 +16,10 @@ import Displacement
 import Elemforce
 
 
-uvwresult   :: (Array Int Int, Array Int Float) -> 
+uvwresult   :: (Array Int Int, Array Int Float) ->
 	       		Vec Float -> [Char]
 
-forceresult :: (Array Int Int, Array Int Float) -> 
+forceresult :: (Array Int Int, Array Int Float) ->
 			Vec Float -> [Char]
 
 uvwresult s uvw =

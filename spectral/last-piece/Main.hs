@@ -20,7 +20,7 @@ display (Soln bd) = vcat [text "Success!",
 
 display (Choose ss) = vcat (map display ss)
 
-display (Fail bd (row,col)) 
+display (Fail bd (row,col))
 --  | row >= maxRow-1 = (text "Dead end:" <+> displayBoard bd)
   | otherwise	    = empty
 
@@ -37,7 +37,7 @@ displayBoard bd
 
 -------------------------------------
 --	Pieces
-data Piece = P  PieceId 
+data Piece = P  PieceId
 		[[Offset]] 	-- Male in bottom LH
 		[[Offset]]	-- Female in bottom LH
 	-- In both cases, the list of offset is all the
@@ -62,7 +62,7 @@ search :: Square -> Sex 	-- Square we are up to
        -> [Piece]		-- Remaining pieces
        -> Solution
 
-search sq sex bd [] 
+search sq sex bd []
   = Soln bd	-- Finished
 
 search (row,col) sex bd ps	-- Next row
@@ -113,7 +113,7 @@ maxCol = 8
 
 
 
------------------------- 
+------------------------
 --	Boards
 check  :: Board -> Square -> Maybe PieceId
 extend 	     :: Board -> Square -> PieceId -> Board
@@ -127,7 +127,7 @@ check bd sq = Map.lookup sq bd
 
 extend bd sq id = Map.insert sq id bd
 
-extend_maybe bd sq@(row,col) id 
+extend_maybe bd sq@(row,col) id
   | row > maxRow || col < 1 || col > maxCol
   = Nothing
   | otherwise
@@ -149,9 +149,9 @@ pickOne xs = go id xs
 printDoc :: Doc -> IO ()
 printDoc d = fullRender ZigZagMode 200 1.5 put done d
 	 where
-	    put (Chr c)  next = putChar c >> next 
-	    put (Str s)  next = putStr  s >> next 
-	    put (PStr s) next = putStr  s >> next 
+	    put (Chr c)  next = putChar c >> next
+	    put (Str s)  next = putStr  s >> next
+	    put (PStr s) next = putStr  s >> next
 
 	    done = putStr "\n"
 

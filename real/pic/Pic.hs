@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -80,7 +80,7 @@ initParticles nPart =
 	where
 	    nCellD = fromIntegral nCell
 	    nPartD = fromIntegral (nPart+1)
-	    xyPos = [(xPos,yPos) | 
+	    xyPos = [(xPos,yPos) |
 			i <- [1..nPart],
 			xPos <- [nCellD * genRand (fromIntegral i/ nPartD)],
 			yPos <- [nCellD * genRand xPos]]

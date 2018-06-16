@@ -26,7 +26,7 @@ data Wheel = Wheel Int [Int] [Int]
 
 wheels :: [Wheel]
 wheels = Wheel 1 [1] [] :
-         zipWith3 nextSize wheels primes squares 
+         zipWith3 nextSize wheels primes squares
 
 nextSize (Wheel s ms ns) p q =
   Wheel (s*p) ms' ns'

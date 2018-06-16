@@ -1,7 +1,7 @@
-> module GeomNum 
+> module GeomNum
 
 	Defines the Geometric Number class and gives instances
-	for LazyRationals only at present. 
+	for LazyRationals only at present.
 
 >		(GeomNumb(..),Numb,Rationals,grid,rnd2
 >	)
@@ -44,7 +44,7 @@
 >    	ratio 0 y = if (positive y) then (0,1) else (0,-1)
 >       ratio x 0 = if (positive x) then (1,0) else (-1,0)
 >       ratio x y = (signum x*(n:%%1),signum y*(d:%%1))
->                       where (n:%%d)= abs x/abs y 
+>                       where (n:%%d)= abs x/abs y
 >	xCoordInRange x = (fromIntegral renderLeft) <= x && x <= (fromIntegral windowWidth)
 >	yCoordInRange x = (fromIntegral renderTop) <= x && x <= (fromIntegral renderHeight)
 

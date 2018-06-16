@@ -30,7 +30,7 @@ sieve = sieve' [2..]
 primes1 :: [Integer]
 primes1 = 2:[ n | n <- [3,5..], all (\ p -> n `mod` p /= 0) . takeWhile (\p -> p^2 <= n) $ primes1 ]
 
--- sum (take 5555 primes1)                                                                                                    
+-- sum (take 5555 primes1)
 -- 143086552
 -- (0.63 secs, 57357568 bytes)
 -- ca. 57MB total
@@ -41,7 +41,7 @@ primes2 = 2:(filter (not . multiple primes2) [3,5..])
           where multiple (x:xs) n  | x*x > n = False
                                    | n `mod` x == 0 = True
                                    | otherwise = multiple xs n
--- sum (take 5555 primes2)                                                                                                    
+-- sum (take 5555 primes2)
 -- 143086552
 -- (0.56 secs, 22138868 bytes)
 -- ca. 22MB total
@@ -67,7 +67,7 @@ transcl' r xs = if xs==xs'
 -- of course, we must make sure that elem doesn't search further in the list than the current elem!
 transcl_simp :: (Eq a) => (a -> a) -> [a] -> [a]
 transcl_simp r xs = zs
-                    where zs = xs ++ [ x' | (n,x) <- zip [1..] zs, let x' = r x, not (x' `elem` take n zs) ] 
+                    where zs = xs ++ [ x' | (n,x) <- zip [1..] zs, let x' = r x, not (x' `elem` take n zs) ]
                     -- possibly restrict the initial segment being searched, to increase parallelism: ^^^ (take (n `div` 2) zs)) ]
 
 -- version that does not check for duplicates! -- , not (x' `elem` (take n zs)) ]
@@ -76,7 +76,7 @@ transcl_dup r xs = zs
                    where zs = xs ++ [ x' | (n,x) <- zip [1..] zs, let x' = r x ]
 
 -- main parallel version:
--- producing a list-of-list improves parallelism, since the position of an element 
+-- producing a list-of-list improves parallelism, since the position of an element
 -- does not depend on all the previous elements
 transcl_nested :: (Eq a) => (a -> [a]) -> [a] -> [[a]]  {- [a] -}
 transcl_nested r xs = {- (nub . concat) -}  zss
@@ -85,19 +85,19 @@ transcl_nested r xs = {- (nub . concat) -}  zss
 	                  -- build :: Int -> [[a]] -> [[a]]
                           build j []       = []
                           build j (xs:xss) = zss' ++ build (j+length zss') xss
-                                             where zss' = [ filter (not . (`elem` (concat (take j zss)))) xs' | x <- xs, let xs' = r x ] 
-                                             -- where zss' = [ filter (not . or . (map (`elem` (take j zss)))) xs' | x <- xs, let xs' = r x ] 
+                                             where zss' = [ filter (not . (`elem` (concat (take j zss)))) xs' | x <- xs, let xs' = r x ]
+                                             -- where zss' = [ filter (not . or . (map (`elem` (take j zss)))) xs' | x <- xs, let xs' = r x ]
 
 -- main circular version (seq)
 transcl :: (Eq a) => (a -> [a]) -> [a] -> [a]
 transcl r xs = xs'
                where
-                     xs' = xs ++ build 0 (length xs) 
+                     xs' = xs ++ build 0 (length xs)
                      -- m and n is the interval that is used to generate new elements
-                     build m n = if List.null ys'  
+                     build m n = if List.null ys'
                                   then []
                                   else ys' ++ build n (n + length ys')
-                                 where ys' = filter (not . (`elem` (take (n-1) xs'))) $ foldl union [] [ ys | y <- take (n-m) (drop m xs'), let ys = r y ] 
+                                 where ys' = filter (not . (`elem` (take (n-1) xs'))) $ foldl union [] [ ys | y <- take (n-m) (drop m xs'), let ys = r y ]
 
 -- transcl (r1 444) [1]
 -- (0.02 secs, 3367572 bytes)
@@ -112,17 +112,17 @@ transcl_set r xs = foldl Data.Set.union Data.Set.empty xs'
                    where
                      xs' = [xs] ++ build xs 1
                      -- build :: (Ord a, Eq a) => Data.Set.Set a -> Int -> [Data.Set.Set a]
-                     build s n = if Data.Set.null ys'  
+                     build s n = if Data.Set.null ys'
                                    then []
                                    else [ys'] ++ build ys' (n+1)
                                  where ys' = Data.Set.filter (is_new ys0) $
-                                              foldl Data.Set.union Data.Set.empty [ ys | y <- Data.Set.toList s, let ys = r y ] 
+                                              foldl Data.Set.union Data.Set.empty [ ys | y <- Data.Set.toList s, let ys = r y ]
                                        ys0 = take n xs'
 
                                        is_new ([]) y                              = True
                                        is_new (xs:xss) y | y `Data.Set.member` xs = False
                                                          | otherwise              = is_new xss y
-                                       	    
+                                       	
 
 -- transcl_set (r1_set 444) (Data.Set.fromList [1])
 -- (0.07 secs, 3884380 bytes)
@@ -132,13 +132,13 @@ transcl_set r xs = foldl Data.Set.union Data.Set.empty xs'
 -- t1 :: (Eq a) => (a -> [a]) -> [a] -> [a]
 transcl_dbg r xs = xs'
                    where
-                     xs' = [ (x,0,0) | x <- xs ] ++ build 0 (length xs) 
+                     xs' = [ (x,0,0) | x <- xs ] ++ build 0 (length xs)
                      build m n = if List.null ys'
                                   then []
                                   else ys' ++ build n (n + length ys')
                                  where ys' = filter (not . (`elem` (take (n-1) xs'))) $ foldl union [] [ ys | (y,_,_) <- take (n-m) (drop m xs'), let ys = [ (y,m,n) | y <- r y ] ]
 
-r1 b n | n<b       = [n+1]  
+r1 b n | n<b       = [n+1]
        | otherwise = []
 
 r1_set b n = Data.Set.fromList (r1 b n)

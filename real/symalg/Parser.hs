@@ -22,7 +22,7 @@ parser lexeme = if rest == [] then ast else SyntaxError
 -- parse a lexeme list, return an ast and the rest of the lexeme list
 parse_command :: [Lexeme] -> (Ast, [Lexeme])
 parse_command [] = (NullCmd,[])
-parse_command ((Evar evar):(Op "="):bexpr) = 
+parse_command ((Evar evar):(Op "="):bexpr) =
 		case bexpr of
 		    []              -> (NullCmd,[])
 		    (Op "'"):bexpr1 -> ((Set evar ast), rest)
@@ -42,11 +42,11 @@ parse_prec :: Int -> [Lexeme] -> (BasicExp, [Lexeme])
 -- we are now in front of an expression
 parse_prec prec rest =
     if prec == 0 then parse_bexpr3 rest
-    else 
+    else
 	case rest of
 	    ((Op op):rs) -> if opname == "" then (BSError,rest)
 			    else parse_op_acum prec sofar r
-			    where 
+			    where
 				(t,r) = parse_prec ((opPrec1 op)-1) rs
 				sofar = Func opname [t]
 				opname = opName1 op
@@ -70,7 +70,7 @@ parse_op op sofar rest =
     else
 	if opAssoc op == "right" then
 		let (t2,r2) = parse_prec (opPrec op) rest
-                in ((Func opname [sofar,t2]), r2) 
+                in ((Func opname [sofar,t2]), r2)
 	else if opAssoc op == "left" then
 		parse_left op sofar rest
 	     else
@@ -80,7 +80,7 @@ parse_op op sofar rest =
 -- parse operators with no fixity
 parse_non :: String -> BasicExp -> [Lexeme] -> (BasicExp, [Lexeme])
 parse_non op sofar rest =
-	((Func (opName op) [sofar,t2]), r2) 
+	((Func (opName op) [sofar,t2]), r2)
 	where
 		(t2,r2) = parse_prec ((opPrec op)-1) rest
 
@@ -102,7 +102,7 @@ parse_left op sofar rest =
 -- atomic expression
 parse_bexpr3 :: [Lexeme] -> (BasicExp, [Lexeme])
 parse_bexpr3 ((Evar evar):rest)      = ((EVar evar), rest)
-parse_bexpr3 ((Ide var):Lparen:rest) = 
+parse_bexpr3 ((Ide var):Lparen:rest) =
 			if succ then ((Func var args), r)
 				else (BSError,r)
 			where
@@ -122,6 +122,6 @@ parse_arglist acum (Rparen:x) = (acum, x, True)
 parse_arglist acum x = case r1 of
 			(Comma:rs)  -> parse_arglist (acum++[arg]) rs
 			(Rparen:rs) -> (acum++[arg],rs,True)
-			_	    -> ([],[],False) 
+			_	    -> ([],[],False)
 		where
 			(arg,r1) = parse_bexpr x

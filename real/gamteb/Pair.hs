@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -30,13 +30,13 @@ pair (Part pos dir w e eIndx cell seed) =
 
 isos :: Random -> Point
 isos r =
-	isos' t1 t2 (t1*t1 + t2*t2) 
+	isos' t1 t2 (t1*t1 + t2*t2)
 	where
 	    (r1, r2) = genRand r
 	    (r3, r4) = genRand r2
 	    t1 = 2*r4 - 1
 	    t2 = 2*r3 - 1
-	    isos' t1 t2 rsq 
+	    isos' t1 t2 rsq
 		| rsq > 1	=
 			let
 			    (r1, r2) = genRand r1

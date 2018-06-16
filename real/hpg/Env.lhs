@@ -119,8 +119,8 @@ a bug in one of the current Haskell compilers.
 If the \prog{appendChan} line is replaced by the one above it, the printing
 will not occur.
 % NB - mkTEnv relies on the layout of upto, so be careful in changing it.
-\begin{haskell} 
- 
+\begin{haskell}
+
 > upto :: Int -> Ncont -> Cont
 > upto n nc (MkEnv (r:rs) cs ts vs te ve le op)
 >     =  hPutStr stderr (show x ++ " ") >> nc x (MkEnv rs cs ts vs te ve le op)
@@ -128,13 +128,13 @@ will not occur.
 >        where
 >        x :: Int
 >        x  =  fromIntegral (fst (properFraction (r * (fromIntegral (n+one)))))
- 
+
 \end{haskell}
- 
+
 \prog{choose xs xc} applies \prog{xc} to a random element of the list
 \prog{xs}.
 \begin{haskell}
- 
+
 > choose :: [x] -> (Xcont x) -> Cont
 > choose xs xc  =  upto (length xs - one) (\n -> xc (xs !! n))
 
@@ -242,7 +242,7 @@ bound together with a constructor.
 \begin{haskell}
 
 > make_Env :: (Int,Int,Int) -> Output -> Env
-> make_Env (s1,s2,s3) op  =  MkEnv (random_numbers (s1,s2,s3)) 
+> make_Env (s1,s2,s3) op  =  MkEnv (random_numbers (s1,s2,s3))
 >                               constructors type_names val_names
 >                               initial_type_env initial_val_env
 >                               initial_lambda_env op
@@ -296,21 +296,21 @@ an altered environment from which the data has been removed, if necessary.
 \prog{extend\_type\_env tds c} applies \prog{c} to an environment extended
 with the list of type declarations \prog{tds}.
 \begin{haskell}
- 
+
 > extend_type_env :: [Type_decl] -> Cont -> Cont
 > extend_type_env tds c (MkEnv rs cs tns vns te ve le op)
 >     =  c (MkEnv rs cs tns vns (tds++te) ve le op)
- 
+
 \end{haskell}
- 
+
 \prog{extend\_val\_env vds c} applies \prog{c} to an environment extended
 with the list of value declarations \prog{vds}.
 \begin{haskell}
- 
+
 > extend_val_env :: [Val_decl] -> Cont -> Cont
 > extend_val_env vds c (MkEnv rs cs tns vns te ve le op)
 >     =  c (MkEnv rs cs tns vns te (vds++ve) le op)
- 
+
 \end{haskell}
 
 \subsection{Lambda environment functions}

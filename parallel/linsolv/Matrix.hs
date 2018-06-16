@@ -11,14 +11,14 @@
 -- @chapter ADT Matrix
 
 module Matrix(SqMatrix, Vector, {- MatBounds, -}
-              (!!-), (!-), sqMatrix, 
+              (!!-), (!-), sqMatrix,
               vecBounds, matBounds, vecCont, matCont,
               listSqMatrix, lolSqMatrix, unSqMatrix, vector, unvector,
               determinant, transp, replaceColumn, size,
-              maxElem, maxElemVec, scalarMult, vecScalarQuot, 
+              maxElem, maxElemVec, scalarMult, vecScalarQuot,
               matGcd, vecGcd, matHom, vecHom, matBounds, matCont,
 	       matMult, matCompact
-              ) 
+              )
               {- showsMatrix, matEqual, matSum, matMult)
                  matSum',matSum'',showIt,makeUnique) -}                   where
 
@@ -92,7 +92,7 @@ instance (NFData a, Integral a) => NFData (SqMatrix a) where
 
 lol :: (Integral a) => Int -> [a] -> [[a]]
 lol _ [] = []
-lol n l = let 
+lol n l = let
 	    (line, rest) = splitAt n l
           in
 	    line : (lol n rest)
@@ -101,7 +101,7 @@ lol n l = let
 mat_map = map
 
 listCompwiseComp :: (a -> b -> c) -> [a] -> [b] -> [c]
-listCompwiseComp = zipWith 
+listCompwiseComp = zipWith
 			  		{- map f' (zip l l')
 			  		where f' (a,b) = a `f` b -}
 
@@ -112,11 +112,11 @@ listCompwiseComp = zipWith
 
 sqMatrix :: (Integral a)  =>  Array (Int,Int) a -> SqMatrix a
 sqMatrix arr = SqMatrixC b [ [ (arr!(i,j)) | j <- [jLo..jHi] ]
-                           | i <- [iLo..iHi] ] 
+                           | i <- [iLo..iHi] ]
 	       where b@((iLo,jLo),(iHi,jHi)) = (bounds arr)
 
-unSqMatrix :: (Integral a)  =>  SqMatrix a -> Array (Int,Int) a 
-unSqMatrix (SqMatrixC b@((iLo,jLo),(iHi,jHi)) m)  
+unSqMatrix :: (Integral a)  =>  SqMatrix a -> Array (Int,Int) a
+unSqMatrix (SqMatrixC b@((iLo,jLo),(iHi,jHi)) m)
  = array b (concat [ [ ((i,j), (m!!(i-1))!!(j-1)) | j <- [jLo..jHi] ]
                    | i <- [iLo..iHi] ])
 
@@ -149,9 +149,9 @@ unvector (VectorC b@(x,y) l) = array b (zip [x..y] l)
 -- ----------------------------------------------------------------------------
 
 #if defined(STRATEGIES)
-matMapUnary :: (Integral a, NFData a)  =>  
+matMapUnary :: (Integral a, NFData a)  =>
 #else
-matMapUnary :: (Integral a)  =>  
+matMapUnary :: (Integral a)  =>
 #endif
                (a -> a) -> SqMatrix a -> SqMatrix a
 
@@ -162,9 +162,9 @@ matCompwiseComp :: (Integral a, Integral b, Integral c
 #if defined(STRATEGIES)
 		      ,NFData a, NFData b, NFData c
 #endif
-                   )  =>  
+                   )  =>
                    (a -> b -> c) -> SqMatrix a -> SqMatrix b -> SqMatrix c
-matCompwiseComp f (SqMatrixC bnds@((iLo,jLo),(iHi,jHi)) mat) (SqMatrixC bnds' mat') = 
+matCompwiseComp f (SqMatrixC bnds@((iLo,jLo),(iHi,jHi)) mat) (SqMatrixC bnds' mat') =
        if (bnds==bnds')
          then SqMatrixC bnds [ listCompwiseComp f (mat!!(k-1)) (mat'!!(k-1))
 			     | k <- [iLo..iHi] ]
@@ -183,7 +183,7 @@ vecFold :: (Integral a, NFData a)  =>  (a -> a -> a) -> a -> Vector a -> a
 #else
 vecFold :: (Integral a)  =>  (a -> a -> a) -> a -> Vector a -> a
 #endif
-vecFold f init (VectorC _ mat) = foldl f init mat 
+vecFold f init (VectorC _ mat) = foldl f init mat
 
 -- ----------------------------------------------------------------------------
 -- @node Misc operations, Arithmetic Operations, H.o. fcts, ADT Matrix
@@ -191,7 +191,7 @@ vecFold f init (VectorC _ mat) = foldl f init mat
 --
 -- Misc operations
 -- ----------------------------------------------------------------------------
- 
+
 -- Just for testing; demands computation of all elems of the matrix
 
 matCompact x = matFold max 0 (matMapUnary signum x)
@@ -199,7 +199,7 @@ matCompact x = matFold max 0 (matMapUnary signum x)
 -- ---------------------------------------------------------------------------
 
 size :: (Integral a)  =>  SqMatrix a -> Int
-size (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat) = 
+size (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat) =
 			if (iLo==jLo) && (iHi==jHi)
                          then iHi-iLo+1
                          else error "size: Matrix doesn't have size ((1,1),(n,n))\n"
@@ -211,7 +211,7 @@ replaceColumn :: (Integral a) => Int -> SqMatrix a -> Vector a -> SqMatrix a
 
 -- This is definitely more elegant. But is it as efficient?
 
-replaceColumn j (SqMatrixC b m)(VectorC _ v) = 
+replaceColumn j (SqMatrixC b m)(VectorC _ v) =
 		SqMatrixC b (transpose (replaceLine j v (transpose m)))
 		where   replaceLine :: Int -> [a] -> [[a]] -> [[a]]
 			replaceLine j v m = ( take (j-1) m ) ++
@@ -219,8 +219,8 @@ replaceColumn j (SqMatrixC b m)(VectorC _ v) =
 					  ( drop (j) m )
 			
 {-
-replaceColumn j (SqMatrixC b@((iLo,jLo),(iHi,jHi)) mat) (VectorC _ v) = 
-     if (not (inRange (jLo,jHi) j)) 
+replaceColumn j (SqMatrixC b@((iLo,jLo),(iHi,jHi)) mat) (VectorC _ v) =
+     if (not (inRange (jLo,jHi) j))
        then error "Error in replaceColumn: column index not in range"
        else SqMatrixC b [ replaceElem j i | i <- [iLo..iHi] ]
 	    where replaceElem j i = [ line !! (k-1) | k <- [jLo..j-1] ] ++
@@ -233,7 +233,7 @@ replaceColumn j (SqMatrixC b@((iLo,jLo),(iHi,jHi)) mat) (VectorC _ v) =
 
 transp :: (Integral a) => SqMatrix a -> SqMatrix a
 transp (SqMatrixC b@((iLo,jLo),(iHi,jHi)) mat) = SqMatrixC b (transpose mat)
-	{- 
+	{-
 	SqMatrixC b [ [ line !! (j-1) | line <- mat ] | j <- [jLo..jHi] ]
 	-}
 
@@ -257,7 +257,7 @@ maxElemVec (VectorC _ vec) = maximum vec
 -- @node Arithmetic Operations, I/O Operations, Misc operations, ADT Matrix
 -- @section Arithmetic Operations
 -- ----------------------------------------------------------------------------
- 
+
 -- scalarMult :: (Ix a, Ix b, Num c) => c -> Array (a,b) c -> Array (a,b) c
 
 #if defined(STRATEGIES)
@@ -275,7 +275,7 @@ vecScalarQuot :: (Integral a, NFData a) => a -> Vector a -> Vector a
 #else
 vecScalarQuot :: (Integral a) => a -> Vector a -> Vector a
 #endif
-vecScalarQuot x (VectorC b vec) = 
+vecScalarQuot x (VectorC b vec) =
               VectorC b (mat_map (`div` x) vec)
 
 #if defined(STRATEGIES)
@@ -291,28 +291,28 @@ crossProd (VectorC _ vec) (VectorC _ vec') = sum (zipWith (+) vec vec')
 -- determinant :: (Ix a, Ix b, Num c) => Array (a,b) c -> c
 
 determinant :: (
-		  Integral a 
+		  Integral a
                 , NFData a
                ) => SqMatrix a -> a
 
-determinant (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat) 
-	| jHi-jLo+1 == 1 =  let 
-			      [[mat_1_1]] = mat 
-			    in 
+determinant (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat)
+	| jHi-jLo+1 == 1 =  let
+			      [[mat_1_1]] = mat
+			    in
 			      mat_1_1
-	| jHi-jLo+1 == 2 =  let  
+	| jHi-jLo+1 == 2 =  let
 			      [[mat_1_1,mat_1_2],
 			       [mat_2_1,mat_2_2] ] = mat
 			    in
 			      mat_1_1 * mat_2_2 -  mat_1_2 * mat_2_1
-	| otherwise      =  sum l_par 
+	| otherwise      =  sum l_par
 	     where
 	      l_par =   map determine1 [jLo..jHi]
-	      determine1 j = 
+	      determine1 j =
 	                 (if pivot > 0 then
-	     		   sign*pivot*det' 
+	     		   sign*pivot*det'
 	     		 else
-	     		   0) -- `sparking` rnf sign 
+	     		   0) -- `sparking` rnf sign
 	     		 where
 	     		    sign = if (even (j-jLo)) then 1 else -1
 	     		    pivot = (head mat) !! (j-1)
@@ -322,9 +322,9 @@ determinant (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat)
 	     		    det' = determinant mat'
 
 #if 0
-	     		    strategyD r = 
+	     		    strategyD r =
 	     		      parList (parList rnf) mat_h'  `par`
-	     		      rnf det'         `par` 
+	     		      rnf det'         `par`
 	     		      r0 r
 #endif
 	      tree_sum [] = 0
@@ -335,7 +335,7 @@ determinant (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat)
 				  right = tree_sum r
 	      newLine _ [] = []
 	      newLine j line = (pre ++ post)
-                               where				  
+                               where				
                                 pre  = [ line !! (k-1) | k <- [jLo..j-1] ]
 	      			post = [ line !! (k-1) | k <- [j+1..jHi] ]
 
@@ -344,17 +344,17 @@ determinant (SqMatrixC ((iLo,jLo),(iHi,jHi)) mat)
 -- matEqual :: (Ix a, Ix b, Eq c) => Array (a,b) c -> Array (a,b) c -> Bool
 
 matEqual :: (Integral a, NFData a) => SqMatrix a -> SqMatrix a -> Bool
-matEqual (SqMatrixC bnds@((iLo,jLo),(iHi,jHi)) mat) (SqMatrixC bnds' mat') = 
+matEqual (SqMatrixC bnds@((iLo,jLo),(iHi,jHi)) mat) (SqMatrixC bnds' mat') =
        if (bnds==bnds')
-         then foldl (&&) True 
-                    [ foldl (&&) True 
+         then foldl (&&) True
+                    [ foldl (&&) True
                             (listCompwiseComp (==) (mat !! (k-1)) (mat' !! (k-1)))
                     | k <- [iLo..iHi] ]
          else error "matEqual: Matrices have different bounds\n"
 
 
 vecEqual :: (Integral a, NFData a) => Vector a -> Vector a -> Bool
-vecEqual (VectorC bnds vec) (VectorC bnds' vec') = 
+vecEqual (VectorC bnds vec) (VectorC bnds' vec') =
        if (bnds==bnds')
          then foldl (&&) True (listCompwiseComp (==) vec vec')
          else error "vecEqual: Matrices have different bounds\n"
@@ -370,11 +370,11 @@ matDif = matCompwiseComp (-)
 -- @cindex mat mult
 
 {- parallel matrix multiplication -}
-matMult (SqMatrixC bnds mat) (SqMatrixC bnds' mat') = 
-        SqMatrixC resultBounds 
+matMult (SqMatrixC bnds mat) (SqMatrixC bnds' mat') =
+        SqMatrixC resultBounds
 #if defined(__PARALLEL_HASKELL__) || defined(__GRANSIM__)
         (parMap rwhnf
-	   (\i -> 
+	   (\i ->
 	    parMap rnf
 	      (\j ->
 #else
@@ -388,14 +388,14 @@ matMult (SqMatrixC bnds mat) (SqMatrixC bnds' mat') =
               )
               [iLo..iHi]
            )
-           [jLo..jHi] 
+           [jLo..jHi]
         )
 	where getLine i mat = mat !! (i-1)
 	      getColumn j mat = [ line !! (j-1) | line <- mat ]
-              size = iHi - iLo + 1	      
+              size = iHi - iLo + 1	
               ((iLo,jLo),(iHi,jHi)) = bnds
               ((iLo',jLo'),(iHi',jHi')) = bnds'
-              resultBounds 
+              resultBounds
                | (jLo,jHi)==(iLo',iHi')  = ((iLo,jLo'),(iHi,jHi'))
                | otherwise               = error "matMult: incompatible bounds"
 
@@ -423,7 +423,7 @@ matHom p = matMapUnary (modHom p)
 -- vecHom :: (Integral a) => Integer -> Vector a -> Vector a
 -- vecHom :: (Integral a) => Integer -> Vector a -> Vector a
 
-vecHom p (VectorC _ v) = vector (mat_map (modHom p) v) 
+vecHom p (VectorC _ v) = vector (mat_map (modHom p) v)
 
 {-
 matBounds :: (Integral a) => SqMatrix a -> MatBounds
@@ -443,13 +443,13 @@ matFromInteger n = SqMatrixC ((1,1),(1,1)) [[n]]
 
 showsMatrix :: (Integral a) => SqMatrix a -> ShowS
 showsMatrix (SqMatrixC _ mat) = ( (++) ("Matrix: \n" ++
-                                  (foldl (++) "" [ show line ++ "\n" 
+                                  (foldl (++) "" [ show line ++ "\n"
                                                  | line <- mat ] ) ) )
 
 
 showsVector :: (Integral a) => Vector a -> ShowS
-showsVector (VectorC _ vec) = 
-	( (++) ("Vector: " ++ show vec) ) 
+showsVector (VectorC _ vec) =
+	( (++) ("Vector: " ++ show vec) )
 
 -- ----------------------------------------------------------------------------
 -- @node Instances,  , I/O Operations, ADT Matrix
@@ -471,7 +471,7 @@ instance (Integral a) => Read (SqMatrix a) where
 instance (Integral a) => Show (SqMatrix a) where
  showsPrec p  = showsMatrix
 
-instance (Integral a, NFData a) => Num (SqMatrix a) where                
+instance (Integral a, NFData a) => Num (SqMatrix a) where
  (+) = matSum
  (-) = matDif
  (*) = matMult

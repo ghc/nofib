@@ -101,14 +101,14 @@ prRoute d r
 --
 prRouteMain :: Domain -> Route -> [Int]
 
-prRouteMain Two Zero 
+prRouteMain Two Zero
    = [0 :: Int]
 prRouteMain Two One
    = [1 :: Int]
 
 prRouteMain d@(Lift1 ds) Stop1
    = copy (prWidth d) 0
-prRouteMain d@(Lift1 ds) (Up1 rs) 
+prRouteMain d@(Lift1 ds) (Up1 rs)
    = map (prSucc 1) (prRouteMain_cross ds rs)
 
 prRouteMain d@(Lift2 ds) Stop2
@@ -118,7 +118,7 @@ prRouteMain d@(Lift2 ds) Up2
 prRouteMain d@(Lift2 ds) (UpUp2 rs)
    = map (prSucc 2) (prRouteMain_cross ds rs)
 
-prRouteMain_cross ds rs 
+prRouteMain_cross ds rs
    = concat fixedRoutes
      where
         unFixedRoutes
@@ -129,13 +129,13 @@ prRouteMain_cross ds rs
            = maximum compFactors
         compFactNorm
            = map subCompFactMax compFactors
-        fixedRoutes 
+        fixedRoutes
            = map applyCompensationFactor
                 (myZip2 compFactNorm unFixedRoutes)
-        applyCompensationFactor (n, roote) 
+        applyCompensationFactor (n, roote)
            = map (prSucc n) roote
         subCompFactMax :: Int -> Int
-        subCompFactMax nn 
+        subCompFactMax nn
            = compFactMax - nn
 
 
@@ -154,14 +154,14 @@ prPrintFunction mi statics fName (fDomain@(Func dss dt), Rep rep)
    | otherwise
    = "\nFunction \"" ++ fName++ "\" has input domains:\n" ++
      numberedPrInDs ++
-     "   and output domain\n      " ++ 
+     "   and output domain\n      " ++
      prettyOutDomain ++
      "\n\n   Output  |  Lower frontier" ++
        "\n   --------+----------------\n" ++
         concat (map f ((reverse.sort.amAllRoutes) dt)) ++ "\n\n"
      where
-        pseudoParams 
-          = utSureLookup (utSCfreevars statics) 
+        pseudoParams
+          = utSureLookup (utSCfreevars statics)
                    "prPrintFunction" fName ++ forever ""
         forever x = x:forever x
 
@@ -187,7 +187,7 @@ prPrintFunction mi statics fName (fDomain@(Func dss dt), Rep rep)
 -- the exception case, for printing constants
 prPrintFunction mi statics fName (ds, rs)
    | amContainsFunctionSpace ds
-   = "\nFunction \"" ++ fName++ 
+   = "\nFunction \"" ++ fName++
      "\" is a higher-order constant (yuck) in domain\n\n"
       ++ show ds ++
      "\n\nof value\n\n" ++ show rs ++ "\n\n"

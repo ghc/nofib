@@ -9,8 +9,8 @@ import Control.Concurrent.CML
 import Control.Monad
 
 main :: IO ()
-main = do 
+main = do
   let numChoices = 2
   cs <- replicateM numChoices channel
   mapM_ forkIO [replicateM_ (100000 `div` numChoices) $ sync $ transmit c () | c <- cs]
-  replicateM_ 100000 $ sync $ choose [receive c (const True) | c <- cs] 
+  replicateM_ 100000 $ sync $ choose [receive c (const True) | c <- cs]

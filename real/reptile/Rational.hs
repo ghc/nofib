@@ -37,7 +37,7 @@ intval (x,y) = x `div` y
 
 --for debugging
 show_rat :: (Int, Int) -> [Char]
-show_rat (x,y) = show x ++ "/" ++ show y  
+show_rat (x,y) = show x ++ "/" ++ show y
 
 torat :: Int -> (Int, Int)
 torat n = (n,1)

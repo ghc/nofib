@@ -4,7 +4,7 @@ Computing a Fast Fourier Transformation.
 
 Based on the NESL code presented in:
    Programming Parallel Algorithms
-   by Guy E. Blelloch 
+   by Guy E. Blelloch
    in CACM 39(3), March 1996
    URL: http://www.cs.cmu.edu/afs/cs.cmu.edu/project/scandal/public/www/nesl/alg-numerical.html
 
@@ -13,7 +13,7 @@ The following description is taken from the original NESL code:
   This is a simple parallel version of the standard sequential fast Fourier
   transform algorithm. The algorithm does O(n log n) work and has O(log n)
   depth.
-  
+
   In the code we first give a general FFT that works with any commutative
   ring. As well as the data, this FFT takes as arguments the n roots of unity
   (an array w) and the +, * functions on the ring (add, mult). We then
@@ -39,41 +39,41 @@ odd_elts [] = []
 odd_elts (x:xs) = even_elts xs
 \end{code}
 
-The main function, parameterised with function for adding and multiplying 
+The main function, parameterised with function for adding and multiplying
 two elements (with Haskell's class system that shouldn't be necessary).
 
 \begin{code}
 -- fft :: Integral a => [a] -> [a] -> [a]
 {- SPECIALISE fft :: [Complex Double] -> [Complex Double] -> [Complex Double] -}
 fft :: [Complex Double] -> [Complex Double] -> [Complex Double]
-fft a w  
+fft a w
   | length a <= 1  =  a
   | otherwise      = let r0 = {-# SCC "head" #-} fft (even_elts a) (even_elts w)
 			 r1 = {-# SCC "head" #-} fft (odd_elts a) (even_elts w)
                          z =  {-# SCC "zip3" #-}  zip3 (r0++r0) (r1++r1) w
-		     in 
+		     in
 #if defined(GRAN)
-                        parList rnf r0 `par`    
+                        parList rnf r0 `par`
                         parList rnf r1 `par`
 			parList rwhnf z  `par`
-                        parList rnf     
+                        parList rnf
                         --_parGlobal_ 11# 11# 0# 0#  (rnf r0) $
                         --_parGlobal_ 12# 12# 0# 0#  (rnf r1) $
                         --_parGlobal_ 13# 13# 0# 0#  (rnf z) $
 #endif
-		        [ r0'+r1'*w' 
+		        [ r0'+r1'*w'
 		    	| (r0',r1',w') <- z ]
 
 complex_fft :: [Complex Double] -> [Complex Double]
 complex_fft a =
-  let 
-      c :: Double  
+  let
+      c :: Double
       c = (2.0*pi)/(fromIntegral (length a))
-      w = {-# SCC "w" #-}  [ (cos (c*(fromIntegral i)) :+ sin (c*(fromIntegral i)) ) 
+      w = {-# SCC "w" #-}  [ (cos (c*(fromIntegral i)) :+ sin (c*(fromIntegral i)) )
                            | i <- [0..length a] ]
       -- add = \ (ar,ai) (br,bi) -> (ar+br,ai+bi)
       -- mult = \ (ar,ai) (br,bi) -> (ar*br-ai*bi,ar*bi+ai*br)
-  in (rnf w) `seq` fft a w 
+  in (rnf w) `seq` fft a w
 \end{code}
 
 Test data.
@@ -98,8 +98,8 @@ args_to_IntList a = if length a < 2
 #if defined(ARGS)
 munch_args = 	getArgs >>= \a ->
                 return (args_to_IntList a) >>= \[n,m] ->
-                getRandomDoubles (fromIntegral m) >>= \ random_list -> 
-	        let 
+                getRandomDoubles (fromIntegral m) >>= \ random_list ->
+	        let
                   (l1, random_list') = splitAt n random_list
                   (l2, random_list'') = splitAt n random_list'
                   x = zipWith (\ x y -> (x :+ y)) l1 l2
@@ -128,12 +128,12 @@ else
   let r = {fft(b, even_elts(w), add, mult):
            b in [even_elts(a),odd_elts(a)]}
   in {add(a, mult(b, w)):
-      a in r[0] ++ r[0]; 
+      a in r[0] ++ r[0];
       b in r[1] ++ r[1];
       w in w};
 
 function complex_fft(a) =
-let 
+let
     c = 2.*pi/float(#a);
     w = {cos(c*float(i)),sin(c*float(i)) : i in [0:#a]};
     add = ((ar,ai),(br,bi)) => (ar+br,ai+bi);

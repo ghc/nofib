@@ -158,7 +158,7 @@ iter n f
 
 randomString :: String -> String
 randomString str
-  = case str of 
+  = case str of
       "1" -> "2"
       "2" -> "3"
       "3" -> "1"

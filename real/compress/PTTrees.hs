@@ -9,7 +9,7 @@ data PrefixElem a b = PTE a b (PrefixTree a b)
 --insert :: Char -> Int -> PrefixTree Char Int -> PrefixTree Char Int
 {-partain-}
 
-insert k v PTNil = 
+insert k v PTNil =
 	PT (PTE k v PTNil) PTNil PTNil
 insert k v (PT p@(PTE k' v' t) l r)
 	| k < k'  = PT p (insert k v l) r

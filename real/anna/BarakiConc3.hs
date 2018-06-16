@@ -46,7 +46,7 @@ bcEApp rho DXTwo Zero
 bcEApp rho DXTwo One
    = One
 
-bcEApp rho (DXLift1 dxs) Stop1 
+bcEApp rho (DXLift1 dxs) Stop1
    = Stop1
 bcEApp rho (DXLift1 dxs) (Up1 rs)
    = Up1 (myZipWith2 (bcEApp rho) dxs rs)
@@ -84,15 +84,15 @@ bcEdotF :: DRRSubst ->   -- binds domain variables to Points
 
 
 bcEdotF
-     rho 
+     rho
      DXTwo
    d@(Func _ Two)
-   f@(RepTwo _) 
+   f@(RepTwo _)
    = f
 
 
-bcEdotF 
-     rho 
+bcEdotF
+     rho
      (DXLift1 dxs)
    d@(Func dss (Lift1 dts))
    f@(Rep1 lf hfs)
@@ -102,8 +102,8 @@ bcEdotF
          Rep1 lf new_hfs
 
 
-bcEdotF 
-     rho 
+bcEdotF
+     rho
      (DXLift2 dxs)
    d@(Func dss (Lift2 dts))
    f@(Rep2 lf mf hfs)
@@ -114,7 +114,7 @@ bcEdotF
 
 
 bcEdotF
-     rho 
+     rho
      (DXVar alpha)
    d@(Func ds2 Two)
    f@(RepTwo f1f0)
@@ -164,13 +164,13 @@ bcFdotC rho dxs newDs (Func dss dt) rep
            = MkFrel (myZipWith2 (bcEApp rho) dxs fels)
      in
          new_rep
-          
+
 
 -- ==========================================================--
 -- apply some function to the max0 frontiers of a function
 -- and recalculate the corresponding min1 frontiers.
 --
-bcApplyF0 :: (FrontierElem -> 
+bcApplyF0 :: (FrontierElem ->
               FrontierElem) ->    -- what to apply to min1 points
              [Domain] ->          -- source domains of abstract function
              Rep ->               -- abstract function
@@ -195,9 +195,9 @@ bcApplyF0 f dss (Rep2 lf mf hfs)
 
 -- ==========================================================--
 --
-bcApplyF0_2 :: (FrontierElem -> FrontierElem) -> 
-               [Domain] -> 
-               Frontier -> 
+bcApplyF0_2 :: (FrontierElem -> FrontierElem) ->
+               [Domain] ->
+               Frontier ->
                Frontier
 
 bcApplyF0_2 f dss fr@(Min1Max0 ar f1 f0)
@@ -245,7 +245,7 @@ bcGetT (d, r, t) = t
 
 -- ==========================================================--
 --
-bcMakeInstance :: 
+bcMakeInstance ::
          Bool ->    -- True if use Baraki, False if use Conc
          Int ->     -- How hard to work (for Baraki)
          ACMode ->  -- Mode for Conc (IRRELEVANT)
@@ -267,7 +267,7 @@ bcMakeInstance ::
 --     and that the DFunc's args and DXFunc's args are           --
 --     appropriately related.                                    --
 -------------------------------------------------------------------
-bcMakeInstance 
+bcMakeInstance
       use_baraki
       threshold
       s_or_l
@@ -286,7 +286,7 @@ bcMakeInstance
        -- The domain of the simplest instance --
        -----------------------------------------
 
-       simplestD = dxApplyDSubst_2 simplest 
+       simplestD = dxApplyDSubst_2 simplest
 
        -----------------------------------------------
        -- the domain variables in the instantiation --
@@ -314,7 +314,7 @@ bcMakeInstance
        -- no non-top-level function spaces in the function. --
        -------------------------------------------------------
 
-       barakiApplicable 
+       barakiApplicable
           = myAll (not.amContainsFunctionSpace)      bigInstanceDomains &&
                   (not.dxContainsFnSpace)            result_g_functor &&
             myAll (not.dxContainsSubsidiaryFnSpace)  args_f_functors
@@ -334,15 +334,15 @@ bcMakeInstance
        -- the set of points over which we have to take the meet --
        -----------------------------------------------------------
 
-       bigInstancePoints 
+       bigInstancePoints
           = let
-                individualIndices 
+                individualIndices
                    = if     canUseOpt
                      then   map amMeetIRoutes bigInstanceDomains
                      else   map amAllRoutesMinusTopJONES bigInstanceDomains
-                allIndices 
+                allIndices
                    = myCartesianProduct individualIndices
-            in 
+            in
                 take (max 1 threshold) allIndices
 
        --------------------------------------
@@ -368,7 +368,7 @@ bcMakeInstance
 
        all_edotfdotc
           = let makeOneEdotFdotC rho
-                   = bcEdotFdotC rho result_g_functor simplestD 
+                   = bcEdotFdotC rho result_g_functor simplestD
                                  fRep args_f_functors
             in
                 map makeOneEdotFdotC allRhos

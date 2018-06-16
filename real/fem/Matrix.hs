@@ -48,8 +48,8 @@ interchmat :: (Int,Int) -> (Int,Int) -> Mat a -> Mat a
 displaymat :: (Show a) => Mat a -> [Char]
 
 makemat (nr,nc) g =
-	MAT (nr,nc) 
-	(makevec (nr*nc) 
+	MAT (nr,nc)
+	(makevec (nr*nc)
 		 (\i -> (map g (range ((1,1),(nr,nc)) )) !! (i-1) )
         )
 
@@ -75,13 +75,13 @@ matsub m (i,j) =
 	MAT (nr,nc) elements = m
 
 mmatvec m v =
-        makevec nr ( \ i -> sum [ (matsub m (i,j)) * (vecsub v j) 
+        makevec nr ( \ i -> sum [ (matsub m (i,j)) * (vecsub v j)
                                   | j <- [1..nc] ] )
 	where
 	(nr,nc) = boundmat m
 
-mmatmat m1 m2 = 
-     if (t1 == t2) then 
+mmatmat m1 m2 =
+     if (t1 == t2) then
         makemat (l,n)
                 ( \ (i,j) -> sum [ (matsub m1 (i,k)) *
 				   (matsub m2 (k,j)) | k <-[1..t1] ] )

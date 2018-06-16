@@ -33,8 +33,8 @@ size =  200
 -- build_tree - Constructs mandtree
 build_tree :: Point -> Point -> MandTree
 build_tree p1@(x1,y1)
-           p2@(x2,y2) 
-           = 
+           p2@(x2,y2)
+           =
             if rec_col /= -1 then   -- All points in currnet rectangle are same colour
               Leaf rec_col
             else
@@ -45,7 +45,7 @@ build_tree p1@(x1,y1)
             where
                  rec_col = check_perim p1 p2
                  split   = if (x2-x1) >= (y2-y1) then  -- x-axis longer, NS split
-                              "NS" 
+                              "NS"
                            else                        -- y-axis longer, EW split
                               "EW"
                  nsp1    = p1
@@ -70,7 +70,7 @@ check_perim p1@(x1,y1)
             = if (equalp p1 p2) then  -- single point, just return its colour
                  point_colour p1
               else if corners_diff then  -- check corners of current rectangle aren't same
-                 -1   
+                 -1
               else
                 check_sides
               where
@@ -111,7 +111,7 @@ check_perim p1@(x1,y1)
                                  True
                                else if (point_colour pc) /= col1 then
                                  False
-                               else 
+                               else
                                  check_line (xc+xd, yc+yd) pd
                                where
                                     finished  = if (equalp pd right) then
@@ -150,51 +150,51 @@ check_radius p q k x y = if kp == num_cols then
 
 
 -- M Set Properties.
- 
+
 pmn :: Float -- Min p value.
 pmn =  -2.25
- 
+
 pmx :: Float -- Max p value.
 pmx =   0.75
- 
+
 qmn :: Float -- Min q value.
 qmn = -1.5
- 
+
 qmx :: Float -- Max q value
 qmx = 1.5
 
 m :: Int      -- The escape radius, M.
 m =  20
- 
+
 --- Misc functions.
- 
+
 equalp :: Point -> Point -> Bool
 equalp (x1, y1) (x2, y2) = ((x1 == x2) && (y1 == y2))
- 
- 
+
+
 -- Set calculation functions.
- 
+
 num_cols :: Int -- The number of colors; num_cols+1 = length (the_colors).
 num_cols = 26
- 
+
 delta_p :: Float      -- The change in p per pixel.
 delta_p =  (pmx - pmn) / fromIntegral (size - 1)
 
 delta_q :: Float      -- The change in q per pixel.
 delta_q =  (qmx - qmn) / fromIntegral (size - 1)
- 
+
 np :: Int -> Float     -- Calculate a new value of p.
-np x = pmn + (fromIntegral x) * delta_p 
- 
+np x = pmn + (fromIntegral x) * delta_p
+
 nq :: Int -> Float     -- Calculate a new value of q.
 nq y = qmn + (fromIntegral y) * delta_q
 
 radius :: Float -> Float -> Float       -- Current radius of apoint (x,y).
 radius x y = x*x + y*y
- 
+
 new_x :: Float -> Float -> Float -> Float       -- iterate new x value.
 new_x x y p = x*x - y*y + p
- 
+
 new_y :: Float -> Float -> Float -> Float       -- iterate new y value.
 new_y x y q = 2.0 * x * y + q
 
@@ -202,7 +202,7 @@ new_y x y q = 2.0 * x * y + q
 -- Misc. functions for traversing perimeter of rectangle.
 
 up,down,left,right :: Point
-up    = ( 0,-1)  
+up    = ( 0,-1)
 down  = ( 0, 1)
 left  = (-1, 0)
 right = ( 1, 0)

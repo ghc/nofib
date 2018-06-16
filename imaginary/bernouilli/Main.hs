@@ -3,7 +3,7 @@
 -- Here's one of the programs.
 
 -- It's not a very good test, I suspect, because it manipulates big integers,
--- and so probably spends most of its time in GMP.  
+-- and so probably spends most of its time in GMP.
 
 import Data.Ratio
 import System.Environment
@@ -16,7 +16,7 @@ powers = [2..] : map (zipWith (*) (head powers)) powers
 -- powers = [[(-1)^r * r^n | r<-[2..]] | n<-1..]
 -- type signature required for compilers lacking the monomorphism restriction
 neg_powers :: [[Integer]]
-neg_powers = 
+neg_powers =
   map (zipWith (\n x -> if n then x else -x) (iterate not True)) powers
 
 pascal:: [[Integer]]
@@ -25,9 +25,9 @@ pascal = [1,2,1] : map (\line -> zipWith (+) (line++[0]) (0:line)) pascal
 bernoulli 0 = 1
 bernoulli 1 = -(1%2)	
 bernoulli n | odd n = 0
-bernoulli n = 
-   (-1)%2 
-     + sum [ fromIntegral ((sum $ zipWith (*) powers (tail $ tail combs)) - 
+bernoulli n =
+   (-1)%2
+     + sum [ fromIntegral ((sum $ zipWith (*) powers (tail $ tail combs)) -
                             fromIntegral k) %
              fromIntegral (k+1)
      | (k,combs)<- zip [2..n] pascal]

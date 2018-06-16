@@ -138,7 +138,7 @@ piBy4    = div2n pi 2
 log2     = -log_drx (recip (fromInteger 2))
 sqrt1By2 = sqrt (recip (fromInteger 2))
 
-instance Enum CR where 
+instance Enum CR where
   toEnum = fromInteger . toInteger
   fromEnum = fromInteger . rnd . toRational
 

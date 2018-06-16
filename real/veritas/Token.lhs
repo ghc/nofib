@@ -24,12 +24,12 @@
 
 
 > reserved = [ "empty", "signature", "extend", "combine", "with", "sharing" ,
->	       "++", "=", "(", ")", "@", "operator", ";", ":", "\189", 
->	       "datatype", "|", "case", "of", "\167", "recurse", "end", 
->	       "typed", "fn", "rec", "if", "then", "else", "let", "in", 
->	       "\168", "\169", "{", "}", "[", "]", "\208", "\211", "\236", 
->	       "\229", "\177", "\178", ".", ",", "\181", "\179", "\180", 
->	       "\182", "\172", "\183", "\184", "\185", "\176", "BinL", 
+>	       "++", "=", "(", ")", "@", "operator", ";", ":", "\189",
+>	       "datatype", "|", "case", "of", "\167", "recurse", "end",
+>	       "typed", "fn", "rec", "if", "then", "else", "let", "in",
+>	       "\168", "\169", "{", "}", "[", "]", "\208", "\211", "\236",
+>	       "\229", "\177", "\178", ".", ",", "\181", "\179", "\180",
+>	       "\182", "\172", "\183", "\184", "\185", "\176", "BinL",
 >	       "BinR", "Pre", "Post", "\196", "\187" ]
 
 
@@ -47,11 +47,11 @@
 
 > denull ( Clr "" : tkl ) = denull tkl
 
-> denull ( Clr tk : tkl ) 
+> denull ( Clr tk : tkl )
 >	= tag rev_tk : denull tkl
 >	  where
 >	  tag | rev_tk `elem` reserved = Rvd
->	      | otherwise            = Clr 
+>	      | otherwise            = Clr
 >	  rev_tk = reverse tk
 
 > denull ( Rvd tk : tkl ) = error " optimise to trap some reserved earlier and reduce length of reserved set"
@@ -68,16 +68,16 @@
 
 
 
-> scan' ( a : x ) current 
+> scan' ( a : x ) current
 >	| a `elem` binder     = Clr current : ( Bdr ( mk_bdr a ) : scan' x "" )
 >	| a `elem` ifx_binder = Clr current : ( IfxBdr [a] : scan' x "" )
 >	| a `elem` ifx_op     = Clr current : ( IfxOp [a] : scan' x "" )
 > 	| single a          = Clr current : ( Clr [a] : scan' x "" )
 >	| a `elem` a_symbol     = Clr current : symbol_scan x [a]
->	| a `elem` whitespace = Clr current : scan' x "" 
+>	| a `elem` whitespace = Clr current : scan' x ""
 >	| alphanum' a       = scan' x ( a : current )
 >	| a == '%'          = Clr current : scan' ( discard x ) ""
->	| a == '^'          = super_scan x ( '^' : current ) 
+>	| a == '^'          = super_scan x ( '^' : current )
 >	| otherwise         = [ Scan_Err "\nInvalid character\n" ]
 
 > scan' [] current = [ Clr current ]
@@ -89,7 +89,7 @@
 
 > symbol_scan ( a : x ) current
 >	| a `elem` a_symbol = symbol_scan x ( a : current )
->	| a == '^'      = super_scan x ( a : current ) 
+>	| a == '^'      = super_scan x ( a : current )
 >	| otherwise     = Clr current : scan' ( a : x ) ""
 
 > symbol_scan [] current = [ Clr current ]
@@ -99,7 +99,7 @@
 > super_scan _ "^" = [ Scan_Err "\nAttempt to superscript invalid string\n"]
 
 > super_scan ( a : x ) current
->	| alphanum a || a `elem` a_symbol 
+>	| alphanum a || a `elem` a_symbol
 >			= Clr ( a : current ) : scan' x ""
 > 	| otherwise     = [ Scan_Err "\nInvalid superscript character\n" ]
 
@@ -126,7 +126,7 @@
 
 > discard :: String -> String
 
-> discard ( ch : x ) 
+> discard ( ch : x )
 >	| ch `elem` endofline = x
 >	| otherwise         = discard x
 

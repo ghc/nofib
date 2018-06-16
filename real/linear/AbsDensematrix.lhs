@@ -1,21 +1,21 @@
 \section{AbsDensematrix}
 
-This module imports the contents of Densematrix and exports some of the 
+This module imports the contents of Densematrix and exports some of the
 functions renaming many of them for use by Matrix. The original %include
 statement(from Matrix) is left as a comment at the foot of this file.
 
 \begin{code}
- 
+
 module AbsDensematrix(Block,Vec,bmult,bvecmult,vecbmult,vecdot,vecnorm,
                       vecouter,badd,bsub,vecadd,vecsub,bsize,vecsize,bneg,
                       bxpose,bident,vecneg,svecmult,mkblock,bswaprow,bswapcol,
                       bdroprow,bgetrow,bgetcol,bsubscript,vecsubscript,bupdate,
                       vecupdate,vechd,vectl,mergevecs,binverse,showblock,
-                     showvec, mkvec,mkrvec,vecpart,update2,veclist,matlist) 
+                     showvec, mkvec,mkrvec,vecpart,update2,veclist,matlist)
        where
- 
 
-import Densematrix 
+
+import Densematrix
 
 type Block = Matrix
 type Vec = Vector
@@ -24,13 +24,13 @@ bmult = mmult
 bvecmult = matvecmult
 vecbmult = vmmult
 vecdot   = vdot
-      
+
 vecnorm = norm
-vecouter = vouter      
+vecouter = vouter
 
 badd = madd
 bsub = msub
-vecadd = vadd 
+vecadd = vadd
 vecsub = vsub
 
 bsize = msize
@@ -49,7 +49,7 @@ bswaprow = swaprow
 bswapcol = swapcol
 
 bdroprow = droprow
-bgetrow = getrow 
+bgetrow = getrow
 bgetcol = getcol
 
 bsubscript = subscript
@@ -65,7 +65,7 @@ mergevecs = mergevectors
 
 binverse = minverse
 
-showblock = showmatrix 
+showblock = showmatrix
 showvec = displayvector
 
 \end{code}

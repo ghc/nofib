@@ -70,13 +70,13 @@ binomial trees.
 
 >data Tree a = Node a [Tree a]
 
-The degree of a binomial tree is equal to its number of children.  
+The degree of a binomial tree is equal to its number of children.
 Every binomial tree of degree k has binomial trees of degrees
 k-1...0 as children, in that order.  It is easy to show that
 a binomial tree of degree k has size 2^k.
 
 The fundamental operation on binomial trees is linking, which compares
-the roots of two binomial trees and makes the larger a child of the 
+the roots of two binomial trees and makes the larger a child of the
 smaller (thus bumping its degree by one).  It is essential that this
 only be called on binomial trees of equal degree.
 
@@ -140,10 +140,10 @@ with a forest of trees summing to the correct size.
 >type Forest a = Bag (TaggedTree a)
 
 In binomial queues, this forest must be maintained in strictly increasing
-order of degree.  For Fibonacci heaps, we adopt a more relaxed attitude: 
+order of degree.  For Fibonacci heaps, we adopt a more relaxed attitude:
 degrees may be repeated and order does not matter.
 
-To be able to find the minimum element quickly, we keep the tree with the 
+To be able to find the minimum element quickly, we keep the tree with the
 minimum root outside of the bag.  In addition, at the top level of each heap,
 we store the total size of the heap.
 
@@ -187,7 +187,7 @@ the other using accumArray.
 
 In the first implementation, there are three steps.
   1. Allocate an array indexed by degrees.
-  2. Insert every tree into this array.  If, when inserting a tree of 
+  2. Insert every tree into this array.  If, when inserting a tree of
      degree k, there already exists a tree of degree k, link the
      two trees and reinsert the new larger tree.
   3. Transfer the trees into a bag, keeping track of the minimum tree.
@@ -227,8 +227,8 @@ the highest slot of the array.
 >                       getMin' a mini mint (ConsBag (i, t) b) (i+1)
 >                     else
 >                       getMin' a i t (ConsBag (mini, mint) b) (i+1)
->            
->  in 
+>
+>  in
 >    runST (newArray (0,d) Zero >>= \a ->
 >           applyToAll (ins a) f >>
 >           sequence (map (ins a) (getChildren tt)) >>
@@ -238,7 +238,7 @@ the highest slot of the array.
                          --------------------
 
 The second version of deleteMin uses accumArray to group trees of like
-size.  It then performs the linking and all remaining steps purely 
+size.  It then performs the linking and all remaining steps purely
 functionally.
 
 >deleteMinFH' EmptyFH = error "deleteMinFH EmptyFH"

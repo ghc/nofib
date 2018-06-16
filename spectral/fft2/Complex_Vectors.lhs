@@ -6,7 +6,7 @@
 > type ComplexF = Complex Double
 
 > rootsOfUnity:: Int -> [ComplexF]
-> rootsOfUnity n = zipWith (:+) (map cos (thetas n)) 
+> rootsOfUnity n = zipWith (:+) (map cos (thetas n))
 >                               (map sin (thetas n))
 
 > thetas:: Int -> [Double]

@@ -1,6 +1,6 @@
 module Board(
   Kind(King,Queen,Rook,Bishop,Knight,Pawn),
-  Colour(Black,White), Piece, Square, Board, 
+  Colour(Black,White), Piece, Square, Board,
   showBoard, showPiece, showSquare,
   emptyBoard, pieceAt, rmPieceAt, putPieceAt,
   emptyAtAll, kingSquare, forcesColoured,
@@ -80,7 +80,7 @@ kingSquare White (Board kss _) = kSq kss
 kingSquare Black (Board _ kss) = kSq kss
 
 kSq ((King,s):_)   = s
-kSq (       _:kss) = kSq kss 
+kSq (       _:kss) = kSq kss
 
 opponent Black = White
 opponent White = Black

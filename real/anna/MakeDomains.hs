@@ -16,8 +16,8 @@ mdFreeTVarsIn :: TypeDef ->  -- a type definition
                  [Naam]      -- variables free in it
 
 mdFreeTVarsIn (tn, tvl, cal)
-   = utSetToList 
-       (utSetSubtraction 
+   = utSetToList
+       (utSetSubtraction
           (utSetFromList allVars)
           (utSetFromList (tvl ++ ["int", "bool", "char"])))
      where
@@ -53,10 +53,10 @@ mdTypeDependancy tdl
         ins  v = [u | (u, w) <- edges, v==w]
         outs v = [w | (u, w) <- edges, v==u]
         roots = nub (map f tdl)
-                where 
+                where
                    f (a, b, c) = a
         singleRec (a:b:abs) = (True, a:b:abs)
-        singleRec [a] 
+        singleRec [a]
            = (a `elem` (mdFreeTVarsIn (findAIn tdl)), [a])
              where
                 findAIn ((tn, tvl, cal):rest) | a==tn      = (tn, tvl, cal)
@@ -65,18 +65,18 @@ mdTypeDependancy tdl
 
 -- ==========================================================--
 --
-mdIsRecursiveType :: TypeDependancy -> 
+mdIsRecursiveType :: TypeDependancy ->
                      Naam ->
                      Bool
 
 mdIsRecursiveType typedependancy typeName
    = search typedependancy
      where
-        search ((rf, names):rest) 
+        search ((rf, names):rest)
            | typeName `elem` names   = rf
            | otherwise               = search rest
 
-     
+
 -- ==========================================================--
 -- === end                              MakeDomains.m (1) ===--
 -- ==========================================================--

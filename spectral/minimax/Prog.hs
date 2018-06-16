@@ -7,7 +7,7 @@ import Tree
 
 
 prog :: String -> String
-prog _ = 
+prog _ =
 	"OXO\n" ++
 	concat (map showMove game)
 	where

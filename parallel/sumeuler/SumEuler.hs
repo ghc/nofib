@@ -32,7 +32,7 @@ import Data.List(foldl1')
 -- Generic clustering routines
 
 -- Classes
--- maybe: class (Functor c) => MMonad c where { ... mmap = fmap } 
+-- maybe: class (Functor c) => MMonad c where { ... mmap = fmap }
 class MMonad c where
   munit  :: a -> c a
   mjoin  :: c (c a) ->  c a
@@ -68,11 +68,11 @@ usage = "Usage: <program> version size chunksize"
 
 main :: IO ()
 main = do args <- getArgs
-          let 
+          let
             lenArgs = length args
-          when (lenArgs < 3) 
+          when (lenArgs < 3)
                    (putStrLn (usage ++ "\n(using defaults: 38,5000,100)"))
-          let 
+          let
             argDef :: Read a => Int -> a -> a
             argDef m defVal | m < lenArgs = read (args!!m)
                             | otherwise   = defVal
@@ -87,7 +87,7 @@ main = do args <- getArgs
                     38 -> (sumEulerJFP_Final c n, "JFP_Final paper version (splitAtN)")
                     -- VERSIONS TO TEST ADDITIONALLY:
 --		    48 -> (sumEulerS8 c n,   "parallel w/ parChunkFoldMap strategy")
---		    58 -> (sumEulerS8' c n,   "parallel w/ parChunkFold'Map strategy")                    
+--		    58 -> (sumEulerS8' c n,   "parallel w/ parChunkFold'Map strategy")
                     8 -> (sumEulerJFP c n, "JFP paper version (splitAtN)")
                     ------------------
                     0 -> (sumEuler_seq n,   "sequential")
@@ -118,31 +118,31 @@ main = do args <- getArgs
 
 sumEulerJFP  :: Int -> Int -> Int
 sumEulerJFP c n = sum (map (sum . map euler) (splitAtN c (mkList n))
-                       `using` parList rdeepseq)   
+                       `using` parList rdeepseq)
 
 sumEulerJFP_Final  :: Int -> Int -> Int
 sumEulerJFP_Final c n = sum ([(sum . map euler) x | x <- splitAtN c [n,n-1..0]]
-                            `using` parList rdeepseq)   
+                            `using` parList rdeepseq)
 
 -- -- using a fold-of-map strategy w/ folding inside a chunk
 -- sumEulerS8 :: Int -> Int -> Int
 -- sumEulerS8 c n  = parChunkFoldMap c rnf (+) euler (mkList n)
--- 
+--
 -- -- using a fold-of-map strategy w/ STRICT LEFT-folding inside a chunk
 -- sumEulerS8' :: Int -> Int -> Int
 -- sumEulerS8' c n  = parChunkFoldMap' c rnf (+) euler (mkList n)
--- 
+--
 -- -- parallel fold-of-map with chunking over fold and map
--- parChunkFoldMap :: (NFData b) => Int -> Strategy b -> 
+-- parChunkFoldMap :: (NFData b) => Int -> Strategy b ->
 --                                  (b -> b -> b) -> (a -> b) -> [a] -> b
--- parChunkFoldMap c s f g xs = foldl1 f (map (foldl1 f . map g) 
+-- parChunkFoldMap c s f g xs = foldl1 f (map (foldl1 f . map g)
 -- 		                           (splitAtN c xs)
 -- 		                       `using` parList s)	
--- 
+--
 -- -- parallel fold-of-map with chunking over fold and map
--- parChunkFoldMap' :: (NFData b) => Int -> Strategy b -> 
+-- parChunkFoldMap' :: (NFData b) => Int -> Strategy b ->
 --                                  (b -> b -> b) -> (a -> b) -> [a] -> b
--- parChunkFoldMap' c s f g xs = foldl1' f (map (foldl1' f . map g) 
+-- parChunkFoldMap' c s f g xs = foldl1' f (map (foldl1' f . map g)
 -- 		                           (splitAtN c xs)
 -- 		                       `using` parList s)	
 
@@ -152,7 +152,7 @@ sumEulerJFP_Final c n = sum ([(sum . map euler) x | x <- splitAtN c [n,n-1..0]]
 -- strategic function application
 sumEulerS1 :: Int -> Int
 sumEulerS1 n  = sum ( map euler (mkList n)
-                        `using` 
+                        `using`
 	                parList rdeepseq )
 
 -- NUKED:
@@ -161,7 +161,7 @@ sumEulerS1 n  = sum ( map euler (mkList n)
 -- naive parallel version w/ parList
 sumEulerS2 :: Int -> Int -> Int
 sumEulerS2 c n  = sum ( map euler (mkList n)
-                        `using` 
+                        `using`
 	                parListChunk c rdeepseq )
 
 -- using a parallel fold over a chunkified list
@@ -175,12 +175,12 @@ sumEulerS6 c n  = sum (map (sum . map euler) (splitAtN c (mkList n))
 
 -- explicit restructuring
 sumEulerChunk :: Int -> Int -> Int
-sumEulerChunk c n  = sum (parMap rdeepseq ( \ xs -> sum (map euler xs)) 
+sumEulerChunk c n  = sum (parMap rdeepseq ( \ xs -> sum (map euler xs))
                                      (splitAtN c (mkList n)))
 
 -- using generic clustering functions
 sumEulerCluster :: Int -> Int -> Int
-sumEulerCluster c n = sum ((lift worker) (cluster c (mkList n)) 
+sumEulerCluster c n = sum ((lift worker) (cluster c (mkList n))
                            `using` parList rdeepseq)
                       where worker = sum . map euler
 
@@ -191,21 +191,21 @@ sumEulerShuffle c n  = sum ((map worker) (unshuffle (noFromSize c n) (mkList n))
                        where worker = sum . map euler
 
 noFromSize :: Int -> Int -> Int
-noFromSize c n | n `mod` c == 0 = n `div` c 
+noFromSize c n | n `mod` c == 0 = n `div` c
                | otherwise      = n `div` c + 1
 
 -- -- Evaluates every n-th element in the list starting with the first elem
 -- seqStepList :: Int -> Strategy a -> Strategy [a]
 -- seqStepList _ _strat []    = ()
 -- seqStepList n strat (x:xs) = strat x `pseq` (seqStepList n strat (drop (n-1) xs))
--- 
+--
 -- seqStepList' :: Int -> Strategy a -> Strategy [a]
 -- -- seqStepList' _ strat [] = ()
 -- seqStepList' n strat xs = parList (\ i -> seqStepList n strat (drop i xs)) [0..n-1]
--- 
+--
 -- sumEulerStepList :: Int -> Int -> Int
 -- sumEulerStepList c n  = sum ( map euler (mkList n)
---                               `using` 
+--                               `using`
 -- 	                      seqStepList' n' rnf )
 --                        where --worker = sum . map euler
 --                              n' = if n `mod` c == 0 then n `div` c else (n `div` c)+1
@@ -217,11 +217,11 @@ noFromSize c n | n `mod` c == 0 = n `div` c
 sumEulerJFP0  :: Int -> Int -> Int
 sumEulerJFP0 c n = sum ([ (sum . map euler) [ c*i+j | j <- [0..c-1], c*i+j<=n ]
                         | i <- [0..(n+c-1) `div` c - 1] ]
-                       `using` parList rdeepseq)   
+                       `using` parList rdeepseq)
 
 sumEulerJFP1  :: Int -> Int -> Int
 sumEulerJFP1 c n = sum (map (sum . map euler) (splitIntoChunks c n)
-                        `using` parList rdeepseq)   
+                        `using` parList rdeepseq)
 
 splitIntoChunks :: Int -> Int -> [[Int]]
 splitIntoChunks c n = [ [ c*i+j | j <- [0..c-1], c*i+j<=n ]
@@ -229,7 +229,7 @@ splitIntoChunks c n = [ [ c*i+j | j <- [0..c-1], c*i+j<=n ]
 
 -- boring sequential version
 sumEuler_seq :: Int -> Int
-sumEuler_seq = sum . map euler . mkList 
+sumEuler_seq = sum . map euler . mkList
 
 ---------------------------------------------------------------------------
 -- smallest input for euler
@@ -284,7 +284,7 @@ parFoldMap :: Strategy b -> (b -> b -> b) -> (a -> b) -> [a] -> b
 parFoldMap s f g xs = foldl1 f (map g xs `using` parList s)
 
 ---- parallel fold-of-map with chunking over map only
---parFoldChunkMap :: (NFData b) => Int -> Strategy b -> 
+--parFoldChunkMap :: (NFData b) => Int -> Strategy b ->
 --                                 (b -> b -> b) -> (a -> b) -> [a] -> b
 --parFoldChunkMap c s f g xs = foldl1 f (map g xs `using` parListChunk c s)
 

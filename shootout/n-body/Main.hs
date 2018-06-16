@@ -6,7 +6,7 @@
 --
 -- To be compiled with:
 --
---  -O2 -fglasgow-exts -funbox-strict-fields -fbang-patterns -optc-O 
+--  -O2 -fglasgow-exts -funbox-strict-fields -fbang-patterns -optc-O
 --
 -- Don't enable -optc-mfpmath=sse -optc-msse2, this triggers a gcc bug on x86
 --

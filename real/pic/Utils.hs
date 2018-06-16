@@ -1,4 +1,4 @@
--- 
+--
 --      Patricia Fasel
 --      Los Alamos National Laboratory
 --      1990 August
@@ -104,30 +104,30 @@ fineMesh mesh nHalf' =
 	[(0,0)	=: mesh!(0,0)] ++
 	[(0,n)	=: 0.5*(mesh!(0,0) + mesh!(0,nHalf))] ++
 	[(n,0)	=: 0.5*(mesh!(0,0) + mesh!(nHalf,0))] ++
-	[(n,n)	=: 0.25*(mesh!(0,0) + mesh!(0,nHalf) + mesh!(nHalf,0) + 
+	[(n,n)	=: 0.25*(mesh!(0,0) + mesh!(0,nHalf) + mesh!(nHalf,0) +
 			 mesh!(nHalf,nHalf))] ++
 
 	-- edges (north, south)
 	[(0,2*j)	=: mesh!(0,j)| j<-[1..nHalf]] ++
 	[(0,2*j-1)	=: 0.5*(mesh!(0,j) + mesh!(0,j-1)) | j<-[1..nHalf]] ++
 	[(n,2*j)	=: 0.5*(mesh!(0,j) + mesh!(nHalf,j)) | j<-[1..nHalf]] ++
-	[(n,2*j-1)	=: 0.25*(mesh!(0,j) + mesh!(0,j-1) + mesh!(nHalf,j) + 
+	[(n,2*j-1)	=: 0.25*(mesh!(0,j) + mesh!(0,j-1) + mesh!(nHalf,j) +
 				 mesh!(nHalf,j-1)) | j<-[1..nHalf]] ++
 
 	-- edges (west, east)
 	[(2*i,0)	=: mesh!(i,0) | i<-[1..nHalf]] ++
 	[(2*i-1,0)	=: 0.5*(mesh!(i,0) + mesh!(i,nHalf)) | i<-[1..nHalf]] ++
 	[(2*i,n)	=: 0.5*(mesh!(i,0) + mesh!(i,nHalf)) | i<-[1..nHalf]] ++
-	[(2*i-1,n)	=: 0.25*(mesh!(i,0) + mesh!(i,nHalf) + mesh!(i-1,0) + 
+	[(2*i-1,n)	=: 0.25*(mesh!(i,0) + mesh!(i,nHalf) + mesh!(i-1,0) +
 				 mesh!(i-1,nHalf)) | i<-[1..nHalf]] ++
 
 	-- interior
 	[(2*i,2*j)	=: mesh!(i,j) | i<-[1..nHalf], j<-[1..nHalf]] ++
-	[(2*i,2*j-1)	=: 0.5*(mesh!(i,j) + mesh!(i,j-1)) 
+	[(2*i,2*j-1)	=: 0.5*(mesh!(i,j) + mesh!(i,j-1))
 				| i<-[1..nHalf], j<-[1..nHalf]] ++
-	[(2*i-1,2*j)	=: 0.5*(mesh!(i,j) + mesh!(i-1,j)) 
+	[(2*i-1,2*j)	=: 0.5*(mesh!(i,j) + mesh!(i-1,j))
 				| i<-[1..nHalf], j<-[1..nHalf]] ++
-	[(2*i-1,2*j-1)	=: 0.25*(mesh!(i,j) + mesh!(i,j-1) + mesh!(i-1,j) + 
+	[(2*i-1,2*j-1)	=: 0.25*(mesh!(i,j) + mesh!(i,j-1) + mesh!(i-1,j) +
 				mesh!(i-1,j-1)) | i<-[1..nHalf], j<-[1..nHalf]])
 -}
 	where
@@ -148,6 +148,6 @@ genRand seed =
 log2 :: Int -> Int
 log2 n = log2' n 0
 	where
-	    log2' n accum 
+	    log2' n accum
 		| n > 1		= log2' (n `div` 2) (accum+1)
 		| otherwise	= accum

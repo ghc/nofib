@@ -3,7 +3,7 @@
 module Help(
        helpend, helpdraw, helptile, helpalter, helptsave, helptclear,
        helptget, helpt4, helpquit, helpbt, helppic, helpdesign,
-       helpdsave, helpdclear, helpdget, inithelp, errmes) where 
+       helpdsave, helpdclear, helpdget, inithelp, errmes) where
 
 import Layout
 import Mgrfuns
@@ -11,13 +11,13 @@ import Mgrfuns
 helpsetup, helpend :: [Char]
 helpdraw, helpdsave, helpdclear, helpdget :: [Char]
 helptile, helpalter, helptsave, helptclear, helptget, helpt4 :: [Char]
-helpquit, helpbt, helppic, helpdesign :: [Char] 
+helpquit, helpbt, helppic, helpdesign :: [Char]
 
 helpsetup = textregion helptextarea ++ font 8
 
 helpend = cleara helptextarea ++ font 13
 
-helpdraw = 
+helpdraw =
 	"This button puts you in drawing mode.\n" ++
 	"Lines can be drawn in the STAMP DESIGN \n" ++
 	"area by holding down the middle button,\n" ++
@@ -33,7 +33,7 @@ helpdraw =
 	"circles be attached to a line.\n" ++
 	endmes
 
-helptile = 
+helptile =
 	"In this mode, orientations of the print\n" ++
 	"can be placed in the TILE DESIGN area\n" ++
 	"to create a 64 X 64 big tile\n" ++
@@ -46,7 +46,7 @@ helptile =
 	"to use the ALTER mode." ++
 	endmes
 
-helpalter = 
+helpalter =
 	"In ALTER mode, squares within the\n" ++
 	"big tile can be adjusted.\n" ++
 	"The middle button causes them to \n" ++
@@ -55,7 +55,7 @@ helpalter =
 	"invert." ++
 	endmes
 
-helptsave = 
+helptsave =
 --	"This SAVE button prompts for a filename.\n" ++
 --	"It creates a file from which\n" ++
 --	"the actual big tile may be printed out\n" ++
@@ -70,7 +70,7 @@ helptsave =
 	"Sorry, SAVE is temporarily inoperative." ++  --CR
 	endmes
 
-helptclear = 
+helptclear =
 	"This CLEAR button clears the TILE DESIGN\n" ++
 	"region and draws an empty grid." ++
 	endmes
@@ -88,18 +88,18 @@ helptget =
 	"Sorry, GET is temporarily inoperative." ++  --CR
 	endmes
 
-helpt4 = 
+helpt4 =
 	"The T4 button tiles the whole big tile\n" ++
 	"with the pattern of the four squares\n" ++
 	"in the top left hand corner\n" ++
 	endmes
 
-helpquit = 
+helpquit =
 	"\n\n\nClicking on QUIT allows you\n" ++
 	"to leave the program.\n" ++
 	endmes
 
-helpbt = 
+helpbt =
 	"\n\n\nWithin the TILE DESIGN area,\n" ++
 	"a big tile, based on orientations of\n" ++
 	"a print design, can be built.\n" ++
@@ -114,7 +114,7 @@ helpbt =
 	"will rotate them." ++
 	endmes
 
-helppic = 
+helppic =
 	"\nThese boxes show the eight possible\n" ++
 	"orientations of the print that is\n" ++
 	"to be used in tiling\n" ++
@@ -126,7 +126,7 @@ helppic =
 	"orientation of the print at that place" ++
 	endmes
 
-helpdesign = 
+helpdesign =
 	"\n\n\nThis is the area in which to design \nyour print.\n" ++
 	"\nDraw lines by holding down the\n middle button.\n" ++
 	"Delete lines by clicking with the\n right button.\n" ++
@@ -135,7 +135,7 @@ helpdesign =
 	"then typing in the filename at the prompt.\n" ++
 	endmes
 
-helpdsave = 
+helpdsave =
 --	"\nClicking on this SAVE button allows\n" ++
 --	"you to save a design for future\n" ++
 --	"re-use.\n\n" ++
@@ -147,14 +147,14 @@ helpdsave =
 	"Sorry, SAVE is temporarily inoperative." ++  --CR
 	endmes
 
-helpdclear = 
+helpdclear =
 	"\n\n\nThis clears the PRINT DESIGN grid.\n" ++
 	"The print currently being worked on\n" ++
 	"will be lost, unless it has been\n" ++
 	"explicitly SAVEd first\n" ++
 	endmes
 
-helpdget = 
+helpdget =
 --	"\n\n\nTo restore a print that has previously\n" ++
 --	"been saved, click on GET and then\n" ++
 --	"type in the filename." ++
@@ -163,7 +163,7 @@ helpdget =
 
 inithelp, errmes, endmes{-, printcommand, predefinedpats-} :: [Char]
 
-inithelp = helpsetup ++ clear ++  
+inithelp = helpsetup ++ clear ++
 	"\n\n\n\nTo find out the use of a particular\n" ++
 	"menu button or region of the screen, \n" ++
 	"click over the item you wish to\n" ++

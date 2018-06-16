@@ -1,6 +1,6 @@
 -- The current version of compress acts as a filter: the data to be
 -- compressed is taken from standard input, and the result is placed on
--- the standard output. 
+-- the standard output.
 
 module Main (main)
 where
@@ -14,7 +14,7 @@ main = do
   hSetBinaryMode stdout True
   i <- getContents
   putStr (compress i)
-           
+
 -- The output is given by a magic header consisting of two fixed numbers,
 -- and a third representing the maximum number of bits used per code and
 -- whether or not block compression is being used. There is currently no
@@ -37,7 +37,7 @@ magic_header cs
 -- of the output function is a string containing the output, and a list
 -- of integers representing the size of the output.
 
-processInput cs 
+processInput cs
      = fst output
        where
        output = outputCodes codes

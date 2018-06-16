@@ -296,7 +296,7 @@ latex_show_results []      _ _    _ _ _
  = error "latex_show_results: Can't happen?"
 latex_show_results (r:rs) f stat _result_ok norm inc_baseline
         = makeLatexTable $
-             [ TableRow (BoxString prog : boxes) | 
+             [ TableRow (BoxString prog : boxes) |
                (prog,boxes) <- results_per_prog ] ++
              if nodevs then [] else
              [ TableLine,
@@ -845,9 +845,9 @@ makeLatexTable = foldr (.) id . map do_row
            = str "\\hline\n"
 
 latexTableLayout :: Layout
-latexTableLayout boxes = 
+latexTableLayout boxes =
   foldr (.) id . intersperse (str " & ") . map abox $ boxes
-  where 
+  where
         abox (RunFailed NotDone) = id
         abox s = str (mungeForLaTeX (show s))
 

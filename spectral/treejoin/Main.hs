@@ -1,5 +1,5 @@
 {-
-    Tree e is the type of binary trees with keys of type Key, 
+    Tree e is the type of binary trees with keys of type Key,
     containing records (entities) of type e.  The tree is
     ordered, but not necessarily balanced.
 -}
@@ -19,7 +19,7 @@ type Key = Int
 
 
 {-
-    Interesting entities are 3-tuples of integers.  
+    Interesting entities are 3-tuples of integers.
     The joins of two such entities are 5-tuples of integers.
 -}
 
@@ -76,7 +76,7 @@ forceTree Empty = ()
 
 readTree :: (Entity->Key) -> String -> Tree Entity -> Tree Entity
 readTree fk [] t = t
-readTree fk s t = 
+readTree fk s t =
     let (f,s') = readInt s; (g,s'') = readInt s'; (h,s''') = readInt s''
 	e = (f,g,h)
 	k = fk e
@@ -116,6 +116,6 @@ main = do
       c1 <- readFile f1
       c2 <- readFile f2
       let a = readTree  (\(x,_,_)->x) c1 Empty
-      let b = readTree  (\(x,_,_)->x) c2 Empty 
+      let b = readTree  (\(x,_,_)->x) c2 Empty
       print (forceTree (join a b Empty))
 -- print (join a b Empty)

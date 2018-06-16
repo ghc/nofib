@@ -3,11 +3,11 @@
 {--- Generic stuff for all architectures.                 Generics.hs ---}
 {------------------------------------------------------------------------}
 
-{- 
+{-
    This file is part of Cacheprof, a profiling tool for finding
    sources of cache misses in programs.
 
-   Copyright (C) 1999 Julian Seward (jseward@acm.org) 
+   Copyright (C) 1999 Julian Seward (jseward@acm.org)
    Home page: http://www.cacheprof.org
 
    This program is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@ module Generics where
 internal msg
    = error ("\ncacheann: Internal error: " ++ msg ++ "\n")
 incomplete msg
-   = error ("\ncacheann: Unhandled instruction set artefact:\n   " 
+   = error ("\ncacheann: Unhandled instruction set artefact:\n   "
             ++ msg ++ "\n")
 inputerr msg
    = error ("\ncacheann: Bad input: " ++ msg ++ "\n")
@@ -105,14 +105,14 @@ pApply f p ts
    = case p ts of
         PFail -> PFail
         POk x uu -> POk (f x) uu
-   
+
 
 pName :: String -> a -> Parser a
 pName w x ((LName w2):lxs)
    = if w == w2 then POk x lxs else PFail
 pName w x _ = PFail
 
-p2 :: (a -> b -> c) 
+p2 :: (a -> b -> c)
       -> Parser a -> Parser b -> Parser c
 p2 f p1 p2 ts1
    = case p1 ts1 of { PFail -> PFail ; POk x1 uu1 ->
@@ -120,7 +120,7 @@ p2 f p1 p2 ts1
      POk (f x1 x2) uu2
      }}
 
-p3 :: (a -> b -> c -> d) 
+p3 :: (a -> b -> c -> d)
       -> Parser a -> Parser b -> Parser c -> Parser d
 p3 f p1 p2 p3 ts1
    = case p1 ts1 of { PFail -> PFail ; POk x1 uu1 ->

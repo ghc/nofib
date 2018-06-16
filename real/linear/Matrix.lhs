@@ -9,15 +9,15 @@
 
 \begin{code}
 
-module Matrix 
+module Matrix
          (Matrix, Vector, Block , Vec ,
-          Block_list , Row_pos, Col_pos, 
+          Block_list , Row_pos, Col_pos,
           mmult, mvmult, svmult,
           madd, msub,
           vadd, vsub,
           vdot, vouter,
           mneg, vneg,
-          norm,    
+          norm,
           mkmatrix,
           mkvector,
           mergevectors,
@@ -43,15 +43,15 @@ import Utils
 
  The beginning of Sparsematrix_kludge,
  textually inserted because Matrix and Sparsematrix_kludge
- are now mutually recursive, and it doesn't seem worth 
+ are now mutually recursive, and it doesn't seem worth
  maintaining them separately for now (cvh).
 
   ================================================================
   ================ A SPARSE MATRIX IMPLEMENTATION ================
 
   Written by Brian D. Moe (Summer 1990)
-  Note:  
-      mupdate and vupdate have been included by Kamini Shenoi 
+  Note:
+      mupdate and vupdate have been included by Kamini Shenoi
 
   ================================================================
 
@@ -115,7 +115,7 @@ sadd       = (+)
 
 mmult m1 m2 = error "unsupported matrix operation"
 
-madd m1 m2 = error "unsupported matrix operation"   
+madd m1 m2 = error "unsupported matrix operation"
 
 msub m1 m2 = error "unsupported matrix operation"
 
@@ -144,7 +144,7 @@ mupdate m (i,j) val
       ++ [getrow l m | l <- [(i+1) .. (numrows m)-1]]
      where
         f xs = (take j xs) ++ [(i, (j+1), val)] ++ (drop (j+1) xs)
-   
+
 	
 vupdate v i vc = (take i v) ++ [vc] ++ (drop (i+1) v)
 
@@ -160,7 +160,7 @@ showmatrix m
 	row i = [ col | (r,col,b) <- (m!!i) ]
 
 showvector vs =  concat (map showvec vs)
-                  
+
 
 
 mkmatrix = id
@@ -176,7 +176,7 @@ mergevectors = (++)
 
 
  ================================================
- ================ MISC FUNCTIONS ================ 
+ ================ MISC FUNCTIONS ================
  ================================================
 
 
@@ -200,7 +200,7 @@ rvdot row v
      = foldl1 vecadd [bvecmult b (vsubscript c v) | (r,c,b) <- row]
 
 \end{code}
-     
+
  Notes:
 
    okindex checks that the number given won't be out of range for the
@@ -259,7 +259,7 @@ msize m = (length m,length (head m))
 vsize v = length v
 
 
-  
+
 strip_block :: Block_tuple -> Block
 strip_block (r,c,b) = b
 

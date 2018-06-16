@@ -10,7 +10,7 @@ import Data.Ratio
 import System.Environment (getArgs)
 
 infixl 7 .*
-infixr 5 :+: 
+infixr 5 :+:
 
 default (Integer, Rational, Double)
 
@@ -19,7 +19,7 @@ main = do { (n:_) <- getArgs ;
 	    putStrLn (show (extract p (sinx - sqrt (1-cosx^2)))) ;
 	    putStrLn (show (extract p (sinx/cosx - revert (integral (1/(1+x^2)))))) ;
 	    putStrLn (show (extract p ts)) ;
-	    putStrLn (show (extract p tree)) 
+	    putStrLn (show (extract p tree))
 	  }
 	
 

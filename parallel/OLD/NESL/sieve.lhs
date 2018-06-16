@@ -4,7 +4,7 @@ Computing a list of prime numbers using the Sieve of Erathostenes.
 
 Based on the NESL code presented in:
    Programming Parallel Algorithms
-   by Guy E. Blelloch 
+   by Guy E. Blelloch
    in CACM 39(3), March 1996
    URL: http://www.cs.cmu.edu/~scandal/nesl/alg-numerical.html
 
@@ -17,12 +17,12 @@ import Strategies
 \begin{code}
 primes :: Integer -> [Integer]
 primes 2 = []
-primes n = 
+primes n =
   let sqr_primes = primes (ceiling (sqrt (fromInteger n)))
-      sieves = [ [2*p, 3*p .. n]  | p <- sqr_primes ] 
+      sieves = [ [2*p, 3*p .. n]  | p <- sqr_primes ]
       flat_sieves = concat sieves
       result  = [ i | i <- [0..n], i `notElem` flat_sieves ]
-  in 
+  in
 #if defined(GRAN)
   parList rnf sqr_primes `par`
   parList rnf flat_sieves `par`
@@ -39,7 +39,7 @@ The original NESL code:
 
 function primes(n) =
 if n == 2 then [] int
-else 
+else
   let sqr_primes = primes(ceil(sqrt(float(n))));
       sieves = {[2*p:n:p]: p in sqr_primes};
       flat_sieves = flatten(sieves);

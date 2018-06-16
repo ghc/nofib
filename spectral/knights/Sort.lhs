@@ -2,10 +2,10 @@
 This module defines, and tests various sort functions written is Haskell.
 I descided to do this rather trivial exercise, to accustom myself with
 the prototype Glasgow Haskell compiler, and Glasgows literate programming
-system. 
+system.
 
 Use of this module is obtained by importing the module, and {\em one} of the
-sort functions which will be renamed to {\tt sort} - 
+sort functions which will be renamed to {\tt sort} -
 i.e ``{\tt import Sort(lazySort) renaming sort}'' imports {\tt lazySort},
 which can be referenced in the current scope as {\tt sort}.
 
@@ -23,21 +23,21 @@ insertSort xs = foldr insertion [] xs
 
 insertion :: (Ord a) => a -> [a] -> [a]
 insertion x [] = [x]
-insertion x (y:ys) 
+insertion x (y:ys)
 	| x <= y    = x:y:ys
 	| otherwise = y:insertion x ys
 \end{code}
 %%%%%%%%%%%%%%%%%%%%%%%%%%M e r g e   S o r t%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Merge Sort}
 The following code is taken from Keiths ''Functional Programming 2''
-lecture notes. 
+lecture notes.
 %
 \begin{code}
 mergeSort :: (Ord a) => [a] -> [a]
 mergeSort xs
-	= if (n <=1 ) then xs 
-          else 
-             (mergeList 
+	= if (n <=1 ) then xs
+          else
+             (mergeList
 		( mergeSort (take (n `div` 2) xs))
 		( mergeSort (drop (n `div` 2) xs)))
 	  where
@@ -56,7 +56,7 @@ Standard definition of quicksort\cite{turner} using list comprehensions.
 \begin{code}
 quickSort :: (Ord a) => [a] -> [a]
 quickSort []     = []
-quickSort (x:xs) = (quickSort [y | y<-xs, y<x]) ++ [x] ++ 
+quickSort (x:xs) = (quickSort [y | y<-xs, y<x]) ++ [x] ++
                    (quickSort [y | y<-xs, y>=x])
 \end{code}
 %%%%%%%%%%%%%%%%%%%%%%L e n n a r t s  S o r t%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,7 +67,7 @@ quickSort (x:xs) = (quickSort [y | y<-xs, y<x]) ++ [x] ++
 %
 \begin{rawlatex}
 \begin{itemize}
-\item {\tt sortLe} sorts with a given predicate 
+\item {\tt sortLe} sorts with a given predicate
 \item {\tt lazySort} uses the {\tt <=} method
 \end{itemize}
 \end{rawlatex}
@@ -85,7 +85,7 @@ lazyQsort le []     r = r
 lazyQsort le [x]    r = x:r
 lazyQsort le (x:xs) r = qpart le x xs [] [] r
 
--- rlazyQsort is as lazyQsort but anti-stable, 
+-- rlazyQsort is as lazyQsort but anti-stable,
 -- i.e. reverses equal elements.
 rlazyQsort :: (a -> a -> Bool) -> [a] -> [a] -> [a]
 rlazyQsort  le []     r = r
@@ -140,15 +140,15 @@ randomInts s1 s2 =
 	error "randomInts: Bad first seed."
 
 rands :: Int -> Int -> [Int]
-rands s1 s2 
-   = if z < 1 then z + 2147483562 : rands s1'' s2'' 
-     else 
+rands s1 s2
+   = if z < 1 then z + 2147483562 : rands s1'' s2''
+     else
 	 z : rands s1'' s2''
-     where	  
+     where	
 	k    = s1 `div` 53668
 	s1'  = 40014 * (s1 - k * 53668) - k * 12211
 	s1'' = if s1' < 0 then s1' + 2147483563 else s1'
-    
+
 	k'   = s2 `div` 52774
 	s2'  = 40692 * (s2 - k' * 52774) - k' * 3791
 	s2'' = if s2' < 0 then s2' + 2147483399 else s2'
@@ -185,7 +185,7 @@ test7 = take 1000 (randomInts 123213 342234)
 
 \begin{rawlatex}
 \begin{tabular}{||c||r|r||r|r||r|r||r|r||}
-\hline 
+\hline
 & \multicolumn{2}{c||}{insertSort} &
   \multicolumn{2}{c||}{mergeSort} &
   \multicolumn{2}{c||}{quickSort} &
@@ -198,20 +198,20 @@ test7 = take 1000 (randomInts 123213 342234)
   \multicolumn{1}{c|}{red} &
   \multicolumn{1}{c||}{cell} &
   \multicolumn{1}{c|}{red} &
-  \multicolumn{1}{c||}{cell}\\ 
+  \multicolumn{1}{c||}{cell}\\
 \hline\hline
-test1 	&	112 	&	225  	& 
-		360	& 	636	& 
-		362	& 	640	& 
+test1 	&	112 	&	225  	&
+		360	& 	636	&
+		362	& 	640	&
 		140 	& 	501 	\\
 \hline
-test2 	& 	184  	& 	368   	& 
-		367	&	662	& 
-		542	& 	910	& 
+test2 	& 	184  	& 	368   	&
+		367	&	662	&
+		542	& 	910	&
 		140	& 	501	\\
-\hline 
-test3 	& 	5009 	& 	11406 	& 
-		35309	& 	63196	& 
+\hline
+test3 	& 	5009 	& 	11406 	&
+		35309	& 	63196	&
 		753002  & 	1135146 &
 		252000	&	883637	\\
 \hline
@@ -219,7 +219,7 @@ test4	&	253517	&	507919	&
 		35422	&	63590	&
 		1252003	&	1883646	&
 		252000	&	883637	\\
-\hline 
+\hline
 test5	&	363	&	963	&
 		373	&	768	&
 		324	&	668	&
@@ -229,11 +229,11 @@ test6	&	8366	&	19254	&
 		6077	&	12273	&
 		6002	&	10791	&
 		4314	&	13514	\\
-\hline 
+\hline
 test7	& 	519754	&	1065013	&
 		84228	&	170230	&
 		95620	&	161432	&
 		25416	&	98789	\\
-\hline 
+\hline
 \end{tabular}
 \end{rawlatex}

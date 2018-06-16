@@ -27,7 +27,7 @@ type Alt   = ([Term], Subst)
 
 alts       :: Database -> Int -> Term -> [Alt]
 alts db n g = [ (tp,u) | (tm:==tp) <- renClauses db n g, u <- unify g tm ]
-      
+
 -- The use of a stack enables backtracking to be described explicitly,
 -- in the following `state-based' definition of prove:
 

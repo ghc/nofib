@@ -1,6 +1,6 @@
 module PSlib where
 
--- This module implements provision of 
+-- This module implements provision of
 -- control of postscript
 
 type Postscript = String
@@ -29,19 +29,19 @@ stdProcedures = rightshow ++ centreshow
 
 
 drawObject :: [Point] -> Postscript
-drawObject (pts) = newpath ++ moveto (Pt 0 0) ++ concat (map lineto pts) ++ 
+drawObject (pts) = newpath ++ moveto (Pt 0 0) ++ concat (map lineto pts) ++
 			thinlines  ++ stroke
 
 fillObject :: [Point] -> Postscript
-fillObject (pts) = newpath ++ moveto (Pt 0 0) ++ concat (map lineto pts) ++ 
+fillObject (pts) = newpath ++ moveto (Pt 0 0) ++ concat (map lineto pts) ++
 			closepath ++ fill ++ stroke
 
 fillBox :: Point -> Int -> Int  -> Int -> Postscript
-fillBox pt dx dy c = newpath ++ moveto pt ++ rlineto 0 dy ++ rlineto dx 0 ++ 
+fillBox pt dx dy c = newpath ++ moveto pt ++ rlineto 0 dy ++ rlineto dx 0 ++
 			rlineto 0 (-dy) ++ closepath ++ setgray c ++ fill
 
 drawBox :: Point -> Int -> Int -> Postscript
-drawBox pt dx dy = thinlines ++ newpath ++ moveto pt ++ rlineto 0 dy ++ rlineto dx 0 ++ 
+drawBox pt dx dy = thinlines ++ newpath ++ moveto pt ++ rlineto 0 dy ++ rlineto dx 0 ++
 			rlineto 0 (-dy) ++ closepath ++ stroke
 
 rjustify str = "("++str++") rightshow\n"
@@ -70,14 +70,14 @@ setgray 0 = "0 setgray\n"
 setgray 10 = "1 setgray\n"
 setgray n = "."++show n++" setgray\n"
 
-moveto (Pt x y) = psCommand "moveto" [x,y] 
+moveto (Pt x y) = psCommand "moveto" [x,y]
 
 rmoveto x y = psCommand "rmoveto" [x,y]
 
 lineto :: Point -> Postscript
 lineto (Pt x y) = psCommand "lineto" [x,y]
 
-rlineto x y = psCommand "rlineto" [x,y] 
+rlineto x y = psCommand "rlineto" [x,y]
 
 setlinewidth n = psCommand "setlinewidth" [n]
 

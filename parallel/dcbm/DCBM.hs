@@ -5,7 +5,7 @@ import Types
 import Delay
 import DbParallel
 
-{- 
+{-
   The function "delaya" is used to simulate disk accesses.
   The first argument to the function is the delay (in milliseconds).
   The second argument is the address of the disk.
@@ -14,7 +14,7 @@ import DbParallel
   distributes delays evenly based on the value of the address.
 
     delaya :: Int -> Int -> Int
- 
+
 -}
 
 
@@ -27,7 +27,7 @@ isok :: (Msgt, tree) -> Bool
 isok (Ok k, t) =     True
 isok (Error k, t) =  False
 
-{- 
+{-
   The following function builds a 2-3 tree. The function takes 4
   arguments. The first argument is the first record-id the tree should
   contain and the second argument is the last record-id that the tree
@@ -92,7 +92,7 @@ buildtree lo u  lev nrec =
   simple binary tree and it has only one record in each leaf node. The initial values	
   of the Teller record are a balance=0 and the Branch.ID which is chosen, "randomly",	
   to be the teller_Id modulo the tps. The function takes 3 arguments. The function	
-  builds a tree containing record.ids from "lo" to "u" inclusive. 
+  builds a tree containing record.ids from "lo" to "u" inclusive.
   "tps" is needed to generate a random number as a function of the Branch.Id.
 -}
 
@@ -169,13 +169,13 @@ replace key d nd@(Tip_Acc aid nrec) =
 	     read_disk 13 (Error key, nd)
 	where
 		read_disk d cont  =  seqi (read_delay d) cont
-			where read_delay n =  delaya n key 
+			where read_delay n =  delaya n key
 		write_disk d cont =  seqi (write_delay d) cont
 			where write_delay n = delaya n key
 
 		is_error = (key `quot` 10) `mod`  20 == 0
 
-replace key d (Tip e) = 
+replace key d (Tip e) =
 	if key == get_key e then	
 		(Ok key, (Tip (new_ent e)))
 	else
@@ -199,8 +199,8 @@ replace key d (Node1 lt k rt) =
 		(msg_l, new_lt) = replace key d lt
 
 
-replace key d (Node2 lt k1 mt k2 rt) = 
-	if key > k2 then 
+replace key d (Node2 lt k1 mt k2 rt) =
+	if key > k2 then
 	    (msg_r, Node2 lt k1 mt k2 new_rt)
 
 	else if key > k1 then
@@ -222,7 +222,7 @@ replace key d (Node2 lt k1 mt k2 rt) =
   message and a new updated database if the transaction commits, otherwise the
   transaction failed and it returns the original database. For each of the committed
   transactions a record is inserted into the history list, where the record contains	
-  the 4 first parameters to this function and a time stamp, which is currently only 
+  the 4 first parameters to this function and a time stamp, which is currently only
   set to 0. In the complete version of the program "ret_msg" is returned and in the
   simplified version of the program the transaction is assumed to commit and "Ok aid"	
   is returned. However, in the latter case the database will always be consistent
@@ -233,7 +233,7 @@ replace key d (Node2 lt k1 mt k2 rt) =
 
 dctrans :: Int -> Int -> Int -> Int-> Transaction
 
-dctrans aid bid tid delta db = 
+dctrans aid bid tid delta db =
 	par ret_acc (par ret_bra (par ret_tel
 --	(Ok aid, Root ret_acc ret_bra ret_tel ret_his )))
 --	(Ok (res `seqd` acct a_result), res)))
@@ -272,7 +272,7 @@ acct (Error aid,_) = 	aid
 
 randtxs :: Int -> Int -> [Transaction]
 
-randtxs n tps = 
+randtxs n tps =
 	txs_maker n (my_rnds (tps*100000))
 	where
 		my_rnds r = f 4364567

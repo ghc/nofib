@@ -13,16 +13,16 @@
 > import Euclid (Point(..),mkPolygon,Face,Faces)
 > import BSPT (BSPT,Status(..),classifyPoint,buildBSPT,area)
 > import Render (render,drawBSPT,partitionedDraw,drawFaces,prettyPrintBSPT)
-> import GeomNum 
+> import GeomNum
 > import Merge (union,intersection,subtract_YORK,complement)
 > import Interpret (Operation,Operations)
 
 
 	modeller: This is the core function of the program
 		It interprets the users requests and evaluates
-		the appropriate functions. There is a different 
-		clause for each command. Each will be described 
-		individually. However there are some common 
+		the appropriate functions. There is a different
+		clause for each command. Each will be described
+		individually. However there are some common
 		features: all use indicate to mark the button
 		pressed for the current action and to switch it
 		off after. All use the command sequence to cause
@@ -40,11 +40,11 @@
 > modeller current ((Quit,_):_) = reset
 > modeller current (operation@(op,_):more) =
 >	indicate op actions ++ modeller newstate more
->	where 
+>	where
 >	(actions,newstate) = perform current operation
 
 > perform :: BSPT -> Operation -> ([String],BSPT)
-> perform current (Partition,_) 
+> perform current (Partition,_)
 >	= ([clearRender, partitionedDraw current],
 >		current)
 
@@ -57,13 +57,13 @@
 
 	Classify: Labels the buttons for classify mode,
 		switches to and clears the text region,
-		prints a string derived from the users 
+		prints a string derived from the users
 		points selections and the classifications
 		of those points w.r.t. the current object.
 		'Unlabels' the buttons, switched back to the
 		noText region.
 
-> perform current (Classify,points) 
+> perform current (Classify,points)
 >	= ([ labelClassify, toTextRegion, clearText,
 >	   (str ++ "\n"), unlabelButtons, toNoTextRegion],
 >	   current)
@@ -92,28 +92,28 @@
 		clears the render screen and draws the complemented
 		object. The complemented object becomes current.
 		
-> perform current (Complement,_) 
+> perform current (Complement,_)
 >	= ([clearTree,prettyPrintBSPT btree,clearRender,
 >	    drawBSPT btree],
->	    btree) 
->	where	 
+>	    btree)
+>	where	
 >	btree = complement current
 	
 
 	Polygon: clears the tree-from and render windows,
 		labels the buttons for definition of the polygon.
 		Draws the polygon formed by the points defined
-		by the user. Note this is done lazily, so that 
+		by the user. Note this is done lazily, so that
 		the polygon is seen as it is created. The render
 		screen is then cleared and the BSPT representation
-		of the same object is drawn. The tree-form of the 
+		of the same object is drawn. The tree-form of the
 		object is also displayed. The buttons are unlabelled.
 		
-> perform current (Polygon,operand) 
->	= ([clearRender, labelDefinePoly, drawFaces polygon, 
+> perform current (Polygon,operand)
+>	= ([clearRender, labelDefinePoly, drawFaces polygon,
 >	    "\n", clearTree, grip_stats (prettyPrintBSPT btree),
 >		clearRender, drawBSPT btree, unlabelButtons],
->	   btree) 
+>	   btree)
 >	where	
 >	btree = buildBSPT (validate polygon)
 >	polygon = mkPolygon (transform operand)
@@ -132,21 +132,21 @@
 		function. For each the buttons are labelled
 		for polygon definition. The polygon (the
 		second operand to the operation) is drawn.
-		The render screen is cleared and the object 
-		defined by the operation applied to the 
+		The render screen is cleared and the object
+		defined by the operation applied to the
 		current object and the new polygon.
-		The tree-form of this object is then 
+		The tree-form of this object is then
 		printed on a cleared tree window.
 		The buttons are unlabelled.
-		Note that the funtion boolOp 
+		Note that the funtion boolOp
 		actually evaluates the boolOp of the two
 		BSP trees.
 		
-> perform current (cmd,operand) 
+> perform current (cmd,operand)
 >	= ([ labelDefinePoly, drawFaces polygon,
-> 	     "\n", clearTree, prettyPrintBSPT btree, 
+> 	     "\n", clearTree, prettyPrintBSPT btree,
 >	     clearRender, drawBSPT btree, unlabelButtons],
->	     btree) 
+>	     btree)
 >	where	
 >	btree = boolOp cmd current (buildBSPT (validate polygon))
 >	polygon = mkPolygon(transform operand)
@@ -157,15 +157,15 @@
 		a new BSP tree.
 
 > boolOp :: Command -> BSPT -> BSPT -> BSPT
-> boolOp Union current operand = union current operand 
+> boolOp Union current operand = union current operand
 > boolOp Intersect current operand = intersection current operand
-> boolOp Subtract current operand = subtract_YORK current operand 
+> boolOp Subtract current operand = subtract_YORK current operand
 
          validate - ensures that all polygons defined are closed, is have more then two
                 vertices
 
 > validate :: [a] -> [a]
-> validate pts = if (length pts<3) then [] else pts      
+> validate pts = if (length pts<3) then [] else pts
 
 	transform - execute a transformation to input points making them to the nearest 10 pixels
 

@@ -20,12 +20,12 @@ loadvec s =
 	incrvec initial_value index_value_assoc_s
 	where
 	initial_value = makevec (ndgrs s) ( \ i -> 0.0 )
-	index_value_assoc_s = index_value_assoc s 
+	index_value_assoc_s = index_value_assoc s
 
 index_value_assoc s =
 	foldl assemble_s [] [1 .. (nplds s)]
 	where
-	assemble_s = assemble s 
+	assemble_s = assemble s
 
 assemble  s till_now_d ii =
 	till_now_d ++ d_this'

@@ -30,17 +30,17 @@ data ITrm =  Sym        Int Int                     [ ITrm ] [ Attribute ]
 	   | Tagid      Tag [ Tag_Arg ]
 	   | ITrm_Err   String
 --	     deriving (Eq)
-	       
+	
 data IDec =  Symbol_dec ITrm                         [ Attribute ]
 	   | Axiom_dec  ITrm                         [ Attribute ]
 	   | Def        ITrm ITrm                    [ Attribute ]
 	   | Data       [ IDec ] [[ ITrm ]]          [ Attribute ]
 	   | Decpair    IDec IDec                    [ Attribute ]
 --	     deriving (Eq)
-      
+
 data ISgn =   Empty     			        [ Attribute ]
  	    | Extend     IDec ISgn                      [ Attribute ]
-	    | Combine    ISgn ISgn Int [ Int ]          [ Attribute ]  
+	    | Combine    ISgn ISgn Int [ Int ]          [ Attribute ]
 	    | Share      ISgn Int Int Int [ Int ]       [ Attribute ]
 --	      deriving (Eq)
 
@@ -76,7 +76,7 @@ data Tag_Arg = Tg_Trm Trm | Tg_Thm Thm | Tg_Int [Int] -- deriving ( Eq )
 -- convertion function ( tags to related objects )
 
 data Cnv_Fn = Trm_Fn ( [Tag_Arg] -> Trm ) |
-	      Thm_Fn ( [Tag_Arg] -> Thm )     
+	      Thm_Fn ( [Tag_Arg] -> Thm )
 
 -- need terms and theorems in tags ( leave here permanently? )
 
@@ -93,23 +93,23 @@ data Thm = TH ITrm ISgn | {- the theorem, and its signature             -}
 
 -- working types for parser
 
-type Attribute = ( Attribute_Tag , Attribute_Value ) 
+type Attribute = ( Attribute_Tag , Attribute_Value )
 
 
 data Flagged_ITrm = Opr Operator Oprtype Int |
-		      Opnd Operand  	   | 
+		      Opnd Operand  	   |
 		      Prs_Err String
 --		      	deriving ( Eq )
 
 data Operand = Itrm ITrm | Idec IDec | Isgn ISgn   -- normal operands
-		 | PApp Binder_conn IDec Bool        -- special partial apps, bool indicates anonymous declaration 
-		 | PairApp ITrm 
+		 | PApp Binder_conn IDec Bool        -- special partial apps, bool indicates anonymous declaration
+		 | PairApp ITrm
 	 	 | ParIfx Binary_conn ITrm
 		 | TypApp Flagged_ITrm
 		 | ParColon ITrm
 --		   deriving ( Eq )
 
-data Operator = OpItrm ITrm | OpBdr Binder_conn 
+data Operator = OpItrm ITrm | OpBdr Binder_conn
 		  | OpIfx Binary_conn | Spl String --deriving ( Eq )
 
 
@@ -133,8 +133,8 @@ data Attribute_Tag =   Name_Style
 		       deriving (Eq)
 
 
-data Attribute_Value =   Symbol_Name Name' 
-		       | Datatype_Name [ Name' ]  
+data Attribute_Value =   Symbol_Name Name'
+		       | Datatype_Name [ Name' ]
 		       | Named | Indexed
 		       | Typed | Untyped
 		       | Let
@@ -144,7 +144,7 @@ data Attribute_Value =   Symbol_Name Name'
 		       | Prefix_Binder | Infix_Binder
 		       | Recursive | Fn
 		       | NonDependent
-		       | Grouped | Ungrouped 
+		       | Grouped | Ungrouped
 		       | Parameter | NonParameter
 		       | String' String
 			 deriving (Eq)

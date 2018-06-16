@@ -23,7 +23,7 @@
 
 
 
-> type Partition = Face 
+> type Partition = Face
 
 > mkPart :: Region -> Line -> Partition
 > mkPart region line = Fc (section region line) line
@@ -56,35 +56,35 @@
 
 	location: This function returns an indicator to the relationship
 		between the given Line and Face. Relationship
-		is determined by the halfspace indicated by space. 
+		is determined by the halfspace indicated by space.
 
 > location :: Line -> Segment -> Location
 > location line (p1,p2) = case (locale p1,locale p2) of
 > 				(Coin,Coin) 	-> Coincident
 > 				(Fore,Rear) 	-> Intersects
-> 				(Rear,Fore) 	-> Intersects 
-> 				(Rear,_) 	-> ToTheRear 
+> 				(Rear,Fore) 	-> Intersects
+> 				(Rear,_) 	-> ToTheRear
 > 				(_,Rear) 	-> ToTheRear
 > 				(_,_) 		-> ToTheFore
-> 			where 
+> 			where
 > 			locale = space line
 
 
-	bisect : Returns a pair of faces formed by splitting the given face 
+	bisect : Returns a pair of faces formed by splitting the given face
 		 at the point where the line given intersects the face.
 		 The faces are returned as a pair such that the first
 		 element is the section of the original face that lies
 		 in the Rear halfspace of the line given.
-		 Note that it is assumed that the line does indeed intersect 
+		 Note that it is assumed that the line does indeed intersect
 		 the face.
 
 > bisect :: Face -> Line -> (Face,Face)
-> bisect (Fc (pt1,pt2) line1) line2 = 
->		if toBack pt1 line2 then (face1,face2) else (face2,face1) 
+> bisect (Fc (pt1,pt2) line1) line2 =
+>		if toBack pt1 line2 then (face1,face2) else (face2,face1)
 > 		where
 > 		face1 = Fc (pt1,pti) line1
 >		face2 = Fc (pti,pt2) line1
-> 		pti = solve line1 line2 
+> 		pti = solve line1 line2
 
 
 	flip_YORK : reverse the orientation of a face
@@ -100,7 +100,7 @@
 
 
 	inScreen: Predicate to test that a point lies somewhere on the rendering
-			screen. Note that the rendering screen in implicitly 
+			screen. Note that the rendering screen in implicitly
 			defined (by parameters in Params.hs).
 
 > inScreen :: Point -> Bool
@@ -123,9 +123,9 @@
 
 
 
-  
-	section: Generate the segment of a line that lies in the 
-			convex region given.  
+
+	section: Generate the segment of a line that lies in the
+			convex region given.
 
 > section :: Region -> Line -> Segment
 > section region line = f x
@@ -136,7 +136,7 @@
 
 
 
- 
+
 	findVertices - obtains the list of vertices bounding a region
 		The list is genereated by observation that the vertices will
 		be a subset of those points stored in segments of regions Faces
@@ -146,7 +146,7 @@
 > findVertices region = [pts | pts <- xs ++ ys, inRegion region pts]
 >       where
 >       xs = [x | (x,_) <- segments]
->       ys = [y | (_,y) <- segments] 
+>       ys = [y | (_,y) <- segments]
 >       segments = map getSegment (getRegion region)
 
 

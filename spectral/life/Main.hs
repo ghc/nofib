@@ -18,7 +18,7 @@ elt (a,b,c) (d,e,f) (g,h,i)
   | otherwise          = e
  where
   tot = a+b+c+d+f+g+h+i
-                            
+
 shiftr x xs = [x] ++ init xs
 shiftl x xs = tail xs ++ [x]
 shift x xs = zip3 (shiftr x xs) xs (shiftl x xs)

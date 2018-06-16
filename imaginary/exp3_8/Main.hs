@@ -50,11 +50,11 @@ main = do
 -- DEC5500		27s (16% GC)
 -- Sequent Symmetry	165s (16% GC)
 -- SUN3/180		148s (15% GC)
--- 
+--
 -- Sorry, but I havn't recompiled the compiler for any other
 -- platforms yet.
 --
--- 
+--
 {-
 
 	-- Lennart Augustsson
@@ -70,7 +70,7 @@ Nntp-Posting-Host: sun1d
 
 
 ok guys,
- 
+
   we are responsible for the '3^8 benchmark' ... and we gave a
 first approximative result of 93 sec and 412 K (old compiler version).
 
@@ -88,6 +88,6 @@ Where are all these compiler-freaks?
 :-)
 
 -- Joern von Holten
- 
+
 
 -}

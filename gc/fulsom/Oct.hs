@@ -3,16 +3,16 @@
  -
  -  Copyright 1990,1991,1992,1993 Duncan Sinclair
  -
- - Permissiom to use, copy, modify, and distribute this software for any 
+ - Permissiom to use, copy, modify, and distribute this software for any
  - purpose and without fee is hereby granted, provided that the above
  - copyright notice and this permission notice appear in all copies, and
  - that my name not be used in advertising or publicity pertaining to this
  - software without specific, written prior permission.  I makes no
  - representations about the suitability of this software for any purpose.
  - It is provided ``as is'' without express or implied warranty.
- - 
+ -
  - Duncan Sinclair 1993.
- - 
+ -
  - Csg to Oct-tree processing.
  -
  -}
@@ -46,7 +46,7 @@ makeoct csg = octer 1 csg xyz
 -- octer :: Int -> Csg -> (R3 BI) -> Oct
 octer nn csg xyz
     = case (calc csg white xyz) of
-	(res,newc',rgb,new) -> 
+	(res,newc',rgb,new) ->
          let
           newc = if new then newc' else csg
           c = light rgb (calcn newc xyz)

@@ -40,7 +40,7 @@
 --          sin a = (yr-yl) / l
 --          cos a = (xr-xl) / l
 
-module Elemstif( beam2d ) where         
+module Elemstif( beam2d ) where
 
 import Basics
 import Vector
@@ -50,9 +50,9 @@ import DB_interface
 beam2d :: (Array Int Int, Array Int Float) -> Int -> Mat Float
 
 beam2d str element =
-        makemat (6,6) 
+        makemat (6,6)
 
-              ( \ (i,j) -> 
+              ( \ (i,j) ->
                 if      ( i==1 && j==1 ) || ( i==4 && j==4 ) then b1
                 else if ( i==2 && j==1 ) || ( i==5 && j==4 ) ||
                         ( i==1 && j==2 ) || ( i==4 && j==5 ) then b2
@@ -76,4 +76,4 @@ beam2d str element =
         (nl,nr) = getenlr str element
         (xl,yl) = getnxy str nl
         (xr,yr) = getnxy str nr
- 
+

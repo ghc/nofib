@@ -9,8 +9,8 @@
 -- Parallelized by Louis Wasserman
 --
 -- Should be compiled with:
--- 	-threaded -funbox-strict-fields -O2 -fvia-c -optc-O3 
--- 	-fexcess-precision -optc-ffast-math 
+-- 	-threaded -funbox-strict-fields -O2 -fvia-c -optc-O3
+-- 	-fexcess-precision -optc-ffast-math
 -- Should be run with:
 -- 	+RTS -N<number of cores>
 
@@ -95,7 +95,7 @@ timesAtv !n !u !a !l !r = go l
   where
     go :: Int -> IO ()
     go !i = when (i < r) $ do
-	let atvsum !j !acc 
+	let atvsum !j !acc
 		| j < n	= do	!uj <- peekElemOff u j
 				atvsum (j+1) (acc + ((aij j i) * uj))
 		| otherwise = pokeElemOff a i acc >> go (i+1)
@@ -107,5 +107,5 @@ timesAtv !n !u !a !l !r = go l
 --
 aij (I# i) (I# j) = D# (
     case i +# j of
-        n -> 1.0## /## int2Double# 
+        n -> 1.0## /## int2Double#
         	(((n *# (n+#1#)) `uncheckedIShiftRA#` 1#) +# (i +# 1#)))

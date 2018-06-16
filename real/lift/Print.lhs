@@ -23,7 +23,7 @@ pprintLevel prints expressions whose binder is an (Expr, Level) pair.
 Now we have to print supercombinators too:
 
 > pprintSCs scs = i_mkstr (i_concat (map ppsc scs))
-> ppsc (name, args, rhs) = 
+> ppsc (name, args, rhs) =
 >	i_concat [ i_newline, i_str name, i_str " ",
 >		   i_interleave (i_str " ") (map i_str args),
 >		   i_str " = ",
@@ -35,14 +35,14 @@ The function @ppr@ does most of the work.
 > ppr pb (ELet isrec defs e) =
 >   i_concat [	i_str keyword, i_newline,
 >		i_indent 4 (i_interleave (i_str ";\n") (map (ppr_def pb) defs)),
->		i_str "\nin ", 
+>		i_str "\nin ",
 >		ppr pb e
 >   ]
 >   where
 >   keyword | isrec     = "letrec"
 >	    | not isrec = "let"
 > ppr pb (ELam args body) =
->   i_concat [ i_str "\\[", 
+>   i_concat [ i_str "\\[",
 >	       i_interleave (i_str ",") (map pb args),
 >	       i_str "] ", ppr pb body ]
 >
@@ -67,7 +67,7 @@ complication is that the arguments may be annotated.
 >
 
 %> example =
-%>   ELet Recursive 
+%>   ELet Recursive
 %>	[("f", ["x","y"], EAnnot (AnnotArgs [Strict, NonStrict]) (EVar "y")),
 %>	 ("g", ["x","y"], EAnnot (AnnotArgs [Strict, Strict]) (EVar "y"))]
 %>	(EVar "f")
@@ -152,7 +152,7 @@ This definition of @Oseq@ leads directly to the following definitions:
 > i_str = foldr (i_append . i_char) i_nil
 > i_mkstr iseq = o_mkstr (iseq o_empty)
 
-The definition of @i_char@, which turns a character into an @Iseq@ 
+The definition of @i_char@, which turns a character into an @Iseq@
 contains most of the subtlety.  If the character is a newline, return
 a newline, but set the pending-indent flag to @True@;
 if it isn't a newline, and the pending-indent flag is set, then
@@ -169,9 +169,9 @@ component @Oseq@s:
 
 > i_indent n iseq oseq indent npend =
 >   iseq oseq' (indent+n) npend
->   where 
+>   where
 >   oseq' indent' npend' = oseq indent npend'
->   -- Ignore the indent passed along to oseq; 
+>   -- Ignore the indent passed along to oseq;
 >   -- use the original indent instead.
 
 @spaces@ is just an auxilliary function:

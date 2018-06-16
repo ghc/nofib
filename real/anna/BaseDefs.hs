@@ -11,16 +11,16 @@ module BaseDefs where
 
 type AList a b = [(a, b)]
 
-type DefnGroup a = [(Bool, [a])] 
+type DefnGroup a = [(Bool, [a])]
 
 type ST a b = b -> (a, b)
 
 data ATree a b = ALeaf
                | ABranch (ATree a b) a b (ATree a b) Int
                  deriving (Eq)
-     
---1.3:data Maybe a = Nothing 
---             | Just a 
+
+--1.3:data Maybe a = Nothing
+--             | Just a
 --               deriving (Eq)
 
 data Reply a b = Ok a
@@ -40,7 +40,7 @@ type Iseq = Oseq -> Oseq
 
 data Set a = MkSet [a]
              deriving (Eq)
-  
+
 type Bag a = [a]
 
 
@@ -65,7 +65,7 @@ data Flag = Typecheck      -- don't do strictness analysis
           | ScaleUp Int    -- scale up target ratio
             deriving (Eq)
 
-bdDefaultSettings 
+bdDefaultSettings
    = [PolyLim 10000, MonoLim 10000, LowerLim 0, UpperLim 1000000, ScaleUp 20]
 
 bdDryRunSettings
@@ -96,10 +96,10 @@ data ExceptionInt a = MkExInt Int [a]
 {- partain: moved from SmallerLattice.hs -}
 instance (Show{-was:Text-} a, Ord a) => Num (ExceptionInt a) where
 
-   (MkExInt i1 xs1) + (MkExInt i2 xs2) 
+   (MkExInt i1 xs1) + (MkExInt i2 xs2)
       = MkExInt (i1 + i2) (xs1 ++ xs2)
 
-   (MkExInt i1 xs1) * (MkExInt i2 xs2) 
+   (MkExInt i1 xs1) * (MkExInt i2 xs2)
       = MkExInt (i1 * i2) (xs1 ++ xs2)
 
 type DomainInt = ExceptionInt Domain
@@ -120,11 +120,11 @@ type Naam = [Char]
 type Alter = AlterP Naam
 type AlterP a = ([a],                  -- parameters to pattern-match on
                  CExprP a)             -- resulting expressions
-     
+
 type ScValue = ScValueP Naam
 type ScValueP a = ([a],                -- list of arguments for the SC
                    CExprP a)           -- body of the SC
-     
+
 type CoreProgram = CoreProgramP Naam
 type CoreProgramP a = ([TypeDef],      -- type definitions
                        [(Naam,         -- list of SC names ...
@@ -136,7 +136,7 @@ type AtomicProgram = ([TypeDef],       -- exactly like a CoreProgram except
 type TypeDef = (Naam,                  -- the type's name
                 [Naam],                -- schematic type variables
                 [ConstrAlt])           -- constructor list
-     
+
 type ConstrAlt = (Naam,                -- constructor's name
                   [TDefExpr])          -- list of argument types
 
@@ -161,21 +161,21 @@ data CExprP a                              -- Core expressions
              | EAp (CExprP a) (CExprP a)   -- applications
              | ELet                        -- lets and letrecs
                   Bool                     -- True == recursive
-                  [(a, CExprP a)] 
+                  [(a, CExprP a)]
                   (CExprP a)
              | ECase                       -- case statements
-                  (CExprP a) 
+                  (CExprP a)
                   [(Naam, AlterP a)]
              | ELam                        -- lambda abstractions
                   [a]
                   (CExprP a)
                deriving (Eq)
-     
-     
+
+
 ----------------------------------------------------------
 -- Annotated Core expressions                           --
 ----------------------------------------------------------
-     
+
 type AnnExpr a b = (b, AnnExpr' a b)
 
 data AnnExpr' a b
@@ -208,9 +208,9 @@ data Eqn = EqnNVC Naam (Set Naam) (Set Naam)
 ----------------------------------------------------------
 
 type TVName = ([Int],[Int])
-     
+
 type Message = [Char]
-     
+
 data TExpr = TVar TVName
            | TArr TExpr TExpr
            | TCons [Char] [TExpr]
@@ -220,18 +220,18 @@ data TypeScheme = Scheme [TVName] TExpr
                   deriving (Eq)
 
 type Subst = AList TVName TExpr
-     
+
 type TcTypeEnv = AList Naam TypeScheme
-     
+
 type TypeEnv = AList Naam TExpr
-     
+
 type TypeNameSupply = TVName
-     
+
 type TypeInfo = (Subst, TExpr, AnnExpr Naam TExpr)
-     
+
 type TypeDependancy = DefnGroup Naam
-     
-     
+
+
 ----------------------------------------------------------
 -- Domain stuff                                         --
 ----------------------------------------------------------
@@ -270,10 +270,10 @@ data Rep = RepTwo Frontier
          | Rep2 Frontier Frontier [Rep]
            deriving (Eq, Ord, Show{-was:Text-})
 
-data DExpr = DXTwo                        
-           | DXLift1  [DExpr]         
+data DExpr = DXTwo
+           | DXLift1  [DExpr]
            | DXLift2  [DExpr]
-           | DXFunc   [DExpr] DExpr 
+           | DXFunc   [DExpr] DExpr
            | DXVar    String
              deriving (Eq)
 
@@ -284,7 +284,7 @@ type DSubst = AList String Domain
 type DRRSubst = AList String (Domain, Route, Route)
 
 type DExprEnv = AList String DExpr
-     
+
 data ConstrElem = ConstrRec
                 | ConstrVar Int
                   deriving (Eq, Ord, Show{-was:Text-})
@@ -304,9 +304,9 @@ data ACMode = Safe
 
 type MemoList = AList [Route] Route
 
-data AppInfo = A2 
+data AppInfo = A2
                    -- trivial case
-             | ALo1 
+             | ALo1
                    -- low factor in function to Lift1
              | AHi1 Int Int Domain
                    -- a high factor in a function to Lift1.
@@ -338,20 +338,20 @@ data HExpr a = HApp (HExpr a) (HExpr a)
              | HTable (AList Route (HExpr a))
                deriving (Eq, Show{-was:Text-})
 
-     
+
 ----------------------------------------------------------
 -- Prettyprinter stuff                                  --
 ----------------------------------------------------------
-     
+
 type PrPoint =  [Int]
-     
+
 type PrDomain =  [PrPoint]
-     
-     
+
+
 ----------------------------------------------------------
 -- Parser stuff                                         --
 ----------------------------------------------------------
-     
+
 type Token =  (Int, [Char])
 
 data PResult a = PFail [Token]
@@ -359,8 +359,8 @@ data PResult a = PFail [Token]
                  deriving (Eq)
 
 type Parser a =  [Token] -> PResult a
-     
-data PartialExpr = NoOp 
+
+data PartialExpr = NoOp
                  | FoundOp Naam CExpr
                    deriving (Eq)
 
@@ -373,10 +373,10 @@ data PartialExpr = NoOp
 -- === This avoids having to pass around vast hordes of        ===--
 -- === parameters containing static information.               ===--
 -- ===============================================================--
-     
-type StaticComponent 
-    =  ( 
-     	 DExprEnv,  
+
+type StaticComponent
+    =  (
+     	 DExprEnv,
      	 -- == AList Naam DExpr, the program's types
 
          DSubst,
@@ -384,7 +384,7 @@ type StaticComponent
 
          AList Naam [ConstrElem],
          -- information on constructors
-   
+
          AList Naam [Naam],
          -- information on pseudo-params inserted to fix free vars
 
@@ -392,7 +392,7 @@ type StaticComponent
          -- set of flags altering system operation
 
          (Int, Int, Int, Int, Int),
-         -- polymorphic and monomorphic Baraki limits, 
+         -- polymorphic and monomorphic Baraki limits,
          -- and lower and upper limits for lattice sizes
          -- and the scaleup ratio
 

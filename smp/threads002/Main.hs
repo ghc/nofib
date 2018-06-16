@@ -26,7 +26,7 @@ main = do
 
    sem <- newQSemN 0
 
-   let 
+   let
    	spawner :: (IO () -> IO ThreadId) -> Int -> IO ()
    	spawner c 0 = return ()
    	spawner c n = do { c (signalQSemN sem 1); spawner c (n-1); }

@@ -74,32 +74,32 @@ split _ Sg lt _ (ThmSpec  _) = Bad "Not Applicable"
 
 
 
-split_tm Sg lt tm@(Sym _ _ _ _) 
+split_tm Sg lt tm@(Sym _ _ _ _)
 	= ([], [], [], lift_null_update Sg lt (tm_valid (trm_to_Trm Sg tm)))
 
 split_tm Sg lt tm@(Constant _ _ _) =
 	    ([], [], [], lift_null_update Sg lt (tm_valid (trm_to_Trm Sg tm)))
 	
-split_tm Sg lt tm@(Const _ _ _ _ _) 
+split_tm Sg lt tm@(Const _ _ _ _ _)
 	= ([], [], [], lift_null_update Sg lt (tm_valid (trm_to_Trm Sg tm)))
 
-split_tm Sg lt tm@(App tm1 tm2 _ _) 
+split_tm Sg lt tm@(App tm1 tm2 _ _)
 	= ([TrmSpec tm1,TrmSpec tm2],[lt,lt],[True,True],
 		      lift_null_update Sg lt app_valid)
 
-split_tm Sg lt tm@(Pair tm1 tm2 tm3 _ _) 
+split_tm Sg lt tm@(Pair tm1 tm2 tm3 _ _)
 	= ([TrmSpec tm1,TrmSpec tm2,TrmSpec tm3],[lt,lt,lt],[True,True,True],
 		      lift_null_update Sg lt pair_valid)
 
-split_tm Sg lt tm@(Binder q dc tm1 _ _) 
+split_tm Sg lt tm@(Binder q dc tm1 _ _)
 	= ([DecSpec dc,TrmSpec tm1],[error "no lt"], [True,False],
 		      binder_valid (binder_fn q) Sg)
 
-split_tm Sg lt tm@(Cond dc tm1 tm2 _ _) 
+split_tm Sg lt tm@(Cond dc tm1 tm2 _ _)
 	= ([DecSpec dc,TrmSpec tm1,TrmSpec tm2],[error "no lt"],
 		      [True,False,False], cond_valid Sg)
 
-split_tm Sg lt tm@(Unary u tm1 _ _) 
+split_tm Sg lt tm@(Unary u tm1 _ _)
 	=
 	    ([TrmSpec tm1],[lt],[true],
 		      lift_null_update Sg lt (unary_valid (unary_fn u)))
@@ -108,7 +108,7 @@ split_tm Sg lt tm@(Unary u tm1 _ _)
 		      lift_null_update Sg lt (binary_valid (binary_fn b)))
       | split_tm Sg lt (tm as Recurse (tmL,ty,_,_)) =
 	    let val tmL1 = tmL @ [ty]
-	    in  (map TrmSpec tmL1, 
+	    in  (map TrmSpec tmL1,
 		 map (fn x => lt) tmL1,
 		 map (fn x => true) tmL1,
 		 lift_null_update Sg lt recurse_valid)
@@ -176,9 +176,9 @@ split_tm Sg lt tm@(Unary u tm1 _ _)
 
     and cond_valid Sg dnL rwL =
 	    case (dnL, rwL)
-	      of ([SOME (DecDone dc), 
-		   SOME (TrmDone tm1), 
-		   SOME (TrmDone tm2)],_) => 
+	      of ([SOME (DecDone dc),
+		   SOME (TrmDone tm1),
+		   SOME (TrmDone tm2)],_) =>
 			(rwL,
 			 [Sg,extend dc Sg],
 			 SOME (TrmDone (conditional tm1 tm2)))
@@ -199,7 +199,7 @@ split_tm Sg lt tm@(Unary u tm1 _ _)
 		else 	NONE
 
     and split_list [SOME (TrmDone tm)] = ([],tm)
-      | split_list (SOME (TrmDone x)::l) = 
+      | split_list (SOME (TrmDone x)::l) =
 	    let val (l1,l2) = split_list l in (x::l1,l2) end
 
     and lift_null_update Sg lt vf dnL rwL =

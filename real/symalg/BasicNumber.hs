@@ -58,31 +58,31 @@ instance Ord BasicNumber where
 instance Num BasicNumber where
 
     (BasRealC a) + b                  = BasRealC (addReal a c)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal b
     a + (BasRealC b)                  = BasRealC (addReal c b)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal a
     (BasRationalC a) + b              = BasRationalC (a + c)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational b
     a + (BasRationalC b)              = BasRationalC (c + b)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational a
     (BasIntegerC a) + (BasIntegerC b) = BasIntegerC (a + b)
     ---------------------------------------------------------------------------
 
     (BasRealC a) - b                  = BasRealC (subReal a c)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal b
     a - (BasRealC b)                  = BasRealC (subReal c b)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal a
     (BasRationalC a) - b              = BasRationalC (a - c)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational b
     a - (BasRationalC b)              = BasRationalC (c - b)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational a
     (BasIntegerC a) - (BasIntegerC b) = BasIntegerC (a - b)
     ---------------------------------------------------------------------------
@@ -91,16 +91,16 @@ instance Num BasicNumber where
     ---------------------------------------------------------------------------
 
     (BasRealC a) * b                  = BasRealC (mulReal a c)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal b
     a * (BasRealC b)                  = BasRealC (mulReal c b)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal a
     (BasRationalC a) * b              = BasRationalC (a * c)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational b
     a * (BasRationalC b)              = BasRationalC (c * b)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational a
     (BasIntegerC a) * (BasIntegerC b) = BasIntegerC (a * b)
     ---------------------------------------------------------------------------
@@ -133,20 +133,20 @@ instance Real BasicNumber where
 instance Fractional BasicNumber where
 
     (BasRealC a) / b                  = BasRealC (divReal a c)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal b
     a / (BasRealC b)                  = BasRealC (divReal c b)
-                                        where 
+                                        where
                                           (BasRealC c) = makeReal a
     (BasRationalC a) / b              = BasRationalC (a / c)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational b
     a / (BasRationalC b)              = BasRationalC (c / b)
-                                        where 
+                                        where
                                           (BasRationalC c) = makeRational a
     (BasIntegerC a) / (BasIntegerC b) = BasRationalC (a % b)
     ---------------------------------------------------------------------------
-    
+
     fromRational a = BasRationalC a
 -------------------------------------------------------------------------------
 
@@ -175,7 +175,7 @@ instance Floating BasicNumber where
 instance Show BasicNumber where
 
     showsPrec _ (BasRealC x) s  = intPart ++ "." ++ fracPart ++ s
-                                where 
+                                where
                                   evalX = show (evalReal x (-10))
                                   lenBeforeDecimal = (length evalX) - 10
                                   intPart = if lenBeforeDecimal <= 0
@@ -196,7 +196,7 @@ instance Show BasicNumber where
     showsPrec _ (BasIntegerC x) s  = shows x s
     ---------------------------------------------------------------------------
 instance Read BasicNumber where
-    
+
     readsPrec p s = if allZeros frac
                     then map int2BasNum (readsPrec p int)
                     else map rat2BasNum (readsPrec p s)
@@ -208,7 +208,7 @@ instance Read BasicNumber where
                       allZeros (c:fs)                            = allZeros fs
 
                       int2BasNum (num, s) = (BasIntegerC num, s)
-                      rat2BasNum (num, s) = (BasRationalC 
-                                               (approxRational num 0), s) 
+                      rat2BasNum (num, s) = (BasRationalC
+                                               (approxRational num 0), s)
 -------------------------------------------------------------------------------
-                                        
+

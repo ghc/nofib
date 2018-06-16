@@ -5,7 +5,7 @@
 > import Data.Complex
 > import System.Environment
 
-> main = do 
+> main = do
 >   (n:_) <- getArgs
 >   let m = read n :: Double
 >   putStr

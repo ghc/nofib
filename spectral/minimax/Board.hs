@@ -2,14 +2,14 @@ module Board where
 
 import Wins
 
-type Board = [Row] 
+type Board = [Row]
 type Row = [Piece]
 data Piece = X | O | Empty deriving Eq
 
 showBoard :: Board -> String
 showBoard [r1,r2,r3] =  showRow r1 ++ "\n------\n" ++
 			showRow r2 ++ "\n------\n" ++
-			showRow r3 ++ "\n\n" 
+			showRow r3 ++ "\n\n"
 
 showRow [p1,p2,p3] = showPiece p1 ++ "|" ++ showPiece p2 ++ "|" ++ showPiece p3
 
@@ -42,15 +42,15 @@ empty' 3 [_,_,Empty] = True
 empty' _ _ = False
 
 fullBoard b = and (map notEmpty (concat b))
-	where 
+	where
 	notEmpty x = not (x==Empty)
 
 --newPositions :: Piece -> Board -> [Board]
-newPositions piece board = concat (map (placePiece piece board) 
+newPositions piece board = concat (map (placePiece piece board)
 					[(x,y) | x<-[1..3],y <-[1..3]])
 
 initialBoard :: Board
-initialBoard = [[Empty,Empty,Empty], 
+initialBoard = [[Empty,Empty,Empty],
 		[Empty,Empty,Empty],
 		[Empty,Empty,Empty]]
 

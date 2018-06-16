@@ -10,7 +10,7 @@ import Parse
 sparkGraph ordering selectpes statFile = initGraph "Spark Activity Graph" (pes,selectpes)
 					 (100*ticks,height) ("Time (ms)", "Sparks")
 					 (map f ordering)
-				++ scale (my_fromInt dimX/my_fromInt 100) 
+				++ scale (my_fromInt dimX/my_fromInt 100)
 						(my_fromInt dimY/my_fromInt height)
 				++ concat (map2 plotCurve (map colourSpark order)
 						  (outlinesTrace traces))
@@ -44,15 +44,15 @@ data Trace = T Int [Int]
 outlinesTrace :: [Trace] -> [[Point]]
 outlinesTrace [T n a] = map (\x->[Pt n x]) a
 outlinesTrace (T n a:more) = map2 (:) (map (\x->Pt n x) a) (outlinesTrace more)
- 
+
 pam [] _ = []
 pam (f:fs) a = f a:pam fs a
- 
+
 gatherSp t [] = [t,(Sp (numberSp t+1) 0 0 0 0)]
 gatherSp t l@(a:as) | numberSp t==numberSp a = gatherSp (addSparks t a) as
                     | otherwise = t:gatherSp (Sp (n+1) 0 0 0 0) l
 					where 	n=numberSp t
- 
+
 addSparks (Sp n a b c d) (Sp _ e f g h) = Sp n (a+e) (b+f) (c+g) (d+h)
 
 data Spark = USED | RESUMED | CREATED | LOST deriving (Eq)

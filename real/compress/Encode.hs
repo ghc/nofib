@@ -1,6 +1,6 @@
 {-
  - Encode Mk 2, using a prefix table for the codes
- - 
+ -
  - Paul Sanders, Systems Research, British Telecom Laboratories 1992
  -}
 
@@ -24,7 +24,7 @@ encode input = encode' input first_code initial_table
  - is not added to the table; its code is simply its ascii value.
  -}
 
-encode' [] _ _ 
+encode' [] _ _
   = []
 encode' input v t
   = case (code_string input 0 v t) of { (input', n, t') ->

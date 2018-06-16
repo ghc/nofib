@@ -1,9 +1,9 @@
 {-
     Haskell version of ...
 
-! Lisp-like functions which allow easy hand translation from Lisp to Hope+ 
-! Started by Tony Kitto on 30th March 1988 
-! Changes Log 
+! Lisp-like functions which allow easy hand translation from Lisp to Hope+
+! Started by Tony Kitto on 30th March 1988
+! Changes Log
 ! 18-05-88 added LUT functions and regularized assoc
 ! 25-05-88 added Lisptochar and DisplayLUT
 
@@ -14,7 +14,7 @@ Haskell version::
 -}
 
 module Lisplikefns (
-    Token, Lisplist(..), LUT, 
+    Token, Lisplist(..), LUT,
     mkLisplist, strToToken, tv,
     atom, car, cdr, cadr, caddr, cadddr, assoc,
     newLUT, addtoLUT, getLUT
@@ -26,7 +26,7 @@ type Token = String -- "(" or ")" or "Lisp Symbol"
 
 data Lisplist = Nil | Atom Token | Cons (Lisplist, Lisplist) deriving (Eq,Show{-was:Text-})
 
--- These functions create a Lisplist from a list of characters 
+-- These functions create a Lisplist from a list of characters
 
 mkLisplist :: [Token] -> Lisplist
 mkLisplist ("(":t) = if r /= [] then Nil else l
@@ -46,7 +46,7 @@ strToToken :: String -> [Token]
 strToToken "" = []
 strToToken s  = a : strToToken b
 		where (a, b) = getToken s
-                         
+
 getToken :: String -> (Token, String)
 getToken ""                           = ([], "")
 getToken (h:t) | h == ' '             = getToken t
@@ -90,13 +90,13 @@ cadddr = car . cdr . cdr . cdr
 
 assoc :: (Lisplist, Lisplist) -> Lisplist
 assoc (term, Cons (x, y)) = case x of
-    Cons (head@(Atom key), rest) | term == head -> x 
+    Cons (head@(Atom key), rest) | term == head -> x
     	    	    	    	 | otherwise -> assoc (term, y)
     _ -> Nil
 assoc (_, _) 	    	  = Nil
 
 {-
-  These functions provide more complex operations based on a Lisp-like       
+  These functions provide more complex operations based on a Lisp-like
   functionality, they do not exactly match the equivalent Lisp functions
 -}
 
@@ -109,7 +109,7 @@ newLUT = Empty
 
 addtoLUT :: (Token, Lisplist, LUT) -> LUT
 addtoLUT (k, l, Empty) = Node (Empty, (k, [l]), Empty)
-addtoLUT (k, l, Node (left, (k1, kl), right)) 
+addtoLUT (k, l, Node (left, (k1, kl), right))
     | k == k1   = Node (left, (k1, l:kl), right)
     | k <  k1   = Node (addtoLUT (k, l, left), (k1, kl), right)
     | otherwise = Node (left, (k1, kl), addtoLUT (k, l, right))

@@ -49,7 +49,7 @@ min_degree old_rows = find_min init_counts [] [] []
 		-- the function does the removal
 		do_rm (cli:clis) rmd =
 			do_rm clis
-			( 
+			(
 				if (l2 == []) || (head l2) /= pivot_i
 				then cli:rmd
 				else

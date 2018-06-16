@@ -12,7 +12,7 @@
 -- from the left, adds 1, and passes it to the right (via MVars).
 -- N more threads pump zeros in at the left.  A sub-thread
 -- takes N values from the right and sums them.
--- 
+--
 
 import Control.Concurrent
 import Control.Monad

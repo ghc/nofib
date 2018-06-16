@@ -1,6 +1,6 @@
 -- -*- haskell -*-
 -- partree
--- parallel map over a tree 
+-- parallel map over a tree
 -----------------------------------------------------------------------------
 
 module Main where
@@ -10,7 +10,7 @@ import Control.Parallel
 import Tree
 
 main = do [arg1,arg2] <- getArgs
-          let 
+          let
             n = read arg1 :: Int  -- size of tree in nodes
             c = read arg2 :: Int  -- work per node
             res = partree c n
@@ -18,11 +18,11 @@ main = do [arg1,arg2] <- getArgs
 
 -- worker function to be mapped over the tree; heavily allocating!
 bar :: Int -> Int -> Int
-bar c n = tree_fold (\x y -> (x+y) `quot` 2) 0 t 
-          where forest = [ let 
+bar c n = tree_fold (\x y -> (x+y) `quot` 2) 0 t
+          where forest = [ let
                              l = take n (iterate (+i) i)
                            in
-                             list2tree l 
+                             list2tree l
                          | i <- [1..c + n `mod` 15] ]
                 t = foldl1 (^:) forest
 

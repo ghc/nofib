@@ -14,7 +14,7 @@
 	mapcat - map a function over a list and concatenates the results
 
 > mapcat :: (a->[b]) -> [a] -> [b]
-> mapcat f x = foldr (++) [] (map f x) 
+> mapcat f x = foldr (++) [] (map f x)
 
 
 	map2 - maps a binary function over two lists to produce a result
@@ -91,7 +91,7 @@
 > toNum :: Char -> Int
 > toNum x = (fromEnum x - fromEnum '0')
 
- 
+
         seQuence: Concatenates a list of strings.
 
 > seQuence :: [String] -> String

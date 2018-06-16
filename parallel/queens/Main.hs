@@ -22,7 +22,7 @@ nqueens nq = length (pargen 0 [])
     pargen :: Int -> [Int] -> [[Int]]
     pargen n b
        | n >= threshold = iterate gen [b] !! (nq - n)
-       | otherwise      = concat bs 
+       | otherwise      = concat bs
        where bs = map (pargen (n+1)) (gen [b]) `using` parList rdeepseq
 
     threshold = 3

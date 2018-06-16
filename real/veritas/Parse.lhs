@@ -41,7 +41,7 @@
 >              Prs_Err mesg         -> Bad mesg
 
 > parse_Thm_M sg ps str
->	= if is_valid_Thm th 
+>	= if is_valid_Thm th
 >		then Ok th
 >		else Bad mesg
 >	  where
@@ -60,10 +60,10 @@
 
 
 
-> parse_tm (tgL , sg ) str 
+> parse_tm (tgL , sg ) str
 >	= build_trm sg flag_itm
 >	  where
->	  ( flag_itm , _ ) = drive_parse ( tgL , sg ) str 
+>	  ( flag_itm , _ ) = drive_parse ( tgL , sg ) str
 
 > parse_itm sg str
 >	= itm
@@ -74,7 +74,7 @@
 
 
 
-The driver function for the parser takes a signature and a string, 
+The driver function for the parser takes a signature and a string,
 returning an ITrm (with will contain the wrapper Opnd or Prs_Err depending
 on success) and an unused list of tokens. (In normal usage this will be
 empty?) The term parser is given the terminator token (Rvd "") which
@@ -83,7 +83,7 @@ list by the tokeniser.
 
 > drive_parse :: Parse_State -> String -> ( Flagged_ITrm , [Token] )
 
-> drive_parse sg str 
+> drive_parse sg str
 >	= term sg [Rvd ""] ( tokenise str )
 
 
@@ -103,7 +103,7 @@ list of terminating tokens whose presence on the input list of tokens
 will indicate that the parse is complete and the input list of tokens
 itself.	The result is as for `parse_tm' above.
 
-> term :: Parse_State -> [Token] -> [Token] -> (Flagged_ITrm , [Token]) 
+> term :: Parse_State -> [Token] -> [Token] -> (Flagged_ITrm , [Token])
 
 > term sg tmnL tkL
 >	= ( tm , tkL2 )
@@ -131,14 +131,14 @@ the element at the head of the returned list may be discarded as it must
 match the required token for a successful parse. ( If the parse was
 unsuccessful, the list will not be required anyway--functions must
 merely ensure that their returned list contain at least one dummy element)
-Again, see the if clause below for a documented example of this. 
+Again, see the if clause below for a documented example of this.
 NOTE: these two features are not documented in subsequent clauses where
 they are employed.
 
 Note also that many of the necessary attributes are added by the generator
 funcions (if',let' etc.) contained in the module `build_itrm'.
 
-> term' :: Parse_State -> [Token] -> [Token] -> ([Flagged_ITrm] , [Token]) 
+> term' :: Parse_State -> [Token] -> [Token] -> ([Flagged_ITrm] , [Token])
 
 
 if expression
@@ -175,16 +175,16 @@ of `dc'--see paragraph above and `pst_extend' below.)
 > 	= ( [ cond_tm ] , tkL4 )
 >	  where
 >	  cond_tm = cond' dc t_tm f_tm
->	  ( dc   , _ : tkL2 ) = hyp sg [ Rvd "then" ] tkL 
+>	  ( dc   , _ : tkL2 ) = hyp sg [ Rvd "then" ] tkL
 >	  ( t_tm , _ : tkL3 ) = term sg2 [ Rvd "else" ] tkL2
 >	  ( f_tm , tkL4 )     = term sg2 tmnL tkL3
->	  sg2 = pst_extend dc sg 
+>	  sg2 = pst_extend dc sg
 
 
 
 let expression
 
-A let expression, similarly to `if'  consists of a declaration (dc) 
+A let expression, similarly to `if'  consists of a declaration (dc)
 and two terms (tm1) and (tm2) and has the semantics:-
 
 let dc = tm1 in tm2     is equivalent to    ( \dc.tm2 ) tm1
@@ -193,7 +193,7 @@ Again similarly to `if', the second term (tm2) extends "as far as possible"
 to the right. The intermediate declaration and term (dc & tm1) are
 terminated by the tokens "=" & "in" as shown with the second term (and
 hence the entire expression) being terminated by the original termination
-tokens (tmnL). 
+tokens (tmnL).
 
 Note that the variable introduced in `dc' is in scope for `tm2' but
 not for `tm1'. The reason for this is apparent if the semantics above
@@ -216,8 +216,8 @@ if atomic terms (tmL) defining the operations on each of the
 constructors of a type and an obligatory typing for the term (srt).
 
 The function `recurse_cls' deals with the details of the parsing
-of the component terms. The empty list indicated is an 
-initialisation of the accumulated list of terms returned by the 
+of the component terms. The empty list indicated is an
+initialisation of the accumulated list of terms returned by the
 function.
 
 Note : recurse clause (recurse_cls) throws away separators ( no need for _:)
@@ -235,14 +235,14 @@ fn
 >{-
 > term' sg tmnl ( Rvd "fn" : tkl )
 >	= case tkl? of
->		Rvd "|" : tkl?' -> 
+>		Rvd "|" : tkl?' ->
 >-}
 
 
 
 subscripted application
 
-All applications are treated as a dummy operator ( Spl "" ). A subscripted 
+All applications are treated as a dummy operator ( Spl "" ). A subscripted
 application is treated as a BinR operator of precedence 100. (Normal
 application is left associative (BinL)). The function being applied
 will have already been parsed prior to encountering the open subscript
@@ -250,7 +250,7 @@ character. The argument (argtm) follows immediately and is terminated
 by the close subscript character
 
 Unlike `if' and `let' expressions, the subscripted application may
-be followed by further terms taking their place in the term list 
+be followed by further terms taking their place in the term list
 produced by term' (tmL). They are placed in the list after `argtm'.
 The prioritise function will rearrange them into their correct positions
 in the expression. `argtm' itself is already folded into a single expression
@@ -287,7 +287,7 @@ expression (tm).
 >	  bdr_tm = binder' nm dc tm
 >	  ( dc , _ : tkL2 ) = bdec sg [ Rvd "." ] tkL
 >	  ( tm , tkL3 )     = term sg2 tmnL tkL2
->	  sg2 = pst_extend dc sg 
+>	  sg2 = pst_extend dc sg
 
 
 
@@ -354,7 +354,7 @@ described above.
 
 (168 = open < , 169 = close > )
 
-> term' sg tmnL ( Rvd "\168" : Clr no1 : Rvd "," : Clr no2 : Rvd "," : 
+> term' sg tmnL ( Rvd "\168" : Clr no1 : Rvd "," : Clr no2 : Rvd "," :
 >						Clr no3 : Rvd "\169" : tkL )
 > 	= ( const' no1 no2 no3 : tmL , tkL2 )
 >	  where
@@ -376,8 +376,8 @@ Subtypes are treated as binders (binder') similarly to prefix binders.
 >	  where
 >	  ( dc , _ : tkL2 ) = bdec sg [ Rvd "|" ] tkL
 >	  ( tm , _ : tkL3 ) = term sg2 [ Rvd "}" ] tkL2
->	  ( tmL , tkL4 )    = term' sg tmnL tkL3 
->	  sg2 = pst_extend dc sg 
+>	  ( tmL , tkL4 )    = term' sg tmnL tkL3
+>	  sg2 = pst_extend dc sg
 
 
 
@@ -395,11 +395,11 @@ Note that the remainder of the list of terms being generated (tmL) is parsed
 on the extended signature (sg2).
 
 > term' sg tmnL ( Rvd "[" : tkL )
->	= ( dc : tmL , tkL3 ) 
+>	= ( dc : tmL , tkL3 )
 >	  where
 >	  ( dc , _ : tkL2 ) = bdec sg [ Rvd "]" ] tkL
 >	  ( tmL , tkL3 )    = term' sg2 tmnL tkL2
->	  sg2 = pst_extend dc sg 
+>	  sg2 = pst_extend dc sg
 
 
 
@@ -407,9 +407,9 @@ infix binders
 
 Infix binders are mapped into operators by the function `make_prebdr' and
 then added to the result list of terms (bdrop).  (The operator contains
-the corresponding prefix binder constructor (Lambda etc.), associativity 
-and precedence of the binder.) The operator and its arguments will be mapped 
-into a binder ITrm construction when the function `app'' (defined in module 
+the corresponding prefix binder constructor (Lambda etc.), associativity
+and precedence of the binder.) The operator and its arguments will be mapped
+into a binder ITrm construction when the function `app'' (defined in module
 build_itrm) is folded into the list of terms produced as a result of
 this function.
 
@@ -425,9 +425,9 @@ The second argument will be contained in the list `tmL'.)
 
 
 
-infix operators ( And Or etc ) 
+infix operators ( And Or etc )
 
-The handling of infix operators is analogous to the handling of infix 
+The handling of infix operators is analogous to the handling of infix
 binders above. The function `make_iop' generates an operator (iop) which will
 be mapped into an ITrm operator construction by the function `app''.
 
@@ -442,7 +442,7 @@ is enforced by `app''.)
 
 
 
-prefix (not) operator 
+prefix (not) operator
 
 The prefix operator, not, is treated analogously to the infix operators
 described above. Since only one such operator is present, the operator
@@ -496,7 +496,7 @@ which is not a digit.
 > term' sg tmnL ( Clr ( 'U' : arg@(_:_) ) : tkL ) | and ( map isDigit arg )
 >	= ( universe : tmL , tkL2 )
 >	  where
->	  universe = ( Opnd . Itrm ) ( Constant ( Univ i ) [] [] ) 
+>	  universe = ( Opnd . Itrm ) ( Constant ( Univ i ) [] [] )
 >	  i        = read arg
 >	  ( tmL , tkL2 ) = term' sg tmnL tkL
 
@@ -504,9 +504,9 @@ which is not a digit.
 
 constant symbols
 
-The constant symbols `true', `false' and `bool' may be mapped 
+The constant symbols `true', `false' and `bool' may be mapped
 directly into their ITrm constant representations. As for Universes,
-the remainder or the input (tkL) is parsed for the remainder of the 
+the remainder or the input (tkL) is parsed for the remainder of the
 result list of terms (tmL).
 
 > term' sg tmnL ( Clr nm : tkL ) | nm == "true" || nm == "false" || nm == "bool"
@@ -522,26 +522,26 @@ result list of terms (tmL).
 
 tags
 
-> term' pst@( tgL , sg ) tmnL ( Clr nm : tkL ) 
->	= if in_tgL then ( tag' tg argL : tmL2 , tkL3 ) 
->	            else ( sym_id : tmL1 , tkL2' ) 
+> term' pst@( tgL , sg ) tmnL ( Clr nm : tkL )
+>	= if in_tgL then ( tag' tg argL : tmL2 , tkL3 )
+>	            else ( sym_id : tmL1 , tkL2' )
 >	  where
->	  sym_id = lookUp nm sg 
+>	  sym_id = lookUp nm sg
 >	  ( tmL1 , tkL2' ) = term' pst tmnL tkL
 >	  ( tmL2 , tkL3 )  = term' pst tmnL tkL2
->	  ( in_tgL , tg@( _ , arg_kndL , _ )) = fetch_tg nm tgL 
+>	  ( in_tgL , tg@( _ , arg_kndL , _ )) = fetch_tg nm tgL
 >	  ( argL , tkL2 ) = parse_tag_arg [] arg_kndL tkL
 
 >	  parse_tag_arg tg_resL ( knd : kndL ) lcl_tkL
 >		= parse_tag_arg ( tg_res : tg_resL ) kndL lcl_tkL3
 >		  where
->		  ( tg_res , lcl_tkL3 ) 
+>		  ( tg_res , lcl_tkL3 )
 >			= case knd of
 >				Term_Arg  -> ( Tg_Trm trm_res , lcl_tkL2 )
 >				Deriv_Arg -> ( Tg_Thm thm_res , lcl_tkL2 )
->				Int_Arg   -> parse_iL lcl_tkL 
->		  trm_res = build_trm sg res_tm 
->		  thm_res = parse_deriv pst res_tm 
+>				Int_Arg   -> parse_iL lcl_tkL
+>		  trm_res = build_trm sg res_tm
+>		  thm_res = parse_deriv pst res_tm
 >		  ( res_tm , lcl_tkL2 ) = aterm pst [] lcl_tkL
 
 >	  parse_tag_arg tg_resL [] lcl_tkL
@@ -561,7 +561,7 @@ error if it is not found.
 > term' pst@( _ , sg)  tmnL ( Clr nm : tkL )
 >	= ( sym_id : tmL , tkL2 ) -- also checks tag list
 >	  where
->	  sym_id = lookup nm sg 
+>	  sym_id = lookup nm sg
 >	  ( tmL , tkL2 ) = term' pst tmnL tkL
 >-}
 
@@ -569,18 +569,18 @@ error if it is not found.
 
 last clauses - termination and error conditions
 
-check for terminator token 
+check for terminator token
 
 If the next token is in the termination list (tmnL), then the parse is
 complete and the empty list of terms is returned. The input token list
 (tkL) is returned unchanged.
 
-> term' sg tmnL tkL@( tk : _ ) | tk `elem` tmnL 
+> term' sg tmnL tkL@( tk : _ ) | tk `elem` tmnL
 >	= ( [] , tkL )
 
 
 
-Any reserved word which has not been already dealt with and was not in the 
+Any reserved word which has not been already dealt with and was not in the
 termination list (tmnL), is unexpected and an error. (The termination list
 was checked in the above clause.)
 
@@ -600,7 +600,7 @@ If the input stream is empty then cease parsing (enhance later)
 >{- end of file with tmnl not empty is not necessarily an error e.g. ';' in sig
 >  	= ( [ Prs_Err mesg ] , dmy )
 >	  where
->  	  mesg = " expecting '" ++ concat ( map disp_tk tmnl ) ++ "'" 
+>  	  mesg = " expecting '" ++ concat ( map disp_tk tmnl ) ++ "'"
 >-}
 
 
@@ -632,7 +632,7 @@ symbols
 constructors
 (168 = open < , 169 = close > )
 
-> aterm sg tmnl ( Rvd "\168" : Clr no1 : Rvd "," : Clr no2 : Rvd "," : 
+> aterm sg tmnl ( Rvd "\168" : Clr no1 : Rvd "," : Clr no2 : Rvd "," :
 >						Clr no3 : Rvd "\169" : tkl )
 > 	= ( const' no1 no2 no3 , tkl )
 
@@ -643,7 +643,7 @@ subtypes
 >	  where
 >	  ( dc , _ : tkl2 ) = bdec sg [ Rvd "|" ] tkl
 >	  ( tm , tkl3 ) = term sg2 [ Rvd "}" ] tkl2
->	  sg2 = pst_extend dc sg 
+>	  sg2 = pst_extend dc sg
 
 universes
 (Note : ensure argument is non-empty list of digits)
@@ -651,7 +651,7 @@ universes
 > aterm sg tmnl ( Clr ( 'U' : arg@(_:_) ) : tkl ) | and ( map isDigit arg )
 >	= ( universe , tkl )
 >	  where
->	  universe = ( Opnd . Itrm ) ( Constant ( Univ i ) [] [] ) 
+>	  universe = ( Opnd . Itrm ) ( Constant ( Univ i ) [] [] )
 >	  i        = read arg
 
 constant symbols
@@ -676,7 +676,7 @@ symbol names
 > aterm ( _ , sg ) tmnl ( Clr nm : tkl )
 >	= ( sym_id , tkl ) -- also checks tag list
 >	  where
->	  sym_id = lookUp nm sg 
+>	  sym_id = lookUp nm sg
 
 > aterm sg tmnl ( tk : tkl )
 >	= ( Prs_Err (" unexpected '" ++ disp_tk tk ++ "' (aterm -- no tmnl check)" ) , dmy )
@@ -696,7 +696,7 @@ present.
 
 If a declaration (btm) is contained within `[' and `]' then a valid
 terminator token should immediately follow it (head of `tkL2'). An error
-also occurs if `tkL2' is empty. The case analysis checks for these 
+also occurs if `tkL2' is empty. The case analysis checks for these
 conditions.
 
 {-
@@ -708,16 +708,16 @@ note if dec in [ ] then a terminator must immediately follow the ']'
 
 > hyp :: Parse_State -> [Token] -> [Token] -> ( Flagged_ITrm , [Token] )
 
-> hyp sg tmnL ( Rvd "[" : tkL ) 
+> hyp sg tmnL ( Rvd "[" : tkL )
 >	= case tkL2 of
->		nxt : _ | nxt `elem` tmnL 
+>		nxt : _ | nxt `elem` tmnL
 >			-> ( btm , tkL2 )
 >               nxt : _ -> ( Prs_Err mesg1 , dmy )
 >			   where
 >	  		   mesg1 = "Unexpected token '"++ disp_tk nxt ++"'"
 >		_	-> ( Prs_Err mesg2 , dmy )
 >	  where
->	  ( btm , _ : tkL2 ) = bdec sg [ Rvd "]" ] tkL 
+>	  ( btm , _ : tkL2 ) = bdec sg [ Rvd "]" ] tkL
 >	  mesg2 = "Unexpected end of file"
 
 
@@ -728,11 +728,11 @@ the anonymous declaration. The name of the declaration is defined to be "_"
 and the attribute `hyp_ndpnd' is added to the attribute list to show
 that it is anonymous.
 
-> hyp sg tmnL tkL 
+> hyp sg tmnL tkL
 >	= ( anon_dc , tkL2 )
 >	  where
 >	  anon_dc = symbol_dec' tm  ( Name "_" ) [ hyp_ndpnd ]
->	  ( tm , tkL2 ) = term sg tmnL tkL 
+>	  ( tm , tkL2 ) = term sg tmnL tkL
 
 
 
@@ -745,18 +745,18 @@ binding declarations
 
 This is the driver function for the declaration parser. It uses the
 function `bdec'' to generate a declaration (nxt_dc) and then checks
-the remaining input stream (tkL2) for further declarations. 
+the remaining input stream (tkL2) for further declarations.
 
 If there are further declarations (`;' is at the head of the list),
-`bdec' itself is used to generate them (rest) on a signature extended 
+`bdec' itself is used to generate them (rest) on a signature extended
 with the first declaration (sg2). (Using `bdec' rather than `bdec'' here
-allows for further `;' characters after the next declaration.) 
+allows for further `;' characters after the next declaration.)
 The component declarations are joined together using `decpair''. The
 attribute `un_grp' is added to indicate that the declarations were
 ungrouped. (Grouped declarations are dealt with by `bdec_name' below.)
 
 Note that since `decpair'' applies a single declaration (nxt_dc) to the already
-paired declarations (rest) (paired by the recursive call to `bdec'), 
+paired declarations (rest) (paired by the recursive call to `bdec'),
 `;' is right associative.
 
 Note also that a valid terminator token should occur at the head of
@@ -768,19 +768,19 @@ is still passed back at the head of the remaining input (tkL2).
 
 > bdec :: Parse_State -> [Token] -> [Token] -> ( Flagged_ITrm , [Token] )
 
-> bdec sg tmnL tkL 
+> bdec sg tmnL tkL
 >	= case tkL2 of
->		Rvd ";" : tkL2' 
->			-> ( decpair' [un_grp] nxt_dc rest , tkL3 ) 
+>		Rvd ";" : tkL2'
+>			-> ( decpair' [un_grp] nxt_dc rest , tkL3 )
 >			   where
 >	                   ( rest , tkL3 ) = bdec sg2 tmnL tkL2'
 >		tk : _ | tk `elem` tmnL
->			->  ( nxt_dc , tkL2 ) 
+>			->  ( nxt_dc , tkL2 )
 >--		oth     ->  ( Prs_Err "Malformed declaration" , dmy )
 >		oth     ->  error ( "Bdec: " ++ concat ( map disp_tk oth ) ++ "\ntmnl: " ++ concat ( map disp_tk tmnL ) ++ "|" )
 > 	  where
 >	  ( nxt_dc , tkL2 ) = bdec' sg tmnL tkL
->	  sg2 = pst_extend nxt_dc sg 
+>	  sg2 = pst_extend nxt_dc sg
 
 
 
@@ -790,19 +790,19 @@ is still passed back at the head of the remaining input (tkL2).
 
 bdec' performs a check for parentheses in a declaration. If they are present,
 it uses the function `bdec' to generate a single declaration from the tokens
-contained within the parentheses. If they are not, the function 
+contained within the parentheses. If they are not, the function
 `bdec_name' is used to generate a grouped set of declarations. The empty
 list represents the initialisation of the accumulated list of declarations
 within the group generated by `bdec_name'.
 
 > bdec' :: Parse_State -> [Token] -> [Token] -> ( Flagged_ITrm , [Token] )
 
-> bdec' sg tmnL ( Rvd "(" : tkL ) 
+> bdec' sg tmnL ( Rvd "(" : tkL )
 >	= ( nxt_dc , tkL2 )
 >	  where
->         ( nxt_dc , _ : tkL2 ) = bdec sg [ Rvd ")" ] tkL 
+>         ( nxt_dc , _ : tkL2 ) = bdec sg [ Rvd ")" ] tkL
 
-> bdec' sg tmnL tkL  
+> bdec' sg tmnL tkL
 >	= bdec_name sg ( Rvd ";" : tmnL ) [] tkL
 
 
@@ -817,9 +817,9 @@ Firstly a name is generated from the input stream (nm). If the name
 is valid (case nm), a case analysis is performed on the following token
 (head of tkL2). If a ',' is found, another element in the group follows.
 In this case, `bdec_name' is called recusively with the current name (nm)
-being added to the accumulated list of group names (nmL). 
+being added to the accumulated list of group names (nmL).
 
-If ':' is found, a term representing the sort of each element in the group 
+If ':' is found, a term representing the sort of each element in the group
 follows. This is parsed by `term'. The function `make_dc' is then used
 to assign this sort to each name in the accumulated name list (nmL). Since
 only one sort declaration can occur per group, parsing of the group list
@@ -832,7 +832,7 @@ assigned to each name in the group. The function `make_dc' is again used
 for this purpose. The attribute `dec_untpe' is added to indicate that
 no explicit sort was given for the group.
 
-> bdec_name :: Parse_State -> [Token] -> [Name'] -> [Token] 
+> bdec_name :: Parse_State -> [Token] -> [Name'] -> [Token]
 >					-> (Flagged_ITrm , [Token])
 
 > bdec_name sg tmnL nmL tkL
@@ -844,12 +844,12 @@ no explicit sort was given for the group.
 
 >         switch inm ( Rvd "," : tkL2' ) = bdec_name sg tmnL ( inm : nmL ) tkL2'
 
->	  switch inm ( IfxOp ":" : tkL2' ) 
+>	  switch inm ( IfxOp ":" : tkL2' )
 >		= ( make_dc ( reverse ( inm : nmL )) srt dec_tpe , tkL3 )
 >		  where
 >		  ( srt , tkL3 ) = term sg ( Rvd ";" : tmnL ) tkL2'
 
->	  switch inm tkL 
+>	  switch inm tkL
 >		= ( make_dc ( reverse ( inm : nmL )) dft dec_untpe , tkL )
 
 >	  dft = Opnd ( Itrm ( Constant ( Univ 0 ) [] [] )) --temporary default
@@ -861,13 +861,13 @@ no explicit sort was given for the group.
 
 
 
-`make_dc' is an auxiliary function to `bdec_name' defined above. Its 
-function is to take a list of names and a sort and generate a single 
+`make_dc' is an auxiliary function to `bdec_name' defined above. Its
+function is to take a list of names and a sort and generate a single
 paired declaration containing all the given names assigned with the given sort.
-It also adds the supplied attribute to each individual declaration (tped). 
+It also adds the supplied attribute to each individual declaration (tped).
 
 `make_dcL' assigns the given sort to each name in nmL producing a list of
-declaration (dcL). 
+declaration (dcL).
 The function `decpair'' is then folded into this list to produce a single
 declaration. The attribute `grp' is added to each paired declaration indicating that it is part of a group.
 
@@ -879,11 +879,11 @@ to the component symbol declarations.)
 
 > make_dc nmL ( Opnd ( Itrm srt )) tped
 >	= case dcL of
->		[] -> Prs_Err "empty declaration" 
->		_  -> foldr1 ( decpair' [grp] ) dcL 
+>		[] -> Prs_Err "empty declaration"
+>		_  -> foldr1 ( decpair' [grp] ) dcL
 >	  where
->	  dcL = make_dcL 0 nmL 
->	  make_dcL cnt ( nm : nmL ) 
+>	  dcL = make_dcL 0 nmL
+>	  make_dcL cnt ( nm : nmL )
 >		= dc : ( make_dcL ( cnt + 1 ) nmL )
 >		  where
 >		  dc = Opnd ( Idec ( Symbol_dec shft_srt [ sym_nm nm , tped ]))
@@ -891,7 +891,7 @@ to the component symbol declarations.)
 >	  make_dcL _ [] = []
 
 > make_dc nmL ( Prs_Err mesg ) _
->	= Prs_Err mesg 
+>	= Prs_Err mesg
 
 > make_dc nmL _ _ = error "unexpected term in make_dc"
 
@@ -902,8 +902,8 @@ to the component symbol declarations.)
 
 
 
-Atomic binding declarations consist of either a binding declaration 
-enclosed in `(' `)' or an untyped, single named declaration. 
+Atomic binding declarations consist of either a binding declaration
+enclosed in `(' `)' or an untyped, single named declaration.
 
 If a `(' token appears at the head of the list, the function `bdec' may
 be used to build a declaration from the contents of the parentheses.
@@ -915,12 +915,12 @@ the name parse, the error is passed back unchanged (case nm).
 
 > abdec :: Parse_State -> [Token] -> [Token] -> ( Flagged_ITrm , [Token] )
 
-> abdec sg tmnL ( Rvd "(" : tkL ) 
+> abdec sg tmnL ( Rvd "(" : tkL )
 >	= ( nxt_dc , tkL2 )
 >	  where
->         ( nxt_dc , _ : tkL2 ) = bdec sg [ Rvd ")" ] tkL 
+>         ( nxt_dc , _ : tkL2 ) = bdec sg [ Rvd ")" ] tkL
 
-> abdec sg tmnL tkL  
+> abdec sg tmnL tkL
 >	= case nm of
 >		Ok inm   -> ( symbol_dec' dft inm [] , tkL2 )
 >		Bad mesg -> ( Prs_Err mesg , dmy )
@@ -946,10 +946,10 @@ the type (in the sense of prefix, postfix etc.) and precedence of the operator
 respectively. They will return defaults if no explicit values are found.
 
 The token `}' should occur at the head of the list returned by the precedence
-parser `opprc' (tkl3). If this is not found an error is returned. 
+parser `opprc' (tkl3). If this is not found an error is returned.
 
 > name ( Rvd "{" : Clr id : tkL )
->	= case tkL3 of 
+>	= case tkL3 of
 >		Rvd "}" : tkL3' -> ( Ok ( Operator' id prc optype ) , tkL3' )
 >		_		-> ( Bad "missing '}'" , dmy )
 >	  where
@@ -963,7 +963,7 @@ is found (oth in following cluase) an error message is generated. An
 error message is also generated if the input list is empty.
 
 > name ( Clr id : tkL )
->	= ( Ok ( Name id ) , tkL ) 
+>	= ( Ok ( Name id ) , tkL )
 
 > name ( oth : tkL )
 >	= ( Bad ( " unexpected '" ++ disp_tk oth ++ "' (name)" ) , dmy )
@@ -982,7 +982,7 @@ corresponding constructor of type `Oprtype').
 
 If the token does not match one of the four types of operators, a default
 of binary left associative (BinL) is returned (final clause). Note here
-that the input token list (tkL) is returned unchanged as it will be 
+that the input token list (tkL) is returned unchanged as it will be
 required by the precedence parser `opprc'. (Since neither the type or
 precedence is compulsory, no input should be `eaten' if no matching
 token is found.)
@@ -1037,9 +1037,9 @@ in this case.
 
 recurse fns
 
-This is an auxiliary function dealing with the Recurse expression. 
+This is an auxiliary function dealing with the Recurse expression.
 The function accumulates atomic terms (fnL) representing the cases of
-a Recurse expression until the keywords `end' followed by `typed' are 
+a Recurse expression until the keywords `end' followed by `typed' are
 found. (recurse must be typed)
 
 The argument to the keyword `typed' is dealt with by the calling function
@@ -1068,36 +1068,36 @@ itself.
 fn clauses -- incomplete
 
 >{-
-> fn_clauses 
+> fn_clauses
 >	= case ident_type tkL of
->		Ok ( i , j , k ) 
->			 -> match ctrL nmL ( i , j ) tkL 
+>		Ok ( i , j , k )
+>			 -> match ctrL nmL ( i , j ) tkL
 >			    where
->			    ( Data _ ctrL [ dat_nm nmL ] ) 
->					= fetch_type sg i j 
+>			    ( Data _ ctrL [ dat_nm nmL ] )
+>					= fetch_type sg i j
 >	  	Bad mesg -> ( Prs_Err mesg , dmy )
 
 
 > match sg ctrL ( tpe_nm : nmL ) tp_id tkl
 >	= ( recurse' fnL srt , tkl2 )
 >	  where
->	  ( fnL , tkl2 ) = match_cls 
+>	  ( fnL , tkl2 ) = match_cls
 
 > match_cls ctr_argL nm
 >	= case tkl2 of
 >		Rvd "\167" : tkl2' -> make_rhs
 >		otherwise          -> error ""
 >	  where
->	  ( ( nm , fmls ) , tkl2 ) = parg sg nm tmnl abdec True tkl 
+>	  ( ( nm , fmls ) , tkl2 ) = parg sg nm tmnl abdec True tkl
 >	  sg2 = extend' sg ( fmls ++ rcL )
->	  rcL = find_recursive ctr_argL tp_id fmls 
+>	  rcL = find_recursive ctr_argL tp_id fmls
 
 > make_rhs
 >	= case tkl2 of
->		Rvd "|" : tkl2'       -> match_cls 
+>		Rvd "|" : tkl2'       -> match_cls
 >		tk : _ | tk `elem` tmnl -> ( clsL , tkl2 )
 >   	  where
->	  tm = add_lambda  
+>	  tm = add_lambda
 >	  ( rhs , tkl2 ) = term sg2 tmnl tkl2'
 
 
@@ -1131,7 +1131,7 @@ fn clauses -- incomplete
 Prioritise
 
 The prioritiser rearranges the list of terms produced by `term'' into
-their correct precedence order before the `app'' function is folded 
+their correct precedence order before the `app'' function is folded
 into resulting list.
 
 The following driver function initialises the `stacks' for the main
@@ -1154,7 +1154,7 @@ non-empty.
 The precedence algorithm is described in the clauses of the function which
 follows. The algorithm uses two list, an operand list (opnds) on which
 the final, reordered term list will emerge, and an operator stack (oprs),
-which is used as a temporary store for operators while they are being 
+which is used as a temporary store for operators while they are being
 reordered. The constructor at the head of each Flagged_ITrm indicates
 whether its component ITrm is an operator or an operand. The final list
 of terms is in prefix form (function before arguments) thus allowing
@@ -1169,7 +1169,7 @@ without examining the remaining terms (opL) (which in normal circumstances
 will be empty anyway).
 
 > ptse opnds oprs _ ( Prs_Err tm : opL )
->	= [ Prs_Err tm ] 
+>	= [ Prs_Err tm ]
 
 The boolean flag (third argument to `ptse') is used to indicate that the
 previous term was another operand. If this case a dummy operator for
@@ -1183,22 +1183,22 @@ called on the next remaining term list (opL). The flag is now set to True
 to indicate the presence of an operand.
 
 > ptse opnds oprs False ( Opnd tm : opL )
->	= ptse ( Opnd tm : opnds ) oprs True opL 
+>	= ptse ( Opnd tm : opnds ) oprs True opL
 
 If an operand is encountered and the flag is True, (previous term was an
-operand), the dummy operator (app_op) is added to the current list 
+operand), the dummy operator (app_op) is added to the current list
 of terms (opL) and `ptse' reinvoked to deal with the new operator.
 
 Note: the operand is left on the term list (opL) to be reexamined after the
 dummy operator has been dealt with. It is not immediately added to the
 operand list. This is because the dummy operator for application is
 treated as a binary infix operator and hence is expected to occur between
-its two operands. 
+its two operands.
 
 > ptse opnds oprs True opL@( Opnd _ : _ )
 >	= ptse opnds oprs True ( app_op : opL )
 >	  where
->	  app_op = Opr ( Spl "" ) BinL 100 
+>	  app_op = Opr ( Spl "" ) BinL 100
 
 
 The following clauses deal with the different kinds of operators. Note
@@ -1208,15 +1208,15 @@ misnomer and is really a resulting list of terms.)
 
 prefix operators (op) are always added to the operator stack irregardless
 of the precedence of the operator on top of the stack. Its precedence
-only takes note of operators to its right in the original expression. 
-(e.g. the `not' in `not x' will be expected to bind with `x' irregardless 
-of the precedence of the operator preceding `not'). 
+only takes note of operators to its right in the original expression.
+(e.g. the `not' in `not x' will be expected to bind with `x' irregardless
+of the precedence of the operator preceding `not').
 
 The operator may be added to the operand list directly as it is already in
 prefix form (its argument follows it in the original expression).
 
 > ptse opnds oprs _ ( op@( Opr _ Pre prc ) : opL )
->	= ptse ( op : opnds ) ( op : oprs ) False opL 
+>	= ptse ( op : opnds ) ( op : oprs ) False opL
 
 For infix operators, one argument preceeds the operator. The `swap_op'
 function is thus required to place the operator before its first argument
@@ -1241,8 +1241,8 @@ infix operators except that another test is necessary to determine
 if the operator at the head of the operator stack (oprs) should be
 popped before the current operator (op) is added to it.
 
-The operator at the head of `oprs' should also be popped if it is 
-also right associative and its precedence is LESS than or equal to the 
+The operator at the head of `oprs' should also be popped if it is
+also right associative and its precedence is LESS than or equal to the
 precedence of the current operator (right associative operator precedences
 work "backwards"). The function `cmp_op' defines the test.
 
@@ -1250,15 +1250,15 @@ work "backwards"). The function `cmp_op' defines the test.
 >	= ptse ( swap_op op opnds' ) ( op : oprs' ) False opL
 >	  where
 >	  ( opnds' , oprs' ) = flush opnds oprs prc cmp_op
->	  cmp_op ( Opr _ BinR prc' ) = prc' <= prc 
+>	  cmp_op ( Opr _ BinR prc' ) = prc' <= prc
 >	  cmp_op _ = False
 
 The argument to a postfix operator precedes it in the original expression.
-The `swap_op' function is hence required to transpose them in the resulting 
+The `swap_op' function is hence required to transpose them in the resulting
 list.
 
 Again, the operator stack is `flushed' of higher precence operators
-first. The operator is not added to the operator stack however as 
+first. The operator is not added to the operator stack however as
 (conversely to prefix operators above) its precedence only affects operators
 to its left. (The "'" in "a'" should also bind to "a" even if a higher
 precedence operator occurs to the right of the "'".)
@@ -1277,7 +1277,7 @@ When all the terms have been considered, the operator stack should be
 `flushed' of all remaining operators. The operand list will now
 represent the correctly reordered term list.
 
-> ptse opnds oprs _ [] 
+> ptse opnds oprs _ []
 >	= opnds'
 >	  where
 >	  ( opnds' , _ ) = flush opnds oprs (-1) null_op
@@ -1326,9 +1326,9 @@ in + ( / 3 4 ) 5 not (/ + 3 4 5 ) which is incorrect.
 
 
 
-Clear the operator stack of operators of higher precedence than the 
-precedence of the current operator (pprc) plus any operators 
-meeting the additional properties of the predicate `cmp' (in practice, 
+Clear the operator stack of operators of higher precedence than the
+precedence of the current operator (pprc) plus any operators
+meeting the additional properties of the predicate `cmp' (in practice,
 this applies only to right associative infix operators---see above).
 
 If the operator at the head of the operator stack is of higher precedence,
@@ -1340,7 +1340,7 @@ when an operator of lower precedence is encountered or the operator stack
 is empty (2nd clause) (the calling function is responsible for adding
 the new operator onto the operator stack).
 
-> flush :: [Flagged_ITrm] -> [Flagged_ITrm] -> Int 
+> flush :: [Flagged_ITrm] -> [Flagged_ITrm] -> Int
 >	     -> ( Flagged_ITrm -> Bool ) -> ( [Flagged_ITrm] , [Flagged_ITrm] )
 
 > flush opnds oprs@( op@(Opr op_nm op_tpe prc) : opL ) pprc cmp
@@ -1366,14 +1366,14 @@ to bind the operator to an argument.
 
 `add_op' binds a function to an argument which occurs after it in the
 original expression. The function 'swap_op' will have already been used
-to bind it to an argument which precedes it in the original expression. 
-(An example is given in `swap_op' showing why `app'' is used to bind 
-the function and argument pair at this stage. It is to prevent future 
-swapping operation `getting between them' in the operand list as it 
+to bind it to an argument which precedes it in the original expression.
+(An example is given in `swap_op' showing why `app'' is used to bind
+the function and argument pair at this stage. It is to prevent future
+swapping operation `getting between them' in the operand list as it
 has now been established that the two elements on the top of the
 operand list should be applied to each other. It is the result of this
 application which will be the argument to a further function, not the
-components themselves.) 
+components themselves.)
 
 Prefix and infix operators all have arguments following them in the
 original expression and hence the `app'' function is applied to the
@@ -1384,8 +1384,8 @@ Note that postfix operators have no argument following them in the
 original expression and hence the operand list is returned unchanged
 in this case. (Compare this with `ptse' above where `swap_op' is applied
 in all but the prefix case to form the bond between an operator and an
-argument which occurs before it in the original expression. Infix 
-operators have an argument occuring before and after them in the 
+argument which occurs before it in the original expression. Infix
+operators have an argument occuring before and after them in the
 original expression and hence `swap_op' and `app_op' will be applied
 at the appreopriate time (by `ptse' and `flush')).
 
@@ -1413,10 +1413,10 @@ message by the final clause.)
 postfix operator has already been applied to operand (as have BinL and BinR
 to their first operand )
 
-> add_op op Post opnds 
+> add_op op Post opnds
 >	= opnds
 
-> add_op op _ _ 
+> add_op op _ _
 >	= [ Prs_Err ( " Insufficient arguments for operator" ) ] -- ++ op ) ]
 
 
@@ -1433,7 +1433,7 @@ infix binders
 
 The following function assigns the ITrm binder constructor and precedence
 of an infix binder. (All infix binders are infix right associative.) An
-operator is returned representing the binder. (This allows it to be 
+operator is returned representing the binder. (This allows it to be
 reordered by `prioritise' into its correct place in the resulting ITrm.)
 The special operator `OpBdr' is used to represent infix beinders. These
 will be expanded by `app'' later to form an ITrm when the arguments to
@@ -1508,12 +1508,12 @@ the symbol or constructor term. They are incremented as the signature is
 searched and will represent the correct values for an identifier, if and
 when it is encountered.
 
-The first (top level) function initialises the count for `i' and calls 
+The first (top level) function initialises the count for `i' and calls
 `lookup'' to search each declaration of the signature (sg).
 
 > lookUp :: String -> Sgn -> Flagged_ITrm
 
-> lookUp nm sg 
+> lookUp nm sg
 >	= lookup' isg nm 0
 >	  where
 >	  isg = internal_Sgn sg
@@ -1535,8 +1535,8 @@ an error message is returned.
 
 Note that the initialised values to `lookup_dc' ( [] and 0 ) are the list
 of unsearched declarations (the second components of decpairs which have
-not been searched yet) and the count `j' of the symbol's position in the 
-decpair "tree" respectively. 
+not been searched yet) and the count `j' of the symbol's position in the
+decpair "tree" respectively.
 
 > lookup' :: ISgn -> String -> Int -> Flagged_ITrm
 
@@ -1544,7 +1544,7 @@ decpair "tree" respectively.
 >	= if in_dc then tm
 >		   else lookup' sg nm ( i + 1 )
 >	  where
->	  ( in_dc , tm ) = lookup_dc dc [] nm i 0 
+>	  ( in_dc , tm ) = lookup_dc dc [] nm i 0
 
 > lookup' ( Empty _ ) nm i
 >	= Prs_Err ( " Undefined symbol: " ++ nm )
@@ -1556,12 +1556,12 @@ decpair "tree" respectively.
 
 
 
-`lookup_dc' is the driver function for the declaration search function. It 
-uses the function `lookup_dc'' to examine a given declaration (dc) for a 
-match. If a match is found (found True), the accompanying term (tm) is 
-returned. If no match is found (found False), any remaining unsearched 
-declarations (dcL) are examined. This is achieved by calling `lookup_dc' 
-recursively incrementing the compound declaration pointer `j'.  If the 
+`lookup_dc' is the driver function for the declaration search function. It
+uses the function `lookup_dc'' to examine a given declaration (dc) for a
+match. If a match is found (found True), the accompanying term (tm) is
+returned. If no match is found (found False), any remaining unsearched
+declarations (dcL) are examined. This is achieved by calling `lookup_dc'
+recursively incrementing the compound declaration pointer `j'.  If the
 list (dcL) is empty, the symbol is undefined and a False flag is returned
 (the accompanying term is undefined in this case (error "").
 
@@ -1588,9 +1588,9 @@ a case analysis on the declaration.
 > lookup_dc' :: IDec -> [IDec] -> String -> Int -> Int -> (Bool , Flagged_ITrm)
 
 If the declaration is a pair, search the first component declaration (dc1)
-using 'lookup_dc'. Add the second component (dc2) to the list of as yet 
+using 'lookup_dc'. Add the second component (dc2) to the list of as yet
 unsearched declaration. This will be searched by `lookup_dc' is the search
-of `dc1' is unsuccessful. 
+of `dc1' is unsuccessful.
 
 Note that the compound declaration position count `j' is incremented.
 
@@ -1601,19 +1601,19 @@ If the declaration is a symbol, the function `lookup_nm' is used to
 compare the required identifier (nm) against the symbol name (nm').
 
 > lookup_dc' ( Symbol_dec _ ( ( _ , Symbol_Name nm' ) : _ ) ) _ nm i j
->	= lookup_nm nm' nm i j 
+>	= lookup_nm nm' nm i j
 
 > lookup_dc' ( Axiom_dec _ ( ( _ , Symbol_Name nm' ) : _ ) ) _ nm i j
->	= lookup_nm nm' nm i j 
+>	= lookup_nm nm' nm i j
 
 If the declaration is a datatype, the list of constructor names (nmL)
 is searched for a match using the function `lookup_nml'.
 
-> lookup_dc' ( Data _ _ [ ( _ , Datatype_Name nmL ) ] ) _  nm i j 
+> lookup_dc' ( Data _ _ [ ( _ , Datatype_Name nmL ) ] ) _  nm i j
 >	= lookup_nml nmL nm i j 0
 
 If the declaration is a definition, the function `lookup_nm' may again
-be used to compare the definition name (nm') against the required 
+be used to compare the definition name (nm') against the required
 identifier (nm).
 
 > lookup_dc' ( Def _ _ [ ( _ , Symbol_Name nm' )] ) _ nm i j
@@ -1637,7 +1637,7 @@ name (the required indices `i' and `j' are passed into the function.
 If no match occurs, the flag False is returned. The accompanying term is
 undefined (error "") in this case.
 
-> lookup_nm ( Name nm' ) nm i j 
+> lookup_nm ( Name nm' ) nm i j
 > 	| nm == nm' = ( True , ( Opnd . Itrm ) ( Sym i j [] [sym_nmd] ) )
 >	| otherwise = ( False , error "" )
 
@@ -1647,7 +1647,7 @@ identifier in this case (the symbol is flagged to be an operator (Opr) rather
 than an operand (Opnd) in this case however). If no match occurs the flag
 False is returned together with an undefined term as above.
 
-> lookup_nm ( Operator' nm' prc opt ) nm i j 
+> lookup_nm ( Operator' nm' prc opt ) nm i j
 > 	| nm == nm' = ( True , Opr ( OpItrm ( Sym i j [] [sym_nmd] )) opt prc )
 >	| otherwise = ( False , error "" )
 
@@ -1661,22 +1661,22 @@ False is returned together with an undefined term as above.
 of names is searched for a match rather that a single name. Here, if no
 match occurs, the tail of the list (nmL) is searched for a further match.
 Only if this list is empty is a flag returned indicating that no match
-has occured (3rd clause). 
+has occured (3rd clause).
 
 The function is used to search a list of constructor names for a match. A
 constructor ITrm (Const) is hence returned rather than a symbol ITrm (Sym)
 The count `k' indicates that position in the list where a match occurs and
-is thus increment whenever a match fails and the tail of the list is 
+is thus increment whenever a match fails and the tail of the list is
 considered. The other indices `i' and `j' are passed into the function.
 
 > lookup_nml :: [Name'] -> String -> Int -> Int -> Int -> (Bool , Flagged_ITrm)
 
-> lookup_nml ( Name nm' : nml ) nm i j k 
+> lookup_nml ( Name nm' : nml ) nm i j k
 > 	| nm == nm' = ( True , ( Opnd . Itrm ) ( Const i j k [] [sym_nmd] ) )
 >	| otherwise = lookup_nml nml nm i j ( k + 1 )
 
-> lookup_nml ( Operator' nm' prc opt : nml ) nm i j k 
-> 	| nm == nm' = ( True , Opr 
+> lookup_nml ( Operator' nm' prc opt : nml ) nm i j k
+> 	| nm == nm' = ( True , Opr
 >			       ( OpItrm ( Const i j k [] [sym_nmd] )) opt prc )
 >	| otherwise = lookup_nml nml nm i j ( k + 1 )
 
@@ -1707,7 +1707,7 @@ not be evaluated if the declaration argument is not Idec.)
 
 > pst_extend :: Flagged_ITrm -> Parse_State -> Parse_State
 
-> pst_extend ( Opnd ( Idec idc )) ( tgL , sg ) 
+> pst_extend ( Opnd ( Idec idc )) ( tgL , sg )
 >	= ( tgL , extend dc sg )	
 >	  where
 >	  dc = build_dc sg idc
@@ -1746,7 +1746,7 @@ build derivations
 > deriv :: Parse_State -> ITrm -> Thm
 
 
-> deriv pst@( tgL , sg ) ( Tagid ( str , _ , cnv_fnL ) argL ) 
+> deriv pst@( tgL , sg ) ( Tagid ( str , _ , cnv_fnL ) argL )
 >	= case fetch_fn cnv_fnL of
 >		Ok cnv_fn -> cnv_fn argL
 >		Bad mesg  -> TH_Err mesg
@@ -1755,7 +1755,7 @@ build derivations
 >	  fetch_fn ( _ : oth )       = fetch_fn oth
 >	  fetch_fn []                = Bad ( "cannot convert tag " ++ str ++ " to theorem" )
 
-> deriv pst@( tgL , sg ) ( Binder Delta idc itm _ _ ) 
+> deriv pst@( tgL , sg ) ( Binder Delta idc itm _ _ )
 >	= case typ_of_trm sg2 dc_typ of
 >		Constant Bool' _ _      -> discharge th
 >		Constant ( Univ _ ) _ _ -> generalise th
@@ -1789,9 +1789,9 @@ build derivations
 >	  str = "\177 a:bool. \177 b:bool.a \182 b \182 a \179 b"
 
 > deriv ( _ , sg ) ( Sym i j _ _ )
->	= axiom sg i j 
+>	= axiom sg i j
 
-> deriv pst@( _ , SG isg ) itm 
+> deriv pst@( _ , SG isg ) itm
 >	= TH_Err (" Invalid construction: " ++ unparse' isg itm )
 
 > deriv _ _ = error "deriv error"
@@ -1810,7 +1810,7 @@ integer list parser
 
 errors made into term argument (Tag_Trm) and passed back as malformed term.
 (integer lists do not have an error constructor). Otherwise Tag_Int with
-accompanying list returned. 
+accompanying list returned.
 
 > parse_iL :: [Token] -> ( Tag_Arg , [Token] )
 
@@ -1845,5 +1845,5 @@ accompanying list returned.
 > parse_iL'' iL ( Rvd "," : tkL )
 >	= parse_iL' iL tkL
 
-> parse_iL'' iL _ 
+> parse_iL'' iL _
 >	= ( Tg_Trm ( TM_Err " ',' or '\169' expected " ) , dmy )

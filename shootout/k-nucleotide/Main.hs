@@ -105,7 +105,7 @@ sortRule (a1, b1) (a2, b2) =
     case compare b2 b1 of
         EQ -> compare a1 a2
         x  -> x
-                  
+
 ------ Hash table implementation ----------------------------------------------
 
 -- Note: Hash tables are not generally used in functional languages, so there

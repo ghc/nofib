@@ -17,7 +17,7 @@ blocking/unblocking performance.
 
 On a 1.86GHz Intel Xeon, with GHC 6.10.1 -threaded
 
-./Main 300000 +RTS -s 
+./Main 300000 +RTS -s
      338,144,560 bytes allocated in the heap
    1,232,944,856 bytes copied during GC
      307,446,192 bytes maximum residency (9 sample(s))
@@ -35,7 +35,7 @@ On a 1.86GHz Intel Xeon, with GHC 6.10.1 -threaded
 
 HEAD 7/1/2009 + patch to use HpLim for context-switching:
 
-./Main 300000 +RTS -s 
+./Main 300000 +RTS -s
      354,865,480 bytes allocated in the heap
    1,229,475,576 bytes copied during GC
      306,480,832 bytes maximum residency (9 sample(s))

@@ -63,7 +63,7 @@ rotas (u,v,w) a rn =
 klein :: Energy -> Random -> Energy
 klein e r =
 	if (e > 1.16666667)
-	    then 
+	    then
 		(let
 		    a' = 1.65898 + a*(0.62537*a - 1.00796)
 	 	    b' = a'/f
@@ -92,5 +92,5 @@ klein e r =
 	    c = 1/b
 	    d = log b
 	    f = 2*e*(1+e)*c*c + 4*a + (1-2*a*(1+a))*d
-	    klein1 x2 x3 x4 x5 x7 = 
+	    klein1 x2 x3 x4 x5 x7 =
 	        1 + x2*(x2*(2*x7 + x4 - x3 + x2*(x5 - x7 - x4)) - x7)

@@ -4,7 +4,7 @@
  - Paul Sanders, SRD. 1992
  -
  - This module contains routines for converting numbers to and from a
- - number of binary digits. 
+ - number of binary digits.
  -
  -}
 
@@ -25,8 +25,8 @@ dec_to_bin = reverse . dec_to_bin'
 
 dec_to_bin' 0 = []
 dec_to_bin' x
-      = (if (x `rem` 2) == 1 
-         then '1' 
+      = (if (x `rem` 2) == 1
+         then '1'
          else '0') : dec_to_bin' (x `div` 2)
 
 codes_to_ascii :: [Int] -> [Int]

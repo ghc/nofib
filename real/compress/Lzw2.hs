@@ -93,7 +93,7 @@ code_string old_code next_code input@(CBOX(c) : input2) (PT k v t {-p@(PTE k v t
     };
 
 code_string old_code next_code input@(CBOX(c) : input_file2) PTNil
-    =   if (next_code _GE_ ILIT(4096)) 
+    =   if (next_code _GE_ ILIT(4096))
         then {-# SCC "cs4" #-} _TRIP_(input, old_code, PTNil)
         else {-# SCC "cs5" #-} _TRIP_(input, old_code, PT _PTE_(c, next_code, PTNil) PTNil PTNil);
 

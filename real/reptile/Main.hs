@@ -20,7 +20,7 @@ main = do
 		  font 8 ++
 		  textreset ++
 		  clear ++
-		  func 15 
+		  func 15
     putStr toMgr
 
 

@@ -66,11 +66,11 @@ nil a b c = []
 grid :: Int -> Int -> [Line_segment] -> Vec -> Vec -> Vec -> [Line_segment]
 grid m n segments a b c
  = [tup2
-   (a `vec_add` (scale_vec2 b x0 m) `vec_add` (scale_vec2 c y0 n))  
-   (a `vec_add` (scale_vec2 b x1 m) `vec_add` (scale_vec2 c y1 n)) 
+   (a `vec_add` (scale_vec2 b x0 m) `vec_add` (scale_vec2 c y0 n))
+   (a `vec_add` (scale_vec2 b x1 m) `vec_add` (scale_vec2 c y1 n))
 	| (x0, y0, x1, y1) <- segments]
 
-rot p a b c = p (a `vec_add` b) c ((0, 0) `vec_sub` b) 
+rot p a b c = p (a `vec_add` b) c ((0, 0) `vec_sub` b)
 
 beside m n p q a b c
     = p a (scale_vec2 b m (m+n)) c ++

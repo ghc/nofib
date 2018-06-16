@@ -37,7 +37,7 @@ addlemmalst (h:t) term = addlemmalst t (addlemma h term)
 addlemma :: Lisplist -> LUT -> LUT
 addlemma Nil           term = term
 addlemma (Atom x)      term = error "Atoms can't be lemmas"
-addlemma (Cons (x, y)) term 
+addlemma (Cons (x, y)) term
     | tv x == "equal" && not (atom z) = addtoLUT (tv (car z), Cons(x, y), term)
     | otherwise 		      = error "Malformed lemma"
       where z = car y
@@ -51,7 +51,7 @@ tautp :: Lisplist -> Bool
 tautp term = tautologyp (rewrite term lemmas, Nil, Nil)
 
 {-
-  The test statement and                                   
+  The test statement and
   the substitution terms used to expand the test statement
 -}
 

@@ -11,7 +11,7 @@ concrep x y = concat (take x (repeat y))
 
 --CR headN, fN, ff and f replaced by newf - still needs cleaning up!
 pos8head :: [[Int]] -> [Char]
-pos8head coords =  header ++ pamcat (map newf [1 .. 8]) coords 
+pos8head coords =  header ++ pamcat (map newf [1 .. 8]) coords
                    where
 		   header = "%!PS-Adobe-1.0\n0.75 setlinewidth\n" ++
 			    "/print0\n{\n} def\n"
@@ -23,7 +23,7 @@ pos8head coords =  header ++ pamcat (map newf [1 .. 8]) coords
                                      (concat . map topos . f) coords ++
                                      "stroke} def\n"
                    newf n = fpat ("/print" ++ show n ++ "\n{") (orient psmax n)
-                   
+
 
 introline, rowline, ss :: [Char]
 introline = "400 400 translate"

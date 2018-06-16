@@ -71,13 +71,13 @@ dxContainsFnSpace (DXVar _)       = False
 --
 dxContainsSubsidiaryFnSpace :: DExpr -> Bool
 
-dxContainsSubsidiaryFnSpace DXTwo 
+dxContainsSubsidiaryFnSpace DXTwo
    = False
 
-dxContainsSubsidiaryFnSpace (DXLift1 dxs) 
+dxContainsSubsidiaryFnSpace (DXLift1 dxs)
    = myAny dxContainsFnSpace dxs
 
-dxContainsSubsidiaryFnSpace (DXLift2 dxs) 
+dxContainsSubsidiaryFnSpace (DXLift2 dxs)
    = myAny dxContainsFnSpace dxs
 
 dxContainsSubsidiaryFnSpace (DXFunc dxss dxt)
@@ -133,7 +133,7 @@ dxDiff_list [] []
 dxDiff_list (a:as) (b:bs)
    = dxDiff_aux a b                   `thenS`  ( \new_a_b ->
      dxDiff_list as bs                `thenS`  ( \new_as_bs ->
-     returnS (new_a_b : new_as_bs)  
+     returnS (new_a_b : new_as_bs)
      ))
 
 dxDiff_list other1 other2

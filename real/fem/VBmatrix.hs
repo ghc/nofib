@@ -7,8 +7,8 @@
 -- *            implemented by using one-dimension array type.          *
 -- **********************************************************************
 
-module VBmatrix(Vbm, defvbmat, makevbmat, incrvbmat, updvbmat, 
-                vbmatsub, boundvbmat, addrvbmat, lengrvbmat, fstclvbmat, 
+module VBmatrix(Vbm, defvbmat, makevbmat, incrvbmat, updvbmat,
+                vbmatsub, boundvbmat, addrvbmat, lengrvbmat, fstclvbmat,
                 diagadrvbm, displayvbmati, displayvbmatr) where
 
 import Basics
@@ -51,7 +51,7 @@ displayvbmati  ::  Vbm Int -> [Char]
 displayvbmatr  ::  Vbm Float -> [Char]
 
 lengrvbmat (VBMAT n addiag elems) i =
-	if (i==1) then 1 
+	if (i==1) then 1
 	else (vecsub addiag i) - (vecsub addiag (i-1))
 
 fstclvbmat (VBMAT n addiag elems) i =
@@ -72,9 +72,9 @@ defvbmat bounds addiag elementlist =
 
 makevbmat n addiag generator =
 	VBMAT n addiag (makevec (vecsub addiag n) f)
-	where 
+	where
 	f i    = elemts !! (i - 1)
-	elemts = foldl  irow []  [1..n] 
+	elemts = foldl  irow []  [1..n]
 	irow ls i = ls ++ [ generator (i,j) | j<- [(fstcl i)..i] ]
 	fstcl i   = if (i==1) then 1
 		    else i - vecsub addiag i + vecsub addiag (i-1) + 1

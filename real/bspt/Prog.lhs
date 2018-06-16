@@ -3,7 +3,7 @@ module Prog(prog) where
 
 
 -- Program module - defines the program expression
- 
+
 import Interface (modeller)
 import Init (initialiseMouse,initialiseScreen)
 import Interpret (Command,interpret, Operation(..), Operations(..))
@@ -15,15 +15,15 @@ import Euclid (Face, Faces(..))
 
 -- Main program -----------------------------
 
---	prog - initialises the Geometric Modeller System 
---		with an initial (null) object and with 
+--	prog - initialises the Geometric Modeller System
+--		with an initial (null) object and with
 --		interpretation (lazy) of users requirements.
 --	
---		Operations can be predefined in the file 
+--		Operations can be predefined in the file
 --		Input.hs, with the modeller being supplied
 --		batchOperations (as opposed to operations)
 --		as the second argument.
- 
+
 prog ::  String -> String
 prog rawinp =
   initialise ++ modeller (buildBSPT []) operations
