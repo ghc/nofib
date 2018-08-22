@@ -117,6 +117,12 @@ instance EvalEnvMonad (State Env) where
     currEnv = get
     withEnv tmp m = return (evalState m tmp)
 
+traverseCon :: (EvalEnvMonad m) => Term -> m Int
+traverseCon t =
+    do t' <- traverseTerm t
+       case t' of
+           Con c -> return c
+           _ -> error ("Not a Con: " ++ show t')
 
 eval :: (EvalEnvMonad m) => Term -> m Term
 eval (Var x)   =
@@ -124,8 +130,8 @@ eval (Var x)   =
        t <- lookupVar x
        traverseTerm t
 eval (Add u v) =
-    do {Con u' <- traverseTerm u;
-	Con v' <- traverseTerm v;
+    do {u' <- traverseCon u;
+	v' <- traverseCon v;
 	return (Con (u'+v'))}
 eval (Thunk t e) =
     withEnv e (traverseTerm t)
@@ -149,7 +155,7 @@ eval (Incr)    = incr >> return (Con 0)
 apply (Thunk (Lam x b) e) a =
     do  orig <- currEnv
 	withEnv e (pushVar x (Thunk a orig) (traverseTerm b))
-apply a b         = fail ("bad application: " ++ pp a ++
+apply a b         = error ("bad application: " ++ pp a ++
 			      "  [ " ++ pp b ++ " ].")
 
 
@@ -165,6 +171,13 @@ newtype Id a = Id (Identity a)
 instance Show a => Show (Id a) where
     show (Id i) = show (runIdentity i)
 
+simpleEvalCon :: Env -> Term -> Id Int
+simpleEvalCon env e =
+    do e' <- simpleEval env e
+       case e' of
+           Con c -> return c
+           _ -> error ("Not a Con: " ++ show e')
+
 simpleEval :: Env -> Term -> Id Term
 simpleEval env (Var v) =
     simpleEval env (maybe (error ("undefined var: " ++ v)) id (lookup v env))
@@ -173,13 +186,13 @@ simpleEval env e@(Con _) =
 simpleEval env e@Incr =
     return (Con 0)
 simpleEval env (Add u v) =
-    do {Con u' <- simpleEval env u;
-	Con v' <- simpleEval env v;
+    do {u' <- simpleEvalCon env u;
+	v' <- simpleEvalCon env v;
 	return (Con (u' + v'))}
     where
     addCons (Con a) (Con b) = return (Con (a+b))
-    addCons (Con _) b = fail ("type error in second arg of Add: " ++ pp b)
-    addCons a (Con _) = fail ("type error in first arg of Add: " ++ pp a)
+    addCons (Con _) b = error ("type error in second arg of Add: " ++ pp b)
+    addCons a (Con _) = error ("type error in first arg of Add: " ++ pp a)
 simpleEval env f@(Lam x b) =
     return (Thunk f env)  -- return a closure!
 simpleEval env (App u v) =
@@ -200,7 +213,7 @@ simpleApply env (Thunk (Lam x b) e) a =
     simpleEval env2 b
     where
     env2 = (x, Thunk a env) : e
-simpleApply env a b         = fail ("bad application: " ++ pp a ++
+simpleApply env a b         = error ("bad application: " ++ pp a ++
 			      "  [ " ++ pp b ++ " ].")
 
 ------------------------------------------------------------
