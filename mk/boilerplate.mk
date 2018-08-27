@@ -6,7 +6,7 @@
 #
 #################################################################################
 
-# Begin by slurping in the boilerplate from one level up, 
+# Begin by slurping in the boilerplate from one level up,
 # with standard TOP-mangling
 # Remember, TOP is the top level of the innermost level
 
@@ -32,7 +32,7 @@ endif
 
 # Benchmarks controls which set of tests should be run
 # You can run one or more of
-#	imaginary 
+#	imaginary
 #	spectral
 #	real
 #	parallel
@@ -42,7 +42,7 @@ endif
 NoFibSubDirs = imaginary spectral real shootout
 
 # Haskell compiler options for nofib
-NoFibHcOpts = -O2
+NoFibHcOpts = -O2 -Wno-tabs
 
 # Number of times to run each program
 NoFibRuns = 5
