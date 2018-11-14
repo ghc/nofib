@@ -56,3 +56,14 @@ Some benchmarks aren't run by default and require extra packages are
 installed for the GHC compiler being tested. These packages include:
  * stm - for smp benchmarks
 
+## Adding benchmarks
+
+If you add a benchmark try to set the problem sizes for
+fast/normal/slow reasonably.
+
+Runtimes for normal should be above 0.3s if that can be reasonably
+achieved. Less than that and there is a chance
+nofib-analyse will ignore the result if it falls below 0.2s.
+
+
+

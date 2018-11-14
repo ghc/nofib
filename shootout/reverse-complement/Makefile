@@ -8,7 +8,7 @@ SRCS = Main.hs
 # These values are only used in this file. They are ignored by the
 # executable itself.
 FAST_OPTS = 250000
-NORM_OPTS = 2500000
+NORM_OPTS = 10000000
 SLOW_OPTS = 25000000  # official shootout setting
 
 # The benchmark game also uses -fllvm, which we can't since it might

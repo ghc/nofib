@@ -119,11 +119,14 @@ a bug in one of the current Haskell compilers.
 If the \prog{appendChan} line is replaced by the one above it, the printing
 will not occur.
 % NB - mkTEnv relies on the layout of upto, so be careful in changing it.
+
+
 \begin{haskell}
 
 > upto :: Int -> Ncont -> Cont
 > upto n nc (MkEnv (r:rs) cs ts vs te ve le op)
->     =  hPutStr stderr (show x ++ " ") >> nc x (MkEnv rs cs ts vs te ve le op)
+>     =  seq x $ nc x (MkEnv rs cs ts vs te ve le op) -- Disabled printing for perf measurement.
+> --  =  hPutStr stderr (show x ++ " ") >> nc x (MkEnv rs cs ts vs te ve le op)
 > --  =  appendChan stderr (show x ++ " ") exit ((nc x) (MkEnv rs cs ts vs te ve le op))
 >        where
 >        x :: Int

@@ -14,7 +14,7 @@ main = do
 	  then putStr (unlines ["Set Circuit Simulator", "scs <file> <seed> <dt> <end time> [<temperature>] [<random background charge>]"])
 	  else do
 	  	let [file, seed', dt', end_time', temperature', rbc'] = take 6 (args ++ ["0", "0"])
-	
+
   		input <- readFile (file ++ ".in")
 		let
 			(circuit, names)		= get (parse_circuit input       )  "Syntactic error in circuit description"
@@ -28,11 +28,12 @@ main = do
 				| end_time <= 0		= error "end time must be positive"
 				| temperature < 0	= error "temperature must be nonnegative"
 				| otherwise		= list names trace
-		putStr output
+		--Avoid the SSE/FP/X86/X64 mess
+		seq (length . show $ output) $ print "Done"
   where
   	get [e] _ = e
 	get  _  s = error s
-	
+
 scs :: Name -> Seed -> Time -> Time -> Temperature -> RBC -> IO ()
 scs file seed dt end_time temperature rbc = do
 		input <- readFile (file ++ ".in")

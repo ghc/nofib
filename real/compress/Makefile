@@ -9,3 +9,14 @@ Lzw_HC_OPTS = -cpp
 
 include $(TOP)/mk/target.mk
 
+boot :: compress.stdin compress.faststdin compress.stdout
+
+compress.stdin : compress.faststdin
+	cat compress.faststdin *.hs *.c compress.faststdin *.hs *.c compress.faststdin > compress.stdin
+
+compress.stdout : compress.stdin compress
+	./compress < compress.stdin > compress.stdout
+
+
+clean ::
+	rm compress.stdin compress.stdout

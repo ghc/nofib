@@ -4,5 +4,5 @@ include $(TOP)/mk/boilerplate.mk
 include $(TOP)/mk/target.mk
 
 FAST_OPTS = 2000
-NORM_OPTS = 2000
-SLOW_OPTS = 60000
+NORM_OPTS = 200000
+SLOW_OPTS = 200000

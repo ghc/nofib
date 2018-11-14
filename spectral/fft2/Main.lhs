@@ -4,14 +4,22 @@
 > import Complex_Vectors
 > import Data.Complex
 > import System.Environment
+> import Data.Maybe
+
+
+
+Only print the results of requested.
 
 > main = do
->   (n:_) <- getArgs
+>   (n:args) <- getArgs
+>   let withPrint = elem "print" args
 >   let m = read n :: Double
->   putStr
->          ("result1 = " ++ show (result1 m) ++ "\n" ++
->	    "result2 = " ++ show (result2 m) ++ "\n" ++
->	    "result3 = " ++ show (result3 m) ++ "\n")
+>   let results = ("result1 = " ++ show (result1 m) ++ "\n" ++
+>	      "result2 = " ++ show (result2 m) ++ "\n" ++
+>	      "result3 = " ++ show (result3 m) ++ "\n")
+>   if withPrint
+>     then putStr results
+>     else putStr $ (length . show $ results) `seq` "Done"
 
 > result1 m =
 >         tstfft(rmwC  m)

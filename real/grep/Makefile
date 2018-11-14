@@ -1,7 +1,8 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-PROG_ARGS = grep.stdin
+STDIN_FILE = Main.lhs
+PROG_ARGS = ".*:..*"
 
 include $(TOP)/mk/target.mk
 
