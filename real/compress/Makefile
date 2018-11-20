@@ -19,4 +19,4 @@ compress.stdout : compress.stdin compress
 
 
 clean ::
-	rm compress.stdin compress.stdout
+	rm -f compress.stdin compress.stdout
