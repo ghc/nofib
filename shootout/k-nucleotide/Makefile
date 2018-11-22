@@ -7,6 +7,8 @@ FAST_OPTS = 250000
 NORM_OPTS = 500000
 SLOW_OPTS = 25000000  # official shootout setting
 
+CLEAN_FILES += fasta-c k-nucleotide.*stdin
+
 # The benchmark game also uses -fllvm, which we can't since it might
 # not be available on the developer's machine.
 HC_OPTS += -XBangPatterns -package bytestring

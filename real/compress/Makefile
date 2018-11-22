@@ -5,6 +5,8 @@ SRC_RUNTEST_OPTS += -stdout-binary
 
 SRCS = BinConv.hs BinTest.hs Decode.hs Defaults.hs Encode.hs Main.hs PTTrees.hs Uncompress.hs
 
+CLEAN_FILES += compress.stdin compress.stdout
+
 Lzw_HC_OPTS = -cpp
 
 include $(TOP)/mk/target.mk
@@ -16,7 +18,3 @@ compress.stdin : compress.faststdin
 
 compress.stdout : compress.stdin compress
 	./compress < compress.stdin > compress.stdout
-
-
-clean ::
-	rm -f compress.stdin compress.stdout
