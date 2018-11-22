@@ -14,6 +14,8 @@ nofib-analyse/nofib-analyse
 runstdtest/runstdtest
 
 imaginary/bernouilli/bernouilli
+imaginary/digits-of-e1/digits-of-e1
+imaginary/digits-of-e2/digits-of-e2
 imaginary/exp3_8/exp3_8
 imaginary/gen_regexps/gen_regexps
 imaginary/integrate/integrate
@@ -36,6 +38,13 @@ real/compress/compress.stdout
 real/compress2/compress2
 real/compress2/compress2.stdin
 real/compress2/compress2.stdout
+real/eff/CS/CS
+real/eff/CSD/CSD
+real/eff/FS/FS
+real/eff/S/S
+real/eff/VS/VS
+real/eff/VSD/VSD
+real/eff/VSM/VSM
 real/fem/fem
 real/fluid/fluid
 real/fulsom/fulsom
@@ -46,6 +55,7 @@ real/hidden/hidden
 real/hpg/hpg
 real/infer/infer
 real/lift/lift
+real/linear/linear
 real/maillist/runtime_files/addresses.tex
 real/maillist/maillist
 real/mkhprog/mkhprog
@@ -98,6 +108,7 @@ spectral/cryptarithm1/cryptarithm1
 spectral/cryptarithm2/cryptarithm2
 spectral/cse/cse
 spectral/eliza/eliza
+spectral/exact-reals/exact-reals
 spectral/expert/expert
 spectral/fft2/fft2
 spectral/fibheaps/fibheaps
@@ -120,10 +131,13 @@ spectral/hartel/wang/wang
 spectral/hartel/wave4main/wave4main
 spectral/integer/integer
 spectral/knights/knights
+spectral/lambda/lambda
+spectral/last-piece/last-piece
 spectral/lcss/lcss
 spectral/life/life
 spectral/mandel/mandel
 spectral/mandel2/mandel2
+spectral/mate/mate
 spectral/minimax/minimax
 spectral/multiplier/multiplier
 spectral/para/para
