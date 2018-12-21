@@ -401,6 +401,10 @@ sub process_stats_file {
         $Balance = 1;
 	while (<STATS>) {
 	    if (! /Gen:\s+0/ && /^\s*\d+\s+\d+\s+(\d+)\s+\d+\.\d+/ ) {
+		# This is only hit for -S and will override the residency
+		# numbers from -s if found.
+		# -S is needed for average residency numbers, which is 0
+		# otherwise.
 		$max_live = $1 if $max_live < $1;
 		$tot_live += $1;
 		$tot_samples += 1;
@@ -414,9 +418,10 @@ sub process_stats_file {
 	       $GCWork += $tmp;
             }
 
-#           if ( /^\s*([0-9,]+) bytes maximum residency .* (\d+) sample/ ) {
-#		$MaxResidency = $1; $ResidencySamples = $2;
-#	    }
+            if ( /^\s*([0-9,]+) bytes maximum residency.*(\d+) sample/ ) {
+                $MaxResidency = $1;
+                $ResidencySamples = $2;
+            }
 
             if ( /^\s+([0-9]+)\s+M[Bb] total memory/ ) {
 		$TotMem = $1;
@@ -501,6 +506,7 @@ sub process_stats_file {
 	}
 	close(STATS) || die "Failed when closing $StatsFile\n";
 	if ( $tot_samples > 0 ) {
+	    # This is only hit for -S
 	    $ResidencySamples = $tot_samples;
 	    $MaxResidency = $max_live;
 	    $AvgResidency = int ($tot_live / $tot_samples) ;
