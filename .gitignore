@@ -34,7 +34,6 @@ real/bspt/bspt
 real/cacheprof/cacheprof
 real/compress/compress
 real/compress/compress.stdin
-real/compress/compress.stdout
 real/compress2/compress2
 real/compress2/compress2.stdin
 real/compress2/compress2.stdout
