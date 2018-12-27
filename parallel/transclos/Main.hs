@@ -76,7 +76,7 @@ main = do
          let zs  = Data.Set.toList $ {- take n $ -} transcl_set  rel_set (Data.Set.fromList seeds)   -- set-based  with 1-to-n rel
 #else
 	 let zs  = {- take n $ -} transcl      rel_list seeds -- default: seq, circular, with a 1-to-n list-based relation
-	 -- unused verions
+	 -- unused versions
          -- let zs  = {- take n $ -} transcl_dup  rel_one seeds   -- no elim of duplicates; good parallelism but stupid
          -- let zs  = {- take n $ -} transcl_simp rel_one seeds       -- list-based with 1-to-1 rel
 #endif
@@ -120,4 +120,3 @@ nfib :: Int -> Int
 nfib 0 = 1
 nfib 1 = 1
 nfib n = nfib (n-1) + nfib (n-2) + 1
-
