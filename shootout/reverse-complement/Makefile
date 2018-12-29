@@ -5,6 +5,8 @@ include $(TOP)/mk/boilerplate.mk
 # we don't want to include revcomp-c.c
 SRCS = Main.hs
 
+CLEAN_FILES += fasta-c revcomp-c reverse-complement *stdout *stdin
+
 # These values are only used in this file. They are ignored by the
 # executable itself.
 FAST_OPTS = 250000
