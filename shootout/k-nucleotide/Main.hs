@@ -4,6 +4,7 @@
 --
 -- contributed by Stephen Blackheath (with some bits taken from Don Stewart's
 --     version), v1.2
+{-# LANGUAGE BangPatterns #-}
 
 import Text.Printf
 import Data.ByteString.Internal

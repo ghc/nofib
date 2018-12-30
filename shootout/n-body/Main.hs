@@ -10,6 +10,7 @@
 --
 -- Don't enable -optc-mfpmath=sse -optc-msse2, this triggers a gcc bug on x86
 --
+{-# LANGUAGE BangPatterns #-}
 
 import Foreign (Ptr, Storable(..), plusPtr, mallocBytes)
 import Foreign.Storable

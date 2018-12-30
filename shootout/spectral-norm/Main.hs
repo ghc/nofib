@@ -13,6 +13,7 @@
 -- 	-fexcess-precision -optc-ffast-math
 -- Should be run with:
 -- 	+RTS -N<number of cores>
+{-# LANGUAGE BangPatterns, MagicHash #-}
 
 import System.Environment
 import Foreign.Marshal.Array

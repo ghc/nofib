@@ -7,6 +7,7 @@
     and run with:
     	+RTS -N<number of cores> -RTS <input>
 -}
+{-# LANGUAGE BangPatterns #-}
 
 import Control.Concurrent
 import Control.Monad
@@ -49,7 +50,7 @@ increment !p !ct = do
 	first <- peekElemOff p 1
 	pokeElemOff p 1 =<< peekElemOff p 0
 	pokeElemOff p 0 first
-	
+
 	let go !i !first = do
 		ci <- peekElemOff ct i
 		if fromIntegral ci < i then pokeElemOff ct i (ci+1) else do

@@ -4,6 +4,7 @@ http://benchmarksgame.alioth.debian.org/
 
 contributed by Louis Wasserman
 -}
+{-# LANGUAGE BangPatterns, MagicHash, UnboxedTuples #-}
 
 import Control.Monad
 import Foreign
