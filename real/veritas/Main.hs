@@ -38,6 +38,9 @@ import Parse
 
 import System.IO
 
+import Control.Monad
+import System.Environment
+import NofibUtils
 
 --proof_edit : string list * string list -> unit
 
@@ -45,7 +48,11 @@ main = do
     hSetBinaryMode stdin  True
     hSetBinaryMode stdout True
     ins <- getContents
-    putStr (main' ins)
+    -- We really need better input files for this one...
+    (n:_) <- getArgs
+    replicateM_ (read n) $ do
+        ins' <- salt ins
+        print (hash (main' ins'))
 
 main' instr
 	= rqts
@@ -55,7 +62,7 @@ main' instr
           default_ds = "" --home ++ "/VTS"
 	  args = "" -- temp test
 	  rsps = [0..] -- dummy response list
-	
+
 
 
 

@@ -5,11 +5,14 @@
 --
 import	Pic
 import  PicType	-- added by partain
+import Control.Exception(evaluate)
+import Control.Monad(replicateM_)
 import System.IO(hPutStr,stderr)
+import System.Environment(getArgs)
+import NofibUtils (hash,salt)
 
 main = do
-    hPutStr stderr "Enter the number of particles: "
-    s <- getContents
-    let (nPart, rest) = (head (reads s)) :: (Int, String)
-    putStrLn (takeWhile ((/=) '\n') s ++ (pic nPart))
-
+    (n:_) <- getArgs
+    replicateM_ (read n) $ do
+		(_:s:_) <- getArgs
+		evaluate (hash (takeWhile ((/=) '\n') s ++ pic (read s)))

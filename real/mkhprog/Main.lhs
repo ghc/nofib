@@ -259,7 +259,10 @@ The program starts with a module header which just exports \prog{main}.
 
 > module Main (main) where
 
+> import Control.Exception (evaluate)
+> import Control.Monad (replicateM_, void)
 > import System.Environment (getArgs)
+> import NofibUtils (hash)
 
 \end{haskell}
 
@@ -270,9 +273,11 @@ environment).
 \begin{haskell}
 
 > main :: IO ()
-> main  =  do
->  argv <- getArgs
->  parse_args defaultEnv (unlines argv)
+> main = do
+>  (n:_) <- getArgs
+>  replicateM_ (read n) $ do
+>    (_:argv) <- getArgs
+>    parse_args defaultEnv (unlines argv)
 
 \end{haskell}
 
@@ -753,7 +758,8 @@ component.
 \begin{haskell}
 
 > output :: ((String -> IO ()) -> Cont) -> Cont
-> output oc e@(MkEnv _ _ Stdout)    =  oc (putStr) e
+> -- output oc e@(MkEnv _ _ Stdout)    =  oc (putStr) e
+> output oc e@(MkEnv _ _ Stdout)    =  oc (void . evaluate . hash) e
 > output oc e@(MkEnv _ _ (File f))  =  oc (appendFile f) e
 
 \end{haskell}

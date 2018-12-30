@@ -2,6 +2,10 @@
 -- Inferred type for 'inner' has a constraint (MArray (STUArray s) Double m)
 -- An alternative fix (better, but less faithful to backward perf comparison)
 -- would be MonoLocalBinds
+--
+-- SG: I tried adding MonoLocalBinds here and it didn't change anything in
+-- -ddump-simpl. `inner` is probably properly specialised now. I think this
+-- comment can go?!
 
 -- | Implementation of Kahan summation algorithm that tests
 -- performance of tight loops involving unboxed arrays and floating
@@ -55,4 +59,7 @@ calc vnum = do
 main :: IO ()
 main = do
     [arg] <- getArgs
-    print . elems $ runSTUArray $ calc $ read arg
+    -- Floating point benchmarks have unstable output across platforms, so
+    -- we output the actual result.
+    -- print . elems $ runSTUArray $ calc $ read arg
+    runSTUArray (calc (read arg)) `seq` return ()

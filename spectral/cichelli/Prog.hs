@@ -8,9 +8,10 @@ module Prog(prog) where
 --partain:import Libfuns
 import Auxil
 import Key
+import Data.List (intersperse)
 
-prog :: String -> String
-prog _ = show cichelli
+prog :: Int -> String
+prog n = show (cichelli n)
 
 data Status a = NotEver Int | YesIts Int a deriving ()
 instance (Show a) => Show (Status a) where
@@ -33,16 +34,17 @@ instance (Show a) => Show (Status a) where
 
 type FeedBack = Status HashFun
 
-cichelli :: FeedBack
-cichelli = findhash hashkeys
+cichelli :: Int -> FeedBack
+cichelli n = findhash hashkeys
                 where
 -- #ifdef SORTED
-                hashkeys = (blocked.freqsorted) attribkeys
+		attribkeys' = attribkeys (keys ++ take (n `mod` 2) keys)
+                hashkeys = (blocked.freqsorted) attribkeys'
 -- #else
 --                hashkeys = blocked attribkeys
 -- #endif
 
-	
+
 findhash :: [Key] -> FeedBack
 findhash = findhash' (H Nothing Nothing []) []
 

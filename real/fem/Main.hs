@@ -14,18 +14,24 @@ import Elemforce
 import PrintSource
 import Printuvwforce
 
+import Control.Exception
+import Control.Monad
+import System.Environment
+import NofibUtils (hash, salt)
 
-main = getContents >>= \ s -> process s
+main = do
+  s <- getContents
+  (n:_) <- getArgs
+  replicateM_ (read n) $
+    -- salt s >>= putStr . process
+    salt s >>= evaluate . hash . process
 
-process :: [Char] ->  IO ()
-
-process s =
-	putStr a
-        where
-		a  = source_data db ++
-		     uvwresult db uvwres ++
-		     forceresult db frc
-		db = (idatabase s, rdatabase s)
-		uvwres = uvw db
-		frc    = forces db uvwres
-
+process :: String -> String
+process s = a
+  where
+    a  = source_data db ++
+         uvwresult db uvwres ++
+         forceresult db frc
+    db = (idatabase s, rdatabase s)
+    uvwres = uvw db
+    frc    = forces db uvwres

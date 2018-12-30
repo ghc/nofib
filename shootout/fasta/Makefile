@@ -7,8 +7,8 @@ SRCS = Main.hs
 
 CLEAN_FILES += fasta-c fasta.faststdout fasta.stdout fasta.slowstdout
 
-FAST_OPTS = 250000
-NORM_OPTS = 5000000
+FAST_OPTS = 750000
+NORM_OPTS = 7500000
 SLOW_OPTS = 25000000  # official shootout setting
 
 # The benchmark game also uses -fllvm, which we can't since it might

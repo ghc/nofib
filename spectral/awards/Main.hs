@@ -56,13 +56,14 @@ findallawards competitors =
 	map (\ (name,scores) -> (name,findawards scores)) competitors
 
 
-competitors = [
-		("Simon",[35,27,40,19,34,21]),
-		("Hans",[23,19,45,17,10,5,8,14]),
-		("Phil",[1,18,35,20,21,19,34,8,16,21]),
-		("Kevin",[9,23,17,54,18,41,9,18,14])
-	      ]
+competitors i =
+  [ ("Simon",[35,27,40,i,34,21])
+  , ("Hans",[23,19,45,i,17,10,5,8,14])
+  , ("Phil",[1,18,i,20,21,19,34,8,16,21])
+  , ("Kevin",[9,23,17,54,i,41,9,18,14])
+  ]
 
 main = do
- (n:_) <- getArgs
- replicateM_ (read n) $ print (findallawards competitors)
+  (n:_) <- getArgs
+  forM_ [1..read n] $ \i -> do
+    print (findallawards (competitors (i `mod` 100)))

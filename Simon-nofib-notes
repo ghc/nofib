@@ -428,12 +428,6 @@ Same issue with GHC.IO.Encoding.UTF8 as treejoin
 	Real suite
 ---------------------------------------
 
-cacheprof
-~~~~~~~~~
-Successive runs with the same data can yield different allocation
-totals, for some reason.
-Reported at https://ghc.haskell.org/trac/ghc/ticket/8611
-
 gg
 ~~
 Same issue with GHC.IO.Encoding.UTF8 as treejoin

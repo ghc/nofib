@@ -5,7 +5,10 @@
 -- ==========================================================--
 
 module Main where
+import Control.Monad
 import Data.Char -- 1.3
+import System.Environment
+import NofibUtils
 ----------------------------------------------------------
 -- Lexemes                                              --
 ----------------------------------------------------------
@@ -273,11 +276,11 @@ leLex l n (c:cs)
 --
 leChunk :: Int -> (Char -> Bool) -> String -> (String, Int, String)
 
-leChunk n proper []	
+leChunk n proper []
   = ([], n, [])
 
 leChunk n proper (c:cs)
-  | proper c		
+  | proper c
   = case leChunk (n+1) proper cs of
        (restId, col, restInput) -> (c:restId, col, restInput)
   | otherwise
@@ -1338,12 +1341,13 @@ hsPrecTable = [
   ("||",	(InfixR, 2)),
   ("&&",	(InfixR, 3))]
 
-
 main = do
-    cs <- getContents
-    let tokens = laMain cs
-    let parser_res = parser_test tokens
-    putStr (showx parser_res)
+   input <- getContents
+   replicateM_ 500 $ do
+      input' <- salt input
+      let tokens = laMain input'
+      let parser_res = parser_test tokens
+      print (hash (showx parser_res))
 
 showx (PFail t)
  = "\n\nFailed on token: " ++ show t ++  "\n\n"

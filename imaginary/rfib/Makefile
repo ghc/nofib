@@ -5,4 +5,4 @@ include $(TOP)/mk/target.mk
 
 FAST_OPTS = 35
 NORM_OPTS = 40
-SLOW_OPTS = 40
+SLOW_OPTS = 43

@@ -16,17 +16,18 @@ module Main (main) where
 import Defaults
 import BinConv	  -- binary conversion routines
 import Encode     -- coding routine
-import Data.Char
-import Data.List (foldl')
+import Control.Monad
 import System.IO
-
-hash :: String -> Int
-hash = foldl' (\acc c -> ord c + acc*31) 0
+import NofibUtils (hash)
 
 main = do
   hSetBinaryMode stdin  True
-  inp <- getContents
-  print (hash (compress inp))
+  input <- getContents
+  let len = length input
+  forM_ [1..200] $ \n -> do
+    let i = take (len - (n `mod` 31)) input
+    print (hash (compress i))
+
 
 {- To compress a string we first encode it, then convert it to n-bit binaries
  - convert back to decimal as ascii-bit values and then to characters

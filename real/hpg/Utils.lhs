@@ -14,6 +14,7 @@ This module contains useful utility functions needed throughout the \HPG.
 >     ) where
 
 > import Data.Char
+> import NofibUtils
 > import Config
 > import Types
 > import Env
@@ -59,7 +60,8 @@ then executes its continuation, \prog{c}.
 \begin{haskell}
 
 > print_str :: String -> Cont -> Cont
-> print_str s c  =  get_output (\ op e -> op s >> c e)
+> -- print_str s c  =  get_output (\ op e -> op s >> c e)
+> print_str s c  =  get_output (\ op e -> op (show (hash s) ++ "\n") >> c e)
 
 \end{haskell}
 

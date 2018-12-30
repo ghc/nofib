@@ -2,8 +2,8 @@ TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
 FAST_OPTS = runtime_files/inverter 345 10n 2u 1
-NORM_OPTS = runtime_files/inverter 345 3n 4u 1
-SLOW_OPTS = runtime_files/inverter 345 1n 4u 1
+NORM_OPTS = runtime_files/inverter 345 2n 4u 1
+SLOW_OPTS = runtime_files/inverter 345 400p 4u 1
 
 include $(TOP)/mk/target.mk
 

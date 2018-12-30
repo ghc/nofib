@@ -109,12 +109,16 @@ mechvel@botik.ru
 
 -- Haskell ---------------------------------------------------------
 
-main = putStr $ shows (filter condition $ permutations p0) "\n"
-         where
-         p0                              = [0..9] :: [Int]
-         condition [t,h,i,r,y,w,e,l,v,n] =
-                      expand t h i r t y + 5 * expand t w e l v e ==
-                      expand n i n e t y
+import System.Environment (getArgs)
+import Control.Monad (forM_)
+
+main = getArgs >>= \[n] -> forM_ [1..read n] $ \i -> do
+  let
+    p0                              = take 10 [0..9+i] :: [Int]
+    condition [t,h,i,r,y,w,e,l,v,n] =
+      expand t h i r t y + 5 * expand t w e l v e ==
+      expand n i n e t y
+  putStr $ shows (filter condition $ permutations p0) "\n"
 
 expand a b c d e f = f + e*10 + d*100 + c*1000 + b*10000 + a*100000
                      :: Int

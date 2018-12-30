@@ -17,7 +17,7 @@ mateInN file
 				show c ++ " to move and mate in " ++ show n ++ "\n" ++
 				"\n" ++
 				solve bd c n
-		
+
 	 } ;
 	 putStr result  }
 

@@ -1,6 +1,9 @@
 -- The Game of Life
 -- (from John Launchbury)
 
+import Control.Monad
+import System.Environment
+
 start :: [[Int]]
 start = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],
          [0,0,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0]]
@@ -44,10 +47,9 @@ limit (x:y:xs) | x==y      = [x]
 -- display all the generations, we just display the number of generations
 -- it takes to reach a fixpoint, plus the last generations.
 
-main =
-  putStr (last generations)
- where
-  sz = 30
-  generations =
-    (map disp . zip (map show [0..]) . limit . iterate (gen sz))
-    (take sz (map (take sz . (++ (copy sz 0))) start ++ copy sz (copy sz 0)))
+main = replicateM_ 250 $ do
+  (sz:_) <- map read <$> getArgs
+  let generations =
+        (map disp . zip (map show [0..]) . limit . iterate (gen sz))
+        (take sz (map (take sz . (++ (copy sz 0))) start ++ copy sz (copy sz 0)))
+  print (length (last generations))

@@ -31,17 +31,19 @@ import Kolor
 import Matrix
 import Patchlevel
 
+import Control.Monad
 import System.Environment
 import System.IO
+import NofibUtils
 
-main = do
+main = replicateM_ 1000 $ do
     argv <- getArgs
     let
 	n = case argv of
 	      [a] -> read a
 	      _   -> 7
     hSetBinaryMode stdout True
-    putStr (picture n)
+    print (hash (picture n))
 
 picture n = go n pic
 

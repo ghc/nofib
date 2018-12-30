@@ -174,6 +174,7 @@ style.
 >module Main where
 
 >import Data.Char
+>import Control.Monad
 >import System.IO
 >import System.Environment
 >import Prelude hiding (Word)
@@ -1771,12 +1772,13 @@ Some test data:
 
 >tests = concat (repeat test)
 
->main = getArgs >>= (\as ->
->       if length as /= 1
->       then putStr "usage: para <file name>"
->       else openFile (head as) ReadMode >>= (\h ->
->            hGetContents h >>= (\ws ->
->            putStr (if null ws then [] else (fmt ws)))))
+>main = do
+>    [n,_] <- getArgs
+>    replicateM_ (read n) $ do
+>        [_,f] <- getArgs
+>        h <- openFile f ReadMode
+>        ws <- hGetContents h
+>        length (if null ws then [] else (fmt ws)) `seq` return ()
 
 
 

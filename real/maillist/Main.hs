@@ -1,7 +1,7 @@
 {-
 		       Mailing List Generator
 		       ----------------------
-				
+
 		 Written by Paul Hudak, January 1992.
 
 
@@ -88,6 +88,8 @@ Desired enhancements:
 module Main where
 
 import Control.Exception (catch, IOException)
+import Control.Monad (replicateM_)
+import System.Environment (getArgs)
 
 type Line      = String
 type Entry     = [Line]
@@ -96,11 +98,7 @@ type UserInput = [FileName]
 
 maxLineLength = 35 :: Int
 
-main =	do
-    putStr "\n\nWelcome to the LaTex Mailing List Generator.\n\
-		\(Please type Cntrl-D at file prompt to exit.)\n"
-    s <- getContents
-    mainLoop (lines s)
+main = replicateM_ 100 (getArgs >>= mainLoop)
 
 mainLoop :: UserInput -> IO ()
 mainLoop fns =
@@ -111,7 +109,7 @@ mainLoop fns =
                           (\err -> let _ = err :: IOException in
                                    putStr ("\nCan't read " ++fn++ "; try again.\n") >>
 				   mainLoop fns')
-			
+
 
 process :: FileName -> UserInput -> String -> IO ()
 process out fns rawText =

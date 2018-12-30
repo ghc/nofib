@@ -5,21 +5,22 @@
 > import Data.Complex
 > import System.Environment
 > import Data.Maybe
+> import Control.Monad (forM_)
 
 
 
 Only print the results of requested.
 
-> main = do
+> main = forM_ [1..100] $ \i -> do
 >   (n:args) <- getArgs
 >   let withPrint = elem "print" args
->   let m = read n :: Double
+>   let m = read n + i / 15 :: Double
 >   let results = ("result1 = " ++ show (result1 m) ++ "\n" ++
 >	      "result2 = " ++ show (result2 m) ++ "\n" ++
 >	      "result3 = " ++ show (result3 m) ++ "\n")
 >   if withPrint
 >     then putStr results
->     else putStr $ (length . show $ results) `seq` "Done"
+>     else length (show results) `seq` return ()
 
 > result1 m =
 >         tstfft(rmwC  m)

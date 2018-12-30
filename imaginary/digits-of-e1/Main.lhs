@@ -3,6 +3,8 @@ Original program due to Dale Thurston, Aug 2001
 
 > module Main where
 > import System.Environment (getArgs)
+> import Control.Monad (replicateM_)
+> import NofibUtils (hash)
 
 > type ContFrac = [Integer]
 
@@ -33,14 +35,13 @@ digit regardless of what the input is; i.e., to see if the interval
 
 Finally, we convert a continued fraction to digits by repeatedly multiplying by 10.
 
-> toDigits :: ContFrac -> [Integer]
-> toDigits (x:xs) = x:toDigits (ratTrans (10,0,0,1) xs)
+> takeDigits :: Int -> ContFrac -> [Integer]
+> takeDigits 0 _ = []
+> takeDigits n (x:xs) = x:takeDigits (n-1) (ratTrans (10,0,0,1) xs)
 
-> e :: [Integer]
-> e = toDigits eContFrac
+> e :: Int -> [Integer]
+> e n = takeDigits n eContFrac
 
-> main = do
+> main = replicateM_ 100 $ do
 >	[digits] <- getArgs
->	print (take (read digits) e)
-
-
+>	print (hash (show (e (read digits))))

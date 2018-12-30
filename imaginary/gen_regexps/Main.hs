@@ -9,8 +9,12 @@
 module Main (main) where
 
 import Data.Char
+import Control.Monad (forM_)
+import System.Environment
 
-main = interact (("Enter a generator: " ++).show.numchars.expand.head.lines)
+main = forM_ [1..100] $ const $ do
+  (regex:_) <- getArgs
+  print (numchars (expand regex))
 
 numchars :: [String] -> Int
 numchars l = sum $ map length l

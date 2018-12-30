@@ -1,8 +1,10 @@
 > module Main where
 
 > import Parsers
+> import Control.Monad
 > import System.Environment
 > import System.IO
+> import NofibUtils
 
 > infixr 8 +.+ , +.. , ..+
 > infixl 7 <<< , <<*
@@ -24,16 +26,21 @@
 
 ----------------------------------------------------------------------
 
-> main = getArgs >>= \ args -> parse_args args
+> main = do
+>   (n:_) <- getArgs
+>   hSetEncoding stdin utf8
+>   input <- getContents
+>   replicateM_ (read n) $ do
+>     (_:args) <- getArgs
+>     parse_args input args
 
-> parse_args :: [String] -> IO ()
-> parse_args (regexp: files) =
+> parse_args :: String -> [String] -> IO ()
+> parse_args input (regexp: files) =
 > 	let acc = acceptor (fst(head(nnRegexp regexp)))
 > 	    acc' = unlines . filter acc . lines
 > 	in
-> 	    getContents >>= \ inp ->
-> 	    putStr (acc' inp)
-> parse_args _ =
+> 	    print (hash (acc' input))
+> parse_args _ _ =
 > 	getProgName >>= \progName ->
 >	hPutStr stderr ("Usage: " ++ progName ++ " regexp\n")
 

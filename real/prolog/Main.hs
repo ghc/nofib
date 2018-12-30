@@ -14,7 +14,10 @@ import Engine
 import Version
 import Data.List(nub)--1.3
 
+import Control.Monad
+import System.Environment
 import System.IO.Error (catchIOError)
+import NofibUtils
 
 --- Command structure and parsing:
 
@@ -58,9 +61,12 @@ stdlib           :: String
 stdlib            = "runtime_files/stdlib"
 
 interpreter      :: [Clause] -> IO ()
-interpreter lib   = getContents >>= \ is ->
-                    putStr (loop startDb is)
-                    where startDb = foldl addClause emptyDb lib
+interpreter lib   = do
+  let startDb = foldl addClause emptyDb lib
+  is <- getContents
+  replicateM_ 200 $ do
+    is' <- salt is
+    print (hash (loop startDb is'))
 
 loop             :: Database -> String -> String
 loop db           = readln "> " (exec db . fst . head . command)

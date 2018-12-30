@@ -9,15 +9,18 @@ import Activity
 import Spark
 --import Prog (prog)
 
+import Control.Monad
 import System.Environment
+import NofibUtils
 
 main = do
-    str <- getArgs
-    control (map parseLine (condenseArgs str))
+  (n:str) <- getArgs
+  input <- getContents
+  replicateM_ (read n) $ do
+		i <- salt input
+		print (hash (control i (map parseLine (condenseArgs str))))
 
-control args = do
-    stats <- if from=="stdin" then getContents else readFile from
-    (if into=="stdout" then putStr else writeFile into) (form (graph stats))
+control input args = form (graph input)
   where
     form :: (String -> Postscript)
     form = if (sizeX==0) then (if (elem G args) then gspostscript else postscript)
@@ -39,7 +42,7 @@ condenseArgs (arg@('-':_):more) = arg:condenseArgs more
 condenseArgs [a,b] = [a++" "++b]
 condenseArgs a = a
 
-	
+
 lookUp :: Args -> [Args] -> Args
 lookUp a [] = a
 lookUp a (b:bs) | a==b = b

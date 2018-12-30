@@ -20,6 +20,7 @@ import Match
 import Search
 import System.IO
 import System.Environment
+import Control.Monad (forM_)
 
 -- The `main' function reads in the data file before interacting with user.
 -- The `process' function takes the contents of the file and the input from the
@@ -31,16 +32,15 @@ import System.Environment
 -- information table which contains question-and-answer pairs.
 
 main = do
-    prog <- getProgName
-    args <- getArgs
-    case args of
-      [filename] -> getData filename
-      []	 -> getData "runtime_files/animals"
-      _		 -> hPutStr stderr ("Usage: " ++ prog ++ " datafile\n")
-
-getData filename = do
-    contents <- readFile filename
-    interact (process contents)
+   (n:_) <- getArgs
+   animals <- readFile "runtime_files/animals"
+   contents <- getContents
+   forM_ [1..read n] $ \i ->
+      print
+         . length
+         . process animals
+         . take (i + 9999)
+         $ contents
 
 {- OLD 1.2:
 main rs =

@@ -7,6 +7,8 @@
 
 import Data.Ratio
 import System.Environment
+import Control.Monad
+import NofibUtils
 
 -- powers = [[r^n | r<-[2..]] | n<-1..]
 -- type signature required for compilers lacking the monomorphism restriction
@@ -23,7 +25,7 @@ pascal:: [[Integer]]
 pascal = [1,2,1] : map (\line -> zipWith (+) (line++[0]) (0:line)) pascal
 
 bernoulli 0 = 1
-bernoulli 1 = -(1%2)	
+bernoulli 1 = -(1%2)
 bernoulli n | odd n = 0
 bernoulli n =
    (-1)%2
@@ -33,8 +35,7 @@ bernoulli n =
      | (k,combs)<- zip [2..n] pascal]
   where powers = (neg_powers!!(n-1))
 
-main = do
+main = replicateM_ 500 $ do
  [arg] <- getArgs
  let n = (read arg)::Int
- putStr $ "Bernoulli of " ++ (show n) ++ " is "
- print (bernoulli n)
+ print (hash (show (bernoulli n)))

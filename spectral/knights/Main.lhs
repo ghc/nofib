@@ -12,6 +12,7 @@ module Main(main) where
 import ChessSetList (Tile) -- partain:for hbc
 import KnightHeuristic
 import Queue
+import Control.Monad
 import System.Environment
 import Data.Char
 
@@ -37,9 +38,9 @@ the first and second command line option respectively.
 
 \begin{code}
 main:: IO ()
-main=getArgs >>= \ss ->
+main=replicateM_ 100 $ getArgs >>= \ss ->
      if (argsOk ss) then
-        putStr (printTour ss)
+        print (length (printTour ss))
      else
         fail (userError usageString)
      where

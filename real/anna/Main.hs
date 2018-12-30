@@ -15,8 +15,10 @@ import EtaAbstract
 import StrictAn6
 import ReadTable
 
+import Control.Monad
 import System.Environment
 import Data.Char(isDigit)
+import NofibUtils (hash,salt)
 
 -- ==========================================================--
 --
@@ -150,18 +152,17 @@ maStrictAn table flagsInit fileName
          deScheme (Scheme _ texpr) = texpr
 
 -- ==========================================================--
---
---main :: [Response] -> [Request]
 
 main :: IO ()
-
 main = do
-    raw_args <- getArgs
-    let cmd_line_args = maGetFlags raw_args
-    tableStr <- readFile ("runtime_files/anna_table")
-    file_contents <- getContents
-    let table = rtReadTable tableStr
-    putStr (maStrictAn table cmd_line_args file_contents)
+    file <- getContents
+    replicateM_ 100 $ do
+        file' <- salt file
+        raw_args <- getArgs
+        let cmd_line_args = maGetFlags raw_args
+        tableStr <- readFile ("runtime_files/anna_table")
+        let table = rtReadTable tableStr
+        print (hash (maStrictAn table cmd_line_args file'))
 
 
 -- ==========================================================--

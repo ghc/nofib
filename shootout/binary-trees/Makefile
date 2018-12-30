@@ -2,9 +2,12 @@ TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 include $(TOP)/mk/target.mk
 
-FAST_OPTS = 12
-NORM_OPTS = 17
-SLOW_OPTS = 20  # official shootout setting
+# First parameter controls number of iterations, second parameter controls depth of generated trees
+# Official shootout setting: 1 20
+# We do more iterations here for stability over different GC parameterisations
+FAST_OPTS = 15 11
+NORM_OPTS = 50 13
+SLOW_OPTS = 60 14
 
 # The benchmark game also uses -fllvm, which we can't since it might
 # not be available on the developer's machine.

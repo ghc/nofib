@@ -4,6 +4,7 @@
     ordered, but not necessarily balanced.
 -}
 
+import Control.Monad (replicateM_)
 import System.Environment
 import Data.Char(isSpace,isDigit,isAlpha)
 
@@ -111,7 +112,7 @@ join (Node k l r) t j = join l t (join r t j)
     of the join is discarded.
 -}
 
-main = do
+main = replicateM_ 100 $ do
       ~(f1 : ~(f2 : _ )) <- getArgs
       c1 <- readFile f1
       c2 <- readFile f2

@@ -21,6 +21,7 @@ This module gathers the others together to generate and print the program.
 > import GenType
 > import GenVal
 > import GenExp
+> import Control.Monad
 > import System.Environment
 > import System.IO
 
@@ -28,11 +29,11 @@ This module gathers the others together to generate and print the program.
 
 \prog{main} is the name of the main \HPG\ function.
 The Haskell report requires that the entry point to the program executable
-is called \prog{main} and is of type \prog{IO ()e}.
+is called \prog{main} and is of type \prog{IO ()}.
 \begin{haskell}
 
 > main :: IO ()
-> main  =  do
+> main =  replicateM_ 100 $ do
 >   argv <- getArgs
 >   parse_args defaultArgs (unlines argv)
 

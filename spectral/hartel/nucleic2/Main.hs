@@ -7,6 +7,9 @@ import PreludeGlaST
 module Main(main) where
 #endif
 
+import System.Environment (getArgs)
+import Control.Monad (replicateM_)
+
 import Types
 import RA
 import RC
@@ -788,7 +791,10 @@ pseudoknot_constraint v@(Var i t n) partial_inst
                    where p = atom_pos nuc_P (get_var j partial_inst)
                          o3XXX = atom_pos nuc_O3XXX v
 
-pseudoknot = search [] pseudoknot_domains pseudoknot_constraint
+pseudoknot s = search xs pseudoknot_domains pseudoknot_constraint
+  where
+    xs | s == "nope" = error "This will never be the result of getArgs"
+       | otherwise   = []
 
 -- -- TESTING -----------------------------------------------------------------
 
@@ -871,7 +877,7 @@ maximum_map f (h:t) =
 	      max :: (a->Float#) -> [a] -> Float# -> Float#
 #endif
 
-check = length pseudoknot
+check = length (pseudoknot "")
 
 -- To run program, evaluate: run
 
@@ -884,5 +890,9 @@ mainPrimIO =
 	_ccall_ printf ``"%f\n"'' (F# most_distant) `seqPrimIO`
 	returnPrimIO ()
 #else
-main = print ({-run=-} most_distant_atom pseudoknot)
+main = do
+	[n] <- getArgs
+	replicateM_ (read n) $ do
+		[n] <- getArgs
+		most_distant_atom (pseudoknot n) `seq` return ()
 #endif

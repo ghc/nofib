@@ -7,7 +7,9 @@ import Op
 import Parser
 import Env
 import Eval
+import Data.Char
 import Data.Ratio
+import NofibUtils
 
 -- print an abstract syntax tree
 printAst :: Ast -> Env -> String
@@ -88,4 +90,5 @@ mybasicNumber2str (BasRationalC x) p =
 	else if denominator sx == 1 then show (numerator sx)
 	     else "("++(basicNumber2str (BasRationalC sx) p)++")"
 		where sx = x/1
-mybasicNumber2str x p = basicNumber2str x p
+-- mybasicNumber2str x p = basicNumber2str x p
+mybasicNumber2str x p = show (hash (basicNumber2str x p))

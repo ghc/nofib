@@ -10,12 +10,16 @@ import Substitution	( Sub )
 import MaybeM		( Maybe )
 import Infer
 
-main          =  interact
-                   ( showsString (show testEnv ++ prompt)
-                   . concat
-                   . map readInferShow
-                   . lines
-                   )
+import Control.Monad
+import System.Environment
+import NofibUtils
+
+main = do
+  input <- getContents
+  replicateM_ 200 $ do
+    input' <- salt input
+    let inferred = concat (map readInferShow (lines input'))
+    print (hash (showsString (show testEnv ++ prompt) inferred))
 
 readInferShow :: String -> String
 readInferShow =  useP ("Failed to parse" ++ prompt)   (

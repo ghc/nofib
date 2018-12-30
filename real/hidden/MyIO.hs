@@ -1,8 +1,10 @@
 module MyIO(getFilename,process) where
 import Numbers
 import Vectors
+import Control.Exception (evaluate)
 import System.IO--1.3
 import System.Environment(getArgs)--1.3
+import NofibUtils
 
 type InputCont = [String] -> IO ()
 
@@ -54,4 +56,5 @@ process f filename =
 		   printFrom viewdir (process f filename) cs ls
 		)
 	where printFrom viewdir cont cs ls =
-		putStr (f viewdir cs) >> cont ls
+		-- putStr (f viewdir cs) >> cont ls
+		evaluate (hash (f viewdir cs)) >> cont ls

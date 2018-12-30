@@ -1,9 +1,7 @@
 TOP = ../..
 include $(TOP)/mk/boilerplate.mk
 
-# don't: -poscript ./anna.postscript
-# This just sums the output to save including the entire output file
-# in the repository, but 'sum' differs from machine to machine. --SDM
-
 include $(TOP)/mk/target.mk
 
+# If you want to adjust running time, take more or less functions from
+# anna.full as the new stdin.

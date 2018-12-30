@@ -3,6 +3,8 @@ Due to John Hughes, Aug 2001
 
 > module Main where
 > import System.Environment
+> import Control.Monad
+> import NofibUtils
 
 Here's a way to compute all the digits of e. We use the series
 
@@ -45,13 +47,16 @@ works.
 > 	  nextcarry:fraction = carryPropagate (base+1) ds
 >         dCorrected = d + nextcarry
 
-> e :: String
-> e = ("2."++) $
+> e :: Int -> String
+> e n =
+>     take n $
+>     ("2."++) $
 >     tail . concat $
 >     map (show.head) $
 >     iterate (carryPropagate 2 . map (10*) . tail) $
+>     take (2*n) $ -- an upper bound on what the pipeline might consume
 >     2:[1,1..]
 
-> main = do
+> main = replicateM_ 100 $ do
 > 	[digits] <- getArgs
-> 	print (take (read digits) e)
+> 	print (hash (show (e (read digits))))

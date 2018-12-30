@@ -60,6 +60,7 @@ first understand binomial queues.  See, for example, David King's
 >import Data.Array
 >import System.Environment
 
+>import Control.Monad (forM_)
 >import Control.Monad.ST
 >import Data.Array.ST
 
@@ -298,5 +299,6 @@ Testing...
 >test n = fibSort (randoms n) == fibSort' (randoms n)
 
 >--partain
->main = getArgs >>= \ [n] ->
->	putStr (show (test (read n)))
+>main = forM_ [1..200] $ const $ do
+>   [n] <- getArgs
+>   test (read n) `seq` return ()

@@ -9,3 +9,6 @@ HS_SRCS = Utils.lhs Misc.lhs Densematrix.lhs AbsDensematrix.lhs Matrix.lhs Cg.lh
 
 include $(TOP)/mk/target.mk
 
+FAST_OPTS = 2
+NORM_OPTS = 4
+SLOW_OPTS = 7

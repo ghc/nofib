@@ -31,7 +31,9 @@
 import Data.Char
 import Data.List
 -- main: added by partain
-main = do { stuff <- getContents; putStr (say stuff) }
+main = do
+  stuff <- getContents
+  mapM_ (putStr . say) (lines stuff)
 
 ------------------------------------------------------------------------------
 

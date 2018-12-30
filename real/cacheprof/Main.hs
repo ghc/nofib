@@ -30,6 +30,7 @@
 -}
 
 module Main ( main ) where
+import Control.Monad
 import Data.Char
 import Data.List
 import System.IO
@@ -1410,43 +1411,48 @@ final_cleanup
 {--- Main!                                               ---}
 {-----------------------------------------------------------}
 
-main = seq stderr (       -- avoid bug in ghc-4.04
-       do args <- --getArgs
-                  return ["--level2"]
+main = do
+   input <- getContents
+   replicateM_ 200 $ do
+      args <- --getArgs
+              return ["--level2"]
 
-          let prof_level
-                 = if "--level0" `elem` args then 0
-                   else if "--level1" `elem` args then 1
-                   else if "--level2" `elem` args then 2
-                   else internal
-                           "profiling level not supplied by `cacheprof'"
+      let prof_level
+             = if "--level0" `elem` args then 0
+               else if "--level1" `elem` args then 1
+               else if "--level2" `elem` args then 2
+               else internal
+                       "profiling level not supplied by `cacheprof'"
+      let bad_ddump_flags
+             = filter (`notElem` ddump_flags)
+                  (filter ((== "--ddump-") . take 8) args)
 
-          let bad_ddump_flags
-                 = filter (`notElem` ddump_flags)
-                      (filter ((== "--ddump-") . take 8) args)
+      if (not (null bad_ddump_flags))
+       then do hPutStr stderr (
+                    "cacheann: bad debugging flag(s): " ++
+                    unwords bad_ddump_flags ++
+                    "\n   valid debugging flags are\n" ++
+                    unlines (map ("      "++) ddump_flags)
+                  )
+               exitWith (ExitFailure 1)
+       else return ()
 
-          if (not (null bad_ddump_flags))
-           then do hPutStr stderr (
-                        "cacheann: bad debugging flag(s): " ++
-                        unwords bad_ddump_flags ++
-                        "\n   valid debugging flags are\n" ++
-                        unlines (map ("      "++) ddump_flags)
-                      )
-                   exitWith (ExitFailure 1)
-           else return ()
+      ifVerb args (hPutStr stderr "cacheann-0.01: annotating ...\n")
+      aux <- case prof_level of
+              0 -> return ""
+              1 -> readFile "runtime_files/cacheprof_hooks1_x86.s"
+              2 -> readFile "runtime_files/cacheprof_hooks2_x86.s"
 
-          ifVerb args (hPutStr stderr "cacheann-0.01: annotating ...\n")
-          f   <- getContents
-          aux <- case prof_level of
-                  0 -> return ""
-                  1 -> readFile "runtime_files/cacheprof_hooks1_x86.s"
-                  2 -> readFile "runtime_files/cacheprof_hooks2_x86.s"
-
-          out <- doFile prof_level args f
-          putStr out
-          putStr aux
-          ifVerb args (hPutStr stderr "cacheann-0.01: done\n")
-       )
+      salt <- length <$> getArgs
+      let f = take (max salt 9999999) input
+      out <- doFile prof_level args f
+      -- was:
+      -- putStr aux
+      -- putStr out
+      -- But for the sake of smaller output files we'll just seq:
+      -- foldr seq () aux `seq` -- why bother?
+      foldr seq () out `seq`
+         ifVerb args (hPutStr stderr "cacheann-0.01: done\n")
 
 ifVerb :: [String] -> IO () -> IO ()
 ifVerb flags ioact

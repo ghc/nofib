@@ -24,7 +24,7 @@ assocm x [] = Nothing
 assocm x ((y,z):yzs) = if x == y then Just z else assocm x yzs
 
 freqtab :: [(Char, Int)]
-freqtab = histo (concat (map ends attribkeys))
+freqtab = histo (concat (map ends (attribkeys keys)))
 
 histo :: (Eq a) => [a] -> [(a,Int)]
 histo = foldr histins []
@@ -46,8 +46,8 @@ subset xs ys = all (\x -> member x ys) xs
 union :: (Eq a) => [a] -> [a] -> [a]
 union xs ys = xs ++ [y | y <- ys, not (member y xs)]
 
-attribkeys :: [Key]
-attribkeys = map (\k->(K k (head k) (last k) (length k))) keys
+attribkeys :: [String] -> [Key]
+attribkeys ks = map (\k->(K k (head k) (last k) (length k))) ks
 
 hinsert :: Int -> HashSet -> Maybe HashSet
 hinsert h (H lo hi hs) =

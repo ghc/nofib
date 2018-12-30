@@ -108,17 +108,19 @@ cal year = unlines (banner year `above` body year)
 
 main = do
     (year:n:_) <- getArgs
-    replicateM_ (read n) (calFor year)
+    forM_ [1..read n] (calFor year)
 
-calFor year | illFormed = fail (userError "Bad argument")
-            | otherwise = print (length (cal yr))
-			-- SDM: changed to print the length, otherwise
-			-- stdout file is too huge.
-              where illFormed = null ds || not (null rs)
-                    (ds,rs)   = span isDigit year
-                    yr        = atoi ds
-                    atoi s    = foldl (\a d -> 10*a+d) 0 (map toDigit s)
-                    toDigit d = fromEnum d - fromEnum '0'
+calFor year i | illFormed = fail (userError "Bad argument")
+              | otherwise = print (length (cal yr))
+			  -- SDM: changed to print the length, otherwise
+			  -- stdout file is too huge.
+                where illFormed = null ds || not (null rs)
+                      (ds,rs)   = span isDigit year
+                      -- offset yr by the input parameter, so that this isn't
+                      -- turned into a CAF
+                      yr        = atoi ds + i
+                      atoi s    = foldl (\a d -> 10*a+d) 0 (map toDigit s)
+                      toDigit d = fromEnum d - fromEnum '0'
 
 
 -- End of calendar program

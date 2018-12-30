@@ -33,9 +33,7 @@ real/anna/anna
 real/bspt/bspt
 real/cacheprof/cacheprof
 real/compress/compress
-real/compress/compress.stdin
 real/compress2/compress2
-real/compress2/compress2.stdin
 real/eff/CS/CS
 real/eff/CSD/CSD
 real/eff/FS/FS
@@ -54,7 +52,7 @@ real/hpg/hpg
 real/infer/infer
 real/lift/lift
 real/linear/linear
-real/maillist/runtime_files/addresses.tex
+real/maillist/runtime_files/*.tex
 real/maillist/maillist
 real/mkhprog/mkhprog
 real/parser/parser
@@ -94,7 +92,11 @@ shootout/spectral-norm/spectral-norm
 spectral/ansi/ansi
 spectral/atom/atom
 spectral/awards/awards
+spectral/awards/*.stdout
+spectral/awards/*.slowstdout
 spectral/banner/banner
+spectral/banner/*stdout
+spectral/banner/*stdin
 spectral/boyer/boyer
 spectral/boyer2/boyer2
 spectral/calendar/calendar

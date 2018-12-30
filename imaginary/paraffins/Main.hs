@@ -8,6 +8,7 @@
 module Main (main) where
 import Data.Array
 import System.Environment
+import Control.Monad (replicateM_)
 
 -- Generation of radicals
 
@@ -82,7 +83,7 @@ paraffins_until n =
  where
   radicals = radical_generator (div n 2)
 
-main = do
+main = replicateM_ 1000 $ do
   [arg] <- getArgs
   let num = read arg
   print [length (rads!i) | rads <- [(radical_generator num)], i <- [0..num]]
