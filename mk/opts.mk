@@ -17,7 +17,10 @@ RUNTEST_OPTS       = $(SRC_RUNTEST_OPTS) $(WAY$(_way)_RUNTEST_OPTS) \
 
 ifneq "$(way)" "mp"
 # if testing GUM don't generate a -S style log file; it may well differ 
-SRC_RUNTEST_OPTS += -ghc-timing 
+SRC_RUNTEST_OPTS += -ghc-timing
+# Deactivate context switches to guarantee deterministic allocation
+# measurements. See Trac #8611.
+SRC_RUNTEST_OPTS += +RTS -V0 -RTS
 endif
 # SRC_RUNTEST_OPTS += +RTS -H10m -K10m -RTS
 
