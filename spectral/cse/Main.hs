@@ -16,6 +16,8 @@
 module Main (main) where
 
 import StateMonad
+import Control.Monad (forM_)
+import System.Environment (getArgs)
 
 -- partain: I think this has to be here
 infix +=>      -- overide function at single point
@@ -155,19 +157,25 @@ example3 = plus (mult (plus a b) c) (plus a b)
 example4 = prod (scanl plus zerO [a,b,c,d])
 example5 = prod (scanr plus zerO [a,b,c,d])
 
-main  = putStr -- writeFile "csoutput"
-         (unlines (map (\t -> let c = cse t
-                              in  copy 78 '-'            ++
-                                  "\nExpression:\n"      ++ show t      ++
-                                  "\n\nTree:\n"          ++ drawTree t  ++
-                                  "\nLabelled graph:\n"  ++ showGraph c ++
-                                  "\nSimplified tree:\n" ++ showCse c)
-                       examples))
-        where
-         showCse                  = drawTree
-                                    . mapGenTree (\(n,s) -> show n++":"++s)
-                                    . unGraph'
-         mapGenTree f (Node x ts) = Node (f x) (map (mapGenTree f) ts)
+class NFData a where
+  rnf :: a -> ()
+
+instance NFData a => NFData [a] where
+  rnf = foldr (\a b -> rnf a `seq` b) ()
+
+instance (NFData a, NFData b, NFData c) => NFData (a, b, c) where
+  rnf (a, b, c) = rnf a `seq` rnf b `seq` rnf c
+
+instance NFData Int where
+  rnf n = n `seq` ()
+
+instance NFData Char where
+  rnf c = c `seq` ()
+
+main = do
+  (n:_) <- getArgs
+  forM_ [1..read n] $ \i -> do
+    rnf (map cse (take (i `mod` 6) examples)) `seq` return ()
 
 {-----------------------------------------------------------------------------
 Expression:

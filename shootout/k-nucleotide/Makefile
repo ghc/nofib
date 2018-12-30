@@ -3,9 +3,12 @@ include $(TOP)/mk/boilerplate.mk
 
 # These values are only used in this file. They are ignored by the
 # executable itself.
-FAST_OPTS = 250000
-NORM_OPTS = 500000
-SLOW_OPTS = 25000000  # official shootout setting
+FAST_OPTS =   60000
+NORM_OPTS =  600000
+SLOW_OPTS = 3000000
+
+# Official shootout setting, takes about 45s in 2018
+# SLOW_OPTS = 25000000
 
 CLEAN_FILES += fasta-c k-nucleotide.*stdin
 

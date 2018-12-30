@@ -25,22 +25,24 @@ minN = 4
 io s n t = printf "%s of depth %d\t check: %d\n" s n t
 
 main = do
-    n <- getArgs >>= readIO . head
-    let maxN     = max (minN + 2) n
-        stretchN = maxN + 1
-    -- stretch memory tree
-    let c = {-# SCC "stretch" #-} check (make 0 stretchN)
-    io "stretch tree" stretchN c
+    (i:_) <- getArgs
+    replicateM_ (read i) $ do
+        (_:n:_) <- map read <$> getArgs
+        let maxN     = max (minN + 2) n
+            stretchN = maxN + 1
+        -- stretch memory tree
+        let c = {-# SCC "stretch" #-} check (make 0 stretchN)
+        io "stretch tree" stretchN c
 
-    -- allocate a long lived tree
-    let !long    = make 0 maxN
+        -- allocate a long lived tree
+        let !long    = make 0 maxN
 
-    -- allocate, walk, and deallocate many bottom-up binary trees
-    let vs = depth minN maxN
-    mapM_ (\((m,d,i)) -> io (show m ++ "\t trees") d i) vs
+        -- allocate, walk, and deallocate many bottom-up binary trees
+        let vs = depth minN maxN
+        mapM_ (\((m,d,i)) -> io (show m ++ "\t trees") d i) vs
 
-    -- confirm the the long-lived binary tree still exists
-    io "long lived tree" maxN (check long)
+        -- confirm the the long-lived binary tree still exists
+        io "long lived tree" maxN (check long)
 
 -- generate many trees
 depth :: Int -> Int -> [(Int,Int,Int)]
@@ -53,7 +55,7 @@ depth d m
   where n = bit (m - d + minN)
 
 -- allocate and check lots of trees
-sumT :: Int -> Int -> Int -> Int	
+sumT :: Int -> Int -> Int -> Int
 sumT d 0 t = t
 sumT  d i t = a `par` b `par` sumT d (i-1) ans
   where a = check (make i    d)

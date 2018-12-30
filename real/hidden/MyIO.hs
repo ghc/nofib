@@ -1,6 +1,8 @@
 module MyIO(getFilename,process) where
 import Numbers
 import Vectors
+import Control.Exception (evaluate)
+import Data.Char
 import System.IO--1.3
 import System.Environment(getArgs)--1.3
 
@@ -46,6 +48,9 @@ getit success      (l:ls) =
   _       -> hPutStr stderr "again: " >> getit success ls
 
 
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
 process :: (Vector -> String -> String) -> String -> InputCont
 process f filename =
 	getDirection
@@ -54,4 +59,5 @@ process f filename =
 		   printFrom viewdir (process f filename) cs ls
 		)
 	where printFrom viewdir cont cs ls =
-		putStr (f viewdir cs) >> cont ls
+		-- putStr (f viewdir cs) >> cont ls
+		evaluate (hash (f viewdir cs)) >> cont ls

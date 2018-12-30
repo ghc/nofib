@@ -14,18 +14,37 @@ import Elemforce
 import PrintSource
 import Printuvwforce
 
+import Control.Exception
+import Control.Monad
+import Data.Char
+import System.Environment
 
-main = getContents >>= \ s -> process s
+-- | Using @salt xs@ on an loop-invariant @xs@ inside a loop prevents the
+-- compiler from floating out the input parameter.
+salt :: [a] -> IO [a]
+salt xs = do
+  s <- length <$> getArgs
+  -- Invariant: There are less than 'maxBound' parameters passed to the
+  --            executable, otherwise this isn't really @pure . id@
+  --            anymore.
+  pure (take (max (maxBound - 1) s) xs)
 
-process :: [Char] ->  IO ()
+main = do
+  s <- getContents
+  (n:_) <- getArgs
+  replicateM_ (read n) $
+    -- salt s >>= putStr . process
+    salt s >>= evaluate . hash . process
 
-process s =
-	putStr a
-        where
-		a  = source_data db ++
-		     uvwresult db uvwres ++
-		     forceresult db frc
-		db = (idatabase s, rdatabase s)
-		uvwres = uvw db
-		frc    = forces db uvwres
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
 
+process :: String -> String
+process s = a
+  where
+    a  = source_data db ++
+         uvwresult db uvwres ++
+         forceresult db frc
+    db = (idatabase s, rdatabase s)
+    uvwres = uvw db
+    frc    = forces db uvwres

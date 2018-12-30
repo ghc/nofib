@@ -1,5 +1,6 @@
 module Main (main) -- listcopy
 where {
+    import System.Environment (getArgs);
 --partain: import Fast2haskell;
 #include "../Fast2haskell.hs"
     strict_show_i::Int -> [Char];
@@ -522,6 +523,7 @@ data
     f_zip::([t1],[t2]) -> [(t1,t2)];
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
-    c_input=(1000 :: Int);
-    main = putStr (f_main c_input)
+    main = do
+        [n] <- getArgs
+        print (length (f_main (read n)))
 }

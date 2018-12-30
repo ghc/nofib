@@ -84,6 +84,9 @@ Absmatlib imports the preconditioner.
 import AbsCg (solve_iters, Cg_state (..), show_state)
 import Absmatlib
 
+import Control.Monad
+import Data.Char
+import System.Environment
 
 
 
@@ -127,9 +130,13 @@ main resps
 
 
 \begin{code}
-main = putStr result
-          where
-          result = test bilu test_data 16 conv2
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
+main = replicateM_ 200 $ do
+  (n:_) <- getArgs
+  let result = test bilu test_data (read n) conv2
+  print (hash result)
 
 test_data = hard_data
 
@@ -160,7 +167,7 @@ test' process data' set conv
               "hard_data" -> (a_hard set, x1 set, mvmult a soln, 0)
               "gcomp_data" -> (gmat set, soln_vect set, rhside set, wells set)
               _      -> error usage
-        maxiters = 50
+        maxiters = 10
         usage =
            "Usage: test (bilu|none) (test_data|gcomp_data)" ++
            " num (conv1|conv2)"

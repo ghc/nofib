@@ -58,8 +58,12 @@ It is taken from the Miranda prelude.
 then executes its continuation, \prog{c}.
 \begin{haskell}
 
+> hash :: String -> Int
+> hash = foldr (\c acc -> ord c + acc*31) 0
+> 
 > print_str :: String -> Cont -> Cont
-> print_str s c  =  get_output (\ op e -> op s >> c e)
+> -- print_str s c  =  get_output (\ op e -> op s >> c e)
+> print_str s c  =  get_output (\ op e -> op (show (hash s) ++ "\n") >> c e)
 
 \end{haskell}
 

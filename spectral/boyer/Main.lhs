@@ -34,6 +34,7 @@ application of that function may be rewritten.
 module Main (main) where
 
 import System.Environment
+import Control.Monad (forM_)
 
 data Term               = Var Id |
                           Fun Id [Term] [Lemma]
@@ -229,7 +230,7 @@ actually relevant to the truth of the theorem.  In fact none of them
 can be rewritten in any interesting way.
 \begin{code}
 
-main = do
+main = forM_ [1..100] $ const $ do
   (n:_) <- getArgs
   print (test (read n))
 

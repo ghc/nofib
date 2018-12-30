@@ -4,11 +4,10 @@ include $(TOP)/mk/boilerplate.mk
 # Override default SRCS; the default is all source files, but
 # we don't want to include paraffins.c
 SRCS=Main.hs
-SRC_RUNTEST_OPTS += +RTS -H20m -RTS
 
 include $(TOP)/mk/target.mk
 
 
-FAST_OPTS = 17
-NORM_OPTS = 20
-SLOW_OPTS = 20
+FAST_OPTS = 11
+NORM_OPTS = 14
+SLOW_OPTS = 15

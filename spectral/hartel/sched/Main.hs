@@ -1,5 +1,6 @@
 module Main (main) -- sched
 where {
+    import Control.Monad (replicateM_);
     import System.Environment (getArgs);
 --partain: import Fast2haskell;
 #include "../Fast2haskell.hs"
@@ -551,5 +552,9 @@ data
     f_zip::([t1],[t2]) -> [(t1,t2)];
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
-    main = do (n:_) <- getArgs; putStr (f_main (read n :: Int))
+    main = do
+        (n:_) <- getArgs
+        replicateM_ (read n) $ do
+            (_:m:_) <- getArgs
+            putStr (f_main (read m :: Int))
 }

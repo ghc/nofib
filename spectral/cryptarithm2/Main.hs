@@ -19,6 +19,7 @@ import Control.Monad.Trans.State
 import Control.Monad.Trans.Class
 import Data.List
 import Data.Maybe
+import System.Environment
 
 --    newtype DigitState = DigitState (Digits -> [(a,Digits))])
 -- which some might recognize as the list-of-successes parsing monad.
@@ -117,12 +118,15 @@ puzzle top bot =
 	topVal = sum [expand xs | xs <- top]
 	botVal = expand bot
 	expand = foldl (\ a b -> a * 10 + look b) 0
-			
-main = putStr (
-	puzzle	["THIRTY",
-		 "TWELVE",
-		 "TWELVE",
-		 "TWELVE",
-		 "TWELVE",
-		 "TWELVE"]
-		 "NINETY")
+
+main = do
+  (n:_) <- getArgs
+  forM_ [1..read n] $ \i -> do
+    let args = [ "THIRTY"
+               , "TWELVE"
+               , "TWELVE"
+               , "TWELVE"
+               , "TWELVE"
+               , "TWELVE" ++ if i > 999999 then "1" else ""
+               ]
+    putStr (puzzle args "NINETY")

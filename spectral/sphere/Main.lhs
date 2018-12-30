@@ -37,6 +37,7 @@ suite URL: http://www.csg.lcs.mit.edu/impala/
 
 > module Main where
 
+> import Control.Monad
 > import System.Environment
 
 > epsilon, infinity :: Double
@@ -439,34 +440,14 @@ How to compile (with ghc), run (with size 100), and view (with xv):
 % xv spheres.ppm
 
 > main :: IO ()
-> main = getArgs >>= \[winsize_string] ->
+> main = replicateM_ 100 $
+>        getArgs >>= \[winsize_string] ->
 >        run (read winsize_string)
-
+>
 > run :: Int -> IO ()
-> run winsize = ppm winsize (ray winsize)
-
---------------------------------------------------------------------------------
-Convert to a PPM ascii format which can be viewed with xv
-
-> ppm :: Int -> [((Int, Int),Vector)] -> IO ()
-> ppm winsize matrix = do putStrLn "P3"
->                         putStr (show winsize); putStr " "
->                         putStrLn (show winsize)
->                         putStrLn "255"
->                         pixels matrix
-
-
-> pixels :: [((Int, Int),Vector)] -> IO ()
-> pixels []                  = putStr ""
-> pixels ((point,colour):ps) = do rbg colour
->                                 putStrLn ""
->                                 pixels ps
-
-
-> rbg :: Vector -> IO ()
-> rbg (r,g,b) = do putStr (eight_bit r); putStr " "
->                  putStr (eight_bit g); putStr " "
->                  putStr (eight_bit b)
->       where eight_bit = show . round . (255*)
-
-
+> run winsize = print (hash (map snd (ray winsize)))
+>
+> hash :: [Vector] -> Int
+> hash = foldr (\(r,g,b) acc -> u8 r + u8 g*7 + u8 b*23 + acc*61) 0
+>   where
+>     u8 = round . (255*)

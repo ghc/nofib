@@ -3,7 +3,8 @@ include $(TOP)/mk/boilerplate.mk
 
 SRC_HC_OPTS += -package transformers
 
-# Arguments for the test program
-PROG_ARGS = 1600
-
 include $(TOP)/mk/target.mk
+
+FAST_OPTS =  80
+NORM_OPTS = 260
+SLOW_OPTS = 550

@@ -1,14 +1,8 @@
 module Main where
 
 import Prog (prog)
-
--- #ifdef PAR
--- main input = prog input
--- #else
--- partain: doesn't actually look at input;
--- real input is wired into Key.lhs
+import System.Environment
 
 main = do
-    str <- getContents
-    putStr (prog str)
--- #endif
+    (n:_) <- getArgs
+    mapM_ (putStr . prog) [1..read n]

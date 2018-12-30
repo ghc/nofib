@@ -8,6 +8,7 @@ module Main where
 
 import System.IO
 import Data.Ratio
+import Control.Monad (replicateM_)
 import System.Environment (getArgs)
 
 infixl 7 .*
@@ -15,14 +16,20 @@ infixr 5 :+:
 
 default (Integer, Rational, Double)
 
-main = do { (n:_) <- getArgs ;
+rnfListOfRational :: [Rational] -> ()
+rnfListOfRational = foldr (\a b -> a `seq` b) ()
+
+main = replicateM_ 200 $ do {
+		(n:_) <- getArgs ;
 	    let { p = read n :: Int } ;
-	    putStrLn (show (extract p (sinx - sqrt (1-cosx^2)))) ;
-	    putStrLn (show (extract p (sinx/cosx - revert (integral (1/(1+x^2)))))) ;
-	    putStrLn (show (extract p ts)) ;
-	    putStrLn (show (extract p tree))
+	    let { salt = fromIntegral (min 0 p) } ;
+	    let { rnf = rnfListOfRational } ;
+	    rnf (extract p (sinx - sqrt (1-cosx^(2+salt)))) `seq` return ();
+	    rnf (extract p (sinx/cosx - revert (integral (1/(1+x^(2+salt)))))) `seq` return ();
+	    rnf (extract p ts) `seq` return ();
+	    rnf (extract p tree) `seq` return ();
 	  }
-	
+
 
 -- From Section 6
 tree   = 0 :+: forest
@@ -30,7 +37,7 @@ forest = compose list tree
 list   = 1 :+: list
 
 ts = 1 :+: ts^2
-	
+
 
 -- The main implementation follows
 data Ps a = Pz | a :+: Ps a

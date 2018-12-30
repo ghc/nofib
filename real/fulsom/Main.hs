@@ -31,17 +31,22 @@ import Kolor
 import Matrix
 import Patchlevel
 
+import Control.Monad
+import Data.Char
 import System.Environment
 import System.IO
 
-main = do
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
+main = replicateM_ 1000 $ do
     argv <- getArgs
     let
 	n = case argv of
 	      [a] -> read a
 	      _   -> 7
     hSetBinaryMode stdout True
-    putStr (picture n)
+    print (hash (picture n))
 
 picture n = go n pic
 

@@ -1,5 +1,7 @@
 module Main where
 
+import Control.Monad (replicateM_)
+import System.Environment (getArgs)
 import Prog (prog)
 
 -- #ifdef PAR
@@ -7,6 +9,8 @@ import Prog (prog)
 -- #else
 -- suspect:main ~((Str str):_) = [ReadChan stdin, AppendChan stdout (prog str)]
 main = do
-    _ <- getContents -- useless, but that's how it was written
-    putStr (prog "")
+	(n:_) <- getArgs
+	replicateM_ (read n) $ do
+		(s:_) <- getArgs
+		length (prog s) `seq` return ()
 -- #endif

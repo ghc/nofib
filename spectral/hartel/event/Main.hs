@@ -1,6 +1,7 @@
 module Main (main) -- event
 where {
     import System.Environment (getArgs);
+    import Control.Monad (forM_);
 --partain: import Fast2haskell;
 #include "../Fast2haskell.hs"
     strict_show_i::Int -> [Char];
@@ -447,5 +448,7 @@ data
     f_zip::([t1],[t2]) -> [(t1,t2)];
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
-    main = do (n:_) <- getArgs; putStr (f_main (read n :: Int))
+    main = forM_ [1..100] $ const $ do
+        (n:_) <- getArgs
+        putStr (f_main (read n :: Int))
 }

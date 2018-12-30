@@ -38,14 +38,34 @@ import Parse
 
 import System.IO
 
+import Control.Monad
+import Data.Char
+import System.Environment
 
 --proof_edit : string list * string list -> unit
+
+-- | Using @salt xs@ on an loop-invariant @xs@ inside a loop prevents the
+-- compiler from floating out the input parameter.
+salt :: [a] -> IO [a]
+salt xs = do
+  s <- length <$> getArgs
+  -- Invariant: There are less than 'maxBound' parameters passed to the
+  --            executable, otherwise this isn't really @pure . id@
+  --            anymore.
+  pure (take (max (maxBound - 1) s) xs)
+
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
 
 main = do
     hSetBinaryMode stdin  True
     hSetBinaryMode stdout True
     ins <- getContents
-    putStr (main' ins)
+    -- We really need better input files for this one...
+    (n:_) <- getArgs
+    replicateM_ (read n) $ do
+        ins' <- salt ins
+        print (hash (main' ins'))
 
 main' instr
 	= rqts
@@ -55,7 +75,7 @@ main' instr
           default_ds = "" --home ++ "/VTS"
 	  args = "" -- temp test
 	  rsps = [0..] -- dummy response list
-	
+
 
 
 

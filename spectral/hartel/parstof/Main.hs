@@ -1,5 +1,7 @@
 module Main (main) -- parstof
 where {
+    import Control.Monad (replicateM_);
+    import System.Environment (getArgs);
 --partain: import Fast2haskell;
 #include "../Fast2haskell.hs"
     strict_show_i::Int -> [Char];
@@ -984,11 +986,13 @@ data
             f_main_SWI_1 (F_Par_succ a_attval a_pr_tl)="Program correctly parsed!\n";
             f_main_SWI_0 C_Emess_uk="Unknown error\n";
             f_main_SWI_0 (F_Emess_known a_kmess a_line)=a_kmess
-         } in  (++) (f_sumcode (f_concat (f_map ((.) ((.) f_main_SWI_1 c_par_proglist) f_tokenize) [c_the_program|a_i<-
+         } in  (++) (f_sumcode (f_concat (f_map ((.) ((.) f_main_SWI_1 c_par_proglist) f_tokenize) [c_the_program a_i|a_i<-
             [(1 :: Int)..a_n]]))) "\n";
 -- TEMP: when testing
---    c_the_program = "main ip";
-      c_the_program=(++) "main ip =\n" ((++) "  i2str (optim (myMain deciem))\n" ((++) ";\n" ((++) "\n" ((++) "TYPE tJobdef    = [ JOBDEF, int, int, int, tJobdef, tJobdef ] ;\n" ((++) "TYPE tJobstat   = [ JOBSTAT, int, int, int, int, tJobdef ] ;\n"
+--    c_the_program _ = "main ip";
+      c_the_program 0 = "";
+      c_the_program _ =
+        ((++) "main ip =\n" ((++) "  i2str (optim (myMain deciem))\n" ((++) ";\n" ((++) "\n" ((++) "TYPE tJobdef    = [ JOBDEF, int, int, int, tJobdef, tJobdef ] ;\n" ((++) "TYPE tJobstat   = [ JOBSTAT, int, int, int, int, tJobdef ] ;\n"
         ((++) "TYPE tTree      = [ LEAF, int |\n" ((++) "                    TREE, tTree, tTree ] ;\n" ((++) "TYPE tProc      = [ PROC, int, tJobstat ] ;\n" ((++) "\n" ((++) "\n" ((++) "\n" ((++) "emptyjobdef     = [JOBDEF, 0     , 0 , 0, emptyjobdef, emptyjobdef] ;\n"
         ((++) "solo            = [JOBDEF, 1     , 0, 10, emptyjobdef, emptyjobdef] ;\n" ((++) "trio            = [JOBDEF, 1    , 10, 20     , child1     , child2] ;\n" ((++) "\n" ((++) "child1          = [JOBDEF, 2     , 0, 30, emptyjobdef, emptyjobdef] ;\n" ((++) "child2          = [JOBDEF, 3     , 0, 10, emptyjobdef, emptyjobdef] ;\n" ((++) "\n" ((++) "septiem         = [JOBDEF, 1    , 20, 20, job2    , job3              ] ;\n"
         ((++) "\n" ((++) "job2            = [JOBDEF, 2    , 19, 10, job4    , job5              ] ;\n" ((++) "job3            = [JOBDEF, 3    , 18, 30, job6    , job7              ] ;\n" ((++) "job4            = [JOBDEF, 4     , 0, 38, emptyjobdef, emptyjobdef] ;\n" ((++) "job5            = [JOBDEF, 5     , 0, 50, emptyjobdef, emptyjobdef] ;\n" ((++) "job6            = [JOBDEF, 6     , 0, 10, emptyjobdef, emptyjobdef] ;\n" ((++) "job7            = [JOBDEF, 7     , 0, 40, emptyjobdef, emptyjobdef] ;\n"
@@ -1034,7 +1038,7 @@ data
         ((++) "      CASE job {\n" ((++) "        <JOBSTAT mark js pid par jdef>\n" ((++) "          CASE jdef {\n" ((++) "            <JOBDEF jid dum1 dum2 dum3 dum4>\n" ((++) "              IF (parent == jid) THEN\n" ((++) "                [ JOBSTAT, (mark+1), js, pid, par, jdef] : jobrest\n" ((++) "              ELSE\n"
         ((++) "                (job : ackn parent jobrest)\n" ((++) "              FI ;\n" ((++) "          } ;\n" ((++) "      } ;\n" ((++) "  }\n" ((++) ";\n" ((++) "\n"
         ((++) "optim tree =\n" ((++) "  CASE tree {\n" ((++) "    <LEAF l>\n" ((++) "      l ;\n" ((++) "    <TREE l r>\n" ((++) "      min (optim l) (optim r) ;\n" ((++) "  }\n"
-        ((++) ";\n" "\n")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+        ((++) ";\n" "\n"))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
     f_sumcode::[Char] -> [Char];
     f_sumcode a_xs=
         let {
@@ -1275,6 +1279,7 @@ data
     f_zip::([t1],[t2]) -> [(t1,t2)];
     f_zip (a_x,a_y)=f_zip2 a_x a_y;
     f_main a_x=f_benchmark_main a_x;
-    c_input=(40 :: Int);
-    main = putStr (f_main c_input)
+    main = replicateM_ 100 $ do
+        [n] <- getArgs
+        putStrLn (f_main (read n))
 }

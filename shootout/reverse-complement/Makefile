@@ -9,9 +9,19 @@ CLEAN_FILES += fasta-c revcomp-c reverse-complement *stdout *stdin
 
 # These values are only used in this file. They are ignored by the
 # executable itself.
-FAST_OPTS = 250000
-NORM_OPTS = 10000000
-SLOW_OPTS = 25000000  # official shootout setting
+FAST_OPTS =  5000000
+NORM_OPTS = 50000000
+# Normally, we'd want to have SLOW_OPTS = $((5*NORM_OPTS)) to run this for 5s
+# in 2018. But that means
+#   - slow generation of huge input and output files
+#   - having to diff the generated output files
+#   - the input parser in fasta-c.c overflows, so we're generating an incorrect
+#     reference output
+# So we don't do it.
+SLOW_OPTS = 50000000
+# This is the official shootout setting ($((NORM_OPTS/2)), i.e. running 0.5s in
+# 2018):
+# SLOW_OPTS = 25000000
 
 # The benchmark game also uses -fllvm, which we can't since it might
 # not be available on the developer's machine.

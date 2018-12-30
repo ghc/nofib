@@ -7,6 +7,7 @@ import Op
 import Parser
 import Env
 import Eval
+import Data.Char
 import Data.Ratio
 
 -- print an abstract syntax tree
@@ -82,10 +83,14 @@ printEnv (e:es) env = pEnv e env ++ (printEnv es env)
 		pEnv e@(str, bexp) env =
 			str++"\t"++(printBasicExp bexp env)++"\n"
 
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
 mybasicNumber2str :: BasicNumber -> Integer -> String
 mybasicNumber2str (BasRationalC x) p =
 	if numerator sx == 0 then "0"
 	else if denominator sx == 1 then show (numerator sx)
 	     else "("++(basicNumber2str (BasRationalC sx) p)++")"
 		where sx = x/1
-mybasicNumber2str x p = basicNumber2str x p
+-- mybasicNumber2str x p = basicNumber2str x p
+mybasicNumber2str x p = show (hash (basicNumber2str x p))

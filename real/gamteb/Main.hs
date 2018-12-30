@@ -3,11 +3,15 @@
 --      Los Alamos National Laboratory
 --      1990 August
 --
-import	GamtebMain
-import System.IO
+import GamtebMain
+import Control.Monad
+import Data.Char
+import System.Environment
 
-main = do
-    hPutStr stderr "Enter the scale of computation: "
-    s <- getContents
-    let (scale, rest) = (head (reads s)) :: (Int, String)
-    putStr (takeWhile ((/=) '\n') s ++ (gamteb scale))
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
+main = replicateM_ 200 $ do
+    (scale:_) <- getArgs
+    -- putStr (gamteb (read scale))
+    print (hash (gamteb (read scale)))

@@ -5,9 +5,13 @@ module Main where
 
 import Data.Ratio
 import Data.Char
+import System.Environment
 
 -- Should print exactly zero
-main = print (sum (map (\x -> sin (x * pi)) [1..500::CR]))
+main = do
+  (s:_) <- getArgs
+  let n = read s :: Int
+  print (sum (map (\x -> sin (x * pi)) [1..fromIntegral n::CR]))
 
 
 digits :: Int   -- number of printed decimal digits

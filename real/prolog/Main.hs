@@ -14,6 +14,9 @@ import Engine
 import Version
 import Data.List(nub)--1.3
 
+import Control.Monad
+import Data.Char
+import System.Environment
 import System.IO.Error (catchIOError)
 
 --- Command structure and parsing:
@@ -57,10 +60,26 @@ main              = --echo False abort
 stdlib           :: String
 stdlib            = "runtime_files/stdlib"
 
+-- | Using @salt xs@ on an loop-invariant @xs@ inside a loop prevents the
+-- compiler from floating out the input parameter.
+salt :: [a] -> IO [a]
+salt xs = do
+  s <- length <$> getArgs
+  -- Invariant: There are less than 'maxBound' parameters passed to the
+  --            executable, otherwise this isn't really @pure . id@
+  --            anymore.
+  pure (take (max (maxBound - 1) s) xs)
+
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
 interpreter      :: [Clause] -> IO ()
-interpreter lib   = getContents >>= \ is ->
-                    putStr (loop startDb is)
-                    where startDb = foldl addClause emptyDb lib
+interpreter lib   = do
+  let startDb = foldl addClause emptyDb lib
+  is <- getContents
+  replicateM_ 200 $ do
+    is' <- salt is
+    print (hash (loop startDb is'))
 
 loop             :: Database -> String -> String
 loop db           = readln "> " (exec db . fst . head . command)

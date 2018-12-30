@@ -38,8 +38,9 @@ module Main(main) where
 
 import Data.Ix
 import System.Environment
+import Control.Monad (forM_)
 
-main = do
+main = forM_ [1..67] $ const $ do
   (n:_) <- getArgs
   putStr (res (read n))
 

@@ -46,25 +46,16 @@
 module Main where
 import Data.Array
 import Data.Ix
+import System.Environment (getArgs)
 infixr 1 =:
 type Assoc a b = (a,b)
 (=:) = (,)
 
-main = getContents >>= \ userInput -> runSimple (lines userInput)
-
-runSimple :: [String] -> IO ()
-runSimple inputLines =
-  readInt "Run_simple :  " inputLines >>= \ num1 ->
-  if num1 >= 0  then reportSimple num1 else reportSimple2 (- num1)
-	
-readInt:: String -> [String] -> IO Int
-readInt prompt inputLines =
-      putStr prompt >>
-      (case inputLines of
-	 (l1:rest) -> case (reads l1) of
-		       [(x,"")] -> return x
-		       _ -> error "Error"
-	 _ -> error "Eof Error")
+main = do
+  (n:_) <- map read <$> getArgs
+  if n >= 0
+    then reportSimple n
+    else reportSimple2 (- n)
 
 reportSimple :: Int -> IO ()
 reportSimple iterations =
@@ -116,7 +107,7 @@ arrays_3 b ivs = let {first (x,y,z) = x;
 		      second (x,y,z) = y;
 		      third  (x,y,z) = z}
   		   in (array b (array_unzip ivs first),
-	               array b (array_unzip ivs second),	
+	               array b (array_unzip ivs second),
                        array b (array_unzip ivs third))
 
 -- Strict Arrays, force evaluation of the elements.
@@ -167,7 +158,7 @@ total_total (v1, v2, x1, x2, alpha, s, rho,
                 p, q, epsilon, theta, deltat, c) =
    v1 + v2 + x1 + x2 + alpha + s + rho +
                 p + q + epsilon + theta + deltat + c
-	
+
 total :: (Ix a) => (Array a Double) -> Double
 total a = foldl (+) (0.0 :: Double) (elems a)
 

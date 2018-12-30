@@ -7,13 +7,21 @@ where
 
 import Encode
 import WriteRoutines
+import Control.Monad
+import Data.Char
 import System.IO
+import System.Environment
+
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
 
 main = do
   hSetBinaryMode stdin  True
-  hSetBinaryMode stdout True
-  i <- getContents
-  putStr (compress i)
+  input <- getContents
+  let len = length input
+  forM_ [1..500] $ \n -> do
+    let i = take (len - (n `mod` 31)) input
+    print (hash (compress i))
 
 -- The output is given by a magic header consisting of two fixed numbers,
 -- and a third representing the maximum number of bits used per code and

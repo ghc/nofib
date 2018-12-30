@@ -5,6 +5,9 @@
 
 module Main where
 
+import Control.Monad
+import System.Environment
+
 a `par` b = b
 --1.3 a `seq` b = b
 
@@ -213,10 +216,11 @@ finite (Leaf c)   =  (c == c)
 finite (NS t1 t2) =  (finite t1 && finite t2)
 finite (EW t1 t2) =  (finite t1 && finite t2)
 
-main =  if finite(build_tree (0,0) (size,size `div` 2)) then
-            print "Success"
-          else
-            print "Fail"
-
-
+main = do
+  [n] <- getArgs
+  replicateM_ (read n) $ do
+    -- m should always be smaller than size, but the compiler can't know that
+    m <- length <$> getArgs
+    let size' = max m size
+    finite (build_tree (0,0) (size',size' `div` 2)) `seq` return ()
 

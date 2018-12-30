@@ -1,6 +1,9 @@
 -- !!! Brute force soln to a puzzle. Sent to us by Stephen Eldridge
 module Main(main) where
 
+import Control.Monad (replicateM_)
+import System.Environment (getArgs)
+
 data ItemType = Bono
               | Edge
               | Larry
@@ -160,11 +163,13 @@ transfer source dest location countdown history
 
 
 main :: IO ( )
-main
-  = putStr (writeSolutions mins 1 "")
-      where
-        solutions
-          = transfer initialState finalState
-                     RightBank 0 [ ]
-        mins = minSolutions solutions
-
+main = do
+  [n] <- getArgs
+  replicateM_ (read n) $ do
+    args <- getArgs
+    let time
+          | length args == 1 = 0
+          | otherwise        = error "puzzle expects exactly one argument"
+    let solutions = transfer initialState finalState RightBank time [ ]
+    let mins = minSolutions solutions
+    foldr seq () (writeSolutions mins 1 "") `seq` return ()

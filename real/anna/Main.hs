@@ -15,8 +15,9 @@ import EtaAbstract
 import StrictAn6
 import ReadTable
 
+import Control.Monad
 import System.Environment
-import Data.Char(isDigit)
+import Data.Char(isDigit,ord)
 
 -- ==========================================================--
 --
@@ -150,18 +151,23 @@ maStrictAn table flagsInit fileName
          deScheme (Scheme _ texpr) = texpr
 
 -- ==========================================================--
---
---main :: [Response] -> [Request]
+
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
 
 main :: IO ()
-
 main = do
-    raw_args <- getArgs
-    let cmd_line_args = maGetFlags raw_args
-    tableStr <- readFile ("runtime_files/anna_table")
-    file_contents <- getContents
-    let table = rtReadTable tableStr
-    putStr (maStrictAn table cmd_line_args file_contents)
+    file <- getContents
+    replicateM_ 100 $ do
+        raw_args <- getArgs
+        -- file' == file for all intents and purposes, but
+        -- this makes sure that the compiler can't float out the
+        -- loop invariant computation.
+        let file' = take (max (length raw_args) (length file)) file
+        let cmd_line_args = maGetFlags raw_args
+        tableStr <- readFile ("runtime_files/anna_table")
+        let table = rtReadTable tableStr
+        print (hash (maStrictAn table cmd_line_args file'))
 
 
 -- ==========================================================--

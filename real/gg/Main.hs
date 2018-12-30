@@ -9,15 +9,31 @@ import Activity
 import Spark
 --import Prog (prog)
 
+import Control.Monad
+import Data.Char
 import System.Environment
 
-main = do
-    str <- getArgs
-    control (map parseLine (condenseArgs str))
+-- | Using @salt xs@ on an loop-invariant @xs@ inside a loop prevents the
+-- compiler from floating out the input parameter.
+salt :: [a] -> IO [a]
+salt xs = do
+  s <- length <$> getArgs
+  -- Invariant: There are less than 'maxBound' parameters passed to the
+  --            executable, otherwise this isn't really @pure . id@
+  --            anymore.
+  pure (take (max (maxBound - 1) s) xs)
 
-control args = do
-    stats <- if from=="stdin" then getContents else readFile from
-    (if into=="stdout" then putStr else writeFile into) (form (graph stats))
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
+main = do
+    (n:str) <- getArgs
+    input <- getContents
+    replicateM_ (read n) $ do
+	i <- salt input
+	print (hash (control i (map parseLine (condenseArgs str))))
+
+control input args = form (graph input)
   where
     form :: (String -> Postscript)
     form = if (sizeX==0) then (if (elem G args) then gspostscript else postscript)
@@ -39,7 +55,7 @@ condenseArgs (arg@('-':_):more) = arg:condenseArgs more
 condenseArgs [a,b] = [a++" "++b]
 condenseArgs a = a
 
-	
+
 lookUp :: Args -> [Args] -> Args
 lookUp a [] = a
 lookUp a (b:bs) | a==b = b

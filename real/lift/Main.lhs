@@ -7,16 +7,30 @@ Main program for lambda lifter
 > import Utilities
 > import Print
 > import Test
+>
+> import Control.Monad
+> import Data.Char
+> import System.Environment
 
-> main =
-
->	putStr ("\nInput expression " ++ pprintExpr inputExpr ++
->		"\nResult\n" ++ output ++
->		"\nFully lazy \n" ++ pprintSCs (fullyLazyLift inputExpr) ++
->		"\n")
->     where
->     inputExpr = program
->     output = pprintSCs (lambdaLift inputExpr)
+> -- | Using @salt xs@ on an loop-invariant @xs@ inside a loop prevents GHC
+> -- from floating out the input parameter.
+> salt :: Expr b -> IO (Expr b)
+> salt xs = pure xs
+> {-# NOINLINE salt #-}
+> 
+> hash :: String -> Int
+> hash = foldr (\c acc -> ord c + acc*31) 0
+> 
+> main = do
+>   (n:_) <- getArgs
+>   replicateM_ (read n) $ do
+>     inputExpr <- salt program
+>     let plain = pprintSCs (lambdaLift inputExpr)
+>     let lazy = pprintSCs (fullyLazyLift inputExpr)
+>     print (hash ("\nInput expression " ++ pprintExpr inputExpr ++
+>       "\nResult\n" ++ plain ++
+>       "\nFully lazy \n" ++ lazy ++
+>       "\n"))
 
 > {- OLD: 1.2
 > main ~(Str argString : ~(Str input : rest)) =

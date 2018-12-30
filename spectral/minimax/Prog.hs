@@ -7,11 +7,13 @@ import Tree
 
 
 prog :: String -> String
-prog _ =
+prog input =
 	"OXO\n" ++
 	concat (map showMove game)
 	where
-	game = alternate X max' min' testBoard
+	board "doesn't happen" = testBoard ++ testBoard
+	board _                = testBoard
+	game = alternate X max' min' (board input)
 
 
 testBoard = [[Empty,O,Empty],[Empty,X,Empty],[Empty,Empty,Empty]]

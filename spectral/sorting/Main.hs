@@ -2,21 +2,33 @@ module Main where
 
 import Sort
 
-main = do
-    cs <- getContents
-    putStr (mangle "quickSort" cs)
+import Control.Monad (replicateM_)
+import Data.Char (ord)
+import Data.List (intersperse)
+import System.Environment (getArgs)
 
-mangle :: String{-opt-} -> String{-input to sort-} -> String{-output-}
-mangle opt inpt
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
+
+main = do
+  (n:_) <- getArgs
+  replicateM_ (read n) $ do
+    (_:s:_) <- getArgs
+    f <- readFile s
+    print (hash (mangle f))
+
+mangle :: String{-input to sort-} -> String{-output-}
+mangle inpt
   = (unlines . sort . lines) inpt
   where
-    sort = case opt of
-	     "heapSort"		-> heapSort
-	     "insertSort"	-> insertSort
-	     "mergeSort"	-> mergeSort
-	     "quickSort"	-> quickSort
-	     "quickSort2"	-> quickSort2
-	     "quickerSort"	-> quickerSort
-	     "treeSort"		-> treeSort
-	     "treeSort2"	-> treeSort2
-	     _ -> error ("unrecognized opt: "++opt++"\n")
+    sort = foldr (.) id (intersperse reverse sorts)
+    sorts =
+      [ heapSort
+      , insertSort
+      , mergeSort
+      , quickSort
+      , quickSort2
+      , quickerSort
+      , treeSort
+      , treeSort2
+      ]

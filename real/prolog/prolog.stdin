@@ -33,5 +33,255 @@ newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
 ;;
 newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
 ?- newsib1(harry,Who)
-;
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
+newsib1(O,T):==parent(O,X),!,parent(T,X),not(equals(O,T)).
+?- newsib1(harry,Who)
+;;;;
+?- grandparent(harry,Who)
+;;
+sibling(One,Tother) :== parent(One,X),parent(Tother,X).
+?- sibling(harry,Who)
+;;;;
+newsib(One,Tother) :== parent(One,X),!,parent(Tother,X).
+?- newsib(harry,Who)
+;;
 bye

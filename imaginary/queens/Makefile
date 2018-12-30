@@ -5,6 +5,6 @@ include $(TOP)/mk/target.mk
 
 SRCS = Main.hs
 
-FAST_OPTS = 10
+FAST_OPTS = 12
 NORM_OPTS = 13
-SLOW_OPTS = 13
+SLOW_OPTS = 14

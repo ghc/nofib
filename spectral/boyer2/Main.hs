@@ -21,6 +21,9 @@ import Rewritefns
 import Rulebasetext
 import Checker
 
+import System.Environment
+import Control.Monad (forM_)
+
 -- set-up functions for creating rulebase from text strings
 
 lemmas :: LUT
@@ -64,26 +67,31 @@ statement = mkLisplist (strToToken
                                             \( implies u w ) ) ) )\
                           \( implies x w ) )"))
 
-subterm :: Lisplist
-subterm = mkLisplist (strToToken
-              ("( ( x f ( plus ( plus a b )\
-                      \( plus c ( zero ) ) ) )\
+subterm :: Int -> Lisplist
+subterm i = mkLisplist (strToToken str)
+  where
+    c = "c" ++ show i
+    str = "( ( x f ( plus ( plus a b )\
+                      \( plus " ++ c ++ " ( zero ) ) ) )\
                 \( y f ( times ( times a b )\
-                      \( plus c d ) ) )\
+                      \( plus " ++ c ++ " d ) ) )\
                 \( z f ( reverse ( append ( append a b ) \
                       \( [] ) ) ) )\
                 \(u equal ( plus a b ) ( difference x y ) )\
                 \(w lessp ( remainder a b )\
-                         \( member a ( length b ) ) ) )"))
+                         \( member a ( length b ) ) ) )"
 
-teststatement :: Lisplist
-teststatement = applysubst subterm statement
+teststatement :: Int -> Lisplist
+teststatement i = applysubst (subterm i) statement
 
-testresult :: Bool
-testresult = tautp teststatement
+testresult :: Int -> Bool
+testresult i = tautp (teststatement i)
 
 report :: Bool -> String
 report True  = "The term is a tautology\n"
 report False = "The term is not a tautology\n"
 
-main = putStr (report testresult)
+main = do
+  (n:_) <- getArgs
+  forM_ [1..read n] $ \i -> do
+    putStr (report (testresult i))

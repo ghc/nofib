@@ -42,9 +42,10 @@ import System.Environment
 
 import Control.Monad.Trans.State.Strict
 import Data.Functor.Identity
+import Control.Monad (replicateM_)
 
 main :: IO ()
-main = do { mainSimple ; mainMonad }
+main = replicateM_ 100 $ do { mainSimple ; mainMonad }
 
 mainSimple =
     do  args <- getArgs

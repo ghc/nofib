@@ -7,17 +7,23 @@
 -- pascal code apparently provided by Robert Migliaccio (mig@ms.uky.edu).
 -------------------------------------------------------------------------------
 
+import Control.Monad (forM_)
 import Data.Char -- 1.3
 import Prelude hiding (Word)
+import System.Environment (getArgs)
 
-main  = interact (("\n\
-		    \Hi! I'm Eliza. I am your personal therapy computer.\n\
-		    \Please tell me your problem.\n\
-		    \\n" ++)
-                   . session initial []
-                   . filter (not.null)
-                   . map (words . trim)
-                   . lines)
+main = do
+  (n:_) <- getArgs
+  input <- getContents
+  forM_ [1..read n] $ \i ->
+    print
+      . length
+      . session initial []
+      . filter (not.null)
+      . map (words . trim)
+      . take (i `mod` 20)
+      . lines
+      $ input
 
 trim  :: String -> String                     -- strip punctuation characters
 trim   = foldr cons "" . dropWhile (`elem` punct)

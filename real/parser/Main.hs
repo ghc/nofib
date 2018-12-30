@@ -5,7 +5,9 @@
 -- ==========================================================--
 
 module Main where
+import Control.Monad
 import Data.Char -- 1.3
+import System.Environment
 ----------------------------------------------------------
 -- Lexemes                                              --
 ----------------------------------------------------------
@@ -273,11 +275,11 @@ leLex l n (c:cs)
 --
 leChunk :: Int -> (Char -> Bool) -> String -> (String, Int, String)
 
-leChunk n proper []	
+leChunk n proper []
   = ([], n, [])
 
 leChunk n proper (c:cs)
-  | proper c		
+  | proper c
   = case leChunk (n+1) proper cs of
        (restId, col, restInput) -> (c:restId, col, restInput)
   | otherwise
@@ -1338,12 +1340,26 @@ hsPrecTable = [
   ("||",	(InfixR, 2)),
   ("&&",	(InfixR, 3))]
 
+-- | Using @salt xs@ on an loop-invariant @xs@ inside a loop prevents the
+-- compiler from floating out the input parameter.
+salt :: [a] -> IO [a]
+salt xs = do
+  s <- length <$> getArgs
+  -- Invariant: There are less than 'maxBound' parameters passed to the
+  --            executable, otherwise this isn't really @pure . id@
+  --            anymore.
+  pure (take (max (maxBound - 1) s) xs)
+
+hash :: String -> Int
+hash = foldr (\c acc -> ord c + acc*31) 0
 
 main = do
-    cs <- getContents
-    let tokens = laMain cs
-    let parser_res = parser_test tokens
-    putStr (showx parser_res)
+   input <- getContents
+   replicateM_ 500 $ do
+      input' <- salt input
+      let tokens = laMain input'
+      let parser_res = parser_test tokens
+      print (hash (showx parser_res))
 
 showx (PFail t)
  = "\n\nFailed on token: " ++ show t ++  "\n\n"
