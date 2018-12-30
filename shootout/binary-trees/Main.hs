@@ -1,3 +1,4 @@
+{-# LANGUAGE BangPatterns #-}
 --
 -- The Computer Language Benchmarks Game
 -- http://benchmarksgame.alioth.debian.org/
@@ -53,7 +54,7 @@ depth d m
   where n = bit (m - d + minN)
 
 -- allocate and check lots of trees
-sumT :: Int -> Int -> Int -> Int	
+sumT :: Int -> Int -> Int -> Int
 sumT d 0 t = t
 sumT  d i t = a `par` b `par` sumT d (i-1) ans
   where a = check (make i    d)

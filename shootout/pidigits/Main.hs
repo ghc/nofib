@@ -4,6 +4,7 @@
 -- modified by Eugene Kirpichov: pidgits only generates
 -- the result string instead of printing it. For some
 -- reason, this gives a speedup.
+{-# LANGUAGE BangPatterns #-}
 
 import System.Environment
 

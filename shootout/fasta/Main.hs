@@ -4,6 +4,7 @@
 
     contributed by Bryan O'Sullivan
 -}
+{-# LANGUAGE BangPatterns, OverloadedStrings #-}
 
 import Control.Monad
 import Data.ByteString.Unsafe

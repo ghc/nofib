@@ -15,8 +15,7 @@ SLOW_OPTS = 25000000  # official shootout setting
 
 # The benchmark game also uses -fllvm, which we can't since it might
 # not be available on the developer's machine.
-HC_OPTS += -XBangPatterns -funfolding-use-threshold=32 -XMagicHash \
-	-XUnboxedTuples
+HC_OPTS += -funfolding-use-threshold=32
 
 #------------------------------------------------------------------
 # Create input
