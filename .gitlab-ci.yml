@@ -1,0 +1,7 @@
+validate:
+  image: ghcci/x86_64-linux-deb9:0.2
+  before_script:
+    - git clean -xdf
+  script:
+    - make boot
+    - make
