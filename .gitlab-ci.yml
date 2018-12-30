@@ -1,0 +1,13 @@
+validate:
+  image: ghcci/x86_64-linux-deb9:0.2
+  before_script:
+    - git clean -xdf
+    - sudo apt install -y time
+  script:
+    - make clean
+    - |
+      cabal update
+      cabal install regex-compat html
+    - make boot mode=fast
+    - "make mode=fast NoFibRuns=1 2>&1 | tee log"
+    - "nofib-analyse/nofib-analyse log"
