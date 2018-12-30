@@ -1,0 +1,12 @@
+validate:
+  image: ghcci/x86_64-linux-deb9:0.2
+  before_script:
+    - git clean -xdf
+  script:
+    - make clean
+    - |
+      cabal update
+      cabal install regex-compat html
+    - make boot
+    - "make mode=fast NoFibRuns=1 >log 2>&1"
+    - "nofib-analyse/nofib-analyse << log"
