@@ -8,12 +8,16 @@ where
 import Encode
 import WriteRoutines
 import System.IO
+import Data.Char
+import Data.List (foldl')
+
+hash :: String -> Int
+hash = foldl' (\acc c -> ord c + acc*31) 0
 
 main = do
   hSetBinaryMode stdin  True
-  hSetBinaryMode stdout True
   i <- getContents
-  putStr (compress i)
+  print (hash (compress i))
 
 -- The output is given by a magic header consisting of two fixed numbers,
 -- and a third representing the maximum number of bits used per code and
