@@ -36,7 +36,6 @@ real/compress/compress
 real/compress/compress.stdin
 real/compress2/compress2
 real/compress2/compress2.stdin
-real/compress2/compress2.stdout
 real/eff/CS/CS
 real/eff/CSD/CSD
 real/eff/FS/FS
