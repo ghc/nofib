@@ -14,12 +14,12 @@ data CodeEvent =
                  Clear deriving Show{-was:Text-}
 
 data CodeState = CS
-                 Int {-# STRICT #-}
-                 Int {-# STRICT #-}
-                 Int {-# STRICT #-}
-                 Int {-# STRICT #-}
-                 Int {-# STRICT #-}
-                 Int {-# STRICT #-}
+                 !Int
+                 !Int
+                 !Int
+                 !Int
+                 !Int
+                 !Int
 
 firstEnt    = 257       :: Int
 maxBits     = 16        :: Int
