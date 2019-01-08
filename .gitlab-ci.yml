@@ -11,3 +11,9 @@ validate:
     - make boot mode=fast
     - "make mode=fast NoFibRuns=1 2>&1 | tee log"
     - "nofib-analyse/nofib-analyse log"
+    - # The following checks that `make distclean` removes any files reported
+    - # by `git clean -fxd`
+    - make distclean
+    - files=$(git clean -nxd | cut -d' ' -f3)
+    - echo $files
+    - [ -z $files ] || exit 1
