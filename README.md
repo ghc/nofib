@@ -21,6 +21,19 @@ system GHC:
 
 ## Using
 
+<details>
+  <summary>Git symlink support for Windows machines</summary>
+  
+  NoFib uses a few symlinks here and there to share code between benchmarks.
+  Git for Windows has symlinks support for some time now, but
+  [it may not be enabled by default](https://stackoverflow.com/a/42137273/388010).
+  You will notice strange `make boot` failures if it's not enabled for you.
+  
+  Make sure you follow the instructions in the link to enable symlink support,
+  possibly as simple as through `git config core.symlinks true` or cloning with
+  `git clone -c core.symlinks=true <URL>`.
+</details>
+
 Then, to run the tests, execute:
 
 ```
