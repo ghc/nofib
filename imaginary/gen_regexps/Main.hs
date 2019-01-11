@@ -9,12 +9,13 @@
 module Main (main) where
 
 import Data.Char
-import Control.Monad (forM_)
+import Control.Monad (replicateM_)
 import System.Environment
+import NofibUtils (hash)
 
-main = forM_ [1..100] $ const $ do
+main = replicateM_ 500 $ do
   (regex:_) <- getArgs
-  print (numchars (expand regex))
+  print (hash (concat (expand regex)))
 
 numchars :: [String] -> Int
 numchars l = sum $ map length l
