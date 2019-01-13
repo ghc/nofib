@@ -24,6 +24,7 @@ system GHC:
 Then, to run the tests, execute:
 
 ```
+$ cabal install html regex-compat
 $ make clean # or git clean -fxd, it's faster
 $ # Generates input files for the benchmarks and builds compilation
 $ # dependencies for make (ghc -M)
