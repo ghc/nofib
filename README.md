@@ -34,10 +34,15 @@ system GHC:
   `git clone -c core.symlinks=true <URL>`.
 </details>
 
-Then, to run the tests, execute:
+Install the [package dependencies](#package-dependencies):
 
 ```
 $ cabal install html regex-compat
+```
+
+Then, to run the tests, execute:
+
+```
 $ make clean # or git clean -fxd, it's faster
 $ # Generates input files for the benchmarks and builds compilation
 $ # dependencies for make (ghc -M)
