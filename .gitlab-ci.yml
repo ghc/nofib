@@ -3,11 +3,11 @@ validate:
   before_script:
     - git clean -xdf
     - sudo apt install -y time
+    - ghc --version
+    - cabal --version
   script:
     - make clean
-    - |
-      cabal update
-      cabal install regex-compat html
+    - cabal update
     - make boot mode=fast
     - "make mode=fast NoFibRuns=1 2>&1 | tee log"
     - "nofib-analyse/nofib-analyse log"
