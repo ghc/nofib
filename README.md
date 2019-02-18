@@ -12,13 +12,6 @@ pick `$(which ghc)` or whatever the `HC` environment variable is set to.
 Additional information can also be found on
 [NoFib's wiki page](https://ghc.haskell.org/trac/ghc/wiki/Building/RunningNoFib).
 
-## Package Depedencies
-
-Please make sure you have the following packages installed for your
-system GHC:
- * html
- * regex-compat (will install: mtl, regex-base, regex-posix)
-
 ## Using
 
 <details>
@@ -34,11 +27,7 @@ system GHC:
   `git clone -c core.symlinks=true <URL>`.
 </details>
 
-Install the [package dependencies](#package-dependencies):
-
-```
-$ cabal install html regex-compat
-```
+Install [`cabal-install-2.4`](https://www.haskell.org/cabal/download.html) or later.
 
 Then, to run the tests, execute:
 
@@ -61,7 +50,7 @@ $ make EXTRA_HC_OPTS="-fllvm"
 ```
 
 To compare the results of multiple runs, save the output in a logfile
-and use the program in `../utils/nofib-analyse`, for example:
+and use the program in `./nofib-analyse/nofib-analyse`, for example:
 
 ```
 ...
@@ -114,6 +103,19 @@ Be aware that `nofib-analyse` will ignore the result if it falls below 0.2s.
 This is the default of its `-i` option, which is of course incompatible with
 `mode=fast`. In that case, you should just set `-i` as appropriate, even
 deactivate it with `-i 0`.
+
+## Boot vs. benchmarked GHC
+
+The `nofib-analyse` utility is compiled with `BOOT_HC` compiler,
+which may be different then the GHC under the benchmark.
+
+You can control which GHC you benchmark with `HC` variable
+
+```
+$ make clean
+$ make boot HC=ghc-head
+$ make HC=ghc-head 2>&1 | tee nofib-log-ghc-head
+```
 
 ## Configuration
 

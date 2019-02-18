@@ -4,7 +4,8 @@ include $(TOP)/mk/boilerplate.mk
 PROG = nofib-analyse
 
 $(PROG): *.hs
-	$(BOOT_HC) -O -cpp --make Main -o $(PROG)
+	cabal v2-build -w $(BOOT_HC)
+	cp $$(cabal v2-exec -w $(BOOT_HC) -- which $(PROG)) $(PROG)
 
 all :: $(PROG)
 
@@ -16,8 +17,7 @@ boot :: $(PROG)
 .PHONY: mostlyclean clean distclean maintainer-clean
 
 mostlyclean::
-	rm -f CmdLine.hi GenUtils.hi Main.hi Slurp.hi
-	rm -f CmdLine.o  GenUtils.o  Main.o  Slurp.o
+	rm -rf dist-newstyle
 
 clean:: mostlyclean
 	rm -f $(PROG)

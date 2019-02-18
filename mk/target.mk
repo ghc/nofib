@@ -37,7 +37,6 @@ STDIN_FILE = $(wildcard $(NOFIB_PROG).stdin)
 endif
 endif
 
-
 # Bogosity needed here to cope with .exe suffix for strip & size files.
 # (shouldn't have to be our problem.)
 ifneq "$(HC_FAIL)" "YES"

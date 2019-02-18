@@ -8,6 +8,8 @@ cachegrind.out.*
 cachegrind.out.summary
 perf.data
 perf.data.*
+dist-newstyle/
+.ghc.environment.*
 
 # Specific generated files
 nofib-analyse/nofib-analyse
