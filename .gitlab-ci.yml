@@ -1,5 +1,5 @@
 variables:
-  DOCKER_REV: 6d19c3adc1f5c28c82aed8c5b1ac40931ac60f3f
+  DOCKER_REV: 2b69e99de97bd5bf1fbdbf45852231c3dcb602b6
 
 validate:
   image: "registry.gitlab.haskell.org/ghc/ci-images/x86_64-linux-deb9:$DOCKER_REV"
