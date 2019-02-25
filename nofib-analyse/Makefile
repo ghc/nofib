@@ -17,7 +17,7 @@ boot :: $(PROG)
 .PHONY: mostlyclean clean distclean maintainer-clean
 
 mostlyclean::
-	rm -rf dist-newstyle
+	rm -rf dist-newstyle dist .ghc.environment.*
 
 clean:: mostlyclean
 	rm -f $(PROG)
