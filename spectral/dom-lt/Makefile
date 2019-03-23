@@ -11,7 +11,7 @@ include $(TOP)/mk/target.mk
 # and to shift compute time away from read/graph creation.
 FAST_OPTS = ghc-examples.in 50
 NORM_OPTS = ghc-examples.in 400
-SLOW_OPTS = ghc-examples.in 3000
+SLOW_OPTS = ghc-examples.in 1800
 
 # We require containers.
 HC_OPTS += -package containers

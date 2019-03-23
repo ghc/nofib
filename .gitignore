@@ -109,6 +109,7 @@ spectral/constraints/constraints
 spectral/cryptarithm1/cryptarithm1
 spectral/cryptarithm2/cryptarithm2
 spectral/cse/cse
+spectral/dom-lt/dom-lt
 spectral/eliza/eliza
 spectral/exact-reals/exact-reals
 spectral/expert/expert
