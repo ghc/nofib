@@ -49,6 +49,9 @@ $ make boot
 $ make EXTRA_HC_OPTS="-fllvm"
 ```
 
+**Note:** to get all the results, you have to `clean` and `boot` between
+separate `nofib` runs.
+
 To compare the results of multiple runs, save the output in a logfile
 and use the program in `./nofib-analyse/nofib-analyse`, for example:
 
