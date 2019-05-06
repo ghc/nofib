@@ -12,16 +12,20 @@ pick `$(which ghc)` or whatever the `HC` environment variable is set to.
 Additional information can also be found on
 [NoFib's wiki page](https://ghc.haskell.org/trac/ghc/wiki/Building/RunningNoFib).
 
+There's also a `easy.sh` helper script, which as name implies, is
+automated and easy way to run `nofib`.
+See the section at the end of README for its usage.
+
 ## Using
 
 <details>
   <summary>Git symlink support for Windows machines</summary>
-  
+
   NoFib uses a few symlinks here and there to share code between benchmarks.
   Git for Windows has symlinks support for some time now, but
   [it may not be enabled by default](https://stackoverflow.com/a/42137273/388010).
   You will notice strange `make boot` failures if it's not enabled for you.
-  
+
   Make sure you follow the instructions in the link to enable symlink support,
   possibly as simple as through `git config core.symlinks true` or cloning with
   `git clone -c core.symlinks=true <URL>`.
@@ -195,7 +199,7 @@ following (SG: I'm guessing here, have never run them):
 
 ### Stability wrt. GC paramerisations
 
-Additionally, pay attention that your benchmarks are stable wrt. different 
+Additionally, pay attention that your benchmarks are stable wrt. different
 GC paramerisations, so that small changes in allocation don't lead to big,
 unexplicable jumps in performance. See #15999 for details. Also make sure
 that you run the benchmark with the default GC settings, as enlarging Gen 0 or
@@ -210,3 +214,20 @@ You can test stability by plotting productivity curves for your `fast` settings
 with the `prod.py` script attached to #15999.
 
 If in doubt, ask Sebastian Graf for help.
+
+## easy.sh
+
+```
+./easy.sh - easy nofib
+
+Usage: ./easy.sh [ -m mode ] /path/to/baseline/ghc /path/to/new/ghc"
+
+GHC paths can point to the root of the GHC repository,
+if it's build with Hadrian.
+
+Available options:
+  -m MODE  nofib mode: fast norm slow
+
+This script caches the results using the sha256 of ghc executable.
+Remove these files, if you want to rerun the benchmark.
+```
