@@ -4,7 +4,7 @@ module Parser ( parseModule, parseStmt, parseIdentifier, parseType,
 
 #include "HsVersions.h"
 
-import HsSyn
+import GHC.Hs
 import RdrHsSyn
 import HscTypes		( IsBootInterface, DeprecTxt )
 import Lexer
